@@ -1,0 +1,13 @@
+v1.3.2
+--------------------------------------
+stripe.php
+template.php
+
+v1.3.1
+--------------------------------------
+
+ae_stripe_escrow.php
+assets/stripe.js
+stripe.php
+template.php
+update.php

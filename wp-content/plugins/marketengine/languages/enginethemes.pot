@@ -1,0 +1,2513 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MarketEngine\n"
+"POT-Creation-Date: 2016-11-22 17:04+0700\n"
+"PO-Revision-Date: 2016-11-22 15:56+0700\n"
+"Last-Translator: \n"
+"Language-Team: EngineThemes <contact@enginethemes.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__;_n;_x\n"
+"X-Poedit-SearchPath-0: templates\n"
+"X-Poedit-SearchPath-1: includes\n"
+"X-Poedit-SearchPath-2: sample-data\n"
+"X-Poedit-SearchPath-3: marketengine.php\n"
+"X-Poedit-SearchPath-4: update.php\n"
+
+#: includes/class-me-csv-export.php:13 includes/class-me-csv-export.php:18
+#: templates/admin/orders.php:27
+msgid "Report Orders"
+msgstr ""
+
+#: includes/class-me-csv-export.php:21
+msgid "Report Transactions"
+msgstr ""
+
+#: includes/class-me-csv-export.php:74
+msgid "Order ID"
+msgstr ""
+
+#: includes/class-me-csv-export.php:75 includes/class-me-csv-export.php:91
+#: templates/global/order-filter.php:25
+msgid "Status"
+msgstr ""
+
+#: includes/class-me-csv-export.php:76 includes/class-me-csv-export.php:92
+#: templates/admin/order-metabox.php:229
+msgid "Amount"
+msgstr ""
+
+#: includes/class-me-csv-export.php:77 includes/class-me-csv-export.php:93
+msgid "Date Of Order"
+msgstr ""
+
+#: includes/class-me-csv-export.php:78 includes/class-me-csv-export.php:94
+#: includes/class-me-post-types.php:157 templates/admin/order-metabox.php:188
+#: templates/checkout/order-details.php:10 templates/purchases/order-item.php:9
+msgid "Listing"
+msgstr ""
+
+#: includes/class-me-csv-export.php:90
+msgid "Transaction ID"
+msgstr ""
+
+#: includes/class-me-message-query.php:465
+#: includes/me-conversation-functions.php:785
+#: includes/widgets/class-me-widget-price-filter.php:301
+msgid ""
+"about,an,are,as,at,be,by,com,for,from,how,in,is,it,of,on,or,that,the,this,to,"
+"was,what,when,where,who,will,with,www"
+msgstr ""
+
+#: includes/class-me-post-types.php:49
+#: templates/post-listing/listing-category.php:16
+msgid "Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:50
+msgid "Listing category"
+msgstr ""
+
+#: includes/class-me-post-types.php:51
+msgid "Search Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:52
+msgid "Popular Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:53
+msgid "All Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:54 includes/class-me-post-types.php:55
+msgid "Parent Listing Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:56
+msgid "Edit Listing Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:57
+msgid "Update Listing Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:58
+msgid "Add New Listing Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:59
+msgid "New Listing Category Name"
+msgstr ""
+
+#: includes/class-me-post-types.php:60
+msgid "Add or remove Category"
+msgstr ""
+
+#: includes/class-me-post-types.php:61
+msgid "Choose from most used enginetheme "
+msgstr ""
+
+#: includes/class-me-post-types.php:62
+#: includes/widgets/class-me-widget-listing-categories.php:42
+msgid "Categories"
+msgstr ""
+
+#: includes/class-me-post-types.php:91 includes/class-me-post-types.php:102
+#: includes/class-me-post-types.php:104
+msgid "Tags"
+msgstr ""
+
+#: includes/class-me-post-types.php:92
+msgid "Tag"
+msgstr ""
+
+#: includes/class-me-post-types.php:93
+msgid "Search Tags"
+msgstr ""
+
+#: includes/class-me-post-types.php:94
+msgid "Popular Tags"
+msgstr ""
+
+#: includes/class-me-post-types.php:95
+msgid "All Tags"
+msgstr ""
+
+#: includes/class-me-post-types.php:96 includes/class-me-post-types.php:97
+msgid "Parent Tag"
+msgstr ""
+
+#: includes/class-me-post-types.php:98
+msgid "Edit Tag"
+msgstr ""
+
+#: includes/class-me-post-types.php:99
+msgid "Update Tag"
+msgstr ""
+
+#: includes/class-me-post-types.php:100
+msgid "Add New Tag"
+msgstr ""
+
+#: includes/class-me-post-types.php:101
+msgid "New Tag Name"
+msgstr ""
+
+#: includes/class-me-post-types.php:103
+msgid "Choose from most used tags"
+msgstr ""
+
+#: includes/class-me-post-types.php:142 includes/class-me-post-types.php:158
+msgid "Add New"
+msgstr ""
+
+#: includes/class-me-post-types.php:143
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:144
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:145
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:146
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:147 templates/loop/content-listing.php:18
+#: templates/loop/content-listing.php:31
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:148
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: includes/class-me-post-types.php:149
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: includes/class-me-post-types.php:150
+#, php-format
+msgid "No %s found in Trash"
+msgstr ""
+
+#: includes/class-me-post-types.php:156 includes/class-me-post-types.php:168
+#: templates/admin/overview.php:7
+msgid "Listings"
+msgstr ""
+
+#: includes/class-me-post-types.php:159
+msgid "Add New Listing"
+msgstr ""
+
+#: includes/class-me-post-types.php:160
+msgid "Edit Listing"
+msgstr ""
+
+#: includes/class-me-post-types.php:161
+msgid "New Listing"
+msgstr ""
+
+#: includes/class-me-post-types.php:162
+msgid "All Listings"
+msgstr ""
+
+#: includes/class-me-post-types.php:163
+msgid "View Listing"
+msgstr ""
+
+#: includes/class-me-post-types.php:164
+msgid "Search Listings"
+msgstr ""
+
+#: includes/class-me-post-types.php:165
+msgid "No listings found"
+msgstr ""
+
+#: includes/class-me-post-types.php:166
+msgid "No listings found in Trash"
+msgstr ""
+
+#: includes/class-me-post-types.php:189
+#: includes/me-conversation-functions.php:346
+#: includes/me-listing-functions.php:62
+msgid "Archived"
+msgstr ""
+
+#: includes/class-me-post-types.php:210 includes/class-me-post-types.php:216
+#: templates/account/my-orders.php:17 templates/admin/overview.php:9
+msgid "Orders"
+msgstr ""
+
+#: includes/class-me-post-types.php:211
+msgid "Order"
+msgstr ""
+
+#: includes/class-me-post-types.php:213
+msgid "Add New Order"
+msgstr ""
+
+#: includes/class-me-post-types.php:214
+msgid "Order Details"
+msgstr ""
+
+#: includes/class-me-post-types.php:215
+msgid "New Order"
+msgstr ""
+
+#: includes/class-me-post-types.php:217
+msgid "View Order"
+msgstr ""
+
+#: includes/class-me-post-types.php:218
+msgid "Search Order"
+msgstr ""
+
+#: includes/class-me-post-types.php:219
+msgid "No orders found"
+msgstr ""
+
+#: includes/class-me-post-types.php:220
+msgid "No Orders found in Trash"
+msgstr ""
+
+#: includes/class-me-post-types.php:222
+msgid "MarketEngine"
+msgstr ""
+
+#: includes/class-me-post-types.php:240 includes/me-order-functions.php:304
+msgid "Pending"
+msgstr ""
+
+#: includes/class-me-post-types.php:250
+msgid "Finished"
+msgstr ""
+
+#: includes/class-me-post-types.php:260 includes/me-order-functions.php:307
+msgid "Completed"
+msgstr ""
+
+#: includes/class-me-post-types.php:270
+msgid "Disputed"
+msgstr ""
+
+#: includes/class-me-post-types.php:280 includes/me-order-functions.php:309
+msgid "Closed"
+msgstr ""
+
+#: includes/class-me-post-types.php:290
+msgid "Resolved"
+msgstr ""
+
+#: includes/class-me-schedule.php:39
+msgid "Marketengine Cron"
+msgstr ""
+
+#: includes/class-me-validator.php:118
+msgid "The :attribute must be accepted."
+msgstr ""
+
+#: includes/class-me-validator.php:119
+msgid "The :attribute is not a valid URL."
+msgstr ""
+
+#: includes/class-me-validator.php:120
+msgid "The :attribute must be a date after :date."
+msgstr ""
+
+#: includes/class-me-validator.php:121
+msgid "The :attribute may only contain letters."
+msgstr ""
+
+#: includes/class-me-validator.php:122
+msgid "The :attribute may only contain letters, numbers, and dashes."
+msgstr ""
+
+#: includes/class-me-validator.php:123
+msgid "The :attribute may only contain letters and numbers."
+msgstr ""
+
+#: includes/class-me-validator.php:124
+msgid "The :attribute must be an array."
+msgstr ""
+
+#: includes/class-me-validator.php:125
+msgid "The :attribute must be a date before :date."
+msgstr ""
+
+#: includes/class-me-validator.php:127
+msgid "The :attribute must be between :min and :max."
+msgstr ""
+
+#: includes/class-me-validator.php:128
+msgid "The :attribute must be between :min and :max kilobytes."
+msgstr ""
+
+#: includes/class-me-validator.php:129
+msgid "The :attribute must be between :min and :max characters."
+msgstr ""
+
+#: includes/class-me-validator.php:130
+msgid "The :attribute must have between :min and :max items."
+msgstr ""
+
+#: includes/class-me-validator.php:132
+msgid "The :attribute field must be true or false."
+msgstr ""
+
+#: includes/class-me-validator.php:133
+msgid "The :attribute confirmation does not match."
+msgstr ""
+
+#: includes/class-me-validator.php:134
+msgid "The :attribute is not a valid date."
+msgstr ""
+
+#: includes/class-me-validator.php:135
+msgid "The :attribute does not match the format :format."
+msgstr ""
+
+#: includes/class-me-validator.php:136
+msgid "The :attribute and :other must be different."
+msgstr ""
+
+#: includes/class-me-validator.php:137
+msgid "The :attribute must be :digits digits."
+msgstr ""
+
+#: includes/class-me-validator.php:138
+msgid "The :attribute must be between :min and :max digits."
+msgstr ""
+
+#: includes/class-me-validator.php:139
+msgid "The :attribute must be a valid email address."
+msgstr ""
+
+#: includes/class-me-validator.php:140 includes/class-me-validator.php:162
+msgid "The :attribute field is required."
+msgstr ""
+
+#: includes/class-me-validator.php:141 includes/class-me-validator.php:143
+#: includes/class-me-validator.php:159
+msgid "The selected :attribute is invalid."
+msgstr ""
+
+#: includes/class-me-validator.php:142
+msgid "The :attribute must be an image."
+msgstr ""
+
+#: includes/class-me-validator.php:144
+msgid "The :attribute must be an integer."
+msgstr ""
+
+#: includes/class-me-validator.php:145
+msgid "The :attribute must be a valid IP address."
+msgstr ""
+
+#: includes/class-me-validator.php:147
+msgid "The :attribute may not be greater than :max."
+msgstr ""
+
+#: includes/class-me-validator.php:148
+msgid "The :attribute may not be greater than :max kilobytes."
+msgstr ""
+
+#: includes/class-me-validator.php:149
+msgid "The :attribute may not be greater than :max characters."
+msgstr ""
+
+#: includes/class-me-validator.php:150
+msgid "The :attribute may not have more than :max items."
+msgstr ""
+
+#: includes/class-me-validator.php:152
+msgid "The :attribute must be a file of type: :values."
+msgstr ""
+
+#: includes/class-me-validator.php:154
+msgid "The :attribute must be at least :min."
+msgstr ""
+
+#: includes/class-me-validator.php:155
+msgid "The :attribute must be at least :min kilobytes."
+msgstr ""
+
+#: includes/class-me-validator.php:156
+msgid "The :attribute must be at least :min characters."
+msgstr ""
+
+#: includes/class-me-validator.php:157
+msgid "The :attribute must have at least :min items."
+msgstr ""
+
+#: includes/class-me-validator.php:160
+msgid "The :attribute must be a number."
+msgstr ""
+
+#: includes/class-me-validator.php:161 includes/class-me-validator.php:178
+msgid "The :attribute format is invalid."
+msgstr ""
+
+#: includes/class-me-validator.php:163
+msgid "The :attribute field is required when :other is :value."
+msgstr ""
+
+#: includes/class-me-validator.php:164 includes/class-me-validator.php:165
+msgid "The :attribute field is required when :values is present."
+msgstr ""
+
+#: includes/class-me-validator.php:166
+msgid "The :attribute field is required when :values is not present."
+msgstr ""
+
+#: includes/class-me-validator.php:167
+msgid "The :attribute field is required when none of :values are present."
+msgstr ""
+
+#: includes/class-me-validator.php:168
+msgid "The :attribute and :other must match."
+msgstr ""
+
+#: includes/class-me-validator.php:170
+msgid "The :attribute must be :size."
+msgstr ""
+
+#: includes/class-me-validator.php:171
+msgid "The :attribute must be :size kilobytes."
+msgstr ""
+
+#: includes/class-me-validator.php:172
+msgid "The :attribute must be :size characters."
+msgstr ""
+
+#: includes/class-me-validator.php:173
+msgid "The :attribute must contain :size items."
+msgstr ""
+
+#: includes/class-me-validator.php:175
+msgid "The :attribute must be greater than :greater_than."
+msgstr ""
+
+#: includes/class-me-validator.php:176
+msgid "The :attribute must be a valid zone."
+msgstr ""
+
+#: includes/class-me-validator.php:177
+msgid "The :attribute has already been taken."
+msgstr ""
+
+#: includes/gateways/class-me-paypal-simple.php:177
+msgid "Invalid post back."
+msgstr ""
+
+#: includes/gateways/class-me-paypal-simple.php:184
+msgid "The order not existed."
+msgstr ""
+
+#: includes/gateways/class-me-paypal-simple.php:199
+msgid "Fraud."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:95
+msgid ""
+"The payment is pending because it was made by an eCheck that has not yet "
+"cleared."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:96
+msgid ""
+"The receiver does not have a balance in the currency sent, and does not have "
+"the Payment Receiving Preferences set to automatically convert and accept "
+"this payment. Receiver must manually accept or deny this payment from the "
+"Account Overview."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:97
+msgid ""
+"The payment is pending because the receiver holds a non-U.S. account and "
+"does not have a withdrawal mechanism. The receiver must manually accept or "
+"deny this payment from the Account Overview."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:98
+msgid ""
+"The payment is pending because it was made via credit card and the receiver "
+"must upgrade the account to a Business account or Premier status to receive "
+"the funds. It can also mean that receiver has reached the monthly limit for "
+"transactions on the account"
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:99
+msgid "The payment is pending because the receiver is not yet verified."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:100
+msgid "The payment is pending while it is being reviewed by PayPal for risk."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:101
+msgid ""
+"The payment is pending because it was made to an email address that is not "
+"yet registered or confirmed."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:102
+msgid ""
+"The payment is pending because it was made via credit card and the receiver "
+"must upgrade the account to a Business account or Premier status to receive "
+"the funds. It can also mean that receiver has reached the monthly limit for "
+"transactions on the account."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:103
+msgid ""
+"The payment is pending for review. For more information, contact PayPal "
+"Customer Service."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:186
+msgid ""
+"Your order has not been completed yet. API credentials are incorrect. Please "
+"contact the Admin for further information."
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:672
+msgid "Primary receiver pays all fees"
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:673
+msgid "Each receiver pays their own fee"
+msgstr ""
+
+#: includes/gateways/class-me-ppadaptive.php:674
+msgid "Secondary receivers pay all fees"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:87
+#: includes/shortcodes/class-me-shortcodes-auth.php:48
+msgid ""
+"Thank you! Please <span>check your mailbox</span> to activate your account."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:88
+#: includes/shortcodes/class-me-shortcodes-auth.php:49
+msgid "Inactive account cannot do following actions:"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:89
+#: includes/shortcodes/class-me-shortcodes-auth.php:51
+msgid "- Edit user profile"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:90
+#: includes/shortcodes/class-me-shortcodes-auth.php:52
+msgid "- Post listings"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:91
+#: includes/shortcodes/class-me-shortcodes-auth.php:53
+msgid "- Order listings"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:96
+msgid ""
+"Congratulation! You have successfully completed the registration process."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:120
+msgid ""
+"<div><p>The reset password email aldready send to your email account.</p></"
+"div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:143
+msgid ""
+"<div><p>You have reset your password. Now you can login by your new password."
+"</p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:166
+msgid "<div><p>Your account has been confirmed successfully!.</p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:181
+msgid ""
+"<div><p>Invalid key. Please check your activation email again.</p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:197
+msgid ""
+"<div><p>Please <span>check your mailbox</span> to activate your account.</"
+"p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:213
+msgid "<div><p>Your profile has updated successfully.</p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication-form.php:229
+msgid "<div><p>Your password has been changed successfully.</p></div>"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:39
+msgid "The field username is required."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:42
+msgid "The field password is required."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:100
+#: includes/handle-authentication/class-me-authentication.php:385
+msgid "user login"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:101
+msgid "user password"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:102
+#: includes/handle-checkout/class-me-checkout-handle.php:36
+msgid "first name"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:103
+#: includes/handle-checkout/class-me-checkout-handle.php:37
+msgid "last name"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:104
+#: includes/handle-authentication/class-me-authentication.php:387
+#: includes/handle-authentication/class-me-authentication.php:674
+msgid "confirm password"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:105
+#: includes/handle-authentication/class-me-authentication.php:257
+#: includes/handle-authentication/class-me-authentication.php:463
+msgid "user email"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:106
+msgid "agree with term of use"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:141
+msgid "Please enter a username."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:143
+msgid ""
+"Usernames can only contain letters (a-z), numbers (0-9), and underscores (_)."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:149
+msgid "Sorry, that username is not allowed."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:155
+msgid "Please type your email address."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:157
+msgid "The email address isn&#8217;t correct."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:280
+msgid ""
+"<strong>ERROR</strong>: There is no user registered with that email address."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:299
+msgid "<strong>ERROR</strong>: Invalid email."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:335
+#, php-format
+msgid "[%s] Password Reset"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:359
+msgid "The email could not be sent."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:359
+msgid "Possible reason: your host may have disabled the mail() function."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:386
+#: includes/handle-authentication/class-me-authentication.php:673
+msgid "new password"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:388
+#: includes/handle-authentication/class-me-authentication.php:464
+msgid "reset password key"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:416
+msgid "You have reset password successfull."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:487
+msgid "The email is not exists."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:492
+msgid "Invalid key."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:532
+msgid "Activate Email"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:553
+msgid "Your email is already confirmed."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:579
+msgid "Registration Success Email"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:615
+msgid "The first name cannot be empty ."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:618
+msgid "The last name cannot be empty."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:622
+msgid "The paypal email field cannot be empty."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:626
+msgid "The paypal email is incorrect."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:640
+msgid "User Login"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:641
+msgid "User email"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:672
+msgid "current password"
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:697
+msgid "The current password you enter is not correct."
+msgstr ""
+
+#: includes/handle-authentication/class-me-authentication.php:702
+msgid "Please confirm your email first."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:38
+msgid "phone"
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:39
+msgid "billing email"
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:40
+msgid "billing city"
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:41
+msgid "billing address"
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:42
+msgid "billing country"
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:72
+msgid "You do not have permission to process this order."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:79
+#: includes/handle-checkout/class-me-checkout-handle.php:100
+msgid "The selected payment method is not available now."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:104
+msgid "The order is empty."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:111
+msgid "The selected listing is invalid."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:115
+msgid "The listing is not available for sale."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:119
+msgid "You cannot buy your listing."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:123
+msgid "The listing quantity must be greater than 1."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:151
+#: includes/handle-inquiry/class-me-inquiry-handle.php:31
+msgid "The listing is required."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:155
+msgid "The inquiry content is required."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:162
+#: includes/handle-inquiry/class-me-inquiry-handle.php:39
+#: includes/handle-inquiry/class-me-inquiry-handle.php:51
+msgid "Invalid listing."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:207
+#: includes/handle-checkout/class-me-checkout-handle.php:235
+#: includes/handle-inquiry/class-me-inquiry-handle.php:93
+#: includes/handle-inquiry/class-me-inquiry-handle.php:122
+msgid "Invalid inquiry."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:213
+#: includes/handle-inquiry/class-me-inquiry-handle.php:99
+msgid "The message content is required."
+msgstr ""
+
+#: includes/handle-checkout/class-me-checkout-handle.php:221
+#: includes/handle-inquiry/class-me-inquiry-handle.php:107
+msgid "You do not have permision to post message in this inquiry."
+msgstr ""
+
+#: includes/handle-inquiry/class-me-inquiry-handle.php:43
+msgid "You can not inquire your self."
+msgstr ""
+
+#: includes/handle-inquiry/class-me-inquiry-handle.php:47
+msgid "You can must confirm your email account to start this conversation."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:47
+#, php-format
+msgid "You can only add %d image(s) to listing gallery."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:68
+msgid "You are not allowed to edit listing as this user."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:81
+msgid "You are not allowed to create posts as this user."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:128
+msgid "You can not change the listing type."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:134
+msgid "You can not change the listing category."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:284
+msgid "listing title"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:285
+msgid "listing description"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:286
+msgid "listing type"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:320
+msgid "The listing category field is required."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:322
+msgid "The selected listing category is invalid."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:329
+msgid "The sub listing category field is required."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:331
+msgid "The selected sub listing category is invalid."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:339
+msgid "You must input paypal email in your profile to start selling."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:350
+#, php-format
+msgid "The listing type %s is not supported in category %s."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:393
+msgid "contact email"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:399
+msgid "listing price"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:427
+msgid "review content"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:428
+msgid "rating"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:452
+#: includes/handle-listings/class-me-listing-handle.php:462
+msgid "The reviewed listing is invalid."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:456
+msgid "Invalid order id."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:467
+msgid "You cannot review the listing base on this order."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:471
+msgid "You must complete the order to send review."
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:476
+#, php-format
+msgid "You are trying to review listing is not belong to order %d"
+msgstr ""
+
+#: includes/handle-listings/class-me-listing-handle.php:489
+#, php-format
+msgid "You have already review on %s."
+msgstr ""
+
+#: includes/handle-options/class-me-options-handle.php:25
+msgid "You do not have permission to change option."
+msgstr ""
+
+#: includes/handle-options/class-me-options-handle.php:54
+msgid "Update option successfully!"
+msgstr ""
+
+#: includes/listings/class-me-listing-purchasion.php:50
+msgid "/Unit"
+msgstr ""
+
+#: includes/listings/class-me-listing-purchasion.php:51
+msgid "/Hour"
+msgstr ""
+
+#: includes/me-cart-functions.php:9 includes/me-cart-functions.php:27
+#: includes/me-cart-functions.php:40 includes/me-notices-functions.php:22
+#: includes/me-notices-functions.php:48 includes/me-notices-functions.php:72
+#: includes/me-notices-functions.php:89 includes/me-notices-functions.php:111
+msgid "This function should not be called before wordpress init."
+msgstr ""
+
+#: includes/me-conversation-functions.php:24
+msgid "Sender is empty."
+msgstr ""
+
+#: includes/me-conversation-functions.php:60
+msgid "Invalid message ID."
+msgstr ""
+
+#: includes/me-conversation-functions.php:99
+msgid "Content are empty."
+msgstr ""
+
+#: includes/me-conversation-functions.php:107
+msgid "Receiver is empty."
+msgstr ""
+
+#: includes/me-conversation-functions.php:115
+msgid "You can not send message to your self."
+msgstr ""
+
+#: includes/me-conversation-functions.php:178
+msgid "Could not update post in the database"
+msgstr ""
+
+#: includes/me-conversation-functions.php:193
+msgid "Could not insert post into the database"
+msgstr ""
+
+#: includes/me-conversation-functions.php:298
+msgid "Invalid post ID."
+msgstr ""
+
+#: includes/me-conversation-functions.php:344
+msgid "Sent"
+msgstr ""
+
+#: includes/me-conversation-functions.php:345
+msgid "Seen"
+msgstr ""
+
+#: includes/me-conversation-functions.php:357
+msgid "Inquiry"
+msgstr ""
+
+#: includes/me-conversation-functions.php:358
+msgid "Inbox"
+msgstr ""
+
+#: includes/me-email-functions.php:47 includes/me-email-functions.php:114
+msgid "Author's Posts"
+msgstr ""
+
+#: includes/me-email-functions.php:164 includes/me-email-functions.php:253
+#, php-format
+msgid "You have a new order on %s."
+msgstr ""
+
+#: includes/me-email-functions.php:189
+#, php-format
+msgid "Your payment on %s has been accepted"
+msgstr ""
+
+#: includes/me-email-functions.php:204
+#, php-format
+msgid "New order and commission earning on %s"
+msgstr ""
+
+#: includes/me-email-functions.php:269
+#, php-format
+msgid "Your order on %s has been closed"
+msgstr ""
+
+#: includes/me-email-functions.php:280
+#, php-format
+msgid "Your transaction on %s has been closed"
+msgstr ""
+
+#: includes/me-listing-functions.php:21
+msgid "Selling"
+msgstr ""
+
+#: includes/me-listing-functions.php:22
+msgid "Offering"
+msgstr ""
+
+#: includes/me-listing-functions.php:60
+msgid "Published"
+msgstr ""
+
+#: includes/me-order-functions.php:77
+msgid "Invalid order ID."
+msgstr ""
+
+#: includes/me-order-functions.php:305
+msgid "Actived"
+msgstr ""
+
+#: includes/me-template-functions.php:194
+msgid ","
+msgstr ""
+
+#: includes/me-template-functions.php:246
+msgid "&lt;"
+msgstr ""
+
+#: includes/me-template-functions.php:247
+msgid "&gt;"
+msgstr ""
+
+#: includes/me-template-functions.php:427
+msgid "Your payment has not been completed yet"
+msgstr ""
+
+#: includes/me-template-functions.php:448
+msgid "This order has been disputed by the Buyer"
+msgstr ""
+
+#: includes/me-template-functions.php:607
+#: includes/me-template-functions.php:614
+#: includes/me-template-functions.php:621
+#: includes/me-template-functions.php:628
+msgid "Type here and hit enter to search"
+msgstr ""
+
+#: includes/me-template-functions.php:685
+#, php-format
+msgid "Archives: %s"
+msgstr ""
+
+#: includes/me-template-functions.php:687
+#, php-format
+msgid "Search result for: %s"
+msgstr ""
+
+#: includes/me-template-functions.php:693
+#, php-format
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: includes/me-template-functions.php:695
+msgid "Archives"
+msgstr ""
+
+#: includes/me-template-functions.php:725
+msgid "&hellip;"
+msgstr ""
+
+#: includes/me-template-functions.php:736
+msgid "words"
+msgstr ""
+
+#: includes/me-template-functions.php:804
+msgid "Registration"
+msgstr ""
+
+#: includes/me-template-functions.php:807
+msgid "Member Login"
+msgstr ""
+
+#: includes/me-template-functions.php:811 templates/global/account-menu.php:14
+msgid "My Listings"
+msgstr ""
+
+#: includes/me-template-functions.php:813 templates/global/account-menu.php:15
+#: templates/order-detail.php:29
+msgid "My Orders"
+msgstr ""
+
+#: includes/me-template-functions.php:815 templates/global/account-menu.php:16
+msgid "My Purchases"
+msgstr ""
+
+#: includes/shortcodes/class-me-shortcodes-transaction.php:13
+msgid ""
+"Sorry! Only active account can buy listings. Please check mail box to "
+"activate your account."
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:24
+msgid "A list or dropdown of listing categories."
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:25
+msgid "MarketEngine Categories"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:66
+msgid "Select Category"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:110
+msgid "All categories"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:160
+#: includes/widgets/class-me-widget-listing-search.php:75
+#: includes/widgets/class-me-widget-listing-types.php:116
+#: includes/widgets/class-me-widget-price-filter.php:127
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:164
+msgid "Display as dropdown"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:167
+msgid "Show post counts"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-categories.php:170
+msgid "Show hierarchy"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-search.php:28
+msgid "A search form for your listing."
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-search.php:31
+msgid "MarketEngine Listing Search Form"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-types.php:24
+msgid "A list listing types"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-types.php:25
+msgid "MarketEngine Listing Types"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-types.php:44
+msgid "Listing Types"
+msgstr ""
+
+#: includes/widgets/class-me-widget-listing-types.php:59
+#: templates/admin/listings.php:22
+msgid "All"
+msgstr ""
+
+#: includes/widgets/class-me-widget-price-filter.php:23
+msgid "A price filter for listing archive"
+msgstr ""
+
+#: includes/widgets/class-me-widget-price-filter.php:24
+msgid "MarketEngine Price Filter"
+msgstr ""
+
+#: includes/widgets/class-me-widget-price-filter.php:45
+msgid "Price filter"
+msgstr ""
+
+#: includes/widgets/class-me-widget-price-filter.php:79
+#: templates/account/buyer-inquiry-list.php:27
+#: templates/account/order-list.php:25
+#: templates/account/seller-inquiry-list.php:28
+#: templates/account/transaction-list.php:24
+msgid "Filter"
+msgstr ""
+
+#: marketengine.php:180
+msgid "Category Menu"
+msgstr ""
+
+#: marketengine.php:238
+msgid "Exceed number of allowed file upload. Max file upload is "
+msgstr ""
+
+#: marketengine.php:259
+msgid "Image Files"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:28
+#: templates/account/order-list.php:26
+#: templates/account/seller-inquiry-list.php:29
+#: templates/account/transaction-list.php:25
+msgid "Filter list"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:35
+#: templates/account/order-list.php:37
+#: templates/account/seller-inquiry-list.php:38
+#: templates/account/transaction-list.php:36
+msgid "LISTING"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:36
+#: templates/account/order-list.php:34
+#: templates/account/seller-inquiry-list.php:37
+#: templates/account/transaction-list.php:33
+msgid "STATUS"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:37
+msgid "SELLER"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:38
+#: templates/account/seller-inquiry-list.php:39
+msgid "DATE OF CONTACT"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:52
+#: templates/account/seller-inquiry-list.php:63
+#: templates/inquiry/listing-info.php:15
+msgid "Deleted listing"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:57
+#: templates/account/seller-inquiry-list.php:58
+#, php-format
+msgid "%d unread"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:60
+#: templates/account/seller-inquiry-list.php:61
+msgid "read"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:75
+#: templates/account/order-list.php:73
+#: templates/account/seller-inquiry-list.php:76
+#: templates/account/transaction-list.php:73
+msgid "Load more"
+msgstr ""
+
+#: templates/account/buyer-inquiry-list.php:82
+#: templates/account/seller-inquiry-list.php:83
+msgid "There are no conversations yet."
+msgstr ""
+
+#: templates/account/change-password.php:29
+msgid "Your current password"
+msgstr ""
+
+#: templates/account/change-password.php:37
+msgid "New password"
+msgstr ""
+
+#: templates/account/change-password.php:45 templates/account/reset-pass.php:30
+msgid "Confirm password"
+msgstr ""
+
+#: templates/account/change-password.php:56
+msgid "CHANGE PASSWORD"
+msgstr ""
+
+#: templates/account/change-password.php:58
+msgid "&lt; My profile"
+msgstr ""
+
+#: templates/account/edit-profile.php:57 templates/account/form-register.php:36
+#: templates/account/user-profile.php:41
+msgid "First Name"
+msgstr ""
+
+#: templates/account/edit-profile.php:65 templates/account/form-register.php:44
+#: templates/account/user-profile.php:47
+msgid "Last Name"
+msgstr ""
+
+#: templates/account/edit-profile.php:73 templates/account/user-profile.php:53
+msgid "Display Name"
+msgstr ""
+
+#: templates/account/edit-profile.php:114
+#: templates/account/form-register.php:28 templates/account/user-profile.php:60
+msgid "Username"
+msgstr ""
+
+#: templates/account/edit-profile.php:121
+#: templates/account/form-register.php:52 templates/account/user-profile.php:64
+msgid "Email"
+msgstr ""
+
+#: templates/account/edit-profile.php:128
+msgid "Paypal Email (this email will be used for Paypal payment)"
+msgstr ""
+
+#: templates/account/edit-profile.php:135 templates/account/user-profile.php:86
+msgid "Location"
+msgstr ""
+
+#: templates/account/edit-profile.php:142
+#: templates/account/user-profile.php:101
+msgid "About Me"
+msgstr ""
+
+#: templates/account/edit-profile.php:151
+msgid "UPDATE PROFILE"
+msgstr ""
+
+#: templates/account/edit-profile.php:153
+#: templates/post-listing/edit-listing.php:78
+#: templates/post-listing/post-listing.php:59
+msgid "Cancel"
+msgstr ""
+
+#: templates/account/forgot-password.php:18
+msgid "Forgot Password"
+msgstr ""
+
+#: templates/account/forgot-password.php:25
+msgid "Enter your email"
+msgstr ""
+
+#: templates/account/forgot-password.php:34
+msgid "SEND REQUEST"
+msgstr ""
+
+#: templates/account/forgot-password.php:36
+msgid "&lt; Back to login"
+msgstr ""
+
+#: templates/account/form-login.php:24 templates/global/account-menu.php:25
+msgid "Login"
+msgstr ""
+
+#: templates/account/form-login.php:31
+msgid "Email/Username"
+msgstr ""
+
+#: templates/account/form-login.php:37
+msgid "Password"
+msgstr ""
+
+#: templates/account/form-login.php:45
+msgid "LOGIN"
+msgstr ""
+
+#: templates/account/form-login.php:48
+msgid "Forgot password? &nbsp;"
+msgstr ""
+
+#: templates/account/form-login.php:49
+msgid "Need an account?"
+msgstr ""
+
+#: templates/account/form-login.php:49 templates/global/account-menu.php:27
+msgid "Register"
+msgstr ""
+
+#: templates/account/form-login.php:51
+msgid "&lt;  Back to Home"
+msgstr ""
+
+#: templates/account/form-register.php:21
+msgid "Become our Member"
+msgstr ""
+
+#: templates/account/form-register.php:58
+msgid "Create Password"
+msgstr ""
+
+#: templates/account/form-register.php:64
+msgid "Confirm Password"
+msgstr ""
+
+#: templates/account/form-register.php:78
+msgid "I agree to the site's <a href=''>Terms of Service</a>"
+msgstr ""
+
+#: templates/account/form-register.php:83
+msgid "SIGN UP"
+msgstr ""
+
+#: templates/account/form-register.php:85
+msgid "Back to Home"
+msgstr ""
+
+#: templates/account/form-register.php:93
+msgid "The register function is disabled."
+msgstr ""
+
+#: templates/account/my-listing-action.php:8
+#: templates/account/my-listing-action.php:19
+#: templates/account/my-listing-action.php:33
+msgid "Edit"
+msgstr ""
+
+#: templates/account/my-listing-action.php:9
+#: templates/account/my-listing-action.php:20
+#: templates/account/my-listing-action.php:34
+msgid "Archive"
+msgstr ""
+
+#: templates/account/my-listing-action.php:14
+msgid "Restore"
+msgstr ""
+
+#: templates/account/my-listing-none.php:2
+msgid "Currently you don't have any listing to display"
+msgstr ""
+
+#: templates/account/my-listing-none.php:3
+#, php-format
+msgid "You may start posting listing <a href='%s'>here</a>"
+msgstr ""
+
+#: templates/account/my-listings.php:33 templates/account/my-listings.php:130
+msgid "All status"
+msgstr ""
+
+#: templates/account/my-listings.php:67 templates/loop/content-listing.php:26
+#: templates/purchases/listing-slider.php:47
+msgid "VIEW DETAILS"
+msgstr ""
+
+#: templates/account/my-listings.php:80 templates/admin/listings.php:32
+#: templates/admin/listings.php:62 templates/loop/contact.php:2
+#: templates/seller-profile/listing-item.php:29
+msgid "Contact"
+msgstr ""
+
+#: templates/account/my-listings.php:146
+msgid "Sorry! There are no listings matching your filter."
+msgstr ""
+
+#: templates/account/my-orders.php:21 templates/account/my-purchases.php:24
+#: templates/admin/overview.php:10
+msgid "Inquiries"
+msgstr ""
+
+#: templates/account/my-purchases.php:18
+msgid "Transactions"
+msgstr ""
+
+#: templates/account/order-list.php:33
+msgid "ORDER ID"
+msgstr ""
+
+#: templates/account/order-list.php:35
+#: templates/account/transaction-list.php:34
+msgid "AMOUNT"
+msgstr ""
+
+#: templates/account/order-list.php:36
+#: templates/account/transaction-list.php:35
+msgid "DATE OF ORDER"
+msgstr ""
+
+#: templates/account/order-list.php:80
+msgid "There are no orders yet."
+msgstr ""
+
+#: templates/account/reset-pass.php:17
+msgid "RESET PASSWORD"
+msgstr ""
+
+#: templates/account/reset-pass.php:24
+msgid "Enter new password"
+msgstr ""
+
+#: templates/account/reset-pass.php:40
+msgid "SET NEW PASSWORD"
+msgstr ""
+
+#: templates/account/reset-pass.php:42
+msgid "&lt; Cancel"
+msgstr ""
+
+#: templates/account/seller-inquiry-list.php:36
+msgid "BUYER"
+msgstr ""
+
+#: templates/account/transaction-list.php:32
+msgid "TRANSACTION ID"
+msgstr ""
+
+#: templates/account/transaction-list.php:81
+msgid "There are no transactions yet."
+msgstr ""
+
+#: templates/account/user-profile.php:70
+msgid "Paypal Email <i>(this email will be used for Paypal payment)</i>"
+msgstr ""
+
+#: templates/account/user-profile.php:78 templates/account/user-profile.php:93
+#: templates/account/user-profile.php:108
+msgid "Not yet received info"
+msgstr ""
+
+#: templates/account/user-profile.php:119
+msgid "EDIT PROFILE"
+msgstr ""
+
+#: templates/account/user-profile.php:123
+msgid "Change Password"
+msgstr ""
+
+#: templates/account/user-profile.php:125
+msgid "Resend activation email"
+msgstr ""
+
+#: templates/admin/filter.php:3
+msgid "Day"
+msgstr ""
+
+#: templates/admin/filter.php:4
+msgid "Week"
+msgstr ""
+
+#: templates/admin/filter.php:5
+msgid "Month"
+msgstr ""
+
+#: templates/admin/filter.php:6
+msgid "Quarter"
+msgstr ""
+
+#: templates/admin/filter.php:7
+msgid "Year"
+msgstr ""
+
+#: templates/admin/filter.php:29
+msgid "From"
+msgstr ""
+
+#: templates/admin/filter.php:33
+msgid "To"
+msgstr ""
+
+#: templates/admin/filter.php:37
+msgid "Quantity"
+msgstr ""
+
+#: templates/admin/filter.php:45
+msgid "Run Report"
+msgstr ""
+
+#: templates/admin/filter.php:50
+msgid "Export"
+msgstr ""
+
+#: templates/admin/inquiries.php:27
+msgid "Report Inquiries"
+msgstr ""
+
+#: templates/admin/inquiries.php:32 templates/admin/listings.php:45
+#: templates/admin/members.php:34 templates/admin/orders.php:32
+msgid "No."
+msgstr ""
+
+#: templates/admin/inquiries.php:34 templates/admin/listings.php:47
+#: templates/admin/orders.php:34
+msgid "Date"
+msgstr ""
+
+#: templates/admin/inquiries.php:35
+msgid "Total Inquiries"
+msgstr ""
+
+#: templates/admin/listings.php:27 templates/admin/listings.php:56
+msgid "Purchase"
+msgstr ""
+
+#: templates/admin/listings.php:40
+msgid "Report Listings"
+msgstr ""
+
+#: templates/admin/listings.php:51
+msgid "Total Listings"
+msgstr ""
+
+#: templates/admin/members.php:27
+msgid "Report Members"
+msgstr ""
+
+#: templates/admin/members.php:36
+msgid "Registration Date"
+msgstr ""
+
+#: templates/admin/members.php:37
+msgid "Total Members"
+msgstr ""
+
+#: templates/admin/order-metabox.php:142
+#, php-format
+msgid "Order #%d details"
+msgstr ""
+
+#: templates/admin/order-metabox.php:145
+msgid "ID:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:146
+#, php-format
+msgid "#%d"
+msgstr ""
+
+#: templates/admin/order-metabox.php:149
+msgid "Order date:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:153
+msgid "Order status"
+msgstr ""
+
+#: templates/admin/order-metabox.php:157
+msgid "Buyer:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:164
+#: templates/purchases/order-bill-info.php:14
+msgid "Billed to:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:173
+#: templates/purchases/order-bill-info.php:30
+msgid "Order Notes:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:183 templates/purchases/order-item.php:6
+msgid "Order Item"
+msgstr ""
+
+#: templates/admin/order-metabox.php:189
+#: templates/checkout/order-details.php:11
+#: templates/post-listing/listing-type.php:43
+#: templates/purchases/order-item.php:10
+msgid "Price"
+msgstr ""
+
+#: templates/admin/order-metabox.php:190
+#: templates/checkout/order-details.php:12
+#: templates/purchases/order-item.php:11
+msgid "Units"
+msgstr ""
+
+#: templates/admin/order-metabox.php:191
+#: templates/checkout/order-details.php:13
+#: templates/purchases/order-item.php:12
+msgid "Total price"
+msgstr ""
+
+#: templates/admin/order-metabox.php:213
+#: templates/checkout/order-details.php:63
+#: templates/purchases/order-item.php:62
+msgid "Total amount:"
+msgstr ""
+
+#: templates/admin/order-metabox.php:222
+msgid "Payment Info"
+msgstr ""
+
+#: templates/admin/order-metabox.php:227
+msgid "Receiver Name"
+msgstr ""
+
+#: templates/admin/order-metabox.php:228
+msgid "Paypal Email"
+msgstr ""
+
+#: templates/admin/order-metabox.php:247
+msgid "Commision"
+msgstr ""
+
+#: templates/admin/orders.php:35
+msgid "Total Orders"
+msgstr ""
+
+#: templates/admin/orders.php:36
+msgid "Income"
+msgstr ""
+
+#: templates/admin/overview.php:8
+msgid "Members"
+msgstr ""
+
+#: templates/admin/pagination.php:20
+#, php-format
+msgid "%d - %d of %d results"
+msgstr ""
+
+#: templates/admin/pagination.php:22
+#, php-format
+msgid "%d - %d of %d result"
+msgstr ""
+
+#: templates/admin/report-none.php:5
+msgid "There are no results match your filter."
+msgstr ""
+
+#: templates/archive-heading.php:15
+msgid "One item in total"
+msgstr ""
+
+#: templates/archive-heading.php:26
+msgid "Sort by Newest"
+msgstr ""
+
+#: templates/archive-heading.php:27
+msgid "Price: Low to High"
+msgstr ""
+
+#: templates/archive-heading.php:28
+msgid "Price: High to Low"
+msgstr ""
+
+#: templates/checkout/billing.php:3 templates/checkout/billing.php:34
+msgid "First name"
+msgstr ""
+
+#: templates/checkout/billing.php:4 templates/checkout/billing.php:40
+msgid "Last name"
+msgstr ""
+
+#: templates/checkout/billing.php:5 templates/checkout/billing.php:48
+msgid "Email address"
+msgstr ""
+
+#: templates/checkout/billing.php:6 templates/checkout/billing.php:54
+msgid "Phone"
+msgstr ""
+
+#: templates/checkout/billing.php:7 templates/checkout/billing.php:62
+msgid "Country"
+msgstr ""
+
+#: templates/checkout/billing.php:8 templates/checkout/billing.php:68
+msgid "Town/City"
+msgstr ""
+
+#: templates/checkout/billing.php:9 templates/checkout/billing.php:76
+msgid "Street address"
+msgstr ""
+
+#: templates/checkout/billing.php:10 templates/checkout/billing.php:82
+msgid "Post code"
+msgstr ""
+
+#: templates/checkout/billing.php:16
+msgid "Billing Details"
+msgstr ""
+
+#: templates/checkout/billing.php:82 templates/checkout/note.php:2
+msgid "(optional)"
+msgstr ""
+
+#: templates/checkout/cancel-payment.php:2
+msgid "Cancelling Payment"
+msgstr ""
+
+#: templates/checkout/cancel-payment.php:3
+msgid "There was something went wrong with your payment!"
+msgstr ""
+
+#: templates/checkout/cancel-payment.php:4
+msgid "Your payment can be completed in the order detail"
+msgstr ""
+
+#: templates/checkout/cancel-payment.php:5
+msgid "TO ORDER DETAIL"
+msgstr ""
+
+#: templates/checkout/checkout.php:17
+msgid "There is no item selected."
+msgstr ""
+
+#: templates/checkout/confirm.php:10
+#, php-format
+msgid "Your payment of %s has been received on %s"
+msgstr ""
+
+#: templates/checkout/confirm.php:11
+#, php-format
+msgid "Your transaction number is <span id=\"me-orderid\">%s</span>"
+msgstr ""
+
+#: templates/checkout/confirm.php:12
+msgid "A detailed summary of your transaction is sent to your mail."
+msgstr ""
+
+#: templates/checkout/confirm.php:17
+msgid "Manage Transaction"
+msgstr ""
+
+#: templates/checkout/confirm.php:18
+#, php-format
+msgid ""
+"To view further information of this transaction, or make reviews &amp; "
+"ratings for listings, open <a href=\"%s\">Transaction Detail</a>."
+msgstr ""
+
+#: templates/checkout/confirm.php:23
+msgid "Manage All Transaction"
+msgstr ""
+
+#: templates/checkout/confirm.php:24
+#, php-format
+msgid ""
+"To view all of transactions and manage them, open <a href=\"%s\">Manage "
+"Transactions</a>."
+msgstr ""
+
+#: templates/checkout/confirm.php:30
+msgid "Keep Shopping"
+msgstr ""
+
+#: templates/checkout/confirm.php:31
+#, php-format
+msgid ""
+"There are many cool products waiting for you to explore. Click <a href=\"%s"
+"\">here</a> to continue shopping."
+msgstr ""
+
+#: templates/checkout/confirm.php:39
+msgid "The order is onhold."
+msgstr ""
+
+#: templates/checkout/note.php:2
+msgid "Order Notes"
+msgstr ""
+
+#: templates/checkout/order-details.php:7
+msgid "Your Order"
+msgstr ""
+
+#: templates/checkout/order-details.php:72
+msgid "MAKE PAYMENT"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:14
+#: templates/emails/buyer/order-closed.php:14
+#: templates/emails/buyer/order-success.php:14
+#: templates/emails/seller/order-closed.php:14
+#: templates/emails/seller/order-success.php:14
+#, php-format
+msgid "Dear %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:15
+#, php-format
+msgid "There's a new order for the listing %s on %s."
+msgstr ""
+
+#: templates/emails/admin/order-success.php:16
+#: templates/emails/seller/order-closed.php:16
+msgid "Order details:"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:18
+#: templates/emails/buyer/order-closed.php:18
+#: templates/emails/buyer/order-success.php:18
+#: templates/emails/seller/order-closed.php:18
+#, php-format
+msgid "Listing: %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:19
+#: templates/emails/buyer/order-closed.php:19
+#, php-format
+msgid "Seller: %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:20
+#: templates/emails/seller/order-closed.php:19
+#: templates/emails/seller/order-success.php:18
+#, php-format
+msgid "Buyer: %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:21
+#: templates/emails/buyer/order-closed.php:21
+#, php-format
+msgid "Total payment: %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:22
+#, php-format
+msgid "Commission: %s"
+msgstr ""
+
+#: templates/emails/admin/order-success.php:24
+#: templates/emails/buyer/order-closed.php:26
+#: templates/emails/buyer/order-success.php:26
+#: templates/emails/seller/order-closed.php:26
+#: templates/emails/seller/order-success.php:27
+msgid "Sincerely"
+msgstr ""
+
+#: templates/emails/buyer/order-closed.php:15
+#, php-format
+msgid "Your transaction for the listing %s on %s has been closed. "
+msgstr ""
+
+#: templates/emails/buyer/order-closed.php:16
+msgid "Transaction details:"
+msgstr ""
+
+#: templates/emails/buyer/order-closed.php:20
+#, php-format
+msgid "Date of purchase: %s"
+msgstr ""
+
+#: templates/emails/buyer/order-closed.php:24
+#: templates/emails/buyer/order-success.php:24
+#: templates/emails/seller/order-closed.php:24
+#, php-format
+msgid "View your order details here: %s."
+msgstr ""
+
+#: templates/emails/buyer/order-success.php:15
+#, php-format
+msgid "Your payment for the listing %s on %s has been accepted. "
+msgstr ""
+
+#: templates/emails/buyer/order-success.php:16
+msgid "Here are the payment details:"
+msgstr ""
+
+#: templates/emails/buyer/order-success.php:19
+#: templates/emails/seller/order-success.php:19
+#, php-format
+msgid "Price: %s"
+msgstr ""
+
+#: templates/emails/buyer/order-success.php:20
+#: templates/emails/seller/order-success.php:20
+#, php-format
+msgid "Unit: %s"
+msgstr ""
+
+#: templates/emails/buyer/order-success.php:21
+#: templates/emails/seller/order-success.php:21
+#, php-format
+msgid "Total: %s"
+msgstr ""
+
+#: templates/emails/receive-comment.php:7
+msgid "Dear Admin"
+msgstr ""
+
+#: templates/emails/receive-comment.php:8
+msgid "There is a new comment on the post"
+msgstr ""
+
+#: templates/emails/receive-comment.php:10
+msgid "Author:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:11
+msgid "Email:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:12
+msgid "URL:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:13
+msgid "Comment:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:18
+msgid "You can see all comments on this post here:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:22
+msgid "Permalink:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:23
+msgid "Trash it:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:24
+msgid "Spam it:"
+msgstr ""
+
+#: templates/emails/receive-comment.php:27
+msgid "Sincerely,"
+msgstr ""
+
+#: templates/emails/seller/order-closed.php:15
+#, php-format
+msgid "Your order for the listing  %s on %s has been closed."
+msgstr ""
+
+#: templates/emails/seller/order-closed.php:20
+#, php-format
+msgid "Date of order: %s"
+msgstr ""
+
+#: templates/emails/seller/order-closed.php:21
+#, php-format
+msgid "Total earnings (commission deducted): %s"
+msgstr ""
+
+#: templates/emails/seller/order-success.php:15
+#, php-format
+msgid "You've got a new order for the listing %s on %s"
+msgstr ""
+
+#: templates/emails/seller/order-success.php:16
+msgid "Here are the order details:"
+msgstr ""
+
+#: templates/emails/seller/order-success.php:22
+#, php-format
+msgid "Earnings (commission deducted): %s"
+msgstr ""
+
+#: templates/emails/seller/order-success.php:25
+#, php-format
+msgid ""
+"For this order, %s commission fee has been deducted from your total earnings "
+"of %s. <br/>View your order details here: %s."
+msgstr ""
+
+#: templates/global/account-menu.php:17
+msgid "My Profile"
+msgstr ""
+
+#: templates/global/account-menu.php:18
+msgid "Logout"
+msgstr ""
+
+#: templates/global/account-menu.php:24
+msgid "MY ACCOUNT"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:22
+msgid "Latest"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:24 templates/global/order-filter.php:34
+msgid "From date"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:25 templates/global/order-filter.php:35
+msgid "To date"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:32 templates/global/order-filter.php:42
+msgid "Keyword"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:33
+msgid "Listing name, seller name, etc."
+msgstr ""
+
+#: templates/global/inquiry-filter.php:38 templates/global/order-filter.php:49
+msgid "Clear Filter"
+msgstr ""
+
+#: templates/global/inquiry-filter.php:39 templates/global/order-filter.php:50
+msgid "FILTER"
+msgstr ""
+
+#: templates/global/order-filter.php:32
+msgid "Date of Order"
+msgstr ""
+
+#: templates/global/order-filter.php:43
+msgid "Order ID, listing name, etc."
+msgstr ""
+
+#: templates/global/post-listing-button.php:10
+#: templates/post-listing/post-listing.php:34
+msgid "Post a Listing"
+msgstr ""
+
+#: templates/global/shop-categories.php:15
+msgid "SHOP CATEGORIES"
+msgstr ""
+
+#: templates/global/status-list.php:10
+msgid "Filter order's status"
+msgstr ""
+
+#: templates/inquiry/contact-list.php:8
+#, php-format
+msgid "%d people contact listing"
+msgstr ""
+
+#: templates/inquiry/contact-list.php:10
+msgid "Search buyer"
+msgstr ""
+
+#: templates/inquiry/inquiry-message.php:40
+msgid "Listing info"
+msgstr ""
+
+#: templates/inquiry/inquiry-message.php:41
+msgid "Seller info"
+msgstr ""
+
+#: templates/inquiry/inquiry-message.php:65
+msgid "Type your message here"
+msgstr ""
+
+#: templates/inquiry/inquiry-message.php:77
+msgid "This listing was deleted! You cannot send message!"
+msgstr ""
+
+#: templates/loop/contact.php:11 templates/loop/contact.php:14
+#: templates/single-listing/contact.php:6
+msgid "CONTACT NOW"
+msgstr ""
+
+#: templates/loop/content-listing-none.php:7
+msgid "There are no lisitngs matched with your query."
+msgstr ""
+
+#: templates/loop/content-listing.php:49
+#, php-format
+msgid "by &nbsp;%s"
+msgstr ""
+
+#: templates/loop/purchasion.php:24 templates/loop/purchasion.php:26
+#: templates/single-listing/purchasion.php:36
+msgid "BUY NOW"
+msgstr ""
+
+#: templates/order-detail.php:29
+msgid "My Transactions"
+msgstr ""
+
+#: templates/post-listing/edit-listing.php:52
+msgid "Edit the Listing"
+msgstr ""
+
+#: templates/post-listing/edit-listing.php:76
+#: templates/post-listing/post-listing.php:56 templates/purchases/review.php:13
+msgid "SUBMIT"
+msgstr ""
+
+#: templates/post-listing/listing-category.php:18
+msgid "Select your category"
+msgstr ""
+
+#: templates/post-listing/listing-category.php:29
+msgid "Sub-category"
+msgstr ""
+
+#: templates/post-listing/listing-category.php:31
+#: templates/post-listing/sub-cat.php:8 templates/post-listing/sub-cat.php:12
+msgid "Select sub category"
+msgstr ""
+
+#: templates/post-listing/listing-gallery.php:17
+msgid "Gallery"
+msgstr ""
+
+#: templates/post-listing/listing-gallery.php:18
+msgid "(optional, max 5 files)"
+msgstr ""
+
+#: templates/post-listing/listing-image.php:10
+msgid "Your listing image"
+msgstr ""
+
+#: templates/post-listing/listing-information.php:12
+msgid "Listing Title"
+msgstr ""
+
+#: templates/post-listing/listing-information.php:18
+msgid "Listing Description"
+msgstr ""
+
+#: templates/post-listing/listing-type.php:21
+msgid "Listing Type"
+msgstr ""
+
+#: templates/post-listing/listing-type.php:52
+msgid "Pricing Unit"
+msgstr ""
+
+#: templates/post-listing/listing-type.php:54
+msgid "None"
+msgstr ""
+
+#: templates/post-listing/listing-type.php:55
+msgid "Per Unit"
+msgstr ""
+
+#: templates/post-listing/listing-type.php:56
+msgid "Per Hour"
+msgstr ""
+
+#: templates/post-listing/post-listing-none.php:3
+msgid "Sorry Buddy!"
+msgstr ""
+
+#: templates/post-listing/post-listing-none.php:4
+msgid "You don't have permission to post listing."
+msgstr ""
+
+#: templates/post-listing/post-listing-none.php:5
+msgid ""
+"This happens because you are not really logged in or your account is still "
+"inactive."
+msgstr ""
+
+#: templates/post-listing/post-listing-none.php:6
+#, php-format
+msgid "You should <a href='%s'>register</a>,"
+msgstr ""
+
+#: templates/post-listing/post-listing-none.php:6
+#, php-format
+msgid " <a href='%s'>login</a> or active your account before post a listing"
+msgstr ""
+
+#: templates/purchases/listing-slider.php:33
+msgid "You may like these listings"
+msgstr ""
+
+#: templates/purchases/listing-slider.php:65
+#, php-format
+msgid "<i>by</i>%s"
+msgstr ""
+
+#: templates/purchases/order-action.php:4
+msgid "This order has been disputed by buyer."
+msgstr ""
+
+#: templates/purchases/order-action.php:5
+msgid "TO RESOLUTION CENTER"
+msgstr ""
+
+#: templates/purchases/order-item.php:72
+msgid "COMPLETE PAYMENT"
+msgstr ""
+
+#: templates/purchases/order-listing.php:20
+msgid "view more"
+msgstr ""
+
+#: templates/purchases/order-listing.php:20
+msgid "view less"
+msgstr ""
+
+#: templates/purchases/order-listing.php:30
+msgid "RATE &amp; REVIEW NOW"
+msgstr ""
+
+#: templates/purchases/order-listing.php:36
+msgid "The listing has already remove or archived."
+msgstr ""
+
+#: templates/purchases/order-status.php:3
+msgid "Order status:"
+msgstr ""
+
+#: templates/purchases/order-status.php:19
+msgid "Check payment"
+msgstr ""
+
+#: templates/purchases/order-status.php:27
+msgid "Mark completed"
+msgstr ""
+
+#: templates/purchases/order-status.php:30
+msgid "Closed order"
+msgstr ""
+
+#: templates/purchases/review.php:10
+msgid "Share your review about this listing"
+msgstr ""
+
+#: templates/purchases/review.php:19
+msgid "Back to transaction detail"
+msgstr ""
+
+#: templates/purchases/transaction-info.php:7
+msgid "Transaction ID:"
+msgstr ""
+
+#: templates/purchases/transaction-info.php:13
+msgid "Date of purchase:"
+msgstr ""
+
+#: templates/seller-profile/content-seller-profile.php:19
+msgid "No information"
+msgstr ""
+
+#: templates/seller-profile/listing-item.php:20
+msgid "<i class=\"icon-me-image\"></i>"
+msgstr ""
+
+#: templates/seller-profile/listing-of-seller.php:36
+msgid "No listings to display"
+msgstr ""
+
+#: templates/seller-profile/seller-info.php:22
+#: templates/single-listing/author.php:17 templates/user-info.php:22
+msgid "From:"
+msgstr ""
+
+#: templates/seller-profile/seller-info.php:32
+#: templates/single-listing/author.php:25 templates/user-info.php:32
+msgid "Member Since:"
+msgstr ""
+
+#: templates/seller-profile/seller-profile.php:33
+msgid "About Seller"
+msgstr ""
+
+#: templates/seller-profile/seller-profile.php:39
+msgid "Listing of Seller"
+msgstr ""
+
+#: templates/single-listing/author.php:21
+msgid "Language:"
+msgstr ""
+
+#: templates/single-listing/author.php:30 templates/user-info.php:36
+msgid "View profile"
+msgstr ""
+
+#: templates/single-listing/description.php:8
+msgid "Explore this listing"
+msgstr ""
+
+#: templates/single-listing/notices.php:11
+msgid "You need to active your account before buy listings."
+msgstr ""
+
+#: templates/single-listing/notices.php:18
+msgid "Resend activation email."
+msgstr ""
+
+#: templates/single-listing/rating.php:23
+#, php-format
+msgid "Review (%d)"
+msgstr ""
+
+#: templates/single-listing/rating.php:37
+#, php-format
+msgid "Based on <b itemprop=\"reviewCount\">%d</b> review"
+msgstr ""
+
+#: templates/single-listing/rating.php:69
+msgid "Loading ..."
+msgstr ""
+
+#: templates/single-listing/rating.php:70
+msgid "Read more"
+msgstr ""
+
+#: templates/single-listing/rating.php:78
+msgid "There are no reviews yet."
+msgstr ""
+
+#: templates/single-listing/review-item.php:21
+msgid "stars"
+msgstr ""
+
+#: templates/single-listing/statistic.php:16
+#, php-format
+msgid "%d Contact"
+msgstr ""
+
+#: templates/single-listing/statistic.php:27
+#, php-format
+msgid "%d Purchase"
+msgstr ""
+
+#: templates/single-listing/statistic.php:30
+#, php-format
+msgid "%d Review"
+msgstr ""
+
+#: templates/single-listing/tags.php:5
+msgid "Tags:"
+msgstr ""
+
+#: templates/upload-file/avatar-form.php:27
+#: templates/upload-file/upload-form.php:22
+msgid "Choose image"
+msgstr ""
+
+#: templates/upload-file/multi-file-form.php:4
+msgid "Drag to sort"
+msgstr ""

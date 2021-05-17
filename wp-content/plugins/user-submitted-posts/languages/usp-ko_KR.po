@@ -1,0 +1,1505 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: USP 20200817\n"
+"Language: ko\n"
+
+#. Name of the plugin
+#: user-submitted-posts.php:44 library/support-panel.php:5
+msgid "User Submitted Posts"
+msgstr "사용자가 제출 한 게시물"
+
+#: user-submitted-posts.php:82
+msgid "requires WordPress "
+msgstr "WordPress 필요 "
+
+#: user-submitted-posts.php:83
+msgid " or higher, and has been deactivated! "
+msgstr " 이상이며 비활성화되었습니다! "
+
+#: user-submitted-posts.php:84
+msgid "Please return to the"
+msgstr "로 돌아가십시오."
+
+#: user-submitted-posts.php:85
+msgid "WordPress Admin Area"
+msgstr "WordPress 관리 영역"
+
+#: user-submitted-posts.php:86
+msgid "to upgrade WordPress and try again."
+msgstr "WordPress를 업그레이드하고 다시 시도하십시오."
+
+#: user-submitted-posts.php:138
+msgid "User Submitted Post"
+msgstr "사용자가 제출 한 게시물"
+
+#: user-submitted-posts.php:484
+msgid "User Submitted Post Info"
+msgstr "사용자가 제출 한 게시물 정보"
+
+#: user-submitted-posts.php:514
+msgid "Submitter Name: "
+msgstr "제출자 이름 : "
+
+#: user-submitted-posts.php:515
+msgid "Submitter Email: "
+msgstr "제출자 이메일 : "
+
+#: user-submitted-posts.php:516
+msgid "Submitter URL: "
+msgstr "제출자 URL : "
+
+#: user-submitted-posts.php:517
+msgid "Submitter IP: "
+msgstr "제출자 IP : "
+
+#: user-submitted-posts.php:572
+msgid "Show USP Posts"
+msgstr "USP 게시물 표시"
+
+#: user-submitted-posts.php:573 library/plugin-settings.php:1188
+msgid "USP"
+msgstr "USP"
+
+#: user-submitted-posts.php:1427
+msgid " files required"
+msgstr " 필요한 파일"
+
+#: user-submitted-posts.php:1428
+msgid " file required"
+msgstr " 필요한 파일"
+
+#: user-submitted-posts.php:1430
+msgid " files"
+msgstr " 파일"
+
+#: user-submitted-posts.php:1431
+msgid " file"
+msgstr " 파일"
+
+#: user-submitted-posts.php:1433 user-submitted-posts.php:1434
+#: user-submitted-posts.php:1435 user-submitted-posts.php:1436
+msgid " pixels"
+msgstr " 픽셀"
+
+#: user-submitted-posts.php:1438 library/core-functions.php:255
+#: library/plugin-settings.php:342 library/plugin-settings.php:361
+#: library/plugin-settings.php:876 library/plugin-settings.php:1447
+msgid "Custom Field"
+msgstr "사용자 정의 필드"
+
+#: user-submitted-posts.php:1440
+msgid "Custom checkbox required"
+msgstr "맞춤 체크 박스 필요"
+
+#: user-submitted-posts.php:1443
+msgid "An error occurred. Please go back and try again."
+msgstr "에러 발생됨. 돌아가서 다시 시도하십시오."
+
+#: user-submitted-posts.php:1453
+msgid "User login required"
+msgstr "사용자 로그인 필요"
+
+#: user-submitted-posts.php:1454
+msgid "User name required"
+msgstr "사용자 이름이 필요합니다."
+
+#: user-submitted-posts.php:1455
+msgid "Post title required"
+msgstr "게시물 제목이 필요합니다."
+
+#: user-submitted-posts.php:1456
+msgid "User URL required"
+msgstr "사용자 URL이 필요합니다."
+
+#: user-submitted-posts.php:1457
+msgid "Post tags required"
+msgstr "태그를 게시해야합니다."
+
+#: user-submitted-posts.php:1458
+msgid "Post category required"
+msgstr "게시물 카테고리 필요"
+
+#: user-submitted-posts.php:1459
+msgid "Post content required"
+msgstr "필요한 게시물 내용"
+
+#: user-submitted-posts.php:1460 user-submitted-posts.php:1461
+msgid "Correct captcha required"
+msgstr "올바른 보안 문자 필요"
+
+#: user-submitted-posts.php:1462
+msgid "User email required"
+msgstr "사용자 이메일 필요"
+
+#: user-submitted-posts.php:1463
+msgid "Please check your email and try again"
+msgstr "이메일을 확인하고 다시 시도하십시오."
+
+#: user-submitted-posts.php:1464
+msgid "Non-empty value for hidden field"
+msgstr "숨겨진 필드의 비어 있지 않은 값"
+
+#: user-submitted-posts.php:1465
+msgid "Minimum number of images not met"
+msgstr "충족되지 않은 최소 이미지 수"
+
+#: user-submitted-posts.php:1466
+msgid "Maximum number of images exceeded "
+msgstr "최대 이미지 수를 초과했습니다. "
+
+#: user-submitted-posts.php:1467
+msgid "Minimum image width not met"
+msgstr "최소 이미지 너비가 충족되지 않았습니다."
+
+#: user-submitted-posts.php:1468
+msgid "Image width exceeds maximum"
+msgstr "이미지 너비가 최대 값을 초과합니다."
+
+#: user-submitted-posts.php:1469
+msgid "Minimum image height not met"
+msgstr "최소 이미지 높이가 충족되지 않았습니다."
+
+#: user-submitted-posts.php:1470
+msgid "Image height exceeds maximum"
+msgstr "이미지 높이가 최대 값을 초과합니다."
+
+#: user-submitted-posts.php:1471
+msgid "File type not allowed (please upload images only)"
+msgstr "허용되지 않는 파일 형식 (이미지 만 업로드하세요)"
+
+#: user-submitted-posts.php:1472
+msgid " required"
+msgstr " 필수"
+
+#: user-submitted-posts.php:1477
+msgid "File not uploaded. Please check the file and try again."
+msgstr "파일이 업로드되지 않았습니다. 파일을 확인하고 다시 시도하십시오."
+
+#: user-submitted-posts.php:1481
+msgid "The file(s) could not be uploaded"
+msgstr "파일을 업로드 할 수 없습니다."
+
+#: user-submitted-posts.php:1483
+msgid "Post not created. Please contact the site administrator for help."
+msgstr "게시물이 생성되지 않았습니다. 도움이 필요하면 사이트 관리자에게 문의하십시오."
+
+#: user-submitted-posts.php:1484
+msgid "Duplicate post title. Please try again."
+msgstr "게시물 제목이 중복되었습니다. 다시 시도하십시오."
+
+#: user-submitted-posts.php:1494
+msgid "Error: "
+msgstr "오류: "
+
+#: user-submitted-posts.php:1520
+msgid "Return to form"
+msgstr "양식으로 돌아 가기"
+
+#: user-submitted-posts.php:1550 library/plugin-settings.php:1164
+msgid "Please"
+msgstr "부디"
+
+#: user-submitted-posts.php:1551
+msgid "log in"
+msgstr "로그인"
+
+#: user-submitted-posts.php:1552
+msgid "to submit content!"
+msgstr "콘텐츠 제출!"
+
+#: views/submission-form.php:21 views/submission-form-alt.php:40
+msgid "Please complete the required fields."
+msgstr "필수 필드를 작성하십시오."
+
+#: views/submission-form.php:31 views/submission-form.php:32
+#: views/submission-form-alt.php:46 views/submission-form-alt.php:47
+msgid "Your Name"
+msgstr "당신의 이름"
+
+#: views/submission-form.php:37 views/submission-form.php:38
+#: views/submission-form-alt.php:52 views/submission-form-alt.php:53
+#: library/shortcode-login.php:143
+msgid "Your Email"
+msgstr "귀하의 이메일"
+
+#: views/submission-form.php:43 views/submission-form.php:44
+#: views/submission-form-alt.php:58 views/submission-form-alt.php:59
+msgid "Your URL"
+msgstr "귀하의 URL"
+
+#: views/submission-form.php:49 views/submission-form.php:50
+#: views/submission-form-alt.php:64 views/submission-form-alt.php:65
+#: library/plugin-settings.php:1225
+msgid "Post Title"
+msgstr "글 제목"
+
+#: views/submission-form.php:56 views/submission-form.php:65
+#: views/submission-form.php:66 views/submission-form-alt.php:71
+#: views/submission-form-alt.php:80 views/submission-form-alt.php:81
+#: library/plugin-settings.php:1226
+msgid "Post Tags"
+msgstr "태그 게시"
+
+#: views/submission-form.php:58 views/submission-form-alt.php:73
+msgid "Please select some tags.."
+msgstr "일부 태그를 선택하세요 .."
+
+#: views/submission-form.php:79 views/submission-form-alt.php:94
+msgid "Antispam Question"
+msgstr "안티 스팸 질문"
+
+#: views/submission-form.php:84 views/submission-form-alt.php:99
+#: library/plugin-settings.php:1227
+msgid "Post Category"
+msgstr "게시물 카테고리"
+
+#: views/submission-form.php:86 views/submission-form-alt.php:101
+msgid "Please select a category.."
+msgstr "카테고리를 선택하세요 .."
+
+#: views/submission-form.php:117 views/submission-form.php:118
+#: views/submission-form-alt.php:132 views/submission-form-alt.php:133
+#: library/plugin-settings.php:1228
+msgid "Post Content"
+msgstr "콘텐츠 게시"
+
+#: views/submission-form.php:125 views/submission-form-alt.php:140
+msgid "Verification"
+msgstr "확인"
+
+#: views/submission-form.php:132 views/submission-form-alt.php:147
+msgid "Upload an Image"
+msgstr "이미지 업로드"
+
+#: views/submission-form.php:141 views/submission-form-alt.php:156
+msgid "Add another image"
+msgstr "다른 이미지 추가"
+
+#: views/submission-form.php:163 views/submission-form-alt.php:178
+msgid "Human verification: leave this field empty."
+msgstr "사람 확인 :이 필드를 비워 둡니다."
+
+#: views/submission-form.php:191 views/submission-form-alt.php:206
+msgid "Submit Post"
+msgstr "게시물 제출"
+
+#: library/enqueue-scripts.php:150 library/enqueue-scripts.php:193
+msgid "Incorrect response."
+msgstr "잘못된 응답입니다."
+
+#: library/shortcode-login.php:88 library/shortcode-login.php:127
+msgid "Login"
+msgstr "로그인"
+
+#: library/shortcode-login.php:89
+msgid "Register"
+msgstr "레지스터"
+
+#: library/shortcode-login.php:90
+msgid "Forgot?"
+msgstr "잊으 셨나요?"
+
+#: library/shortcode-login.php:97 library/shortcode-login.php:102
+msgid "Success!"
+msgstr "성공!"
+
+#: library/shortcode-login.php:98
+msgid "Check your email for the password."
+msgstr "이메일에서 비밀번호를 확인하십시오."
+
+#: library/shortcode-login.php:103
+msgid "Check your email to reset your password."
+msgstr "비밀번호를 재설정하려면 이메일을 확인하세요."
+
+#: library/shortcode-login.php:107
+msgid "Have an account?"
+msgstr "계정이있다?"
+
+#: library/shortcode-login.php:108
+msgid "Log in or sign up! It&rsquo;s fast &amp; free!"
+msgstr "로그인하거나 가입하세요! 빠르고 & amp; 비어 있는!"
+
+#: library/shortcode-login.php:114 library/shortcode-login.php:139
+msgid "Username"
+msgstr "사용자 이름"
+
+#: library/shortcode-login.php:118
+msgid "Password"
+msgstr "암호"
+
+#: library/shortcode-login.php:124
+msgid "Remember me"
+msgstr "날 기억해"
+
+#: library/shortcode-login.php:135
+msgid "Register for this site!"
+msgstr "이 사이트에 등록하십시오!"
+
+#: library/shortcode-login.php:136
+msgid "Sign up now for the good stuff."
+msgstr "지금 가입하여 좋은 정보를 얻으십시오."
+
+#: library/shortcode-login.php:147
+msgid "Sign up!"
+msgstr "가입하기!"
+
+#: library/shortcode-login.php:155
+msgid "Lose something?"
+msgstr "잃어버린 것이 있습니까?"
+
+#: library/shortcode-login.php:156
+msgid "Enter your username or email to reset your password."
+msgstr "비밀번호를 재설정하려면 사용자 이름 또는 이메일을 입력하세요."
+
+#: library/shortcode-login.php:159
+msgid "Username or Email"
+msgstr "아이디 또는 이메일"
+
+#: library/shortcode-login.php:163
+msgid "Reset my password"
+msgstr "내 비밀번호 재설정"
+
+#: library/shortcode-login.php:177
+msgid "Welcome, "
+msgstr "어서 오십시오, "
+
+#: library/shortcode-login.php:180
+msgid "Congratulations, you&rsquo;re logged in."
+msgstr "축하합니다. 로그인되었습니다."
+
+#: library/shortcode-login.php:182
+msgid "Log out"
+msgstr "로그 아웃"
+
+#: library/shortcode-login.php:183
+msgid "Admin"
+msgstr "관리자"
+
+#: library/shortcode-login.php:184
+msgid "Profile"
+msgstr "프로필"
+
+#: library/shortcode-misc.php:18
+msgid "Reset form"
+msgstr "초기화 형식"
+
+#: library/shortcode-misc.php:128
+msgid "View full post"
+msgstr "전체 게시물보기"
+
+#: library/plugin-settings.php:31
+msgid "Settings"
+msgstr "설정"
+
+#: library/plugin-settings.php:40
+msgid "Get USP Pro for unlimited forms!"
+msgstr "무제한 양식을 위해 USP Pro를 받으세요!"
+
+#: library/plugin-settings.php:41
+msgid "Go Pro"
+msgstr "프로로 이동"
+
+#: library/plugin-settings.php:62 library/plugin-settings.php:1196
+#: library/plugin-settings.php:1819
+msgid "Plugin Homepage"
+msgstr "플러그인 홈페이지"
+
+#: library/plugin-settings.php:63
+msgid "Homepage"
+msgstr "홈페이지"
+
+#: library/plugin-settings.php:68
+msgid "Give USP a 5-star rating at WordPress.org"
+msgstr "WordPress.org에서 USP에 별 5 개 등급 부여"
+
+#: library/plugin-settings.php:69
+msgid "Rate this plugin&nbsp;&raquo;"
+msgstr "이 플러그인 평가 & nbsp; & raquo;"
+
+#: library/plugin-settings.php:127
+msgid "WP Post (recommended)"
+msgstr "WP Post (권장)"
+
+#: library/plugin-settings.php:131
+msgid "WP Page"
+msgstr "WP 페이지"
+
+#: library/plugin-settings.php:147
+msgid "HTML5 Form + Default CSS"
+msgstr "HTML5 양식 + 기본 CSS"
+
+#: library/plugin-settings.php:147
+msgid "(Recommended)"
+msgstr "(권장)"
+
+#: library/plugin-settings.php:151
+msgid "HTML5 Form + Disable CSS"
+msgstr "HTML5 양식 + CSS 비활성화"
+
+#: library/plugin-settings.php:151
+msgid "(Provide your own styles)"
+msgstr "(자신 만의 스타일 제공)"
+
+#: library/plugin-settings.php:155
+msgid "Custom Form + Custom CSS"
+msgstr "사용자 정의 양식 + 사용자 정의 CSS"
+
+#: library/plugin-settings.php:155
+msgid "(Provide your own form template &amp; styles)"
+msgstr "(자신의 양식 템플릿 및 스타일 제공)"
+
+#: library/plugin-settings.php:171 library/plugin-settings.php:195
+#: library/plugin-settings.php:219 library/plugin-settings.php:243
+#: library/plugin-settings.php:267
+msgid "Auto-display before post content"
+msgstr "콘텐츠 게시 전 자동 표시"
+
+#: library/plugin-settings.php:175 library/plugin-settings.php:199
+#: library/plugin-settings.php:223 library/plugin-settings.php:247
+#: library/plugin-settings.php:271
+msgid "Auto-display after post content"
+msgstr "콘텐츠 게시 후 자동 표시"
+
+#: library/plugin-settings.php:179
+msgid "Do not auto-display submitted images"
+msgstr "제출 된 이미지를 자동 표시하지 않음"
+
+#: library/plugin-settings.php:203
+msgid "Do not auto-display submitted email"
+msgstr "제출 된 이메일을 자동 표시하지 않음"
+
+#: library/plugin-settings.php:227
+msgid "Do not auto-display submitted name"
+msgstr "제출 된 이름을 자동 표시하지 않음"
+
+#: library/plugin-settings.php:251
+msgid "Do not auto-display submitted URL"
+msgstr "제출 된 URL 자동 표시 안함"
+
+#: library/plugin-settings.php:275
+msgid "Do not auto-display the Custom Field"
+msgstr "사용자 정의 필드를 자동 표시하지 않음"
+
+#: library/plugin-settings.php:291
+msgid "v2 (I&rsquo;m not a robot)"
+msgstr "v2 (로봇이 아님)"
+
+#: library/plugin-settings.php:295
+msgid "v3 (Hidden reCaptcha)"
+msgstr "v3 (숨겨진 reCaptcha)"
+
+#: library/plugin-settings.php:323 library/plugin-settings.php:355
+#: library/plugin-settings.php:388 library/plugin-settings.php:420
+msgid "Enable and require"
+msgstr "활성화 및 요구"
+
+#: library/plugin-settings.php:324 library/plugin-settings.php:356
+msgid "Enable but do not require"
+msgstr "활성화하지만 필요하지 않음"
+
+#: library/plugin-settings.php:325 library/plugin-settings.php:357
+#: library/plugin-settings.php:389 library/plugin-settings.php:421
+msgid "Disable this field"
+msgstr "이 필드 비활성화"
+
+#: library/plugin-settings.php:360 library/plugin-settings.php:392
+#: library/plugin-settings.php:424 library/plugin-settings.php:456
+msgid "(Visit"
+msgstr "(방문"
+
+#: library/plugin-settings.php:361 library/plugin-settings.php:393
+#: library/plugin-settings.php:425 library/plugin-settings.php:457
+msgid "to configure options)"
+msgstr "옵션 구성)"
+
+#: library/plugin-settings.php:376 library/plugin-settings.php:393
+#: library/plugin-settings.php:1465 library/plugin-settings.php:1470
+msgid "Challenge Question"
+msgstr "도전 질문"
+
+#: library/plugin-settings.php:408 library/plugin-settings.php:425
+#: library/plugin-settings.php:1487
+msgid "Google reCAPTCHA"
+msgstr "Google reCAPTCHA"
+
+#: library/plugin-settings.php:440
+msgid "Post Images"
+msgstr "이미지 게시"
+
+#: library/plugin-settings.php:452
+msgid "Enable"
+msgstr "활성화"
+
+#: library/plugin-settings.php:453
+msgid "Disable"
+msgstr "비활성화"
+
+#: library/plugin-settings.php:457 library/plugin-settings.php:1555
+msgid "Image Uploads"
+msgstr "이미지 업로드"
+
+#: library/plugin-settings.php:537
+msgid "Draft"
+msgstr "초안"
+
+#: library/plugin-settings.php:538
+msgid "Pending (default)"
+msgstr "보류 중 (기본값)"
+
+#: library/plugin-settings.php:539
+msgid "Publish immediately"
+msgstr "즉시 게시"
+
+#: library/plugin-settings.php:540
+msgid "Publish after 1 approved post"
+msgstr "승인 된 게시물 1 개 후 게시"
+
+#: library/plugin-settings.php:541
+msgid "Publish after "
+msgstr "이후 게시 "
+
+#: library/plugin-settings.php:541
+msgid " approved posts"
+msgstr " 승인 된 게시물"
+
+#: library/plugin-settings.php:569
+msgid "Select categories to display in the Category field."
+msgstr "범주 필드에 표시 할 범주를 선택합니다."
+
+#: library/plugin-settings.php:815
+msgid "There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images."
+msgstr "오류가있었습니다. 제목과 일부 콘텐츠를 추가했으며 이미지 만 업로드했는지 확인하세요."
+
+#: library/plugin-settings.php:829
+msgid "Please select your image(s) to upload."
+msgstr "업로드 할 이미지를 선택하십시오."
+
+#: library/plugin-settings.php:835
+msgid "Success! Thank you for your submission."
+msgstr "성공! 당신의 의견에 대해 감사합니다."
+
+#: library/plugin-settings.php:864
+msgid "Email"
+msgstr "이메일"
+
+#: library/plugin-settings.php:866
+msgid "URL"
+msgstr "URL"
+
+#: library/plugin-settings.php:1151
+msgid "Toggle all panels"
+msgstr "모든 패널 전환"
+
+#: library/plugin-settings.php:1160
+msgid "We need your support!"
+msgstr "여러분의 지원이 필요합니다!"
+
+#: library/plugin-settings.php:1164
+msgid "Make a donation via PayPal"
+msgstr "PayPal을 통해 기부하기"
+
+#: library/plugin-settings.php:1164
+msgid "make a donation"
+msgstr "기부하세요"
+
+#: library/plugin-settings.php:1164
+msgid "and/or"
+msgstr "및 / 또는"
+
+#: library/plugin-settings.php:1165
+msgid "Rate and review at the Plugin Directory"
+msgstr "플러그인 디렉토리에서 평가 및 검토"
+
+#: library/plugin-settings.php:1166
+msgid "give this plugin a 5-star rating"
+msgstr "이 플러그인에 별 5 개 등급 부여"
+
+#: library/plugin-settings.php:1170
+msgid "Your generous support enables continued development of this free plugin. Thank you!"
+msgstr "귀하의 관대 한 지원으로이 무료 플러그인을 계속 개발할 수 있습니다. 감사합니다!"
+
+#: library/plugin-settings.php:1175
+msgid "Check this box if you have shown support"
+msgstr "지원을 표시 한 경우이 상자를 선택하십시오."
+
+#: library/plugin-settings.php:1184
+msgid "Overview"
+msgstr "개요"
+
+#: library/plugin-settings.php:1188
+msgid "enables your visitors to submit posts and upload images from the front-end of your site. "
+msgstr "방문자가 사이트의 프런트 엔드에서 게시물을 제출하고 이미지를 업로드 할 수 있습니다. "
+
+#: library/plugin-settings.php:1189
+msgid "For advanced functionality and unlimited forms, check out"
+msgstr "고급 기능 및 무제한 양식을 확인하려면"
+
+#: library/plugin-settings.php:1189 library/plugin-settings.php:1613
+msgid "USP Pro"
+msgstr "USP 프로"
+
+#: library/plugin-settings.php:1190
+msgid "&mdash; the ultimate solution for user-generated content."
+msgstr "& mdash; 사용자 제작 콘텐츠를위한 최고의 솔루션입니다."
+
+#: library/plugin-settings.php:1194 library/plugin-settings.php:1211
+msgid "Plugin Settings"
+msgstr "플러그인 설정"
+
+#: library/plugin-settings.php:1195
+msgid "Display the form"
+msgstr "양식 표시"
+
+#: library/plugin-settings.php:1199
+msgid "If you like this plugin, please"
+msgstr "이 플러그인이 마음에 들면"
+
+#: library/plugin-settings.php:1200
+msgid "THANK YOU for your support!"
+msgstr "귀하의 지원에 감사드립니다!"
+
+#: library/plugin-settings.php:1200
+msgid "give it a 5-star rating"
+msgstr "별점 5 점 부여"
+
+#: library/plugin-settings.php:1204
+msgid "Unlimited front-end forms"
+msgstr "무제한 프런트 엔드 양식"
+
+#: library/plugin-settings.php:1204
+msgid "Get USP Pro"
+msgstr "USP Pro 받기"
+
+#: library/plugin-settings.php:1214
+msgid "Configure your settings for User Submitted Posts."
+msgstr "사용자 제출 게시물에 대한 설정을 구성합니다."
+
+#: library/plugin-settings.php:1216
+msgid "Form Fields"
+msgstr "양식 필드"
+
+#: library/plugin-settings.php:1222
+msgid "User Name"
+msgstr "사용자 이름"
+
+#: library/plugin-settings.php:1223
+msgid "User Email"
+msgstr "사용자 이메일"
+
+#: library/plugin-settings.php:1224
+msgid "User URL"
+msgstr "사용자 URL"
+
+#: library/plugin-settings.php:1239
+msgid "General Settings"
+msgstr "일반 설정"
+
+#: library/plugin-settings.php:1241
+msgid "Note that the default settings work fine for most cases."
+msgstr "대부분의 경우 기본 설정이 잘 작동합니다."
+
+#: library/plugin-settings.php:1246
+msgid "Form Style"
+msgstr "양식 스타일"
+
+#: library/plugin-settings.php:1251
+msgid "With this option, you can copy the plugin&rsquo;s default templates:"
+msgstr "이 옵션을 사용하면 플러그인의 기본 템플릿을 복사 할 수 있습니다."
+
+#: library/plugin-settings.php:1256
+msgid "..and upload them into a directory named"
+msgstr ".. 그리고 파일을"
+
+#: library/plugin-settings.php:1256
+msgid "in your theme:"
+msgstr "테마 :"
+
+#: library/plugin-settings.php:1262
+msgid "That will enable you to customize the form and styles as desired. For more info, check out the \"Custom Submission Form\" section in the"
+msgstr "그러면 원하는대로 양식과 스타일을 사용자 정의 할 수 있습니다. 자세한 내용은 \"사용자 지정 제출 양식\"섹션을 확인하십시오."
+
+#: library/plugin-settings.php:1263
+msgid "Installation Docs"
+msgstr "설치 문서"
+
+#: library/plugin-settings.php:1264
+msgid "FYI: here is a"
+msgstr "참고 : 여기에"
+
+#: library/plugin-settings.php:1264
+msgid "list of USP CSS selectors"
+msgstr "USP CSS 선택기 목록"
+
+#: library/plugin-settings.php:1270
+msgid "Include JavaScript"
+msgstr "JavaScript 포함"
+
+#: library/plugin-settings.php:1272
+msgid "Check this box if you want to include the external JavaScript files (recommended)"
+msgstr "외부 JavaScript 파일을 포함하려면이 상자를 선택하십시오 (권장)."
+
+#: library/plugin-settings.php:1275
+msgid "Targeted Loading"
+msgstr "타겟로드"
+
+#: library/plugin-settings.php:1277
+msgid "By default, CSS &amp; JavaScript assets are loaded on every page. Here you may specify the URL(s) of the USP form to load assets only on that page. Note: leave blank to load on all pages. Use commas to separate multiple URLs."
+msgstr "기본적으로 CSS & amp; JavaScript 자산은 모든 페이지에로드됩니다. 여기에서 USP 양식의 URL을 지정하여 해당 페이지에만 자산을로드 할 수 있습니다. 참고 : 모든 페이지에로드하려면 공백으로 두십시오. 여러 URL을 구분하려면 쉼표를 사용하십시오."
+
+#: library/plugin-settings.php:1280
+msgid "Post Type"
+msgstr "포스트 유형"
+
+#: library/plugin-settings.php:1283
+msgid "Submit posts as WP Posts or Pages"
+msgstr "WP 게시물 또는 페이지로 게시물 제출"
+
+#: library/plugin-settings.php:1287
+msgid "Post Status"
+msgstr "게시 상태"
+
+#: library/plugin-settings.php:1290
+msgid "Post Status for submitted posts"
+msgstr "제출 된 게시물의 게시물 상태"
+
+#: library/plugin-settings.php:1294
+msgid "Redirect URL"
+msgstr "리디렉션 URL"
+
+#: library/plugin-settings.php:1296
+msgid "Specify a URL to redirect the user after post submission (leave blank to redirect back to current page)"
+msgstr "게시물 제출 후 사용자를 리디렉션 할 URL을 지정합니다 (현재 페이지로 다시 리디렉션하려면 비워 둡니다)."
+
+#: library/plugin-settings.php:1299
+msgid "Success Message"
+msgstr "성공 메시지"
+
+#: library/plugin-settings.php:1301
+msgid "Success message that is displayed if post submission is successful (basic markup is allowed)"
+msgstr "게시물 제출이 성공하면 표시되는 성공 메시지 (기본 마크 업 허용)"
+
+#: library/plugin-settings.php:1304
+msgid "Error Message"
+msgstr "에러 메시지"
+
+#: library/plugin-settings.php:1306
+msgid "General error message that is displayed if post submission fails (basic markup is allowed)"
+msgstr "게시물 제출 실패시 표시되는 일반 오류 메시지 (기본 마크 업 허용)"
+
+#: library/plugin-settings.php:1309
+msgid "Custom Content"
+msgstr "맞춤 콘텐츠"
+
+#: library/plugin-settings.php:1311
+msgid "Custom text/markup to be included before the submission form (leave blank to disable)"
+msgstr "제출 양식 앞에 포함될 맞춤 텍스트 / 마크 업 (비워두면 비활성화)"
+
+#: library/plugin-settings.php:1314
+msgid "Rich Text Editor"
+msgstr "리치 텍스트 편집기"
+
+#: library/plugin-settings.php:1316
+msgid "Check this box if you want to enable RTE/Visual Editor for the Post Content field"
+msgstr "게시물 콘텐츠 필드에 대해 RTE / 비주얼 편집기를 활성화하려면이 확인란을 선택하십시오."
+
+#: library/plugin-settings.php:1319
+msgid "Unique Titles"
+msgstr "고유 한 타이틀"
+
+#: library/plugin-settings.php:1321
+msgid "Require submitted post titles to be unique (useful for preventing multiple/duplicate submitted posts)"
+msgstr "제출 된 게시물 제목은 고유해야 함 (복수 / 중복 제출 게시물 방지에 유용)"
+
+#: library/plugin-settings.php:1324
+msgid "Disable Required"
+msgstr "비활성화 필요"
+
+#: library/plugin-settings.php:1326
+msgid "Disable all required attributes on default form fields (useful for troubleshooting error messages)"
+msgstr "기본 양식 필드에서 모든 필수 속성 비활성화 (오류 메시지 문제 해결에 유용)"
+
+#: library/plugin-settings.php:1329
+msgid "Enable Shortcodes"
+msgstr "단축 코드 활성화"
+
+#: library/plugin-settings.php:1331
+msgid "Enable shortcodes in widgets. By default, WordPress does not enable shortcodes in widgets. "
+msgstr "위젯에서 단축 코드를 활성화합니다. 기본적으로 WordPress는 위젯에서 단축 코드를 활성화하지 않습니다. "
+
+#: library/plugin-settings.php:1332
+msgid "This setting enables any/all shortcodes in widgets (even shortcodes from other plugins)."
+msgstr "이 설정은 위젯에서 모든 / 모든 단축 코드를 활성화합니다 (다른 플러그인의 단축 코드 포함)."
+
+#: library/plugin-settings.php:1337
+msgid "Privacy"
+msgstr "은둔"
+
+#: library/plugin-settings.php:1342
+msgid "Disable IP Tracking"
+msgstr "IP 추적 비활성화"
+
+#: library/plugin-settings.php:1344
+msgid "By default USP records the IP address with each submitted post. Check this box to disable all IP tracking."
+msgstr "기본적으로 USP는 제출 된 각 게시물과 함께 IP 주소를 기록합니다. 모든 IP 추적을 비활성화하려면이 상자를 선택하십시오."
+
+#: library/plugin-settings.php:1348
+msgid "Display Checkbox"
+msgstr "체크 박스 표시"
+
+#: library/plugin-settings.php:1350
+msgid "Display custom checkbox on your form (useful for GDPR, agree to terms, etc.)"
+msgstr "양식에 사용자 정의 확인란을 표시합니다 (GDPR에 유용, 약관 동의 등)."
+
+#: library/plugin-settings.php:1353
+msgid "Checkbox Name"
+msgstr "체크 박스 이름"
+
+#: library/plugin-settings.php:1355 library/plugin-settings.php:1455
+msgid "Use only alphanumeric, underscores, and dashes. If unsure, use the default name:"
+msgstr "영숫자, 밑줄 및 대시 만 사용하십시오. 확실하지 않은 경우 기본 이름을 사용하십시오."
+
+#: library/plugin-settings.php:1358
+msgid "Checkbox Error"
+msgstr "체크 박스 오류"
+
+#: library/plugin-settings.php:1360
+msgid "Error message displayed if user does not check the box"
+msgstr "사용자가 체크 박스를 선택하지 않으면 표시되는 오류 메시지"
+
+#: library/plugin-settings.php:1363
+msgid "Checkbox Text"
+msgstr "체크 박스 텍스트"
+
+#: library/plugin-settings.php:1365
+msgid "Text displayed next to checkbox. Tip: use curly brackets to output angle brackets, for example:"
+msgstr "확인란 옆에 표시되는 텍스트입니다. 팁 : 중괄호를 사용하여 꺾쇠 괄호를 출력합니다. 예를 들면 다음과 같습니다."
+
+#: library/plugin-settings.php:1370
+msgid "Categories &amp; Tags"
+msgstr "카테고리 & amp; 태그"
+
+#: library/plugin-settings.php:1375
+msgid "Categories"
+msgstr "카테고리"
+
+#: library/plugin-settings.php:1378
+msgid "Click to view/select categories"
+msgstr "카테고리를 보거나 선택하려면 클릭하십시오."
+
+#: library/plugin-settings.php:1386
+msgid "Multiple Categories"
+msgstr "여러 카테고리"
+
+#: library/plugin-settings.php:1388
+msgid "Enable users to select multiple categories."
+msgstr "사용자가 여러 범주를 선택할 수 있습니다."
+
+#: library/plugin-settings.php:1391
+msgid "Hidden/Default Category"
+msgstr "숨김 / 기본 카테고리"
+
+#: library/plugin-settings.php:1393
+msgid "Use a hidden field for the post category. This hides the category field and sets its value via the next option."
+msgstr "게시물 카테고리에 숨겨진 필드를 사용하십시오. 이것은 카테고리 필드를 숨기고 다음 옵션을 통해 값을 설정합니다."
+
+#: library/plugin-settings.php:1396
+msgid "Category ID for Hidden Field"
+msgstr "숨겨진 필드의 카테고리 ID"
+
+#: library/plugin-settings.php:1398
+msgid "Specify category ID(s) to use for &ldquo;Hidden/Default Category&rdquo; (separate multiple IDs with commas)"
+msgstr "& ldquo; 숨김 / 기본 카테고리 & rdquo;에 사용할 카테고리 ID를 지정합니다. (여러 ID는 쉼표로 구분)"
+
+#: library/plugin-settings.php:1401
+msgid "Use Existing Tags"
+msgstr "기존 태그 사용"
+
+#: library/plugin-settings.php:1403
+msgid "Check this box to display a select/dropdown menu of existing tags (valid when Tag field is displayed)"
+msgstr "기존 태그의 선택 / 드롭 다운 메뉴를 표시하려면이 상자를 선택합니다 (태그 필드가 표시 될 때 유효)."
+
+#: library/plugin-settings.php:1408
+msgid "Users"
+msgstr "사용자"
+
+#: library/plugin-settings.php:1413
+msgid "Assigned Author"
+msgstr "할당 된 저자"
+
+#: library/plugin-settings.php:1416
+msgid "Specify the user that should be assigned as author for submitted posts"
+msgstr "제출 된 게시물의 작성자로 지정되어야하는 사용자 지정"
+
+#: library/plugin-settings.php:1420
+msgid "Registered Username"
+msgstr "등록 된 사용자 이름"
+
+#: library/plugin-settings.php:1422
+msgid "Use the user&rsquo;s registered username for the Name field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "이름 필드에 사용자의 등록 된 사용자 이름을 사용합니다 (양식을 제출하는 사용자가 WordPress에 로그인 한 경우 유효)."
+
+#: library/plugin-settings.php:1425
+msgid "Registered Email"
+msgstr "등록 된 이메일"
+
+#: library/plugin-settings.php:1427
+msgid "Use the user&rsquo;s registered email as the value of the Email field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "사용자의 등록 된 이메일을 이메일 필드의 값으로 사용 (양식을 제출하는 사용자가 WordPress에 로그인 한 경우 유효)"
+
+#: library/plugin-settings.php:1430
+msgid "User Profile URL"
+msgstr "사용자 프로필 URL"
+
+#: library/plugin-settings.php:1432
+msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "사용자의 프로필 URL을 URL 필드의 값으로 사용 (양식을 제출하는 사용자가 WordPress에 로그인 한 경우 유효)"
+
+#: library/plugin-settings.php:1435
+msgid "Require User Login"
+msgstr "사용자 로그인 필요"
+
+#: library/plugin-settings.php:1437
+msgid "Require users to be logged in to WordPress to view/submit the form"
+msgstr "양식을 보거나 제출하려면 사용자가 WordPress에 로그인해야합니다."
+
+#: library/plugin-settings.php:1440
+msgid "Disable Replace Author"
+msgstr "작성자 바꾸기 비활성화"
+
+#: library/plugin-settings.php:1442
+msgid "Do not replace post author with submitted user name"
+msgstr "게시물 작성자를 제출 된 사용자 이름으로 바꾸지 마십시오."
+
+#: library/plugin-settings.php:1448
+msgid "Here you may change the name and label used by the Custom Field. You can enable this field via the Form Fields setting, above."
+msgstr "여기에서 사용자 정의 필드에서 사용하는 이름과 레이블을 변경할 수 있습니다. 위의 양식 필드 설정을 통해이 필드를 활성화 할 수 있습니다."
+
+#: library/plugin-settings.php:1453
+msgid "Custom Field Name"
+msgstr "사용자 정의 필드 이름"
+
+#: library/plugin-settings.php:1458
+msgid "Custom Field Label"
+msgstr "사용자 정의 필드 레이블"
+
+#: library/plugin-settings.php:1460
+msgid "This will be displayed as the field label on the form. Default: Custom Field"
+msgstr "이것은 양식의 필드 레이블로 표시됩니다. 기본값 : 사용자 정의 필드"
+
+#: library/plugin-settings.php:1472
+msgid "To prevent spam, enter a question that users must answer before submitting the form"
+msgstr "스팸을 방지하려면 사용자가 양식을 제출하기 전에 답변해야하는 질문을 입력하세요."
+
+#: library/plugin-settings.php:1475
+msgid "Challenge Response"
+msgstr "도전 대응"
+
+#: library/plugin-settings.php:1477
+msgid "Enter the *only* correct answer to the challenge question"
+msgstr "챌린지 질문에 * 만 * 정답을 입력하세요."
+
+#: library/plugin-settings.php:1480
+msgid "Case-sensitivity"
+msgstr "대소 문자 구분"
+
+#: library/plugin-settings.php:1482
+msgid "Check this box if you want the challenge response to be case-sensitive"
+msgstr "질문 응답에서 대소 문자를 구분하려면이 체크 박스를 선택하세요."
+
+#: library/plugin-settings.php:1488
+msgid "To enable Google reCAPTCHA, enter your public and private keys."
+msgstr "Google reCAPTCHA를 사용하려면 공개 및 비공개 키를 입력하세요."
+
+#: library/plugin-settings.php:1493
+msgid "Public Key"
+msgstr "공개 키"
+
+#: library/plugin-settings.php:1495
+msgid "Enter your Public Key"
+msgstr "공개 키 입력"
+
+#: library/plugin-settings.php:1498
+msgid "Private Key"
+msgstr "개인 키"
+
+#: library/plugin-settings.php:1500
+msgid "Enter your Private Key"
+msgstr "개인 키 입력"
+
+#: library/plugin-settings.php:1503
+msgid "reCaptcha Version"
+msgstr "reCaptcha 버전"
+
+#: library/plugin-settings.php:1506
+msgid "Choose reCaptcha version"
+msgstr "reCaptcha 버전 선택"
+
+#: library/plugin-settings.php:1512
+msgid "Email Alerts"
+msgstr "이메일 알림"
+
+#: library/plugin-settings.php:1517
+msgid "Receive Email Alert"
+msgstr "이메일 알림 받기"
+
+#: library/plugin-settings.php:1519
+msgid "Check this box if you want to be notified via email for new post submissions"
+msgstr "새 게시물 제출에 대해 이메일로 알림을 받으려면이 상자를 선택하십시오."
+
+#: library/plugin-settings.php:1522
+msgid "Enable HTML Format"
+msgstr "HTML 형식 활성화"
+
+#: library/plugin-settings.php:1524
+msgid "Check this box to enable HTML format for email alerts"
+msgstr "이메일 알림에 HTML 형식을 사용하려면이 상자를 선택하십시오."
+
+#: library/plugin-settings.php:1527
+msgid "Email Address for Alerts"
+msgstr "경고를위한 이메일 주소"
+
+#: library/plugin-settings.php:1529
+msgid "If you checked the box to receive email alerts, indicate here the address(es) to which the emails should be sent."
+msgstr "이메일 알림 수신 확인란을 선택한 경우 여기에 이메일을받을 주소를 표시하십시오."
+
+#: library/plugin-settings.php:1530
+msgid "Separate multiple addresses with commas."
+msgstr "여러 주소는 쉼표로 구분하십시오."
+
+#: library/plugin-settings.php:1533
+msgid "Email &ldquo;From&rdquo; Address"
+msgstr "이메일 & ldquo; 보낸 사람 & rdquo; 주소"
+
+#: library/plugin-settings.php:1535
+msgid "Here you may customize the address(es) used for the &ldquo;From&rdquo; header (see plugin FAQs for info). "
+msgstr "여기에서 & ldquo; 보낸 사람 & rdquo;에 사용되는 주소를 맞춤 설정할 수 있습니다. 헤더 (자세한 내용은 플러그인 FAQ 참조). "
+
+#: library/plugin-settings.php:1536
+msgid "If multiple addresses are specified in the previous setting, include an equal number of &ldquo;From&rdquo; addresses for this setting (in the same order)."
+msgstr "이전 설정에서 여러 주소를 지정한 경우 동일한 수의 & ldquo; From & rdquo; 이 설정에 대한 주소 (동일한 순서)."
+
+#: library/plugin-settings.php:1539
+msgid "Email Alert Subject"
+msgstr "이메일 경고 제목"
+
+#: library/plugin-settings.php:1541
+msgid "Subject line for email alerts. Leave blank to use the default subject line. Note: you can use the following variables: "
+msgstr "이메일 알림의 제목 줄입니다. 기본 제목을 사용하려면 비워 둡니다. 참고 : 다음 변수를 사용할 수 있습니다. "
+
+#: library/plugin-settings.php:1546
+msgid "Email Alert Message"
+msgstr "이메일 경고 메시지"
+
+#: library/plugin-settings.php:1548
+msgid "Message for email alerts. Leave blank to use the default message. Note: you can use the following variables: "
+msgstr "이메일 알림 메시지. 기본 메시지를 사용하려면 비워 둡니다. 참고 : 다음 변수를 사용할 수 있습니다. "
+
+#: library/plugin-settings.php:1560
+msgid "Featured Image"
+msgstr "나타난 그림"
+
+#: library/plugin-settings.php:1562
+msgid "Set submitted images as Featured Images. Requires theme support for Featured Images (aka Post Thumbnails)"
+msgstr "제출 된 이미지를 추천 이미지로 설정합니다. 추천 이미지에 대한 테마 지원 필요 (일명 포스트 썸네일)"
+
+#: library/plugin-settings.php:1565
+msgid "Upload Message"
+msgstr "메시지 업로드"
+
+#: library/plugin-settings.php:1567
+msgid "Message that appears next to the upload field. Useful for stating your upload guidelines/policy/etc. Basic markup allowed."
+msgstr "업로드 필드 옆에 표시되는 메시지입니다. 업로드 지침 / 정책 등을 설명하는 데 유용합니다. 기본 마크 업이 허용됩니다."
+
+#: library/plugin-settings.php:1570
+msgid "&ldquo;Add another image&rdquo; link"
+msgstr "& ldquo; 다른 이미지 추가 & rdquo; 링크"
+
+#: library/plugin-settings.php:1572
+msgid "Custom markup for the &ldquo;Add another image&rdquo; link. Leave blank to use the default markup (recommended)."
+msgstr "& ldquo; 다른 이미지 추가 & rdquo;에 대한 맞춤 마크 업 링크. 기본 마크 업을 사용하려면 비워 둡니다 (권장)."
+
+#: library/plugin-settings.php:1575
+msgid "Minimum number of images"
+msgstr "최소 이미지 수"
+
+#: library/plugin-settings.php:1578
+msgid "Specify the minimum number of images"
+msgstr "최소 이미지 수 지정"
+
+#: library/plugin-settings.php:1582
+msgid "Maximum number of images"
+msgstr "최대 이미지 수"
+
+#: library/plugin-settings.php:1585
+msgid "Specify the maximum number of images"
+msgstr "최대 이미지 수 지정"
+
+#: library/plugin-settings.php:1589
+msgid "Minimum image width"
+msgstr "최소 이미지 너비"
+
+#: library/plugin-settings.php:1591
+msgid "Specify a minimum width (in pixels) for uploaded images"
+msgstr "업로드 된 이미지의 최소 너비 (픽셀) 지정"
+
+#: library/plugin-settings.php:1594
+msgid "Minimum image height"
+msgstr "최소 이미지 높이"
+
+#: library/plugin-settings.php:1596
+msgid "Specify a minimum height (in pixels) for uploaded images"
+msgstr "업로드 된 이미지의 최소 높이 (픽셀) 지정"
+
+#: library/plugin-settings.php:1599
+msgid "Maximum image width"
+msgstr "최대 이미지 너비"
+
+#: library/plugin-settings.php:1601
+msgid "Specify a maximum width (in pixels) for uploaded images"
+msgstr "업로드 된 이미지의 최대 너비 (픽셀) 지정"
+
+#: library/plugin-settings.php:1604
+msgid "Maximum image height"
+msgstr "최대 이미지 높이"
+
+#: library/plugin-settings.php:1606
+msgid "Specify a maximum height (in pixels) for uploaded images"
+msgstr "업로드 된 이미지의 최대 높이 (픽셀)를 지정하세요."
+
+#: library/plugin-settings.php:1609
+msgid "More Options"
+msgstr "더 많은 옵션"
+
+#: library/plugin-settings.php:1612
+msgid "For more options, like the ability to upload other file types (like PDF, Word, Zip, videos, and more), check out"
+msgstr "다른 파일 형식 (예 : PDF, Word, Zip, 동영상 등)을 업로드하는 기능과 같은 더 많은 옵션은 다음을 확인하세요."
+
+#: library/plugin-settings.php:1613
+msgid "Go Pro!"
+msgstr "프로로!"
+
+#: library/plugin-settings.php:1620
+msgid "Auto-Display Content"
+msgstr "콘텐츠 자동 표시"
+
+#: library/plugin-settings.php:1625
+msgid "Auto-Display Images"
+msgstr "자동 표시 이미지"
+
+#: library/plugin-settings.php:1627
+msgid "Automatically display user-submitted images:"
+msgstr "사용자 제출 이미지 자동 표시 :"
+
+#: library/plugin-settings.php:1632
+msgid "Image Markup"
+msgstr "이미지 마크 업"
+
+#: library/plugin-settings.php:1634
+msgid "Markup to use for each submitted image (when auto-display is enabled). Can use"
+msgstr "제출 된 각 이미지에 사용할 마크 업 (자동 표시가 활성화 된 경우). 사용할 수 있습니다"
+
+#: library/plugin-settings.php:1636 library/plugin-settings.php:1649
+#: library/plugin-settings.php:1675 library/plugin-settings.php:1688
+msgid "and"
+msgstr "과"
+
+#: library/plugin-settings.php:1639
+msgid "Auto-Display Email"
+msgstr "자동 표시 이메일"
+
+#: library/plugin-settings.php:1641
+msgid "Automatically display user-submitted email:"
+msgstr "사용자가 제출 한 이메일 자동 표시 :"
+
+#: library/plugin-settings.php:1646
+msgid "Email Markup"
+msgstr "이메일 마크 업"
+
+#: library/plugin-settings.php:1648
+msgid "Markup to use for the submitted email address (when auto-display is enabled). Can use"
+msgstr "제출 된 이메일 주소에 사용할 마크 업 (자동 표시가 활성화 된 경우). 사용할 수 있습니다"
+
+#: library/plugin-settings.php:1652
+msgid "Auto-Display Name"
+msgstr "자동 표시 이름"
+
+#: library/plugin-settings.php:1654
+msgid "Automatically display user-submitted author/name:"
+msgstr "사용자가 제출 한 저자 / 이름을 자동으로 표시 :"
+
+#: library/plugin-settings.php:1659
+msgid "Name Markup"
+msgstr "이름 마크 업"
+
+#: library/plugin-settings.php:1661
+msgid "Markup to use for the submitted author/name (when auto-display is enabled). Can use"
+msgstr "제출 된 작성자 / 이름에 사용할 마크 업 (자동 표시가 활성화 된 경우). 사용할 수 있습니다"
+
+#: library/plugin-settings.php:1665
+msgid "Auto-Display URL"
+msgstr "자동 표시 URL"
+
+#: library/plugin-settings.php:1667
+msgid "Automatically display user-submitted URL:"
+msgstr "사용자 제출 URL 자동 표시 :"
+
+#: library/plugin-settings.php:1672
+msgid "URL Markup"
+msgstr "URL 마크 업"
+
+#: library/plugin-settings.php:1674
+msgid "Markup to use for the submitted URL (when auto-display is enabled). Can use"
+msgstr "제출 된 URL에 사용할 마크 업 (자동 표시가 활성화 된 경우). 사용할 수 있습니다"
+
+#: library/plugin-settings.php:1678
+msgid "Auto-Display Custom Field"
+msgstr "자동 표시 사용자 정의 필드"
+
+#: library/plugin-settings.php:1680
+msgid "Automatically display user-submitted Custom Field:"
+msgstr "사용자가 제출 한 사용자 정의 필드 자동 표시 :"
+
+#: library/plugin-settings.php:1685
+msgid "Custom Field Markup"
+msgstr "사용자 정의 필드 마크 업"
+
+#: library/plugin-settings.php:1687
+msgid "Markup to use for the submitted Custom Field (when auto-display is enabled). Can use"
+msgstr "제출 된 사용자 정의 필드에 사용할 마크 업 (자동 표시가 활성화 된 경우). 사용할 수 있습니다"
+
+#: library/plugin-settings.php:1693 library/plugin-settings.php:1805
+msgid "Save Settings"
+msgstr "설정 저장"
+
+#: library/plugin-settings.php:1698
+msgid "Display the Form"
+msgstr "양식 표시"
+
+#: library/plugin-settings.php:1701
+msgid "Post-Submit Form"
+msgstr "제출 후 양식"
+
+#: library/plugin-settings.php:1702
+msgid "USP enables you to display a post-submission form anywhere on your site."
+msgstr "USP를 사용하면 사이트 어디에서나 제출 후 양식을 표시 할 수 있습니다."
+
+#: library/plugin-settings.php:1703 library/plugin-settings.php:1712
+msgid "Use the shortcode to display the form on any WP Post or Page:"
+msgstr "단축 코드를 사용하여 WP 게시물 또는 페이지에 양식을 표시하십시오."
+
+#: library/plugin-settings.php:1706 library/plugin-settings.php:1715
+msgid "Or, use the template tag to display the form anywhere in your theme template:"
+msgstr "또는 템플릿 태그를 사용하여 테마 템플릿의 아무 곳에 나 양식을 표시합니다."
+
+#: library/plugin-settings.php:1710
+msgid "Login/Register Form"
+msgstr "로그인 / 등록 양식"
+
+#: library/plugin-settings.php:1711
+msgid "You also can display a form that enables users to log in, register, or reset their password."
+msgstr "또한 사용자가 로그인, 등록 또는 비밀번호 재설정을 할 수있는 양식을 표시 할 수 있습니다."
+
+#: library/plugin-settings.php:1719
+msgid "Display Submitted Posts"
+msgstr "제출 된 게시물 표시"
+
+#: library/plugin-settings.php:1720
+msgid "Use this shortcode to display a list of submitted posts on any WP Post or Page:"
+msgstr "이 단축 코드를 사용하여 WP 게시물 또는 페이지에 제출 된 게시물 목록을 표시합니다."
+
+#: library/plugin-settings.php:1723
+msgid "Or, use the template tag to display a list of submitted posts anywhere in your theme template:"
+msgstr "또는 템플릿 태그를 사용하여 테마 템플릿 어디에서나 제출 된 게시물 목록을 표시합니다."
+
+#: library/plugin-settings.php:1726
+msgid "Here are some examples showing how to configure this shortcode:"
+msgstr "다음은이 단축 코드를 구성하는 방법을 보여주는 몇 가지 예입니다."
+
+#: library/plugin-settings.php:1734
+msgid "Display Image Gallery"
+msgstr "이미지 갤러리 표시"
+
+#: library/plugin-settings.php:1735
+msgid "Use this shortcode to display a gallery of uploaded images for each submitted post:"
+msgstr "이 단축 코드를 사용하여 제출 된 각 게시물에 대해 업로드 된 이미지 갤러리를 표시하십시오."
+
+#: library/plugin-settings.php:1738
+msgid "Or, use the template tag to display an image gallery anywhere in your theme template:"
+msgstr "또는 템플릿 태그를 사용하여 테마 템플릿의 모든 위치에 이미지 갤러리를 표시합니다."
+
+#: library/plugin-settings.php:1741
+msgid "You can customize using any of the follwing attributes:"
+msgstr "다음 속성을 사용하여 사용자 정의 할 수 있습니다."
+
+#: library/plugin-settings.php:1756
+msgid "Reset Form Button"
+msgstr "양식 버튼 재설정"
+
+#: library/plugin-settings.php:1757
+msgid "This shortcode displays a link that resets the form to its original state:"
+msgstr "이 단축 코드는 양식을 원래 상태로 재설정하는 링크를 표시합니다."
+
+#: library/plugin-settings.php:1760
+msgid "This shortcode accepts the following attributes:"
+msgstr "이 단축 코드는 다음 속성을 허용합니다."
+
+#: library/plugin-settings.php:1766
+msgid "Note that the url attribute accepts"
+msgstr "url 속성은"
+
+#: library/plugin-settings.php:1766
+msgid "to get the current URL."
+msgstr "현재 URL을 가져옵니다."
+
+#: library/plugin-settings.php:1769
+msgid "Access Control"
+msgstr "액세스 제어"
+
+#: library/plugin-settings.php:1770
+msgid "USP provides three shortcodes to control access and restrict content."
+msgstr "USP는 액세스를 제어하고 콘텐츠를 제한하는 세 가지 단축 코드를 제공합니다."
+
+#: library/plugin-settings.php:1771
+msgid "Display content only to users with a specific capability:"
+msgstr "특정 기능을 가진 사용자에게만 콘텐츠 표시 :"
+
+#: library/plugin-settings.php:1774
+msgid "Display content to logged-in users:"
+msgstr "로그인 한 사용자에게 콘텐츠 표시 :"
+
+#: library/plugin-settings.php:1777
+msgid "Display content to visitors only:"
+msgstr "방문자에게만 콘텐츠 표시 :"
+
+#: library/plugin-settings.php:1780
+msgid "Tip:"
+msgstr "팁:"
+
+#: library/plugin-settings.php:1780
+msgid "to include markup in the deny message, you can use"
+msgstr "거부 메시지에 마크 업을 포함하려면 다음을 사용할 수 있습니다."
+
+#: library/plugin-settings.php:1780
+msgid "to output"
+msgstr "출력하다"
+
+#: library/plugin-settings.php:1783
+msgid "Example"
+msgstr "예"
+
+#: library/plugin-settings.php:1784
+msgid "If the user is logged in, display the post-submit form; or if the user is not logged in, display the login form:"
+msgstr "사용자가 로그인 한 경우 제출 후 양식을 표시합니다. 또는 사용자가 로그인하지 않은 경우 로그인 양식을 표시합니다."
+
+#: library/plugin-settings.php:1796
+msgid "Restore Defaults"
+msgstr "기본값으로 복원"
+
+#: library/plugin-settings.php:1799
+msgid "Leave this option disabled to remember your settings. Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
+msgstr "설정을 기억하려면이 옵션을 비활성화 된 상태로 둡니다. 또는 계속 진행하여 기본 플러그인 옵션을 복원하려면 확인란을 선택하고 설정을 저장 한 다음 플러그인을 비활성화 / 재 활성화합니다."
+
+#: library/plugin-settings.php:1803
+msgid "Restore default options upon plugin deactivation/reactivation"
+msgstr "플러그인 비활성화 / 재 활성화시 기본 옵션 복원"
+
+#: library/plugin-settings.php:1810
+msgid "Show Support"
+msgstr "지원 표시"
+
+#: library/plugin-settings.php:1819
+msgid "by"
+msgstr "으로"
+
+#: library/plugin-settings.php:1820
+msgid "Jeff Starr on Twitter"
+msgstr "트위터의 Jeff Starr"
+
+#: library/plugin-settings.php:1821
+msgid "Obsessive Web Design &amp; Development"
+msgstr "강박적인 웹 디자인 & amp; 개발"
+
+#: library/plugin-settings.php:1832
+msgid "Save Preference"
+msgstr "환경 설정 저장"
+
+#: library/plugin-settings.php:1839
+msgid "Are you sure you want to restore all default options? (this action cannot be undone)"
+msgstr "모든 기본 옵션을 복원 하시겠습니까? (이 작업은 취소 할 수 없습니다.)"
+
+#: library/support-panel.php:55
+msgid "Perishable Press Books"
+msgstr "부패하기 쉬운 언론 도서"
+
+#: library/support-panel.php:56
+msgid "Plugin Planet"
+msgstr "플러그인 플래닛"
+
+#: library/support-panel.php:57
+msgid "Donate via PayPal"
+msgstr "PayPal을 통해 기부"
+
+#: library/support-panel.php:59
+msgid "books"
+msgstr "서적"
+
+#: library/support-panel.php:60
+msgid "plugins"
+msgstr "플러그인"
+
+#: library/support-panel.php:61
+msgid "donation"
+msgstr "기부"
+
+#: library/support-panel.php:63
+msgid "Thank you for using"
+msgstr "사용해 주셔서 감사합니다"
+
+#: library/support-panel.php:64
+msgid "Please show support by purchasing one of my"
+msgstr "내 중 하나를 구입하여 지원을 보여주세요"
+
+#: library/support-panel.php:65
+msgid "or"
+msgstr "또는"
+
+#: library/support-panel.php:65
+msgid "or by making a"
+msgstr "또는"
+
+#: library/support-panel.php:66
+msgid "Your generous support helps future development of"
+msgstr "귀하의 아낌없는 지원은 미래의"
+
+#: library/support-panel.php:67
+msgid "and is greatly appreciated."
+msgstr "그리고 대단히 감사합니다."
+
+#: library/support-panel.php:69
+msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
+msgstr "어떤 규모의 기부도이 무료 플러그인 및 기타 멋진 WordPress 리소스를 계속 개발하는 데 도움이됩니다."
+
+#. Description of the plugin
+#: 
+msgid "Enables your visitors to submit posts and images from anywhere on your site."
+msgstr "방문자가 사이트 어디에서나 게시물과 이미지를 제출할 수 있습니다."
+
+#. URI of the plugin
+#: 
+msgid "https://perishablepress.com/user-submitted-posts/"
+msgstr "https://perishablepress.com/user-submitted-posts/"
+
+#. Author of the plugin
+#: 
+msgid "Jeff Starr"
+msgstr "제프 스타"
+
+#. Author URI of the plugin
+#: 
+msgid "https://plugin-planet.com/"
+msgstr "https://plugin-planet.com/"
+

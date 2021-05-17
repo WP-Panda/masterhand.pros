@@ -1,0 +1,128 @@
+html.mailster-embeded-form, html.mailster-embeded-form body,.mailster-form-body{
+	cursor: default;
+	height: 100%;
+	min-height: 100%;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+}
+html.mailster-embeded-form body{
+	font-size: 15px;
+	font-family: 'Helvetica Neue',Arial,sans-serif;
+}
+a {
+	color: #2BB3E7;
+	transition-property: border, background, color;
+	transition-duration: .05s;
+	transition-timing-function: ease-in-out;
+}
+.mailster-form-body{
+	background: rgba(0,0,0,.35);
+	background: -webkit-radial-gradient(50% 50%,rgba(0,0,0,.2),rgba(0,0,0,.5) 100%);
+	background: radial-gradient(50% 50%,rgba(0,0,0,.2),rgba(0,0,0,.5) 100%);
+	transition: opacity .15s ease-in-out;
+	opacity: 0;
+}
+html.mailster-embeded-form body:before, html.mailster-embeded-form body:after{
+	display: none;
+}
+.mailster-form-wrap{
+	max-width: 95%;
+	position: absolute;
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+	max-height: 100%;
+	overflow: auto;
+	padding: 1px 3px 5px;
+	-webkit-overflow-scrolling: touch;
+}
+html.mailster-embeded-form.unload .mailster-form-wrap{
+	overflow: hidden;
+}
+.mailster-form-inner{
+	transition: all .15s ease-in-out;
+	-webkit-transform: scale(0.8) rotate(0.0001deg);
+	-moz-transform: scale(0.8) rotate(0.0001deg);
+	-ms-transform: scale(0.8) rotate(0.0001deg);
+	transform: scale(0.8) rotate(0.0001deg);
+	opacity: 0;
+	padding: 19px 23px;
+	background: #fdfdfd;
+	max-height: 90%;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	border: 1px solid #999;
+	border-radius: 2px;
+}
+html.mailster-embeded-form.loaded .mailster-form-body{
+	opacity: 1;
+}
+html.mailster-embeded-form.unload .mailster-form-body {
+	opacity: 0;
+}
+html.mailster-embeded-form.loaded .mailster-form-inner{
+	-webkit-transform: scale(1) rotate(0.0001deg);
+	-moz-transform: scale(1) rotate(0.0001deg);
+	-ms-transform: scale(1) rotate(0.0001deg);
+	transform: scale(1) rotate(0.0001deg);
+	opacity: 1;
+}
+html.mailster-embeded-form.unload .mailster-form-inner{
+	box-shadow: 0 0px 0px rgba(0,0,0,0.26);
+	-webkit-transform: translateY(10%);
+	-moz-transform: translateY(10%);
+	-ms-transform: translateY(10%);
+	transform: translateY(10%);
+	opacity: 0;
+}
+
+/* subscriber button from specific style */
+.mailster-form .mailster-wrapper{
+	margin-top: 0.5278em;
+}
+.mailster-form ul{
+	margin-top: 0;
+}
+.mailster-form ul li{
+	line-height: 1.5;
+}
+.mailster-form .mailster-form-info{
+	font-size: 16px;
+	line-height: 1.5;
+}
+.mailster-form .input, .mailster-form .submit-button{
+	outline: 0;
+	background-color: #f9f9f9;
+	border-radius: 0;
+	border: 1px solid #dfdfdf;
+	font-size: 16px;
+	line-height: 1.5;
+	margin: 0;
+	max-width: 100%;
+	padding: 0.5278em;
+	vertical-align: baseline;
+	-webkit-appearance: none;
+	transition: all 0.3s;
+}
+.mailster-form .input:focus{
+	border-color: #aaa;
+	background-color: #fefefe;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+.mailster-form .submit-button{
+	cursor: pointer;
+	width: 100%;
+	font-weight: 700;
+	color: #fff;
+	background-color: #2BB3E7;
+	padding: 0.8125em 1.625em;
+	border: 0;
+	text-transform: uppercase;
+}
+.mailster-form .submit-button:hover {
+	opacity: 0.8;
+}
+.mailster-form .submit-button:active {
+	opacity: 1;
+}

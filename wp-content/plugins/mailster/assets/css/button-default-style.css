@@ -1,0 +1,50 @@
+.btn-widget.design-default .btn{
+	border-radius: 2px;
+	border: 1px solid #28b4e9;
+	background-color: #28b4e9;
+	padding: 1px 5px;
+	color: #fff;
+}
+.btn-widget.design-default.count .btn{
+	padding-right: 9px;
+}
+.btn-widget.design-default.ontop.count .btn{
+	padding-right: 5px;
+}
+.btn-widget.design-default:hover .btn, .btn-widget.design-default:hover .btn-count{
+	border-color: #999;
+}
+.btn-widget.design-default:focus, .btn-widget.design-default:hover, .btn-widget.design-default:active {
+	box-shadow: 0 1px 0 rgba(0,0,0,.08);
+}
+.btn-widget.design-default .btn-count{
+	margin-left: -3px;
+	z-index: 3;
+	border: 1px solid #ccc;
+	border-width: 1px 1px 1px 0;
+	border-radius: 0;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
+	-moz-border-radius-topright: 2px;
+	-moz-border-radius-bottomright: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	padding: 1px 5px;
+}
+.btn-widget.design-default.ontop .btn-count{
+	border-radius: 2px;
+	border-width: 1px;
+	-moz-transform: translate(-46%, 0);
+	-webkit-transform: translate(-46%, 0);
+	transform: translate(-46%, 0);
+}
+.btn-widget.design-default .btn-count i {
+	border-width: 0;
+}
+.btn-widget.design-default.ontop .btn-count i, .btn-widget.design-default.ontop .btn-count u {
+	border-width: 0;
+}
+.btn-widget.design-default .btn:before{
+	opacity: 1;
+	color: #fff;
+}

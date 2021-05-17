@@ -1,0 +1,161 @@
+@font-face {
+	font-family: 'mailster-subscribe-button';
+		src: url('../font/mailster-subscribe-button.eot?v1');
+		src: url('../font/mailster-subscribe-button.eot?v1#iefix') format('embedded-opentype'),
+		url('../font/mailster-subscribe-button.woff?v1') format('woff'),
+		url('../font/mailster-subscribe-button.ttf?v1') format('truetype'),
+		url('../font/mailster-subscribe-button.svg?v1#fontello') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+html.mailster-embeded-form, .mailster-embeded-form body{
+	margin: 0 !important;
+	padding: 0 !important;
+	min-width: 500px;
+	min-height: 50px;
+	display: block;
+	direction: ltr;
+}
+.btn-widget{
+	margin: 0 !important;
+	padding: 0 !important;
+	font: normal normal normal 11px/18px 'Helvetica Neue',Arial,sans-serif;
+	color: #555;
+	-webkit-user-select: none;
+	position: relative;
+}
+.mailster-form-wrap{
+	overflow: hidden;
+}
+.mailster-form-inner{
+	float: left;
+}
+.btn-widget .btn{
+	margin: 0 !important;
+	position: relative;
+	cursor: pointer;
+	z-index: 2;
+	display: inline-block;
+	max-width: 200px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: bottom;
+}
+.btn-widget .btn:empty{
+	padding: 0 4px 0 4px;
+}
+.btn-widget .btn:empty:before{
+	margin-right: 0;
+}
+.btn-widget.init{
+	opacity: 0.5;
+	filter: alpha(50);
+}
+.btn-widget.init .btn{
+	cursor: progress !important;
+}
+.btn-widget.ontop .btn{
+	display: block;
+}
+.btn-widget.ontop .btn-count{
+	margin-bottom: 4px;
+	display: block;
+	float: none;
+	min-height: 36px;
+	width: 60px;
+	left: 50%;
+	-moz-transform: translate(-58%, 0);
+	-webkit-transform: translate(-58%, 0);
+	transform: translate(-58%, 0);
+}
+.btn-widget.ontop .btn-count u, .btn-widget.ontop .btn-count i{
+	position: absolute;
+	zoom: 1;
+	width: 0;
+	height: 0;
+	border-right-color: #aaa;
+	border-left: 0;
+	line-height: 0;
+	top: auto;
+	left: 50%;
+	bottom: 0;
+	right: auto;
+	margin: 0 0 -3px -3px;
+	border: 3px transparent solid;
+	border-top-color: #aaa;
+	border-bottom: 0;
+}
+.btn-widget.ontop .btn-count u{
+	margin-bottom: -2px;
+	border-top-color: #fff;
+}
+.btn-widget.ontop .btn-count a{
+	font-size: 16px;
+	line-height: 34px;
+}
+.btn-widget .btn-count{
+	position: relative;
+	background: #fff;
+	border: #bbb solid 1px;
+	border-radius: 3px;
+	min-height: 18px;
+	min-width: 15px;
+	text-align: center;
+	display: inline-block;
+	margin-left: 5px;
+	z-index: 1;
+	float: right;
+}
+.btn-widget .btn-count i, .btn-widget .btn-count u{
+	position: absolute;
+	zoom: 1;
+	line-height: 0;
+	width: 0;
+	height: 0;
+	left: 0;
+	top: 50%;
+	margin: -4px 0 0 -4px;
+	border: 4px transparent solid;
+	border-right-color: #aaa;
+	border-left: 0;
+	border-width: 4px 4px 4px 0;
+}
+.btn-widget .btn-count u{
+	border-right-color: #fff;
+	margin-left: -3px;
+}
+.btn-widget a{
+	color: #333;
+}
+.btn-widget .btn-count a{
+	padding: 0 3px;
+}
+.btn-widget .btn:before {
+	font-family: 'mailster-subscribe-button';
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .4em;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1em;
+	font-size: 120%;
+	text-shadow: inset 1px 1px 1px rgba(127, 127, 127, 0.3);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transition: all .1s ease-in-out;
+	color: #555;
+	content: '\e800';
+	opacity: .8;
+}
+.btn-widget .btn:hover:before{
+	color: #28b4e9;
+}
+.btn-widget .btn:focus {
+	outline: 0;
+}

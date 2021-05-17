@@ -1,0 +1,187 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FrE Stripe Escrow\n"
+"Report-Msgid-Bugs-To: http://www.enginethemes.com/\n"
+"POT-Creation-Date: 2017-07-14 10:08+0700\n"
+"PO-Revision-Date: 2017-07-14 10:08+0700\n"
+"Last-Translator: dakachi <david87dang@gmail.com>\n"
+"Language-Team: Engine Themes <contact@enginethemes.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-KeywordsList: _e;__;_n\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ae_stripe_escrow.php:71
+msgid "The Credit card number is invalid."
+msgstr ""
+
+#: ae_stripe_escrow.php:72
+msgid "The name on card is invalid."
+msgstr ""
+
+#: ae_stripe_escrow.php:73
+msgid "The transaction completed successful!."
+msgstr ""
+
+#: ae_stripe_escrow.php:74
+msgid "The transaction was not completed successful!."
+msgstr ""
+
+#: ae_stripe_escrow.php:77
+msgid "Are you sure you want to disconnect your Stripe account?"
+msgstr ""
+
+#: ae_stripe_escrow.php:116
+msgid "Please connect with Stripe to bid a project."
+msgstr ""
+
+#: settings.php:10
+msgid "Stripe API"
+msgstr ""
+
+#: settings.php:21
+msgid "use stripe escrow"
+msgstr ""
+
+#: settings.php:30
+msgid "Your Stripe client secret key"
+msgstr ""
+
+#: settings.php:38
+msgid "Your Stripe client public key"
+msgstr ""
+
+#: settings.php:46
+msgid "Your Stripe client id"
+msgstr ""
+
+#: stripe.php:113
+msgid "Your Stripe account has been disconnected!"
+msgstr ""
+
+#: stripe.php:166
+msgid "Connect with Stripe"
+msgstr ""
+
+#: stripe.php:168
+msgid "Reconnect with Stripe"
+msgstr ""
+
+#: stripe.php:175
+msgid "or"
+msgstr ""
+
+#: stripe.php:177
+msgid "Disconnect with Stripe"
+msgstr ""
+
+#: stripe.php:217 stripe.php:238
+msgid "Update failed!"
+msgstr ""
+
+#: stripe.php:243
+msgid "You updated successfully!"
+msgstr ""
+
+#: stripe.php:385
+msgid ""
+"Please go to your profile to set your stripe account before accepting a "
+"project."
+msgstr ""
+
+#: stripe.php:392
+msgid "Has something wrong with the stripe account of freelancer."
+msgstr ""
+
+#: stripe.php:441
+msgid "charge failed"
+msgstr ""
+
+#: stripe.php:480
+msgid "Has something wrong"
+msgstr ""
+
+#: stripe.php:576 stripe.php:661
+msgid "Freelance escrow"
+msgstr ""
+
+#: stripe.php:592
+msgid "The payment has been successfully transferred ."
+msgstr ""
+
+#: stripe.php:614
+msgid "Invalid key."
+msgstr ""
+
+#: stripe.php:748
+msgid "Payment failed!"
+msgstr ""
+
+#: stripe.php:822 stripe.php:907
+msgid "Send payment successful."
+msgstr ""
+
+#: stripe.php:823
+msgid "Success"
+msgstr ""
+
+#: stripe.php:828
+msgid "Refund failed!"
+msgstr ""
+
+#: stripe.php:915
+msgid "Invalid charge."
+msgstr ""
+
+#: template.php:14
+msgid "Stripe's email"
+msgstr ""
+
+#: template.php:20
+msgid "Name on card"
+msgstr ""
+
+#: template.php:28
+msgid "Card number"
+msgstr ""
+
+#: template.php:34
+msgid "Expiry date"
+msgstr ""
+
+#: template.php:48
+msgid "Card code"
+msgstr ""
+
+#: template.php:69
+msgid "Change Stripe account"
+msgstr ""
+
+#: template.php:72
+msgid "Update Stripe information"
+msgstr ""
+
+#: template.php:95
+msgid "Update Stripe Acount"
+msgstr ""
+
+#: template.php:102
+msgid "Update"
+msgstr ""
+
+#: template.php:151
+msgid "Your Stripe Account"
+msgstr ""
+
+#: template.php:152
+msgid "Enter your Stripe email"
+msgstr ""
+
+#: template.php:170
+msgid "Your account has been successfully connected to Stripe!"
+msgstr ""

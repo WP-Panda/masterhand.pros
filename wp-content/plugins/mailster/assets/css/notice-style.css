@@ -1,0 +1,95 @@
+.rtl div.mailster-notice{
+	padding: 0.7em 19px 0.9em 0;
+}
+.wrap div.mailster-notice, .branch-3-8 div.mailster-notice, .branch-3-9 div.mailster-notice, .branch-4 div.mailster-notice, .branch-4-1 div.mailster-notice, .branch-4-2 div.mailster-notice, .branch-4-3 div.mailster-notice{
+	display: block;
+}
+div.mailster-notice{
+	word-wrap: break-word;
+	position: relative;
+	padding: 0.7em 0 0.9em 19px;
+	clear: both;
+	max-height: 280px;
+	overflow: auto;
+}
+div.mailster-notice h2{
+	margin: 0.5em 0 0;
+	font-size: 1.6em;
+	font-weight: 400;
+	line-height: 1.2;
+}
+div.mailster-notice h3{
+	margin: 17px 0 0;
+	font-size: 1.2em;
+	line-height: 1.4;
+}
+div.mailster-notice > p{
+	font-size: 1.2em;
+	color: #72777c;
+}
+div.mailster-notice > hr{
+	margin: 20px -23px 0 -23px;
+	border-top: 1px solid #f3f4f5;
+	border-bottom: none;
+}
+div.mailster-notice.mailster-notice-dismissable > hr{
+	margin-right: -100px;
+}
+.rtl div.mailster-notice.mailster-notice-dismissable > hr{
+	margin-right: -23px;
+	margin-left: -100px;
+}
+div.mailster-notice.mailster-notice-dismissable{
+	padding-right: 100px;
+}
+.rtl div.mailster-notice.mailster-notice-dismissable{
+	padding-right: 19px;
+	padding-left: 100px;
+}
+div.mailster-notice pre{
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+div.mailster-notice .notice-dismiss {
+	position: absolute;
+	top: 0;
+	right: 1px;
+	border: none;
+	margin: 0;
+	padding: 9px 14px 9px 0;
+	color: #b4b9be;
+	color: #0073aa;
+	cursor: pointer;
+	display: none;
+	text-decoration: none;
+}
+div.mailster-notice .notice-dismiss:hover {
+	color: #00a0d2;
+}
+.rtl div.mailster-notice .notice-dismiss {
+	padding: 9px 0 9px 14px;
+	right: auto;
+	left: 1px;
+}
+.js div.mailster-notice .notice-dismiss {
+	display: block;
+}
+div.mailster-notice .notice-dismiss:before {
+	display: inline-block;
+	vertical-align: sub;
+	margin-right: 1px;
+	margin-left: 1px;
+	float: left;
+}
+.branch-3-8 div.mailster-notice .notice-dismiss:before,
+.branch-3-9 div.mailster-notice .notice-dismiss:before,
+.branch-4 div.mailster-notice .notice-dismiss:before,
+.branch-4-1 div.mailster-notice .notice-dismiss:before
+{
+	content: '✕';
+	margin-right: 3px;
+	margin-left: 3px;
+}
+div.mailster-notice#mailster-notice-info-screen{
+	border-width:0;
+}

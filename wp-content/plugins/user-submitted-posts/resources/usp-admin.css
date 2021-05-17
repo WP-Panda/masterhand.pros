@@ -1,0 +1,91 @@
+/* User Submitted Posts > CSS > Plugin Settings */
+
+/* Support Panel */
+.dismiss-alert { margin: 15px; }
+.dismiss-alert-wrap { display: inline-block; padding: 7px 0 10px 0; }
+.dismiss-alert .description { display: inline-block; margin: -2px 15px 0 0; }
+
+/* Overview Panel */
+.mm-panel-overview { padding: 0 0 0 200px; background-image: url(../images/usp-logo.jpg); background-repeat: no-repeat; background-position: 15px 0; background-size: 180px 130px; }
+.mm-overview-intro { margin: 0 15px; padding: 0 15px 10px 0; }
+
+.mm-left-div  { float: left; margin: 0 0 15px 0; }
+#mm-plugin-options .mm-left-div ul { margin-bottom: 30px; }
+
+.mm-right-div { float: left; margin: 0 15px 15px 15px; }
+.mm-pro-blurb {
+	display: block; position: relative; width: 100px; height: 100px; line-height: 100px; text-decoration: none; text-align: center; text-indent: -9999em;
+	color: #fff; background-image: url(../images/usp-pro.png); background-repeat: no-repeat; background-position: center center; background-size: 100px 100px;
+	border: none; -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; 
+	}
+	.mm-pro-blurb:hover  { text-decoration: none; }
+	.mm-pro-blurb:active { text-decoration: none; top: 1px; }
+
+@media (max-width: 700px) {
+	.mm-panel-overview { padding: 0; background-image: none; }
+	.mm-left-div, .mm-right-div { float: none; width: 100%; }
+	.mm-pro-blurb { margin: 0 auto; }
+}
+
+/* General Styles */
+#mm-plugin-options h1 small { line-height: 12px; font-size: 12px; color: #bbb; }
+#mm-plugin-options h2 { margin: 0; padding: 12px 0 12px 15px; font-size: 16px; cursor: pointer; }
+#mm-plugin-options h3 { margin: 20px 15px; font-size: 14px; }
+#mm-plugin-options p { margin-left: 15px; }
+#mm-plugin-options ul { margin: 15px 15px 15px 40px; }
+#mm-plugin-options li { margin: 10px 0; list-style-type: disc; }
+#mm-plugin-options abbr[title] { cursor: help !important; border-bottom: 1px dotted #dfdfdf !important; text-decoration: none !important; }
+#mm-plugin-options pre { width: 90%; overflow: auto; margin: 15px; padding: 15px; font: 14px/18px Consolas,Monaco,monospace; color: #333; background-color: #fafae0; }
+
+/* Table Styles */
+.mm-table-wrap { margin: 15px; }
+.mm-table-wrap table { padding: 10px 0; }
+.mm-table-wrap td, 
+.mm-table-wrap th { padding: 15px; vertical-align: middle; }
+.mm-table-wrap th { width: 25%; }
+.mm-table-less-padding table { padding: 10px 0; }
+.mm-table-less-padding th, 
+.mm-table-less-padding td { padding: 5px 15px; }
+
+/* Custom Form Info */
+#mm-plugin-options .usp-custom-form-info { padding: 0 0 0 30px; }
+#mm-plugin-options .usp-custom-form-info code { font-size: 12px; }
+#mm-plugin-options .usp-custom-form-info p { margin: 0; padding: 10px 0; font-size: 12px; }
+#mm-plugin-options .usp-custom-form-info ul { margin: 0 0 0 30px; padding: 0; font-size: 12px; }
+#mm-plugin-options .usp-custom-form-info li { margin: 3px 0; list-style-type: disc; }
+
+/* Form Controls */
+.mm-table-wrap input[type=text] { width: 80%; font-size: 13px; }
+.mm-table-wrap input[type=checkbox], .wp-admin p input[type=checkbox] { margin-top: -3px; }
+.mm-table-wrap textarea { width: 90%; font-size: 13px; }
+.mm-table-wrap .input-short[type=text],
+.mm-table-wrap .small-text[type=number] { width: 100px; }
+.mm-radio-inputs, .mm-checkbox-inputs { margin: 7px 0; }
+
+/* Code & Captions */
+.mm-item-desc { font-size: 14px; color: #777; }
+span.mm-item-desc { display: block; margin: 0 0 15px 0; }
+.mm-item-caption { margin: 3px 0 0 3px; font-size: 12px; color: #777; }
+.mm-table-wrap textarea + .mm-item-caption { margin: 0 0 0 3px; }
+.mm-table-wrap input[type=checkbox] + .mm-item-caption { margin: 0; }
+.mm-inline-block { display: inline-block; vertical-align: middle; }
+.mm-item-caption code { font-size: 11px; }
+.mm-code { padding: 5px; background-color: #fafae0; color: #333; font-size: 14px; }
+
+/* Misc. Styles */
+#mm-panel-toggle { margin: 5px 0; }
+#mm-credit-info { margin: -10px 0 10px 5px; font-size: 12px; }
+#mm-plugin-options #setting-error-settings_updated { margin: 5px 0 15px 0; }
+#mm-plugin-options #setting-error-settings_updated p { margin: 7px 0 6px 0; }
+#mm-plugin-options .button-primary { margin: 0 0 15px 15px; }
+
+/* Category Menu */
+#mm-plugin-options p.usp-category-options-desc { margin: 10px 0 20px 0; }
+#mm-plugin-options ul.usp-category-options { list-style: none; margin: 20px; padding: 0; }
+#mm-plugin-options ul.usp-category-options ul { margin: 5px 0 5px 30px; list-style: none; } 
+#mm-plugin-options ul.usp-category-options li { margin: 5px 0; list-style: none; }
+
+/* Clearfix */
+.clear:before,
+.clear:after { content: ''; display: table; }
+.clear:after { clear: both; }

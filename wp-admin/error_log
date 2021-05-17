@@ -1,0 +1,2048 @@
+[11-Feb-2021 14:25:45 UTC] PHP Warning:  require_once(/home/masterha/public_html/wp-admin/admin.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 14:25:45 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/masterha/public_html/wp-admin/admin.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 14:26:13 UTC] PHP Warning:  require_once(/home/masterha/public_html/wp-admin/admin.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 14:26:13 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/masterha/public_html/wp-admin/admin.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 14:26:15 UTC] PHP Warning:  require_once(/home/masterha/public_html/wp-admin/admin.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 14:26:15 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/masterha/public_html/wp-admin/admin.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/masterha/public_html/wp-admin/index.php on line 10
+[11-Feb-2021 17:25:24 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 846
+[11-Feb-2021 17:25:24 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:25:39 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 846
+[11-Feb-2021 17:25:39 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:25:52 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 846
+[11-Feb-2021 17:25:52 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:25:54 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 846
+[11-Feb-2021 17:25:54 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:26:09 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 846
+[11-Feb-2021 17:26:09 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:30:05 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/payouts/PayPal/class-masterha-paypal-payout.php on line 64
+[14-Feb-2021 04:29:11 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:29:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,119,3293,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:29:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:29:40 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%locksmith%' OR
+					`post`.`post_content` LIKE = '%locksmith%'
+				 NOT...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%locksmith%' OR
+					`post`.`post_content` LIKE = '%locksmith%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:37:17 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,119,3293,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:37:18 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:37:20 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				 NOT IN (1458,5272,4...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				 NOT IN (1458,5272,4943,1098,2318,3451) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:17 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:17 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:38 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Pet%' OR
+					`post`.`post_content` LIKE = '%Pet%'
+				 NOT IN (3745)' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Pet%' OR
+					`post`.`post_content` LIKE = '%Pet%'
+				 NOT IN (3745) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:38:38 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%P%' OR
+					`post`.`post_content` LIKE = '%P%'
+				 NOT IN (33,1098,494...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%P%' OR
+					`post`.`post_content` LIKE = '%P%'
+				 NOT IN (33,1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,2034,119,5321,5327,3293,6920,6925,6009,2997,5377,2223,3745,10226,7370,7317,7725,1100,5605,6084,5873,5893,5892,9020) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:45:16 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%pe%' OR
+					`post`.`post_content` LIKE = '%pe%'
+				 NOT IN (119,3745,...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%pe%' OR
+					`post`.`post_content` LIKE = '%pe%'
+				 NOT IN (119,3745,10226) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:45:16 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745)' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:45:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%pets%' OR
+					`post`.`post_content` LIKE = '%pets%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%pets%' OR
+					`post`.`post_content` LIKE = '%pets%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:45:39 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Aut%' OR
+					`post`.`post_content` LIKE = '%Aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Aut%' OR
+					`post`.`post_content` LIKE = '%Aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,5605) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:45:39 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:47:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745)' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:47:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%p%' OR
+					`post`.`post_content` LIKE = '%p%'
+				 NOT IN (33,1098,494...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%p%' OR
+					`post`.`post_content` LIKE = '%p%'
+				 NOT IN (33,1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,2034,119,5321,5327,3293,6920,6925,6009,2997,5377,2223,3745,10226,7370,7317,7725,1100,5605,6084,5873,5893,5892,9020) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:47:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745)' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%pet%' OR
+					`post`.`post_content` LIKE = '%pet%'
+				 NOT IN (3745) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:47:20 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%re%' OR
+					`post`.`post_content` LIKE = '%re%'
+				 NOT IN (33,1098,4...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%re%' OR
+					`post`.`post_content` LIKE = '%re%'
+				 NOT IN (33,1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,2034,5321,5323,5325,6920,6925,6009,2997,5377,2223,5605) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:48:27 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%qu%' OR
+					`post`.`post_content` LIKE = '%qu%'
+				 NOT IN (1458,5272...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%qu%' OR
+					`post`.`post_content` LIKE = '%qu%'
+				 NOT IN (1458,5272,4943,1098,2318,3451) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:48:27 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%queen%' OR
+					`post`.`post_content` LIKE = '%queen%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%queen%' OR
+					`post`.`post_content` LIKE = '%queen%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:48:30 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:49:44 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,119,3293,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:49:44 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 04:49:46 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 05:19:53 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Фгещ%' OR
+					`post`.`post_content` LIKE = '%Фгещ%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Фгещ%' OR
+					`post`.`post_content` LIKE = '%Фгещ%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 05:20:01 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 05:21:08 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND  NOT IN (5377) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 05:21:08 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND  NOT IN (5377) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 05:21:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 07:45:21 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:45:21 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:45:26 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:45:26 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:47:21 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:47:21 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:47:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 07:47:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3194
+[14-Feb-2021 08:35:23 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function tine() in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:3157
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): pro_paid_func('')
+#1 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#2 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#3 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#4 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#5 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#6 /home/masterha/public_html/wp-admin/admin-ajax.php(22): require_once('/home/masterha/...')
+#7 {main}
+  thrown in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 3157
+[14-Feb-2021 09:09:53 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting ')' in /home/masterha/public_html/wp-content/themes/freelanceengine/includes/escrow/paypal.php on line 425
+[14-Feb-2021 09:09:53 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Feb-2021 15:19:13 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:19:16 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:19:47 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:19:54 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:38:02 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'
+				 made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:38:04 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				 NOT IN (874,748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				 NOT IN (874,748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4130,5610,2241,2266,119,275,5321,5327,3293,1458,5272,1623,4645,6920,6925,6009,2997,5377,13325,2223,5605,6059,6169,6371,6330,1100,5728,6044,6084,3745,5926,6505,5974,10226,7370,7317,7725,5873,5893,5892,6231,9020) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:38:05 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:38:15 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 15:46:46 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:13 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%S%' OR
+					`post`.`post_content` LIKE = '%S%'
+				 NOT IN (874,748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%S%' OR
+					`post`.`post_content` LIKE = '%S%'
+				 NOT IN (874,748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4130,5610,119,275,5321,5327,5323,5325,1097,1458,5272,1623,4645,6920,6925,6009,2997,5377,13325,2223,5605,6059,6169,6371,6330,1100,3745,10226,7370,7317) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sch%' OR
+					`post`.`post_content` LIKE = '%Sch%'
+				 NOT IN (2223,5605)' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sch%' OR
+					`post`.`post_content` LIKE = '%Sch%'
+				 NOT IN (2223,5605) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:17 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Schwart%' OR
+					`post`.`post_content` LIKE = '%Schwart%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Schwart%' OR
+					`post`.`post_content` LIKE = '%Schwart%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:18 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Schwartz%' OR
+					`post`.`post_content` LIKE = '%Schwartz%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Schwartz%' OR
+					`post`.`post_content` LIKE = '%Schwartz%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:19 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Schwartz%' OR
+					`post`.`post_content` LIKE = '%Schwartz%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Schwartz%' OR
+					`post`.`post_content` LIKE = '%Schwartz%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:30 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sylv%' OR
+					`post`.`post_content` LIKE = '%Sylv%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sylv%' OR
+					`post`.`post_content` LIKE = '%Sylv%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:31 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sy%' OR
+					`post`.`post_content` LIKE = '%Sy%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sy%' OR
+					`post`.`post_content` LIKE = '%Sy%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:22:33 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sylvester%' OR
+					`post`.`post_content` LIKE = '%Sylvester%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sylvester%' OR
+					`post`.`post_content` LIKE = '%Sylvester%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:23:19 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Ынд%' OR
+					`post`.`post_content` LIKE = '%Ынд%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Ынд%' OR
+					`post`.`post_content` LIKE = '%Ынд%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:23:20 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Ындму%' OR
+					`post`.`post_content` LIKE = '%Ындму%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Ындму%' OR
+					`post`.`post_content` LIKE = '%Ындму%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:23:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sylv%' OR
+					`post`.`post_content` LIKE = '%Sylv%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sylv%' OR
+					`post`.`post_content` LIKE = '%Sylv%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Feb-2021 22:23:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Sylve%' OR
+					`post`.`post_content` LIKE = '%Sylve%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Sylve%' OR
+					`post`.`post_content` LIKE = '%Sylve%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 02:07:34 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 02:07:46 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:26:16 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:26:17 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:41:58 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:42:00 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:48:15 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:50:00 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:50:29 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:52:29 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:54:06 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:54:35 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:54:51 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:55:42 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:56:03 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:56:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:56:33 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%aut%' OR
+					`post`.`post_content` LIKE = '%aut%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325,5605) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:57:19 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 06:57:25 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 08:06:28 UTC] ERROR PostmanWpMail: Exception code=0 message=Invalid "To" e-mail address "email@email.em"
+[15-Feb-2021 08:15:05 UTC] ERROR PostmanWpMail: Exception code=0 message=Invalid "To" e-mail address "email@email.em"
+[15-Feb-2021 08:24:04 UTC] ERROR PostmanWpMail: Exception code=0 message=Invalid "To" e-mail address "email@email.em"
+[15-Feb-2021 08:57:44 UTC] ERROR PostmanWpMail: Exception code=0 message=Invalid "To" e-mail address "email@email.em"
+[15-Feb-2021 14:18:28 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '4' AND  NOT IN (5624,1458) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:18:30 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '4' AND  NOT IN (5624) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:18:31 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '4' AND  NOT IN (5624) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:18:37 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:18:44 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:18:56 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:19:02 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:19:07 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[15-Feb-2021 14:19:15 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,33,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377,13325) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[25-Feb-2021 03:26:18 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[25-Feb-2021 03:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[09-Mar-2021 18:08:02 UTC] PHP Warning:  A non-numeric value encountered in /home/masterha/public_html/wp-content/plugins/reviews_rating/index.php on line 189
+[11-Mar-2021 14:32:43 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Pro DD PRO%' OR
+					`post`.`post_content` LIKE = '%Pro DD PRO%'
+				`m...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Pro DD PRO%' OR
+					`post`.`post_content` LIKE = '%Pro DD PRO%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '37' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[14-Mar-2021 21:33:14 UTC] WordPress database error Unknown column 'Russia' in 'where clause' for query SELECT `id`, `name` FROM wp_location_countries WHERE id=Russia made by do_action('wp_ajax_ae-fetch-companies'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, AE_Posts->convert, apply_filters('ae_convert_company'), WP_Hook->apply_filters, Fre_CompanyAction->convert_company, getLocation
+[14-Mar-2021 22:01:15 UTC] WordPress database error Unknown column 'Russia' in 'where clause' for query SELECT `id`, `name` FROM wp_location_countries WHERE id=Russia made by do_action('wp_ajax_ae-fetch-companies'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, AE_Posts->convert, apply_filters('ae_convert_company'), WP_Hook->apply_filters, Fre_CompanyAction->convert_company, getLocation
+[26-Mar-2021 14:44:52 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[28-Mar-2021 23:20:52 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[28-Mar-2021 23:23:29 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[29-Mar-2021 17:48:47 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[29-Mar-2021 19:15:48 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masterha/public_html/wp-content/plugins/endorse_skill/classes/EndorseSkill/Skill.php on line 29
+[31-Mar-2021 14:00:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:00:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:00:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'
+				`meta`.`meta_key...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:00:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:00:36 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:00:37 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:13:43 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%a%' OR
+					`post`.`post_content` LIKE = '%a%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%a%' OR
+					`post`.`post_content` LIKE = '%a%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:13:45 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:13:51 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%auto%' OR
+					`post`.`post_content` LIKE = '%auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:00 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:01 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:05 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:19 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:21 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:22 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queens%' OR
+					`post`.`post_content` LIKE = '%Queens%'
+				`meta`.`me...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queens%' OR
+					`post`.`post_content` LIKE = '%Queens%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:27 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queens%' OR
+					`post`.`post_content` LIKE = '%Queens%'
+				`meta`.`me...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queens%' OR
+					`post`.`post_content` LIKE = '%Queens%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:14:53 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:15:21 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:15:21 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 14:15:34 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[31-Mar-2021 17:40:54 UTC] WordPress database error Unknown column 'Russia' in 'where clause' for query SELECT `id`, `name` FROM wp_location_countries WHERE id=Russia made by do_action('wp_ajax_nopriv_ae-fetch-companies'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, AE_Posts->convert, apply_filters('ae_convert_company'), WP_Hook->apply_filters, Fre_CompanyAction->convert_company, getLocation
+[31-Mar-2021 17:41:26 UTC] WordPress database error Unknown column 'Russia' in 'where clause' for query SELECT `id`, `name` FROM wp_location_countries WHERE id=Russia made by do_action('wp_ajax_nopriv_ae-fetch-companies'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, AE_Posts->convert, apply_filters('ae_convert_company'), WP_Hook->apply_filters, Fre_CompanyAction->convert_company, getLocation
+[31-Mar-2021 17:41:26 UTC] WordPress database error Unknown column 'Russia' in 'where clause' for query SELECT `id`, `name` FROM wp_location_countries WHERE id=Russia made by do_action('wp_ajax_nopriv_ae-fetch-companies'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, AE_Posts->convert, apply_filters('ae_convert_company'), WP_Hook->apply_filters, Fre_CompanyAction->convert_company, getLocation
+[01-Apr-2021 19:39:43 UTC] PHP Warning:  strtolower() expects parameter 1 to be string, array given in /home/masterha/public_html/wp-includes/formatting.php on line 2151
+[02-Apr-2021 17:57:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 17:57:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 17:58:27 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 17:58:29 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 17:58:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 17:59:38 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7679
+[02-Apr-2021 18:00:00 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7679
+[02-Apr-2021 18:00:05 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7679
+[02-Apr-2021 18:00:26 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7679
+[02-Apr-2021 18:00:29 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7679
+[02-Apr-2021 18:00:46 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7680
+[02-Apr-2021 18:01:22 UTC] PHP Fatal error:  Cannot redeclare ae_stripe_require_plugin_file() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_stripe/ae_stripe.php:20) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7680
+[02-Apr-2021 18:01:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 18:01:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 18:02:28 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 18:02:29 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 18:02:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function add_node() on array in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php:7677
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): export_unsubscribe_users(Array)
+#1 /home/masterha/public_html/wp-includes/plugin.php(206): WP_Hook->apply_filters(Array, Array)
+#2 /home/masterha/public_html/wp-content/themes/freelanceengine/includes/admin.php(3556): apply_filters('ae_admin_menu_p...', Array)
+#3 /home/masterha/public_html/wp-includes/class-wp-hook.php(287): ET_Admin->admin_setup('')
+#4 /home/masterha/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#5 /home/masterha/public_html/wp-includes/plugin.php(478): WP_Hook->do_action(Array)
+#6 /home/masterha/public_html/wp-settings.php(540): do_action('init')
+#7 /home/masterha/public_html/wp-config.php(108): require_once('/home/masterha/...')
+#8 /home/masterha/public_html/wp-load.php(37): require_once('/home/masterha/...')
+#9 /home/masterha/publi in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7677
+[02-Apr-2021 18:05:09 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:32) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:06 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:06 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:06 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:06 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:14 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:19 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:19 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:20 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:20 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:27 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 18:06:29 UTC] PHP Fatal error:  Cannot redeclare export_unsubscribe_users() (previously declared in /home/masterha/public_html/wp-content/plugins/fre_fields/ae_fields.php:33) in /home/masterha/public_html/wp-content/themes/freelanceengine/functions.php on line 7669
+[02-Apr-2021 20:30:30 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4943) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:30:31 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:30:56 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				`meta`.`meta_key` ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4645) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:30:57 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4645) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:30:59 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4645) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:47:11 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%фгещ%' OR
+					`post`.`post_content` LIKE = '%фгещ%'
+				`meta`...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%фгещ%' OR
+					`post`.`post_content` LIKE = '%фгещ%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:47:12 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = ...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4943,4645,6009,9020) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:47:14 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '222' AND  NOT IN (4943,4645,6009) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:27 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Фге%' OR
+					`post`.`post_content` LIKE = '%Фге%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Фге%' OR
+					`post`.`post_content` LIKE = '%Фге%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:27 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Ф%' OR
+					`post`.`post_content` LIKE = '%Ф%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:28 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Фгещ%' OR
+					`post`.`post_content` LIKE = '%Фгещ%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Фгещ%' OR
+					`post`.`post_content` LIKE = '%Фгещ%'
+				 made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:30 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				 NOT IN (874,748,157...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				 NOT IN (874,748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4130,5610,2241,2266,119,275,5321,5327,3293,1458,5272,4645,6920,6925,6009,2997,5377,2223,5605,6059,6169,6371,6330,1100,5728,6044,6084,3745,33,14072,5926,6505,5974,10226,7370,7317,13453,7725,5873,5893,5892,14083,6231,9020) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:32 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:49:43 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:50:07 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%repair%' OR
+					`post`.`post_content` LIKE = '%repair%'
+				 NOT IN (1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%repair%' OR
+					`post`.`post_content` LIKE = '%repair%'
+				 NOT IN (1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,6920,6925,6009,2997,5377,2223) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-Apr-2021 20:50:15 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%repair%' OR
+					`post`.`post_content` LIKE = '%repair%'
+				 NOT IN (1...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%repair%' OR
+					`post`.`post_content` LIKE = '%repair%'
+				 NOT IN (1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,6920,6925,6009,2997,5377,2223) made by do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[03-Apr-2021 16:00:37 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%еу%' OR
+					`post`.`post_content` LIKE = '%еу%'' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%еу%' OR
+					`post`.`post_content` LIKE = '%еу%'
+				 made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[03-Apr-2021 16:00:46 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%te%' OR
+					`post`.`post_content` LIKE = '%te%'
+				 NOT IN (3951,119,...' at line 5 for query 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%te%' OR
+					`post`.`post_content` LIKE = '%te%'
+				 NOT IN (3951,119,6920,5377,3745,5605,14083) made by do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[27-Apr-2021 11:11:27 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 11:44:01 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 12:29:37 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 13:54:03 UTC] PHP Warning:  A non-numeric value encountered in /home/masterha/public_html/wp-content/plugins/reviews_rating/index.php on line 189
+[27-Apr-2021 13:54:05 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 13:54:11 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 13:54:18 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 13:54:23 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 14:03:03 UTC] PHP Warning:  A non-numeric value encountered in /home/masterha/public_html/wp-content/plugins/reviews_rating/index.php on line 424
+[27-Apr-2021 14:03:04 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[27-Apr-2021 14:35:43 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[28-Apr-2021 07:59:44 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[28-Apr-2021 22:07:00 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[28-Apr-2021 22:07:06 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[28-Apr-2021 23:55:52 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[29-Apr-2021 06:36:42 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[29-Apr-2021 06:45:01 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[29-Apr-2021 07:22:12 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[29-Apr-2021 14:27:29 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[29-Apr-2021 23:57:50 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[30-Apr-2021 15:09:21 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[30-Apr-2021 16:43:09 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:14 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '18' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:15 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '18' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:23 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:23 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:27 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:45 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				`meta`.`meta_key` ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lo%' OR
+					`post`.`post_content` LIKE = '%Lo%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '18' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:47 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lov%' OR
+					`post`.`post_content` LIKE = '%Lov%'
+				`meta`.`meta_key...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lov%' OR
+					`post`.`post_content` LIKE = '%Lov%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '18' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:48 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '18' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:43:53 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:44:05 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:44:06 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%L%' OR
+					`post`.`post_content` LIKE = '%L%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%L%' OR
+					`post`.`post_content` LIKE = '%L%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:44:24 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:45:26 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:45:57 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:46:37 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:48:42 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:48:57 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock555%' OR
+					`post`.`post_content` LIKE = '%Lock555%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock555%' OR
+					`post`.`post_content` LIKE = '%Lock555%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:48:58 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock555%' OR
+					`post`.`post_content` LIKE = '%Lock555%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock555%' OR
+					`post`.`post_content` LIKE = '%Lock555%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:50:38 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:50:38 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:50:39 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:51:53 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Aut%' OR
+					`post`.`post_content` LIKE = '%Aut%'
+				`meta`.`meta_key...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Aut%' OR
+					`post`.`post_content` LIKE = '%Aut%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:51:54 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Au%' OR
+					`post`.`post_content` LIKE = '%Au%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:51:54 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:28 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%дщ%' OR
+					`post`.`post_content` LIKE = '%дщ%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%дщ%' OR
+					`post`.`post_content` LIKE = '%дщ%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:28 UTC] База данных WordPress возвратила ошибку Not unique table/alias: 'wp_term_relationships' в ответ на запрос SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID FROM wp_posts  LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id ) LEFT JOIN wp_pro_paid_users ON wp_posts.post_author = wp_pro_paid_users.user_id AND wp_pro_paid_users.status_id in(2, 3) INNER JOIN wp_users ON (wp_posts.post_author = wp_users.ID) INNER JOIN wp_usermeta ON (wp_posts.post_author = wp_usermeta.user_id) LEFT JOIN wp_skill ON (wp_posts.post_author = wp_skill.user_id) LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)  WHERE 1=1 and (( 
+  wp_term_relationships.term_taxonomy_id IN (9958,9959,9960,9961,9962,9963,9964,9975,9976,9977)
+) AND (((wp_posts.post_title LIKE '%дщ%') OR (wp_posts.post_excerpt LIKE '%дщ%') OR (wp_posts.post_content LIKE '%дщ%')) OR wp_skill.title LIKE '%дщ%' OR wp_users.display_name = '%дщ%' OR (wp_usermeta.meta_key = 'first_name' AND wp_usermeta.meta_value LIKE '%дщ%') OR (wp_usermeta.meta_key = 'last_name' AND wp_usermeta.meta_value LIKE '%дщ%'))  AND ( 
+  wp_postmeta.meta_key = 'hour_rate'
+) AND wp_posts.post_type = 'fre_profile' AND ((wp_posts.post_status = 'publish'))) or (wp_posts.post_type = 'company' AND wp_posts.post_status = 'publish'  and (wp_postmeta.meta_key = 'cat' AND CAST(wp_postmeta.meta_value AS SIGNED) = '9958')  and ( (mt1.meta_key in ('adress','phone','site') and mt1.meta_value LIKE '%дщ%') or (wp_posts.post_title LIKE '%дщ%') )  )  GROUP BY wp_posts.ID ORDER BY wp_posts.post_type DESC,  wp_pro_paid_users.status_id DESC, wp_posts.post_date DESC LIMIT 0, 10, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, WP_Query->__construct, WP_Query->query, WP_Query->get_posts
+[30-Apr-2021 16:54:28 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%дщсл%' OR
+					`post`.`post_content` LIKE = '%дщсл%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%дщсл%' OR
+					`post`.`post_content` LIKE = '%дщсл%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:28 UTC] База данных WordPress возвратила ошибку Not unique table/alias: 'wp_term_relationships' в ответ на запрос SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID FROM wp_posts  LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id ) LEFT JOIN wp_pro_paid_users ON wp_posts.post_author = wp_pro_paid_users.user_id AND wp_pro_paid_users.status_id in(2, 3) INNER JOIN wp_users ON (wp_posts.post_author = wp_users.ID) INNER JOIN wp_usermeta ON (wp_posts.post_author = wp_usermeta.user_id) LEFT JOIN wp_skill ON (wp_posts.post_author = wp_skill.user_id) LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)  WHERE 1=1 and (( 
+  wp_term_relationships.term_taxonomy_id IN (9958,9959,9960,9961,9962,9963,9964,9975,9976,9977)
+) AND (((wp_posts.post_title LIKE '%дщсл%') OR (wp_posts.post_excerpt LIKE '%дщсл%') OR (wp_posts.post_content LIKE '%дщсл%')) OR wp_skill.title LIKE '%дщсл%' OR wp_users.display_name = '%дщсл%' OR (wp_usermeta.meta_key = 'first_name' AND wp_usermeta.meta_value LIKE '%дщсл%') OR (wp_usermeta.meta_key = 'last_name' AND wp_usermeta.meta_value LIKE '%дщсл%'))  AND ( 
+  wp_postmeta.meta_key = 'hour_rate'
+) AND wp_posts.post_type = 'fre_profile' AND ((wp_posts.post_status = 'publish'))) or (wp_posts.post_type = 'company' AND wp_posts.post_status = 'publish'  and (wp_postmeta.meta_key = 'cat' AND CAST(wp_postmeta.meta_value AS SIGNED) = '9958')  and ( (mt1.meta_key in ('adress','phone','site') and mt1.meta_value LIKE '%дщсл%') or (wp_posts.post_title LIKE '%дщсл%') )  )  GROUP BY wp_posts.ID ORDER BY wp_posts.post_type DESC,  wp_pro_paid_users.status_id DESC, wp_posts.post_date DESC LIMIT 0, 10, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post, AE_Posts->fetch, WP_Query->__construct, WP_Query->query, WP_Query->get_posts
+[30-Apr-2021 16:54:34 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%lo%' OR
+					`post`.`post_content` LIKE = '%lo%'
+				 NOT IN (748,1571,...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%lo%' OR
+					`post`.`post_content` LIKE = '%lo%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,119,3293,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:37 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%lock%' OR
+					`post`.`post_content` LIKE = '%lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%lock%' OR
+					`post`.`post_content` LIKE = '%lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:51 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:54:57 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:05 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%re%' OR
+					`post`.`post_content` LIKE = '%re%'
+				 NOT IN (1098,4943...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%re%' OR
+					`post`.`post_content` LIKE = '%re%'
+				 NOT IN (1098,4943,2318,2320,2589,2701,3451,3386,4102,5183,4132,5612,3951,5624,2034,5321,5323,5325,6920,6925,6009,2997,5377,2223,5605), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:06 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%repe%' OR
+					`post`.`post_content` LIKE = '%repe%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%repe%' OR
+					`post`.`post_content` LIKE = '%repe%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:08 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%repea%' OR
+					`post`.`post_content` LIKE = '%repea%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%repea%' OR
+					`post`.`post_content` LIKE = '%repea%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:10 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%repear%' OR
+					`post`.`post_content` LIKE = '%repear%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%repear%' OR
+					`post`.`post_content` LIKE = '%repear%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:14 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Auto%' OR
+					`post`.`post_content` LIKE = '%Auto%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,1098,4943,2318,2320,2589,3451,3386,4102,5183,4132,5612,3951,4645,6920,6925,6009,2997,5377), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:22 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%q%' OR
+					`post`.`post_content` LIKE = '%q%'
+				 NOT IN (1458,5272,4...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%q%' OR
+					`post`.`post_content` LIKE = '%q%'
+				 NOT IN (1458,5272,4943,1098,2318,3451), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:23 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%qu%' OR
+					`post`.`post_content` LIKE = '%qu%'
+				 NOT IN (1458,5272...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%qu%' OR
+					`post`.`post_content` LIKE = '%qu%'
+				 NOT IN (1458,5272,4943,1098,2318,3451), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:28 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%qui%' OR
+					`post`.`post_content` LIKE = '%qui%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%qui%' OR
+					`post`.`post_content` LIKE = '%qui%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:30 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%qui%' OR
+					`post`.`post_content` LIKE = '%qui%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%qui%' OR
+					`post`.`post_content` LIKE = '%qui%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:31 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%quiv%' OR
+					`post`.`post_content` LIKE = '%quiv%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%quiv%' OR
+					`post`.`post_content` LIKE = '%quiv%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:32 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%quin%' OR
+					`post`.`post_content` LIKE = '%quin%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%quin%' OR
+					`post`.`post_content` LIKE = '%quin%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:55:40 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%queen%' OR
+					`post`.`post_content` LIKE = '%queen%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%queen%' OR
+					`post`.`post_content` LIKE = '%queen%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:33 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Qeen%' OR
+					`post`.`post_content` LIKE = '%Qeen%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Qeen%' OR
+					`post`.`post_content` LIKE = '%Qeen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:33 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Qee%' OR
+					`post`.`post_content` LIKE = '%Qee%'
+				`meta`.`meta_key...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Qee%' OR
+					`post`.`post_content` LIKE = '%Qee%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:34 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Q%' OR
+					`post`.`post_content` LIKE = '%Q%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:38 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				`meta`.`meta_k...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Quee%' OR
+					`post`.`post_content` LIKE = '%Quee%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:38 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '12' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:57:54 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:31 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%L%' OR
+					`post`.`post_content` LIKE = '%L%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%L%' OR
+					`post`.`post_content` LIKE = '%L%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:32 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:32 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Loc%' OR
+					`post`.`post_content` LIKE = '%Loc%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:32 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locks%' OR
+					`post`.`post_content` LIKE = '%Locks%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:33 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locksm%' OR
+					`post`.`post_content` LIKE = '%Locksm%'
+				`meta`.`me...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locksm%' OR
+					`post`.`post_content` LIKE = '%Locksm%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 16:58:34 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Locksmith%' OR
+					`post`.`post_content` LIKE = '%Locksmith%'
+				`met...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Locksmith%' OR
+					`post`.`post_content` LIKE = '%Locksmith%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 17:21:08 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%r%' OR
+					`post`.`post_content` LIKE = '%r%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%r%' OR
+					`post`.`post_content` LIKE = '%r%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 17:21:14 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = ...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%A%' OR
+					`post`.`post_content` LIKE = '%A%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 17:21:16 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Armen%' OR
+					`post`.`post_content` LIKE = '%Armen%'
+				`meta`.`meta...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Armen%' OR
+					`post`.`post_content` LIKE = '%Armen%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 17:21:16 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Armeni%' OR
+					`post`.`post_content` LIKE = '%Armeni%'
+				`meta`.`me...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Armeni%' OR
+					`post`.`post_content` LIKE = '%Armeni%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 17:21:18 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Armenia%' OR
+					`post`.`post_content` LIKE = '%Armenia%'
+				`meta`.`...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Armenia%' OR
+					`post`.`post_content` LIKE = '%Armenia%'
+				`meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '9999999' AND , выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[30-Apr-2021 23:56:51 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[01-May-2021 03:52:40 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_nopriv_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[01-May-2021 03:54:21 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1...' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Lock%' OR
+					`post`.`post_content` LIKE = '%Lock%'
+				 NOT IN (748,1571,1574,1582,2034,2570,2594,2701,5624,5626,4645), выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[01-May-2021 03:54:37 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Que%' OR
+					`post`.`post_content` LIKE = '%Que%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[01-May-2021 03:54:41 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'' at line 5 в ответ на запрос 
+					SELECT DISTINCT `post`.`ID` FROM `wp_posts` as `post`
+					INNER JOIN `wp_postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
+					WHERE `post`.`post_status` = 'publish' AND
+					`post`.`post_type` = 'fre_profile' AND 
+					`post`.`post_title` LIKE = '%Queen%' OR
+					`post`.`post_content` LIKE = '%Queen%'
+				, выполненный do_action('wp_ajax_ae-fetch-profiles'), WP_Hook->do_action, WP_Hook->apply_filters, AE_PostAction->fetch_post
+[02-May-2021 14:39:30 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[03-May-2021 16:16:34 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[05-May-2021 14:29:41 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[06-May-2021 15:15:38 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[08-May-2021 14:27:11 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[09-May-2021 23:58:15 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[11-May-2021 00:00:24 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[11-May-2021 14:26:40 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[12-May-2021 23:57:32 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[14-May-2021 00:00:18 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable
+[14-May-2021 14:31:25 UTC] ERROR PostmanWpMail: Exception code=0 message=Network is unreachable

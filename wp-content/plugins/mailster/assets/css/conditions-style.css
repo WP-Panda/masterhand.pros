@@ -1,0 +1,193 @@
+.mailster-conditions-thickbox{
+	box-sizing: border-box;
+	padding: 20px;
+	position: relative;
+	height: 100%;
+	min-height: 100%;
+}
+.mailster-conditions{
+	height: 100%;
+}
+.mailster-conditions-thickbox .inner{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 56px;
+	overflow: hidden;
+	padding: 10px 20px;
+}
+.mailster-conditions-thickbox .foot{
+	padding: 16px 20px 20px;
+	border-top: 1px solid #DFDFDF;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.mailster-conditions-thickbox .button{
+	float: right;
+	margin-left: 6px;
+}
+.rtl .mailster-conditions-thickbox .button{
+	float: left;
+	margin-left: 0;
+	margin-right: 6px;
+}
+.mailster-conditions-saved{
+	text-align: right;
+}
+.mailster-conditions-saved select{
+	width: 40%;
+}
+.mailster-conditions-wrap .mailster-condition-group{
+	border: 1px solid #DFDFDF;
+	background: #fdfdfd;
+	border-radius: 3px;
+	margin: 8px 0 25px;
+	padding: 0 10px 36px;
+	display: block;
+	position: relative;
+}
+.mailster-conditions-wrap .mailster-condition-group:after, .mailster-conditions-wrap .mailster-condition:after{
+	content: attr(data-operator);
+	position: absolute;
+	left: 30px;
+	padding: 3px 1px;
+	text-transform: uppercase;
+	color: #999;
+	font-size: 16px;
+	line-height: 1em;
+	transform: translateX(-50%);
+	z-index: 1;
+	bottom: -25px;
+}
+.mailster-conditions-wrap .mailster-condition:after{
+	background-color: #fff;
+	font-size: 14px;
+	bottom: -10px;
+	left: 20px;
+}
+.mailster-conditions-wrap .mailster-condition-group:last-child:after, .mailster-conditions-wrap .mailster-condition:last-child:after{
+	display: none;
+}
+.mailster-conditions-wrap .mailster-condition-group:last-child, .mailster-conditions-wrap .mailster-condition:last-child{
+	margin-bottom: 0;
+}
+.mailster-conditions-wrap .mailster-condition, .mailster-conditions-wrap .mailster-condition-empty{
+	border-bottom: 1px dotted #DFDFDF;
+	background-color: #fff;
+	position: relative;
+	padding: 10px 0 10px;
+}
+.mailster-conditions-wrap{
+	margin: 10px 0;
+	height: 83%;
+	overflow: auto;
+}
+.mailster-condition-container{
+	display: none;
+}
+.mailster-conditions-field-fields, .mailster-conditions-operator-fields, .mailster-conditions-value-fields{
+	float: left;
+	max-width: 37%;
+	padding-right: 4px;
+}
+.rtl .mailster-conditions-field-fields,.rtl .mailster-conditions-operator-fields,.rtl .mailster-conditions-value-fields{
+	float: right;
+	padding-right: 0px;
+	padding-left: 4px;
+}
+.mailster-conditions-operator-fields{
+	max-width: 140px;
+}
+.mailster-conditions-value-fields{
+}
+.mailster-conditions-operator-field, .mailster-conditions-value-field{
+	display: none;
+}
+.mailster-conditions-operator-field.active, .mailster-conditions-value-field.active{
+	display: block;
+}
+.mailster-conditions-wrap select, .mailster-conditions-wrap input{
+	max-width: 100%
+}
+.mailster-conditions-wrap .mailster-condition-empty{
+	background-color: none;
+	border: 1px dotted #DFDFDF;
+	text-align: center;
+}
+.mailster-conditions-wrap .remove-condition{
+	float: right;
+	cursor: pointer;
+	visibility: hidden;
+	margin-bottom: 10px;
+	padding: 0 4px;
+}
+.rtl .mailster-conditions-wrap .remove-condition{
+	float: left;
+}
+.mailster-conditions-wrap .mailster-condition:hover .remove-condition{
+	visibility: visible;
+}
+.mailster-conditions-wrap .add-or-condition{
+	position: absolute;
+	bottom: 6px;
+	z-index: 1;
+}
+.mailster-conditions-wrap .add-or-condition span{
+	text-transform: uppercase;
+}
+.mailster-conditions-wrap .datepicker.condition-value{
+	width: 100px;
+}
+.mailster-condition .mailster-conditions-value-field p, .mailster-condition .mailster-conditions-value-field ul{
+	margin: 0;
+}
+.mailster-condition-render span.mailster-condition-type {
+	float: left;
+	padding-right: 4px;
+}
+.rtl .mailster-condition-render span.mailster-condition-type {
+	float: right;
+	padding-right: 0;
+	padding-left: 4px;
+}
+.mailster-condition .mailster-rating span{
+	color: #e6b800;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 3px 0;
+}
+.mailster-condition .mailster-rating span:before{
+	content: '\e82e';
+}
+.mailster-condition .mailster-rating span.enabled:before{
+	content: '\e82d';
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect:first-child{
+	display: inline-block;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect .condition-value{
+	width: 180px;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect a.mailster-condition-add-multiselect, .mailster-conditions-wrap .mailster-conditions-value-field-multiselect:first-child span{
+	visibility: hidden;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect a{
+	cursor: pointer;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect:hover a.mailster-condition-remove-multiselect{
+	visibility: visible;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect a.mailster-condition-remove-multiselect{
+	visibility: hidden;
+}
+
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect:last-child a.mailster-condition-add-multiselect{
+	visibility: visible;
+}
+.mailster-conditions-wrap .mailster-conditions-value-field-multiselect:first-child a.mailster-condition-remove-multiselect{
+	visibility: hidden !important;
+}

@@ -1,0 +1,125 @@
+
+.modal-stripe .modal-dialog{
+    width: 388px;
+}
+.modal-stripe .modal-header{
+    padding: 10px 40px;
+}
+.modal-stripe form{
+    padding-top: 10px;
+}
+.modal-stripe button.close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+}
+.modal-stripe .form-group{
+    width: 100%;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+.modal-stripe .form-group label{
+    margin-bottom: 8px;
+}
+.modal-stripe .form-group input{
+    width: 100%;
+    height: 39px;
+}
+.modal-stripe .modal-body{
+    padding: 10px 25px;
+}
+.modal-stripe .modal-body button.btn{
+    padding: 5px 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+.modal-stripe .form-item-left{
+    width: 50%;
+    float: left;
+}
+.modal-stripe .form-item-right{
+    width: 45%;
+    float: right;
+    padding-left: 12px;
+   
+}
+.modal-stripe .form-item-right label{
+   
+}
+.modal-stripe .form-item-right input{
+    width: 48px;
+    float: right;
+}
+.modal-stripe .form-item-right .controls{    
+    float: left;
+    width: 100%;
+    float: right;
+}
+.modal-stripe .form-item-right span{
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+}
+.modal-stripe .form-item-right input.input-cvc{
+    width: 97%;
+}
+
+.modal-stripe .modal-title{
+    font-weight: bold;
+    font-size: 21px;
+}
+.modal-stripe .modal-body .stripe_date input[type="text"] {
+    width: 60px; 
+    padding: 0 10px;
+}
+.modal-stripe .modal-body input[name="stripe_email"]{
+    min-width: 100%;
+}
+.modal-stripe .modal-body .fld-wrap input[type="text"],
+.modal-stripe .modal-body .name_card input[type="text"]
+{
+    /* width: 160px;  */
+}
+.modal-stripe .modal-body .card-code  input[type="text"]{
+    width: 140px;
+    padding: 0 5px;
+}
+.modal-stripe .modal-body select[name="stripe_type"] {
+    width: 140px;
+    padding: 0 5px;
+}
+@media(max-width:767px){
+    .modal-stripe button.close {
+        top: 15px;
+        right: 15px;
+    }
+    .modal-stripe .form-item-left {
+        width: 45%;
+    }
+    .modal-stripe .form-item-right {
+        width: 50%;
+    }
+    .modal-stripe .modal-dialog {
+        width: 90%;
+    }
+    .modal-stripe .modal-body .stripe_date input[type="text"] {
+        width: 40px;
+        font-size: 12px;
+        padding: 0 5px;
+    }
+    .modal-stripe .modal-body .card-code input[type="text"] {
+        width: 60px;
+        float: left;
+    }
+}
+.fre-btn{
+    background-color: #3783C4;
+    -webkit-box-shadow: 0 2px 0 #2c689c;
+    -moz-box-shadow: 0 2px 0 #2c689c;
+    box-shadow: 0 2px 0 #2c689c;
+}

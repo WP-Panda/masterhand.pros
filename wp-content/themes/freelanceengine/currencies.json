@@ -1,0 +1,14 @@
+{
+  "USA": "USD",
+  "European Union": "EUR",
+  "United Kingdom": "GBP",
+  "Canada": "CAD",
+  "Australia": "AUD",
+  "New Zealand": "NZD",
+  "South Africa": "ZAR",
+  "India": "INR",
+  "Phillipines": "PHP",
+  "Singapore": "SGD",
+  "Hong Kong": "HKD",
+  "Mexico": "MXN"
+}

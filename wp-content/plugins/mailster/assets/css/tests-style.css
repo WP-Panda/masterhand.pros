@@ -1,0 +1,153 @@
+.notice, .error, .update-nag{
+	display: none !important;
+}
+.mailster-test-result{
+	background: #fff;
+	border-left: 4px solid #fff;
+	box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+	margin: 5px 0px;
+	padding: 12px 12px;
+}
+.dark-mode .mailster-test-result{
+	border-color: #191f25;
+	background: #32373c;
+}
+.mailster-test-result h4{
+	margin: 0;
+}
+.tests-toggles label{
+	padding-left: 20px;
+}
+.mailster-test-result h4:before, .tests-toggles label i:before{
+	font-family: 'mailster-icons' !important;
+	padding-right: 10px;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block !important;
+	vertical-align: bottom;
+}
+.tests-toggles label i:before{
+	font-size: 18px;
+	padding: 0 3px 0 3px;
+	vertical-align: middle;
+}
+.mailster-test-result.mailster-test-is-success h4:before, .tests-toggles label.label-success i:before{
+	color: #46b450;
+	content: '\e804';
+}
+.mailster-test-result.mailster-test-is-error h4:before, .tests-toggles label.label-error i:before{
+	color: #dc3232;
+	content: '\e80b';
+}
+.mailster-test-result.mailster-test-is-warning h4:before, .tests-toggles label.label-warning i:before{
+	color: #ffb900;
+	content: '\e812';
+}
+.mailster-test-result.mailster-test-is-notice h4:before, .tests-toggles label.label-notice i:before{
+	color: #00a0d2;
+	content: '\e834';
+}
+
+.mailster-test-result .mailster-test-result-more{
+	padding: 10px 0 8px 30px;
+	font-style: italic;
+}
+.mailster-test-result .mailster-test-result-more:empty{
+	display: none;
+}
+.nav-tab-wrapper{
+	border-bottom: 1px solid #ccc;
+}
+.subtab{
+	padding: 10px 5px;
+}
+#subtab-textoutput, #subtab-systeminfo{
+	display: none;
+}
+.tests-output, .tests-textoutput-wrap{
+	height: 420px;
+	overflow: auto;
+	padding: 5px;
+	box-shadow: inset 0px 0px 3px rgba(0,0,0,0.5);
+	box-sizing: border-box;
+}
+.tests-output .button, .tests-output .button:active{
+	transform: translate(-50%, -50%) !important;
+	top: 50%;
+	left: 50%;
+	position: relative;
+}
+.tests-textoutput-wrap{
+	white-space: pre;
+	font-family: monospace;
+}
+.tests-textoutput-wrap textarea{
+	width: 100%;
+	height: 100%;
+}
+.tests-wrap.no-success .mailster-test-is-success,
+.tests-wrap.no-error .mailster-test-is-error,
+.tests-wrap.no-warning .mailster-test-is-warning,
+.tests-wrap.no-notice .mailster-test-is-notice
+{
+	display: none;
+}
+.progress{
+	width: 100%;
+	height: 40px;
+	background: #fefefe;
+	overflow: hidden;
+	font-size: 10px;
+	position: relative;
+	text-align: right;
+	line-height: 20px;
+	display: none;
+	margin-top: 19px;
+	border-radius: 4px;
+}
+.dark-mode .progress{
+	background: #50626f;
+}
+.progress span.bar{
+	display: block;
+	position: absolute;
+	line-height: 2.6em;
+	padding: 2px 0;
+	white-space: nowrap;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	overflow: visible;
+	transition: width .6s ease-in-out;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.progress span.bar{
+	background: #2BB3E7;
+	background: -webkit-linear-gradient(to right, #084067, #2BB3E7);
+	background: linear-gradient(to right, #084067, #2BB3E7);
+}
+.progress.finished span.bar{
+	background: #c7e9c4;
+	background: -moz-linear-gradient(top, #c7e9c4 0%, #aacca7 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c7e9c4), color-stop(100%,#aacca7));
+	background: -webkit-linear-gradient(top, #c7e9c4 0%,#aacca7 100%);
+	background: -o-linear-gradient(top, #c7e9c4 0%,#aacca7 100%);
+	background: -ms-linear-gradient(top, #c7e9c4 0%,#aacca7 100%);
+	background: linear-gradient(top, #c7e9c4 0%,#aacca7 100%);
+}
+a.clipboard{
+	cursor: pointer;
+	font-size: smaller;
+}
+a.retest{
+	color: #aaa;
+	font-size: 12px;
+	text-decoration: none;
+}
+a.retest:before{content: '\e802';}
+.mailster-test-is-success a.retest{
+	display: none;
+}

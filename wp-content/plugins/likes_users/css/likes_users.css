@@ -1,0 +1,21 @@
+.likes-users{
+    cursor: default;
+    width: 20px;
+    height: 20px;
+    border: #0A246A 2px;
+    background-color: blue;
+    float: left;
+    text-align: center;
+    margin-left: 5px;
+}
+.post > .likes-title{
+    font-size: 25px
+}
+.likes-title{
+    float: left;
+}
+
+.add-like-post, .add-like-comment{
+    cursor: pointer;
+    background-color: white;
+}

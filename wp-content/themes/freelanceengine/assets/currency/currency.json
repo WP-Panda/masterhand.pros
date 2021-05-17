@@ -1,0 +1,56 @@
+{
+  "USA": {
+    "code": "USD",
+    "fa-icon": "fa-usd"
+  },
+  "European Union": {
+    "code": "EUR",
+    "fa-icon": "fa-eur"
+  },
+  "United Kingdom": {
+    "code": "GBP",
+    "fa-icon": "fa-gbp"
+  },
+  "Canada": {
+    "code": "CAD",
+    "fa-icon": "fa-usd"
+  },
+  "Australia": {
+    "code": "AUD",
+    "fa-icon": "fa-usd"
+  },
+  "New Zealand": {
+    "code": "NZD",
+    "fa-icon": "fa-usd"
+  },
+  "South Africa": {
+    "code": "ZAR",
+    "fa-icon": "",
+    "symbol": "R"
+  },
+  "India": {
+    "code": "INR",
+    "fa-icon": "fa-inr"
+  },
+  "Russia": {
+    "code": "RUB",
+    "fa-icon": "fa-ruble"
+  },
+  "Philippines": {
+    "code": "PHP",
+    "fa-icon": "",
+    "symbol": "₱"
+  },
+  "Singapore": {
+    "code": "SGD",
+    "fa-icon": "fa-usd"
+  },
+  "Hong Kong": {
+    "code": "HKD",
+    "fa-icon": "fa-usd"
+  },
+  "Mexico": {
+    "code": "MXN",
+    "fa-icon": "fa-usd"
+  }
+}

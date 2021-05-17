@@ -1,0 +1,1 @@
+body:hover module[condition],body:hover single[condition],body:hover multi[condition]{outline:1px dotted blue}module[condition]{margin-right:1px}

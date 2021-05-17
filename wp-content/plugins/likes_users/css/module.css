@@ -1,0 +1,6 @@
+.col-sort{
+    cursor: pointer;
+}
+.item-is-selected{
+    background-color: #badee6;
+}

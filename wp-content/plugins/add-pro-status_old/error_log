@@ -1,0 +1,39 @@
+[27-Dec-2018 07:59:50 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_blog_prefix() on null in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 11
+[27-Dec-2018 08:02:52 UTC] PHP Warning:  Use of undefined constant ABSPATH - assumed 'ABSPATH' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:52 UTC] PHP Warning:  Use of undefined constant WPINC - assumed 'WPINC' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:52 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:52 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:52 UTC] PHP Fatal error:  require(): Failed opening required 'ABSPATHWPINC/load.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:55 UTC] PHP Warning:  Use of undefined constant ABSPATH - assumed 'ABSPATH' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:55 UTC] PHP Warning:  Use of undefined constant WPINC - assumed 'WPINC' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:55 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:55 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:02:55 UTC] PHP Fatal error:  require(): Failed opening required 'ABSPATHWPINC/load.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 9
+[27-Dec-2018 08:04:08 UTC] PHP Warning:  Use of undefined constant ABSPATH - assumed 'ABSPATH' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:04:08 UTC] PHP Warning:  Use of undefined constant WPINC - assumed 'WPINC' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:04:08 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:04:08 UTC] PHP Warning:  require(ABSPATHWPINC/load.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:04:08 UTC] PHP Fatal error:  require(): Failed opening required 'ABSPATHWPINC/load.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  Use of undefined constant WP_CONTENT_DIR - assumed 'WP_CONTENT_DIR' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-includes/load.php on line 397
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  Use of undefined constant WP_DEBUG - assumed 'WP_DEBUG' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-includes/wp-db.php on line 570
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  Use of undefined constant WP_DEBUG_DISPLAY - assumed 'WP_DEBUG_DISPLAY' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-includes/wp-db.php on line 570
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  Use of undefined constant WP_DEBUG - assumed 'WP_DEBUG' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-includes/wp-db.php on line 1530
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  mysqli_real_connect(): (28000/1045): Access denied for user 'masterha'@'localhost' (using password: NO) in /home/masterha/public_html/wp-includes/wp-db.php on line 1531
+[27-Dec-2018 08:10:04 UTC] PHP Warning:  Use of undefined constant WP_CONTENT_DIR - assumed 'WP_CONTENT_DIR' (this will throw an Error in a future version of PHP) in /home/masterha/public_html/wp-includes/wp-db.php on line 1572
+[27-Dec-2018 08:10:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_die() in /home/masterha/public_html/wp-includes/wp-db.php:3269
+Stack trace:
+#0 /home/masterha/public_html/wp-includes/wp-db.php(1598): wpdb->bail('<h1>Error estab...', 'db_connect_fail')
+#1 /home/masterha/public_html/wp-includes/wp-db.php(592): wpdb->db_connect()
+#2 /home/masterha/public_html/wp-includes/load.php(409): wpdb->__construct('', '', '', '')
+#3 /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php(17): require_wp_db()
+#4 {main}
+  thrown in /home/masterha/public_html/wp-includes/wp-db.php on line 3269
+[27-Dec-2018 08:12:26 UTC] PHP Warning:  require(/home/masterha/public_html/wp-content/plugins/add-pro-status/wp-blog-header.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:12:26 UTC] PHP Warning:  require(/home/masterha/public_html/wp-content/plugins/add-pro-status/wp-blog-header.php): failed to open stream: No such file or directory in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:12:26 UTC] PHP Fatal error:  require(): Failed opening required '/home/masterha/public_html/wp-content/plugins/add-pro-status/wp-blog-header.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 10
+[27-Dec-2018 08:43:10 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 37
+[27-Dec-2018 08:43:15 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 37
+[27-Dec-2018 08:43:17 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/masterha/public_html/wp-content/plugins/add-pro-status/cron_off_status.php on line 37

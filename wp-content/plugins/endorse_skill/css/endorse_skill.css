@@ -1,0 +1,13 @@
+.item-list-skills{
+    cursor: default;
+}
+.item-endorse-skill.mode-endorse{
+    cursor: pointer;
+    border-radius: 5px;
+}
+.item-endorse-skill.endorsed{
+    background-color: #babcec;
+}
+.item-endorse-skill.mode-endorse:hover{
+    background-color: #babcec;
+}

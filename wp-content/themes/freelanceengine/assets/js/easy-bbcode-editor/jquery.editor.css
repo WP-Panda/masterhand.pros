@@ -1,0 +1,146 @@
+/*
+	>> Editor Container
+*/
+
+.bbcodeditor-container {
+	border: 1px solid #ccc;
+	border-radius: 2.5px;
+}
+
+/*
+	>> Editor Head
+*/
+
+.bbcodeditor-container > .bbcodeditor-head {
+	background-color: #f5f5f5;
+	padding: 10px 15px;
+}
+
+
+.bbcodeditor-container > .bbcodeditor-head > .btn-group {
+	margin: 0 10px 0 0;
+}
+
+.bbcodeditor-container > .bbcodeditor-head > .btn-group:last-child {
+	margin: 0;
+}
+
+.bbcodeditor-container > .bbcodeditor-head > .btn-group > .dropdown > .btn {
+	border-radius: 0;
+}
+
+.bbcodeditor-container > .bbcodeditor-head > .btn-group > .dropdown:first-child > .btn {
+	border-top-left-radius: 0.3rem;
+	border-bottom-left-radius: 0.3rem;
+}
+
+.bbcodeditor-container > .bbcodeditor-head > .btn-group > .dropdown:last-child > .btn {
+	border-top-right-radius: 0.3rem;
+	border-bottom-right-radius: 0.3rem;
+}
+
+.btn-toolbar {
+	margin-left: 0;
+}
+
+/*
+	>> Editor Body
+*/
+
+.bbcodeditor-container > .bbcodeditor-body {
+	color: #222;
+	background-color: white;
+}
+
+.bbcodeditor-container > .bbcodeditor-body > .bbcodeditor-body-content,
+.bbcodeditor-container > .bbcodeditor-body > .bbcodeditor-body-content:focus {
+	color: #222;
+	background-color: transparent;
+	display: block;
+	width: 100%;
+	border: 0;
+	outline: 0;
+	padding: 10px 15px;
+}
+
+/*
+	>> Editor Footer
+*/
+
+.bbcodeditor-container > .bbcodeditor-footer {
+	color: #222;
+	background-color: #f5f5f5;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 10px 15px;
+}
+
+.bbcodeditor-container > .bbcodeditor-footer > .box-left {
+	float: left;
+	width: 50%;
+}
+
+.bbcodeditor-container > .bbcodeditor-footer > .box-right {
+	float: left;
+	width: 50%;
+	text-align: right;
+}
+
+.bbcodeditor-container > .bbcodeditor-footer > .box-left > .text,
+.bbcodeditor-container > .bbcodeditor-footer > .box-right > .text {
+	cursor: default;
+}
+
+.bbcodeditor-container > .bbcodeditor-footer > .box-left > .text > a,
+.bbcodeditor-container > .bbcodeditor-footer > .box-right > .text > a,
+.bbcodeditor-container > .bbcodeditor-footer > .box-left > .text > a:focus,
+.bbcodeditor-container > .bbcodeditor-footer > .box-right > .text > a:focus {
+	font-weight: bold;
+	color: #222;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.bbcodeditor-container > .bbcodeditor-footer > .box-left > .text > a:hover,
+.bbcodeditor-container > .bbcodeditor-footer > .box-right > .text > a:hover {
+	text-decoration: underline;
+}
+
+/*
+	>> Modals
+*/
+
+.bbcodeditor-modal-advcode-input {
+	height: 150px!important;
+	width: 100%;
+	resize: none;
+}
+
+/*
+	>> Misc Items
+*/
+
+.bbcodeditor-modal-misc-items {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.bbcodeditor-modal-misc-items > li.bbcodeditor-modal-misc-item {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	padding: 10px 15px;
+	margin: 0 0 10px 0;
+	transition: all 0.3s ease;
+}
+
+.bbcodeditor-modal-misc-items > li.bbcodeditor-modal-misc-item:hover {
+	cursor: pointer;
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.bbcodeditor-modal-misc-items > li.bbcodeditor-modal-misc-item:last-child {
+	border: 0;
+	margin: 0;
+}

@@ -1,0 +1,29 @@
+.mailster-notification-dialog .notification-dialog{
+	width: 800px;
+	margin-left: auto;
+	transform: translate(-50%, -20%);
+}
+.mailster-notification-dialog .notification-dialog .notification-dialog-content{
+	padding: 25px;
+}
+.mailster-notification-dialog .notification-dialog img{
+	max-width: 100%;
+}
+.mailster-notification-dialog .notification-dialog-footer{
+	padding: 15px 25px;
+	background-color: #fbfbfb;
+	border-top: 1px solid #d7d7d7;
+	overflow: hidden;
+}
+.mailster-notification-dialog .notification-dialog-footer a{
+	vertical-align: inherit;
+}
+.mailster-notification-dialog h2.dialog-label{
+	margin: -25px -25px 0;
+	padding: 1em;
+	background-color: #f0f1f1;
+	border-bottom: 1px solid #cdcdcd;
+}
+.mailster-notification-dialog a.button.right{
+	margin-left:3px;
+}

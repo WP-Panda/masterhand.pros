@@ -1,0 +1,98 @@
+.review-blockLoader{
+    display: none;
+    width: 100%;
+    height: 100%;
+    /*position: relative;*/
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: #222;
+    opacity: 0.4
+}
+.review-showLoad {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #a7a7a7;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: reviewcircler 2s linear infinite;
+    animation: circler 2s linear infinite;
+}
+@-webkit-keyframes reviewcircler {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes reviewcircler {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.review-select-vote {
+    display: inline-block;
+    border: 0;
+    letter-spacing: -0.3em;
+    margin: 10px;
+}
+.review-select-vote *{letter-spacing: normal;}
+.review-star-vote{
+    width: 50px;
+    height:50px;
+    background: url("/wp-content/plugins/reviews_rating/img/star-purple.svg") no-repeat;
+}
+.review-vote{
+    opacity: 0;
+    display: none;
+}
+.review-vote:checked + .review-star-vote{
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-purple.svg") no-repeat;
+}
+.review-vote.vote-checked + .review-star-vote{
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-purple.svg") no-repeat;
+}
+.review-star-vote:hover{
+    cursor: pointer;
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-purple.svg") no-repeat;
+}
+.review-star-over{
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-purple.svg") no-repeat;
+}
+.reviews-response-message{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: red;
+}
+
+.review-rating-summary,.reviews-doc-rating-summary{
+    position: relative;
+    width: 100px;
+    height: 18px;
+}
+.review-rating-empty{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-empty.svg") repeat-x;
+    background-size: 20px auto;
+}
+.review-rating-result{
+    position: absolute;
+    height: 100%;
+    background: url("/wp-content/plugins/reviews_rating/img/star-solid-purple.svg") repeat-x;
+    background-size: 20px auto;
+}
+
+.content-review-comment{
+    height: 120px;
+    line-height: normal;
+    padding: 12px 12px;
+}

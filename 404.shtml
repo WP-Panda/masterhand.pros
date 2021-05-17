@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>404 - Page can not be found!</title>
+	<link rel='icon' type='image/x-icon' href='https://whc.ca/favicon.ico'>
+	<link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+
+	body {
+		background: url(https://whc.ca/promo/fr/images/shattered.jpg);
+		font-family: 'Droid Sans',sans-serif;
+		padding:0;
+		margin:0;
+		color:#484747;
+	}
+
+	ul {
+		padding:0;
+	}
+
+	h1 {
+    	font-size: 22px;
+    	margin-top: 0;
+	}
+
+	h2 {
+		font-size: 16px;
+		margin: 0;
+		margin-top: 42px;
+	}
+
+	.parent-container, .parent-container-logo {
+		max-width:1150px;
+		margin:0 auto;
+		padding-top: 20px;
+	}
+
+	.left-container-logo, .right-container-logo {
+		width:50%;
+		box-sizing:border-box;
+		padding-bottom:20px;
+	}
+
+	.left-container, .right-container {
+		width:50%;
+		box-sizing:border-box;
+		display: inline-block;
+		float:left;
+	}
+
+	.resources-box {
+		background-color: #f7f7f7;
+		list-style-type: none;
+		padding: 20px;
+		box-sizing: border-box;
+    	border: 1px solid #F0F0F0;
+	}
+
+	.resources-box li {
+		margin-top:10px;
+	}
+
+	.resources-box li:first-child {
+		margin-top:0;
+	}
+
+	.resources-box li a {
+		color:#484747;
+	}
+
+	.text-container {
+		font-size: 15px;
+		background-color:white;
+		border: 1px solid #E8E8E8;
+		padding:30px;
+		box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.1);
+		box-sizing:border-box;
+	}
+
+	.right-container-logo a, .left-container-logo a {
+		margin-left:20px;
+	}
+
+	.text-inner-wrapper {
+		min-height: 178px;
+	}
+
+	footer {
+		width: 100%;
+    	display: inline-block;
+    	margin-top:40px;
+    	padding-bottom: 40px;
+    	font-size:14px;
+    	padding-left:20px;
+    	box-sizing:border-box;
+	}
+
+	footer ul {
+		max-width:1150px;
+		margin:0 auto;
+		list-style-type: none;
+		width: 350px;
+	}
+
+	footer ul li {
+		display:inline-block;
+		margin-left:10px;
+	}
+
+	footer a {
+		color:#484747;
+	}
+
+	.footer-wrapper {
+		max-width: 1150px;
+   		margin: 0 auto;
+	}
+
+	.back-cta {
+		margin: 0 auto;
+	    max-width: 241px;
+	    padding: 12px;
+	    margin-top: -16px;
+	    border-radius: 3px;
+	    -webkit-border-radius: 3px;
+	    -moz-border-radius: 3px;
+	    cursor: pointer;
+	    font-size: 16px;
+	    font-weight: bold;
+	    display: inline-block;
+		background-color: #26a65b;
+		text-decoration: none;
+	    text-shadow: none;
+	    color: white;   
+	    margin-top:10px;
+	}
+
+	.back-cta:hover {
+	    background-color: #1e824c;
+	    -webkit-transition: all 0.3s ease-out;
+	    -moz-transition: all 0.3s ease-out;
+	    -ms-transition: all 0.3s ease-out;
+	    -o-transition: all 0.3s ease-out;
+	    transition: all 0.3s ease-out;
+	}
+
+	@media only screen and (max-width: 768px){
+		.left-container, .right-container {
+			width:100%;
+		}
+
+		.left-container {
+			margin-bottom:20px;
+		}
+
+		footer {
+			margin-top:20px;
+		}
+
+		.parent-container {
+			padding-top:20px;
+		}
+
+		footer ul {
+			margin:0;
+		}
+
+		footer ul li {
+			display:block;
+			margin-top:10px;
+		}
+
+		footer ul li:first-child {
+			margin-top:0;
+		}
+	}
+	</style>
+</head>
+<body>
+	<div class="parent-container">
+		<div class="left-container">
+			<div class="left-container-logo">
+				<a href="https://whc.ca">
+					<img src="https://whc.ca/wp-content/themes/whc/css-modules/images/logo_en-normal.png?v1" alt="Web Hosting Canada">
+				</a>
+			</div>
+			<div class="text-container">
+				<div class="text-inner-wrapper">
+					<h1>404 - Sorry, the page you are looking for could not be found!</h1>
+					<p>It's possible this page has been moved or never existed to begin with (404 error). Try checking the URL for errors then click your browser's refresh button.</p>
+					<p>If you believe you've discovered an error on this web site, please consider informing the site owner of the problem.</p>
+				</div>
+				<a href="javascript:history.back()" class="back-cta">Back to previous page</a>
+			</div>
+		</div>
+		<div class="right-container">
+			<div class="right-container-logo">
+				<a href="https://whc.ca/fr">
+					<img src="https://whc.ca/wp-content/themes/whc/css-modules/images/logo_fr-normal.png?v1" alt="Hébergement Web Canada">
+				</a>
+			</div>
+			<div class="text-container">
+				<div class="text-inner-wrapper">
+					<h1>404 - Désolé, la page demandée est introuvable!</h1>
+					<p>Il est possible que la page a été déplacée où bien qu'elle n'a jamais existé (erreur 404). Vérifiez l'URL et essayez d'actualiser la page.</p>
+					<p>Si vous pensez avoir découvert un problème sur le site web, veuillez penser	à	en	informer le webmestre.</p>
+				</div>
+				<a href="javascript:history.back()" class="back-cta">Retour à la page précédente</a>
+			</div>
+		</div>
+	</div>
+<footer>
+	<div class="footer-wrapper">
+		<ul>
+			<li>
+				<a href="https://whc.ca" title="Web Hosting Canada">Web Hosting Canada</a>
+			</li>
+			<li>
+				<a href="https://whc.ca/fr" title="Hébergement Web Canada">Hébergement Web Canada</a>
+			</li>
+		</ul>
+	</div>
+</footer>
+</body>
+</html>

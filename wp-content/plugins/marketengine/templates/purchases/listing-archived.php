@@ -1,0 +1,17 @@
+<?php
+/**
+ * The template for displaying a notice when listing has been archived.
+ *
+ * This template can be overridden by copying it to yourtheme/marketengine/purchases/listing-archived.php.
+ *
+ * @package     MarketEngine/Templates
+ * @since 		1.0.1
+ * @version     1.0.0
+ */
+?>
+
+<?php if ( !$listing->is_available() ) : ?>
+	<p class="me-item-archive">
+	    <i class="icon-me-info-circle"></i><?php _e('This listing has been archived.', 'enginethemes'); ?>
+	</p>
+<?php endif; ?>

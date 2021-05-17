@@ -1,0 +1,44 @@
+.tab-pane{
+    margin-right: 20px;
+}
+
+.blockLoader{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: #222;
+    opacity: 0.4
+}
+.showLoad {
+    z-index: 999999999;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #a7a7a7;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: circler 2s linear infinite;
+    animation: circler 2s linear infinite;
+}
+.pagination_referrals li{
+    cursor: pointer;
+}
+
+.pointer {
+    /*background-image: url(https://cloud.mail.ru/public/14qm/9x42f2w6s);*/
+    background-color: red;
+    background-position: 0px 3px;
+    background-size: 19px auto;
+    background-repeat: no-repeat;
+    padding: 8px 0px 8px 27px;
+}

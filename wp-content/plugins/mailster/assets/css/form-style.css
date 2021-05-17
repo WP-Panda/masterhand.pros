@@ -1,0 +1,420 @@
+.wrapper{
+	clear: both;
+	overflow: hidden;
+}
+.wrapper-left{
+	width: 40%;
+	float: left;
+}
+.wrapper-right{
+	width: 58%;
+	float: left;
+	margin-left: 2%
+}
+textarea{
+	resize: none;
+}
+.section-nav{
+	overflow: hidden;
+	padding: 3px;
+	color: #555;
+	font-size: 13px;
+}
+.nav-tab-wrapper a:focus, .contextual-help-tabs a:focus{
+	box-shadow: none;
+}
+.useit-wrap{
+	border: 1px solid;
+	background-color: #F1F1F1;
+	border-color: #CCC;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	min-height: 600px;
+	margin-top: 15px;
+}
+.useit-nav{
+	margin-top: 100px;
+	width: 150px;
+	float: left;
+	position: relative;
+	z-index: 2;
+}
+.useit-nav .nav-intro{
+	display: none;
+}
+.useit-nav .contextual-help-tabs li{
+	margin-left: -2px;
+}
+.rtl .useit-nav .contextual-help-tabs li{
+	margin-left: 0;
+	margin-right: -2px;
+}
+.rtl .useit-nav{
+	float: right;
+}
+.useit-tabs{
+	overflow: hidden;
+	background: #fff;
+	padding: 20px 20px 10px 25px;
+	border-left: 1px solid #ccc;
+	min-height: 600px;
+	position: relative;
+	z-index: 1;
+}
+.useit-tabs .tab h3 {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 3px;
+}
+#form-builder, #form-preview{
+	min-height: 200px;
+	overflow: hidden;
+}
+#form-builder h3{
+	margin-left: 10px;
+}
+#form-structure, #form-design{
+	min-height: 200px;
+	width: 50%;
+	display: block;
+	border: 1px solid #D3D6DB;
+	_background-color: #FFF;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	margin-bottom: 4px;
+	float: left;
+	margin-right: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.rtl #form-structure, .rtl #form-design{
+	float: right;
+}
+#form-fields, #form-design-options{
+	border: 1px solid #D3D6DB;
+	min-height: 200px;
+	width: 25%;
+	display: inline-block;
+}
+#form-options{
+	clear: both;
+}
+#titlewrap{
+	margin: 20px 0;
+}
+#title {
+	padding: 3px 8px;
+	font-size: 1.7em;
+	line-height: 100%;
+	height: 1.7em;
+	width: 100%;
+	outline: none;
+	margin: 0 0 3px;
+}
+#title_new{
+	padding: 3px 8px;
+	font-size: 1.7em;
+	line-height: 100%;
+	height: 1.7em;
+	width: 100%;
+	outline: none;
+	margin: 0 0 3px;
+	background-color: #fff
+}
+.form-order{
+	overflow: hidden;
+	padding-top: 5px;
+	min-height: 35px;
+}
+.form-order:empty{
+	border: 1px dotted #DFDFDF;
+	min-height: 70px;
+}
+.form-order li{
+	padding: 3px 5px;
+	background: #fff;
+	border-radius: 2px;
+	border: 1px solid #DFDFDF;
+	display: block;
+	transition: margin-bottom .25s ease-in-out, margin-top .25s ease-in-out, height .25s ease-in-out;
+	box-sizing: border-box;
+	float: left;
+	width: 100%;
+}
+.dark-mode .form-order li{
+	border-color: #191f25;
+	background: #23282d;
+}
+.form-order a.field-remove{
+	top: 9px;
+	visibility: hidden;
+	cursor: pointer;
+}
+#form-structure li:hover a.field-remove{
+	visibility: visible;
+}
+#form-structure li.field-email:hover a.field-remove{
+	visibility: hidden;
+}
+#form-builder.dragging #form-structure .form-order li{
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+#form-builder.dragging .form-order.sortable li.ui-state-highlight{
+	border-style: dotted;
+	border-color: #ff3333;
+}
+.form-order.sortable li{
+	cursor: we-resize;
+	cursor: hand;
+	cursor: grab;
+	cursor: grabbing;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+	height: 35px;
+}
+#form-builder #form-structure .form-order.sortable li{
+	min-height: 74px;
+}
+#form-structure:hover .form-order.sortable li.ui-sortable-helper{
+}
+#form-fields .form-order li{
+	display: inline;
+}
+#form-fields .form-order li .label, #form-fields .form-order li .field-info, #form-structure .form-order li label{
+	display: none;
+}
+.form-order li span.label{
+	display: inline-block;
+	width: 80px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: middle;
+}
+.form-order li input.label{
+	border: 1px solid #FFF;
+	outline: none;
+	margin: 2px;
+	width: 60%;
+	overflow: visible;
+	background-color: #fff;
+	box-shadow: none;
+	font-weight: 700;
+}
+.form-order li input.label.error-msg{
+	font-weight: normal;
+}
+#form-structure:hover .form-order li input.label{
+	border: 1px solid #DFDFDF;
+}
+.form-order li span.required-field{
+	margin: 6px 0;
+}
+#form-fields .form-order li span.required-field{
+	display: none;
+}
+#form-structure .form-order li:hover span.required-field{
+	display: inline;
+}
+#form-structure .form-order li:hover input.label{
+	border-color: #ccc;
+}
+#form-structure .form-order li input.label:focus{
+	border-color: #aaa;
+	outline: none;
+	background-color: inherit;
+}
+.submitbutton input{
+	border: 0;
+	text-align: center;
+	background: none;
+}
+.submitbutton input:focus{
+	background: #fff;
+	border: 1px solid #ccc;
+}
+.form-order li:hover{
+	border-color: #ccc;
+	background-color: #fdfdfd;
+}
+.dark-mode .form-order li:hover{
+	border-color: #ccc;
+	background-color: #32373c;
+}
+.form-order li.ui-sortable-helper{
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+	border: 1px solid #ccc;
+}
+#form-design{
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	min-height: 200px;
+	padding: 0;
+	width: 40%;
+}
+#form-design iframe{
+	display: block;
+}
+.wp-picker-holder{
+	position: absolute;
+	z-index: 10;
+}
+#form-design-options{
+	border: 0;
+	padding: 0;
+	width: 58%;
+}
+#form-design-options label{
+	display: inline-block;
+	width: 200px;
+	vertical-align: top;
+}
+#form-design-options ul li ul{
+	margin-top: 8px;
+	margin-bottom: 12px;
+}
+#form-design-options ul li ul li{
+	padding-left: 10px;
+}
+#form-design-iframe{
+	background-color:#fff;
+}
+.designtab{
+	display: none;
+}
+.form-design-options-tabs{
+	margin-left: 150px;
+	border: 1px solid #D3D6DB;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	min-height: 200px;
+}
+.rtl .form-design-options-tabs{
+	margin-left: 0;
+	margin-right: 150px;
+}
+.form-design-options-tabs{
+	padding: 10px 20px;
+}
+.wp-picker-container{
+	display: inline-block;
+}
+#form-design-options .wp-picker-container label{
+	width: auto;
+}
+#custom-style-wrap .wrapper-left{
+	width: 60%;
+}
+#custom-style-wrap .wrapper-right{
+	width: 38%;
+}
+#custom-style{
+	width: 100%;
+	height: 400px;
+	float: left;
+	resize: none;
+}
+#custom-style-samples{
+	width: 100%;
+	max-width: none;
+	height: 370px;
+	float: right;
+}
+textarea.embed-form-output{
+	height: 70px;
+}
+textarea.form-output{
+	height: 380px;
+}
+#form_form fieldset{
+	border: 1px solid #D3D6DB;
+	margin: 25px 25px 0 0;
+	padding: 10px 18px;
+	background: #fff;
+}
+.dark-mode #form_form fieldset{
+	border-color: #191f25;
+	background: #32373c;
+}
+#form_form fieldset legend{
+	font-size: 18px;
+	padding: 6px 12px 5px;
+	border: 1px solid #D3D6DB;
+	background: #fff;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+.dark-mode #form_form fieldset legend{
+	border-color: #191f25;
+	background: #32373c;
+}
+#form_form fieldset fieldset{
+	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+	margin: 5px 0 0;
+	border: 1px solid #e5e5e5;
+}
+#form_form fieldset fieldset legend{
+	font-size: 100;
+	font-size: 16px;
+}
+.subscriber-button-style{
+	clear: both;
+	width: 100%;
+}
+.subscriber-button-style li{
+	display: block;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	float: left;
+	padding: 10px 20px;
+	margin-right: 5px;
+}
+.subscriber-button-style .btn-widget{
+	vertical-align: middle;
+	display: inline-block;
+	direction: ltr;
+}
+.button-preview, .code-preview, .shortcode-preview{
+	width: 80%;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	position: relative;
+	margin-bottom: 5px;
+	height: 30px;
+}
+.button-preview{
+	box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+	background-color: #fdfdfd;
+	height: 150px;
+	overflow: hidden;
+}
+.code-preview textarea{
+	width: 100%;
+	height: 100%;
+	border: 0px;
+	font-size: 10px;
+	resize: none;
+}
+.shortcode-preview input{
+	width: 100%;
+	border: 0;
+	height: 30px;
+}
+.button-preview a.mailster-subscribe-button, .button-preview iframe{
+	position: absolute;
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+}
+.rtl #TB_window, .rtl #TB_ajaxContent{
+	text-align: inherit;
+}
+.rtl #TB_closeWindowButton{
+	left: 0;
+	right: auto;
+}
+.clipboard{
+	font-size: 12px;
+	cursor: pointer;
+}

@@ -1,0 +1,138 @@
+
+/* Box */
+.sti-box-wrap {
+    max-width: 1000px;
+}
+
+.sti-box {
+    margin: 20px 0;
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    position: relative;
+}
+
+.sti-box .title {
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0;
+    padding: 15px;
+    background: #FFFFFF;
+}
+
+.sti-box .title h3 {
+    font-size: 14px;
+    line-height: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+.sti-box .inner {
+    padding: 15px;
+}
+
+.sti-box .inner input {
+    width: 100%;
+    min-width: 400px;
+}
+
+.sti-box .inner .valid input {
+    background: rgba(0, 128, 0, 0.1);
+}
+
+.sti-box .inner p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0.5em 0 1em;
+}
+
+.sti-box .inner h4 {
+    margin: 5px 0;
+}
+
+.sti-box .form-table {
+    border: none;
+    margin-bottom: 0;
+}
+
+.sti-box .form-table ul {
+    margin: 10px 0 30px;
+}
+
+.sti-box .license-error {
+    display: none;
+    color: #ff0000;
+}
+
+.sti-box .license-valid {
+    color: #008000;
+    display: none;
+}
+
+.sti-box .invalid .license-error,
+.sti-box .valid .license-valid {
+    display: block;
+}
+
+.sti-box .sti-license-btn-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.sti-box .sti-update {
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+/* Loader */
+.sti-box .sti-loader,
+.sti-box .sti-loader:after {
+    border-radius: 50% !important;
+    width: 16px;
+    height: 16px;
+}
+
+.sti-box .sti-loader {
+    position: absolute;
+    display: none;
+    right: -32px;
+    top: 50%;
+    z-index: 999;
+    margin: 0;
+    margin-top: -11px;
+    font-size: 10px;
+    text-indent: -9999em;
+    border-top: 3px solid #ededed;
+    border-right: 3px solid #ededed;
+    border-bottom: 3px solid #ededed;
+    border-left: 3px solid #555;
+
+}
+
+.sti-box .sti-processing .sti-loader {
+    display: block;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 0.7s infinite linear;
+    animation: load8 0.7s infinite linear;
+}
+
+@-webkit-keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,1505 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: USP 20200817\n"
+"Language: no\n"
+
+#. Name of the plugin
+#: user-submitted-posts.php:44 library/support-panel.php:5
+msgid "User Submitted Posts"
+msgstr "Innlegg fra brukeren"
+
+#: user-submitted-posts.php:82
+msgid "requires WordPress "
+msgstr "krever WordPress "
+
+#: user-submitted-posts.php:83
+msgid " or higher, and has been deactivated! "
+msgstr " eller høyere, og er deaktivert! "
+
+#: user-submitted-posts.php:84
+msgid "Please return to the"
+msgstr "Gå tilbake til"
+
+#: user-submitted-posts.php:85
+msgid "WordPress Admin Area"
+msgstr "WordPress Admin Area"
+
+#: user-submitted-posts.php:86
+msgid "to upgrade WordPress and try again."
+msgstr "å oppgradere WordPress og prøve igjen."
+
+#: user-submitted-posts.php:138
+msgid "User Submitted Post"
+msgstr "Bruker innsendt innlegg"
+
+#: user-submitted-posts.php:484
+msgid "User Submitted Post Info"
+msgstr "Bruker innsendt innlegg info"
+
+#: user-submitted-posts.php:514
+msgid "Submitter Name: "
+msgstr "Senders navn: "
+
+#: user-submitted-posts.php:515
+msgid "Submitter Email: "
+msgstr "Senders e-post: "
+
+#: user-submitted-posts.php:516
+msgid "Submitter URL: "
+msgstr "Senders URL: "
+
+#: user-submitted-posts.php:517
+msgid "Submitter IP: "
+msgstr "Innsender IP: "
+
+#: user-submitted-posts.php:572
+msgid "Show USP Posts"
+msgstr "Vis USP-innlegg"
+
+#: user-submitted-posts.php:573 library/plugin-settings.php:1188
+msgid "USP"
+msgstr "USP"
+
+#: user-submitted-posts.php:1427
+msgid " files required"
+msgstr " filer som kreves"
+
+#: user-submitted-posts.php:1428
+msgid " file required"
+msgstr " fil kreves"
+
+#: user-submitted-posts.php:1430
+msgid " files"
+msgstr " filer"
+
+#: user-submitted-posts.php:1431
+msgid " file"
+msgstr " fil"
+
+#: user-submitted-posts.php:1433 user-submitted-posts.php:1434
+#: user-submitted-posts.php:1435 user-submitted-posts.php:1436
+msgid " pixels"
+msgstr " piksler"
+
+#: user-submitted-posts.php:1438 library/core-functions.php:255
+#: library/plugin-settings.php:342 library/plugin-settings.php:361
+#: library/plugin-settings.php:876 library/plugin-settings.php:1447
+msgid "Custom Field"
+msgstr "Tilpasset felt"
+
+#: user-submitted-posts.php:1440
+msgid "Custom checkbox required"
+msgstr "Egendefinert avkrysningsrute kreves"
+
+#: user-submitted-posts.php:1443
+msgid "An error occurred. Please go back and try again."
+msgstr "En feil oppstod. Gå tilbake og prøv igjen."
+
+#: user-submitted-posts.php:1453
+msgid "User login required"
+msgstr "Brukerpålogging kreves"
+
+#: user-submitted-posts.php:1454
+msgid "User name required"
+msgstr "Brukernavn kreves"
+
+#: user-submitted-posts.php:1455
+msgid "Post title required"
+msgstr "Innleggstittel kreves"
+
+#: user-submitted-posts.php:1456
+msgid "User URL required"
+msgstr "Bruker-URL kreves"
+
+#: user-submitted-posts.php:1457
+msgid "Post tags required"
+msgstr "Innleggskoder påkrevd"
+
+#: user-submitted-posts.php:1458
+msgid "Post category required"
+msgstr "Innleggskategori kreves"
+
+#: user-submitted-posts.php:1459
+msgid "Post content required"
+msgstr "Innlegg kreves"
+
+#: user-submitted-posts.php:1460 user-submitted-posts.php:1461
+msgid "Correct captcha required"
+msgstr "Riktig captcha kreves"
+
+#: user-submitted-posts.php:1462
+msgid "User email required"
+msgstr "Bruker-e-post kreves"
+
+#: user-submitted-posts.php:1463
+msgid "Please check your email and try again"
+msgstr "Vennligst sjekk e-posten din og prøv igjen"
+
+#: user-submitted-posts.php:1464
+msgid "Non-empty value for hidden field"
+msgstr "Ikke-tom verdi for skjult felt"
+
+#: user-submitted-posts.php:1465
+msgid "Minimum number of images not met"
+msgstr "Minimum antall bilder ikke oppfylt"
+
+#: user-submitted-posts.php:1466
+msgid "Maximum number of images exceeded "
+msgstr "Maksimum antall bilder overskredet "
+
+#: user-submitted-posts.php:1467
+msgid "Minimum image width not met"
+msgstr "Minste bildebredde ikke oppfylt"
+
+#: user-submitted-posts.php:1468
+msgid "Image width exceeds maximum"
+msgstr "Bildebredden overskrider maksimum"
+
+#: user-submitted-posts.php:1469
+msgid "Minimum image height not met"
+msgstr "Minste bildehøyde ikke oppfylt"
+
+#: user-submitted-posts.php:1470
+msgid "Image height exceeds maximum"
+msgstr "Bildehøyde overstiger maksimum"
+
+#: user-submitted-posts.php:1471
+msgid "File type not allowed (please upload images only)"
+msgstr "Filtype er ikke tillatt (last bare opp bilder)"
+
+#: user-submitted-posts.php:1472
+msgid " required"
+msgstr " nødvendig"
+
+#: user-submitted-posts.php:1477
+msgid "File not uploaded. Please check the file and try again."
+msgstr "Filen er ikke lastet opp. Kontroller filen og prøv igjen."
+
+#: user-submitted-posts.php:1481
+msgid "The file(s) could not be uploaded"
+msgstr "Filen (e) kunne ikke lastes opp"
+
+#: user-submitted-posts.php:1483
+msgid "Post not created. Please contact the site administrator for help."
+msgstr "Innlegget er ikke opprettet. Ta kontakt med administratoren for å få hjelp."
+
+#: user-submitted-posts.php:1484
+msgid "Duplicate post title. Please try again."
+msgstr "Duplisert innleggstittel. Vær så snill, prøv på nytt."
+
+#: user-submitted-posts.php:1494
+msgid "Error: "
+msgstr "Feil: "
+
+#: user-submitted-posts.php:1520
+msgid "Return to form"
+msgstr "Gå tilbake til skjema"
+
+#: user-submitted-posts.php:1550 library/plugin-settings.php:1164
+msgid "Please"
+msgstr "Vær så snill"
+
+#: user-submitted-posts.php:1551
+msgid "log in"
+msgstr "Logg Inn"
+
+#: user-submitted-posts.php:1552
+msgid "to submit content!"
+msgstr "å sende inn innhold!"
+
+#: views/submission-form.php:21 views/submission-form-alt.php:40
+msgid "Please complete the required fields."
+msgstr "Fyll ut de nødvendige feltene."
+
+#: views/submission-form.php:31 views/submission-form.php:32
+#: views/submission-form-alt.php:46 views/submission-form-alt.php:47
+msgid "Your Name"
+msgstr "Navnet ditt"
+
+#: views/submission-form.php:37 views/submission-form.php:38
+#: views/submission-form-alt.php:52 views/submission-form-alt.php:53
+#: library/shortcode-login.php:143
+msgid "Your Email"
+msgstr "Din epost"
+
+#: views/submission-form.php:43 views/submission-form.php:44
+#: views/submission-form-alt.php:58 views/submission-form-alt.php:59
+msgid "Your URL"
+msgstr "URLen din"
+
+#: views/submission-form.php:49 views/submission-form.php:50
+#: views/submission-form-alt.php:64 views/submission-form-alt.php:65
+#: library/plugin-settings.php:1225
+msgid "Post Title"
+msgstr "Innleggstittel"
+
+#: views/submission-form.php:56 views/submission-form.php:65
+#: views/submission-form.php:66 views/submission-form-alt.php:71
+#: views/submission-form-alt.php:80 views/submission-form-alt.php:81
+#: library/plugin-settings.php:1226
+msgid "Post Tags"
+msgstr "Legg ut tagger"
+
+#: views/submission-form.php:58 views/submission-form-alt.php:73
+msgid "Please select some tags.."
+msgstr "Velg noen tagger .."
+
+#: views/submission-form.php:79 views/submission-form-alt.php:94
+msgid "Antispam Question"
+msgstr "Antispam-spørsmål"
+
+#: views/submission-form.php:84 views/submission-form-alt.php:99
+#: library/plugin-settings.php:1227
+msgid "Post Category"
+msgstr "Innleggskategori"
+
+#: views/submission-form.php:86 views/submission-form-alt.php:101
+msgid "Please select a category.."
+msgstr "Velg en kategori .."
+
+#: views/submission-form.php:117 views/submission-form.php:118
+#: views/submission-form-alt.php:132 views/submission-form-alt.php:133
+#: library/plugin-settings.php:1228
+msgid "Post Content"
+msgstr "Innlegg"
+
+#: views/submission-form.php:125 views/submission-form-alt.php:140
+msgid "Verification"
+msgstr "Bekreftelse"
+
+#: views/submission-form.php:132 views/submission-form-alt.php:147
+msgid "Upload an Image"
+msgstr "Last opp et bilde"
+
+#: views/submission-form.php:141 views/submission-form-alt.php:156
+msgid "Add another image"
+msgstr "Legg til et nytt bilde"
+
+#: views/submission-form.php:163 views/submission-form-alt.php:178
+msgid "Human verification: leave this field empty."
+msgstr "Menneskelig bekreftelse: la dette feltet være tomt."
+
+#: views/submission-form.php:191 views/submission-form-alt.php:206
+msgid "Submit Post"
+msgstr "Send inn innlegg"
+
+#: library/enqueue-scripts.php:150 library/enqueue-scripts.php:193
+msgid "Incorrect response."
+msgstr "Feil respons."
+
+#: library/shortcode-login.php:88 library/shortcode-login.php:127
+msgid "Login"
+msgstr "Logg Inn"
+
+#: library/shortcode-login.php:89
+msgid "Register"
+msgstr "Registrere"
+
+#: library/shortcode-login.php:90
+msgid "Forgot?"
+msgstr "Glemte?"
+
+#: library/shortcode-login.php:97 library/shortcode-login.php:102
+msgid "Success!"
+msgstr "Suksess!"
+
+#: library/shortcode-login.php:98
+msgid "Check your email for the password."
+msgstr "Sjekk passordet på e-postadressen din."
+
+#: library/shortcode-login.php:103
+msgid "Check your email to reset your password."
+msgstr "Sjekk e-posten din for å tilbakestille passordet ditt."
+
+#: library/shortcode-login.php:107
+msgid "Have an account?"
+msgstr "Har en konto?"
+
+#: library/shortcode-login.php:108
+msgid "Log in or sign up! It&rsquo;s fast &amp; free!"
+msgstr "Logg inn eller registrer deg! Det er raskt & amp; gratis!"
+
+#: library/shortcode-login.php:114 library/shortcode-login.php:139
+msgid "Username"
+msgstr "Brukernavn"
+
+#: library/shortcode-login.php:118
+msgid "Password"
+msgstr "Passord"
+
+#: library/shortcode-login.php:124
+msgid "Remember me"
+msgstr "Husk meg"
+
+#: library/shortcode-login.php:135
+msgid "Register for this site!"
+msgstr "Registrer deg på dette nettstedet!"
+
+#: library/shortcode-login.php:136
+msgid "Sign up now for the good stuff."
+msgstr "Registrer deg nå for de gode tingene."
+
+#: library/shortcode-login.php:147
+msgid "Sign up!"
+msgstr "Melde deg på!"
+
+#: library/shortcode-login.php:155
+msgid "Lose something?"
+msgstr "Mister noe?"
+
+#: library/shortcode-login.php:156
+msgid "Enter your username or email to reset your password."
+msgstr "Skriv inn brukernavnet eller e-posten din for å tilbakestille passordet ditt."
+
+#: library/shortcode-login.php:159
+msgid "Username or Email"
+msgstr "Brukernavn eller e-post"
+
+#: library/shortcode-login.php:163
+msgid "Reset my password"
+msgstr "Tilbakestill passordet mitt"
+
+#: library/shortcode-login.php:177
+msgid "Welcome, "
+msgstr "Velkommen, "
+
+#: library/shortcode-login.php:180
+msgid "Congratulations, you&rsquo;re logged in."
+msgstr "Gratulerer, du er logget inn."
+
+#: library/shortcode-login.php:182
+msgid "Log out"
+msgstr "Logg ut"
+
+#: library/shortcode-login.php:183
+msgid "Admin"
+msgstr "admin"
+
+#: library/shortcode-login.php:184
+msgid "Profile"
+msgstr "Profil"
+
+#: library/shortcode-misc.php:18
+msgid "Reset form"
+msgstr "Tilbakestill skjemaet"
+
+#: library/shortcode-misc.php:128
+msgid "View full post"
+msgstr "Se hele innlegget"
+
+#: library/plugin-settings.php:31
+msgid "Settings"
+msgstr "innstillinger"
+
+#: library/plugin-settings.php:40
+msgid "Get USP Pro for unlimited forms!"
+msgstr "Få USP Pro for ubegrensede former!"
+
+#: library/plugin-settings.php:41
+msgid "Go Pro"
+msgstr "Bli profesjonell"
+
+#: library/plugin-settings.php:62 library/plugin-settings.php:1196
+#: library/plugin-settings.php:1819
+msgid "Plugin Homepage"
+msgstr "Plugin hjemmeside"
+
+#: library/plugin-settings.php:63
+msgid "Homepage"
+msgstr "hjemmeside"
+
+#: library/plugin-settings.php:68
+msgid "Give USP a 5-star rating at WordPress.org"
+msgstr "Gi USP en 5-stjerners rangering på WordPress.org"
+
+#: library/plugin-settings.php:69
+msgid "Rate this plugin&nbsp;&raquo;"
+msgstr "Ranger denne pluginen & nbsp; & raquo;"
+
+#: library/plugin-settings.php:127
+msgid "WP Post (recommended)"
+msgstr "WP Post (anbefalt)"
+
+#: library/plugin-settings.php:131
+msgid "WP Page"
+msgstr "WP-side"
+
+#: library/plugin-settings.php:147
+msgid "HTML5 Form + Default CSS"
+msgstr "HTML5-skjema + standard CSS"
+
+#: library/plugin-settings.php:147
+msgid "(Recommended)"
+msgstr "(Anbefales)"
+
+#: library/plugin-settings.php:151
+msgid "HTML5 Form + Disable CSS"
+msgstr "HTML5-skjema + Deaktiver CSS"
+
+#: library/plugin-settings.php:151
+msgid "(Provide your own styles)"
+msgstr "(Oppgi dine egne stiler)"
+
+#: library/plugin-settings.php:155
+msgid "Custom Form + Custom CSS"
+msgstr "Tilpasset skjema + Tilpasset CSS"
+
+#: library/plugin-settings.php:155
+msgid "(Provide your own form template &amp; styles)"
+msgstr "(Oppgi din egen skjemamaler & stiler)"
+
+#: library/plugin-settings.php:171 library/plugin-settings.php:195
+#: library/plugin-settings.php:219 library/plugin-settings.php:243
+#: library/plugin-settings.php:267
+msgid "Auto-display before post content"
+msgstr "Automatisk visning før innlegg"
+
+#: library/plugin-settings.php:175 library/plugin-settings.php:199
+#: library/plugin-settings.php:223 library/plugin-settings.php:247
+#: library/plugin-settings.php:271
+msgid "Auto-display after post content"
+msgstr "Automatisk visning etter innleggets innhold"
+
+#: library/plugin-settings.php:179
+msgid "Do not auto-display submitted images"
+msgstr "Ikke vis innsendte bilder automatisk"
+
+#: library/plugin-settings.php:203
+msgid "Do not auto-display submitted email"
+msgstr "Ikke vis innsendt e-post automatisk"
+
+#: library/plugin-settings.php:227
+msgid "Do not auto-display submitted name"
+msgstr "Ikke vis innsendt navn automatisk"
+
+#: library/plugin-settings.php:251
+msgid "Do not auto-display submitted URL"
+msgstr "Ikke vis automatisk innsendt URL"
+
+#: library/plugin-settings.php:275
+msgid "Do not auto-display the Custom Field"
+msgstr "Ikke vis det tilpassede feltet automatisk"
+
+#: library/plugin-settings.php:291
+msgid "v2 (I&rsquo;m not a robot)"
+msgstr "v2 (jeg er ikke en robot)"
+
+#: library/plugin-settings.php:295
+msgid "v3 (Hidden reCaptcha)"
+msgstr "v3 (skjult reCaptcha)"
+
+#: library/plugin-settings.php:323 library/plugin-settings.php:355
+#: library/plugin-settings.php:388 library/plugin-settings.php:420
+msgid "Enable and require"
+msgstr "Aktiver og krever"
+
+#: library/plugin-settings.php:324 library/plugin-settings.php:356
+msgid "Enable but do not require"
+msgstr "Aktiver, men krever ikke"
+
+#: library/plugin-settings.php:325 library/plugin-settings.php:357
+#: library/plugin-settings.php:389 library/plugin-settings.php:421
+msgid "Disable this field"
+msgstr "Deaktiver dette feltet"
+
+#: library/plugin-settings.php:360 library/plugin-settings.php:392
+#: library/plugin-settings.php:424 library/plugin-settings.php:456
+msgid "(Visit"
+msgstr "(Besøk"
+
+#: library/plugin-settings.php:361 library/plugin-settings.php:393
+#: library/plugin-settings.php:425 library/plugin-settings.php:457
+msgid "to configure options)"
+msgstr "for å konfigurere alternativer)"
+
+#: library/plugin-settings.php:376 library/plugin-settings.php:393
+#: library/plugin-settings.php:1465 library/plugin-settings.php:1470
+msgid "Challenge Question"
+msgstr "Utfordrende Spørsmål"
+
+#: library/plugin-settings.php:408 library/plugin-settings.php:425
+#: library/plugin-settings.php:1487
+msgid "Google reCAPTCHA"
+msgstr "Google reCAPTCHA"
+
+#: library/plugin-settings.php:440
+msgid "Post Images"
+msgstr "Legg ut bilder"
+
+#: library/plugin-settings.php:452
+msgid "Enable"
+msgstr "Muliggjøre"
+
+#: library/plugin-settings.php:453
+msgid "Disable"
+msgstr "Deaktiver"
+
+#: library/plugin-settings.php:457 library/plugin-settings.php:1555
+msgid "Image Uploads"
+msgstr "Bildeopplastinger"
+
+#: library/plugin-settings.php:537
+msgid "Draft"
+msgstr "utkast"
+
+#: library/plugin-settings.php:538
+msgid "Pending (default)"
+msgstr "Venter (standard)"
+
+#: library/plugin-settings.php:539
+msgid "Publish immediately"
+msgstr "Publiser umiddelbart"
+
+#: library/plugin-settings.php:540
+msgid "Publish after 1 approved post"
+msgstr "Publiser etter 1 godkjent innlegg"
+
+#: library/plugin-settings.php:541
+msgid "Publish after "
+msgstr "Publiser etter "
+
+#: library/plugin-settings.php:541
+msgid " approved posts"
+msgstr " godkjente stillinger"
+
+#: library/plugin-settings.php:569
+msgid "Select categories to display in the Category field."
+msgstr "Velg kategorier som skal vises i kategorien-feltet."
+
+#: library/plugin-settings.php:815
+msgid "There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images."
+msgstr "Det var en feil. Forsikre deg om at du har lagt til en tittel, noe innhold, og at du bare har lastet opp bilder."
+
+#: library/plugin-settings.php:829
+msgid "Please select your image(s) to upload."
+msgstr "Velg bilde (r) du vil laste opp."
+
+#: library/plugin-settings.php:835
+msgid "Success! Thank you for your submission."
+msgstr "Suksess! Takk for ditt bidrag."
+
+#: library/plugin-settings.php:864
+msgid "Email"
+msgstr "e-post"
+
+#: library/plugin-settings.php:866
+msgid "URL"
+msgstr "URL"
+
+#: library/plugin-settings.php:1151
+msgid "Toggle all panels"
+msgstr "Vipp på alle panelene"
+
+#: library/plugin-settings.php:1160
+msgid "We need your support!"
+msgstr "Vi trenger din støtte!"
+
+#: library/plugin-settings.php:1164
+msgid "Make a donation via PayPal"
+msgstr "Gi en donasjon via PayPal"
+
+#: library/plugin-settings.php:1164
+msgid "make a donation"
+msgstr "gi en donasjon"
+
+#: library/plugin-settings.php:1164
+msgid "and/or"
+msgstr "og / eller"
+
+#: library/plugin-settings.php:1165
+msgid "Rate and review at the Plugin Directory"
+msgstr "Ranger og anmeld på Plugin Directory"
+
+#: library/plugin-settings.php:1166
+msgid "give this plugin a 5-star rating"
+msgstr "gi denne plugin-en 5-stjerners rangering"
+
+#: library/plugin-settings.php:1170
+msgid "Your generous support enables continued development of this free plugin. Thank you!"
+msgstr "Din generøse støtte muliggjør fortsatt utvikling av denne gratis plugin-modulen. Takk skal du ha!"
+
+#: library/plugin-settings.php:1175
+msgid "Check this box if you have shown support"
+msgstr "Merk av i denne ruten hvis du har vist støtte"
+
+#: library/plugin-settings.php:1184
+msgid "Overview"
+msgstr "Oversikt"
+
+#: library/plugin-settings.php:1188
+msgid "enables your visitors to submit posts and upload images from the front-end of your site. "
+msgstr "gjør det mulig for besøkende å sende inn innlegg og laste opp bilder fra fronten av nettstedet. "
+
+#: library/plugin-settings.php:1189
+msgid "For advanced functionality and unlimited forms, check out"
+msgstr "For avansert funksjonalitet og ubegrensede skjemaer, sjekk ut"
+
+#: library/plugin-settings.php:1189 library/plugin-settings.php:1613
+msgid "USP Pro"
+msgstr "USP Pro"
+
+#: library/plugin-settings.php:1190
+msgid "&mdash; the ultimate solution for user-generated content."
+msgstr "& Ndash; den ultimate løsningen for brukergenerert innhold."
+
+#: library/plugin-settings.php:1194 library/plugin-settings.php:1211
+msgid "Plugin Settings"
+msgstr "Innstillinger for plugin"
+
+#: library/plugin-settings.php:1195
+msgid "Display the form"
+msgstr "Vis skjemaet"
+
+#: library/plugin-settings.php:1199
+msgid "If you like this plugin, please"
+msgstr "Hvis du liker denne pluginen, vær så snill"
+
+#: library/plugin-settings.php:1200
+msgid "THANK YOU for your support!"
+msgstr "Takk for støtten!"
+
+#: library/plugin-settings.php:1200
+msgid "give it a 5-star rating"
+msgstr "gi den en 5-stjerners rangering"
+
+#: library/plugin-settings.php:1204
+msgid "Unlimited front-end forms"
+msgstr "Ubegrensede frontformer"
+
+#: library/plugin-settings.php:1204
+msgid "Get USP Pro"
+msgstr "Få USP Pro"
+
+#: library/plugin-settings.php:1214
+msgid "Configure your settings for User Submitted Posts."
+msgstr "Konfigurer innstillingene dine for brukerinnsendte innlegg."
+
+#: library/plugin-settings.php:1216
+msgid "Form Fields"
+msgstr "Form felt"
+
+#: library/plugin-settings.php:1222
+msgid "User Name"
+msgstr "Brukernavn"
+
+#: library/plugin-settings.php:1223
+msgid "User Email"
+msgstr "Bruker-e-post"
+
+#: library/plugin-settings.php:1224
+msgid "User URL"
+msgstr "Bruker-URL"
+
+#: library/plugin-settings.php:1239
+msgid "General Settings"
+msgstr "Generelle innstillinger"
+
+#: library/plugin-settings.php:1241
+msgid "Note that the default settings work fine for most cases."
+msgstr "Merk at standardinnstillingene fungerer fint i de fleste tilfeller."
+
+#: library/plugin-settings.php:1246
+msgid "Form Style"
+msgstr "Formstil"
+
+#: library/plugin-settings.php:1251
+msgid "With this option, you can copy the plugin&rsquo;s default templates:"
+msgstr "Med dette alternativet kan du kopiere plugin-standardmaler:"
+
+#: library/plugin-settings.php:1256
+msgid "..and upload them into a directory named"
+msgstr "..og last dem opp i en katalog som heter"
+
+#: library/plugin-settings.php:1256
+msgid "in your theme:"
+msgstr "i ditt tema:"
+
+#: library/plugin-settings.php:1262
+msgid "That will enable you to customize the form and styles as desired. For more info, check out the \"Custom Submission Form\" section in the"
+msgstr "Det vil gjøre det mulig for deg å tilpasse skjemaet og stilene etter ønske. For mer info, sjekk delen \"Tilpasset innsendingsskjema\" i delen"
+
+#: library/plugin-settings.php:1263
+msgid "Installation Docs"
+msgstr "Installasjonsdokumenter"
+
+#: library/plugin-settings.php:1264
+msgid "FYI: here is a"
+msgstr "FYI: her er en"
+
+#: library/plugin-settings.php:1264
+msgid "list of USP CSS selectors"
+msgstr "liste over USP CSS-velgere"
+
+#: library/plugin-settings.php:1270
+msgid "Include JavaScript"
+msgstr "Inkluder JavaScript"
+
+#: library/plugin-settings.php:1272
+msgid "Check this box if you want to include the external JavaScript files (recommended)"
+msgstr "Merk av i denne ruten hvis du vil inkludere de eksterne JavaScript-filene (anbefalt)"
+
+#: library/plugin-settings.php:1275
+msgid "Targeted Loading"
+msgstr "Målrettet lasting"
+
+#: library/plugin-settings.php:1277
+msgid "By default, CSS &amp; JavaScript assets are loaded on every page. Here you may specify the URL(s) of the USP form to load assets only on that page. Note: leave blank to load on all pages. Use commas to separate multiple URLs."
+msgstr "Som standard er CSS & amp; JavaScript-eiendeler lastes inn på hver side. Her kan du spesifisere URL (er) til USP-skjemaet for bare å laste eiendeler på den siden. Merk: la være tomt for å laste det inn på alle sider. Bruk kommaer for å skille flere nettadresser."
+
+#: library/plugin-settings.php:1280
+msgid "Post Type"
+msgstr "Innleggstype"
+
+#: library/plugin-settings.php:1283
+msgid "Submit posts as WP Posts or Pages"
+msgstr "Send inn innlegg som WP-innlegg eller sider"
+
+#: library/plugin-settings.php:1287
+msgid "Post Status"
+msgstr "Innleggsstatus"
+
+#: library/plugin-settings.php:1290
+msgid "Post Status for submitted posts"
+msgstr "Innleggsstatus for innsendte innlegg"
+
+#: library/plugin-settings.php:1294
+msgid "Redirect URL"
+msgstr "Omadresser URL"
+
+#: library/plugin-settings.php:1296
+msgid "Specify a URL to redirect the user after post submission (leave blank to redirect back to current page)"
+msgstr "Spesifiser en URL for å omdirigere brukeren etter innsending av innlegg (la være tom for å omdirigere tilbake til nåværende side)"
+
+#: library/plugin-settings.php:1299
+msgid "Success Message"
+msgstr "Suksessmelding"
+
+#: library/plugin-settings.php:1301
+msgid "Success message that is displayed if post submission is successful (basic markup is allowed)"
+msgstr "Suksessmelding som vises hvis innsending av innlegg er vellykket (grunnleggende markering er tillatt)"
+
+#: library/plugin-settings.php:1304
+msgid "Error Message"
+msgstr "Feilmelding"
+
+#: library/plugin-settings.php:1306
+msgid "General error message that is displayed if post submission fails (basic markup is allowed)"
+msgstr "Generell feilmelding som vises hvis innlevering mislykkes (grunnleggende merking er tillatt)"
+
+#: library/plugin-settings.php:1309
+msgid "Custom Content"
+msgstr "Tilpasset innhold"
+
+#: library/plugin-settings.php:1311
+msgid "Custom text/markup to be included before the submission form (leave blank to disable)"
+msgstr "Tilpasset tekst / markering som skal inkluderes før innsendingsskjemaet (la være tomt for å deaktivere)"
+
+#: library/plugin-settings.php:1314
+msgid "Rich Text Editor"
+msgstr "Rich Text Editor"
+
+#: library/plugin-settings.php:1316
+msgid "Check this box if you want to enable RTE/Visual Editor for the Post Content field"
+msgstr "Merk av i denne ruten hvis du vil aktivere RTE / Visual Editor for feltet Innhold for innlegg"
+
+#: library/plugin-settings.php:1319
+msgid "Unique Titles"
+msgstr "Unike titler"
+
+#: library/plugin-settings.php:1321
+msgid "Require submitted post titles to be unique (useful for preventing multiple/duplicate submitted posts)"
+msgstr "Krev at innsendte innleggstitler er unike (nyttig for å forhindre flere innsendte innlegg)"
+
+#: library/plugin-settings.php:1324
+msgid "Disable Required"
+msgstr "Deaktiver påkrevd"
+
+#: library/plugin-settings.php:1326
+msgid "Disable all required attributes on default form fields (useful for troubleshooting error messages)"
+msgstr "Deaktiver alle nødvendige attributter i standard skjemafelt (nyttig for feilsøking av feilmeldinger)"
+
+#: library/plugin-settings.php:1329
+msgid "Enable Shortcodes"
+msgstr "Aktiver kortkoder"
+
+#: library/plugin-settings.php:1331
+msgid "Enable shortcodes in widgets. By default, WordPress does not enable shortcodes in widgets. "
+msgstr "Aktiver snarveier i widgeter. Som standard aktiverer ikke WordPress kortkoder i widgeter. "
+
+#: library/plugin-settings.php:1332
+msgid "This setting enables any/all shortcodes in widgets (even shortcodes from other plugins)."
+msgstr "Denne innstillingen aktiverer alle / alle snarveier i widgeter (til og med snarveier fra andre plugins)."
+
+#: library/plugin-settings.php:1337
+msgid "Privacy"
+msgstr "Personvern"
+
+#: library/plugin-settings.php:1342
+msgid "Disable IP Tracking"
+msgstr "Deaktiver IP-sporing"
+
+#: library/plugin-settings.php:1344
+msgid "By default USP records the IP address with each submitted post. Check this box to disable all IP tracking."
+msgstr "Som standard registrerer USP IP-adressen for hvert innsendte innlegg. Merk av i denne ruten for å deaktivere all IP-sporing."
+
+#: library/plugin-settings.php:1348
+msgid "Display Checkbox"
+msgstr "Vis avkrysningsrute"
+
+#: library/plugin-settings.php:1350
+msgid "Display custom checkbox on your form (useful for GDPR, agree to terms, etc.)"
+msgstr "Vis egendefinert avkrysningsrute på skjemaet ditt (nyttig for GDPR, samtykker til vilkår osv.)"
+
+#: library/plugin-settings.php:1353
+msgid "Checkbox Name"
+msgstr "Avmerkingsboks Navn"
+
+#: library/plugin-settings.php:1355 library/plugin-settings.php:1455
+msgid "Use only alphanumeric, underscores, and dashes. If unsure, use the default name:"
+msgstr "Bruk bare alfanumeriske, understrekede og streker. Hvis du er usikker, bruk standardnavnet:"
+
+#: library/plugin-settings.php:1358
+msgid "Checkbox Error"
+msgstr "Feil i avkrysningsrute"
+
+#: library/plugin-settings.php:1360
+msgid "Error message displayed if user does not check the box"
+msgstr "Feilmelding vises hvis brukeren ikke krysser av for"
+
+#: library/plugin-settings.php:1363
+msgid "Checkbox Text"
+msgstr "Avmerkingsboks tekst"
+
+#: library/plugin-settings.php:1365
+msgid "Text displayed next to checkbox. Tip: use curly brackets to output angle brackets, for example:"
+msgstr "Tekst vises ved siden av avkrysningsrute. Tips: bruk krøllete parenteser for å gi ut vinkelfeste, for eksempel:"
+
+#: library/plugin-settings.php:1370
+msgid "Categories &amp; Tags"
+msgstr "Kategorier & amp; Tags"
+
+#: library/plugin-settings.php:1375
+msgid "Categories"
+msgstr "kategorier"
+
+#: library/plugin-settings.php:1378
+msgid "Click to view/select categories"
+msgstr "Klikk for å se / velge kategorier"
+
+#: library/plugin-settings.php:1386
+msgid "Multiple Categories"
+msgstr "Flere kategorier"
+
+#: library/plugin-settings.php:1388
+msgid "Enable users to select multiple categories."
+msgstr "Aktiver brukere til å velge flere kategorier."
+
+#: library/plugin-settings.php:1391
+msgid "Hidden/Default Category"
+msgstr "Skjult / standardkategori"
+
+#: library/plugin-settings.php:1393
+msgid "Use a hidden field for the post category. This hides the category field and sets its value via the next option."
+msgstr "Bruk et skjult felt for innleggskategorien. Dette skjuler kategorifeltet og angir verdien via neste alternativ."
+
+#: library/plugin-settings.php:1396
+msgid "Category ID for Hidden Field"
+msgstr "Kategori-ID for skjult felt"
+
+#: library/plugin-settings.php:1398
+msgid "Specify category ID(s) to use for &ldquo;Hidden/Default Category&rdquo; (separate multiple IDs with commas)"
+msgstr "Spesifiser kategori-ID (er) som skal brukes for & ldquo; Skjult / standardkategori & rdquo; (skille flere IDer med komma)"
+
+#: library/plugin-settings.php:1401
+msgid "Use Existing Tags"
+msgstr "Bruk eksisterende tagger"
+
+#: library/plugin-settings.php:1403
+msgid "Check this box to display a select/dropdown menu of existing tags (valid when Tag field is displayed)"
+msgstr "Merk av i denne boksen for å vise en markering / nedtrekksmeny med eksisterende koder (gyldig når feltfelt vises)"
+
+#: library/plugin-settings.php:1408
+msgid "Users"
+msgstr "brukere"
+
+#: library/plugin-settings.php:1413
+msgid "Assigned Author"
+msgstr "Tildelt forfatter"
+
+#: library/plugin-settings.php:1416
+msgid "Specify the user that should be assigned as author for submitted posts"
+msgstr "Spesifiser brukeren som skal tilordnes som forfatter for innsendte innlegg"
+
+#: library/plugin-settings.php:1420
+msgid "Registered Username"
+msgstr "Registrert brukernavn"
+
+#: library/plugin-settings.php:1422
+msgid "Use the user&rsquo;s registered username for the Name field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "Bruk brukerens registrerte brukernavn for feltet Navn (gyldig når brukeren sender skjemaet er logget inn på WordPress)"
+
+#: library/plugin-settings.php:1425
+msgid "Registered Email"
+msgstr "Registrert E-post"
+
+#: library/plugin-settings.php:1427
+msgid "Use the user&rsquo;s registered email as the value of the Email field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "Bruk brukerens registrerte e-post som verdien av e-postfeltet (gyldig når brukeren som sender skjemaet er logget inn på WordPress)"
+
+#: library/plugin-settings.php:1430
+msgid "User Profile URL"
+msgstr "Brukerprofil-URL"
+
+#: library/plugin-settings.php:1432
+msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user submitting the form is logged in to WordPress)"
+msgstr "Bruk brukerens profil-URL som verdien av URL-feltet (gyldig når brukeren som sender skjemaet er logget inn på WordPress)"
+
+#: library/plugin-settings.php:1435
+msgid "Require User Login"
+msgstr "Krev brukerpålogging"
+
+#: library/plugin-settings.php:1437
+msgid "Require users to be logged in to WordPress to view/submit the form"
+msgstr "Krev at brukere skal være logget inn på WordPress for å se / sende skjemaet"
+
+#: library/plugin-settings.php:1440
+msgid "Disable Replace Author"
+msgstr "Deaktiver Erstatt forfatter"
+
+#: library/plugin-settings.php:1442
+msgid "Do not replace post author with submitted user name"
+msgstr "Ikke erstatt innleggsforfatter med innsendt brukernavn"
+
+#: library/plugin-settings.php:1448
+msgid "Here you may change the name and label used by the Custom Field. You can enable this field via the Form Fields setting, above."
+msgstr "Her kan du endre navn og etikett som brukes av det tilpassede feltet. Du kan aktivere dette feltet via innstillingen Skjemafelt ovenfor."
+
+#: library/plugin-settings.php:1453
+msgid "Custom Field Name"
+msgstr "Egendefinert feltnavn"
+
+#: library/plugin-settings.php:1458
+msgid "Custom Field Label"
+msgstr "Tilpasset feltmerke"
+
+#: library/plugin-settings.php:1460
+msgid "This will be displayed as the field label on the form. Default: Custom Field"
+msgstr "Dette vil vises som feltetikett på skjemaet. Standard: Tilpasset felt"
+
+#: library/plugin-settings.php:1472
+msgid "To prevent spam, enter a question that users must answer before submitting the form"
+msgstr "For å forhindre spam, skriv inn et spørsmål som brukerne må svare på før de sender inn skjemaet"
+
+#: library/plugin-settings.php:1475
+msgid "Challenge Response"
+msgstr "Utfordringsrespons"
+
+#: library/plugin-settings.php:1477
+msgid "Enter the *only* correct answer to the challenge question"
+msgstr "Skriv inn det * eneste * riktige svaret på utfordringsspørsmålet"
+
+#: library/plugin-settings.php:1480
+msgid "Case-sensitivity"
+msgstr "Case-følsomhet"
+
+#: library/plugin-settings.php:1482
+msgid "Check this box if you want the challenge response to be case-sensitive"
+msgstr "Merk av i denne ruten hvis du vil at utfordringsresponsen skal være små og store og små"
+
+#: library/plugin-settings.php:1488
+msgid "To enable Google reCAPTCHA, enter your public and private keys."
+msgstr "For å aktivere Google reCAPTCHA, skriv inn de offentlige og private nøklene."
+
+#: library/plugin-settings.php:1493
+msgid "Public Key"
+msgstr "Offentlig nøkkel"
+
+#: library/plugin-settings.php:1495
+msgid "Enter your Public Key"
+msgstr "Skriv inn din offentlige nøkkel"
+
+#: library/plugin-settings.php:1498
+msgid "Private Key"
+msgstr "Privat nøkkel"
+
+#: library/plugin-settings.php:1500
+msgid "Enter your Private Key"
+msgstr "Skriv inn din private nøkkel"
+
+#: library/plugin-settings.php:1503
+msgid "reCaptcha Version"
+msgstr "reCaptcha versjon"
+
+#: library/plugin-settings.php:1506
+msgid "Choose reCaptcha version"
+msgstr "Velg reCaptcha-versjon"
+
+#: library/plugin-settings.php:1512
+msgid "Email Alerts"
+msgstr "E-postvarsler"
+
+#: library/plugin-settings.php:1517
+msgid "Receive Email Alert"
+msgstr "Motta e-postvarsling"
+
+#: library/plugin-settings.php:1519
+msgid "Check this box if you want to be notified via email for new post submissions"
+msgstr "Merk av i denne ruten hvis du vil bli varslet via e-post for nye innlegg"
+
+#: library/plugin-settings.php:1522
+msgid "Enable HTML Format"
+msgstr "Aktiver HTML-format"
+
+#: library/plugin-settings.php:1524
+msgid "Check this box to enable HTML format for email alerts"
+msgstr "Merk av i denne ruten for å aktivere HTML-format for e-postvarsler"
+
+#: library/plugin-settings.php:1527
+msgid "Email Address for Alerts"
+msgstr "E-postadresse for varsler"
+
+#: library/plugin-settings.php:1529
+msgid "If you checked the box to receive email alerts, indicate here the address(es) to which the emails should be sent."
+msgstr "Hvis du krysset av for å motta e-postvarsler, angir du adressen (e) som e-postene skal sendes til."
+
+#: library/plugin-settings.php:1530
+msgid "Separate multiple addresses with commas."
+msgstr "Skill flere adresser med komma."
+
+#: library/plugin-settings.php:1533
+msgid "Email &ldquo;From&rdquo; Address"
+msgstr "E-post & ldquo; Fra & rdquo; Adresse"
+
+#: library/plugin-settings.php:1535
+msgid "Here you may customize the address(es) used for the &ldquo;From&rdquo; header (see plugin FAQs for info). "
+msgstr "Her kan du tilpasse adressen (e) som brukes til & ldquo; Fra & rdquo; header (se vanlige spørsmål om plugin for info). "
+
+#: library/plugin-settings.php:1536
+msgid "If multiple addresses are specified in the previous setting, include an equal number of &ldquo;From&rdquo; addresses for this setting (in the same order)."
+msgstr "Hvis flere adresser er spesifisert i den forrige innstillingen, inkluderer du et like antall & ldquo; Fra & rdquo; adresser for denne innstillingen (i samme rekkefølge)."
+
+#: library/plugin-settings.php:1539
+msgid "Email Alert Subject"
+msgstr "E-postvarslingsemne"
+
+#: library/plugin-settings.php:1541
+msgid "Subject line for email alerts. Leave blank to use the default subject line. Note: you can use the following variables: "
+msgstr "Emnelinje for e-postvarsler. La være tomt for å bruke standard emnelinje. Merk: du kan bruke følgende variabler: "
+
+#: library/plugin-settings.php:1546
+msgid "Email Alert Message"
+msgstr "E-postvarsling"
+
+#: library/plugin-settings.php:1548
+msgid "Message for email alerts. Leave blank to use the default message. Note: you can use the following variables: "
+msgstr "Melding for e-postvarsler. La være tomt for å bruke standardmeldingen. Merk: du kan bruke følgende variabler: "
+
+#: library/plugin-settings.php:1560
+msgid "Featured Image"
+msgstr "Utvalgt bilde"
+
+#: library/plugin-settings.php:1562
+msgid "Set submitted images as Featured Images. Requires theme support for Featured Images (aka Post Thumbnails)"
+msgstr "Angi innsendte bilder som utvalgte bilder. Krever temastøtte for utvalgte bilder (aka Post Thumbnails)"
+
+#: library/plugin-settings.php:1565
+msgid "Upload Message"
+msgstr "Last opp melding"
+
+#: library/plugin-settings.php:1567
+msgid "Message that appears next to the upload field. Useful for stating your upload guidelines/policy/etc. Basic markup allowed."
+msgstr "Melding som vises ved siden av opplastingsfeltet. Nyttig for angivelse av retningslinjer for opplasting / retningslinjer / osv. Grunnleggende merking tillatt."
+
+#: library/plugin-settings.php:1570
+msgid "&ldquo;Add another image&rdquo; link"
+msgstr "& ldquo; Legg til et nytt bilde & rdquo; link"
+
+#: library/plugin-settings.php:1572
+msgid "Custom markup for the &ldquo;Add another image&rdquo; link. Leave blank to use the default markup (recommended)."
+msgstr "Tilpasset markering for & ldquo; Legg til et nytt bilde & rdquo; link. La være tomt for å bruke standardmarkeringen (anbefalt)."
+
+#: library/plugin-settings.php:1575
+msgid "Minimum number of images"
+msgstr "Minimum antall bilder"
+
+#: library/plugin-settings.php:1578
+msgid "Specify the minimum number of images"
+msgstr "Angi minimum antall bilder"
+
+#: library/plugin-settings.php:1582
+msgid "Maximum number of images"
+msgstr "Maksimalt antall bilder"
+
+#: library/plugin-settings.php:1585
+msgid "Specify the maximum number of images"
+msgstr "Angi maksimalt antall bilder"
+
+#: library/plugin-settings.php:1589
+msgid "Minimum image width"
+msgstr "Minimum bildebredde"
+
+#: library/plugin-settings.php:1591
+msgid "Specify a minimum width (in pixels) for uploaded images"
+msgstr "Angi en minimumsbredde (i piksler) for opplastede bilder"
+
+#: library/plugin-settings.php:1594
+msgid "Minimum image height"
+msgstr "Minimum bildehøyde"
+
+#: library/plugin-settings.php:1596
+msgid "Specify a minimum height (in pixels) for uploaded images"
+msgstr "Angi en minimumshøyde (i piksler) for opplastede bilder"
+
+#: library/plugin-settings.php:1599
+msgid "Maximum image width"
+msgstr "Maksimal bildebredde"
+
+#: library/plugin-settings.php:1601
+msgid "Specify a maximum width (in pixels) for uploaded images"
+msgstr "Angi en maksimal bredde (i piksler) for opplastede bilder"
+
+#: library/plugin-settings.php:1604
+msgid "Maximum image height"
+msgstr "Maksimal bildehøyde"
+
+#: library/plugin-settings.php:1606
+msgid "Specify a maximum height (in pixels) for uploaded images"
+msgstr "Angi en maksimal høyde (i piksler) for opplastede bilder"
+
+#: library/plugin-settings.php:1609
+msgid "More Options"
+msgstr "Flere valg"
+
+#: library/plugin-settings.php:1612
+msgid "For more options, like the ability to upload other file types (like PDF, Word, Zip, videos, and more), check out"
+msgstr "For flere alternativer, som muligheten til å laste opp andre filtyper (som PDF, Word, Zip, videoer og mer), sjekk ut"
+
+#: library/plugin-settings.php:1613
+msgid "Go Pro!"
+msgstr "Bli profesjonell!"
+
+#: library/plugin-settings.php:1620
+msgid "Auto-Display Content"
+msgstr "Innhold som vises automatisk"
+
+#: library/plugin-settings.php:1625
+msgid "Auto-Display Images"
+msgstr "Automatisk visning av bilder"
+
+#: library/plugin-settings.php:1627
+msgid "Automatically display user-submitted images:"
+msgstr "Vis automatisk bilder som er sendt av brukeren:"
+
+#: library/plugin-settings.php:1632
+msgid "Image Markup"
+msgstr "Image Markup"
+
+#: library/plugin-settings.php:1634
+msgid "Markup to use for each submitted image (when auto-display is enabled). Can use"
+msgstr "Markering som skal brukes for hvert innsendt bilde (når automatisk visning er aktivert). Kan bruke"
+
+#: library/plugin-settings.php:1636 library/plugin-settings.php:1649
+#: library/plugin-settings.php:1675 library/plugin-settings.php:1688
+msgid "and"
+msgstr "og"
+
+#: library/plugin-settings.php:1639
+msgid "Auto-Display Email"
+msgstr "Automatisk visning av e-post"
+
+#: library/plugin-settings.php:1641
+msgid "Automatically display user-submitted email:"
+msgstr "Vis automatisk e-post:"
+
+#: library/plugin-settings.php:1646
+msgid "Email Markup"
+msgstr "E-postmarkering"
+
+#: library/plugin-settings.php:1648
+msgid "Markup to use for the submitted email address (when auto-display is enabled). Can use"
+msgstr "Markering som skal brukes for den innsendte e-postadressen (når automatisk visning er aktivert). Kan bruke"
+
+#: library/plugin-settings.php:1652
+msgid "Auto-Display Name"
+msgstr "Automatisk visningsnavn"
+
+#: library/plugin-settings.php:1654
+msgid "Automatically display user-submitted author/name:"
+msgstr "Vis automatisk brukeroppgitt forfatter / navn:"
+
+#: library/plugin-settings.php:1659
+msgid "Name Markup"
+msgstr "Navnemerke"
+
+#: library/plugin-settings.php:1661
+msgid "Markup to use for the submitted author/name (when auto-display is enabled). Can use"
+msgstr "Markup som skal brukes for den innsendte forfatteren / navnet (når automatisk visning er aktivert). Kan bruke"
+
+#: library/plugin-settings.php:1665
+msgid "Auto-Display URL"
+msgstr "Automatisk visnings-URL"
+
+#: library/plugin-settings.php:1667
+msgid "Automatically display user-submitted URL:"
+msgstr "Vis automatisk URL-bruker som er sendt inn:"
+
+#: library/plugin-settings.php:1672
+msgid "URL Markup"
+msgstr "URL-merke"
+
+#: library/plugin-settings.php:1674
+msgid "Markup to use for the submitted URL (when auto-display is enabled). Can use"
+msgstr "Markering som skal brukes for den innsendte URL-en (når automatisk visning er aktivert). Kan bruke"
+
+#: library/plugin-settings.php:1678
+msgid "Auto-Display Custom Field"
+msgstr "Egendefinert felt for automatisk visning"
+
+#: library/plugin-settings.php:1680
+msgid "Automatically display user-submitted Custom Field:"
+msgstr "Vis automatisk lagt inn brukerinnsendt tilpasset felt:"
+
+#: library/plugin-settings.php:1685
+msgid "Custom Field Markup"
+msgstr "Tilpasset feltmarkering"
+
+#: library/plugin-settings.php:1687
+msgid "Markup to use for the submitted Custom Field (when auto-display is enabled). Can use"
+msgstr "Markering som skal brukes for det innsendte tilpassede feltet (når automatisk visning er aktivert). Kan bruke"
+
+#: library/plugin-settings.php:1693 library/plugin-settings.php:1805
+msgid "Save Settings"
+msgstr "Lagre innstillinger"
+
+#: library/plugin-settings.php:1698
+msgid "Display the Form"
+msgstr "Vis skjemaet"
+
+#: library/plugin-settings.php:1701
+msgid "Post-Submit Form"
+msgstr "Skjema etter innsending"
+
+#: library/plugin-settings.php:1702
+msgid "USP enables you to display a post-submission form anywhere on your site."
+msgstr "USP lar deg vise et skjema etter innsending hvor som helst på nettstedet ditt."
+
+#: library/plugin-settings.php:1703 library/plugin-settings.php:1712
+msgid "Use the shortcode to display the form on any WP Post or Page:"
+msgstr "Bruk kortkoden til å vise skjemaet på en hvilken som helst WP-post eller side:"
+
+#: library/plugin-settings.php:1706 library/plugin-settings.php:1715
+msgid "Or, use the template tag to display the form anywhere in your theme template:"
+msgstr "Eller bruk malkoden for å vise skjemaet hvor som helst i temamalen:"
+
+#: library/plugin-settings.php:1710
+msgid "Login/Register Form"
+msgstr "Innloggings- / Registreringsskjema"
+
+#: library/plugin-settings.php:1711
+msgid "You also can display a form that enables users to log in, register, or reset their password."
+msgstr "Du kan også vise et skjema som lar brukerne logge på, registrere eller tilbakestille passordet."
+
+#: library/plugin-settings.php:1719
+msgid "Display Submitted Posts"
+msgstr "Vis innsendte innlegg"
+
+#: library/plugin-settings.php:1720
+msgid "Use this shortcode to display a list of submitted posts on any WP Post or Page:"
+msgstr "Bruk denne kortkoden til å vise en liste over innsendte innlegg på en hvilken som helst WP-post eller -side:"
+
+#: library/plugin-settings.php:1723
+msgid "Or, use the template tag to display a list of submitted posts anywhere in your theme template:"
+msgstr "Eller bruk malkoden for å vise en liste over innsendte innlegg hvor som helst i temamalen:"
+
+#: library/plugin-settings.php:1726
+msgid "Here are some examples showing how to configure this shortcode:"
+msgstr "Her er noen eksempler som viser hvordan du konfigurerer denne kortkoden:"
+
+#: library/plugin-settings.php:1734
+msgid "Display Image Gallery"
+msgstr "Vis bildegalleri"
+
+#: library/plugin-settings.php:1735
+msgid "Use this shortcode to display a gallery of uploaded images for each submitted post:"
+msgstr "Bruk denne kortkoden til å vise et galleri med opplastede bilder for hvert innsendte innlegg:"
+
+#: library/plugin-settings.php:1738
+msgid "Or, use the template tag to display an image gallery anywhere in your theme template:"
+msgstr "Eller bruk malkoden for å vise et bildegalleri hvor som helst i temamalen:"
+
+#: library/plugin-settings.php:1741
+msgid "You can customize using any of the follwing attributes:"
+msgstr "Du kan tilpasse ved å bruke hvilken som helst av følgende attributter:"
+
+#: library/plugin-settings.php:1756
+msgid "Reset Form Button"
+msgstr "Tilbakestill skjema-knappen"
+
+#: library/plugin-settings.php:1757
+msgid "This shortcode displays a link that resets the form to its original state:"
+msgstr "Denne kortkoden viser en kobling som tilbakestiller skjemaet til sin opprinnelige tilstand:"
+
+#: library/plugin-settings.php:1760
+msgid "This shortcode accepts the following attributes:"
+msgstr "Denne kortkoden godtar følgende attributter:"
+
+#: library/plugin-settings.php:1766
+msgid "Note that the url attribute accepts"
+msgstr "Merk at url-attributtet godtar"
+
+#: library/plugin-settings.php:1766
+msgid "to get the current URL."
+msgstr "for å få gjeldende URL."
+
+#: library/plugin-settings.php:1769
+msgid "Access Control"
+msgstr "Adgangskontroll"
+
+#: library/plugin-settings.php:1770
+msgid "USP provides three shortcodes to control access and restrict content."
+msgstr "USP tilbyr tre kortkoder for å kontrollere tilgang og begrense innhold."
+
+#: library/plugin-settings.php:1771
+msgid "Display content only to users with a specific capability:"
+msgstr "Vis innhold bare for brukere med en spesifikk funksjon:"
+
+#: library/plugin-settings.php:1774
+msgid "Display content to logged-in users:"
+msgstr "Vis innhold til påloggede brukere:"
+
+#: library/plugin-settings.php:1777
+msgid "Display content to visitors only:"
+msgstr "Vis innhold bare for besøkende:"
+
+#: library/plugin-settings.php:1780
+msgid "Tip:"
+msgstr "Tips:"
+
+#: library/plugin-settings.php:1780
+msgid "to include markup in the deny message, you can use"
+msgstr "Hvis du vil ta med markering i avvisingsmeldingen, kan du bruke"
+
+#: library/plugin-settings.php:1780
+msgid "to output"
+msgstr "å produsere"
+
+#: library/plugin-settings.php:1783
+msgid "Example"
+msgstr "Eksempel"
+
+#: library/plugin-settings.php:1784
+msgid "If the user is logged in, display the post-submit form; or if the user is not logged in, display the login form:"
+msgstr "Hvis brukeren er logget inn, viser skjemaet som skal sendes inn; eller hvis brukeren ikke er logget inn, vis innloggingsskjemaet:"
+
+#: library/plugin-settings.php:1796
+msgid "Restore Defaults"
+msgstr "Gjenopprett standardverdier"
+
+#: library/plugin-settings.php:1799
+msgid "Leave this option disabled to remember your settings. Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
+msgstr "La dette alternativet være deaktivert for å huske innstillingene dine. Eller for å gjenopprette standardpluggalternativene: merk av i ruten, lagre innstillingene og deaktiver / aktiverer deretter plugin-modulen."
+
+#: library/plugin-settings.php:1803
+msgid "Restore default options upon plugin deactivation/reactivation"
+msgstr "Gjenopprett standardalternativer ved deaktivering / reaktivering av plugin"
+
+#: library/plugin-settings.php:1810
+msgid "Show Support"
+msgstr "Vis støtte"
+
+#: library/plugin-settings.php:1819
+msgid "by"
+msgstr "av"
+
+#: library/plugin-settings.php:1820
+msgid "Jeff Starr on Twitter"
+msgstr "Jeff Starr på Twitter"
+
+#: library/plugin-settings.php:1821
+msgid "Obsessive Web Design &amp; Development"
+msgstr "Obsessive Web Design & amp; Utvikling"
+
+#: library/plugin-settings.php:1832
+msgid "Save Preference"
+msgstr "Lagre preferanse"
+
+#: library/plugin-settings.php:1839
+msgid "Are you sure you want to restore all default options? (this action cannot be undone)"
+msgstr "Er du sikker på at du vil gjenopprette alle standardalternativer? (denne handlingen kan ikke angre)"
+
+#: library/support-panel.php:55
+msgid "Perishable Press Books"
+msgstr "Forgjengelige pressebøker"
+
+#: library/support-panel.php:56
+msgid "Plugin Planet"
+msgstr "Plugin Planet"
+
+#: library/support-panel.php:57
+msgid "Donate via PayPal"
+msgstr "Doner via PayPal"
+
+#: library/support-panel.php:59
+msgid "books"
+msgstr "bøker"
+
+#: library/support-panel.php:60
+msgid "plugins"
+msgstr "plugins"
+
+#: library/support-panel.php:61
+msgid "donation"
+msgstr "donasjon"
+
+#: library/support-panel.php:63
+msgid "Thank you for using"
+msgstr "Takk for at du bruker"
+
+#: library/support-panel.php:64
+msgid "Please show support by purchasing one of my"
+msgstr "Vennligst vis support ved å kjøpe en av mine"
+
+#: library/support-panel.php:65
+msgid "or"
+msgstr "eller"
+
+#: library/support-panel.php:65
+msgid "or by making a"
+msgstr "eller ved å lage en"
+
+#: library/support-panel.php:66
+msgid "Your generous support helps future development of"
+msgstr "Din sjenerøse støtte hjelper fremtidig utvikling av"
+
+#: library/support-panel.php:67
+msgid "and is greatly appreciated."
+msgstr "og blir satt stor pris på."
+
+#: library/support-panel.php:69
+msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
+msgstr "Hvilken som helst størrelse donasjon hjelper meg å fortsette å utvikle denne gratis plugin og andre fantastiske WordPress ressurser."
+
+#. Description of the plugin
+#: 
+msgid "Enables your visitors to submit posts and images from anywhere on your site."
+msgstr "Gjør det mulig for besøkende å sende innlegg og bilder fra hvor som helst på nettstedet ditt."
+
+#. URI of the plugin
+#: 
+msgid "https://perishablepress.com/user-submitted-posts/"
+msgstr "https://perishablepress.com/user-submitted-posts/"
+
+#. Author of the plugin
+#: 
+msgid "Jeff Starr"
+msgstr "Jeff Starr"
+
+#. Author URI of the plugin
+#: 
+msgid "https://plugin-planet.com/"
+msgstr "https://plugin-planet.com/"
+

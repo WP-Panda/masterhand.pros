@@ -1,0 +1,35 @@
+#narwhalForm {
+    max-width: 500px;
+    margin: 10px;
+}
+#narwhalForm textarea {
+    height: 200px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+#narwhalForm #postTitle, #narwhalForm #tags{
+    margin-bottom: 8px;
+    width: 100%;
+}
+#narwhalForm input[type=checkbox] {
+    width: 25px;
+    float: left;
+}
+#narwhalForm #submit {
+    margin-top: 10px;
+    width: 100%;
+}
+#narwhalForm img.avatar.avatar-40.photo {
+    float: right;
+}
+#postStatus {
+    display: block;
+    margin-top: 10px;
+}
+#postStatusLabel {
+    float: left;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 0;
+    padding-top: 10px;
+}

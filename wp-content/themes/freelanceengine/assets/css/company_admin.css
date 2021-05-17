@@ -1,0 +1,48 @@
+.company-metabox {
+    display: grid;
+    grid-template-areas:"h n c";
+    grid-template-rows: 1fr;
+    grid-template-columns: 3fr 3fr 3fr;
+    grid-gap: 10px;
+}
+
+.company-metabox label {
+    display: block;
+}
+
+.contact_info {
+    grid-area: h;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccd0d4;
+    padding-bottom: 5px;
+}
+
+.contact_info input, .country_state_city select, .category_subcategory select{
+    width: 100%;
+}
+
+.country_state_city {
+    grid-area: n;
+    border-right: 1px solid #ccd0d4;
+    padding-right: 5px;
+}
+
+.category_subcategory {
+    grid-area: c;
+    padding-left: 15px;
+
+}
+
+
+
+@media (max-width: 1170px) {
+    .company-metabox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact_info {
+        flex-direction: column;
+    }
+}

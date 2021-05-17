@@ -1,0 +1,331 @@
+#milestone_list {
+	list-style: none;
+	margin-top: 15px;
+	padding: 0;
+}
+
+#milestone_list input,
+#add_milestone_form input {
+}
+
+#milestone_list li {
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	position: relative;
+}
+
+#milestone_list li:last-child {
+	border-bottom: 0;
+}
+
+#milestone_list input[type="checkbox"] {
+	cursor: pointer;
+}
+
+#milestone_list .milestone_item .label_title{
+	margin-left: 5px;
+	cursor: text;
+}
+
+#milestone_list .milestone_item.mark_done {
+	color: #CECECE;
+}
+
+#milestone_list .badges {
+	position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -20px;
+}
+
+#milestone_list .badges span {
+	background-color: #007ACC;
+    color: white;
+    font-size: 0.7em;
+    padding: 1px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#milestone_list .badges .done {
+	background: #39CA7B;
+}
+
+#milestone_list .toolbar {
+    font-size: 0.8em;
+}
+
+#milestone_list .toolbar a {
+	text-decoration: none;
+	box-shadow: none;
+	margin-right: 5px;
+}
+
+#milestone_list .toolbar .delete_milestone {
+	color: red;
+}
+
+#milestone_list .toolbar .delete_milestone:hover {
+	color: #757575;
+}
+
+.edit_milestone_form {
+	overflow: hidden;
+	padding: 10px 0;
+}
+
+.edit_milestone_form button {
+	margin-top: 10px;
+	float: right;
+}
+/*******************************************
+********************************************
+********************************************
+* STYLE PLUGIN MILESTONE
+*
+********************************************/
+/**** lIST MILESTONE * SUBMIT PRO PAGE ****/
+ul.form-list-milestone {
+	margin:  0;
+	padding: 0;
+	width: 100%;
+	list-style: none;
+}
+ul.form-list-milestone li{
+	position: relative;
+	width: 100%;
+	border: 1px solid #d7d8da;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: #fff;
+	padding: 0 43px;
+	height: auto;
+	height: 44px;
+	cursor: move;
+	margin-bottom: 10px;
+}
+
+ul.form-list-milestone li > input.txt-milestone-item{
+	border-top: none !important;
+	border-bottom: none !important;
+	border-radius: 0 !important;
+	height: 100% !important;
+}
+
+ul.form-list-milestone .arrow-milestone-item,
+ul.form-list-milestone .btn-del-milestone-item{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 16px;
+	color: #415161;
+}
+ul.form-list-milestone .arrow-milestone-item{
+	left: 18px;
+}
+ul.form-list-milestone .btn-del-milestone-item{
+	right: 16px;
+}
+
+/******************************************/
+/**** MILESTONE * EDIT PROJECT PAGE ****/
+.modal-body .edit-project-list-milestone input[type="text"],
+.modal-body .edit-project-list-milestone select
+{
+	margin-bottom: 0;
+	border: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border-left: 1px solid #d7d9da;
+	font-size: 14px;
+	color: #34495e;
+	font-weight: 600;
+}
+.modal-body  ul.edit-project-list-milestone .arrow-milestone-item,.modal-body  ul.edit-project-list-milestone .btn-del-milestone-item{
+	top: 28%;
+}
+/******************************************/
+/**** CATEGORY MILESTONE ****/
+ul.cat-list-milestone
+{
+	padding:0;
+	width: 100%;
+	margin: 0;
+	list-style: none;
+}
+.cat-list-milestone > li
+{
+	margin-bottom: 20px;
+	width: 100%;
+	display: flex;
+}
+
+.cat-list-milestone > li > div
+{
+	width: 100%;
+}
+
+.cat-list-milestone > li .icon-status-milestone
+{
+	width: 20px;
+	color: #7b8d96;
+	font-size: 14px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+	margin-top: 2px;
+}
+.cat-list-milestone > li > div.closed .icon-status-milestone,
+.cat-list-milestone > li > div.closed .txt-status-milestone > a
+/* .cat-list-milestone > li > div.resolved .icon-status-milestone,
+.cat-list-milestone > li > div.resolved .txt-status-milestone > a */
+{
+	color: #1fbdbd;
+}
+.cat-list-milestone > li > div.closed .txt-status-milestone > a:hover,
+.cat-list-milestone > li > div.resolved .txt-status-milestone > a:hover
+{
+	color: #1fbdbd;
+}
+.cat-list-milestone > li > div.resolved .icon-status-milestone > i
+{
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.cat-list-milestone > li > div.closed .content-steps-milestone > span:first-child
+{
+	text-decoration: line-through;
+}
+.cat-list-milestone > li .content-steps-milestone
+{
+	width: calc(100% - 24px); 
+	color: #415161;
+	font-size: 16px;
+	/* font-weight: 500; */
+	display: inline-block;
+	line-height: 22px;
+}
+.cat-list-milestone > li .txt-status-milestone
+{
+	margin-top: 8px;
+	color: #b0bec5;
+	font-size: 14px;
+	display: block;
+}
+.cat-list-milestone > li .txt-status-milestone a
+{
+	color: #7b8d96;
+}
+.cat-list-milestone > li .txt-status-milestone a:hover
+{
+	color: #1fbdbd;
+}
+.cat-list-milestone > li .txt-status-milestone
+{
+	position: relative;
+}
+.change-status-milestone > span
+{
+	padding-right: 7px;
+}
+
+.change-status-milestone > .fa-angle-down {
+	-webkit-transition: .3s transform ease-in-out;
+	-moz-transition: .3s transform ease-in-out;
+	-o-transition: .3s transform ease-in-out;
+	transition: .3s transform ease-in-out;
+}
+
+.change-status-milestone > .fa-angle-down.rotate {
+	-webkit-transform: rotate( 180deg );
+	-moz-transform: rotate( 180deg );
+	-o-transform: rotate( 180deg );
+	transform: rotate( 180deg );
+}
+/* CHILD */
+.cat-action-milestone{
+	display: none;
+	position: absolute;
+	top: 110%;
+	left: 0;
+	right: 0;
+	background: #fff !important;
+	border: 1px solid #d7d9da;
+	z-index: 100;
+	margin: 5px 0 0 0;
+	list-style: none;
+	width: 150px;
+	padding: 0px 8px;
+}
+.cat-action-milestone li{
+	border-bottom: 1px solid #d2d2d2;
+}
+.cat-action-milestone li:last-child{
+	border-bottom: 0;
+}
+.cat-action-milestone a{
+	font-size: 14px;
+	padding: 8px 5px;
+	display: block;
+	font-weight: normal;
+	white-space: nowrap;
+}
+.cat-action-milestone a i{
+	padding-right: 5px;
+	font-size: 14px;
+	position: relative;
+	top: 2px;
+}
+.cat-action-milestone a .color-text{
+	color: #1fbdbd;
+}
+.cat-action-milestone::before{
+	content: "";
+	position:absolute;
+	width:15px;
+	height:15px;
+	display:block;
+	border-radius: 1px;
+	-moz-border-radius: 1px;
+	-o-border-radius: 1px;
+	-webkit-border-radius: 2px;
+	-ms-transform: rotate(-45deg); /* IE 9 */
+	-webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+	transform: rotate(-45deg);
+	border-top:1px solid #d7d9da;
+	border-right:1px solid #d7d9da;
+	background:#fff;
+	top:0;
+	margin-top:-8px;
+	left:10%;
+}
+.cat-action-milestone > li+li{
+	padding-top: 0;
+}
+.html_input_mile{
+	padding-right: 43px;
+	position: relative;
+	border: 1px solid #dbdbdb;
+}
+.html_input_mile .btn-insert-milestone-item{
+	position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #415161;
+    text-align: center;
+}
+.html_input_mile #milestone-input{
+	border: 0;
+	border-right: 1px solid #dbdbdb;
+}
