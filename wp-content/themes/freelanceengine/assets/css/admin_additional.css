@@ -1,0 +1,377 @@
+.post-by-user {
+    background-color: #ff671f75 !important;
+}
+
+.freelance-portfolio-list li {
+    display: inline-block;
+    width: 100%;
+    max-width: 240px;
+    height: 200px;
+    margin-right: 15px;
+}
+
+.freelance-portfolio-list li:last {
+    margin-right: 0;
+}
+
+.freelance-portfolio-wrap {
+    position: relative;
+}
+
+.freelance-portfolio {
+    height: 200px;
+}
+
+.freelance-portfolio>a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.freelance-portfolio-wrap {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+
+.freelance-portfolio-wrap:hover .portfolio-action, .freelance-portfolio-wrap:hover:before {
+    opacity: 1;
+}
+
+.freelance-portfolio-wrap:before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: #2c33c180;
+    opacity: 0;
+    transition: .6s;
+    -webkit-transition: .6s;
+    -moz-transition: .6s;
+    -o-transition: .6s;
+    -ms-transition: .6s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.portfolio-action {
+    top: 0;
+    z-index: 10;
+    bottom: 0;
+    margin: auto;
+    height: 145px;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    padding: 0 15px;
+    width: 100%;
+    transition: 0.5s ease-out;
+    -webkit-transition: 0.5s ease-out;
+    -moz-transition: 0.5s ease-out;
+    -o-transition: 0.5s ease-out;
+    -ms-transition: 0.5s ease-out;
+}
+
+.fre-submit-btn {
+    color: #fff;
+    background: #2c33c1;
+    border: 1px solid #2c33c1;
+}
+
+.fre-submit-btn:disabled {
+    background: #2c34c17d;
+    border-color: #2c34c17d;
+}
+
+.fre-cancel-btn {
+    background: #fff;
+    color: #878787 !important;
+    border: 1px solid #878787;
+    overflow: hidden;
+}
+
+.btn-center {
+    margin: 25px auto;
+}
+
+.fre-submit-btn, .fre-cancel-btn {
+    margin-left: 0;
+    margin-right: 0;
+    cursor: pointer;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+    display: block;
+    text-align: center;
+    padding: 0 5px;
+    max-width: 100%;
+    font-size: 14px;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
+.fre-submit-btn, .fre-cancel-btn,
+.fre-submit-btn:focus, .fre-cancel-btn:focus,
+.fre-submit-btn:hover, .fre-cancel-btn:hover {
+    max-width: 200px;
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -ms-transition: .3s;
+}
+
+.fre-cancel-btn:hover, .fre-cancel-btn:focus {
+    color: #fff !important;
+    background: #878787;
+    text-decoration: none !important;
+}
+
+/* modal */
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.modal {
+    overflow-y: auto;
+    background: #333333eb;
+    height: 100%;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+
+.modal .close {
+    font-size: 18px;
+    color: #878787;
+    opacity: 1;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    border: 1px solid #878787;
+    font-weight: 300;
+    width: 30px;
+    height: 30px;
+    text-shadow: none;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+}
+.modal-header .close {
+    margin-top: -15px;
+    margin-right: -15px;
+}
+.close:focus, .close:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+}
+.modal-dialog.modal-sm {
+    width: 600px;
+}
+.modal-dialog {
+    margin: 30vh auto !important;
+}
+.modal-dialog {
+    width: 800px;
+    background: #fff;
+}
+
+.modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+}
+
+.modal-content {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
+@media (min-width: 768px){
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 10px;
+    }
+
+    .modal-sm {
+        width: 300px;
+    }
+
+    .modal-content {
+        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    }
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid #0003;
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
+
+.modal-header {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    font-weight: bold;
+    padding: 30px 60px 30px 30px;
+    background: none;
+    border: none;
+    position: relative;
+    border-bottom: none !important;
+}
+
+.fre-content-confirm p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.8em;
+}
+
+.fre-modal-form {
+    font-size: 16px;
+}
+
+
+.modal-body {
+    padding: 0 40px 40px;
+}
+
+.modal-footer {
+    padding: 10px 40px;
+    color: #fff;
+    font-size: 20px;
+    background: #269c00;
+    text-align: center;
+    display: none;
+}
+
+.modal .fre-form-btn {
+    overflow: hidden;
+}
+.fre-modal-form .fre-form-btn {
+    margin-top: 25px;
+    overflow: hidden;
+}
+.fre-form-btn {
+    text-align: center;
+}
+.fre-form-btn {
+    margin: 25px 0 0;
+}
+
+
+.btn-left {
+    float: left;
+    margin-right: 50px !important;
+}
+
+.modal .close:before {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
+.modal .close:after, .modal .close:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    height: 1px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #878787;
+}
+
+.modal .close:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+}
+.modal .close:after, .modal .close:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    height: 1px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #878787;
+}

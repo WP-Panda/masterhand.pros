@@ -1,0 +1,88 @@
+body{
+    background-color: azure;
+}
+
+.blockLoader{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: #222;
+    opacity: 0.4
+}
+.showLoad {
+    z-index: 999999999;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #a7a7a7;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: circler 2s linear infinite;
+    animation: circler 2s linear infinite;
+}
+@-webkit-keyframes circler {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes circler {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.col-sort{
+    cursor: pointer;
+}
+.col-sort:hover{
+    cursor: pointer;
+    background-color: #d2ffff;
+}
+.col-comment{
+    width: 400px;
+}
+.row-review{
+    height: 80px;
+}
+
+.tab-pane.active{
+    margin: 20px;
+}
+
+.btn-refresh{
+    /*position: absolute;*/
+    z-index: 1;
+    top: 15px;
+    right: 10px;
+}
+
+.body-alerts{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+}
+.alert{
+    margin: 2px 5px;
+}
+
+.field-required{
+    color: #ff0000 !important;;
+    border-color: red !important;;
+}
+.field-required > input,.field-required > textarea,.field-required > select{
+    color: #ff0000 !important;;
+    border-color: red !important;;
+}
+
+.select2-selection.select2-selection--single{
+    height: 38px;
+}

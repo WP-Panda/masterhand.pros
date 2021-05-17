@@ -1,0 +1,1 @@
+.piechart{position:relative;text-align:center;width:100px;height:100px}.piechart{visibility:hidden}.piechart.easyPieChart{visibility:visible}.piechart canvas{position:absolute;top:0;left:0}.piechart.easyPieChart span{font-weight:700}
