@@ -2,7 +2,7 @@
 	/*
 	Plugin Name: PaymentCode for Project
 	Description:
-	Version: 1.0
+	Version: 1.0.wp_panda
 	Lat Update: 19.12.2019
 	Author:
 	Author URI:
