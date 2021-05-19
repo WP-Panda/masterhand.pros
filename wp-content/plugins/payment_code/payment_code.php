@@ -36,11 +36,11 @@
 		add_action( 'wp_ajax_payCode', 'payCodeAction' );
 		add_action( 'wp_ajax_payCodeReview', 'payCodeReviewAction' );
 		add_action( 'wp_ajax_payCodeNotice', 'payCodeNotice' );
-		add_action( 'wp_enqueue_scripts', 'assets' );
+		add_action( 'wp_enqueue_scripts', 'pay_assets' );
 
 	}
 
-	function assets() {
+	function pay_assets() {
 		if ( ! is_admin() ) {
 			wp_register_script( 'paymentCode', '/wp-content/plugins/payment_code/js/payment_code.js', [], '1.0', true );
 		}
