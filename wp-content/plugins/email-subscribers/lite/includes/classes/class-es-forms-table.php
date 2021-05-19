@@ -330,7 +330,12 @@ class ES_Forms_Table extends ES_List_Table {
 				<div id="poststuff">
 					<div id="post-body" class="metabox-holder column-1">
 						<div id="post-body-content" class="pt-0.5">
-							<div class="bg-white shadow-md rounded-lg mt-5 pt-1">
+							<div class="text-right mt-1">
+							<a class="hover:underline text-base font-medium" href="https://www.icegram.com/documentation/how-to-create-a-form-in-email-subscribers/" target="_blank">
+								<?php esc_html_e( 'How to create form?', 'email-subscribers' ); ?> &rarr;
+							</a>
+							</div>
+							<div class="bg-white shadow-md rounded-lg mt-3 pt-1">
 								<form class="pt-8 ml-5 mr-4 text-left flex-row mt-2 item-center " method="post" action="admin.php?page=es_forms&action=<?php echo esc_attr( $action ); ?>&form=<?php echo esc_attr( $id ); ?>&_wpnonce=<?php echo esc_attr( $nonce ); ?>">
 
 

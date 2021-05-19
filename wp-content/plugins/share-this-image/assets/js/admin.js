@@ -90,5 +90,22 @@ jQuery(document).ready(function($){
 
     });
 
+    // Dismiss welcome notice
+    $( '.sti-welcome-notice.is-dismissible' ).on('click', '.notice-dismiss', function ( event ) {
+
+        $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: 'sti-hideWelcomeNotice',
+                _ajax_nonce: sti_ajax_object.ajax_nonce
+            },
+            dataType: "json",
+            success: function (data) {
+            }
+        });
+
+    });
+
 
 });

@@ -294,7 +294,7 @@ if ( ! class_exists( 'STI_Admin_Fields' ) ) :
                                     <thead>
                                         <tr>
                                             <th class="sti-table-sort">&nbsp;</th>
-                                            <th class="sti-table-btns"><?php esc_html_e( 'Social buttons', 'share-this-image' ) ?></th>
+                                            <th class="sti-table-btns"><?php esc_html_e( 'Social button', 'share-this-image' ) ?></th>
                                             <th class="sti-table-show"><?php esc_html_e( 'Desktop', 'share-this-image' ) ?></th>
                                             <th class="sti-table-show"><?php esc_html_e( 'Mobile', 'share-this-image' ) ?></th>
                                         </tr>

@@ -145,7 +145,6 @@ if ( ! class_exists( 'STI_Functions' ) ) :
                 'minWidth'     => $settings['minWidth'],
                 'minHeight'    => $settings['minHeight'],
                 'sharer'       => ( $settings['sharer'] == 'true' ) ? STI_URL . '/sharer.php' : '',
-                'is_mobile'    => wp_is_mobile() ? true : false,
                 'position'     => $settings['position'],
                 'analytics'    => ( $settings['use_analytics'] == 'true' ) ? true : false,
                 'buttons'      => $this->get_buttons(),
@@ -201,6 +200,7 @@ if ( ! class_exists( 'STI_Functions' ) ) :
 
                 if ( $network == 'twitter' ) {
                     echo '<meta property="twitter:image" content="'.$image.'" />';
+                    echo '<meta property="twitter:image:src" content="'.$image.'" />';
                 }
 
                 if ( $image_sizes ) {

@@ -1,0 +1,50 @@
+<?php if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+// Exit if accessed directly
+?>
+
+<style type="text/css">
+    .xl_dashboard_tab_content #support-request {
+        margin-left: 10px;
+    }
+</style>
+<div class="xl_plugins_wrap">
+    <h1><?php _e( 'Request Support', 'xlplugins' ); ?></h1>
+	<?php if ( $model ) { ?>
+    <div class="wp-filter">
+        <ul class="filter-links xl_plugins_license_links">
+			<?php
+			$licenses = XL_licenses::get_instance();
+			$licenses->get_plugins_list();
+			if ( ! empty( $licenses->plugins_list ) ) {
+				?>
+                <li class="plugin-install-featured <?php echo ( isset( $model->current_tab ) && $model->current_tab == 'licenses' ) ? 'current' : ''; ?>">
+                    <a href="<?php echo admin_url( 'admin.php?page=' . $_GET['page'] . '&tab=licenses' ); ?>"><?php _e( 'Licenses', 'xlplugins' ); ?></a>
+                </li>
+			<?php } ?>
+            <li class="plugin-install-popular <?php echo ( isset( $model->current_tab ) && $model->current_tab == 'support' ) ? 'current' : ''; ?>">
+                <a href="<?php echo admin_url( 'admin.php?page=' . $_GET['page'] . '&tab=support' ); ?>"
+                   class=""><?php _e( 'Support', 'xlplugins' ); ?></a>
+            </li>
+			<?php if ( isset( $model->additional_tabs ) && is_array( $model->additional_tabs ) && count( $model->additional_tabs ) > 0 ): ?>
+				<?php foreach ( $model->additional_tabs as $tab ): ?>
+                    <li class="<?php echo ( isset( $model->current_tab ) && $model->current_tab == $tab['slug'] ) ? "current" : "" ?>">
+                        <a href="<?php echo admin_url( 'admin.php?page=' . $_GET['page'] . '&tab=' . $tab['slug'] ) ?>"><?php echo $tab['label']; ?></a>
+                    </li>
+				<?php endforeach; ?>
+			<?php endif; ?>
+        </ul>
+    </div>
+    <br class="clear">
+
+    <div id="col-container" class="about-wrap">
+        <div class="xl_dashboard_tab_content" id="tools">
+			<?php do_action( 'xl_tools_after_content' ); ?>
+        </div>
+        <div class="xl-area-right">
+			<?php do_action( 'xl_tools_right_area' ); ?>
+        </div>
+		<?php } ?>
+    </div>
+

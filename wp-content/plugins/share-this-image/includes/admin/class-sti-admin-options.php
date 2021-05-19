@@ -183,7 +183,7 @@ if ( ! class_exists( 'STI_Admin_Options' ) ) :
             );
 
             $options['general'][] = array(
-                "name"  => __( "Share buttons", "share-this-image" ),
+                "name"  => __( "Sharing buttons", "share-this-image" ),
                 "desc"  => __( "Enable or disable sharing buttons for desktop and mobile. Drag & drop to change the order.", "share-this-image" ),
                 "id"    => "buttons",
                 "value" => array(),

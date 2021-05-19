@@ -143,7 +143,7 @@ class ES_Admin_Settings {
 						'name' => __( 'Security', 'email-subscribers' ),
 					),
 				);
-				$es_settings_tabs = apply_filters( 'ig_es_settings_tabs', $es_settings_tabs );
+				$es_settings_tabs = apply_filters('ig_es_settings_tabs', $es_settings_tabs );
 				?>
 				<div id="es-settings-menu" class="w-1/5 pt-4 leading-normal text-gray-800 border-r border-gray-100">
 					<div class="z-20 my-2 mt-0 bg-white shadow es-menu-list lg:block lg:my-0 lg:border-transparent lg:shadow-none lg:bg-transparent" style="top:6em;" id="menu-content">
@@ -476,12 +476,16 @@ class ES_Admin_Settings {
 
 		$cron_url_setting_desc = '';
 		
-		if ( ES()->is_trial_valid() ) {
+		if ( ES()->is_trial_valid() || ES()->is_premium() ) {
 			$cron_url_setting_desc = sprintf( __( '<span class="es-send-success es-icon"></span> We will take care of it. You don\'t need to visit this URL manually.', 'email-subscribers' ) );
 		} else {
 			/* translators: %s: Link to Icegram documentation */
 			$cron_url_setting_desc = sprintf( __( "You need to visit this URL to send email notifications. Know <a href='%s' target='_blank'>how to run this in background</a>", 'email-subscribers' ), 'https://www.icegram.com/documentation/es-how-to-schedule-cron-emails-in-cpanel/?utm_source=es&utm_medium=in_app&utm_campaign=view_docs_help_page' );
 		}
+		/* translators: %s: Link to Icegram Email Sending documentation */
+		$cron_url_setting_desc .= sprintf( __( '<div class="mt-2.5 ml-1"><a class="hover:underline text-sm font-medium" href="%s" target="_blank">How to configure Email Sending →</a></div>', 'email-subscribers' ), esc_url( 'https://www.icegram.com/documentation/how-to-configure-email-sending-in-email-subscribers') );
+
+		$pepipost_api_key_defined = ES()->is_const_defined( 'pepipost', 'api_key' );
 
 		$email_sending_settings = array(
 			'ig_es_cronurl'                 => array(
@@ -556,15 +560,17 @@ class ES_Admin_Settings {
 						'desc' => '',
 					),
 					'ig_es_pepipost_api_key'  => array(
-						'type'         => 'password',
+						'type'         => $pepipost_api_key_defined ? 'text' : 'password',
 						'options'      => false,
 						'placeholder'  => '',
 						'supplemental' => '',
 						'default'      => '',
 						'id'           => 'ig_es_mailer_settings[pepipost][api_key]',
 						'name'         => __( 'Pepipost API key', 'email-subscribers' ),
-						'desc'         => '',
+						'desc'         => $pepipost_api_key_defined ? ES()->get_const_set_message( 'pepipost', 'api_key' ) : '',
 						'class'        => 'pepipost',
+						'disabled'     => $pepipost_api_key_defined ? 'disabled' : '',
+						'value'        => $pepipost_api_key_defined ? '******************' : '',
 					),
 					'ig_es_pepipost_docblock' => array(
 						'type' => 'html',
@@ -572,7 +578,6 @@ class ES_Admin_Settings {
 						'id'   => 'ig_es_pepipost_docblock',
 						'name' => '',
 					),
-
 				),
 				'placeholder'  => '',
 				'supplemental' => '',
@@ -625,7 +630,7 @@ class ES_Admin_Settings {
 					if ( '' == $id ) {
 						$id = ! empty( $arguments['option_value'][ $val ] ) ? $arguments['option_value'][ $val ] : '';
 					} else {
-						$id = $id[ $val ];
+						$id = ! empty( $id[ $val ] ) ? $id[ $val ] : '';
 					}
 				}
 				$value = $id;
@@ -646,27 +651,28 @@ class ES_Admin_Settings {
 		$id_key      = ! empty( $id_key ) ? $id_key : $uid;
 		$class       = ! empty( $arguments['class'] ) ? $arguments['class'] : '';
 		$rows        = ! empty( $arguments['rows'] ) ? $arguments['rows'] : 12;
-		$disabled    = ! empty( $arguments['disabled'] ) ? true : false;
+		$disabled    = ! empty( $arguments['disabled'] ) ? 'disabled="' . $arguments['disabled'] . '"' : '';
+		$value       = ! empty( $arguments['value'] ) ? $arguments['value'] : $value;
 
 		// Check which type of field we want
 		switch ( $arguments['type'] ) {
 			case 'text': // If it is a text field
-				$field_html = sprintf( '<input name="%1$s" id="%2$s" placeholder="%4$s" value="%5$s" %6$s class="%7$s form-input h-9 mt-2 mb-1 text-sm border-gray-400 w-3/5"/>', $uid, $id_key, $type, $placeholder, $value, $readonly, $class );
+				$field_html = sprintf( '<input name="%1$s" id="%2$s" placeholder="%4$s" value="%5$s" %6$s class="%7$s form-input h-9 mt-2 mb-1 text-sm border-gray-400 w-3/5" %8$s/>', $uid, $id_key, $type, $placeholder, $value, $readonly, $class, $disabled );
 				break;
 			case 'password': // If it is a text field
-				$field_html = sprintf( '<input name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s" value="%5$s" %6$s class="form-input h-9 mt-2 mb-1 text-sm border-gray-400 w-3/5 %7$s"/>', $uid, $id_key, $type, $placeholder, $value, $readonly, $class );
+				$field_html = sprintf( '<input name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s" value="%5$s" %6$s class="form-input h-9 mt-2 mb-1 text-sm border-gray-400 w-3/5 %7$s" %8$s/>', $uid, $id_key, $type, $placeholder, $value, $readonly, $class, $disabled );
 				break;
 
 			case 'number': // If it is a number field
-				$field_html = sprintf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" %5$s min="0" class="w-2/5 mt-2 mb-1 text-sm border-gray-400 h-9 "/>', $uid, $type, $placeholder, $value, $readonly );
+				$field_html = sprintf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" %5$s min="0" class="w-2/5 mt-2 mb-1 text-sm border-gray-400 h-9 " %6$s/>', $uid, $type, $placeholder, $value, $readonly, $disabled );
 				break;
 
 			case 'email':
-				$field_html = sprintf( '<input name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s" value="%5$s" class="%6$s form-input w-2/3 mt-2 mb-1 h-9 text-sm border-gray-400 w-3/5"/>', $uid, $id_key, $type, $placeholder, $value, $class );
+				$field_html = sprintf( '<input name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s" value="%5$s" class="%6$s form-input w-2/3 mt-2 mb-1 h-9 text-sm border-gray-400 w-3/5" %7$s/>', $uid, $id_key, $type, $placeholder, $value, $class, $disabled );
 				break;
 
 			case 'textarea':
-				$field_html = sprintf( '<textarea name="%1$s" id="%2$s" placeholder="%3$s" size="100" rows="%6$s" cols="58" class="%5$s form-textarea text-sm w-2/3 mt-3 mb-1 border-gray-400 w-3/5">%4$s</textarea>', $uid, $id_key, $placeholder, $value, $class, $rows );
+				$field_html = sprintf( '<textarea name="%1$s" id="%2$s" placeholder="%3$s" size="100" rows="%6$s" cols="58" class="%5$s form-textarea text-sm w-2/3 mt-3 mb-1 border-gray-400 w-3/5" %7$s>%4$s</textarea>', $uid, $id_key, $placeholder, $value, $class, $rows, $disabled );
 				break;
 
 			case 'file':
@@ -699,7 +705,7 @@ class ES_Admin_Settings {
 							$label
 						);
 					}
-					$field_html = sprintf( '<select name="%1$s" id="%2$s" class="%4$s form-select rounded-lg w-2/5 h-9 mt-2 mb-1 border-gray-400">%3$s</select>', $uid, $id_key, $options_markup, $class );
+					$field_html = sprintf( '<select name="%1$s" id="%2$s" class="%4$s form-select rounded-lg w-2/5 h-9 mt-2 mb-1 border-gray-400" %5$s>%3$s</select>', $uid, $id_key, $options_markup, $class, $disabled );
 				}
 				break;
 
@@ -768,7 +774,12 @@ class ES_Admin_Settings {
 					}
 					$class = ( ! empty( $sub_field['class'] ) ) ? $sub_field['class'] : '';
 					$html .= ( reset( $field['sub_fields'] ) !== $sub_field ) ? '<p class="pt-1></p>' : '';
-					$html .= '<div class="es_sub_headline ' . $class . ' pt-4" ><strong>' . $sub_field['name'] . '</strong></div>';
+					$html .= '<div class="es_sub_headline ' . $class . ' pt-4" ><strong>' . $sub_field['name'] . '</strong>';
+					if ( ! empty( $sub_field['tooltip_text'] ) ) {
+						$tooltip_html = ES_Common::get_tooltip_html( $sub_field['tooltip_text'] );
+						$html 		 .= $tooltip_html;
+					}
+					$html .= '</div>';
 					$html .= $this->field_callback( $sub_field, $field_key );
 				}
 			} else {
@@ -888,13 +899,20 @@ class ES_Admin_Settings {
 
 	public static function pepipost_doc_block() {
 		$html = '';
+
+		$url = ES_Common::get_utm_tracking_url( array(
+				'url' => 'https://www.icegram.com/email-subscribers-integrates-with-pepipost',
+				'utm_medium' => 'pepipost_doc'
+			)
+		);
+
 		ob_start();
 		?>
 		<div class="es_sub_headline ig_es_docblock ig_es_pepipost_div_wrapper pepipost">
 			<ul>
 				<li><a class="" href="https://app.pepipost.com/index.php/signup/icegram?fpr=icegram" target="_blank"><?php esc_html_e( 'Signup for Pepipost', 'email-subscribers' ); ?></a></li>
 				<li><?php esc_html_e( 'How to find', 'email-subscribers' ); ?> <a href="https://developers.pepipost.com/api/getstarted/overview?utm_source=icegram&utm_medium=es_inapp&utm_campaign=pepipost" target="_blank"> <?php esc_html_e( 'Pepipost API key', 'email-subscribers' ); ?></a></li>
-				<li><a href="https://www.icegram.com/email-subscribers-integrates-with-pepipost?utm_source=es_inapp&utm_medium=es_upsale&utm_campaign=upsale" target="_blank"><?php esc_html_e( 'Why to choose Pepipost', 'email-subscribers' ); ?></a></li>
+				<li><a href="<?php echo esc_url($url); ?>" target="_blank"><?php esc_html_e( 'Why to choose Pepipost', 'email-subscribers' ); ?></a></li>
 			</ul>
 		</div>
 

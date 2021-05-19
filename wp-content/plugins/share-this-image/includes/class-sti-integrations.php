@@ -40,9 +40,23 @@ if ( ! class_exists( 'STI_Integrations' ) ) :
          */
         public function setup() {
 
+            $this->includes();
+
             // Metaslider plugin
             add_filter( 'metaslider_flex_slider_parameters', array( $this, 'metaslider_flex_slider_parameters' ) );
             //add_filter( 'metaslider_nivo_slider_parameters', array( $this, 'metaslider_nivo_slider_parameters' ) );
+
+        }
+
+        /**
+         * Include files
+         */
+        public function includes() {
+
+            // Gutenberg block
+            if ( function_exists( 'register_block_type' ) ) {
+                include_once( STI_DIR . '/includes/modules/gutenberg/class-sti-gutenberg-init.php' );
+            }
 
         }
 

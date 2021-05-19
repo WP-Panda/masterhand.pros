@@ -82,7 +82,7 @@ class ES_Import_Subscribers {
 					<div class="mx-auto flex justify-center pt-2">
 						<label class="inline-flex items-center cursor-pointer mr-3 h-22 w-48">
 							<input type="radio" class="absolute w-0 h-0 opacity-0 es_mailer" name="es-import-subscribers" value="es-import-with-csv" checked />
-							<div class="mt-4 px-3 py-1 border border-gray-200 rounded-lg shadow-md es-mailer-logo h-18 bg-white">
+							<div class="mt-4 px-3 py-1 border border-gray-200 rounded-lg shadow-md es-mailer-logo es-importer-logo h-18 bg-white">
 								<div class="border-0 es-logo-wrapper">
 									<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
 								</div>
@@ -93,7 +93,7 @@ class ES_Import_Subscribers {
 						</label>
 						<label class="inline-flex items-center cursor-pointer w-56">
 							<input type="radio" class="absolute w-0 h-0 opacity-0 es_mailer" name="es-import-subscribers" value="es-import-mailchimp-users" />
-							<div class="mt-4 px-1 mx-4 border border-gray-200 rounded-lg shadow-md es-mailer-logo bg-white">
+							<div class="mt-4 px-1 mx-4 border border-gray-200 rounded-lg shadow-md es-mailer-logo es-importer-logo bg-white">
 								<div class="border-0 es-logo-wrapper">
 									<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
 								</div>
@@ -118,15 +118,20 @@ class ES_Import_Subscribers {
 										<span class="block pr-4 text-sm font-medium text-gray-600 pb-1">
 											<?php esc_html_e( 'Select CSV file', 'email-subscribers' ); ?>
 										</span>
-										<p class="italic text-xs font-normal text-gray-400 mt-2 leading-snug">
+										<p class="mt-2 es_helper_text">
 											<?php 
 											/* translators: %s: Max upload size */
 											echo sprintf( esc_html__( 'File size should be less than %s', 'email-subscribers' ), esc_html( size_format( $max_upload_size ) ) ); 
 											?>
 										</p>
-										<p class="italic text-xs font-normal text-gray-400 mt-2 leading-snug">
+										<p class="mt-2 es_helper_text">
 											<?php esc_html_e( 'Check CSV structure', 'email-subscribers' ); ?>
-											<a class="font-medium" target="_blank" href="<?php echo esc_attr( plugin_dir_url( __FILE__ ) ) . '../../admin/partials/sample.csv'; ?>"><?php esc_html_e( 'from here', 'email-subscribers' ); ?></a>
+											<a class="font-medium hover:underline" target="_blank" href="<?php echo esc_attr( plugin_dir_url( __FILE__ ) ) . '../../admin/partials/sample.csv'; ?>"><?php esc_html_e( 'from here', 'email-subscribers' ); ?></a>
+										</p>
+										<p class="mt-4 es_helper_text">
+											<a class="hover:underline text-sm font-medium" href="https://www.icegram.com/documentation/es-how-to-import-or-export-email-addresses/" target="_blank">
+											<?php esc_html_e( 'How to import contacts using CSV? ', 'email-subscribers' ); ?>&rarr;
+										</a>
 										</p>
 									</label>
 								</div>
@@ -646,7 +651,7 @@ class ES_Import_Subscribers {
 				'first_last' => __( '(First Name) (Last Name)', 'email-subscribers' ),
 				'last_first' => __( '(Last Name) (First Name)', 'email-subscribers' ),
 			);
-			if ( !empty( $response['data']['importing_from'] ) && 'mailchimp-api' === $response['data']['importing_from']  ) {
+			if ( ! empty( $response['data']['importing_from'] ) && 'wordpress_users' !== $response['data']['importing_from']  ) {
 				$fields['list_name'] = __( 'List Name', 'email-subscribers' );
 				$fields['status'] = __( 'Status', 'email-subscribers' );
 			}
@@ -683,7 +688,7 @@ class ES_Import_Subscribers {
 						$is_selected = true;
 					} else if ( ! empty( $headers[ $i ] ) ) {
 						if ( strip_tags( $headers[ $i ] ) === $fields[ $key ] ) {
-							$is_selected = ( 'first_name' === $key ) || ( 'last_name'  === $key ) || ( 'list_name'  === $key ) || ( 'status'  === $key ) ;
+							$is_selected = ( 'first_name' === $key ) || ( 'last_name'  === $key ) || ( 'list_name'  === $key && 'mailchimp-api' === $response['data']['importing_from'] ) || ( 'status'  === $key && 'mailchimp-api' === $response['data']['importing_from'] );
 						}
 					}
 					$select     .= '<option value="' . $key . '" ' . ( $is_selected ? 'selected' : '' ) . '>' . $value . '</option>';
@@ -886,21 +891,37 @@ class ES_Import_Subscribers {
 						if ( ! in_array( $email, $processed_emails, true ) ) {
 							$first_name = isset( $insert['first_name'] ) ? ES_Common::handle_emoji_characters( sanitize_text_field( trim( $insert['first_name'] ) ) ) : '';
 							$last_name  = isset( $insert['last_name'] ) ? ES_Common::handle_emoji_characters( sanitize_text_field( trim( $insert['last_name'] ) ) ) : '';
-							$list_name  = isset( $insert['list_name'] ) ? sanitize_text_field( trim( $insert['list_name'] ) ) : '';
-							$status = 'subscribed';
-							
-							if ( ! empty( $selected_status ) ) {
-								$status = $selected_status;
-							} elseif ( isset( $insert['status'] ) ) {
-								$status = sanitize_text_field( trim( $insert['status'] ) );
+							$list_names  = isset( $insert['list_name'] ) ? sanitize_text_field( trim( $insert['list_name'] ) ) : '';
+
+							if ( empty( $insert['list_name'] ) ) {
+								$list_names_arr = ES()->lists_db->get_lists_by_id( $list_id );
+								$list_names = implode( ',', array_column( $list_names_arr, 'name' ));
 							}
+
+							$status = 'unconfirmed';
+							$list_names = array_map('trim', explode(',', $list_names));
+
+							
+							if ( isset( $insert['status'] ) ) {
+								$map_status = strtolower( str_replace( ' ', '_', $insert['status'] ) );
+							}
+							
+							if ( isset( $insert['status'] ) && in_array( $map_status, $es_status_mapping )  ) {
+								$status = sanitize_text_field( trim( $map_status ) );
+							} elseif ( ! empty( $selected_status ) ) {
+								$status = $selected_status;
+							} 
 
 							if ( ! empty( $es_status_mapping[ $status ] ) ) {
 								$status = $es_status_mapping[ $status ];
 							}
-							if ( ! empty( $list_name ) ) {
-								$list_contact_data[$list_name][$status][] = $email;
-							}	
+
+							foreach ( $list_names as $key => $list_name ) {
+								if ( ! empty( $list_name ) ) {
+									$list_contact_data[$list_name][$status][] = $email;
+								}
+							}
+
 							// If name empty, get the name from Email.
 							if ( empty( $first_name ) && empty( $last_name ) ) {
 								$name       = ES_Common::get_name_from_email( $email );
@@ -952,7 +973,7 @@ class ES_Import_Subscribers {
 					if ( ! empty( $contacts_data ) ) {
 						ES()->contacts_db->bulk_insert( $contacts_data );
 					}
-					
+
 					if ( ! empty( $list_contact_data ) ) {
 						foreach ($list_contact_data as $list_name => $list_data ) {
 							$list = ES()->lists_db->get_list_by_name( $list_name );
@@ -963,7 +984,7 @@ class ES_Import_Subscribers {
 								$list_id = ES()->lists_db->add_list( $list_name );
 
 							}
-					
+
 							foreach ($list_data as $status => $contact_emails) {
 								$contact_ids = ES()->contacts_db->get_contact_ids_by_emails( $contact_emails );
 								if ( count( $contact_ids ) > 0 ) {
@@ -972,14 +993,7 @@ class ES_Import_Subscribers {
 								}
 							}
 						}
-
-					} else {
-						$contact_ids = ES()->contacts_db->get_contact_ids_by_emails( $contact_emails );
-						if ( count( $contact_ids ) > 0 ) {
-							ES()->lists_contacts_db->remove_contacts_from_lists( $contact_ids, $list_id );
-							ES()->lists_contacts_db->do_import_contacts_into_list( $list_id, $contact_ids, $status, 1, $current_date_time );
-						}
-					}
+					} 
 				}
 			}
 

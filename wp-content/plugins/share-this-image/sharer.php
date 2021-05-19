@@ -31,6 +31,8 @@
             //}
 
             echo '<meta property="og:image" content="'.$image.'" />';
+            echo '<meta property="twitter:image" content="'.$image.'" />';
+            echo '<meta property="twitter:image:src" content="'.$image.'" />';
 
             if ( $image_sizes ) {
                 list( $width, $height ) = $image_sizes;
@@ -38,10 +40,6 @@
                 echo '<meta property="og:image:height" content="'.$height.'" />';
                 echo '<meta property="twitter:image:width" content="'.$width.'" />';
                 echo '<meta property="twitter:image:height" content="'.$height.'" />';
-            }
-
-            if ( $network == 'twitter' ) {
-                echo '<meta property="twitter:image" content="'.$image.'" />';
             }
 
             if ( $title ) {							
@@ -65,6 +63,9 @@
             ( ! strpos( $_SERVER['HTTP_USER_AGENT'], 'developers.google.com' ) ) &&
             ( ! strpos( $_SERVER['HTTP_USER_AGENT'], 'Google-AMPHTML' ) ) &&
             ( ! strpos( $_SERVER['HTTP_USER_AGENT'], '.facebook.com' ) ) &&
+            ( ! strpos( $_SERVER['HTTP_USER_AGENT'], 'Twitterbot' ) ) &&
+            ( ! strpos( $_SERVER['HTTP_USER_AGENT'], 'LinkedInBot' ) ) &&
+            ( ! strpos( $_SERVER['HTTP_USER_AGENT'], 'WhatsApp' ) ) &&
             $_SERVER['REMOTE_ADDR'] !== '108.174.2.200' &&
             $_SERVER['REMOTE_ADDR'] !== '66.249.81.90' &&
             $_SERVER['REMOTE_ADDR'] !== '31.13.97.116' &&

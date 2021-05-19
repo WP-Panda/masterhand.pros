@@ -43,6 +43,50 @@ $reports_url               = admin_url( 'admin.php?page=es_reports' );
 $templates_url             = admin_url( 'edit.php?post_type=es_template' );
 $settings_url              = admin_url( 'admin.php?page=es_settings' );
 $facebook_url              = 'https://www.facebook.com/groups/2298909487017349/';
+$setup_email_sending_doc  = 'https://www.icegram.com/documentation/how-to-configure-email-sending-in-email-subscribers';
+
+$feature_blocks = array(
+	'form' => array(
+		'title'                 => __('Add a Subscription Form', 'email-subscribers'),
+		'desc'                  => __('Grow subscribers. Add a newsletter signup form to your site.', 'email-subscribers'),
+		'cta_text'              => __('Create', 'email-subscribers'),
+		'feature_url'           => $new_form_url,
+		'graphics_img'          => 'lite/admin/images/dashboard-subscriber-form.png',
+	), 
+
+	'import_contacts' => array(
+		'title'                 => __('Import Contacts', 'email-subscribers'),
+		'desc'                  =>__('Coming from another email marketing system? Upload a CSV file to import subscribers.', 'email-subscribers'),
+		'cta_text'              => __('Import', 'email-subscribers'),
+		'feature_url'           => admin_url( 'admin.php?page=es_subscribers&action=import' ),
+		'graphics_img'          => 'lite/admin/images/dashboard-import-contacts.png',
+	),
+
+	'setup_email_sending' => array(
+		'title'                 => __('Configure Email Sending', 'email-subscribers'),
+		'desc'                  => __(' Essential for high email delivery and reaching the inbox. SMTP, email service providers... set it all up.', 'email-subscribers'),
+		'cta_text'              => __('Setup', 'email-subscribers'),
+		'feature_url'           => admin_url( 'admin.php?page=es_settings#tabs-email_sending' ),
+		'graphics_img'          => 'lite/admin/images/dashboard-configure-email-sending.png',
+	),
+
+	'broadcast' => array(
+		'title'                 => __('Send a Newsletter', 'email-subscribers'),
+		'desc'                  => __('Broadcast a newsletter campaign to all or selected subscribers.', 'email-subscribers'),
+		'cta_text'              => __('Begin', 'email-subscribers'),
+		'feature_url'           => $new_broadcast_url,
+		'graphics_img'          => 'lite/admin/images/dashboard-send-newsletter.png',
+	),
+
+	'autoresponder' => array(
+		'title'                 => __('Create an Auto-responder Sequence', 'email-subscribers'),
+		'desc'                  => __('Welcome emails, drip campaigns... Send automatic emails at regular intervals to engage readers.', 'email-subscribers'),
+		'cta_text'              => __('Start', 'email-subscribers'),
+		'feature_url'           => $new_sequence_url,
+		'graphics_img'          => 'lite/admin/images/dashboard-autoresponder-sequence.png',
+		'documentation_url'     => 'https://www.icegram.com/documentation/email-sequence/', 
+	),
+);
 
 $topics = ES_Common::get_useful_articles();
 
@@ -206,6 +250,40 @@ $topics_indexes = array_rand( $topics, 3 );
 						</li>
 					</ul>
 				</div>
+			</div>
+		</section>
+
+		<section class="my-16">
+			<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+			<?php foreach ( $feature_blocks as $feature => $data ) { ?>
+				<div class="relative p-6 bg-white rounded-lg shadow">
+					<h3 class="text-lg font-medium tracking-tight text-gray-900">
+						<?php echo esc_html( $data['title'] ); ?>
+					</h3>
+					<img
+					class="absolute bottom-0 right-0 w-24 -mr-3"
+					src= "<?php echo esc_url( ES_PLUGIN_URL . $data['graphics_img'] ); ?>"
+					/>
+					<div class="" style="width: calc(100% - 4rem)">
+						<p class="pt-3 xl:pr-3 2xl:pr-0 text-sm text-gray-500">
+							<?php echo esc_html( $data['desc'] ); ?>
+						</p>
+
+						<?php 
+						$feature_url = $data['feature_url'];
+						if ( ! ES()->is_pro() && isset( $data['documentation_url'] ) ) {
+							$feature_url = $data['documentation_url'];
+						}
+						?>
+
+						<a href="<?php echo esc_url( $feature_url ); ?>" target="_blank" class="es_primary_link">
+							<?php echo esc_html( $data['cta_text'] ); ?> &rarr;
+						</a>
+					</div>
+				</div>
+				<?php 
+			}
+			?>
 			</div>
 		</section>
 

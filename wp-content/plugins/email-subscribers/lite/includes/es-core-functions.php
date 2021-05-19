@@ -839,6 +839,10 @@ if ( ! function_exists( 'ig_es_allowed_html_tags_in_esc' ) ) {
 					'a' => array(
 						'x-on:click' => true,
 					),
+					'polygon' => array(
+						'class'  => true,
+						'points' => true,
+					)
 				);	
 		$allowedtags 			= array_merge_recursive( $context_allowed_tags, $custom_allowed_tags );
 

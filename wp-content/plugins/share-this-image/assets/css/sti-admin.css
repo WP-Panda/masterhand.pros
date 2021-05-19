@@ -594,3 +594,11 @@
     padding-right: 0;
     padding-left: 10px;
 }
+
+/* Welcome message */
+.welcome-panel .welcome-panel-column:first-child {
+    width: 60%;
+}
+.welcome-panel .welcome-panel-column {
+    width: 20%;
+}

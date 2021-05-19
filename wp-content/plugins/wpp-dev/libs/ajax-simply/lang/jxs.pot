@@ -1,0 +1,67 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajax Simply\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-15 21:45+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Ajax Simply\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: options-page.php:31
+msgid "Settings"
+msgstr ""
+
+#: options-page.php:43
+msgid "Ajax Simply Settings"
+msgstr ""
+
+#: options-page.php:46
+msgid "Default nonce check"
+msgstr ""
+
+#: options-page.php:48
+msgid "Check default nonce code for all ajaxs requests. Recommended if your site don`t use page cache plugin like WP Super Cache."
+msgstr ""
+
+#: options-page.php:52
+msgid "Use inline js"
+msgstr ""
+
+#: options-page.php:54
+msgid "Include js into HTML code, but don`t connect it as a file."
+msgstr ""
+
+#: options-page.php:58
+msgid "Front request file"
+msgstr ""
+
+#: options-page.php:60
+msgid "Use another file for front requests (not admin-ajax.php)."
+msgstr ""
+
+#: options-page.php:101
+msgid "Create file \"front-ajaxs.php\" with the code below in your theme or plugin and specify URL to this file."
+msgstr ""
+
+#: options-page.php:106
+msgid "<b>IMPORTANT:</b> in most cases you must set correct path to wp-load.php file, see the code."
+msgstr ""
+
+#: options-page.php:107
+#, php-format
+msgid "Current %s:"
+msgstr ""
+
+#: options-page.php:176
+msgid "Updated"
+msgstr ""

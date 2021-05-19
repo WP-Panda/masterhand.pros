@@ -59,7 +59,7 @@ function ig_es_mailers_promo( $mailers ) {
 
 	}
 
-	if ( ES()->can_upsell_features( array( 'lite', 'starter', 'trial' ) ) ) { 
+	if ( ES()->can_upsell_features( array( 'lite', 'starter', 'trial' ) ) ) {
 
 		$pro_mailers = array(
 			'Amazon_SES' => array(
@@ -67,9 +67,9 @@ function ig_es_mailers_promo( $mailers ) {
 				'logo'       => ES_PLUGIN_URL . 'lite/admin/images/aws.svg',
 				'is_premium' => true,
 				'url'        => ES_Common::get_utm_tracking_url( array(
-									'url' => 'https://www.icegram.com/documentation/how-to-create-amazon-ses-account/',
+									'url' => 'https://www.icegram.com/documentation/how-to-configure-amazon-ses-to-send-emails-in-the-email-subscribers-plugin/',
 									'utm_medium' => 'amazon_ses_mailer' 
-									) 
+									)
 								),
 			),
 			'Mailgun' => array(
@@ -93,12 +93,22 @@ function ig_es_mailers_promo( $mailers ) {
 								),
 			),
 			'SparkPost' => array(
-				'name'       => 'SendGrid',
+				'name'       => 'SparkPost',
 				'logo'       => ES_PLUGIN_URL . 'lite/admin/images/sparkpost.png',
 				'is_premium' => true,
 				'url'        => ES_Common::get_utm_tracking_url( array(
 									'url' => 'https://www.icegram.com/documentation/how-to-configure-sparkpost-to-send-emails-in-the-email-subscribers-plugin/', 
 									'utm_medium' => 'sparkpost_mailer' 
+									) 
+								),
+			),
+			'Postmark' => array(
+				'name'       => 'Postmark',
+				'logo'       => ES_PLUGIN_URL . 'lite/admin/images/postmark.png',
+				'is_premium' => true,
+				'url'        => ES_Common::get_utm_tracking_url( array(
+									'url' => 'https://www.icegram.com/documentation/how-to-configure-postmark-to-send-emails-in-the-email-subscribers-plugin/', 
+									'utm_medium' => 'postmark_mailer' 
 									) 
 								),
 			),
@@ -1551,7 +1561,7 @@ function ig_es_upsell_existing_wp_user_import_feature() {
 		?>
 		<a href="<?php echo esc_url( $pricing_url ); ?>" target="_blank">
 			<label class="inline-flex items-center cursor-pointer w-56">
-				<div class="mt-4 px-1 mx-4 border border-gray-200 rounded-lg shadow-md es-mailer-logo bg-white">
+				<div class="mt-4 px-1 mx-4 border border-gray-200 rounded-lg shadow-md es-mailer-logo es-importer-logo bg-white">
 					<div class="border-0 es-logo-wrapper">
 						<svg class="w-6 h-6 text-gray-500 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
 					</div>

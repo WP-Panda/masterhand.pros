@@ -103,7 +103,7 @@ msgstr ""
 msgid "Set twitters 'via' property."
 msgstr ""
 
-msgid "Share buttons"
+msgid "Sharing buttons"
 msgstr ""
 
 msgid "Enable or disable sharing buttons for desktop and mobile. Drag & drop to change the order."
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Premium Features"
 msgstr ""
 
-msgid "Premium"
+msgid "Pro Features"
 msgstr ""
 
 msgid "Advanced Content Customization"
@@ -394,10 +394,10 @@ msgstr ""
 msgid "Frequently Asked Questions"
 msgstr ""
 
-msgid "Is this one-time payment?"
+msgid "Can I cancel my account at any time?"
 msgstr ""
 
-msgid "Yes, you pay once and you can use the plugin in a lifetime, get plugin updates and support."
+msgid "Yes, if you ever decide that Share This Image isn\'t the best plugin for your business, simply cancel your account from your Account panel. You\'ll still be able to use the plugin without updates or support."
 msgstr ""
 
 msgid "Do you offer refunds?"
@@ -412,13 +412,13 @@ msgstr ""
 msgid "Do I get updates for the premium plugin?"
 msgstr ""
 
-msgid "Yes! Automatic updates for premium plugin available lifetime after the purchase."
+msgid "Yes! Automatic updates for premium plugin available during 1 year after the purchase."
 msgstr ""
 
-msgid "Can I use your plugin on multiple websites?"
+msgid "Can I change my plan later on?"
 msgstr ""
 
-msgid "Yes, you are free to use our plugin on as many websites as you like."
+msgid "Absolutely! You can upgrade or downgrade your plan at any time."
 msgstr ""
 
 msgid "What payment methods do you accept?"
@@ -445,11 +445,89 @@ msgstr ""
 msgid "Leave a review"
 msgstr ""
 
-msgid "Social buttons"
+msgid "Social button"
 msgstr ""
 
 msgid "Desktop"
 msgstr ""
 
 msgid "Mobile"
+msgstr ""
+
+msgid "Welcome to %s"
+msgstr ""
+
+msgid "Image sharing plugin for WordPress."
+msgstr ""
+
+msgid "Get Started"
+msgstr ""
+
+msgid "Here is several steps that help you to get started:"
+msgstr ""
+
+msgid "Check the 'Selector' option."
+msgstr ""
+
+msgid "Please check the 'Selector' option inside the plugin settings page. This option contains css selector of images/blocks that will be available for sharing. By default it is set to %s - this means that all your website images will be available for sharing. Read more about the selector option %s."
+msgstr ""
+
+msgid "Set sharing buttons."
+msgstr ""
+
+msgid "Enable/disable sharing buttons that must be visible on your site."
+msgstr ""
+
+msgid "Finish!"
+msgstr ""
+
+msgid "Now all is set and your image sharing buttons are live."
+msgstr ""
+
+msgid "Documentation"
+msgstr ""
+
+msgid "Selector Option"
+msgstr ""
+
+msgid "Content Customization"
+msgstr ""
+
+msgid "Buttons Positions"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Support Forums"
+msgstr ""
+
+msgid "Sharing Buttons"
+msgstr ""
+
+msgid "Share This Image buttons block inserts plugin sharing buttons into the page."
+msgstr ""
+
+msgid "Buttons"
+msgstr ""
+
+msgid "Available networks:"
+msgstr ""
+
+msgid "Sharing Content"
+msgstr ""
+
+msgid "Set content that must be shared. When empty default values will be used."
+msgstr ""
+
+msgid "Image URL ( required )"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Page URL"
 msgstr ""

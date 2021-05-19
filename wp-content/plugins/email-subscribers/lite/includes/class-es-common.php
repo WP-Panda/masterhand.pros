@@ -1947,5 +1947,54 @@ class ES_Common {
 		return is_string( $string ) && is_array( json_decode( $string, true ) ) && ( json_last_error() === JSON_ERROR_NONE ) ? true : false;
 	}
 
+	/**
+	 * Get HTML for tooltip
+	 * 
+	 * @param string $tooltip_text
+	 * 
+	 * @return string $tooltip_html
+	 * 
+	 * @since 4.7.0
+	 */
+	public static function get_tooltip_html( $tooltip_text = '' ) {
+		$tooltip_html = '';
+		if ( ! empty( $tooltip_text ) ) {
+			$tooltip_html = '<div class="inline-block es-tooltip relative align-middle cursor-pointer">
+				<svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+				<span class="break-words invisible h-auto lg:w-48 xl:w-64 tracking-wide absolute z-70 tooltip-text bg-black text-gray-300 text-xs rounded p-3 py-2">
+					' . $tooltip_text . '
+					<svg class="absolute mt-2 text-black text-opacity-100 h-2.5 left-0" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
+						<polygon class="fill-current" points="0,0 127.5,127.5 255,0"/>
+					</svg>
+				</span>
+			</div>';
+		}
+		return $tooltip_html;
+	}
+
+	/**
+	 * Decode HTML entities
+	 * 
+	 * @param string $string
+	 * 
+	 * @return string $string
+	 * 
+	 * @since 4.7.1
+	 */
+	public static function decode_entities( $string ) {
+
+		preg_match_all('/&#?\w+;/', $string, $entities, PREG_SET_ORDER);
+		$entities = array_unique( array_column( $entities, 0 ) );
+
+		if ( ! empty( $entities ) ) {
+			foreach ( $entities as $entity ) {
+				$decoded = mb_convert_encoding( $entity, 'UTF-8', 'HTML-ENTITIES' );
+				$string  = str_replace( $entity, $decoded, $string );
+			}
+		}
+
+		return $string;
+	}
+
 }
 

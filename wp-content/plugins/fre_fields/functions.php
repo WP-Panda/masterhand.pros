@@ -289,18 +289,6 @@ add_filter( 'ae_post_taxs', 'add_taxs_to_post_object' , 10, 2);
 }
 
 
-add_action('ae_field_support_post_types' , 'ae_field_suport_post_type');
-function ae_field_suport_post_type($post_types) {
-    if(THEME_NAME == 'freelanceengine') {
-        return array('fre_profile', 'project');
-    }
-    if(THEME_NAME == 'directoryengine') {
-        return array('place');
-    }
-    return $post_types;
-}
-
-
 add_action('wp_head', 'custom_field_css');
 function custom_field_css(){
 ?>

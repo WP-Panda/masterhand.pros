@@ -143,36 +143,9 @@ if ( ! class_exists( 'ES_Handle_Subscription' ) ) {
 				add_action( 'wp_ajax_nopriv_es_add_subscriber', array( $this, 'process_request' ), 10 );
 			}
 
-			add_action( 'wp_ajax_ig_es_get_updated_subscription_data', array( $this, 'get_updated_subscription_data' ) );
-			add_action( 'wp_ajax_nopriv_ig_es_get_updated_subscription_data', array( $this, 'get_updated_subscription_data' ) );
-
 			$this->from_rainmaker = $from_rainmaker;
 
 			$this->handle_external_subscription();
-		}
-
-		/**
-		 * Get updated nonce for 'es-subscribe' action
-		 * 
-		 * @since 4.6.7
-		 */
-		public function get_updated_subscription_data() {
-
-			$updated_nonce = wp_create_nonce( 'es-subscribe' );
-			
-			$response = array(
-				'updated_nonce' => $updated_nonce,
-			);
-
-			$list_ids    = ig_es_get_request_data( 'list_ids', array() );
-			$list_hashes = array();
-			if ( ! empty( $list_ids ) ) {
-				$list_hashes = ES()->lists_db->get_list_id_hash_map( $list_ids );
-			}
-
-			$response['list_hashes'] = $list_hashes;
-
-			wp_send_json_success( $response );
 		}
 
 		/**

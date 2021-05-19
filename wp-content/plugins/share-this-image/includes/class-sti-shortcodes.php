@@ -67,7 +67,7 @@ if ( ! class_exists( 'STI_Shortcodes' ) ) :
 
             foreach( $params as $key => $value ) {
                 if ( $value ) {
-                    $params_string .= $key . '="' . esc_attr( $value ) . '" ';
+                    $params_string .= $key . '="' . esc_attr( strip_shortcodes( $value ) ) . '" ';
                 }
             }
 
@@ -114,12 +114,24 @@ if ( ! class_exists( 'STI_Shortcodes' ) ) :
             $params = apply_filters( 'sti_buttons_shortcode_params', $params, $atts );
 
             if ( ! $params['data-media'] ) {
+                $id = get_queried_object_id();
+                if ( $id ) {
+                    $image = get_the_post_thumbnail_url( $id, 'full' );
+                    if ( $image ) {
+                        $params['data-media'] = $image;
+                    }
+                }
+            }
+
+            if ( ! $params['data-media'] && ( ! isset( $_REQUEST['action'] ) || ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] !== 'edit' ) )
+                && ( ! isset( $_REQUEST['context'] ) || ( isset( $_REQUEST['context'] ) && $_REQUEST['context'] !== 'edit' ) )
+            ) {
                 return '';
             }
 
             foreach( $params as $key => $value ) {
                 if ( $value ) {
-                    $params_string .= $key . '="' . esc_attr( $value ) . '" ';
+                    $params_string .= $key . '="' . esc_attr( strip_shortcodes( $value ) ) . '" ';
                 }
             }
 

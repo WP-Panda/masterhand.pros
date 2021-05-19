@@ -509,6 +509,7 @@
 									<a
 									  class="text-indigo-800 hover:underline"
 									  href="https://www.icegram.com/knowledgebase_category/email-subscribers/"
+									  target="_blank"
 									  ><?php echo esc_html__('documentation', 'email-subscribers'); ?></a
 									>
 									<?php echo esc_html__('if you need any help', 'email-subscribers'); ?>	
@@ -525,7 +526,7 @@
 					  type="button" id="ig-es-finish-onboarding-process"
 					  class="relative inline-flex items-center px-4 py-2 text-base font-medium leading-5 text-white bg-indigo-800 border border-transparent rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
 					>
-					  <?php echo esc_html__('Complete setup &amp; take me to "Settings" →', 'email-subscribers'); ?>
+					  <?php echo esc_html__('Complete setup &amp; take me to "Dashboard" →', 'email-subscribers'); ?>
 					</button>
 				  </div>
 				</div>

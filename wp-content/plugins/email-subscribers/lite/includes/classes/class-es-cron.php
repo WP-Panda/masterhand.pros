@@ -129,20 +129,22 @@ class ES_Cron {
 			wp_schedule_event( floor( time() / 300 ) * 300, 'ig_es_cron_interval', 'ig_es_cron_worker' );
 		}
 
-		$is_woocommerce_active = $ig_es_tracker::is_plugin_activated( 'woocommerce/woocommerce.php' );
+		if ( ES()->is_pro() ) {
 
-		if ( $is_woocommerce_active && ES()->is_pro() ) {
-
-			if ( IG_ES_Abandoned_Cart_Options::is_cart_tracking_enabled() ) {
-				
-				if ( ! wp_next_scheduled( 'ig_es_wc_abandoned_cart_worker' ) ) {
-					wp_schedule_event( floor( time() / 300 ) * 300, 'ig_es_two_minutes', 'ig_es_wc_abandoned_cart_worker' );
-				}
-			}
+			$is_woocommerce_active = $ig_es_tracker::is_plugin_activated( 'woocommerce/woocommerce.php' );
+			if ( $is_woocommerce_active ) {
 	
-			// Cron job to detect WooCommerce products which are on sale.
-			if ( ! wp_next_scheduled( 'ig_es_wc_products_on_sale_worker' ) ) {
-				wp_schedule_event( floor( time() / 300 ) * 300, 'ig_es_fifteen_minutes', 'ig_es_wc_products_on_sale_worker' );
+				if ( IG_ES_Abandoned_Cart_Options::is_cart_tracking_enabled() ) {
+					
+					if ( ! wp_next_scheduled( 'ig_es_wc_abandoned_cart_worker' ) ) {
+						wp_schedule_event( floor( time() / 300 ) * 300, 'ig_es_two_minutes', 'ig_es_wc_abandoned_cart_worker' );
+					}
+				}
+		
+				// Cron job to detect WooCommerce products which are on sale.
+				if ( ! wp_next_scheduled( 'ig_es_wc_products_on_sale_worker' ) ) {
+					wp_schedule_event( floor( time() / 300 ) * 300, 'ig_es_fifteen_minutes', 'ig_es_wc_products_on_sale_worker' );
+				}
 			}
 		}
 
@@ -255,20 +257,22 @@ class ES_Cron {
 	 */
 	public function cron_schedules( $schedules = array() ) {
 
-		$schedules['ig_es_cron_interval'] = array(
-			'interval' => $this->get_cron_interval(),
-			'display'  => esc_html__( 'Email Subscribers Cronjob Interval', 'email-subscribers' ),
+		$es_schedules = array(
+			'ig_es_cron_interval' => array(
+				'interval' => $this->get_cron_interval(),
+				'display'  => __( 'Email Subscribers Cronjob Interval', 'email-subscribers' ),
+			),
+			'ig_es_two_minutes' => array(
+				'interval' => 2 * MINUTE_IN_SECONDS,
+				'display'  => __( 'Two minutes', 'email-subscribers' ),
+			),
+			'ig_es_fifteen_minutes' => array(
+				'interval' => 15 * MINUTE_IN_SECONDS,
+				'display'  => __( 'Fifteen minutes', 'email-subscribers' ),
+			),
 		);
 
-		$schedules['ig_es_two_minutes'] = array(
-			'interval' => 120,
-			'display'  => esc_html__( 'Two minutes', 'email-subscribers' ),
-		);
-
-		$schedules['ig_es_fifteen_minutes'] = array(
-			'interval' => 900,
-			'display'  => esc_html__( 'Fifteen minutes', 'email-subscribers' ),
-		);
+		$schedules = array_merge( $schedules, $es_schedules );
 
 		return $schedules;
 	}

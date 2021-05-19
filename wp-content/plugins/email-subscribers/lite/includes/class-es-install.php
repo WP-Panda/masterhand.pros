@@ -336,7 +336,10 @@ if ( ! class_exists( 'ES_Install' ) ) {
 		 */
 		public static function install() {
 
-
+			// Create Files
+			self::create_files();
+			
+			
 			if ( ! is_blog_installed() ) {
 				self::$logger->error( 'Blog is not installed.', self::$logger_context );
 
@@ -358,11 +361,6 @@ if ( ! class_exists( 'ES_Install' ) ) {
 				set_transient( 'ig_es_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
 				ig_es_maybe_define_constant( 'IG_ES_INSTALLING', true );
-
-				// Create Files
-				self::create_files();
-
-				self::$logger->info( 'Create Files.', self::$logger_context );
 
 				// Create Tables
 				self::create_tables();
@@ -1455,6 +1453,7 @@ if ( ! class_exists( 'ES_Install' ) ) {
 					if ( $file_handle ) {
 						fwrite( $file_handle, $file['content'] );
 						fclose( $file_handle );
+						self::$logger->info( 'Created file ' . $file['file'], self::$logger_context );
 					}
 				}
 			}

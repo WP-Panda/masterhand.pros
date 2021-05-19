@@ -18,6 +18,9 @@ if ( ! class_exists( 'STI_Admin_Ajax' ) ) :
 
             add_action( 'wp_ajax_sti-dismissNotice', array( $this, 'dismiss_notice' ) );
 
+            add_action( 'wp_ajax_sti-hideWelcomeNotice', array( $this, 'hide_welcome_notice' ) );
+
+
         }
 
         /*
@@ -34,6 +37,20 @@ if ( ! class_exists( 'STI_Admin_Ajax' ) ) :
             die;
 
         }
+
+        /*
+         * Hide plugin welcome notice
+         */
+        public function hide_welcome_notice() {
+
+            check_ajax_referer( 'ajax_nonce' );
+
+            update_option( 'sti_hide_welcome_notice', 'true', false );
+
+            wp_send_json_success( '1' );
+
+        }
+
 
     }
 

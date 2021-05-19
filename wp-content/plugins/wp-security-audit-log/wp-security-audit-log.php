@@ -4,7 +4,7 @@
  * Plugin URI: http://wpactivitylog.com/
  * Description: Identify WordPress security issues before they become a problem. Keep track of everything happening on your WordPress including WordPress users activity. Similar to Windows Event Log and Linux Syslog, WP Activity Log generates a security alert for everything that happens on your WordPress blogs and websites. Use the Activity log viewer included in the plugin to see all the security alerts.
  * Author: WP White Security
- * Version: 4.2.1
+ * Version: 4.2.2
  * Text Domain: wp-security-audit-log
  * Author URI: https://www.wpwhitesecurity.com/
  * License: GPL2
@@ -47,7 +47,7 @@ if ( ! function_exists( 'wsal_freemius' ) ) {
          *
 		 * @var string
 		 */
-		public $version = '4.2.1';
+		public $version = '4.2.2';
 
 		/**
          * Plugin constants.
@@ -1415,6 +1415,9 @@ if ( ! function_exists( 'wsal_freemius' ) ) {
 				//  set some initial plugins settings (only the ones that bypass the regular settings retrieval at some
 				//  point) - e.g. disabled events
 				$this->SetGlobalSetting( 'disabled-alerts', implode( ',', $this->settings()->always_disabled_alerts ) );
+
+				//  we stop here as no further updates are needed for a freshly installed plugin
+				return;
 			}
 
 			// Do version-to-version specific changes.

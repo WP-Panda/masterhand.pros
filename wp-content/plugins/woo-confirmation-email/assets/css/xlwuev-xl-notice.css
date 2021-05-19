@@ -1,0 +1,62 @@
+/* notices css */
+#xl_notice_type_2 * { box-sizing: border-box;}
+#xl_notice_type_2 {display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: flex-start;align-content: flex-start;align-items: flex-start;position: relative;border: none;margin: 5px 0 15px;padding: 0 0 0 10px;}
+#xl_notice_type_2 .xl_upsell_area { background-color: #20235b; margin: 0 210px 0 250px; position: relative; padding: 1px; color: #fff; width: calc(100% - 460px);}
+#xl_notice_type_2 .upsell_left_abs { width: 250px; left: -250px; position: absolute; top: 50%; bottom: 0;display:table; transform: translateY(-50%); -moz-transform: translateY(-50%); -wbkit-transform: translateY(-50%); padding-right: 34px; padding-left: 20px; }
+#xl_notice_type_2 .upsell_left_abs .xl_plugin_logo { background-color: #1bc2a8; width: 45px; height: 45px; display: table-cell;vertical-align: middle;float: none; padding: 5px; border-radius: 6px; text-align: center; }
+#xl_notice_type_2 .upsell_left_abs .xl_h4 { display: table-cell;vertical-align: middle;color: #000;font-size: 26px;line-height:30px;font-weight: 600; padding-left: 10px;}
+#xl_notice_type_2 .upsell_left_abs .xl_h4 span {color: #888;}
+#xl_notice_type_2 .upsell_right_abs { width: 210px; right: -210px; position: absolute; top: 0; bottom: 0; text-align: center;}
+#xl_notice_type_2 .xl_skew_arow { -webkit-transform: skew(20deg); -moz-transform: skew(20deg); -o-transform: skew(20deg); background: #ffffff; position: absolute; top: 0px; bottom: 0; left: -25px; width: 50px; }
+#xl_notice_type_2 .upsell_left_abs .xl_plugin_logo img { width: 30px; height: 30px; }
+#xl_notice_type_2 .xl_cen_icon { padding: 5px; position: absolute; z-index: 2; top: 50%; bottom: 0; right: -40px; width: 30px; color: #fff; height: 30px; text-align: center; transform: translateY(-50%); -moz-transform: translateY(-50%); -wbkit-transform: translateY(-50%); border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; background: #e06a34; box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2); -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2); }
+#xl_notice_type_2 .upsell_right_abs .upsell_xl_plugin_btn { padding: 0; position: relative; top: 50%; transform: translateY(-50%); -moz-transform: translateY(-50%); -wbkit-transform: translateY(-50%); height: auto; width:auto; float:none; margin:0 auto; border:none; }
+#xl_notice_type_2 .upsell_right_abs .upsell_xl_plugin_btn p { margin: 8px 0 0 0; padding: 0; text-align: center; }
+#xl_notice_type_2 .upsell_right_abs .upsell_xl_plugin_btn p a { text-decoration: none; }
+#xl_notice_type_2 .upsell_main_abs { padding: 0 20px 0 50px; }
+#xl_notice_type_2 .upsell_main_abs h3 { margin: 15px 0 10px; color: #fff; font-size: 18px; line-height: 20px; }
+#xl_notice_type_2 .upsell_main_abs p { margin: 6px 0 15px; color: #fff; font-size: 13px; line-height: 19px; }
+i.xl-icon:before { font-family:'xlcore' !important; content: "\e900"; }
+i.xl-icon { font-style: normal; font: 11px/11px 'xlcore' !important; }
+
+/* Finale */
+#xl_notice_type_2[data-plugin="finale"] .upsell_left_abs .xl_plugin_logo { background:#fd7e21;}
+#xl_notice_type_2[data-plugin="finale"] .xl_upsell_area { margin-left:200px;width: calc(100% - 410px);}
+#xl_notice_type_2[data-plugin="finale"] .upsell_left_abs { width:200px;left:-200px;}
+#xl_notice_type_2[data-plugin="finale"] .upsell_main_abs{padding-left:60px;}
+
+/* nextmove */
+#xl_notice_type_2[data-plugin="nextmove"] .upsell_left_abs .xl_plugin_logo{background-color:#1bc2a8;}
+#xl_notice_type_2[data-plugin="nextmove"] .xl_upsell_area { margin-left:240px;width: calc(100% - 450px);}
+#xl_notice_type_2[data-plugin="nextmove"] .upsell_left_abs { width:240px;left:-240px;}
+#xl_notice_type_2[data-plugin="nextmove"] .upsell_main_abs{padding-left:60px;}
+
+/* sales trigger */
+#xl_notice_type_2[data-plugin="sales_trigger"] .upsell_left_abs .xl_plugin_logo{background-color:#9164b5;}
+#xl_notice_type_2[data-plugin="sales_trigger"] .xl_upsell_area{margin-left: 280px;width: calc(100% - 490px);}
+#xl_notice_type_2[data-plugin="sales_trigger"] .upsell_left_abs{width: 280px;left: -280px;}
+#xl_notice_type_2[data-plugin="sales_trigger"] .upsell_main_abs{padding-left:60px;}
+
+/* halloween sale */
+#xl_notice_type_2[data-plugin="halloween_sale_17"] .upsell_left_abs .xl_plugin_logo{background-color:transparent;width:70px;height:70px;padding:0}
+#xl_notice_type_2[data-plugin="halloween_sale_17"] .upsell_left_abs .xl_plugin_logo img {width:70px;height:70px}
+#xl_notice_type_2[data-plugin="halloween_sale_17"] .xl_upsell_area { margin-left:290px;width: calc(100% - 500px);}
+#xl_notice_type_2[data-plugin="halloween_sale_17"] .upsell_left_abs { width:290px;left:-290px;padding-left:10px;padding-right:20px}
+#xl_notice_type_2[data-plugin="halloween_sale_17"] .upsell_main_abs{padding-left:60px;}
+
+/* pre black friday sale */
+#xl_notice_type_2[data-plugin="pre_black_friday_17"] .upsell_left_abs .xl_plugin_logo{background-color:transparent;width:70px;height:70px;padding:0}
+#xl_notice_type_2[data-plugin="pre_black_friday_17"] .upsell_left_abs .xl_plugin_logo img {width:70px;height:auto}
+#xl_notice_type_2[data-plugin="pre_black_friday_17"] .xl_upsell_area { margin-left:290px;width: calc(100% - 500px);}
+#xl_notice_type_2[data-plugin="pre_black_friday_17"] .upsell_left_abs { width:290px;left:-290px;padding-left:10px;padding-right:10px}
+#xl_notice_type_2[data-plugin="pre_black_friday_17"] .upsell_main_abs{padding-left:60px;}
+
+/* black friday cyber monday sale */
+#xl_notice_type_2[data-plugin="bfcm_17"] .upsell_left_abs .xl_plugin_logo{background-color:transparent;width:70px;height:70px;padding:0}
+#xl_notice_type_2[data-plugin="bfcm_17"] .upsell_left_abs .xl_plugin_logo img {width:70px;height:auto}
+#xl_notice_type_2[data-plugin="bfcm_17"] .xl_upsell_area { margin-left:290px;width: calc(100% - 500px);}
+#xl_notice_type_2[data-plugin="bfcm_17"] .upsell_left_abs { width:290px;left:-290px;padding-left:6px;padding-right:0}
+#xl_notice_type_2[data-plugin="bfcm_17"] .upsell_main_abs{padding-left:60px;}
+
+
+

@@ -277,11 +277,11 @@ class ES_Workflow_Admin_Edit {
 
 		$page_prefix = ES()->get_admin_page_prefix();
 		
-		$meta_box_title_for_trigger			= __( 'Trigger', 'email-subscribers' );
-		$meta_box_title_for_actions			= __( 'Actions', 'email-subscribers' );
-		$meta_box_title_for_save    	    = __( 'Save', 'email-subscribers' );
-		$meta_box_title_for_options 	    = __( 'Options', 'email-subscribers' );
-		$meta_box_title_for_variables 	    = __( 'Placeholders', 'email-subscribers' );
+		$meta_box_title_for_trigger   = __( 'Trigger', 'email-subscribers' );
+		$meta_box_title_for_actions   = __( 'Actions', 'email-subscribers' );
+		$meta_box_title_for_save      = __( 'Save', 'email-subscribers' );
+		$meta_box_title_for_options   = __( 'Options', 'email-subscribers' );
+		$meta_box_title_for_variables = __( 'Placeholders', 'email-subscribers' );
 		// $meta_box_title_for_timing  = __( 'Timing', 'email-subscribers' );
 
 		add_meta_box( 'ig_es_workflow_trigger', $meta_box_title_for_trigger, array( __CLASS__, 'trigger_metabox' ), $page_prefix . '_page_es_workflows', 'normal', 'default' );

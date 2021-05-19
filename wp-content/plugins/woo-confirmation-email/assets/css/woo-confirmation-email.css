@@ -1,0 +1,39 @@
+@font-face{font-family:'xlcore';src:url(../fonts/xlcore.eot?yjfmpn);src:url(../fonts/xlcore.eot?yjfmpn#iefix) format("embedded-opentype"),url(../fonts/xlcore.ttf?yjfmpn) format("truetype"),url(../fonts/xlcore.woff?yjfmpn) format("woff"),url(../fonts/xlcore.svg?yjfmpn#xlcore) format("svg");font-weight:400;font-style:normal}
+#login_register{padding:0;border:none;margin:0}
+.confirm_box{display:none;margin-bottom:6px}
+input#confirmdCode{width:100%;margin-bottom:4px}
+input#confirmcode_button{width:100%;padding:5px;height:36px}
+#resendverifycode{width:100%;padding:5px;height:36px;display:none}
+.row.error_box{display:none;color:red;margin:0;font-size:13px;border:1px solid #B3B3B3;padding:4px}
+.width33{float:left}
+.oknotice{color:#248805;border:1px solid #248805;font-size:13px;padding-left:3px}
+.wc-email-confirmation .wc-email-left-part{display:inline-block;background:#fff;padding:0 10px 0 0;width:70%}
+.wc-email-confirmation .wc-email-right-part{display:inline-block;width:25%;box-sizing:border-box;float:right;margin-right:17px}
+.wc-email-confirmation .wc-left{width:100%;float:left;padding:5px}
+.wc-email-confirmation .wc-right{max-width:350px;float:left;padding:5px}
+.wc-email-confirmation .form-group{margin:6px;margin-bottom:15px}
+.wc-email-confirmation .form-group label{display:block;font-size:18px;line-height:29px}
+.wc-email-confirmation .form-group .wc-form-input{width:100%;padding:9px}
+.wc-email-shortcode-margin-top{margin-top:20px}
+.wc-email-shortcode{background:#fff;padding:1px 10px}
+.form-group.wuev-bulk-verification select{width:70%}
+.no-margin-left{margin-left:0!important}
+.wc-wuev-bulk-verification select{width:100%}
+#adminmenu .wp-has-submenu.toplevel_page_xlplugins .wp-menu-image:before{font-family:'xlcore'!important;content:"\e900";font-size:12px;padding:11px 0 0}
+.wuev-circle{display:inline-block;width:12px;height:12px;border-radius:50%!important;background:#888}
+.wuev-iconright{background-color:#7ad03a}
+.wuev-iconwrong{background-color:#dc3232}
+.wuev-custom-page-hide,.email_type_hide_class{display:none}
+.all-pages-dropdown,.all-pages-dropdown .description{padding-left:23px}
+#normal-sortables .postbox .wuev-forms .submit{float:none;padding:15px 0 0}
+.wuev-input-text,.wuev-input-textarea{width:400px}
+.wuev_content{margin:1em 0}
+.wuev_sidebar .postbox.wuev_xlplugins{background:#9164b5}
+.wuev_sidebar .postbox.wuev_xlplugins_finale{background:#fd7e21}
+.wuev_sidebar .postbox.wuev_xlplugins_nextmove{background:#1bc2a8}
+.wuev_sidebar .postbox.wuev_xlplugins{border:none;box-shadow:none!important;padding:10px;color:#fff;font-size:15px;position:relative}
+.wuev_sidebar .postbox.wuev_xlplugins>a{position:absolute;top:0;right:0;bottom:0;left:0;z-index:10}
+.wuev_sidebar .postbox.wuev_xlplugins>img{max-width:60px;position:absolute;left:10px;top:15px}
+.wuev_sidebar .postbox.wuev_xlplugins>.wuev_plugin_head{font-weight:700;font-size:14px;line-height:18px;margin:0;margin-bottom:5px;padding:0 0 0 70px}
+.wuev_sidebar .postbox.wuev_xlplugins>.wuev_plugin_desc{font-size:12px;line-height:15px;padding:0 0 0 70px;margin:0}
+.wuev-tr-border-bottom{border-bottom:1px solid #eee}

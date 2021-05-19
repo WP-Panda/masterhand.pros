@@ -3,7 +3,7 @@
 /*
 Plugin Name: Share This Image
 Description: Allows you to share in social networks any of your images
-Version: 1.46
+Version: 1.55
 Author: ILLID
 Author URI: https://share-this-image.com/
 Text Domain: share-this-image
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'STI_VER', '1.46' );
+define( 'STI_VER', '1.55' );
 
 
 define( 'STI_DIR', dirname( __FILE__ ) );
@@ -80,9 +80,11 @@ final class STI_Main {
         // Admin
         include_once( 'includes/admin/class-sti-admin.php' );
         include_once( 'includes/admin/class-sti-admin-fields.php' );
+        include_once( 'includes/admin/class-sti-admin-page-premium.php' );
         include_once( 'includes/admin/class-sti-admin-helpers.php' );
         include_once( 'includes/admin/class-sti-admin-ajax.php' );
         include_once( 'includes/admin/class-sti-admin-options.php' );
+        include_once( 'includes/admin/class-sti-admin-meta-boxes.php' );
 
     }
 
@@ -156,6 +158,30 @@ function STI() {
 }
 
 /*
+ * Activation hook
+ */
+register_activation_hook( __FILE__, 'sti_activation_check' );
+function sti_activation_check() {
+
+    if ( sti_is_plugin_active( 'share-this-image-pro/share-this-image-pro.php' ) ) {
+        deactivate_plugins( plugin_basename( __FILE__ ) );
+        wp_die( __( 'Share This Image plugin can\'t be activated because you already activate PRO plugin version.', 'share-this-image' ) );
+    }
+
+    $hide_notice = get_option( 'sti_hide_welcome_notice' );
+    if ( ! $hide_notice ) {
+        $free_plugin_version = get_option( 'sti_plugin_ver' );
+        $pro_plugin_version = get_option( 'sti_pro_plugin_ver' );
+        $hide = 'false';
+        if ( $free_plugin_version || $pro_plugin_version ) {
+            $hide = 'true';
+        }
+        update_option( 'sti_hide_welcome_notice', $hide, false );
+    }
+
+}
+
+/*
  * Check if WooCommerce is active
  */
 if ( ! sti_is_plugin_active( 'share-this-image-pro/share-this-image-pro.php' ) ) {
@@ -181,4 +207,80 @@ function sti_is_plugin_active_for_network( $plugin ) {
         return true;
 
     return false;
+}
+
+// Freemius
+if ( ! function_exists( 'sti_fs' ) ) {
+    function sti_fs() {
+        global $sti_fs;
+
+        if ( ! isset( $sti_fs ) ) {
+            require_once dirname(__FILE__) . '/freemius/start.php';
+
+            $sti_fs = fs_dynamic_init( array(
+                'id'                  => '7106',
+                'slug'                => 'share-this-image',
+                'premium_slug'        => 'share-this-image-pro',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_218e18e87b9c8be03e916c5e4bcca',
+                'is_premium'          => false,
+                'premium_suffix'      => 'PRO',
+                'has_premium_version' => true,
+                'has_addons'          => false,
+                'has_paid_plans'      => true,
+                'menu'                => array(
+                    'slug'           => 'sti-options',
+                    'first-path'     => 'admin.php?page=sti-options',
+                    'contact'        => false,
+                    'support'        => false,
+                ),
+            ) );
+        }
+
+        return $sti_fs;
+    }
+
+    // Init Freemius.
+    sti_fs();
+    // Signal that SDK was initiated.
+    do_action( 'sti_fs_loaded' );
+
+    // FS uninstall hook
+    sti_fs()->add_action('after_uninstall', 'sti_fs_uninstall_cleanup');
+    function sti_fs_uninstall_cleanup() {
+        delete_option('sti_settings');
+    }
+
+    function sti_fs_custom_connect_message_on_update( $message, $user_first_name, $plugin_title, $user_login, $site_link, $freemius_link ) {
+        return sprintf(
+            __( 'Hey %1$s' ) . ',<br>' .
+            __( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'share-this-image' ),
+            $user_first_name,
+            '<b>' . $plugin_title . '</b>',
+            '<b>' . $user_login . '</b>',
+            $site_link,
+            $freemius_link
+        );
+    }
+    sti_fs()->add_filter('connect_message_on_update', 'sti_fs_custom_connect_message_on_update', 10, 6);
+
+    function sti_fs_custom_connect_message( $message,  $user_first_name,  $plugin_title,  $user_login,  $site_link, $freemius_link ) {
+        return sprintf(
+            __( 'Hey %1$s' ) . '!<br><br>
+                <p>Thank you for trying out our plugin!</p><br>
+                <p>%2$s use Freemius.com for better user experience. Please help us make your journey even better by sharing some non-sensitive usage data.</p><br>
+                <p>Click on \'Allow and Continue\' (blue button) so that we can learn how to improve our plugin and help you better when you have support issues.</p><br>
+                <p>You can always use %2$s without opting-in. Just click \'Skip\' (white button) if you don\'t want to opt-in.</p><br>        
+                <b>Regards</b></p>',
+            $user_first_name,
+            '<b>' . $plugin_title . '</b>',
+            '<b>' . $user_login . '</b>',
+            $site_link,
+            $freemius_link
+        );
+    }
+    sti_fs()->add_filter('connect_message', 'sti_fs_custom_connect_message', 10, 6);
+
+    sti_fs()->add_filter( 'show_deactivation_subscription_cancellation', '__return_false' );
+
 }

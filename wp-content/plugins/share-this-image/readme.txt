@@ -3,8 +3,8 @@ Contributors: Mihail Barinov
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GSE37FC4Y7CEY
 Tags: facebook, image, sharing, social buttons, twitter
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 1.46
+Tested up to: 5.7
+Stable tag: 1.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,10 +27,10 @@ Share This Image is simple and flexible image sharing plugin for WordPress. It�
 * **Select what images to share**. Share all images of you site or just from several pages. Or just single images that you want. All this is possible!
 * **Customize content** - fully customizable url, image, title and content that you want to share.
 * **Powerfull Admin Panel** – all settings in one page.
-* Build-in **shortcode** for easier work
-* **Fast** - Nothing extra. Just what you need for proper work
+* Build-in **shortcode** for easier work.
+* **Fast** - Nothing extra. Just what you need for proper work.
 * **Not only images** – apply it not only for image but for any block of content with specified data-media attribute.
-* **Google Analytics** support
+* **Google Analytics** support.
 * Supports all major desktop browsers (IE8, IE9, IE10, Chrome, Firefox, Safari, Opera) and mobile browsers.
 
 = Premium Features =
@@ -124,6 +124,46 @@ In order to share images and all other data social networks must scrap data from
 4. Filtering feature
 
 == Changelog ==
+
+= 1.55 ( 12.04.2021 ) =
+* Update - Twitter meta tags
+
+= 1.54 ( 29.03.2021 ) =
+* Dev - Add sti_append_buttons_to js filter
+
+= 1.53 ( 09.03.2021 ) =
+* Fix - Remove new special character from sharing content to prevent unexpected issues
+
+= 1.52 ( 20.02.2021 ) =
+* Add - Gutenberg sharing buttons block
+* Update - Freemius SDK
+
+= 1.51 ( 25.01.2021 ) =
+* Fix - Google Analytics tracking option
+
+= 1.50 ( 04.01.2021 ) =
+* Add - Support for Elementor pop-ups
+* Dev - Add sti_chars_remove_regex js filter
+
+= 1.49 ( 07.12.2020 ) =
+* Add - Welcome message for new users
+* Update - WhatsApp sharing text
+* Update - sharer.php file
+
+= 1.48 =
+* Add - Support for lazy loaded images
+* Fix - Mobile detection. Now work with page caching plugins
+* Fix - Bug with share buttons duplicates
+* Fix - Prevent multiply sharing buttons click events
+* Dev - Add re-layout method
+
+= 1.47 =
+* Add - Support for Envira Gallery plugin
+* Add - Support for Jetpack Slider
+* Add - Freemius framework for better user experience
+* Update - Sharer.php file. Add twitter:image meta tag
+* Update - Sharing buttons z-index style
+* Update - Plugin settings page
 
 = 1.46 =
 * Add - stiSharingWindowClosed js event

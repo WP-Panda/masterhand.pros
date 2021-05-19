@@ -1,0 +1,10 @@
+<wpml-config>
+    <admin-texts>
+        <key name="wuev-general-settings"></key>
+        <key name="wuev-email-template"></key>
+        <key name="wuev-messages"></key>
+        <key name="xlwuev_email_header"></key>
+        <key name="wc_email_conf_title"></key>
+        <key name="wc_email_confemail"></key>
+    </admin-texts>
+</wpml-config>

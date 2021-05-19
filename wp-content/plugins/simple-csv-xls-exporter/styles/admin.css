@@ -1,0 +1,84 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * @project Simple CSV Exporter
+ */
+
+.simple_csv_exporter_wrap h2 {
+   font-size: 28px;
+}
+
+.simple_csv_exporter_wrap form {
+   float: left;
+   width: 70%;
+}
+
+.simple_csv_exporter_wrap select option {
+}
+
+.simple_csv_exporter_wrap select option:nth-child(odd) {
+   background: #f2f2f2;
+}
+
+.simple_csv_exporter_wrap .small {
+   font-size: 12px;
+   color:     #666;
+}
+
+.simple_csv_exporter_wrap .boxes .box {
+   position:      relative;
+   border:        1px solid #e5e5e5;
+   box-shadow:    0 1px 1px rgba(0, 0, 0, 0.04);
+   background:    #fff;
+   margin-bottom: 30px;
+}
+
+.simple_csv_exporter_wrap .boxes .box .box-title-container {
+   border-bottom: 1px solid #eee;
+}
+
+.simple_csv_exporter_wrap .boxes .box .box-title-container .box-title {
+   font-size:   16px;
+   padding:     10px;
+   margin:      0;
+   line-height: 1.4;
+}
+
+.simple_csv_exporter_wrap .boxes .box .box-content {
+   padding:     0 10px;
+   line-height: 1.5em;
+   font-size:   13px;
+}
+
+.simple_csv_exporter_wrap .sidebar {
+   float:       left;
+   margin-left: 5%;
+   width:       20%;
+}
+
+.simple_csv_exporter_wrap .sidebar .block {
+   background-color: #ddd;
+   border:           1px solid #999;
+   margin-bottom:    20px;
+   padding:          10px;
+}
+
+.simple_csv_exporter_wrap .sidebar .donate p a {
+   display:    block;
+   margin:     5px auto;
+   text-align: center;
+}
+
+.simple_csv_exporter_wrap .footer {
+   clear:      both;
+   margin:     20px auto;
+   text-align: center;
+}
+
+.simple_csv_exporter_wrap .footer a {
+   margin:     0 auto;
+   text-align: center;
+}

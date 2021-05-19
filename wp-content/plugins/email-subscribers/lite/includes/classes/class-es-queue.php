@@ -595,6 +595,7 @@ if ( ! class_exists( 'ES_Queue' ) ) {
 						if ( ! empty( $campaign ) ) {
 	
 							$content = $campaign['body'];
+
 							$subject = $campaign['subject'];
 	
 							foreach ( $notifications as $notification ) {
@@ -736,6 +737,7 @@ if ( ! class_exists( 'ES_Queue' ) ) {
 								$subject = $notification['subject'];
 								$content = $notification['body'];
 		
+								//$content = utf8_encode( $content );
 								ES()->mailer->send( $subject, $content, $emails, $merge_tags );
 		
 								$total_remaining_emails      = ES_DB_Sending_Queue::get_total_emails_to_be_sent_by_hash( $notification_guid );

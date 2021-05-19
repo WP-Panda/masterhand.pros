@@ -337,7 +337,12 @@ class ES_Newsletters {
 					<div class="mx-auto max-w-7xl">
 						<hr class="wp-header-end">
 					</div>
-					<div class="mx-auto mt-7 es_broadcast_first max-w-7xl">
+					<div class="text-right mt-3">
+						<a class="hover:underline text-base font-medium" href="https://www.icegram.com/documentation/es-how-to-create-and-send-newsletter-emails/" target="_blank">
+								<?php esc_html_e( 'How to create Broadcast?', 'email-subscribers' ); ?> &rarr;
+						</a>
+					</div>
+					<div class="mx-auto mt-3 es_broadcast_first max-w-7xl">
 						<div>
 							<div class=" bg-white rounded-lg shadow-md md:flex">
 								<div class="broadcast_main_content py-4 pl-2">

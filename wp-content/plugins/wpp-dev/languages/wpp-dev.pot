@@ -1,0 +1,82 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WPP DEV\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-09 11:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-5.1"
+
+#: wpp-dew.php:24
+msgctxt ""
+"ВНИМАНИЕ! НЕ ОТКЛЮЧАЙТЕ ПЛАГИН WP DEV. Я ВЫКЛЮЧУ ЕГО ПОСЛЕ ЗАВЕРШЕНИЯ РАБОТЫ "
+"!"
+msgid ""
+"ATTENTION! DO NOT DEACTIVATE WPP DEV. WE WILL TURN IT OFF AFTER WORK IS "
+"COMPLETE !"
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:28
+#: libs/show-current-template/show-current-template.php:35
+msgctxt "Название темы:"
+msgid "Theme name: "
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:32
+msgctxt "дочерняя"
+msgid "'s child"
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:36
+msgctxt "Не дочерняя тема"
+msgid "NOT a child theme"
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:57
+msgctxt "Шаблон:"
+msgid "Template:"
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:66
+msgctxt "Относительный путь к шаблону:"
+msgid "Template relative path:"
+msgstr ""
+
+#: libs/show-current-template/show-current-template.php:79
+msgctxt "Кроме того,подключены файлы шаблонов:"
+msgid "Also, below template files are included:"
+msgstr ""
+
+#. Name of the plugin
+msgctxt "WPP DEV"
+msgid "WPP DEV"
+msgstr ""
+
+#. Description of the plugin
+msgctxt "Функции разработчика WP Panda"
+msgid ""
+"РџР»Р°РіРёРЅ Р’СЃСЏРєРѕРіРѕ СЃРїРµС†РёС„РёС‡РµСЃРєРѕРіРѕ РґР»СЏ РјРµРЅСЏ"
+msgstr ""
+
+#. URI of the plugin
+msgctxt "https://wppanda.com?target=wpp_dev"
+msgid "https://wppanda.com?target=wpp_dev"
+msgstr ""
+
+#. Author of the plugin
+msgctxt "WP Panda"
+msgid "WP Panda"
+msgstr ""
+
+#. Author URI of the plugin
+msgctxt "https://wppanda.com"
+msgid "https://wppanda.com"
+msgstr ""

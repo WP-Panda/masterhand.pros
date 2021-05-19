@@ -266,8 +266,8 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 			// Delete the onboarding data used during onboarding process.
 			$this->delete_onboarding_data();
 
-			$settings_url             = admin_url( 'admin.php?page=es_settings' );
-			$response['redirect_url'] = $settings_url;
+			$dashboard_url             = admin_url( 'admin.php?page=es_dashboard' );
+			$response['redirect_url'] = $dashboard_url;
 			
 			return $response;
 		}

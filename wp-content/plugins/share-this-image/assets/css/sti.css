@@ -3,7 +3,10 @@
 .sti {
     position: absolute;
     text-align: left;
-    z-index: 9999999;
+    z-index: 99;
+}
+.sti.sti-hover {
+    z-index: 9999999999999999;
 }
 
 .sti .sti_reset {
@@ -19,8 +22,18 @@
 
 .sti .sti-share-box {
 	position: absolute;
-	z-index: 999;
+	z-index: 99;
 	display: block;
+}
+
+.sti-align-center .sti .sti-share-box {
+    text-align: center;
+}
+.sti-align-right .sti .sti-share-box {
+    text-align: right;
+}
+.sti-align-left .sti .sti-share-box {
+    text-align: left;
 }
 
 .sti .sti-share-box .sti-btn {	
@@ -38,6 +51,10 @@
     fill: #fff;
 }
 
+.sti.sti-shortcode {
+    margin: 10px 0;
+}
+
 .sti.sti-shortcode,
 .sti.sti-shortcode .sti-share-box {
     position: relative;
@@ -50,7 +67,7 @@
 /* Mobile */
 .sti-mobile-btn {
 	position: absolute;
-	z-index: 999;
+	z-index: 99;
 	display: block;
 	cursor: pointer;
 	width: 36px;

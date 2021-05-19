@@ -2,7 +2,7 @@
 /*
 	Plugin Name: User Submitted Posts
 	Plugin URI: https://perishablepress.com/user-submitted-posts/
-	Description: Enables your visitors to submit posts and images from anywhere on your site.
+	Description: ЭТОТ ПЛАГИН ПОХОЖЕ БЫЛ ИСПРАВЛЕН И ЕГО НЕЛЬЗЯ ТРОГАТЬ Enables your visitors to submit posts and images from anywhere on your site.
 	Tags: guest post, user post, anonymous post, frontend post, public post, share post, submit post, visitor post, user submitted post, upload
 	Author: Jeff Starr
 	Author URI: https://plugin-planet.com/

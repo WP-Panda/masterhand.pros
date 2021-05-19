@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Author URI: https://www.icegram.com/
 Tags: email marketing, subscription, autoresponder, post notification, welcome email
 Requires at least: 3.9
-Tested up to: 5.7
+Tested up to: 5.7.1
 Requires PHP: 5.6
-Stable tag: 4.6.14
+Stable tag: 4.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses
 
@@ -302,12 +302,60 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 21. Campaign Analytics [PRO]
 
+== Upgrade Notice ==
 
-== Changelog ==
+**4.7.1 (30.04.2021)**
+
+* New: Send emails using Postmark batch API **[PRO]**
+* Update: Improved dashboard UI
+* Fix: Post digest category issue **[PRO]**
+* Fix: Garbage characters in few cases when an email containing HTML entities is sent using Pepipost
+* Fix: Ajax call on every page load
+
+**4.7.0 (05.04.2021)**
+
+* New: Support for list and status fields while importing contacts through CSV
+* New: Using batch API to send emails through Mailgun [PRO]
 
 **4.6.14 (25.03.2021)**
 
-* New: Send emails using Mailgun, SparkPost, SendGrid [PRO]
+* New: Send emails using Mailgun, SparkPost and SendGrid [PRO]
+* New: Import contacts from MailChimp
+
+**4.6.13 (17.03.2021)**
+
+* New: Campaign rules to filter recipients while sending sequence emails [PRO]
+* Update: Tested upto WordPress 5.7
+* Fix: Invalid date and time for campaign reports activity table
+
+**4.6.12.1 (05.03.2021)**
+
+* Fix: Subscription issue with [Icegram](https://wordpress.org/plugins/icegram) plugin
+
+**4.6.12 (04.03.2021)**
+
+* New: Filter recipients using new campaign rules for 'is in List' and 'is not in List'[PRO] while sending broadcast
+* Update: Improved campaign report UI
+* Update: Improved securities in subscription form
+
+== Changelog ==
+
+**4.7.1 (30.04.2021)**
+
+* New: Send emails using Postmark batch API [PRO]
+* Update: Improved dashboard UI
+* Fix: Post digest category issue [PRO]
+* Fix: Garbage characters in few cases when an email containing HTML entities is sent using Pepipost
+* Fix: Ajax call on every page load
+
+**4.7.0 (05.04.2021)**
+
+* New: Support for list and status fields while importing contacts through CSV
+* New: Using batch API to send emails through Mailgun [PRO]
+
+**4.6.14 (25.03.2021)**
+
+* New: Send emails using Mailgun, SparkPost and SendGrid [PRO]
 * New: Import contacts from MailChimp
 
 **4.6.13 (17.03.2021)**

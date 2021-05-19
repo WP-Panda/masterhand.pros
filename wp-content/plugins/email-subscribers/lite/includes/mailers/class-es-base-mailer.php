@@ -63,6 +63,60 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		);
 
 		/**
+		 * Flag to determine whether this mailer support batch sending or not
+		 * 
+		 * @var boolean
+		 * 
+		 * @since 4.7.0
+		 */
+		public $support_batch_sending = false;
+
+		/**
+		 * Stores batch sending mode
+		 * 
+		 * @var boolean
+		 * 
+		 * @since 4.7.1
+		 */
+		public $batch_sending_mode = '';
+
+		/**
+		 * Batch limit
+		 * 
+		 * @var boolean
+		 * 
+		 * @since 4.7.0
+		 */
+		public $batch_limit = 0;
+		
+		/**
+		 * Current batch size
+		 * 
+		 * @var boolean
+		 * 
+		 * @since 4.7.0
+		 */
+		public $current_batch_size = 0;
+		
+		/**
+		 * Batch data
+		 * 
+		 * @var boolean
+		 * 
+		 * @since 4.7.0
+		 */
+		public $batch_data = array();
+		
+		/**
+		 * Links
+		 * 
+		 * @var array
+		 * 
+		 * @since 4.7.0
+		 */
+		public $links = array();
+
+		/**
 		 * ES_Base_Mailer constructor.
 		 *
 		 * @since 4.3.2
@@ -186,7 +240,6 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		 * @since 4.6.14
 		 */
 		public function get_body() {
-
 			return apply_filters( 'ig_es_mailer_get_body', $this->body, $this );
 		}
 
@@ -198,7 +251,6 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		 * @since 4.6.14
 		 */
 		public function get_headers() {
-
 			return apply_filters( 'ig_es_mailer_get_headers', $this->headers, $this );
 		}
 		
@@ -210,9 +262,19 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		 * @since 4.6.14
 		 */
 		public function reset_mailer_data() {
-
 			$this->body    = array();
 			$this->headers = array();
+		}
+
+		/**
+		 * Check if the batch limit has been reached or not
+		 * 
+		 * @return boolean
+		 * 
+		 * @since 4.7.0
+		 */
+		public function is_batch_limit_reached() {
+			return true;
 		}
 	}
 }
