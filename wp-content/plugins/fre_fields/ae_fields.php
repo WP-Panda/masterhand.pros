@@ -8,7 +8,7 @@
 Plugin Name: FrE Fields
 Plugin URI: http://enginethemes.com/
 Description: Integrated to FreelanceEngine theme, allowing you to add extra fields that will be displayed on the Post a Project form and user's profiles
-Version: 1.2.7
+Version: 1.2.wp_panda
 Author: EngineThemes
 Author URI: https://www.enginethemes.com/
 License: GPLv2 or later
