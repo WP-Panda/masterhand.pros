@@ -30,8 +30,7 @@
 
 		register_activation_hook( __FILE__, 'activateEndorseSkill' );
 		add_action( 'activate_' . basename( __DIR__ ) . '/index.php', 'activateEndorseSkill', 1 );
-		add_action( 'wp_register_scripts', 'register_assets' );
-
+		add_action( 'wp_enqueue_scripts', 'register_assets' );
 
 	}
 
