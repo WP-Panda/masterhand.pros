@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[ABC Door Repair]]></name>
+		<rating><![CDATA[4.2]]></rating>
+		<category><![CDATA[Construction]]></category>
+		<tags><![CDATA[Door Services]]></tags>
+		<categoryid><![CDATA[9965]]></categoryid>
+		<subcategoryid><![CDATA[9984]]></subcategoryid>
+		<address><![CDATA[35 Portland street, Berat, Albania]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://queensautolocksmith.com/]]></site>
+		<phone><![CDATA[067 347-774-9999]]></phone>
+		<email><![CDATA[queensautolock@gmail.com]]></email>
+		<country><![CDATA[]]></country>
+		<region><![CDATA[]]></region>
+		<city><![CDATA[]]></city>
+		<geocountryid><![CDATA[2]]></geocountryid>
+		<georegionid><![CDATA[35]]></georegionid>
+		<geocityid><![CDATA[42]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[QQQ Drain Cleaners]]></name>
+		<rating><![CDATA[3.1]]></rating>
+		<category><![CDATA[Construction]]></category>
+		<tags><![CDATA[Drain Cleaning]]></tags>
+		<categoryid><![CDATA[9965]]></categoryid>
+		<subcategoryid><![CDATA[9985]]></subcategoryid>
+		<address><![CDATA[56 Three Pines street, Corovode, Albania]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[https://www.emtlocksmith.com/]]></site>
+		<phone><![CDATA[067 718-619-8888]]></phone>
+		<email><![CDATA[emtlocksmith@gmail.com]]></email>
+		<country><![CDATA[]]></country>
+		<region><![CDATA[]]></region>
+		<city><![CDATA[]]></city>
+		<geocountryid><![CDATA[2]]></geocountryid>
+		<georegionid><![CDATA[35]]></georegionid>
+		<geocityid><![CDATA[43]]></geocityid>
+	</node>
+</data>

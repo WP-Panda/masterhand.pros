@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[Aram Movers]]></name>
+		<rating><![CDATA[3.9]]></rating>
+		<category><![CDATA[Moving]]></category>
+		<tags><![CDATA[Moving]]></tags>
+		<categoryid><![CDATA[10080]]></categoryid>
+		<address><![CDATA[2 Gyulbenkyan St, Yerevan 0019, Armenia]]></address>
+		<coderegion><![CDATA[Q66H+JR Bayside, Queens, NY, United States]]></coderegion>
+		<site><![CDATA[http://www.armbose.com]]></site>
+		<phone><![CDATA[374 3473039]]></phone>
+		<email><![CDATA[aram@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Yerevan]]></region>
+		<city><![CDATA[Yerevan]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[157]]></georegionid>
+		<geocityid><![CDATA[353]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Bagram Movers]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[Moving]]></category>
+		<tags><![CDATA[Moving]]></tags>
+		<categoryid><![CDATA[10080]]></categoryid>
+		<address><![CDATA[16 Ghazar Parpetsi St, Yerevan, Armenia]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.bshin.am]]></site>
+		<phone><![CDATA[471 8-619-414]]></phone>
+		<email><![CDATA[bagram@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Yerevan]]></region>
+		<city><![CDATA[Yerevan]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[157]]></georegionid>
+		<geocityid><![CDATA[353]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Conte Movers]]></name>
+		<rating><![CDATA[4.7]]></rating>
+		<category><![CDATA[Moving]]></category>
+		<tags><![CDATA[Moving]]></tags>
+		<categoryid><![CDATA[10080]]></categoryid>
+		<address><![CDATA[30 Marshal Baghramyan Ave, Yerevan 0019, Armenia]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.conte.am]]></site>
+		<phone><![CDATA[45 929-273-07]]></phone>
+		<email><![CDATA[conte@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Yerevan]]></region>
+		<city><![CDATA[Yerevan]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[157]]></georegionid>
+		<geocityid><![CDATA[353]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Grig Pet Care]]></name>
+		<rating><![CDATA[4.4]]></rating>
+		<category><![CDATA[Pet Daycare & Boarding]]></category>
+		<tags><![CDATA[Pet Daycare & Boarding]]></tags>
+		<categoryid><![CDATA[10132]]></categoryid>
+		<address><![CDATA[34 Amiryan St, Yerevan 0010, Armenia]]></address>
+		<coderegion><![CDATA[QGMW+7J Plainview, Oyster Bay, NY, United States]]></coderegion>
+		<site><![CDATA[http://www.hotelgrig.am]]></site>
+		<phone><![CDATA[95 162 437479]]></phone>
+		<email><![CDATA[grig@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Shirak]]></region>
+		<city><![CDATA[Gyumri]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[153]]></georegionid>
+		<geocityid><![CDATA[348]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Fortuna Pet Care]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[Pet Daycare & Boarding]]></category>
+		<tags><![CDATA[Pet Daycare & Boarding]]></tags>
+		<categoryid><![CDATA[10132]]></categoryid>
+		<address><![CDATA[87 Ghazar Parpetsi St, Yerevan, Armenia]]></address>
+		<coderegion><![CDATA[JV79+3F Staten Island, New York, United States]]></coderegion>
+		<site><![CDATA[http://fortunahome.am]]></site>
+		<phone><![CDATA[374 10-270077]]></phone>
+		<email><![CDATA[fortuna@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Shirak]]></region>
+		<city><![CDATA[Gyumri]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[153]]></georegionid>
+		<geocityid><![CDATA[348]]></geocityid>
+	</node>
+</data>

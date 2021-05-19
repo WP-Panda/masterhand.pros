@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[Atlas Construction]]></name>
+		<rating><![CDATA[3.9]]></rating>
+		<category><![CDATA[General Contractors]]></category>
+		<tags><![CDATA[General Contractors]]></tags>
+		<categoryid><![CDATA[9965]]></categoryid>
+		<subcategoryid><![CDATA[9993]]></subcategoryid>
+		<address><![CDATA[2 Gyulbenkyan St, Lashkar Gah, Helmand, Afganistan]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.armbose.com]]></site>
+		<phone><![CDATA[374 3473039]]></phone>
+		<email><![CDATA[atlas@masterhand.pro,proa@masterhand.pro,probb@masterhand.pro]]></email>
+		<country><![CDATA[Afganistan]]></country>
+		<region><![CDATA[Helmand]]></region>
+		<city><![CDATA[Lashkar Gah]]></city>
+		<geocountryid><![CDATA[1]]></geocountryid>
+		<georegionid><![CDATA[11]]></georegionid>
+		<geocityid><![CDATA[14]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[BigAg Builders]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[General Contractors]]></category>
+		<tags><![CDATA[General Contractors]]></tags>
+		<categoryid><![CDATA[9965]]></categoryid>
+		<subcategoryid><![CDATA[9993]]></subcategoryid>
+		<address><![CDATA[16 Ghazar Parpetsi St, Lashkar Gah, Helmand, Afganistan]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.bshin.am]]></site>
+		<phone><![CDATA[471 8-619-414]]></phone>
+		<email><![CDATA[bagram@masterhand.pro]]></email>
+		<country><![CDATA[Afganistan]]></country>
+		<region><![CDATA[Helmand]]></region>
+		<city><![CDATA[Lashkar Gah]]></city>
+		<geocountryid><![CDATA[1]]></geocountryid>
+		<georegionid><![CDATA[11]]></georegionid>
+		<geocityid><![CDATA[14]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Clodd Fashion]]></name>
+		<rating><![CDATA[4.7]]></rating>
+		<category><![CDATA[Fashion Design]]></category>
+		<tags><![CDATA[Fashion Design]]></tags>
+		<categoryid><![CDATA[9967]]></categoryid>
+		<subcategoryid><![CDATA[10045]]></subcategoryid>
+		<address><![CDATA[30 Marshal Baghramyan Ave, Lashkar Gah, Helmand, Afganistan]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.conte.am]]></site>
+		<phone><![CDATA[45 929-273-07]]></phone>
+		<email><![CDATA[conte@masterhand.pro]]></email>
+		<country><![CDATA[Afganistan]]></country>
+		<region><![CDATA[Helmand]]></region>
+		<city><![CDATA[Lashkar Gah]]></city>
+		<geocountryid><![CDATA[1]]></geocountryid>
+		<georegionid><![CDATA[11]]></georegionid>
+		<geocityid><![CDATA[14]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Gloria Barbers]]></name>
+		<rating><![CDATA[4.4]]></rating>
+		<category><![CDATA[Barbers]]></category>
+		<tags><![CDATA[Barbers]]></tags>
+		<categoryid><![CDATA[9967]]></categoryid>
+		<subcategoryid><![CDATA[10040]]></subcategoryid>
+		<address><![CDATA[34 Amiryan St, Kondoz, Afganistan]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.hotelgrig.am]]></site>
+		<phone><![CDATA[95 162 437479]]></phone>
+		<email><![CDATA[grig@masterhand.pro]]></email>
+		<country><![CDATA[Afganistan]]></country>
+		<region><![CDATA[Kunduz]]></region>
+		<city><![CDATA[Kondoz]]></city>
+		<geocountryid><![CDATA[1]]></geocountryid>
+		<georegionid><![CDATA[19]]></georegionid>
+		<geocityid><![CDATA[23]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Fort River Landscape]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[Landscaping]]></category>
+		<tags><![CDATA[Landscaping]]></tags>
+		<categoryid><![CDATA[9970]]></categoryid>
+		<subcategoryid><![CDATA[10114]]></subcategoryid>
+		<address><![CDATA[87 Ghazar Parpetsi St, Kondoz,Afganistan]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://fortunahome.am]]></site>
+		<phone><![CDATA[374 10-270077]]></phone>
+		<email><![CDATA[fortuna@masterhand.pro]]></email>
+		<country><![CDATA[Afganistan]]></country>
+		<region><![CDATA[Kunduz]]></region>
+		<city><![CDATA[Kondoz]]></city>
+		<geocountryid><![CDATA[1]]></geocountryid>
+		<georegionid><![CDATA[19]]></georegionid>
+		<geocityid><![CDATA[23]]></geocityid>
+	</node>
+</data>

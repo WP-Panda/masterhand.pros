@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[Queens Auto Locksmith]]></name>
+		<rating><![CDATA[3.9]]></rating>
+		<category><![CDATA[Auto Locksmith]]></category>
+		<tags><![CDATA[Locksmith]]></tags>
+		<categoryid><![CDATA[9959]]></categoryid>
+		<address><![CDATA[42-40 Bell Blvd #226, Bayside, NY 11361, United States]]></address>
+		<coderegion><![CDATA[Q66H+JR Bayside, Queens, NY, United States]]></coderegion>
+		<site><![CDATA[http://queensautolocksmith.com/]]></site>
+		<phone><![CDATA[+1 347-774-3039]]></phone>
+		<email><![CDATA[queensautolock@gmail.com]]></email>
+		<country><![CDATA[United States]]></country>
+		<region><![CDATA[Bayside, NY 11361]]></region>
+		<city><![CDATA[New York]]></city>
+		<geocountryid><![CDATA[222]]></geocountryid>
+		<georegionid><![CDATA[3946]]></georegionid>
+		<geocityid><![CDATA[10580]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[EMT Locks - Auto Locksmith]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[Auto Locksmith]]></category>
+		<tags><![CDATA[Locksmith|Key duplication service|Emergency locksmith service]]></tags>
+		<categoryid><![CDATA[9959]]></categoryid>
+		<address><![CDATA[]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[https://www.emtlocksmith.com/]]></site>
+		<phone><![CDATA[+1 718-619-4147]]></phone>
+		<email><![CDATA[emtlocksmith@gmail.com]]></email>
+		<country><![CDATA[United States]]></country>
+		<region><![CDATA[]]></region>
+		<city><![CDATA[New York]]></city>
+		<geocountryid><![CDATA[222]]></geocountryid>
+		<georegionid><![CDATA[3946]]></georegionid>
+		<geocityid><![CDATA[10580]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[ABC Door Repair]]></name>
+		<rating><![CDATA[4.5]]></rating>
+		<category><![CDATA[Auto Locksmith]]></category>
+		<tags><![CDATA[Locksmith]]></tags>
+		<categoryid><![CDATA[9959]]></categoryid>
+		<address><![CDATA[35 Portland street, New York, United States]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[]]></site>
+		<phone><![CDATA[1-679-273-799]]></phone>
+		<email><![CDATA[masterhand.pro@gmail.com]]></email>
+		<country><![CDATA[United States]]></country>
+		<region><![CDATA[]]></region>
+		<city><![CDATA[New York]]></city>
+		<geocountryid><![CDATA[222]]></geocountryid>
+		<georegionid><![CDATA[3946]]></georegionid>
+		<geocityid><![CDATA[10580]]></geocityid>
+	</node>
+</data>

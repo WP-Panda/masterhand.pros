@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[Aram Movers]]></name>
+		<rating><![CDATA[3.9]]></rating>
+		<category><![CDATA[Moving]]></category>
+		<tags><![CDATA[Moving]]></tags>
+		<categoryid><![CDATA[10080]]></categoryid>
+		<address><![CDATA[2 Gyulbenkyan St, Yerevan 0019, Armenia]]></address>
+		<coderegion><![CDATA[]]></coderegion>
+		<site><![CDATA[http://www.armbose.com]]></site>
+		<phone><![CDATA[+374 3473039]]></phone>
+		<email><![CDATA[aram@masterhand.pro,prozz@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Yerevan]]></region>
+		<city><![CDATA[Yerevan]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[157]]></georegionid>
+		<geocityid><![CDATA[353]]></geocityid>
+	</node>
+</data>

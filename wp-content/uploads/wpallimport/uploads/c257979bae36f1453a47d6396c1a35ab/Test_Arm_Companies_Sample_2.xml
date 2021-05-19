@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	<node>
+		<name><![CDATA[Grig Pet Care]]></name>
+		<rating><![CDATA[4.4]]></rating>
+		<category><![CDATA[Pet Daycare & Boarding]]></category>
+		<tags><![CDATA[Pet Daycare & Boarding]]></tags>
+		<categoryid><![CDATA[10132]]></categoryid>
+		<address><![CDATA[34 Amiryan St, Yerevan 0010, Armenia]]></address>
+		<coderegion><![CDATA[QGMW+7J Plainview, Oyster Bay, NY, United States]]></coderegion>
+		<site><![CDATA[http://www.hotelgrig.am]]></site>
+		<phone><![CDATA[95 162 437479]]></phone>
+		<email><![CDATA[grig@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Shirak]]></region>
+		<city><![CDATA[Gyumri]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[153]]></georegionid>
+		<geocityid><![CDATA[348]]></geocityid>
+	</node>
+	<node>
+		<name><![CDATA[Fortuna Pet Care]]></name>
+		<rating><![CDATA[5]]></rating>
+		<category><![CDATA[Pet Daycare & Boarding]]></category>
+		<tags><![CDATA[Pet Daycare & Boarding]]></tags>
+		<categoryid><![CDATA[10132]]></categoryid>
+		<address><![CDATA[87 Ghazar Parpetsi St, Yerevan, Armenia]]></address>
+		<coderegion><![CDATA[JV79+3F Staten Island, New York, United States]]></coderegion>
+		<site><![CDATA[http://fortunahome.am]]></site>
+		<phone><![CDATA[374 10-270077]]></phone>
+		<email><![CDATA[fortuna@masterhand.pro]]></email>
+		<country><![CDATA[Armenia]]></country>
+		<region><![CDATA[Shirak]]></region>
+		<city><![CDATA[Gyumri]]></city>
+		<geocountryid><![CDATA[10]]></geocountryid>
+		<georegionid><![CDATA[153]]></georegionid>
+		<geocityid><![CDATA[348]]></geocityid>
+	</node>
+</data>
