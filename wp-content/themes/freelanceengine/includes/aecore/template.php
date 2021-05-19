@@ -586,37 +586,44 @@ class AE_Walker_TaxDropdown extends Walker_CategoryDropdown {
 	function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
 		$pad = '';
 
-		/** This filter is documented in wp-includes/category-template.php */
-		$cat_name = apply_filters( 'list_cats', $category->name, $category );
+		if( empty($category) || ! is_object($category) ) {
 
-		//if ( isset( $args['value'] ) && $args['value'] == 'slug' && $category->parent == 0 ) {
-		if ( isset( $args['value'] ) && $args['value'] == 'slug' ) {
-			$output .= "\t<option class=\" $category->slug cat-$category->term_id level-$depth\" value=\"" . $category->slug . "\"";
-		} else {
-			$output .= "\t<option class=\" $category->slug cat-$category->term_id level-$depth\" value=\"" . $category->term_id . "\"";
-		}
+		    $output = '';
 
-		// if(isset($args['value'])  && $args['value'] == 'slug' ) {
-		// for multi select
-		if ( is_array( $args['selected'] ) ) {
+        } else {
 
-			if ( in_array( $category->slug, $args['selected'] ) || in_array( $category->term_id, $args['selected'] ) ) {
-				$output .= ' selected="selected"';
+			/** This filter is documented in wp-includes/category-template.php */
+			$cat_name = apply_filters( 'list_cats', $category->name, $category );
+
+			//if ( isset( $args['value'] ) && $args['value'] == 'slug' && $category->parent == 0 ) {
+			if ( isset( $args[ 'value' ] ) && $args[ 'value' ] == 'slug' ) {
+				$output .= "\t<option class=\" $category->slug cat-$category->term_id level-$depth\" value=\"" . $category->slug . "\"";
+			} else {
+				$output .= "\t<option class=\" $category->slug cat-$category->term_id level-$depth\" value=\"" . $category->term_id . "\"";
 			}
 
-		} else { // single select or single value selected
-			if ( $category->slug === $args['selected'] || $category->term_id === $args['selected'] ) {
-				$output .= ' selected="selected"';
+			// if(isset($args['value'])  && $args['value'] == 'slug' ) {
+			// for multi select
+			if ( is_array( $args[ 'selected' ] ) ) {
+
+				if ( in_array( $category->slug, $args[ 'selected' ] ) || in_array( $category->term_id, $args[ 'selected' ] ) ) {
+					$output .= ' selected="selected"';
+				}
+
+			} else { // single select or single value selected
+				if ( $category->slug === $args[ 'selected' ] || $category->term_id === $args[ 'selected' ] ) {
+					$output .= ' selected="selected"';
+				}
 			}
-		}
 
 
-		$output .= '>';
-		$output .= $pad . $cat_name;
-		if ( $args['show_count'] ) {
-			$output .= '(' . number_format_i18n( $category->count ) . ')';
+			$output .= '>';
+			$output .= $pad . $cat_name;
+			if ( $args[ 'show_count' ] ) {
+				$output .= '(' . number_format_i18n( $category->count ) . ')';
+			}
+			$output .= "</option>\n";
 		}
-		$output .= "</option>\n";
 	}
 }
 

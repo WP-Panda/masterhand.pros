@@ -73,10 +73,12 @@
             }
         },
         onAfterInit: function () {
-            var view = this;
-            this.$('.clear-filter').on('click', function (event) {
-                view.clearFilter(event);
-            });
+            if (!$('body').hasClass('no-bb-paginate')) {
+                var view = this;
+                this.$('.clear-filter').on('click', function (event) {
+                    view.clearFilter(event);
+                });
+            }
         },
         clearFilter: function (event) {
             event.preventDefault();
@@ -154,9 +156,11 @@
         },
         onAfterInit: function () {
             var view = this;
-            this.$('.clear-filter').on('click', function (event) {
-                view.clearFilter(event);
-            });
+            if (!$('body').hasClass('no-bb-paginate')) {
+                this.$('.clear-filter').on('click', function (event) {
+                    view.clearFilter(event);
+                });
+            }
         },
         clearFilter: function (event) {
             event.preventDefault();
@@ -243,10 +247,12 @@
             }
         },
         onAfterInit: function () {
-            var view = this;
-            this.$('.clear-filter').on('click', function (event) {
-                view.clearFilter(event);
-            });
+            if (!$('body').hasClass('no-bb-paginate')) {
+                var view = this;
+                this.$('.clear-filter').on('click', function (event) {
+                    view.clearFilter(event);
+                });
+            }
         },
         clearFilter: function (event) {
             event.preventDefault();
@@ -323,10 +329,12 @@
             }
         },
         onAfterInit: function () {
-            var view = this;
-            this.$('.clear-filter').on('click', function (event) {
-                view.clearFilter(event);
-            });
+            if (!$('body').hasClass('no-bb-paginate')) {
+                var view = this;
+                this.$('.clear-filter').on('click', function (event) {
+                    view.clearFilter(event);
+                });
+            }
         },
         clearFilter: function (event) {
             event.preventDefault();

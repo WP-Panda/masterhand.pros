@@ -2,7 +2,6 @@
     $(document).ready(function () {
 
 
-
         $(".list").mCustomScrollbar({
             theme: "minimal"
         });
@@ -213,6 +212,7 @@
             var tagname = 'div',
                 className = 'col-md-6 col-sm-12 col-xs-12 profile-item';
         }
+
         var flag_first_company = true;
         ProfileItem = Views.PostItem.extend({
             tagName: tagname,
@@ -258,7 +258,7 @@
                 'change .get-quote-company': 'checkedForQuoteCompany'
             },
             checkedForQuoteCompany: function (event) {
-                // console.log('checkedForQuoteCompany');
+                 console.log('checkedForQuoteCompany');
                 var $elm = $(event.target);
                 if($elm.is(':checked')){
                     this.addItemCom($elm.data('id'), $elm.data('name'));
@@ -276,7 +276,7 @@
             },
             showGetQuoteModal: function (event) {
                 var view = this;
-                // console.log('showGetQuoteModal');
+                 console.log('showGetQuoteModal');
                 event.preventDefault();
                 var $elm = $(event.target).parent();
                 if (typeof view.modal_get_quote == 'undefined') {
@@ -367,106 +367,10 @@
             itemClass: 'offer-item'
         });
 
-        /**
-         * Model company
-         */
-        Models.Company = Backbone.Model.extend({
-            action: 'ae-company-sync',
-            initialize: function () {
-            }
-        });
 
-        /**
-         * Company collection
-         */
-        Collections.Companies = Backbone.Collection.extend({
-            model: Models.Company,
-            action: 'ae-fetch-companies',
-            initialize: function () {
-                this.paged = 1;
 
-                /** for modal Views.Modal_GetMultiQuote */
-                this.listQuoteCompany = {};
-            }
-        });
 
-        var modalGetQuote = new Views.Modal_GetQuote();
-        /**
-         * Define company item view
-         */
-        CompanyItem = Views.PostItem.extend({
-            tagName: 'li',
-            className: 'company-item',
-            template: _.template($('#ae-company-loop').html()),
-            onItemBeforeRender: function () {
-                //before render item
-            },
-            onItemRendered: function () {
-                //after render view
-            },
-            events: {
-                'click .btn-get-quote': 'showGetQuoteModal',
-                'change .get-quote-company': 'checkedForQuoteCompany'
-            },
-            checkedForQuoteCompany: function (event) {
-                // console.log('checkedForQuoteCompany');
-                var $elm = $(event.target);
-                if($elm.is(':checked')){
-                    this.addItemCom($elm.data('id'), $elm.data('name'));
-                } else {
-                    this.removeItemCom($elm.data('id'))
-                }
 
-                if(Object.keys(this.model.collection.listQuoteCompany).length === 0){
-                    $('.btn-get-quotes').removeClass('visible');
-                } else {
-                    $('.btn-get-quotes').addClass('visible');
-                }
-
-                this.animateChecked(event.target);
-            },
-            showGetQuoteModal: function (event) {
-                var view = this;
-                // console.log('showGetQuoteModal');
-                event.preventDefault();
-                var $elm = $(event.target).parent();
-                if (typeof view.modal_get_quote == 'undefined') {
-                    view.modal_get_quote = modalGetQuote;
-                }
-                view.modal_get_quote.setCompanyId($elm.data('id'));
-                view.modal_get_quote.setCompanyName($elm.data('name'));
-                view.modal_get_quote.openModal();
-            },
-            animateChecked: function(target){
-                if ($(target).parent().hasClass('is-ajax')) {
-                    var sib = $(target).siblings();
-                    if (sib.hasClass('active') === true) {
-                        sib.removeClass('active');
-                    } else {
-                        sib.addClass('active')
-                    }
-                }
-            },
-            addItemCom: function (key, value) {
-                this.model.collection.listQuoteCompany[key] = value;
-            },
-            removeItemCom: function (key) {
-                if (!this.model.collection.listQuoteCompany.hasOwnProperty(key))
-                    return;
-                if (isNaN(parseInt(key)) || !(this.model.collection.listQuoteCompany instanceof Array))
-                    delete this.model.collection.listQuoteCompany[key];
-                else
-                    this.model.collection.listQuoteCompany.splice(key, 1)
-            }
-        });
-        /**
-         * List view control companies list
-         */
-        ListCompanies = Views.ListPost.extend({
-            tagName: 'ul',
-            itemView: CompanyItem,
-            itemClass: 'company-item'
-        });
 
         /**
          * Model portfolio
@@ -1501,7 +1405,7 @@
                                     msg: status.msg,
                                     notice_type: 'success'
                                 });
-														
+
                                 view.closeModal();
                                 form.trigger('reset');
                                 window.location.reload(true);

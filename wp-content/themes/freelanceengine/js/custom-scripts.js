@@ -1,41 +1,42 @@
 jQuery(function ($) {
 
     //remove profile skill list placeholder
-    if($('#list_skills_user .item-list-skills').is(':visible')){
+    if ($('#list_skills_user .item-list-skills').is(':visible')) {
         $('.skill-list__placeholder').remove();
-    };
-    $('#fre-post-project #country').change(function(){
+    }
+    ;
+    $('#fre-post-project #country').change(function () {
         var user_default_country_id = $(this).attr('data_user_country_id');
         $(this).siblings('.message').remove();
-        if($(this).val() != user_default_country_id){
-             $(this).parent().append('<div for="sub" class="message">Country warning message</div>')
+        if ($(this).val() != user_default_country_id) {
+            $(this).parent().append('<div for="sub" class="message">Country warning message</div>')
         }
-       
+
     })
 
-    $("#user_answer_list input[type='radio']").change(function(){
-      
-        if($(this).val().toLowerCase() == 'other'){
+    $("#user_answer_list input[type='radio']").change(function () {
+
+        if ($(this).val().toLowerCase() == 'other') {
             $('#user_answer_commit').removeAttr('disabled');
-         
-        }else{
+
+        } else {
             $('#user_answer_commit').attr('disabled', 'disabled');
         }
     })
 
 
-    $('#unsubscribe_form_submit').click(function(){
+    $('#unsubscribe_form_submit').click(function () {
         var recaptcha = $("#g-recaptcha-response").val();
         var user_email = $('#unsubscribe_form input[type="email"]').val();
         var user_answer = $("#user_answer_list input[type='radio']:checked").val();
-        
-        if(user_answer.toLowerCase() == 'other'){
+
+        if (user_answer.toLowerCase() == 'other') {
             $('#user_answer_commit').removeAttr('disabled');
             user_answer = $('#user_answer_commit').val();
-            
+
         }
         $('.page-template .notification').remove();
-         $.ajax({
+        $.ajax({
             type: 'POST',
             url: '/wp-content/themes/freelanceengine/unsubscribe_users.php',
             data: {
@@ -44,24 +45,24 @@ jQuery(function ($) {
                 'g-recaptcha-response': recaptcha
             },
             success: function (data) {
-               
-                if (data.response == 'error' && data.error_type == 'email'){
-                     $('.page-template').append('<div class="notification autohide error-bg having-adminbar">'+data.text+'</div>');
-                }else if(data.response == 'success'){
-                   
-                    $('.page-template').append('<div class="notification autohide success-bg">'+data.text+'</div>');
-                    
-                }else{
-                    $('.page-template').append('<div class="notification autohide error-bg having-adminbar">'+data.text+'</div>');
-                   
+
+                if (data.response == 'error' && data.error_type == 'email') {
+                    $('.page-template').append('<div class="notification autohide error-bg having-adminbar">' + data.text + '</div>');
+                } else if (data.response == 'success') {
+
+                    $('.page-template').append('<div class="notification autohide success-bg">' + data.text + '</div>');
+
+                } else {
+                    $('.page-template').append('<div class="notification autohide error-bg having-adminbar">' + data.text + '</div>');
+
                 }
-                
-                setTimeout(function(){
-                     $('.page-template .notification').remove();
-                     $('#unsubscribe_form input[type="email"]').val('');
-                     grecaptcha.reset();
+
+                setTimeout(function () {
+                    $('.page-template .notification').remove();
+                    $('#unsubscribe_form input[type="email"]').val('');
+                    grecaptcha.reset();
                 }, 3000)
-                
+
             }
         });
 
@@ -70,7 +71,7 @@ jQuery(function ($) {
     var project_category_chosen = $('select[name="project_category"]'),
         limit = project_category_chosen.data('limit');
 
-    if($('.chosen-search-input').length !== 0){
+    if ($('.chosen-search-input').length !== 0) {
         /**
          * Select categories on the profile page
          */
@@ -79,7 +80,7 @@ jQuery(function ($) {
         });
 
         $chosen.change(function () {
-            $('.chosen-search-input').attr('style','display:none;');
+            $('.chosen-search-input').attr('style', 'display:none;');
             var $this = $(this);
             var chosen = $this.data('chosen');
             var search = chosen.search_container.find('input[type="text"]');
@@ -92,8 +93,8 @@ jQuery(function ($) {
         var select_col = $('#category_form select[name=project_category] option:selected').length;
         if (select_col > limit) {
             $('#category_form select[name=project_category] option:not(:selected)').prop('disabled', true)
-            $('form[id=category_form] .btn-submit').prop('disabled',true);
-            $('form[id=category_form] .btn-submit').css('opacity',0.5);
+            $('form[id=category_form] .btn-submit').prop('disabled', true);
+            $('form[id=category_form] .btn-submit').css('opacity', 0.5);
         }
         if (select_col === limit) {
             $('#category_form select[name=project_category] option:not(:selected)').prop('disabled', true)
@@ -103,19 +104,19 @@ jQuery(function ($) {
             select_col = $('#category_form select[name=project_category] option:selected').length;
             if (select_col === limit) {
                 $('.err').remove();
-                $('form[id=category_form] .btn-submit').prop('disabled',false);
-                $('form[id=category_form] .btn-submit').css('opacity',1);
+                $('form[id=category_form] .btn-submit').prop('disabled', false);
+                $('form[id=category_form] .btn-submit').css('opacity', 1);
                 $('#category_form select[name=project_category] option:not(:selected)').prop('disabled', true)
             } else {
                 if (select_col > limit) {
-                    $('<span class="err" style="color:red">You select - '+select_col+', max - '+limit+' specializations</span>').insertBefore('#category_form select[name=project_category]');
+                    $('<span class="err" style="color:red">You select - ' + select_col + ', max - ' + limit + ' specializations</span>').insertBefore('#category_form select[name=project_category]');
                     $('#category_form select[name=project_category] option:not(:selected)').prop('disabled', true);
-                    $('form[id=category_form] .btn-submit').prop('disabled',true);
-                    $('form[id=category_form] .btn-submit').css('opacity',0.5);
+                    $('form[id=category_form] .btn-submit').prop('disabled', true);
+                    $('form[id=category_form] .btn-submit').css('opacity', 0.5);
                 } else {
                     $('.err').remove();
-                    $('form[id=category_form] .btn-submit').prop('disabled',false);
-                    $('form[id=category_form] .btn-submit').css('opacity',1);
+                    $('form[id=category_form] .btn-submit').prop('disabled', false);
+                    $('form[id=category_form] .btn-submit').css('opacity', 1);
                     $('#category_form select[name=project_category] option:not(:selected)').prop('disabled', false)
                 }
             }
@@ -165,53 +166,57 @@ jQuery(function ($) {
     }
 
     if (getAllUrlParams().country) {
-        var cc = getAllUrlParams().country;
-        $('#country option[value="' + cc + '"]').attr('selected', 'selected');
-        $.ajax({
-            type: 'POST',
-            url: '/ajaxData.php',
-            data: {
-                'country_id': cc
-            },
-            beforeSend: function () {
-                $('.loading-blur.loading.hidden').removeClass('hidden');
-            },
-            success: function (html) {
-                $('#state').html(html);
-                $('#city').html('<option value="">Select state first</option>');
-                if (getAllUrlParams().state) {
-                    var cc2 = getAllUrlParams().state;
-                    $('#state option[value="' + cc2 + '"]').attr('selected', 'selected');
-                    $.ajax({
-                        type: 'POST',
-                        url: '/ajaxData.php',
-                        data: 'state_id=' + cc2,
-                        success: function (html) {
-                            $('#city').html(html);
-                            if (getAllUrlParams().city) {
-                                var cc3 = getAllUrlParams().city;
-                                $('#city option[value="' + cc3 + '"]').attr('selected', 'selected');
-                                $('#city').change();
-                                $('body').click();
-                                $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
-                            } else {
-                                $('#state').change();
-                                $('body').click();
-                                $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
-                            } //if city
-                        }
-                    });
-                } else {
-                    $('#country').change();
-                    $('body').click();
-                    $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
-                } // if state
-            }
-        });
+        if (!$('body').hasClass('no-bb-paginate')) {
+            var cc = getAllUrlParams().country;
+            $('#country option[value="' + cc + '"]').attr('selected', 'selected');
+            $.ajax({
+                type: 'POST',
+                url: '/ajaxData.php',
+                data: {
+                    'country_id': cc
+                },
+                beforeSend: function () {
+                    $('.loading-blur.loading.hidden').removeClass('hidden');
+                },
+                success: function (html) {
+                    $('#state').html(html);
+                    $('#city').html('<option value="">Select state first</option>');
+                    if (getAllUrlParams().state) {
+                        var cc2 = getAllUrlParams().state;
+                        $('#state option[value="' + cc2 + '"]').attr('selected', 'selected');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/ajaxData.php',
+                            data: 'state_id=' + cc2,
+                            success: function (html) {
+                                $('#city').html(html);
+                                if (getAllUrlParams().city) {
+                                    var cc3 = getAllUrlParams().city;
+                                    $('#city option[value="' + cc3 + '"]').attr('selected', 'selected');
+                                    $('#city').change();
+                                    $('body').click();
+                                    $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
+                                } else {
+                                    $('#state').change();
+                                    $('body').click();
+                                    $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
+                                } //if city
+                            }
+                        });
+                    } else {
+                        $('#country').change();
+                        $('body').click();
+                        $('.fre-profile-list-box .loading-blur.loading').addClass('hidden');
+                    } // if state
+                }
+            });
+        }
     } // if country url
 
 
     $('document').ready(function () {
+
+
         var status_save_city = true;
 
         function isJsonString(str) {
@@ -304,108 +309,128 @@ jQuery(function ($) {
             })
         }
 
+        //////////////////////////////////////////////////////////////////////REMOVE
         $('#country').on('change', function () {
-            var countryID = $(this).val();
-            if (countryID) {
-                $('input[name=change_country]').val(countryID);
-                $.ajax({
-                    type: 'POST',
-                    url: ajax_var.url,
-                    data: {
-                        'action': 'user_location',
-                        'country_id': countryID,
-                        // 'nonce': ajax_var.nonce
-                    },
-                    success: function (html) {
-                        $('#state').html(html);
-                        $('#state').prop('disabled', '')
-                            .parent().removeClass('disabled');
-                        $('#city').html('<option value="">Select state first</option>');
-                    }
-                });
-            } else {
-                $('#state').html('<option value="">Select country first</option>');
-                $('#city').html('<option value="">Select state first</option>');
+            if (!$('body').hasClass('no-bb-paginate')) {
+
+                var countryID = $(this).val();
+                if (countryID) {
+                    $('input[name=change_country]').val(countryID);
+                    $.ajax({
+                        type: 'POST',
+                        url: ajax_var.url,
+                        data: {
+                            'action': 'user_location',
+                            'country_id': countryID,
+                            // 'nonce': ajax_var.nonce
+                        },
+                        success: function (html) {
+                            $('#state').html(html);
+                            $('#state').prop('disabled', '')
+                                .parent().removeClass('disabled');
+                            $('#city').html('<option value="">Select state first</option>');
+                        }
+                    });
+                } else {
+                    $('#state').html('<option value="">Select country first</option>');
+                    $('#city').html('<option value="">Select state first</option>');
+                }
             }
         });
 
+
+
+        //////////////////////////////////////////////////////////////////////REMOVE
         $('#state').on('change', function () {
-            var stateID = $(this).val();
-            if (stateID) {
-                $('input[name=change_state]').val(stateID);
-                $.ajax({
-                    type: 'POST',
-                    url: ajax_var.url,
-                    data: {
-                        'action': 'user_location',
-                        'state_id': stateID,
-                        // 'nonce': ajax_var.nonce,
-                    },
-                    success: function (html) {
-                        $('#city').html(html);
-                        $('#city').prop('disabled', '')
-                            .parent().removeClass('disabled');
-                    }
-                });
-            } else {
-                $('#city').html('<option value="">Select state first</option>');
+            if (!$('body').hasClass('no-bb-paginate')) {
+
+                var stateID = $(this).val();
+                if (stateID) {
+                    $('input[name=change_state]').val(stateID);
+                    $.ajax({
+                        type: 'POST',
+                        url: ajax_var.url,
+                        data: {
+                            'action': 'user_location',
+                            'state_id': stateID,
+                            // 'nonce': ajax_var.nonce,
+                        },
+                        success: function (html) {
+                            $('#city').html(html);
+                            $('#city').prop('disabled', '')
+                                .parent().removeClass('disabled');
+                        }
+                    });
+                } else {
+                    $('#city').html('<option value="">Select state first</option>');
+                }
+                status_save_city = true
             }
-            status_save_city = true
         });
 
+
+        //////////////////////////////////////////////////////////////////////REMOVE
         $('#city').on('change', function () {
-            if (status_save_city) {
-                var cityID = $(this).val();
-                if (cityID) {
-                    if ($('#city').data('selected_id') != cityID) {
-                        $('input[name=change_city]').val(cityID)
+            if (!$('body').hasClass('no-bb-paginate')) {
+                if (status_save_city) {
+                    var cityID = $(this).val();
+                    if (cityID) {
+                        if ($('#city').data('selected_id') != cityID) {
+                            $('input[name=change_city]').val(cityID)
+                        }
                     }
                 }
             }
         });
 
+        //////////////////////////////////////////////////////////////////////REMOVE
         function getCatSub(data) {
-            if (data) {
-                $.ajax({
-                    type: 'POST',
-                    url: ajax_var.url,
-                    data: data,
-                    success: function (html) {
-                        var list = $.parseHTML(html)
+            if (!$('body').hasClass('no-bb-paginate')) {
+                if (data) {
+                    $.ajax({
+                        type: 'POST',
+                        url: ajax_var.url,
+                        data: data,
+                        success: function (html) {
+                            var list = $.parseHTML(html)
 
-                        if (html == '0') {
-                            $('#sub').html('<option value="">Select category first</option>');
-                        } else if (list[0].length == 0) {
-                            $('select#sub option').remove()
-                            $('select#sub').append(new Option("No subcategories", ""));
-                        } else {
-                            $('#sub').html(html);
-                            if ($('body').hasClass('page-template-page-submit-project')) {
-                                $("#sub option[value='']").remove();
-                                $('#sub').trigger('chosen:updated')
+                            if (html == '0') {
+                                $('#sub').html('<option value="">Select category first</option>');
+                            } else if (list[0].length == 0) {
+                                $('select#sub option').remove()
+                                $('select#sub').append(new Option("No subcategories", ""));
+                            } else {
+                                $('#sub').html(html);
+                                if ($('body').hasClass('page-template-page-submit-project')) {
+                                    $("#sub option[value='']").remove();
+                                    $('#sub').trigger('chosen:updated')
+                                }
                             }
                         }
-                    }
-                })
-            } else {
-                $('#sub').html('<option value="">Select category first</option>');
+                    })
+                } else {
+                    $('#sub').html('<option value="">Select category first</option>');
+                }
             }
         }
 
+        //////////////////////////////////////////////////////////////////////REMOVE
         $('#cat').on('change', function () {
-            var str
-            if ($(this).val() !== '') {
-                str = 'cat_slug=' + $(this).val();
+            if (!$('body').hasClass('no-bb-paginate')) {
+                var str
+                if ($(this).val() !== '') {
+                    str = 'cat_slug=' + $(this).val();
 
-                var type_filter = '&type_filter=' + $('input[name=type_filter]').val();
+                    var type_filter = '&type_filter=' + $('input[name=type_filter]').val();
 
-                if($('input[name=crete_project]').val() == 1)
-                    str = str + '&crete_project=1&step_valid=1';
+                    if ($('input[name=crete_project]').val() == 1)
+                        str = str + '&crete_project=1&step_valid=1';
 
-                str = str + type_filter + '&action=get_sub_cat'
-            } else str = '';
+                    str = str + type_filter + '&action=get_sub_cat'
+                } else str = '';
 
-            getCatSub(str)
+                getCatSub(str)
+            }
         });
 
         if ($('body').hasClass('page-template-page-projects') ||
@@ -682,7 +707,7 @@ jQuery(function ($) {
             $("#options_days").val(options_days);
 
             $.each(arr, function (key, item) {
-                if(!item.disabled) {
+                if (!item.disabled) {
                     if (item.value != 1 && item.value != 'on') {
                         if (options_name == '' && options_days == '') {
                             options_name = item.id;
@@ -789,7 +814,7 @@ jQuery(function ($) {
     //});
 
 
-    $('input[type=checkbox]').on('change', function () {
+    $(document).on('change', 'input[type=checkbox]', function () {
         if ($(this).parent().hasClass('checkline')) {
             var sib = $(this).siblings();
             if (sib.hasClass('active') == true) {
@@ -901,7 +926,7 @@ jQuery(function ($) {
         margin: 15,
         animate: 'slideInRight',
         navText: '',
-        autoplay:false,
+        autoplay: false,
         nav: true,
         smartSpeed: 650,
         responsive: {
@@ -1104,7 +1129,7 @@ jQuery(function ($) {
         });
     });
     /*sorting projects*/
-    $('#project_orderby .option').click(function(){
+    $('#project_orderby .option').click(function () {
         var nameoption = $(this).attr('id');
         $(this).addClass('active')
             .siblings('.option').removeClass('active');
@@ -1112,7 +1137,7 @@ jQuery(function ($) {
             .siblings('option').removeAttr('selected');
         $("#project_orderby select").change();
     });
-    $('#profile_orderby .option').click(function(){
+    $('#profile_orderby .option').click(function () {
         var nameoption = $(this).attr('id');
         $(this).addClass('active')
             .siblings('.option').removeClass('active');
@@ -1121,7 +1146,7 @@ jQuery(function ($) {
         $("#profile_orderby select").change();
     });
     /*text when review and no endorsments*/
-    if ($('.modal-endors ul>li').length <= 0 ) {
+    if ($('.modal-endors ul>li').length <= 0) {
         $('.modal-endors').addClass('hidden');
     }
 
@@ -1140,7 +1165,7 @@ jQuery(function ($) {
     $('.page-contact-us input[name=your-name]').val(username);
     $('.page-contact-us input[name=your-role]').val(userrole);
 
-    $('.page-contact-us .add-file input').change(function(){
+    $('.page-contact-us .add-file input').change(function () {
         let fileadd = $(this);
         let filename = this.files[0].name;
         if (filename !== '') {
@@ -1152,13 +1177,13 @@ jQuery(function ($) {
         }
     });
 
-    $('.page-contact-us .delete_file').click(function(){
+    $('.page-contact-us .delete_file').click(function () {
         $('.page-contact-us .add-file input').val('');
         $(this).hide();
         $('.page-contact-us .select_file').children('i+span').text('Attach file');
     });
 
-    $('.page-contact-us  .fre-cancel-btn').click(function(){
+    $('.page-contact-us  .fre-cancel-btn').click(function () {
         $('.page-contact-us .add-file input').val('');
         $('.page-contact-us .delete_file').hide();
         $('.page-contact-us .select_file').children('i+span').text('Attach file');
@@ -1245,14 +1270,15 @@ jQuery(function ($) {
         $('.page-template-page-projects .profs-cat_sublist').css("height", "");
         $('.page-template-page-profile .profile-freelance-wrap>.fre-profile-box:first-child .profile-freelance-info>div').css("height", "");
     }
+
     $(".dop li:nth-child(even)").remove();
-    $('input[type="file"].usp-input').change(function(e){
+    $('input[type="file"].usp-input').change(function (e) {
         if ($('#file__new').val()) {
             let value = $('#file__new').val(),
                 newValue = value.split('\\')[2];
             $('.value-1 .value').text(newValue);
             $('.value-1').addClass('visible');
-            $('.file__label').attr('for','file__new-1')
+            $('.file__label').attr('for', 'file__new-1')
         } else {
             $('.value-1').removeClass('visible');
         }
@@ -1261,7 +1287,7 @@ jQuery(function ($) {
                 newValue = value.split('\\')[2];
             $('.value-2 .value').text(newValue);
             $('.value-2').addClass('visible');
-            $('.file__label').attr('for','file__new-2')
+            $('.file__label').attr('for', 'file__new-2')
         } else {
             $('.value-2').removeClass('visible');
         }
@@ -1271,9 +1297,9 @@ jQuery(function ($) {
             $('.value-3 .value').text(newValue);
             $('.value-3').addClass('visible');
             if ($('#file__new-1').val()) {
-                $('.file__label').attr('for','file__new')
+                $('.file__label').attr('for', 'file__new')
             } else {
-                $('.file__label').attr('for','file__new-1')
+                $('.file__label').attr('for', 'file__new-1')
             }
         } else {
             $('.value-3').removeClass('visible');
@@ -1281,28 +1307,28 @@ jQuery(function ($) {
     });
     $('.value-1 .closed').click(function () {
         $('#file__new').val('');
-        $('.file__label').attr('for','file__new')
+        $('.file__label').attr('for', 'file__new')
     })
     $('.value-2 .closed').click(function () {
         $('#file__new-1').val('');
-        $('.file__label').attr('for','file__new-1')
+        $('.file__label').attr('for', 'file__new-1')
     })
     $('.value-3 .closed').click(function () {
         $('#file__new-2').val('');
-        $('.file__label').attr('for','file__new-2')
+        $('.file__label').attr('for', 'file__new-2')
     })
     $('.input-block .closed').click(function () {
         $(this).parent().removeClass('visible');
 
-        if ($('.value__block .visible').length < 3){
+        if ($('.value__block .visible').length < 3) {
             $('.usp-input').removeAttr('disabled');
         }
     });
 
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
         clearTimeout(window.resizedFinished);
         resetHeight();
-        window.resizedFinished = setTimeout(function() {
+        window.resizedFinished = setTimeout(function () {
             autoheight();
         }, 500);
     });
@@ -1359,90 +1385,90 @@ jQuery(function ($) {
             },
         });
     }
-
-});
-
 // radio buttons for PRO bid on project
-$('html').on('click', '.bid-type__btn', function(){
-    $('.bid-type__btn').removeClass('bid-type__btn--selected');
-    $(this).addClass('bid-type__btn--selected');
-});
+    $('html').on('click', '.bid-type__btn', function () {
+        $('.bid-type__btn').removeClass('bid-type__btn--selected');
+        $(this).addClass('bid-type__btn--selected');
+    });
 
-/*
-* Arbitrate modal window
-*/
+    /*
+    * Arbitrate modal window
+    */
 
 // split type selector
-$('input[name="split_type"]').change(function(){
-    let type = $(this).val();
-    let sign = type === 'percent' ? '%' : '$';
+    $('input[name="split_type"]').change(function () {
+        let type = $(this).val();
+        let sign = type === 'percent' ? '%' : '$';
 
-    $('#split_value_freelancer, #split_value_client').val('');
+        $('#split_value_freelancer, #split_value_client').val('');
 
-    $('.split_type_sign').html(sign);
-});
+        $('.split_type_sign').html(sign);
+    });
 
 // change split value
-$('#split_value_freelancer, #split_value_client').bind('keyup mouseup mousewheel', function(e){
-    e.preventDefault();
+    $('#split_value_freelancer, #split_value_client').bind('keyup mouseup mousewheel', function (e) {
+        e.preventDefault();
 
-    let $current_input = $(this),
-        $freelancer_input = $('#split_value_freelancer'),
-        $client_input = $('#split_value_client'),
-        user_type = $current_input.attr('data-user-type'),
-        split_type = $('input[name="split_type"]:checked').val(),
-        split_sign = split_type === 'percent' ? '%' : '$',
-        total_value = 0;
+        let $current_input = $(this),
+            $freelancer_input = $('#split_value_freelancer'),
+            $client_input = $('#split_value_client'),
+            user_type = $current_input.attr('data-user-type'),
+            split_type = $('input[name="split_type"]:checked').val(),
+            split_sign = split_type === 'percent' ? '%' : '$',
+            total_value = 0;
 
-    // if first character is zero - remove it
-    if ($current_input.val().charAt(0) === '0'){
-        $current_input.val( $current_input.val().slice(1) );
-    }
+        // if first character is zero - remove it
+        if ($current_input.val().charAt(0) === '0') {
+            $current_input.val($current_input.val().slice(1));
+        }
 
-    switch (split_type){
-        case 'percent':
-            total_value = 100;
-        break;
+        switch (split_type) {
+            case 'percent':
+                total_value = 100;
+                break;
 
-        case 'number':
-            total_value = $('.btn-arbitrate-project').attr('data-bid-price');
-        break;
+            case 'number':
+                total_value = $('.btn-arbitrate-project').attr('data-bid-price');
+                break;
 
-        default:
+            default:
+                $freelancer_input.val('');
+                $client_input.val('');
+
+                AE.pubsub.trigger('ae:notification', {
+                    msg: 'First choose split type',
+                    notice_type: 'error'
+                });
+                break;
+        }
+
+        if (parseFloat($current_input.val()) > parseFloat(total_value)) {
             $freelancer_input.val('');
             $client_input.val('');
 
             AE.pubsub.trigger('ae:notification', {
-                msg: 'First choose split type',
+                msg: 'Entered value is larger than ' + total_value + split_sign,
                 notice_type: 'error'
             });
-        break;
-    }
 
-    if (parseFloat($current_input.val()) > parseFloat(total_value)){
-        $freelancer_input.val('');
-        $client_input.val('');
+            return false;
+        }
 
-        AE.pubsub.trigger('ae:notification', {
-            msg: 'Entered value is larger than '+total_value+split_sign,
-            notice_type: 'error'
-        });
+        let difference = parseFloat(total_value) - parseFloat($current_input.val());
 
-        return false;
-    }
+        if (user_type === 'freelancer') {
+            $client_input.val(difference);
+        } else {
+            $freelancer_input.val(difference);
+        }
 
-    let difference = parseFloat(total_value) - parseFloat($current_input.val());
+    });
 
-    if (user_type === 'freelancer'){
-        $client_input.val(difference);
-    } else {
-        $freelancer_input.val(difference);
-    }
+    $('.btn-arbitrate-project').click(function () {
+        let bid_value = $(this).attr('data-bid-price');
+        $('#modal_arbitrate_winning_bid').html(bid_value);
+    });
 
-});
 
-$('.btn-arbitrate-project').click(function(){
-    let bid_value = $(this).attr('data-bid-price');
-    $('#modal_arbitrate_winning_bid').html(bid_value);
 });
 

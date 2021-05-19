@@ -1,14 +1,14 @@
 <!-- Step 1 -->
 <?php
-global $user_ID, $ae_post_factory;
-$ae_pack = $ae_post_factory->get( 'pack' );
-$packs   = $ae_pack->fetch( 'pack' );
+	global $user_ID, $ae_post_factory;
+	$ae_pack = $ae_post_factory->get( 'pack' );
+	$packs   = $ae_pack->fetch( 'pack' );
 
-$package_data = AE_Package::get_package_data( $user_ID );
+	$package_data = AE_Package::get_package_data( $user_ID );
 
-$orders = AE_Payment::get_current_order( $user_ID );
+	$orders = AE_Payment::get_current_order( $user_ID );
 
-$number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
+	$number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 ?>
 <div id="fre-post-project-1 step-plan" class="fre-post-project-step step-wrapper step-plan active">
     <div class="fre-post-project-box">
@@ -31,8 +31,8 @@ $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 
 						if ( isset( $package_data[ $sku ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
 							$package_data_sku = $package_data[ $sku ];
-							if ( isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
-								$number_of_post = $package_data_sku['qty'];
+							if ( isset( $package_data_sku[ 'qty' ] ) && $package_data_sku[ 'qty' ] > 0 ) {
+								$number_of_post = $package_data_sku[ 'qty' ];
 							}
 						}
 

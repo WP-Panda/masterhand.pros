@@ -1,49 +1,69 @@
 <html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:600,500&display=swap" rel="stylesheet">
-        <style>
-            a {color:#2C33C1!important;}
-            b,strong { line-height: 22px!important;font-size: 18px!important;font-weight: 600!important;display:inline-block;}
-            p { margin: 0 0 23px!important;font-weight:500!important;}
-            @media (max-width:767px) {
-                img {max-width:150px;}
-            }
-        </style>
-    </head>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600,500&display=swap" rel="stylesheet">
+    <style>
+        a {
+            color: #2C33C1 !important;
+        }
 
-    <body style="font-family: Montserrat, sans-serif;font-size: 16px; margin: 0; padding: 0; color: #fff;">
-        <div style="margin: 0px auto; width:660px; ">
-            <table style="border:1px solid #efefef;" width="100%" cellspacing="0" cellpadding="0">
-                <tr style="background:#2C33C1; height: 83px; vertical-align: middle;">
-                    <td style="padding: 20px 5px 10px 30px;">
-                        <img style="max-height: 18px;max-width:100%;" src="{{ blog_logo }}" alt="Masterhand PRO">
-                    </td>
-                    <td style="padding: 15px 30px 10px 5px;">
-                        <span style="font-weight:500; color: #fff;font-family: Montserrat, sans-serif;">{{ blog_description }}</span>
-                    </td>
-                </tr>
-                <tr><td colspan="2" style="height: 5px; background-color: #2c33c1"></td></tr>
-                <tr>
-                    <td colspan="2" style="background: #fff; color: #000; font-family: Montserrat, sans-serif; font-size:16px; font-weight:500; line-height: 16px; padding: 30px 30px;">
-                        {{ content }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="background: #fff; padding: 0 30px 30px; font-size:16px; color: #000;">
-                        <table width="100%" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td style="vertical-align: middle; text-align: left; font-weight:500; font-family: Montserrat, sans-serif;">All rights reserved</td>
-                                <td style="text-align:right;font-weight:600;color:#000!important;font-family:Montserrat,sans-serif">
-                                    <span class="il">Masterhand</span> <span class="il">PRO</span>, <br>
-                                    <a href="{{ info }}" target="_blank">
-                                        {{ info }}
-                                    </a> <br>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </body>
+        b, strong {
+            line-height: 22px !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            display: inline-block;
+        }
+
+        p {
+            margin: 0 0 23px !important;
+            font-weight: 500 !important;
+        }
+
+        @media (max-width: 767px) {
+            img {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body style="font-family: Montserrat, sans-serif;font-size: 16px; margin: 0; padding: 0; color: #fff;">
+<div style="margin: 0px auto; width:660px; ">
+    <table style="border:1px solid #efefef;" width="100%" cellspacing="0" cellpadding="0">
+        <tr style="background:#2C33C1; height: 83px; vertical-align: middle;">
+            <td style="padding: 20px 5px 10px 30px;">
+                <img style="max-height: 18px;max-width:100%;" src="{{ blog_logo }}" alt="Masterhand PRO">
+            </td>
+            <td style="padding: 15px 30px 10px 5px;">
+                <span style="font-weight:500; color: #fff;font-family: Montserrat, sans-serif;">{{ blog_description }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="height: 5px; background-color: #2c33c1"></td>
+        </tr>
+        <tr>
+            <td colspan="2"
+                style="background: #fff; color: #000; font-family: Montserrat, sans-serif; font-size:16px; font-weight:500; line-height: 16px; padding: 30px 30px;">
+                {{ content }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background: #fff; padding: 0 30px 30px; font-size:16px; color: #000;">
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="vertical-align: middle; text-align: left; font-weight:500; font-family: Montserrat, sans-serif;">
+                            All rights reserved
+                        </td>
+                        <td style="text-align:right;font-weight:600;color:#000!important;font-family:Montserrat,sans-serif">
+                            <span class="il">Masterhand</span> <span class="il">PRO</span>, <br>
+                            <a href="{{ info }}" target="_blank">
+                                {{ info }}
+                            </a> <br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
 </html>

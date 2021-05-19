@@ -127,13 +127,6 @@
                         }
                     }
 
-                    // filter skill
-                    // if (view.getUrlParameter('skill_project')) {
-                    //     setTimeout(function () {
-                    //         $('.fre-skill-dropdown li a[name="' + view.getUrlParameter('skill_project') + '"]').click();
-                    //         $('body').click();
-                    //     }, 1000);
-                    // }
                     // fitler category
                     if (view.getUrlParameter('category_project')) {
                         setTimeout(function () {
@@ -142,26 +135,14 @@
 
                         }, 1000);
                     }
-                    // filter skill
-                    // $('.fre-skill-dropdown').on('click', function (event) {
-                    //     var $target = $(event.currentTarget),
-                    //         name = $target.attr('data-name'),
-                    //         selected = $target.find('li a.active');
-                    //     if (name !== 'undefined') {
-                    //         skill = _.map(selected, function (element) {
-                    //             //return $(element).html();
-                    //             return $(element).attr('name'); // 1.8.6 fillter in projects pages
-                    //         });
-                    //         view.query[name] = skill;
-                    //         view.page = 1;
-                    //         view.fetch($target);
-                    //     }
-                    // });
+
 
                     // filter budget
                     view.filterRanger();
                     $('.clear-filter').on('click', function (event) {
-                        view.clearFilter(event);
+                        if (!$('body').hasClass('no-bb-paginate')) {
+                            view.clearFilter(event);
+                        }
                     });
 
                     //new2
@@ -169,11 +150,11 @@
                         $('body').hasClass('page-template-page-projects')) {
                         var view = this;
 
-                        if ($('input[name=change_country]').val() && $('input[name=change_country]').val()!='' && $('input[name=change_country]').val()!=$('#country').data('selected_id')) {
+                        if ($('input[name=change_country]').val() && $('input[name=change_country]').val() != '' && $('input[name=change_country]').val() != $('#country').data('selected_id')) {
                             view.query['country'] = $('input[name=change_country]').val()
-                            if ($('input[name=change_state]').val()!='' && $('input[name=change_state]').val()!=$('#state').data('selected_id')) {
+                            if ($('input[name=change_state]').val() != '' && $('input[name=change_state]').val() != $('#state').data('selected_id')) {
                                 view.query['state'] = $('input[name=change_state]').val()
-                                if ($('input[name=change_city]').val()!='' && $('input[name=change_city]').val()!=$('#city').data('selected_id')) {
+                                if ($('input[name=change_city]').val() != '' && $('input[name=change_city]').val() != $('#city').data('selected_id')) {
                                     view.query['city'] = $('input[name=change_state]').val()
                                 }
                             }
@@ -212,7 +193,7 @@
                     view.$el.find('form select#sub option:selected').removeAttr('selected');
                     view.$el.find('form select#sub option').remove();
                     view.$el.find('form select#sub').append(new Option("Select category first", ""));
-                                        
+
                     // reset query
                     view.query['project_category'] = '';
                     // view.query['et_budget'] = '';
@@ -403,7 +384,7 @@
                 event.collection.listQuoteCompany = {};
                 $('.btn-get-quotes').removeClass('visible');
             });
-
+// wpp - change
             $('.btn-get-quotes').on('click', function (event) {
                 var view = this;
                 event.preventDefault();
@@ -441,29 +422,6 @@
                             $('.fre-profile-list-filter input[name="s"]').val(search_data.keyword).keyup();
                         }
                     }
-                    // filter skill
-                    // if (view.getUrlParameter('skill_profile')) {
-                    //     setTimeout(function () {
-                    //         $('.fre-skill-dropdown li a[name="' + view.getUrlParameter('skill_profile') + '"]').click();
-                    //         $('body').click();
-                    //     }, 1000);
-                    // }
-                    // $('.fre-skill-dropdown').on('click', function (event) {
-                    //     var $target = $(event.currentTarget),
-                    //         name = $target.attr('data-name'),
-                    //         selected = $target.find('li a.active');
-                    //     if (name !== 'undefined') {
-                    //         skill = _.map(selected, function (element) {
-                    //             //return $(element).html(); 1.8.4
-                    //             return $(element).attr('name'); // 1.8.6 filter in prfiles page.
-                    //         });
-                    //         view.query[name] = skill;
-                    //         view.page = 1;
-                    //         view.fetch($target);
-                    //
-                    //
-                    //     }
-                    // });
 
                     // filter budget
                     view.filterRanger();
@@ -475,11 +433,11 @@
                         $('body').hasClass('page-template-page-proffessionals')) {
                         var view = this;
 
-                        if ($('input[name=change_country]').val() && $('input[name=change_country]').val()!='' && $('input[name=change_country]').val()!=$('#country').data('selected_id')) {
+                        if ($('input[name=change_country]').val() && $('input[name=change_country]').val() != '' && $('input[name=change_country]').val() != $('#country').data('selected_id')) {
                             view.query['country'] = $('input[name=change_country]').val()
-                            if ($('input[name=change_state]').val()!='' && $('input[name=change_state]').val()!=$('#state').data('selected_id')) {
+                            if ($('input[name=change_state]').val() != '' && $('input[name=change_state]').val() != $('#state').data('selected_id')) {
                                 view.query['state'] = $('input[name=change_state]').val()
-                                if ($('input[name=change_city]').val()!='' && $('input[name=change_city]').val()!=$('#city').data('selected_id')) {
+                                if ($('input[name=change_city]').val() != '' && $('input[name=change_city]').val() != $('#city').data('selected_id')) {
                                     view.query['city'] = $('input[name=change_state]').val()
                                 }
                             }
@@ -495,7 +453,7 @@
                             }
                         }
 
-                         //console.log(view.query);
+                        //console.log(view.query);
                     }
                     //new2
                 },
@@ -728,154 +686,6 @@
             });
         });
 
-        //company list control
-        $('.section-archive-company').each(function () {
-            var collection;
-            if ($(this).find('.postdata').length > 0) {
-                var postdata = JSON.parse($(this).find('.postdata').html());
-                    collection = new Collections.Companies(postdata);
-            } else {
-                    collection = new Collections.Companies();
-            }
-            /**
-             * init list blog view
-             */
-            new ListCompanies({
-                itemView: CompanyItem,
-                collection: collection,
-                el: $(this).find('.company-list-container')
-            }).on('collection:rendered', function (event) {
-                console.log('collection:rendered')
-                // console.log(event.collection.listQuoteCompany)
-
-                event.collection.listQuoteCompany = {};
-                $('.btn-get-quotes').removeClass('visible');
-            });
-
-            $('.btn-get-quotes').on('click', function (event) {
-                var view = this;
-                event.preventDefault();
-                var $target = event.target;
-                if (typeof view.modal_get_quote == 'undefined') {
-                    view.modal_get_quote = new Views.Modal_GetMultiQuote();
-                }
-                // console.log(this)
-                // console.log($target)
-                console.log('btn-get-quotes')
-                console.log(collection.listQuoteCompany)
-                // Object.keys(ob).length === 0
-                var keys = Object.keys(collection.listQuoteCompany);
-                console.log('count quotes ' + keys.length)
-                //
-                view.modal_get_quote.setCompanyId(keys);
-                view.modal_get_quote.setCompanyName(collection.listQuoteCompany);
-                view.modal_get_quote.openModal();
-            });
-
-            /**
-             * init block control list blog
-             */
-            new Views.BlockControl({
-                collection: collection,
-                el: $(this),
-                onAfterInit: function () {
-                    var view = this;
-
-                    // Auto filter keyword
-                    if (view.$el.find('#search_data').length > 0) {
-                        var search_data = JSON.parse(view.$el.find('#search_data').html());
-                        if (search_data.keyword) {
-                            $('.fre-company-list-filter input[name="s"]').val(search_data.keyword).keyup();
-                        }
-                    }
-
-                    if (view.getUrlParameter('category_project')) {
-                        setTimeout(function () {
-                            $('#project_category.fre-chosen-single').trigger("chosen:updated").change();
-
-                        }, 1000);
-                    }
-
-                    $('.clear-filter').on('click', function (event) {
-                        view.clearFilter(event);
-                    });
-                    if ($('body').hasClass('page-template-page-top_companies_in_country')) {
-                        var view = this;
-                        if ($('#country').data('selected_id')) {
-                            view.query['country'] = $('#country').data('selected_id')
-                            if ($('#state').data('selected_id')) {
-                                view.query['state'] = $('#state').data('selected_id')
-                                if ($('#city').data('selected_id')) {
-                                    view.query['city'] = $('#city').data('selected_id')
-                                }
-                            }
-                        }
-                    }
-                },
-                getUrlParameter: function (name) {
-                    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-                    if (results == null) {
-                        return null;
-                    } else {
-                        return results[1] || 0;
-                    }
-                },
-                clearFilter: function (event) {
-                    event.preventDefault();
-                    var view = this,
-                        $target = $(event.currentTarget);
-                    // reset input, select
-                    view.$el.find('form')[0].reset();
-                    view.$el.find('form select').trigger('chosen:updated');
-
-                    // view.$el.find('form select#country option:selected').removeAttr('selected');
-                    view.$el.find('form select#state option:selected').removeAttr('selected');
-                    view.$el.find('form select#city option:selected').removeAttr('selected');
-                    view.$el.find('form select#state option, form select#city option').remove();
-                    view.$el.find('form select#state').append(new Option("Select country first", ""));
-                    view.$el.find('form select#city').append(new Option("Select state first", ""));
-
-                    view.$el.find('form select#cat option:selected').removeAttr('selected');
-                    view.$el.find('form select#sub option:selected').removeAttr('selected');
-                    view.$el.find('form select#sub option').remove();
-                    view.$el.find('form select#sub').append(new Option("Select category first", ""));
-
-                    // reset query
-                    view.query['project_category'] = '';
-                    // view.query['country'] = '';
-                    view.query['state'] = '';
-                    view.query['city'] = '';
-                    view.query['s'] = '';
-                    view.query['cat'] = '';
-                    view.query['sub'] = '';
-                    // request
-                    view.fetch($target);
-                },
-                onBeforeFetch: function () {
-                    var view = this;
-                    view.blockUi.unblock();
-                    view.blockUi.block(view.$('.fre-company-list-box'));
-                },
-                onAfterFetch: function (result, resp) {
-                    var view = this;
-                    if (result.length > 0) {
-                        $('.profile-no-result').hide();
-                        $('.plural,.singular').removeClass('hide');
-                        if (result.length == 1) {
-                            $('.plural').hide();
-                            $('.singular').show();
-                        } else {
-                            $('.plural').show();
-                            $('.singular').hide();
-                        }
-                    } else {
-                        $('.plural').show().removeClass('hide');
-                        $('.singular').hide();
-                        $('.profile-no-result').show();
-                    }
-                },
-            });
-        });
 
         if ($('.freelancer-project-history').length > 0) {
             var $container = $('.freelancer-project-history');
@@ -1120,7 +930,7 @@
 
 // contacts form mail sent preloading
 // on form submit block button by loader
-document.addEventListener( 'wpcf7beforesubmit', function(event){
+document.addEventListener('wpcf7beforesubmit', function (event) {
     let $preloader = $('.submit-preloader');
     let $form = $preloader.closest('form');
     let $submit = $form.find('input[type="submit"]');
@@ -1133,13 +943,13 @@ document.addEventListener( 'wpcf7beforesubmit', function(event){
 }, false);
 
 // on sent form data hide preloader
-document.addEventListener( 'wpcf7submit', function(event){
+document.addEventListener('wpcf7submit', function (event) {
     let $preloader = $('.submit-preloader');
     $preloader.hide();
 }, false);
 
 // on mail sent clear form attach field
-document.addEventListener( 'wpcf7mailsent', function(event){
+document.addEventListener('wpcf7mailsent', function (event) {
     $('.page-contact-us .add-file input').val('');
     $('.delete_file').hide();
     $('.page-contact-us .select_file').children('i+span').text('Attach file');

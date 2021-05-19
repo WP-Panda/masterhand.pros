@@ -1,25 +1,25 @@
 <?php
-/**
- * The template for display a list bids of a project
- * @since 1.0
- * @author Dakachi
- */
-global $wp_query, $ae_post_factory, $post, $user_ID;
-$post_object = $ae_post_factory->get( PROJECT );
+	/**
+	 * The template for display a list bids of a project
+	 *
+	 * @since  1.0
+	 * @author Dakachi
+	 */
+	global $wp_query, $ae_post_factory, $post, $user_ID;
+	$post_object = $ae_post_factory->get( PROJECT );
 
-$project = $post_object->current_post;
+	$project = $post_object->current_post;
 
-$number_bids = (int) get_number_bids( get_the_ID() );
-//$sum            = (float) get_total_cost_bids( get_the_ID() );
-add_filter( 'posts_orderby', 'fre_order_by_bid_status' );
-$q_bid = new WP_Query( array(
-		'post_type'   => BID,
-		'post_parent' => get_the_ID(),
-		'post_status' => array( 'publish', 'disputing', 'complete', 'accept', 'unaccept', 'hide', 'archive', 'disputed' )
-	)
-);
-remove_filter( 'posts_orderby', 'fre_order_by_bid_status' );
-$biddata = array();
+	$number_bids = (int) get_number_bids( get_the_ID() );
+	//$sum            = (float) get_total_cost_bids( get_the_ID() );
+	add_filter( 'posts_orderby', 'fre_order_by_bid_status' );
+	$q_bid = new WP_Query( [
+			'post_type'   => BID,
+			'post_parent' => get_the_ID(),
+			'post_status' => [ 'publish', 'disputing', 'complete', 'accept', 'unaccept', 'hide', 'archive', 'disputed' ]
+		] );
+	remove_filter( 'posts_orderby', 'fre_order_by_bid_status' );
+	$biddata = [];
 
 ?>
     <div class="col-md-8">
@@ -35,24 +35,24 @@ $biddata = array();
         </div>
         <div class="info-bidding-wrapper list-bid-project project-<?php echo $project->post_status; ?> freelancer-bidding">
 			<?php
-			if ( $q_bid->have_posts() ):
-				global $wp_query, $ae_post_factory, $post;
-				$post_object = $ae_post_factory->get( BID );
-				echo "<div class='list-bidden'>";
-				while ( $q_bid->have_posts() ) :$q_bid->the_post();
-					$convert   = $post_object->convert( $post );
-					$biddata[] = $convert;
-					get_template_part( 'template/bid', 'item' );
-				endwhile;
-				echo "</div>";
-				echo '<div class="row list-bidding-js"></div> ';
-				echo '<div class="paginations-wrapper text-center padding-pagiantion">';
-				$q_bid->query = array_merge( $q_bid->query, array( 'is_single' => 1 ) );
-				ae_pagination( $q_bid, get_query_var( 'paged' ), 'load' );
-				echo '</div>';
-			else :
-				get_template_part( 'template/bid', 'not-item' );
-			endif;
+				if ( $q_bid->have_posts() ):
+					global $wp_query, $ae_post_factory, $post;
+					$post_object = $ae_post_factory->get( BID );
+					echo "<div class='list-bidden'>";
+					while ( $q_bid->have_posts() ) :$q_bid->the_post();
+						$convert   = $post_object->convert( $post );
+						$biddata[] = $convert;
+						get_template_part( 'template/bid', 'item' );
+					endwhile;
+					echo "</div>";
+					echo '<div class="row list-bidding-js"></div> ';
+					echo '<div class="paginations-wrapper text-center padding-pagiantion">';
+					$q_bid->query = array_merge( $q_bid->query, [ 'is_single' => 1 ] );
+					ae_pagination( $q_bid, get_query_var( 'paged' ), 'load' );
+					echo '</div>';
+				else :
+					get_template_part( 'template/bid', 'not-item' );
+				endif;
 			?>
 
         </div>
@@ -74,6 +74,6 @@ $biddata = array();
     </div>
 
 <?php
-if ( ! empty( $biddata ) ) {
-	echo '<script type="data/json" class="biddata" >' . json_encode( $biddata ) . '</script>';
-}
+	if ( ! empty( $biddata ) ) {
+		echo '<script type="data/json" class="biddata" >' . json_encode( $biddata ) . '</script>';
+	}

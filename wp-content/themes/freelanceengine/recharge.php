@@ -1,7 +1,7 @@
 <?php
 
-global $user_ID;
-get_header();
+	global $user_ID;
+	get_header();
 ?>
     <div class="blog-header-container">
         <div class="container">
@@ -21,7 +21,7 @@ get_header();
                     <div class="step-wrapper step-input-account" id="step-input-account">
                         <a href="#" class="step-heading active">
                             <span class="number-step">1</span>
-                            <span class="text-heading-step"><?php _e( 'Enter amount' , ET_DOMAIN ); ?></span>
+                            <span class="text-heading-step"><?php _e( 'Enter amount', ET_DOMAIN ); ?></span>
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="step-content-wrapper content">
@@ -51,7 +51,7 @@ get_header();
                     <div class="step-wrapper step-select-payment" id="step-select-payment">
                         <a href="#" class="step-heading">
                             <span class="number-step">2</span>
-                            <span class="text-heading-step"><?php _e( 'Select payment method' , ET_DOMAIN ); ?></span>
+                            <span class="text-heading-step"><?php _e( 'Select payment method', ET_DOMAIN ); ?></span>
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="step-content-wrapper content">
@@ -88,10 +88,10 @@ get_header();
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12  blog-sidebar" id="right_content">
-                    <?php get_sidebar('blog'); ?>
+					<?php get_sidebar( 'blog' ); ?>
                 </div>
             </div>
         </div>
     </div>
 <?php
-get_footer();
+	get_footer();

@@ -1,45 +1,45 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dao
- * Date: 5/25/2017
- * Time: 10:19 AM
- * Use for page author.php and page-profile.php
- */
-global $wpdb;
-$is_edit = false;
-if(is_author()){
-	$author_id        = get_query_var( 'author' );
-}else{
-	$author_id        = get_current_user_id();
-	$is_edit = true;
-}
+	/**
+	 * Created by PhpStorm.
+	 * User: Dao
+	 * Date: 5/25/2017
+	 * Time: 10:19 AM
+	 * Use for page author.php and page-profile.php
+	 */
+	global $wpdb;
+	$is_edit = false;
+	if ( is_author() ) {
+		$author_id = get_query_var( 'author' );
+	} else {
+		$author_id = get_current_user_id();
+		$is_edit   = true;
+	}
 
-$experiences = array();
-$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
-if($profile_id){
-	// not use get_post_meta because this not get meta_id
-    //$experiences = get_post_meta( $profile_id, 'work_experience' );
-	$query       = 'SELECT * FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . $profile_id . ' AND meta_key = "work_experience" ORDER BY meta_id DESC';
-	$experiences = $wpdb->get_results( $query );
-}
+	$experiences = [];
+	$profile_id  = get_user_meta( $author_id, 'user_profile_id', true );
+	if ( $profile_id ) {
+		// not use get_post_meta because this not get meta_id
+		//$experiences = get_post_meta( $profile_id, 'work_experience' );
+		$query       = 'SELECT * FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . $profile_id . ' AND meta_key = "work_experience" ORDER BY meta_id DESC';
+		$experiences = $wpdb->get_results( $query );
+	}
 
-if ( $is_edit or !empty( $experiences ) ) {
-	?>
+	if ( $is_edit or ! empty( $experiences ) ) {
+		?>
 
 
         <div class="profile-freelance-experience">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="freelance-experience-title"><?php _e( 'Work Experiences', ET_DOMAIN ) ?></div>
-                    <p class="fre-empty-optional-profile" <?php echo (empty($experiences) and $is_edit) ? '' : 'style="display : none"' ?>>
-                        <?php _e('Add work experience to your profile. (optional)',ET_DOMAIN) ?>
+                    <p class="fre-empty-optional-profile" <?php echo ( empty( $experiences ) and $is_edit ) ? '' : 'style="display : none"' ?>>
+						<?php _e( 'Add work experience to your profile. (optional)', ET_DOMAIN ) ?>
                     </p>
                 </div>
 
                 <span id="fre-empty-experience">
 				    <?php if ( $is_edit ) { ?>
-                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-sm-6 col-xs-12">
                         <div class="freelance-experience-add">
                             <a href="javascript:void(0)"
                                class="btn-right fre-submit-btn profile-show-edit-tab-btn"
@@ -77,27 +77,27 @@ if ( $is_edit or !empty( $experiences ) ) {
                                         <div class="col-sm-6 col-xs-12">
                                             <div class="fre-input-field">
                                                 <select class="fre-chosen-single" name="work_experience[m_from]" id="">
-                                                    <option value=""><?php _e('Month',ET_DOMAIN) ?></option>
+                                                    <option value=""><?php _e( 'Month', ET_DOMAIN ) ?></option>
 													<?php
-													for ( $i = 1; $i <= 12; $i ++ ) {
-														if ( intval( $i ) < 10 ) {
-															$i = '0' . $i;
-														}
-														$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
-														$name_m = date( 'F', strtotime( $mont ) ); ?>
-                                                        <option value="<?php echo $i ?>"><?php _e( $name_m, ET_DOMAIN ) ?></option>;
-													<?php } ?>
+														for ( $i = 1; $i <= 12; $i ++ ) {
+															if ( intval( $i ) < 10 ) {
+																$i = '0' . $i;
+															}
+															$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
+															$name_m = date( 'F', strtotime( $mont ) ); ?>
+                                                            <option value="<?php echo $i ?>"><?php _e( $name_m, ET_DOMAIN ) ?></option>;
+														<?php } ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12">
                                             <div class="fre-input-field">
                                                 <select class="fre-chosen-single" name="work_experience[y_from]" id="">
-                                                    <option value=""><?php _e('Year',ET_DOMAIN) ?></option>
+                                                    <option value=""><?php _e( 'Year', ET_DOMAIN ) ?></option>
 													<?php
-													for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
-														echo '<option value="' . $i . '">' . $i . '</option>';
-													} ?>
+														for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
+															echo '<option value="' . $i . '">' . $i . '</option>';
+														} ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -110,27 +110,27 @@ if ( $is_edit or !empty( $experiences ) ) {
                                         <div class="col-sm-6 col-xs-12">
                                             <div class="fre-input-field novalidate_if_current">
                                                 <select class="fre-chosen-single" name="work_experience[m_to]">
-                                                    <option value=""><?php _e('Month',ET_DOMAIN) ?></option>
+                                                    <option value=""><?php _e( 'Month', ET_DOMAIN ) ?></option>
 													<?php
-													for ( $i = 1; $i <= 12; $i ++ ) {
-														if ( intval( $i ) < 10 ) {
-															$i = '0' . $i;
-														}
-														$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
-														$name_m = date( 'F', strtotime( $mont ) ); ?>
-                                                        <option value="<?php echo $i ?>"><?php _e( $name_m, ET_DOMAIN ) ?></option>;
-													<?php } ?>
+														for ( $i = 1; $i <= 12; $i ++ ) {
+															if ( intval( $i ) < 10 ) {
+																$i = '0' . $i;
+															}
+															$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
+															$name_m = date( 'F', strtotime( $mont ) ); ?>
+                                                            <option value="<?php echo $i ?>"><?php _e( $name_m, ET_DOMAIN ) ?></option>;
+														<?php } ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12">
                                             <div class="fre-input-field novalidate_if_current">
                                                 <select class="fre-chosen-single" name="work_experience[y_to]" id="">
-                                                    <option value=""><?php _e('Year',ET_DOMAIN) ?></option>
+                                                    <option value=""><?php _e( 'Year', ET_DOMAIN ) ?></option>
 													<?php
-													for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
-														echo '<option value="' . $i . '">' . $i . '</option>';
-													} ?>
+														for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
+															echo '<option value="' . $i . '">' . $i . '</option>';
+														} ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -148,7 +148,8 @@ if ( $is_edit or !empty( $experiences ) ) {
                                 </div>
 
                                 <div class="fre-input-field no-margin-bottom">
-                                    <textarea name="work_experience[content]" id="" cols="30" rows="10" placeholder="<?php _e('Description (optional)',ET_DOMAIN) ?>"></textarea>
+                                    <textarea name="work_experience[content]" id="" cols="30" rows="10"
+                                              placeholder="<?php _e( 'Description (optional)', ET_DOMAIN ) ?>"></textarea>
                                 </div>
 
                                 <div class="fre-form-btn">
@@ -178,28 +179,28 @@ if ( $is_edit or !empty( $experiences ) ) {
                                     id="cnt-experience-default-<?php echo $experience->meta_id ?>"
                                     style="<?php echo $k + 1 == count( $experiences ) ? 'border-bottom: 0;padding-bottom: 0;' : '' ?>">
                                     <div class="freelance-experience-wrap">
-                                        <div class="freelance-experience_t"><?php echo stripslashes($e_value['title']);?></div>
-                                        <p><?php echo stripslashes($e_value['subtitle']);?></p>
+                                        <div class="freelance-experience_t"><?php echo stripslashes( $e_value[ 'title' ] ); ?></div>
+                                        <p><?php echo stripslashes( $e_value[ 'subtitle' ] ); ?></p>
                                         <div>
-	                                        <?php
-	                                        $string_time = '01-'.$e_value['m_from']. '-' . $e_value['y_from'];
-	                                        $date_fr_option  = timeFormatRemoveDate(get_option('date_format'));
-	                                        $date_fr = date_i18n(trim('F Y'),strtotime($string_time));
-	                                        echo ($date_fr);
-	                                        ?>
+											<?php
+												$string_time    = '01-' . $e_value[ 'm_from' ] . '-' . $e_value[ 'y_from' ];
+												$date_fr_option = timeFormatRemoveDate( get_option( 'date_format' ) );
+												$date_fr        = date_i18n( trim( 'F Y' ), strtotime( $string_time ) );
+												echo( $date_fr );
+											?>
                                             -
-                                            <?php if( !empty($e_value['currently_working']) ){
-                                                _e('Now',ET_DOMAIN);
-                                            }else{ ?>
-	                                            <?php
-	                                            $string_time = '01-'.$e_value['m_to']. '-' . $e_value['y_to'];
-	                                            $date_fr_option  = timeFormatRemoveDate(get_option('date_format'));
-	                                            $date_fr = date_i18n(trim('F Y'),strtotime($string_time));
-	                                            echo ($date_fr);
-	                                            ?>
-                                            <?php } ?>
+											<?php if ( ! empty( $e_value[ 'currently_working' ] ) ) {
+												_e( 'Now', ET_DOMAIN );
+											} else { ?>
+												<?php
+												$string_time    = '01-' . $e_value[ 'm_to' ] . '-' . $e_value[ 'y_to' ];
+												$date_fr_option = timeFormatRemoveDate( get_option( 'date_format' ) );
+												$date_fr        = date_i18n( trim( 'F Y' ), strtotime( $string_time ) );
+												echo( $date_fr );
+												?>
+											<?php } ?>
                                         </div>
-                                        <?php echo apply_filters( 'the_content', $e_value['content'] ) ?>
+										<?php echo apply_filters( 'the_content', $e_value[ 'content' ] ) ?>
                                     </div>
 									<?php if ( $is_edit ) { ?>
                                         <div class="freelance-experience-action">
@@ -208,8 +209,10 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 												<?php _e( 'Edit', ET_DOMAIN ) ?>
                                             </a>
-                                            <a href="javascript:void(0)" class="remove_history_fre" data-id="<?php echo $experience->meta_id ?>">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i><?php _e('Remove',ET_DOMAIN) ?></a>
+                                            <a href="javascript:void(0)" class="remove_history_fre"
+                                               data-id="<?php echo $experience->meta_id ?>">
+                                                <i class="fa fa-trash-o"
+                                                   aria-hidden="true"></i><?php _e( 'Remove', ET_DOMAIN ) ?></a>
                                         </div>
 									<?php } ?>
                                 </li>
@@ -226,12 +229,12 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                 <div class="fre-input-field">
                                                     <input type="text" name="work_experience[title]"
                                                            placeholder="<?php _e( 'Title', ET_DOMAIN ) ?>"
-                                                           value="<?php echo $e_value['title'] ?>">
+                                                           value="<?php echo $e_value[ 'title' ] ?>">
                                                 </div>
 
                                                 <div class="fre-input-field">
                                                     <input type="text" name="work_experience[subtitle]"
-                                                           value="<?php echo $e_value['subtitle'] ?>"
+                                                           value="<?php echo $e_value[ 'subtitle' ] ?>"
                                                            placeholder="<?php _e( 'Company', ET_DOMAIN ) ?>">
                                                 </div>
 
@@ -244,16 +247,16 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                                 <select class="fre-chosen-single"
                                                                         name="work_experience[m_from]"
                                                                         id="">
-                                                                    <option value=""><?php _e('Month',ET_DOMAIN) ?></option>
+                                                                    <option value=""><?php _e( 'Month', ET_DOMAIN ) ?></option>
 																	<?php
-																	for ( $i = 1; $i <= 12; $i ++ ) {
-																		if ( intval( $i ) < 10 ) {
-																			$i = '0' . $i;
-																		}
-																		$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
-																		$name_m = date( 'F', strtotime( $mont ) ); ?>
-                                                                        <option value="<?php echo $i ?>" <?php echo ! empty( $e_value['m_from'] ) && $e_value['m_from'] == $i ? 'selected' : '' ?>><?php _e( $name_m, ET_DOMAIN ) ?></option>;
-																	<?php } ?>
+																		for ( $i = 1; $i <= 12; $i ++ ) {
+																			if ( intval( $i ) < 10 ) {
+																				$i = '0' . $i;
+																			}
+																			$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
+																			$name_m = date( 'F', strtotime( $mont ) ); ?>
+                                                                            <option value="<?php echo $i ?>" <?php echo ! empty( $e_value[ 'm_from' ] ) && $e_value[ 'm_from' ] == $i ? 'selected' : '' ?>><?php _e( $name_m, ET_DOMAIN ) ?></option>;
+																		<?php } ?>
                                                                 </select>
                                                             </div>
 
@@ -263,12 +266,12 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                                 <select class="fre-chosen-single"
                                                                         name="work_experience[y_from]"
                                                                         id="">
-                                                                    <option value=""><?php _e('Year',ET_DOMAIN) ?></option>
+                                                                    <option value=""><?php _e( 'Year', ET_DOMAIN ) ?></option>
 																	<?php
-																	for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
-																		! empty( $e_value['y_from'] ) && $e_value['y_from'] == $i ? $selected = 'selected' : $selected = '';
-																		echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
-																	} ?>
+																		for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
+																			! empty( $e_value[ 'y_from' ] ) && $e_value[ 'y_from' ] == $i ? $selected = 'selected' : $selected = '';
+																			echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+																		} ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -284,16 +287,16 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                                 <select class="fre-chosen-single"
                                                                         name="work_experience[m_to]"
                                                                         id="">
-                                                                    <option value=""><?php _e('Month',ET_DOMAIN) ?></option>
+                                                                    <option value=""><?php _e( 'Month', ET_DOMAIN ) ?></option>
 																	<?php
-																	for ( $i = 1; $i <= 12; $i ++ ) {
-																		if ( intval( $i ) < 10 ) {
-																			$i = '0' . $i;
-																		}
-																		$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
-																		$name_m = date( 'F', strtotime( $mont ) ); ?>
-                                                                        <option value="<?php echo $i ?>" <?php echo ! empty( $e_value['m_to'] ) && $e_value['m_to'] == $i ? 'selected' : '' ?>><?php _e( $name_m, ET_DOMAIN ) ?></option>;
-																	<?php } ?>
+																		for ( $i = 1; $i <= 12; $i ++ ) {
+																			if ( intval( $i ) < 10 ) {
+																				$i = '0' . $i;
+																			}
+																			$mont   = date( 'Y', time() ) . '-' . $i . '-' . date( 'd', time() );
+																			$name_m = date( 'F', strtotime( $mont ) ); ?>
+                                                                            <option value="<?php echo $i ?>" <?php echo ! empty( $e_value[ 'm_to' ] ) && $e_value[ 'm_to' ] == $i ? 'selected' : '' ?>><?php _e( $name_m, ET_DOMAIN ) ?></option>;
+																		<?php } ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -302,12 +305,12 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                                 <select class="fre-chosen-single"
                                                                         name="work_experience[y_to]"
                                                                         id="">
-                                                                    <option value=""><?php _e('Year',ET_DOMAIN) ?></option>
+                                                                    <option value=""><?php _e( 'Year', ET_DOMAIN ) ?></option>
 																	<?php
-																	for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
-																		! empty( $e_value['y_to'] ) && $e_value['y_to'] == $i ? $selected = 'selected' : $selected = '';
-																		echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
-																	} ?>
+																		for ( $i = date( 'Y', time() ); $i >= intval( date( 'Y', time() ) ) - 50; $i -- ) {
+																			! empty( $e_value[ 'y_to' ] ) && $e_value[ 'y_to' ] == $i ? $selected = 'selected' : $selected = '';
+																			echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+																		} ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -317,9 +320,10 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                 <div class="fre-input-field">
                                                     <label class="checkline"
                                                            for="currently-working-<?php echo $experience->meta_id ?>">
-                                                        <input id="currently-working-<?php echo $experience->meta_id ?>" class="currently-working"
+                                                        <input id="currently-working-<?php echo $experience->meta_id ?>"
+                                                               class="currently-working"
                                                                type="checkbox"
-                                                               name="work_experience[currently_working]" <?php echo ! empty( $e_value['currently_working'] ) ? 'checked' : '' ?>
+                                                               name="work_experience[currently_working]" <?php echo ! empty( $e_value[ 'currently_working' ] ) ? 'checked' : '' ?>
                                                                value="1">
                                                         <span></span>
 														<?php _e( 'Currently working here', ET_DOMAIN ) ?>
@@ -327,15 +331,17 @@ if ( $is_edit or !empty( $experiences ) ) {
                                                 </div>
 
                                                 <div class="fre-input-field no-margin-bottom">
-                                                    <textarea name="work_experience[content]" id="" cols="30"  placeholder="<?php _e('Description (optional)',ET_DOMAIN) ?>"
-                                                      rows="10"><?php echo ! empty( $e_value['content'] ) ? $e_value['content'] : '' ?></textarea>
+                                                    <textarea name="work_experience[content]" id="" cols="30"
+                                                              placeholder="<?php _e( 'Description (optional)', ET_DOMAIN ) ?>"
+                                                              rows="10"><?php echo ! empty( $e_value[ 'content' ] ) ? $e_value[ 'content' ] : '' ?></textarea>
                                                 </div>
 
                                                 <input type="hidden" value="<?php echo $experience->meta_id ?>"
                                                        name="work_experience[id]">
 
                                                 <div class="fre-form-btn">
-                                                    <input type="submit" class="fre-submit-btn btn-left btn-submit" name=""
+                                                    <input type="submit" class="fre-submit-btn btn-left btn-submit"
+                                                           name=""
                                                            value="<?php _e( 'Save', ET_DOMAIN ) ?>">
                                                     <span class="fre-experience-close fre-cancel-btn profile-show-edit-tab-btn "
                                                           data-ctn_edit="cnt-experience-default-<?php echo $experience->meta_id ?>"><?php _e( 'Cancel', ET_DOMAIN ) ?></span>
@@ -352,5 +358,5 @@ if ( $is_edit or !empty( $experiences ) ) {
 				} ?>
             </ul>
         </div>
-   
-<?php } ?>
+
+	<?php }

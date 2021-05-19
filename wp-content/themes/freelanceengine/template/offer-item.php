@@ -1,7 +1,7 @@
 <?php
-global $wp_query, $ae_post_factory, $post;
-$post_object = $ae_post_factory->get(ADVERT);
-$current = $post_object->current_post;
+	global $wp_query, $ae_post_factory, $post;
+	$post_object = $ae_post_factory->get( ADVERT );
+	$current     = $post_object->current_post;
 ?>
 
 <li class="offer-item">
@@ -13,18 +13,18 @@ $current = $post_object->current_post;
         </div>
         <div class="project-list-desc">
             <p>
-                <?php if (strlen($current->post_content) > 50) {
-                    echo substr($current->post_content, 0, 49) . '...';
-                } else {
-                    echo $current->post_content;
-                }
-                ?>
+				<?php if ( strlen( $current->post_content ) > 50 ) {
+					echo substr( $current->post_content, 0, 49 ) . '...';
+				} else {
+					echo $current->post_content;
+				}
+				?>
             </p>
         </div>
         <div class="">
-            <? _e('Author'); ?>:
-            <a href="<?php echo get_author_posts_url($current->post_author); ?>" class="offer_author">
-                <?php echo get_the_author_meta('display_name', $current->post_author); ?>
+			<? _e( 'Author' ); ?>:
+            <a href="<?php echo get_author_posts_url( $current->post_author ); ?>" class="offer_author">
+				<?php echo get_the_author_meta( 'display_name', $current->post_author ); ?>
             </a>
         </div>
     </div>

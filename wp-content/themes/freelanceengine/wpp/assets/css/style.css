@@ -1,0 +1,168 @@
+.wpp-container {
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 50px;
+}
+
+.wpp-error-block {
+    border: 1px solid #ff1d34;
+    padding: 20px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.wpp-ok-block,.wpp-export-block {
+    border: 1px solid #24cd5a;
+    padding: 20px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.wpp-export-block {
+    margin-top: 25px;
+}
+
+.wpp-loader{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,.5);
+    background-image: url("../img/loader.svg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100px;
+    z-index: 99999999999;
+}
+
+.latest-export {
+    margin-bottom: 25px;
+}
+
+#wpp-list-company-table tbody tr:hover {
+    background-color:#d0e4ef;
+}
+
+form#wpp-list-company-table tbody tr:hover td.id.column-id {
+    position: relative;
+}
+
+form#wpp-list-company-table .wp-list-table .toggle-row {
+    display: block;
+}
+
+
+form#wpp-list-company-table .wp-list-table .is-expanded .toggle-row:before,form#wpp-list-company-table .wp-list-table .toggle-row:before {
+    content: "\f327"!important;
+}
+
+.wpp_modal_bulk_window * {
+    box-sizing: border-box;
+}
+.wpp_modal_bulk_window {
+    display: none;
+    position: fixed;
+    background: #fff;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    margin-top: 25px;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.wpp_modal_bulk_header {
+    position: relative;
+}
+
+.wpp-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.wpp-close span.dashicons.dashicons-no-alt {
+    font-size: 45px;
+    color: #f11212;
+    cursor: pointer;
+}
+
+.wpp-close:hover span.dashicons.dashicons-no-alt {
+    color: #750000;
+}
+
+.wpp_modal_bulk_body label {
+    text-transform: capitalize;
+}
+
+.wpp_modal_bulk_footer {
+    margin-top: 20px;
+    padding: 0 20px;
+    text-align: right;
+}
+
+.wpp-form-row {
+    padding: 10px 20px;
+}
+
+.wpp-6 {
+    width: 50%;
+    display: inline-block;
+}
+
+.wpp_modal_bulk_body input {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.wpp_modal_bulk_header {
+    padding: 0 20px;
+}
+
+th#register {
+    width: 43px;
+}
+
+span.wpp-c-registred {
+    background: #69ad46;
+    width: 10px;
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+td.register.column-register {
+    position: relative;
+}
+
+.wpp-remove-company .dashicons {
+    color: #f11212;
+    font-size: 30px;
+}
+
+.wpp-remove-company:hover .dashicons {
+    color: #750000;
+}
+
+.wpp-remove-company {
+    width: 30px;
+    height: 30px;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+td.site.column-site img {
+    width: 100%;
+}
