@@ -8,9 +8,7 @@
 	Author URI:
 	*/
 
-	if ( ! defined( 'ABSPATH' ) ) {
-		exit;
-	}
+	defined( 'ABSPATH' ) || exit;
 
 	add_action( 'plugins_loaded', 'paymentCode_load', 0 );
 	add_action( 'admin_menu', 'payCode_add_menu', 0 );
