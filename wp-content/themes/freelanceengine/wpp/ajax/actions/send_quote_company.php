@@ -34,10 +34,16 @@
 			$listEmails      = array_column( $rows, 'email' );
 			$checkListEmails = [];
 
+
 			foreach ( $listEmails as $email ) {
 
 				if ( strpos( $email, ',' ) !== false ) {
 					$em = explode( ',', $email );
+					foreach ( $em as $e ) {
+						$checkListEmails[] = trim( $e );
+					}
+				} elseif ( strpos( $email, ';' ) !== false ) {
+					$em = explode( ';', $email );
 					foreach ( $em as $e ) {
 						$checkListEmails[] = trim( $e );
 					}
@@ -46,18 +52,20 @@
 				}
 			}
 
+
 			// обновление данных компании для статистики
 			foreach ( $company_ids as $one_company_id ) {
-				$sql     = "SELECT `email_count`,`users_mailer` FROM {$table_name} WHERE `id` = $one_company_id";
+				$sql = sprintf( "SELECT `email_count`,`users_mailer` FROM %s WHERE `id` = %s", $table_name, $one_company_id );
+				//wpp_dump($sql);
 				$results = $wpdb->get_results( $sql, ARRAY_A );
 
-
-				$count  = empty( (int) $results[ 0 ][ `email_count` ] ) ? 1 : (int) $results[ 0 ][ `email_count` ] + 1;
-				$mailer = empty( $results[ 0 ][ `users_mailer` ] ) ? $user_ID : explode( ',', $results[ 0 ][ `users_mailer` ] );
+				//wpp_dump($results);
+				$count  = empty( (int) $results[ 0 ][ 'email_count' ] ) ? 1 : (int) $results[ 0 ][ 'email_count' ] + 1;
+				$mailer = empty( $results[ 0 ][ 'users_mailer' ] ) ? $user_ID : explode( ',', $results[ 0 ][ 'users_mailer' ] );
 
 				if ( is_array( $mailer ) ) {
 					if ( in_array( $user_ID, $mailer ) ) {
-						$mailer = $results[ 0 ][ `users_mailer` ];
+						$mailer = $results[ 0 ][ 'users_mailer' ];
 					} else {
 						$mailer[] = $user_ID;
 						$mailer   = implode( ',', $mailer );

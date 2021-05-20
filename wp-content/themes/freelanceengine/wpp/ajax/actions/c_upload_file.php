@@ -58,6 +58,9 @@
 
 		foreach ( $data_array as $one_row ) {
 
+			$one_row = array_filter( $one_row );
+
+
 			//замена запятой на точку для sql float
 			$one_row[ 'rating' ] = str_replace( ',', '.', $one_row[ 'rating' ] );
 
@@ -71,13 +74,17 @@
 			//добавление компании в список
 			if ( empty( $check ) ) {
 				$one_row[ 'date' ] = current_time( 'mysql' );
+
 				$max               = $wpdb->get_results( "SELECT `id` FROM $table_name ORDER BY `id` DESC LIMIT 1" );
 				if ( ! empty( $max ) ) {
 					$one_row[ 'id' ] = (int) $max[ 0 ]->id + 1;
 				} else {
 					$one_row[ 'id' ] = 10000001;
 				}
-				$wpdb->insert( $table_name, $one_row );
+				$insert = $wpdb->insert( $table_name, $one_row );
+				if ( empty( $insert ) ) {
+					wpp_d_log( $one_row );
+				}
 				$new ++;
 			} else {
 				//обновление компании в списке
