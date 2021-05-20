@@ -18,6 +18,9 @@
 	 * @package WordPress
 	 */
 
+
+	define( 'WPP_SEVER_NAME', $_SERVER[ 'SERVER_NAME' ] === 'masterhand.pros' ? 'local' : 'prod' );
+
 	require_once 'configs/base.php';
 
 	require_once 'configs/salts.php';

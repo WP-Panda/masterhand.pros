@@ -11,17 +11,20 @@
 	 *
 	 * @link https://wordpress.org/support/article/debugging-in-wordpress/
 	 */
+	if ( WPP_SEVER_NAME === 'local' ) {
+		// Включить отладку WP_DEBUG
+		define( 'WP_DEBUG', true );
 
-	// Включить отладку WP_DEBUG
-	define( 'WP_DEBUG', true );
+		// Включить журнал /wp-content/debug.log
+		define( 'WP_DEBUG_LOG', __DIR__ . '/debug/php-errors-' . date( 'd-m-y' ) . '.log' );
+		#define( 'WP_DEBUG_LOG', true );
 
-	// Включить журнал /wp-content/debug.log
-	define( 'WP_DEBUG_LOG',  __DIR__ . '/debug/php-errors-' .  date('d-m-y')  . '.log' );
-	#define( 'WP_DEBUG_LOG', true );
+		// Отключить вывод на экран
+		define( 'WP_DEBUG_DISPLAY', false );
+		@ini_set( 'display_errors', 0 );
 
-	// Отключить вывод на экран
-	define( 'WP_DEBUG_DISPLAY', false );
-	@ini_set( 'display_errors', 0 );
-
-	// Использовать версии JS и CSS для разработчика (при тестировании изменений в них)
-	define( 'SCRIPT_DEBUG', true );
+		// Использовать версии JS и CSS для разработчика (при тестировании изменений в них)
+		define( 'SCRIPT_DEBUG', true );
+	} else {
+		define( 'WP_DEBUG', false );
+	}
