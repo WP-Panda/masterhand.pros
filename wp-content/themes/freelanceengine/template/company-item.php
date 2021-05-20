@@ -13,7 +13,7 @@
 		return;
 	}
 
-	wpp_dump( $current );
+	//wpp_dump( $current );
 ?>
 
 <li class="company-item 1 project-item">

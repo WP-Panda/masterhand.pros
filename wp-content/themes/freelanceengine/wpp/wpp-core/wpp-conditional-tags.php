@@ -7,6 +7,11 @@
 
 	defined( 'ABSPATH' ) || exit;
 
+	/**
+	 * @deprecated
+	 *
+	 * @return bool
+	 */
 	function wpp_is_ajax() {
-		return ($_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest");
+		return wp_doing_ajax();
 	}

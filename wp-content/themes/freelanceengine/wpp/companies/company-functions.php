@@ -78,13 +78,18 @@
 			//получение списка компаний
 			$companies = $wpdb->get_results( "SELECT * FROM $table_name $str ORDER BY `title` ASC LIMIT " . COMPANY_PER_PAGE . " OFFSET $offset" );
 
+			//wpp_dump($companies);
 
 			if ( ! empty( $companies ) ) {
 				$found_posts_nums = $wpdb->get_results( "SELECT COUNT(`id`) FROM $table_name $str  ", ARRAY_N );
 				$found_posts_num  = (int) $found_posts_nums[ 0 ][ 0 ];
+				$found_labels     = wpp_found_labels( $found_posts_num );
+			} else {
+				$found_posts_num = 0;
+				$found_labels    = false;
 			}
 
-			$found_labels = wpp_found_labels( $found_posts_num );
+
 
 		}
 

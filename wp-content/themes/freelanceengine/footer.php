@@ -51,11 +51,7 @@ Seconds = <?php timer_stop(1); ?><!-- seconds.-->
     <div class="container">
         <div class="row">
             <div class="col-sm-6 hidden-xs">
-                <p class="text-copyright"><?php if ( $copyright ) {
-						echo $copyright;
-					} else {
-						echo 'All rights reserved.';
-					} ?></p>
+                <p class="text-copyright"><?php echo $copyright ?? 'All rights reserved.'; ?></p>
             </div>
             <div class="col-sm-6 col-xs-12">
 				<?php if ( is_active_sidebar( 'fre-footer-4' ) ) {

@@ -88,7 +88,7 @@
 	function wpp_sanitize_paginate_link( $link ) {
 
 		$link_preff = explode( '#038;', $link );
-		if ( ! empty( $link_preff[ 0 ] ) && ! wpp_is_ajax() ) {
+		if ( ! empty( $link_preff[ 0 ] ) && ! wp_doing_ajax() ) {
 			return $link_preff[ 0 ];
 		} else {
 			return $link;
