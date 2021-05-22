@@ -7,17 +7,21 @@
 
 	defined( 'ABSPATH' ) || exit;
 
-	$deny_params = [ 'cat', 'sub', 'country', 'state', 'city', 'string' ];
-
 	# количество компаний на страницу
 	if ( ! defined( 'COMPANY_PER_PAGE' ) ) :
 		define( 'COMPANY_PER_PAGE', 10 );
 	endif;
 
+	$deny_params = [ 'cat', 'sub', 'country', 'state', 'city', 'string' ];
+
 	# разрешенные гет параметры для фильтра
 	if ( ! defined( 'FIlTER_DENY_PARAMS' ) ) :
 		define( 'FIlTER_DENY_PARAMS', $deny_params );
 	endif;
+
+	if ( ! defined( 'WPP_THEME_DIR' ) ) {
+		define( 'WPP_THEME_DIR', get_template_directory() );
+	}
 
 	$array = [
 		'wpp-core/init',
@@ -29,7 +33,8 @@
 		'companies/init',
 		'error-api',
 		'helpers',
-		'ajax/actions/init'
+		'ajax/actions/init',
+		'setting/init'
 	];
 
 	foreach ( $array as $file ) :

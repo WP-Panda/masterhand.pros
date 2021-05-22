@@ -7,7 +7,8 @@
 
 	defined( 'ABSPATH' ) || exit;
 
+	$array = [ 'route' ];
 
-	require_once 'for-template.php';
-	require_once 'wpp-conditional-tags.php';
-	require_once 'Wpp_Pf_Endpoints.php';
+	foreach ( $array as $file ) :
+		require_once $file . '.php';
+	endforeach;
