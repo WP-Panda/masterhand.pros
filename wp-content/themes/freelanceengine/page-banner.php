@@ -6,11 +6,11 @@
 	$path = $_SERVER[ 'REQUEST_SCHEME' ] . '://' . $_SERVER[ 'SERVER_NAME' ];
 ?>
 
-<button class="generate" onclick="generate('<?= $template ?>')">generate</button>
+<button class="generate" onclick="generate('<?php echo $template ?>')">generate</button>
 
 
-<script type="text/javascript" src="<?= $path ?>/wp-content/plugins/generate_banner/js/html2canvas.js"></script>
-<script type="text/javascript" src="<?= $path ?>/wp-content/themes/_for_plugins/js/jquery-2.0.js?ver=2.0"></script>
+<script type="text/javascript" src="<?php echo $path ?>/wp-content/plugins/generate_banner/js/html2canvas.js"></script>
+<!--<script type="text/javascript" src="<? /*= $path */ ?>/wp-content/themes/_for_plugins/js/jquery-2.0.js?ver=2.0"></script>-->
 
 <input id="btn-Preview-Image" type="button" value="Preview"/>
 <a id="btn-Convert-Html2Image" href="#">Download</a>

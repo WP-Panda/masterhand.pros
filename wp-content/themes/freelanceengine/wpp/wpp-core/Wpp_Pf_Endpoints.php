@@ -15,11 +15,6 @@
 
 		function __construct() {
 
-			register_activation_hook( __FILE__, [
-				$this,
-				'activate'
-			] );
-
 			add_action( 'init', [
 				__CLASS__,
 				'add_endpoints'
@@ -28,15 +23,13 @@
 				__CLASS__,
 				'change_template'
 			] );
-			add_action( 'wpp_nav_points', [
-				__CLASS__,
-				'endpoints_nav'
-			] );
-			#add_action( 'init', 'do_rewrite' );
-		}
 
-		function activate() {
-			set_transient( 'wpp_fr_endpoints', 1, 60 );
+			#add_action( 'wpp_nav_points', [
+			#	__CLASS__,
+			#	'endpoints_nav'
+			#] );
+
+			#add_action( 'init', 'do_rewrite' );
 		}
 
 
@@ -57,6 +50,8 @@
 		public static function add_endpoints() {
 			$args = self::endpoint_settings();
 
+			do_action( 'qm/debug', $args );
+
 			foreach ( $args as $one_point => $val ) {
 
 				if ( ! empty( $val[ 'parent_point' ] ) ) :
@@ -70,10 +65,6 @@
 
 			}
 
-			if ( get_transient( 'wpp_fr_endpoints' ) ) {
-				delete_transient( 'wpp_fr_endpoints' );
-				flush_rewrite_rules();
-			}
 		}
 
 		/**
@@ -86,6 +77,9 @@
 			global $wp;
 
 			$args = self::endpoint_settings();
+
+			do_action( 'qm/debug', $args );
+			//wpp_dump($args);
 
 			foreach ( $args as $key => $value ) {
 				if ( isset( $wp->query_vars[ $key ] ) ) {
@@ -169,7 +163,9 @@
 			 */
 
 
-			return apply_filters( 'wpp_pf_endpoints_args', $end_points );
+			$end_points = apply_filters( 'wpp_pf_endpoints_args', $end_points );
+
+			return $end_points;
 		}
 
 

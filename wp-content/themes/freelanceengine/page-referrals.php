@@ -261,46 +261,50 @@
 
 
     <script>
-        function generate_poster_ajax(action, template) {
+        jQuery(function ($) {
 
-            $('body').addClass('processing');
 
-            $.ajax({
-                type: "POST",
-                url: '/wp-admin/admin-ajax.php',
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                },
-                data: {template: template, action: 'generate_poster'}
-            }).done(function (msg) {
-                $('body').removeClass('processing');
+            function generate_poster_ajax(action, template) {
 
-                if (msg == '0') {
-                    if (action == 'show') {
-                        window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
-                    } else {
-                        myWindow = window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
-                        myWindow.focus();
-                        myWindow.print();
-                    }
+                $('body').addClass('processing');
 
-                    $.ajax({
-                        type: "POST",
-                        url: '/wp-admin/admin-ajax.php',
-                        data: {template: template, action: 'delete_cache_poster'}
-                    }).done(function (msg) {
-                        if (msg !== '0') {
-                            console.log(msg)
+                $.ajax({
+                    type: "POST",
+                    url: '/wp-admin/admin-ajax.php',
+                    headers: {
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    },
+                    data: {template: template, action: 'generate_poster'}
+                }).done(function (msg) {
+                    $('body').removeClass('processing');
+
+                    if (msg == '0') {
+                        if (action == 'show') {
+                            window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
+                        } else {
+                            myWindow = window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
+                            myWindow.focus();
+                            myWindow.print();
                         }
-                    });
-                } else console.log(msg);
-            });
-        }
 
-        $('.sharing .addtoany_list .a2a_button_email').click(function () {
-            $('.sharing .addtoany_list .a2a_button_email')["0"].href = "mailto:?subject=Check%20this%20out%3A%20Banner&body=" + $('.str_link')["0"].innerHTML
+                        $.ajax({
+                            type: "POST",
+                            url: '/wp-admin/admin-ajax.php',
+                            data: {template: template, action: 'delete_cache_poster'}
+                        }).done(function (msg) {
+                            if (msg !== '0') {
+                                console.log(msg)
+                            }
+                        });
+                    } else console.log(msg);
+                });
+            }
+
+            $('.sharing .addtoany_list .a2a_button_email').click(function () {
+                $('.sharing .addtoany_list .a2a_button_email')["0"].href = "mailto:?subject=Check%20this%20out%3A%20Banner&body=" + $('.str_link')["0"].innerHTML
+            })
         })
     </script>
     <div class="loading-blur loading">

@@ -8,7 +8,6 @@
 	defined( 'ABSPATH' ) || exit;
 
 	function wpp_endpoints( $points ) {
-
 		$points[ 'companies' ] = [
 			'title'    => __( 'Item Title' ),
 			'icons'    => '',
@@ -18,8 +17,10 @@
 			'places'   => EP_ROOT
 		];
 
+		do_action( 'qm/debug', $points );
+
 		return $points;
 	}
 
 
-	return apply_filters( 'wpp_pf_endpoints_args', 'wpp_endpoints' );
+	add_filter( 'wpp_pf_endpoints_args', 'wpp_endpoints' );

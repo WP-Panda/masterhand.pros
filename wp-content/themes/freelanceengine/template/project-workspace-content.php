@@ -17,9 +17,11 @@
 	$user_status = get_user_pro_status( $profile_id );
 	$visualFlag  = getValueByProperty( $user_status, 'visual_flag' );
 	if ( $visualFlag ) {
-		$visualFlagNumber = get_user_meta( $profile_id, 'visual_flag', true );
-	}
 
+		$visualFlagNumber = get_user_meta( $profile_id, 'visual_flag', true );
+
+	}
+	$visualFlagNumber = ! empty( $visualFlagNumber ) ? $visualFlagNumber : 0;
 	// Load milestone change log if ae-milestone plugin is active
 	if ( defined( 'MILESTONE_DIR_URL' ) ) {
 		$query_args = [
@@ -135,14 +137,16 @@
 						echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
 					} ?>
 					<?php switch ( $visualFlagNumber ) {
-						case 1:
-							echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
-							break;
+
 						case 2:
 							echo '<span class="status">' . translate( 'Creator', ET_DOMAIN ) . '</span>';
 							break;
 						case 3:
 							echo '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
+							break;
+						case 1:
+						default:
+							echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
 							break;
 					} ?>
                 </div>
