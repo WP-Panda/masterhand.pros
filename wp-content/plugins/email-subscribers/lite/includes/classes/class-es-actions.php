@@ -196,8 +196,6 @@ if ( ! class_exists( 'ES_Actions' ) ) {
 			// Track only if campaign sent.
 			if ( $this->is_campaign_sent( $contact_id, $message_id, $campaign_id ) ) {
 
-				$this->update_viewed_status( $contact_id, $campaign_id, $message_id );
-
 				$action_data = array(
 					'contact_id'  => $contact_id,
 					'message_id'  => $message_id,

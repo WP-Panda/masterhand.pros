@@ -593,7 +593,7 @@ class ES_Contacts_Table extends ES_List_Table {
 	 * @return mixed
 	 */
 	public function get_subscribers( $per_page = 5, $page_number = 1, $do_count_only = false ) {
-		global $wpdb, $wpbd;
+		global $wpbd;
 
 		$order_by          = sanitize_sql_orderby( ig_es_get_request_data( 'orderby' ) );
 		$order             = ig_es_get_request_data( 'order' );
@@ -625,15 +625,15 @@ class ES_Contacts_Table extends ES_List_Table {
 			$where_clause_added = false;
 
 			if ( ! empty( $filter_by_list_id ) ) {
-				$list_filter_sql    = $wpdb->prepare( ' WHERE list_id = %d', $filter_by_list_id );
+				$list_filter_sql    = $wpbd->prepare( ' WHERE list_id = %d', $filter_by_list_id );
 				$where_clause_added = true;
 			}
 
 			if ( ! empty( $filter_by_status ) ) {
 				if ( $where_clause_added ) {
-					$list_filter_sql .= $wpdb->prepare( ' AND status = %s', $filter_by_status );
+					$list_filter_sql .= $wpbd->prepare( ' AND status = %s', $filter_by_status );
 				} else {
-					$list_filter_sql .= $wpdb->prepare( ' WHERE status = %s', $filter_by_status );
+					$list_filter_sql .= $wpbd->prepare( ' WHERE status = %s', $filter_by_status );
 				}
 			}
 
@@ -644,9 +644,9 @@ class ES_Contacts_Table extends ES_List_Table {
 		// Prepare search query
 		if ( ! empty( $search ) ) {
 			$query[] = ' ( first_name LIKE %s OR last_name LIKE %s OR email LIKE %s ) ';
-			$args[]  = '%' . $wpdb->esc_like( $search ) . '%';
-			$args[]  = '%' . $wpdb->esc_like( $search ) . '%';
-			$args[]  = '%' . $wpdb->esc_like( $search ) . '%';
+			$args[]  = '%' . $wpbd->esc_like( $search ) . '%';
+			$args[]  = '%' . $wpbd->esc_like( $search ) . '%';
+			$args[]  = '%' . $wpbd->esc_like( $search ) . '%';
 		}
 
 		if ( $add_where_clause || count( $query ) > 0 ) {
@@ -683,9 +683,25 @@ class ES_Contacts_Table extends ES_List_Table {
 			$sql .= $order_by_clause;
 			$sql .= " LIMIT {$offset}, {$per_page}";
 
-			$result = $wpbd->get_results( $sql, 'ARRAY_A' );
+			$cache_key 		 = ES_Cache::generate_key( $sql );
+			$exists_in_cache = ES_Cache::is_exists( $cache_key, 'query' );
+
+			if ( ! $exists_in_cache ) {
+				$result = $wpbd->get_results( $sql, 'ARRAY_A' );
+				ES_Cache::set( $cache_key, $result, 'query' );
+			} else {
+				$result = ES_Cache::get( $cache_key, 'query' );
+			}
 		} else {
-			$result = $wpbd->get_var( $sql );
+			
+			$cache_key 		 = ES_Cache::generate_key( $sql );
+			$exists_in_cache = ES_Cache::is_exists( $cache_key, 'query' );
+			if ( ! $exists_in_cache ) {
+				$result = $wpbd->get_var( $sql );
+				ES_Cache::set( $cache_key, $result, 'query' );
+			} else {
+				$result = ES_Cache::get( $cache_key, 'query' );
+			}
 		}
 
 		return $result;

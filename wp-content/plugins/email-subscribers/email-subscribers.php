@@ -3,11 +3,11 @@
  * Plugin Name: Email Subscribers & Newsletters
  * Plugin URI: https://www.icegram.com/
  * Description: Add subscription forms on website, send HTML newsletters & automatically notify subscribers about new blog posts once it is published.
- * Version: 4.7.1
+ * Version: 4.7.3
  * Author: Icegram
  * Author URI: https://www.icegram.com/
  * Requires at least: 3.9
- * Tested up to: 5.7.1
+ * Tested up to: 5.7.2
  * WC requires at least: 3.6.0
  * WC tested up to: 5.2.2
  * ES WOO: 7120515:9f4c7f8bb491260ef19edf9699db73e6
@@ -178,7 +178,7 @@ if ( 'premium' === $ig_es_plan ) {
 /* ***************************** Initial Compatibility Work (End) ******************* */
 
 if ( ! defined( 'ES_PLUGIN_VERSION' ) ) {
-	define( 'ES_PLUGIN_VERSION', '4.7.1' );
+	define( 'ES_PLUGIN_VERSION', '4.7.3' );
 }
 
 // Plugin Folder Path.

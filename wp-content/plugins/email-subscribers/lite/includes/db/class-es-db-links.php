@@ -142,6 +142,8 @@ if ( ! class_exists( 'ES_DB_Links' ) ) {
 		public function get_link_by_campaign_id( $link, $campaign_id = 0, $message_id = 0, $index = 0 ) {
 			global $wpdb;
 
+			ES_Cache::flush();
+
 			$where = $wpdb->prepare( ' link = %s AND campaign_id = %d AND message_id = %d AND i = %d', $link, $campaign_id, $message_id, $index );
 
 			return $this->get_by_conditions( $where );

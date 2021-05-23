@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Author URI: https://www.icegram.com/
 Tags: email marketing, subscription, autoresponder, post notification, welcome email
 Requires at least: 3.9
-Tested up to: 5.7.1
+Tested up to: 5.7.2
 Requires PHP: 5.6
-Stable tag: 4.7.1
+Stable tag: 4.7.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses
 
@@ -135,9 +135,15 @@ If you like Email Subscribers, please leave us a [⭐⭐⭐⭐⭐](https://wordp
 
 **Some of our other free plugins on WordPress.org**
 
-1. [Icegram](https://wordpress.org/plugins/icegram/) - Popups, Welcome Bar, Opt-Ins and Lead Generation Plugin
-2. [Rainmaker](https://wordpress.org/plugins/icegram-rainmaker/) - Best Forms Plugin on WordPress
-3. [Temporary Login Without Password](https://wordpress.org/plugins/temporary-login-without-password/) -It's a handy tool to support our customers. We use it daily.
+[Icegram](https://wordpress.org/plugins/icegram/) - Popups, Welcome Bar, Opt-Ins and Lead Generation Plugin
+
+[Rainmaker](https://wordpress.org/plugins/icegram-rainmaker/) - Best Forms Plugin on WordPress
+
+[Temporary Login Without Password](https://wordpress.org/plugins/temporary-login-without-password/) -It's a handy tool to support our customers. We use it daily.
+
+[Smart Manager](https://wordpress.org/plugins/smart-manager-for-wp-e-commerce/) - Manage & Bulk edit Products, Orders & more..
+
+[Offermative](https://wordpress.org/plugins/offermative-discount-pricing-related-products-upsell-funnels-for-woocommerce/) - Dynamic discount pricing, related product recommendations, upsells and funnels for WooCommerce.
 
 == Installation ==
 
@@ -304,45 +310,35 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-**4.7.1 (30.04.2021)**
-
-* New: Send emails using Postmark batch API **[PRO]**
-* Update: Improved dashboard UI
-* Fix: Post digest category issue **[PRO]**
-* Fix: Garbage characters in few cases when an email containing HTML entities is sent using Pepipost
-* Fix: Ajax call on every page load
-
-**4.7.0 (05.04.2021)**
-
-* New: Support for list and status fields while importing contacts through CSV
-* New: Using batch API to send emails through Mailgun [PRO]
-
-**4.6.14 (25.03.2021)**
-
-* New: Send emails using Mailgun, SparkPost and SendGrid [PRO]
-* New: Import contacts from MailChimp
-
-**4.6.13 (17.03.2021)**
-
-* New: Campaign rules to filter recipients while sending sequence emails [PRO]
-* Update: Tested upto WordPress 5.7
-* Fix: Invalid date and time for campaign reports activity table
-
-**4.6.12.1 (05.03.2021)**
-
-* Fix: Subscription issue with [Icegram](https://wordpress.org/plugins/icegram) plugin
-
-**4.6.12 (04.03.2021)**
-
-* New: Filter recipients using new campaign rules for 'is in List' and 'is not in List'[PRO] while sending broadcast
+**4.7.3 (19.05.2021)**
+* Fix: Formatting of broadcast test email not matching with actual campaign email **[PRO]**
+* Fix: JavaScript errors on the broadcast screen when a visual mode is disabled for classic editor
+* Fix: Incorrect campaign start date on the reports page
+* Fix: Fixing incorrect count of imported users in the log message when CSV contains duplicate emails
+* Update: Improved email template preview
 * Update: Improved campaign report UI
-* Update: Improved securities in subscription form
 
 == Changelog ==
 
+**4.7.3 (19.05.2021)**
+
+* Fix: Formatting of broadcast test email not matching with actual campaign email **[PRO]**
+* Fix: JavaScript errors on the broadcast screen when a visual mode is disabled for classic editor
+* Fix: Incorrect campaign start date on the reports page
+* Fix: Fixing incorrect count of imported users in the log message when CSV contains duplicate emails
+* Update: Improved email template preview
+* Update: Improved campaign report UI
+
+**4.7.2 (12.05.2021)**
+
+* New: Support for 'List-Unsubscribe' email header
+* New: Support for 'Subscribed at' field while importing contacts through CSV
+* Update: Support for Sendgrid batch email API **[PRO]**
+* Update: Improved page load performance on Email Subscribers' admin pages
+
 **4.7.1 (30.04.2021)**
 
-* New: Send emails using Postmark batch API [PRO]
+* New: Send emails using Postmark batch API **[PRO]**
 * Update: Improved dashboard UI
 * Fix: Post digest category issue [PRO]
 * Fix: Garbage characters in few cases when an email containing HTML entities is sent using Pepipost
@@ -351,16 +347,16 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 **4.7.0 (05.04.2021)**
 
 * New: Support for list and status fields while importing contacts through CSV
-* New: Using batch API to send emails through Mailgun [PRO]
+* New: Using batch API to send emails through Mailgun **[PRO]**
 
 **4.6.14 (25.03.2021)**
 
-* New: Send emails using Mailgun, SparkPost and SendGrid [PRO]
+* New: Send emails using Mailgun, SparkPost and SendGrid **[PRO]**
 * New: Import contacts from MailChimp
 
 **4.6.13 (17.03.2021)**
 
-* New: Campaign rules to filter recipients while sending sequence emails [PRO]
+* New: Campaign rules to filter recipients while sending sequence emails **[PRO]**
 * Update: Tested upto WordPress 5.7
 * Fix: Invalid date and time for campaign reports activity table
 
@@ -370,7 +366,7 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 **4.6.12 (04.03.2021)**
 
-* New: Filter recipients using new campaign rules for 'is in List' and 'is not in List'[PRO] while sending broadcast
+* New: Filter recipients using new campaign rules for 'is in List' and 'is not in List' while sending broadcast **[PRO]**
 * Update: Improved campaign report UI
 * Update: Improved securities in subscription form
 

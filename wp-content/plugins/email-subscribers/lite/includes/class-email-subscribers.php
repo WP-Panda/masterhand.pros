@@ -793,6 +793,7 @@ if ( ! class_exists( 'Email_Subscribers' ) ) {
 				// Data Types
 				'lite/includes/workflows/data-types/abstracts/class-es-data-type-form-data.php',
 				'lite/includes/workflows/data-types/class-es-data-type-user.php',
+				'lite/includes/workflows/data-types/class-es-data-type-subscriber.php',
 				'lite/includes/workflows/class-es-workflow-data-types.php',
 				
 				'lite/includes/workflows/variables/class-es-workflow-data-types.php',

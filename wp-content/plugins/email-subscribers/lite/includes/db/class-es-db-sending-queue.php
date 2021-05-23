@@ -292,7 +292,7 @@ class ES_DB_Sending_Queue {
 		$queue_opened_at = isset( $column_defaults['opened_at'] ) ? $column_defaults['opened_at'] : null;
 	
 		$campaign = ES()->campaigns_db->get( $campaign_id );
-		$args = array(
+		$args 	  = array(
 			'select'     => array( 'subscribers.id' ),
 			'lists'      => $list_ids,
 			'return_sql' => true, // This flag will return the required sql query
@@ -608,25 +608,13 @@ class ES_DB_Sending_Queue {
 
 		$result = 0;
 
-		if ( '' != $hash ) {
+		if ( '' !== $hash ) {
 			$result = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT COUNT(*) AS count FROM {$wpdb->prefix}ig_sending_queue WHERE opened = 1 AND mailing_queue_hash = %s",
 					array( $hash )
 				)
 			);
-
-			if ( 0 == $result ) {
-				$table_name = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . 'es_deliverreport' ) );
-				if ( $table_name === $wpdb->prefix . 'es_deliverreport' ) {
-					$result = $wpdb->get_var(
-						$wpdb->prepare(
-							"SELECT COUNT(*) AS count FROM {$wpdb->prefix}es_deliverreport WHERE es_deliver_status = 'Viewed' AND  es_deliver_sentguid = %s",
-							array( $hash )
-						)
-					);
-				}
-			}
 
 		}
 

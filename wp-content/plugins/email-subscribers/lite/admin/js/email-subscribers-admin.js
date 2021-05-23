@@ -386,8 +386,7 @@
 						.on('change', '.condition-field', function (event) {
 				
 							var condition = jQuery(this).closest('.ig-es-condition'),
-								field = jQuery(this),
-								operator_field, value_field;
+								field = jQuery(this);
 							ig_es_show_operator_and_value_field(field);
 							jQuery(document).trigger('ig_es_update_contacts_counts',[{condition_elem:_self}]);
 						})
@@ -464,6 +463,7 @@
 						if ( ig_es_js_data.is_pro ) {
 							return;
 						}
+						
 						var condition_fields = jQuery('.ig-es-conditions-wrap .condition-field');
 						var list_rule_count = 0;
 						jQuery(condition_fields).each(function(){
@@ -509,8 +509,11 @@
 						condition.find('div.ig-es-conditions-value-field').removeClass('active').find('.condition-value').prop('disabled', true);
 						condition.find('div.ig-es-conditions-operator-field').removeClass('active').find('.condition-operator').prop('disabled', true);
 				
-						value_field = condition.find('div.ig-es-conditions-value-field[data-fields*=",' + jQuery(field).val() + ',"]').addClass('active').find('.condition-value').prop('disabled', false);
-						operator_field = condition.find('div.ig-es-conditions-operator-field[data-fields*=",' + jQuery(field).val() + ',"]').addClass('active').find('.condition-operator').prop('disabled', false);
+						var field_value = jQuery(field).val();
+						condition.find('.ig-es-conditions-operator-fields,.ig-es-conditions-value-fields').attr('data-condition', field_value );
+
+						value_field = condition.find('div.ig-es-conditions-value-field[data-fields*=",' + field_value + ',"]').addClass('active').find('.condition-value').prop('disabled', false);
+						operator_field = condition.find('div.ig-es-conditions-operator-field[data-fields*=",' + field_value + ',"]').addClass('active').find('.condition-operator').prop('disabled', false);
 				
 						if (!value_field.length) {
 							value_field = condition.find('div.ig-es-conditions-value-field-default').addClass('active').find('.condition-value').prop('disabled', false);
@@ -617,10 +620,10 @@
 							if ( response.hasOwnProperty('conditions_html') ) {
 								let conditions = $.parseHTML(response.conditions_html);
 								$(conditions).find('.campaign-name').each(function(){
-									let campaing_id = $(this).data('campaign-id');
-									if (edited_campaign_data.hasOwnProperty(campaing_id)) {
-										let campaing_name = edited_campaign_data[campaing_id];
-										$(this).text(campaing_name);
+									let campaign_id = $(this).data('campaign-id');
+									if (edited_campaign_data.hasOwnProperty(campaign_id)) {
+										let campaign_name = edited_campaign_data[campaign_id];
+										$(this).text(campaign_name);
 									}
 								});
 								$(condition_container_elem).find('.ig-es-conditions-render-wrapper').append($(conditions));
@@ -683,7 +686,7 @@
 								jQuery('.wp-editor-boradcast').val(response.body);
 								if ('undefined' !== typeof tinyMCE) {
 
-									var activeEditor = tinyMCE.get('edit-es-boradcast-body');
+									var activeEditor = tinyMCE.get('edit-es-broadcast-body');
 
 									if (activeEditor !== null) { // Make sure we're not calling setContent on null
 										response.body = response.body.replace(/\n/g, "<br />");
@@ -699,9 +702,9 @@
 									jQuery('#es_utm_campaign').val(response.es_utm_campaign);
 								}
 
-								if ( 1 === $('#edit-es-boradcast-body').length ) {
-									tinyMCE.triggerSave();
-									$('#edit-es-boradcast-body').trigger('change');
+								if ( 1 === $('#edit-es-broadcast-body').length ) {
+									ig_es_sync_wp_editor_content();
+									$('#edit-es-broadcast-body').trigger('change');
 								}
 							}
 						}
@@ -737,8 +740,7 @@
 			//preview broadcast
 			// ig_es_preview_broadcast
 			jQuery(document).on('click', '#ig_es_preview_broadcast', function (e) {
-				// Trigger save event for content of wp_editor instances before processing it.
-				window.tinyMCE.triggerSave();
+				ig_es_sync_wp_editor_content();
 				if (jQuery('.wp-editor-boradcast').val() !== '') {
 					jQuery('.es-form').find('form').attr('target', '_blank');
 					jQuery('.es-form').find('form').find('#es_broadcast_preview').val('preview');
@@ -784,62 +786,13 @@
 			});
 
 			$('.ig_es_draft_broadcast, .next_btn, #summary_menu').on('click', function(e) {
+				let trigger_elem = $(this);
+				ig_es_draft_broadcast( trigger_elem );
+			});
 
-				let trigger_elem    = $(this);
-				let is_draft_bttuon = $(trigger_elem).hasClass('ig_es_draft_broadcast');
-
-				let broadcast_subject = $('#ig_es_broadcast_subject').val();
-				if ( '' === broadcast_subject ) {
-					if ( is_draft_bttuon ) {
-						alert( ig_es_js_data.i18n_data.broadcast_subject_empty_message );
-					}
-					return;
-				}
-
-				// If draft button is clicked then change broadcast status to draft..
-				if ( is_draft_bttuon ) {
-					$('#broadcast_status').val(0);
-				}
-
-				// Trigger save event for content of wp_editor instances.
-				window.tinyMCE.triggerSave();
-
-				let form_data = $(this).closest('form').serialize();
-				// Add action to form data
-				form_data += '&action=ig_es_draft_broadcast&security='  + ig_es_js_data.security;
-				jQuery.ajax({
-					method: 'POST',
-					url: ajaxurl,
-					data: form_data,
-					dataType: 'json',
-					beforeSend: function() {
-						// Prevent submit button untill saving is complete.
-						$('#ig_es_broadcast_submitted').addClass('opacity-50 cursor-not-allowed').attr('disabled','disabled');
-					},
-					success: function (response) {
-						if (response.success) {
-							if ( 'undefined' !== typeof response.data ) {
-								let response_data = response.data;
-								let broadcast_id  = response_data.broadcast_id;
-								$('#broadcast_id').val( broadcast_id );
-								if ( is_draft_bttuon ) {
-									alert( ig_es_js_data.i18n_data.broadcast_draft_success_message );
-								}
-							} else {
-								if ( is_draft_bttuon ) {
-									alert( ig_es_js_data.i18n_data.broadcast_draft_error_message );
-								}
-							}
-						} else {
-							alert( ig_es_js_data.i18n_data.ajax_error_message );
-						}
-					},
-					error: function (err) {
-						alert( ig_es_js_data.i18n_data.ajax_error_message );
-					}
-				}).always(function(){
-					$('#ig_es_broadcast_submitted').removeClass('opacity-50 cursor-not-allowed').removeAttr('disabled');
-				});
+			$('#ig_es_broadcast_subject,#edit-es-broadcast-body,#inline_css').on('change',function(e){
+				let trigger_elem = $(this);
+				ig_es_draft_broadcast( trigger_elem );
 			});
 
 			$(".next_btn, #summary_menu").click(function() {
@@ -859,10 +812,9 @@
 
 			});
 			
-			$('.wp-editor-boradcast, #edit-es-boradcast-body,#ig_es_broadcast_subject').on('change',function(event){
+			$('.wp-editor-boradcast, #edit-es-broadcast-body,#ig_es_broadcast_subject').on('change',function(event){
 
-				// Trigger save event for content of wp_editor instances before processing it.
-				window.tinyMCE.triggerSave();
+				ig_es_sync_wp_editor_content();
 
 				let form_data = $(this).closest('form').serialize();
 				// Add action to form data
@@ -1735,8 +1687,10 @@
 
 						if (response.success) {
 
-							if (!finished) do_import(id + 1, options);
-
+							if (!finished) {
+								do_import(id + 1, options);
+							}
+							
 							importprogressbar.animate({
 								'width': (percentage) + '%'
 							}, {
@@ -2103,8 +2057,103 @@
 					}
 				}
 
-		});
+				var link_activity_rows = $("#es_reports_link_activity tbody tr");
+				var link_activity_more = $("#es_link_activity_more");
+				var link_activity_less = $("#es_link_activity_less");
+				var link_activity_table_length = link_activity_rows.length;
+				var link_activity_currentIndex = 5;
 
+				link_activity_rows.hide();
+				link_activity_rows.slice(0, 5).show(); 
+				check_link_activity_rows();
+
+				link_activity_more.click(function (e) { 
+				    e.preventDefault();
+				    $("#es_reports_link_activity tbody tr").slice(link_activity_currentIndex, link_activity_currentIndex + 10).show();
+				    link_activity_currentIndex += 10;
+				    check_link_activity_rows();
+				});
+
+				link_activity_less.click(function (e) { 
+				    e.preventDefault();
+				   
+					link_activity_rows.hide();
+					link_activity_rows.slice(0, 5).show();
+					link_activity_currentIndex = 5;
+				    check_link_activity_rows();
+				});
+
+				function check_link_activity_rows() {
+				    var currentLength = $("#es_reports_link_activity tbody tr:visible").length;
+				    if (currentLength >= link_activity_table_length) {
+				        link_activity_more.hide();            
+				    } else {
+				        link_activity_more.show();   
+				    }
+
+				    if (link_activity_table_length > 5 && currentLength > 5) {
+				        link_activity_less.show();
+				    } else {
+				        link_activity_less.hide();
+				    }
+
+				}
+		});
+		function ig_es_draft_broadcast( trigger_elem ) {
+			let is_draft_bttuon = $(trigger_elem).hasClass('ig_es_draft_broadcast');
+		
+			let broadcast_subject = $('#ig_es_broadcast_subject').val();
+			if ( '' === broadcast_subject ) {
+				if ( is_draft_bttuon ) {
+					alert( ig_es_js_data.i18n_data.broadcast_subject_empty_message );
+				}
+				return;
+			}
+		
+			// If draft button is clicked then change broadcast status to draft..
+			if ( is_draft_bttuon ) {
+				$('#broadcast_status').val(0);
+			}
+		
+			ig_es_sync_wp_editor_content();
+		
+			let form_data = $(trigger_elem).closest('form').serialize();
+			// Add action to form data
+			form_data += '&action=ig_es_draft_broadcast&security='  + ig_es_js_data.security;
+			jQuery.ajax({
+				method: 'POST',
+				url: ajaxurl,
+				data: form_data,
+				dataType: 'json',
+				beforeSend: function() {
+					// Prevent submit button untill saving is complete.
+					$('#ig_es_broadcast_submitted').addClass('opacity-50 cursor-not-allowed').attr('disabled','disabled');
+				},
+				success: function (response) {
+					if (response.success) {
+						if ( 'undefined' !== typeof response.data ) {
+							let response_data = response.data;
+							let broadcast_id  = response_data.broadcast_id;
+							$('#broadcast_id').val( broadcast_id );
+							if ( is_draft_bttuon ) {
+								alert( ig_es_js_data.i18n_data.broadcast_draft_success_message );
+							}
+						} else {
+							if ( is_draft_bttuon ) {
+								alert( ig_es_js_data.i18n_data.broadcast_draft_error_message );
+							}
+						}
+					} else {
+						alert( ig_es_js_data.i18n_data.ajax_error_message );
+					}
+				},
+				error: function (err) {
+					alert( ig_es_js_data.i18n_data.ajax_error_message );
+				}
+			}).always(function(){
+				$('#ig_es_broadcast_submitted').removeClass('opacity-50 cursor-not-allowed').removeAttr('disabled');
+			});
+		}
 })(jQuery);
 
 
@@ -2114,12 +2163,13 @@ function checkDelete() {
 	return confirm( ig_es_js_data.i18n_data.delete_confirmation_message );
 }
 
+
+
 function ig_es_show_broadcast_preview_in_popup() {
-	// Trigger save event for content of wp_editor instances before processing it.
-	window.tinyMCE.triggerSave();
+	ig_es_sync_wp_editor_content();
 
 	let content = jQuery('.wp-editor-boradcast').val();
-	if (jQuery("#wp-edit-es-boradcast-body-wrap").hasClass("tmce-active")) {
+	if (jQuery("#wp-edit-es-broadcast-body-wrap").hasClass("tmce-active")) {
 		content = tinyMCE.activeEditor.getContent();
 	} else {
 		content = jQuery('.wp-editor-boradcast').val();
@@ -2159,6 +2209,15 @@ function ig_es_show_broadcast_preview_in_popup() {
 	}).done(function(){
 		jQuery(template_button).next('.es-loader').hide();
 	});
+}
+
+function ig_es_sync_wp_editor_content() {
+	// When visual mode is disabled in wp user profile, tinyMCE library isn't enqueued.
+	// We aren't triggering the save event in that case
+	if ( 'undefined' !== typeof window.tinyMCE ) {
+		// Trigger save event for content of wp_editor instances to sync its content with actual textarea field
+		window.tinyMCE.triggerSave();
+	}
 }
 
 jQuery.fn.extend({

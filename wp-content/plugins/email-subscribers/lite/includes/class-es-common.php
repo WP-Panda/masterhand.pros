@@ -47,6 +47,7 @@ class ES_Common {
 
 		$content             = wpautop( $content );
 		$content             = do_shortcode( shortcode_unautop( $content ) );
+		$data 				 = array();
 		$data['content']     = $content;
 		$data['tmpl_id']     = $tmpl_id;
 		$data['campaign_id'] = $campaign_id;
@@ -1994,6 +1995,33 @@ class ES_Common {
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Override wp editor tinymce formatting options
+	 * 
+	 * @param array $init
+	 * @param string $editor_id
+	 * 
+	 * @return array $init
+	 * 
+	 * @since 4.7.3
+	 */
+	public static function override_tinymce_formatting_options( $init, $editor_id = '' ) {
+
+		if ( 'edit-es-broadcast-body' === $editor_id ) {
+			
+			$init['wpautop']      = false; // Disable stripping of p tags in Text mode.
+			$init['tadv_noautop'] = true; // Disable stripping of p tags in Text mode.
+			$init['indent']       = true;
+			
+			// To disable stripping of some HTML elements like span when switching modes in wp editor from text-visual-text.
+			$opts                            = '*[*]';
+			$init['valid_elements']          = $opts;
+			$init['extended_valid_elements'] = $opts;
+		}
+
+		return $init;
 	}
 
 }

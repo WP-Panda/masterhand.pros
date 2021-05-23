@@ -422,7 +422,7 @@
 							>
 							  <?php echo esc_html__('Done! Now speed up your success!', 'email-subscribers'); ?>
 							</h3>
-							<input type="hidden"  id="sign-up-list" name="list" value="hN8OkYzujUlKgDgfCTEcIA"/>
+							<input type="hidden"  id="sign-up-list" name="list" value="bc4f8995201a"/>
 							  <input type="hidden" id="sign-up-form-source" name="form-source" value=""/>
 							<div class="space-y-3 text-gray-800">
 							  

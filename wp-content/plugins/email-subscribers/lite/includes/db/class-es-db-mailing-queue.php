@@ -78,7 +78,7 @@ class ES_DB_Mailing_Queue {
 	}
 
 	public static function get_notification_to_be_sent( $campaign_hash = '' ) {
-		global $wpdb, $wpbd;
+		global $wpdb;
 
 		$notification = array();
 
@@ -106,31 +106,54 @@ class ES_DB_Mailing_Queue {
 
 		if ( count( $results ) > 0 ) {
 			$notification = array_shift( $results );
-			// refresh content
-			$meta = maybe_unserialize( $notification['meta'] );
-
-			if ( ! empty( $meta ) ) {
-				$filter  = 'ig_es_refresh_' . $meta['type'] . '_content';
-				$post_id = ! empty( $meta['post_id'] ) ? $meta['post_id'] : 0;
-				$content = array();
-				$content = apply_filters( $filter, $content, array( 'campaign_id' => $notification['campaign_id'], 'post_id' => $post_id ) );
-				if ( ! empty( $content ) ) {
-					$notification['subject'] = ! empty( $content['subject'] ) ? $content['subject'] : $notification['subject'];
-					$notification['body']    = ! empty( $content['body'] ) ? $content['body'] : $notification['body'];
-					$query_sub_str           = " , subject = '" . esc_sql( $notification['subject'] ) . "', body = '" . esc_sql( $notification['body'] ) . "' ";
-				}
-			}
-			//update sent date
-			$currentdate = ig_get_current_date_time();
-			$query_str   = "UPDATE {$ig_mailing_queue_table} SET start_at = %s ";
-			$where       = ' WHERE hash = %s AND finish_at = %s';
-			$query_str   = ! empty( $query_sub_str ) ? $query_str . $query_sub_str . $where : $query_str . $where;
-			$query       = $wpbd->prepare( $query_str, array( $currentdate, $notification['hash'], '0000-00-00 00:00:00' ) );
-			$return_id   = $wpbd->query( $query );
+			
 		}
 
 		return $notification;
 
+	}
+
+	/**
+	 * Sync mailing queue content with campaign content
+	 * 
+	 * @param array $notification
+	 * 
+	 * @since 4.7.3
+	 */
+	public static function sync_content( $notification = array() ) {
+
+		if ( ! empty( $notification ) ) {
+
+			$meta = maybe_unserialize( $notification['meta'] );
+			if ( ! empty( $meta ) ) {
+
+				$filter  = 'ig_es_refresh_' . $meta['type'] . '_content';
+				$post_id = ! empty( $meta['post_id'] ) ? $meta['post_id'] : 0;
+				$content = array();
+				$content = apply_filters( $filter, $content, array( 'campaign_id' => $notification['campaign_id'], 'post_id' => $post_id ) );
+				
+				// Update mailing queue with updated content data.
+				if ( ! empty( $content ) ) {
+					global $wpdb;
+					
+					$notification['subject'] = ! empty( $content['subject'] ) ? $content['subject'] : $notification['subject'];
+					$notification['body']    = ! empty( $content['body'] ) ? $content['body'] : $notification['body'];
+
+					$wpdb->query( 
+						$wpdb->prepare( 
+							"UPDATE {$wpdb->prefix}ig_mailing_queue SET subject = %s, body = %s  WHERE hash = %s", 
+							array(
+								esc_sql( $notification['subject'] ),
+								esc_sql( $notification['body'] ),
+								$notification['hash'],
+							)
+						)	
+					);
+				}
+			}
+		}
+
+		return $notification;
 	}
 
 	// Query to insert sent emails (cron) records in table: es_sentdetails
@@ -144,6 +167,16 @@ class ES_DB_Mailing_Queue {
 			$return_id = $wpdb->query(
 				$wpdb->prepare(
 					"UPDATE {$wpdb->prefix}ig_mailing_queue SET status = %s, finish_at = %s WHERE hash = %s",
+					$status,
+					$current_date_time,
+					$hash
+				)
+			);
+		} elseif ( 'Sending' === $status ) {
+			$current_date_time = ig_get_current_date_time();
+			$return_id = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->prefix}ig_mailing_queue SET status = %s, start_at = %s WHERE hash = %s",
 					$status,
 					$current_date_time,
 					$hash
@@ -177,17 +210,26 @@ class ES_DB_Mailing_Queue {
 	}
 
 	public static function get_notification_by_hash( $notification_hash ) {
-		global $wpdb;
+		global $wpbd;
 
 		$notification = array();
-		$results      = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}ig_mailing_queue WHERE hash = %s",
-				$notification_hash
-			),
-			ARRAY_A
+		$query 		  = $wpbd->prepare(
+			"SELECT * FROM {$wpbd->prefix}ig_mailing_queue WHERE hash = %s",
+			$notification_hash
 		);
 
+		$cache_key 		 = ES_Cache::generate_key( $query );
+		$exists_in_cache = ES_Cache::is_exists( $cache_key, 'query' );
+		if ( ! $exists_in_cache ) {
+			$results = $wpbd->get_results(
+				$query,
+				ARRAY_A
+			);
+			ES_Cache::set( $cache_key, $results, 'query' );
+		} else {
+			$results = ES_Cache::get( $cache_key, 'query' );
+		}
+		
 		if ( count( $results ) > 0 ) {
 			$notification = array_shift( $results );
 		}
@@ -196,13 +238,22 @@ class ES_DB_Mailing_Queue {
 	}
 
 	public static function get_notification_by_campaign_id( $campaign_id ) {
-		global $wpdb;
+		global $wpbd;
 
 		$notification = array();
-		$results      = $wpdb->get_results(
-			$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}ig_mailing_queue WHERE campaign_id = %d", $campaign_id ),
-			ARRAY_A
-		);
+		$query        = $wpbd->prepare( "SELECT * FROM {$wpbd->prefix}ig_mailing_queue WHERE campaign_id = %d", $campaign_id );
+		
+		$cache_key 		 = ES_Cache::generate_key( $query );
+		$exists_in_cache = ES_Cache::is_exists( $cache_key, 'query' );
+		if ( ! $exists_in_cache ) {
+			$results = $wpbd->get_results(
+				$query,
+				ARRAY_A
+			);
+			ES_Cache::set( $cache_key, $results, 'query' );
+		} else {
+			$results = ES_Cache::get( $cache_key, 'query' );
+		}
 
 		if ( count( $results ) > 0 ) {
 			$notification = array_shift( $results );

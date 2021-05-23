@@ -35,7 +35,7 @@ class ES_Reports_Table extends ES_List_Table {
 
 		$campaign_types = array( 'sequence', 'sequence_message' );
 		//Only if it is sequence then control will transfer to Sequence Reports class.
-		if ( ! empty ( $campaign_type ) && in_array( $campaign_type, $campaign_types ) ) {
+		if ( ! empty ( $campaign_type ) && in_array( $campaign_type, $campaign_types, true ) ) {
 			if ( ES()->is_pro() ) {
 				$reports = ES_Pro_Sequence_Reports::get_instance();
 				$reports->es_sequence_reports_callback();
@@ -248,7 +248,7 @@ class ES_Reports_Table extends ES_List_Table {
 
 		// $content = $total_emails_sent . "/" . $total_emails_to_be_sent;
 
-		return $total_emails_to_be_sent;
+		return number_format( $total_emails_to_be_sent );
 
 	}
 

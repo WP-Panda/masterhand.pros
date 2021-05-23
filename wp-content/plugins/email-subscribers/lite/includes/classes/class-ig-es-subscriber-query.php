@@ -226,14 +226,14 @@ class IG_ES_Subscribers_Query {
 							if ( '_lists__in' === $field ) {
 								
 								if ( $value ) {
-									$sub_cond[] = "subscribers.id IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id IN (" . implode( ',', array_filter( $value, 'is_numeric' ) ) . ') )';
+									$sub_cond[] = "lists_subscribers.contact_id IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id IN (" . implode( ',', array_filter( $value, 'is_numeric' ) ) . ') )';
 								}
 							} elseif ( '_lists__not_in' === $field ) {
 
 								if ( $value ) {
-									$sub_cond[] = "subscribers.id NOT IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id IN (" . implode( ',', array_filter( $value, 'is_numeric' ) ) . ') )';
+									$sub_cond[] = "lists_subscribers.contact_id NOT IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id IN (" . implode( ',', array_filter( $value, 'is_numeric' ) ) . ') )';
 								} else {
-									$sub_cond[] = "subscribers.id NOT IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id <> 0 )";
+									$sub_cond[] = "lists_subscribers.contact_id NOT IN ( SELECT contact_id FROM {$wpbd->prefix}ig_lists_contacts WHERE list_id <> 0 )";
 								}
 							} elseif ( 0 === strpos( $field, '_sent' ) ) {
 		

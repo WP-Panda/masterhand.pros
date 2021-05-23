@@ -446,6 +446,9 @@ class ES_DB_Contacts extends ES_DB {
 	public function is_contact_exist_in_list( $email, $list_id ) {
 		global $wpbd;
 
+		// Flush cache to ensure we have latest results.
+		ES_Cache::flush();
+
 		$contact_id = $this->get_column_by( 'id', 'email', $email );
 
 		$data = array();
@@ -536,21 +539,30 @@ class ES_DB_Contacts extends ES_DB {
 	 * @since 4.0.0
 	 * @since 4.3.4 Used prepare_for_in_query instead of array_to_str
 	 */
-	public function get_contact_ids_by_emails( $emails = array() ) {
+	public function get_contact_ids_created_at_date_by_emails( $emails = array() ) {
 		global $wpbd;
 
 		if ( count( $emails ) > 0 ) {
 			$ids_count        = count( $emails );
 			$ids_placeholders = array_fill( 0, $ids_count, '%s' );
-			$ids = $wpbd->get_col( $wpbd->prepare(
-				"SELECT id FROM {$wpbd->prefix}ig_contacts WHERE email IN( " . implode( ',', $ids_placeholders ) . ' )',
+			$results = $wpbd->get_results( $wpbd->prepare(
+				"SELECT id, created_at FROM {$wpbd->prefix}ig_contacts WHERE email IN( " . implode( ',', $ids_placeholders ) . ' )',
 				$emails
-			) );
+			),
+				ARRAY_A
+			);
 		} else {
-			$ids = $wpbd->get_col( "SELECT id FROM {$wpbd->prefix}ig_contacts" );	
+			$results = $wpbd->get_results( "SELECT id , created_at FROM {$wpbd->prefix}ig_contacts" );	
 		}
 
-		return $ids;
+		$map = array();
+		if ( count( $results ) > 0 ) {
+			foreach ( $results as $result ) {
+				$map[ $result['id'] ] = $result['created_at'];
+			}
+		}
+
+		return $map;
 	}
 
 	/**
@@ -942,9 +954,13 @@ class ES_DB_Contacts extends ES_DB {
 			$data['ip_address']   = '';
 			$data['country_code'] = '';
 		} else {
-			if ( empty( $data['ip_address'] ) && ! in_array( $data['source'], $source ) ) {
+			
+			if ( empty( $data['ip_address'] ) && ! in_array( $data['source'], $source, true ) ) {
 					$data = apply_filters( 'ig_es_get_subscriber_ip', $data, 'ip_address' ); 
-					$data = apply_filters( 'ig_es_get_country_based_on_ip', $data );	
+			}
+
+			if ( ! empty( $data['ip_address'] ) ) {
+				$data = apply_filters( 'ig_es_get_country_based_on_ip', $data );
 			}
 		}
 		return parent::insert( $data, $type );

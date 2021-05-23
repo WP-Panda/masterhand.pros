@@ -66,7 +66,7 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 				'evaluate_email_delivery',
 			),
 			'completion_tasks' => array(
-				'subscribe_to_klawoo',
+				'subscribe_to_es',
 				'save_final_configuration',
 			)
 		);
@@ -359,7 +359,7 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 									$response['status'] = 'success';
 								}
 								$current_tasks_done[] = $current_task;
-							} else if ( 'skipped' === $task_response['status'] ) {
+							} elseif ( 'skipped' === $task_response['status'] ) {
 								$response['status'] = 'skipped';
 								$current_tasks_skipped[] = $current_task;
 							} else {
@@ -471,6 +471,9 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 		}
 		
 		public function create_contacts_and_add_to_list() {
+
+			// Flush cache to make sure we get data from DB instead of cache
+			ES_Cache::flush();
 
 			// Get default list data.
 			$default_list_id = 0;
@@ -1196,9 +1199,45 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 		 * 
 		 * @since 4.6.0
 		 */ 
-		public function subscribe_to_klawoo() {
+		public function subscribe_to_es() {
 
-			$response = Email_Subscribers_Admin::klawoo_subscribe( true );
+			$response = array(
+				'status' => 'error'
+			);
+
+			$name  = ig_es_get_request_data( 'name', '' );
+			$email = ig_es_get_request_data( 'email', '' );
+			$list  = ig_es_get_request_data( 'list', '' );
+
+			if ( ! empty( $list ) && is_email( $email ) ) {
+				
+				$url_params = array(
+					'ig_es_external_action' => 'subscribe',
+					'name'                  => $name,
+					'email'                 => $email,
+					'list'                  => $list,
+				);
+
+				$ip_address = ig_es_get_ip();
+				if ( ! empty( $ip_address ) && 'UNKNOWN' !== $ip_address ) {
+					$url_params['ip_address'] = $ip_address;
+				}
+
+				$ig_es_url = 'https://www.icegram.com/';
+				$ig_es_url = add_query_arg( $url_params, $ig_es_url );
+				
+				// Make a get request.
+				$api_response = wp_remote_get( $ig_es_url );
+				if ( ! is_wp_error( $api_response ) ) {
+					$body = ! empty( $api_response['body'] ) && ES_Common::is_valid_json( $api_response['body'] ) ? json_decode( $api_response['body'], true ) : '';
+					if ( ! empty( $body ) ) {
+						// If we have received an id in response then email is successfully queued at mailgun server.
+						if ( ! empty( $body['status'] ) && 'SUCCESS' === $body['status'] ) {
+							$response['status'] = 'success';
+						}
+					}
+				}
+			}
 
 			return $response;
 		}
@@ -1222,7 +1261,7 @@ if ( ! class_exists( 'IG_ES_Onboarding' ) ) {
 			// Set flag for onboarding completion.
 			update_option( 'ig_es_onboarding_complete', 'yes' );
 
-			$response['status']       = 'success';
+			$response['status'] = 'success';
 
 			return $response;
 		}

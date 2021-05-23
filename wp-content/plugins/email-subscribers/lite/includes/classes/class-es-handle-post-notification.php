@@ -86,8 +86,8 @@ class ES_Handle_Post_Notification {
 					$template_id = $notification['base_template_id'];
 					$template    = get_post( $template_id );    // to confirm if template exists in ES->Templates
 					if ( is_object( $template ) ) {
-						$list_id     = $notification['list_ids'];
-						$list_id     = explode( ',', $list_id );
+						$list_id = $notification['list_ids'];
+						$list_id = explode( ',', $list_id );
 
 						$post = get_post( $post_id );
 

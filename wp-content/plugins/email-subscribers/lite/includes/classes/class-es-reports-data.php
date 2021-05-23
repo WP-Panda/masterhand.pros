@@ -220,13 +220,13 @@ if ( ! class_exists( 'ES_Reports_Data' ) ) {
 			$data = apply_filters( 'ig_es_reports_data', $data );
 
 			$reports_data = array(
-				'total_contacts'     => $total_contacts,
-				'total_lists'        => $total_lists,
-				'total_forms'        => $total_forms,
-				'total_campaigns'    => $total_campaigns,
-				'total_email_opens'  => $total_email_opens,
-				'total_message_sent' => $total_message_sent,
-				'total_contact_lost' => $total_contact_lost,
+				'total_contacts'     => number_format( $total_contacts ),
+				'total_lists'        => number_format( $total_lists ),
+				'total_forms'        => number_format( $total_forms ),
+				'total_campaigns'    => number_format( $total_campaigns ),
+				'total_email_opens'  => number_format( $total_email_opens ),
+				'total_message_sent' => number_format( $total_message_sent ),
+				'total_contact_lost' => number_format( $total_contact_lost ),
 				'avg_open_rate'      => number_format( $avg_open_rate, 2 ),
 				'avg_click_rate'     => number_format( $avg_click_rate, 2 ),
 				'total_open_rate'    => number_format( $total_open_rate, 2 ),

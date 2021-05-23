@@ -1896,6 +1896,8 @@ class ES_Browser {
 			}
 		} elseif ( preg_match( '#Mozilla/([0-9a-z.]+)#i', $this->_agent, $hit ) ) {
 			$email_client = 'Web Client (Mozilla based)';
+		} elseif ( preg_match( '#(YahooMailProxy|Yahoo)#i', $this->_agent, $hit ) ) {
+			$email_client = 'Web Client (Yahoo)';
 		} else {
 			$email_client = 'Web Client (' . $this->_agent . ')';
 		}

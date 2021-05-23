@@ -345,7 +345,7 @@ if ( ! function_exists( 'ig_es_get_gmt_offset' ) ) {
 	 */
 	function ig_es_get_gmt_offset( $in_seconds = false, $timestamp = null ) {
 
-		$offset = get_option( 'gmt_offset' );
+		$offset = get_option( 'gmt_offset', 0 );
 
 		// check if timestamp has DST
 		if ( ! is_null( $timestamp ) ) {
@@ -855,11 +855,11 @@ if ( ! function_exists( 'ig_es_allowed_css_style' ) ) {
 	 * Allow CSS style in WP Kses
 	 *
 	 * @since 4.5.4
+	 * 
+	 * @since 4.7.3 Returns empty array to whitelist all CSS properties.
 	 */
 	function ig_es_allowed_css_style( $default_allowed_attr ) {
-		$custom_allowed_css = array('display', 'opacity');
-		$allowed_attr = array_merge( $default_allowed_attr, $custom_allowed_css );
-		return $allowed_attr;
+		return array(); // Return empty array to whitelist all CSS properties.
 	}
 }
 

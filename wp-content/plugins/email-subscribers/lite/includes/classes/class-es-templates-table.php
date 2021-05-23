@@ -50,7 +50,7 @@ class ES_Templates_Table {
 	}
 
 	public function es_template_meta_box_add() {
-		add_meta_box( 'es_template_meta_box', 'Available Keywords', array( $this, 'es_template_type_meta_box' ), 'es_template', 'normal', 'high' );
+		add_meta_box( 'es_template_meta_box', __( 'Available Keywords', 'email-subscribers' ), array( $this, 'es_template_type_meta_box' ), 'es_template', 'normal', 'high' );
 	}
 
 	public function es_template_type_meta_box( $post ) {

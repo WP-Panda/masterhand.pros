@@ -65,6 +65,12 @@ if ( ! class_exists( 'ES_Phpmail_Mailer' ) ) {
 			$phpmailer->WordWrap = 50;
 			$phpmailer->isHTML( true );
 
+			$list_unsubscribe_header = ES()->mailer->get_list_unsubscribe_header( $message->to );
+			if ( ! empty( $list_unsubscribe_header ) ) {
+				$phpmailer->addCustomHeader( 'List-Unsubscribe', $list_unsubscribe_header );
+				$phpmailer->addCustomHeader( 'List-Unsubscribe-Post', 'List-Unsubscribe=One-Click' );
+			}
+			
 			$phpmailer->Subject = $message->subject;
 			$phpmailer->Body    = $message->body;
 			$phpmailer->AltBody = $message->body_text; //Text Email Body for non html email client

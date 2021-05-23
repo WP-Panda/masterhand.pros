@@ -18,16 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ES_Geolocation {
 
+
 	/**
 	 * API endpoints for geolocating an IP address
 	 *
 	 * @var array
 	 */
 	private static $geoip_apis = array(
-		'icegram_api_url' => 'http://api.icegram.com/geo/%s',
 		'ipinfo.io'       => 'https://ipinfo.io/%s/json',
 		'ip-api.com'      => 'http://ip-api.com/json/%s',
 	);
+
+	/**
+	 * Icegram API endpoints for geolocating an IP address
+	 *
+	 * @var string
+	 * 
+	 * @since 4.7.3
+	 */
+	private static $icegram_api_url = 'http://api.icegram.com/geo/';
 
 	/**
 	 * Geolocate an IP address.
@@ -106,10 +115,6 @@ class ES_Geolocation {
 							$data         = json_decode( $response['body'] );
 							$country_code = isset( $data->countryCode ) ? $data->countryCode : ''; // @codingStandardsIgnoreLine
 							break;
-						case 'icegram_api_url':
-							$data         = json_decode( $response['body'] );
-							$country_code = isset( $data->country_code ) ? $data->country_code : ''; // @codingStandardsIgnoreLine
-							break;
 						default:
 							$country_code = apply_filters( 'ig_es_geolocation_geoip_response_' . $service_name, '', $response['body'] );
 							break;
@@ -120,6 +125,23 @@ class ES_Geolocation {
 					if ( $country_code ) {
 						$geo_ip_data['country_code'] = $country_code;
 						break;
+					}
+				}
+			}
+
+			// Use Icegram geo location API incase if we still don't have the location data.
+			if ( empty( $geo_ip_data ) ) {
+				$response = wp_safe_remote_get( 
+					self::$icegram_api_url . $ip_address,
+					array( 
+						'timeout' => 2
+					)
+				);
+				if ( ! is_wp_error( $response ) && $response['body'] ) {
+					$data         = json_decode( $response['body'] );
+					$country_code = isset( $data->country_code ) ? $data->country_code : '';
+					if ( $country_code ) {
+						$geo_ip_data['country_code'] = $country_code;
 					}
 				}
 			}

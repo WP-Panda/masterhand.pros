@@ -129,7 +129,7 @@ class ES_Import_Subscribers {
 											<a class="font-medium hover:underline" target="_blank" href="<?php echo esc_attr( plugin_dir_url( __FILE__ ) ) . '../../admin/partials/sample.csv'; ?>"><?php esc_html_e( 'from here', 'email-subscribers' ); ?></a>
 										</p>
 										<p class="mt-4 es_helper_text">
-											<a class="hover:underline text-sm font-medium" href="https://www.icegram.com/documentation/es-how-to-import-or-export-email-addresses/" target="_blank">
+											<a class="hover:underline text-sm font-medium" href="https://www.icegram.com/documentation/es-how-to-import-or-export-email-addresses/?utm_source=in_app&utm_medium=import_contacts&utm_campaign=es_doc" target="_blank">
 											<?php esc_html_e( 'How to import contacts using CSV? ', 'email-subscribers' ); ?>&rarr;
 										</a>
 										</p>
@@ -650,6 +650,7 @@ class ES_Import_Subscribers {
 				'last_name'  => __( 'Last Name', 'email-subscribers' ),
 				'first_last' => __( '(First Name) (Last Name)', 'email-subscribers' ),
 				'last_first' => __( '(Last Name) (First Name)', 'email-subscribers' ),
+				'created_at' => __( 'Subscribed at', 'email-subscribers' ),
 			);
 			if ( ! empty( $response['data']['importing_from'] ) && 'wordpress_users' !== $response['data']['importing_from']  ) {
 				$fields['list_name'] = __( 'List Name', 'email-subscribers' );
@@ -810,20 +811,19 @@ class ES_Import_Subscribers {
 			);
 			if ( $raw_list_data ) {
 
-				$contacts_data     = array();
-				$current_date_time = ig_get_current_date_time();
-				$contact_emails    = array();
-				$processed_emails  = array();
-				$list_contact_data = array();
-				$es_status_mapping = array(
+				$contacts_data        = array();
+				$gmt_offset           = ig_es_get_gmt_offset( true );
+				$current_date_time    = gmdate( 'Y-m-d H:i:s', time() - $gmt_offset );
+				$current_batch_emails = array();
+				$processed_emails     = ! empty( $bulkdata['processed_emails'] ) ? $bulkdata['processed_emails'] : array();
+				$list_contact_data    = array();
+				$es_status_mapping    = array(
 					 __( 'Subscribed', 'email-subscribers' ) => 'subscribed',
 					 __( 'Unubscribed', 'email-subscribers' ) => 'unsubscribed',
 					 __( 'Unconfirmed', 'email-subscribers' ) => 'unconfirmed',
 					 __( 'Hard Bounced', 'email-subscribers' ) => 'hard_bounced' ,
-
 				);
 				
-					
 				foreach ( $raw_list_data as $raw_list ) {
 					$raw_list = unserialize( base64_decode( $raw_list ) );
 					// each entry
@@ -859,6 +859,12 @@ class ES_Import_Subscribers {
 										$insert['last_name']  = $name[0];
 									}
 									break;
+								case 'created_at':
+									if ( ! is_numeric( $d ) && ! empty( $d ) ) {
+										$d 				   	  = sanitize_text_field( $d );
+										$insert['created_at'] = gmdate( 'Y-m-d H:i:s', strtotime( $d ) - $gmt_offset );
+									}
+									break;
 								case '-1':
 									// ignored column
 									break;
@@ -871,7 +877,7 @@ class ES_Import_Subscribers {
 							$error_data = array();
 							if ( empty( $insert['email'] ) ) {
 								$error_data['error_code'] = 'empty';
-							} else if ( ! is_email( $insert['email'] ) ) {
+							} elseif ( ! is_email( $insert['email'] ) ) {
 								$error_data['error_code'] = 'invalid';
 								$error_data['email'] = $insert['email'];
 							}
@@ -887,12 +893,12 @@ class ES_Import_Subscribers {
 						}
 
 						$email = sanitize_email( strtolower( $insert['email'] ) );
-
-						if ( ! in_array( $email, $processed_emails, true ) ) {
+						if ( ! in_array( $email, $current_batch_emails, true ) && ! in_array( $email, $processed_emails, true ) ) {
 							$first_name = isset( $insert['first_name'] ) ? ES_Common::handle_emoji_characters( sanitize_text_field( trim( $insert['first_name'] ) ) ) : '';
 							$last_name  = isset( $insert['last_name'] ) ? ES_Common::handle_emoji_characters( sanitize_text_field( trim( $insert['last_name'] ) ) ) : '';
 							$list_names  = isset( $insert['list_name'] ) ? sanitize_text_field( trim( $insert['list_name'] ) ) : '';
-
+							$created_at  = isset( $insert['created_at'] ) ? $insert['created_at'] : $current_date_time;
+							
 							if ( empty( $insert['list_name'] ) ) {
 								$list_names_arr = ES()->lists_db->get_lists_by_id( $list_id );
 								$list_names = implode( ',', array_column( $list_names_arr, 'name' ));
@@ -938,9 +944,8 @@ class ES_Import_Subscribers {
 							$contacts_data[$email]['source']     = 'import';
 							$contacts_data[$email]['status']     = 'verified';
 							$contacts_data[$email]['hash']       = $guid;
-							$contacts_data[$email]['created_at'] = $current_date_time;
+							$contacts_data[$email]['created_at'] = $created_at;
 
-							$processed_emails[] = $email;
 							$bulkdata['imported']++;
 						} else {
 							$error_data = array(
@@ -956,16 +961,15 @@ class ES_Import_Subscribers {
 							$erroremails[] = $error_data;
 							$bulkdata['errors']++;
 						}
-						$contact_emails[] = $email;
+						$current_batch_emails[] = $email;
 					}
 				}
 				
-				if ( count( $contact_emails ) > 0 ) {
+				if ( count( $current_batch_emails ) > 0 ) {
 
-					$contact_emails = array_unique( $contact_emails );
+					$current_batch_emails = array_unique( $current_batch_emails );
 
-					$existing_contacts_email_id_map = ES()->contacts_db->get_email_id_map( $processed_emails );
-					$existing_contacts_count        = count( $existing_contacts_email_id_map );
+					$existing_contacts_email_id_map = ES()->contacts_db->get_email_id_map( $current_batch_emails );
 					if ( ! empty( $existing_contacts_email_id_map ) ) {
 						$contacts_data = array_diff_key( $contacts_data, $existing_contacts_email_id_map ); 
 					}
@@ -986,10 +990,11 @@ class ES_Import_Subscribers {
 							}
 
 							foreach ($list_data as $status => $contact_emails) {
-								$contact_ids = ES()->contacts_db->get_contact_ids_by_emails( $contact_emails );
+								$contact_id_date = ES()->contacts_db->get_contact_ids_created_at_date_by_emails( $contact_emails );
+								$contact_ids = array_keys( $contact_id_date );
 								if ( count( $contact_ids ) > 0 ) {
 									ES()->lists_contacts_db->remove_contacts_from_lists( $contact_ids, $list_id );
-									ES()->lists_contacts_db->do_import_contacts_into_list( $list_id, $contact_ids, $status, 1, $current_date_time );
+									ES()->lists_contacts_db->do_import_contacts_into_list( $list_id, $contact_id_date, $status, 1, $created_at );
 								}
 							}
 						}
@@ -1012,8 +1017,11 @@ class ES_Import_Subscribers {
 				$return['html'] .= '<p class="text-base text-gray-600 pt-2 pb-1.5">' . sprintf( esc_html__( '%1$s of %2$s contacts imported', 'email-subscribers' ), '<span class="font-medium">' . number_format_i18n( $bulkdata['imported'] ) . '</span>', '<span class="font-medium">' . number_format_i18n( $bulkdata['lines'] ) . '</span>' ) . '<p>';
 				
 				if ( $bulkdata['errors'] ) {
-					$i      = 0;
-					$table  = '<p class="text-sm text-gray-600 pt-2 pb-1.5">' . esc_html__( 'The following contacts were skipped', 'email-subscribers' ) . ':</p>';
+					$i      			    = 0;
+					$skipped_contact_string = _n( 'contact was', 'contacts were', $bulkdata['errors'], 'email-subscribers' );
+					
+					/* translators: %d Skipped emails count %s Skipped contacts string */
+					$table  = '<p class="text-sm text-gray-600 pt-2 pb-1.5">' . __( sprintf( 'The following %d %s skipped', $bulkdata['errors'], $skipped_contact_string ), 'email-subscribers' ) . ':</p>';
 					$table .= '<table class="w-full bg-white rounded-lg shadow overflow-hidden mt-1.5">';
 					$table .= '<thead class="rounded-md"><tr class="border-b border-gray-200 bg-gray-50 text-left text-sm leading-4 font-medium text-gray-500 tracking-wider"><th class="pl-4 py-4" width="5%">#</th>';
 
@@ -1051,6 +1059,10 @@ class ES_Import_Subscribers {
 				}
 				$this->do_cleanup();
 			} else {
+				// Add current batch emails into the processed email list
+				$processed_emails 			  = array_merge( $processed_emails, $current_batch_emails );
+				$bulkdata['processed_emails'] = $processed_emails;
+
 				update_option( 'ig_es_bulk_import', $bulkdata );
 				update_option( 'ig_es_bulk_import_errors', $erroremails );
 			}

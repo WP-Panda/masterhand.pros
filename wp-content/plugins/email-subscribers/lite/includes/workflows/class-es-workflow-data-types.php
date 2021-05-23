@@ -38,7 +38,8 @@ class ES_Workflow_Data_Types extends ES_Workflow_Registry {
 		return apply_filters(
 			'ig_es_data_types_includes',
 			array(
-				'user' => 'ES_Data_Type_User',
+				'user'       => 'ES_Data_Type_User',
+				'subscriber' => 'ES_Data_Type_Subscriber',
 			)
 		);
 	}

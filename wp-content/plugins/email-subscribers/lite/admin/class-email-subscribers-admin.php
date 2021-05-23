@@ -213,8 +213,10 @@ class Email_Subscribers_Admin {
 		if ( 'es_workflows' === $get_page ) {
 
 			if ( ! wp_script_is( 'clipboard', 'registered' ) ) {
-				wp_enqueue_script( 'clipboard', plugin_dir_url( __FILE__ ) . 'js/clipboard.js', array( 'jquery' ), '2.0.6', false );
+				wp_register_script( 'clipboard', plugin_dir_url( __FILE__ ) . 'js/clipboard.js', array( 'jquery' ), '2.0.6', false );
 			}
+
+			wp_enqueue_script( 'clipboard' );
 
 			if ( ! function_exists( 'ig_es_wp_js_editor_admin_scripts' ) ) {
 				/**
@@ -656,9 +658,13 @@ class Email_Subscribers_Admin {
 			do_action( 'ig_es_campaign_show_conditions', $conditions );
 			$response_data['conditions_html'] = ob_get_clean();
 		} else {
-			$response_data['total'] = ES()->lists_contacts_db->get_total_count_by_list( $list_id, $status );
+			$response_data['total'] = ES()->lists_contacts_db->get_total_count_by_list( $list_id, $status );	
 		}
 
+		if ( ! empty( $response_data['total'] ) ) {
+			$response_data['total'] = number_format( $response_data['total'] );
+		}
+		
 		die( json_encode( $response_data ) );
 	}
 

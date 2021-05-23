@@ -29,6 +29,7 @@ class ES_Campaign_Report extends ES_List_Table {
 		
 		<?php
 		$this->ajax_response();
+		$paged = ig_es_get_request_data( 'paged', 1 );
 		?>
 		<div id="poststuff" class="es-items-lists es-campaign-reports-table">
 			<div id="post-body" class="metabox-holder column-1">
@@ -37,6 +38,7 @@ class ES_Campaign_Report extends ES_List_Table {
 						<form method="get" class="es_campaign_report" id="es_campaign_report">
 							<input type="hidden" name="order" />
 							<input type="hidden" name="orderby" />
+							<input type="hidden" name="paged" value='<?php echo esc_attr( $paged ); ?>'/>
 							<div class="mb-2 max-w-7xl">
 								<div>
 									<p class="text-lg font-medium leading-7 tracking-wide text-gray-600"><?php esc_html_e( 'Activity Info', 'email-subscribers' ); ?></p>
@@ -70,9 +72,19 @@ class ES_Campaign_Report extends ES_List_Table {
 		$this->print_column_headers();
 		$headers = ob_get_clean();
 
+		ob_start();
+		$this->pagination('top');
+		$pagination_top = ob_get_clean();
+
+		ob_start();
+		$this->pagination('bottom');
+		$pagination_bottom = ob_get_clean();
+
 		$response = array( 'rows' => $rows );
 		
 		$response['column_headers'] = $headers;
+		$response['pagination']['top'] = $pagination_top;
+		$response['pagination']['bottom'] = $pagination_bottom;
 
 		if ( isset( $total_items ) ) {
 			/* translators: %s: Total items in the table */
@@ -117,8 +129,9 @@ class ES_Campaign_Report extends ES_List_Table {
 	 */
 	public function prepare_items() {
 		
-		$columns = $this->get_columns();
-		$hidden = array();
+		$per_page = 100;
+		$columns  = $this->get_columns();
+		$hidden   = array();
 		$sortable = $this->get_sortable_columns();
 			
 		$this->_column_headers = array($columns, $hidden, $sortable);
@@ -129,7 +142,27 @@ class ES_Campaign_Report extends ES_List_Table {
 			usort( $data, array( $this,'usort_reorder') );
 		}
 		
+		$current_page = $this->get_pagenum();
+		$total_items = count( $data );
+		$data = array_slice( $data, ( ( $current_page-1 )*$per_page ), $per_page );
+
 		$this->items = $data;
+		$orderby_colname = ig_es_get_request_data( 'orderby', '' );
+		$col_order		 = ig_es_get_request_data( 'order', '' );
+		
+		/**
+		 * Call to _set_pagination_args method for informations about
+		 * total items, items for page, total pages and ordering
+		 */
+		$this->set_pagination_args(
+			array(
+				'total_items'	=> $total_items,
+				'per_page'	    => $per_page,
+				'total_pages'	=> ceil( $total_items / $per_page ),
+				'orderby'	    => ! empty( $orderby_colname ) && '' != $orderby_colname ? $orderby_colname : 'opened_at',
+				'order'		    => ! empty( $col_order ) && '' != $col_order ? $col_order : 'desc'
+			)
+		);
 	}
 
 	/**
@@ -287,7 +320,7 @@ class ES_Campaign_Report extends ES_List_Table {
 			$queue_data             	 = ES_DB_Sending_Queue::get_queue_data( $campaign_id, $message_id );
 		}
 		
-		$notification       = $wpbd->get_row( $wpbd->prepare( "SELECT * FROM {$wpbd->prefix}ig_campaigns WHERE `id`= %d", $campaign_id ), ARRAY_A );
+		$notification       = ES()->campaigns_db->get( $campaign_id );
 		$total_email_sent   = ES()->actions_db->get_count_based_on_id_type( $notification['id'], $message_id, IG_MESSAGE_SENT );
 		$email_viewed_count = ES()->actions_db->get_count_based_on_id_type( $notification['id'], $message_id, IG_MESSAGE_OPEN );
 		$email_click_count  = ES()->actions_db->get_count_based_on_id_type( $notification['id'], $message_id, IG_LINK_CLICK );
@@ -390,8 +423,8 @@ class ES_Campaign_Report extends ES_List_Table {
 					<a href="?page=es_reports&action=view&list=<?php echo esc_attr( $hash ); ?>&_wpnonce=<?php echo esc_attr( $_wpnonce ); ?>&insight=true" class="float-right top-10 relative ig-es-title-button px-2 py-2 mx-2 ig-es-imp-button cursor-pointer"><?php esc_html_e( 'Campaign Analytics', 'email-subscribers' ); ?></a>
 				<?php } ?>
 			</div>
-			<div class="mt-2 mb-2 inline-block relative top-20">
-				<span class="pt-3 pb-4 leading-5 tracking-wide text-gray-600"><?php echo esc_html( 'Viewed ' . $email_viewed_count . '/' . $total_email_sent ); ?>
+			<div class="mt-2 mb-2 inline-block relative" style="top:4.4rem">
+				<span class="pt-3 pb-4 leading-5 tracking-wide text-gray-600"><?php echo esc_html( 'Viewed ' . number_format( $email_viewed_count ) . '/' . number_format( $total_email_sent ) ); ?>
 				</span>
 			</div>
 			<?php
@@ -420,10 +453,12 @@ class ES_Campaign_Report extends ES_List_Table {
 					$('#es_campaign_report').on('click', '.tablenav-pages a, .manage-column.sortable a, .manage-column.sorted a', function (e) {
 						e.preventDefault();
 						var query = this.search.substring(1);
+						var paged = list.__query( query, 'paged' ) || '1';
 						var order = list.__query( query, 'order' ) || 'desc';
 						var orderby = list.__query( query, 'orderby' ) || 'opened_at';
 						$("input[name='order']").val(order);
 						$("input[name='orderby']").val(orderby);
+						$("input[name='paged']").val(paged);
 						check_filter_value();
 						
 					});
@@ -460,13 +495,16 @@ class ES_Campaign_Report extends ES_List_Table {
 							},
 							success: function (response) {
 								var response = $.parseJSON(response);
-
 								if (response.rows.length)
 									$('#the-list').html(response.rows);
 								if (response.column_headers.length)
 									$('#es_campaign_report thead tr, #es_campaign_report tfoot tr').html(response.column_headers);
-							},
-							error: function (err) {
+								if (response.pagination.bottom.length)
+									$('.tablenav.bottom .tablenav-pages').html($(response.pagination.bottom).html());
+								if (response.pagination.top.length)
+									$('.tablenav.top .tablenav-pages').html($(response.pagination.top).html());
+								},
+								error: function (err) {
 	
 							}
 						}).always(function(){
@@ -500,8 +538,9 @@ class ES_Campaign_Report extends ES_List_Table {
 				function check_filter_value( filter_value = '' ){
 						var country_code 			= $('#ig_es_filter_activity_report_by_country').val();
 						var report_activity_status 	= $('#ig_es_filter_activity_report_by_status').val();
-						var order = $("input[name='order']").val();
+						var order 	= $("input[name='order']").val();
 						var orderby = $("input[name='orderby']").val();
+						var paged 	= $("input[name='paged']").val();
 						
 						data = 
 						{
@@ -509,6 +548,7 @@ class ES_Campaign_Report extends ES_List_Table {
 							campaign_id : <?php echo ( ! empty( $campaign_id ) ? esc_html( $campaign_id ) : 0 ); ?>,
 							order : order,
 							orderby : orderby,
+							paged : paged,
 							country_code : country_code,
 							status : report_activity_status
 

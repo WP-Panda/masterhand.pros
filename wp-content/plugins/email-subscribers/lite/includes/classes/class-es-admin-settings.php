@@ -483,7 +483,7 @@ class ES_Admin_Settings {
 			$cron_url_setting_desc = sprintf( __( "You need to visit this URL to send email notifications. Know <a href='%s' target='_blank'>how to run this in background</a>", 'email-subscribers' ), 'https://www.icegram.com/documentation/es-how-to-schedule-cron-emails-in-cpanel/?utm_source=es&utm_medium=in_app&utm_campaign=view_docs_help_page' );
 		}
 		/* translators: %s: Link to Icegram Email Sending documentation */
-		$cron_url_setting_desc .= sprintf( __( '<div class="mt-2.5 ml-1"><a class="hover:underline text-sm font-medium" href="%s" target="_blank">How to configure Email Sending →</a></div>', 'email-subscribers' ), esc_url( 'https://www.icegram.com/documentation/how-to-configure-email-sending-in-email-subscribers') );
+		$cron_url_setting_desc .= sprintf( __( '<div class="mt-2.5 ml-1"><a class="hover:underline text-sm font-medium" href="%s" target="_blank">How to configure Email Sending →</a></div>', 'email-subscribers' ), esc_url( 'https://www.icegram.com/documentation/how-to-configure-email-sending-in-email-subscribers?utm_source=in_app&utm_medium=setup_email_sending&utm_campaign=es_doc') );
 
 		$pepipost_api_key_defined = ES()->is_const_defined( 'pepipost', 'api_key' );
 

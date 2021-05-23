@@ -253,6 +253,17 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		public function get_headers() {
 			return apply_filters( 'ig_es_mailer_get_headers', $this->headers, $this );
 		}
+
+		/**
+		 * Get placeholder variable name string
+		 * 
+		 * @return string $variable_string
+		 * 
+		 * @since 4.7.2
+		 */
+		public function get_variable_string( $variable_name = '' ) {
+			return $variable_name;
+		}
 		
 		/**
 		 * Reset mailer data
@@ -274,7 +285,40 @@ if ( ! class_exists( 'ES_Base_Mailer' ) ) {
 		 * @since 4.7.0
 		 */
 		public function is_batch_limit_reached() {
-			return true;
+			return $this->current_batch_size >= $this->batch_limit;
+		}
+
+		/**
+		 * Convert ES tags to mailer tags
+		 * 
+		 * @param string $string
+		 * 
+		 * @return string $string
+		 * 
+		 * @since 4.7.0
+		 */
+		public function convert_es_tags_to_mailer_tags( $string = '' ) {
+			return $string;
+		}
+
+		/**
+		 * Send batch email
+		 * 
+		 * @since 4.7.2
+		 */
+		public function send_batch() {
+			
+			$response = $this->send_email();
+			return $response;
+		}
+
+		/**
+		 * Clear mailer data
+		 * 
+		 * @since 4.7.2
+		 */
+		public function clear_email_data() {
+			// Clear mailer specific data
 		}
 	}
 }

@@ -271,7 +271,7 @@ class ES_Newsletters {
 										</ul>
 									</div>
 								</div>
-								<div class="flex md:mt-0 md:ml-2 xl:ml-4">
+								<div class="flex md:mt-0 xl:ml-4">
 
 									<div id="broadcast_button" class="inline-block text-left ">
 										<button type="button"
@@ -285,7 +285,7 @@ class ES_Newsletters {
 										</button>
 									</div>
 
-									<div id="broadcast_button1" class="flex hidden mt-4 md:mt-0 md:ml-2 xl:ml-4">
+									<div id="broadcast_button1" class="flex hidden mt-4 md:mt-0">
 								<span>
 									<div class="relative inline-block text-left">
 										<span>
@@ -330,6 +330,14 @@ class ES_Newsletters {
 							</span>
 						</div>
 					</span>
+					<div class="ml-1 xl:ml-2 mt-2">
+								<a class="px-1.5 py-2 es-documentation" href="https://www.icegram.com/documentation/es-how-to-create-and-send-newsletter-emails/?utm_source=in_app&utm_medium=broadcast&utm_campaign=es_doc" target="_blank">
+									<svg class="w-6 h-6 -mt-1 inline text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<title><?php esc_html_e('Documentation ', 'email-subscribers'); ?></title>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+									</svg>
+								</a>
+							</div>
 								</div>
 							</div>
 						</header>
@@ -337,12 +345,7 @@ class ES_Newsletters {
 					<div class="mx-auto max-w-7xl">
 						<hr class="wp-header-end">
 					</div>
-					<div class="text-right mt-3">
-						<a class="hover:underline text-base font-medium" href="https://www.icegram.com/documentation/es-how-to-create-and-send-newsletter-emails/" target="_blank">
-								<?php esc_html_e( 'How to create Broadcast?', 'email-subscribers' ); ?> &rarr;
-						</a>
-					</div>
-					<div class="mx-auto mt-3 es_broadcast_first max-w-7xl">
+					<div class="mx-auto mt-6 es_broadcast_first max-w-7xl">
 						<div>
 							<div class=" bg-white rounded-lg shadow-md md:flex">
 								<div class="broadcast_main_content py-4 pl-2">
@@ -375,7 +378,8 @@ class ES_Newsletters {
 											'quicktags'    => true,
 											'editor_class' => 'wp-editor-boradcast',
 										);
-										wp_editor( $body, 'edit-es-boradcast-body', $editor_args );
+										add_filter( 'tiny_mce_before_init', array( 'ES_Common', 'override_tinymce_formatting_options' ), 10, 2 );
+										wp_editor( $body, 'edit-es-broadcast-body', $editor_args );
 										?>
 									</div>
 									<?php do_action( 'ig_es_after_broadcast_left_pan_settings', $broadcast_data ); ?>

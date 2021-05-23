@@ -1528,7 +1528,7 @@ function ig_es_view_additional_reports_data() {
  */
 function ig_es_upsell_add_attachment_feature( $editor_id ) {
 
-	if ( 'edit-es-boradcast-body' === $editor_id ) {
+	if ( 'edit-es-broadcast-body' === $editor_id ) {
 		if ( ES()->can_upsell_features( array( 'lite', 'starter', 'trial' ) ) ) {
 			?>
 			<div class="ig-es-attachments-wrapper bg-white inline-block">

@@ -379,7 +379,7 @@ class ES_DB_Actions extends ES_DB {
 	 * @since 4.5.2
 	 */
 	public function get_count_based_on_id_type( $campaign_id, $message_id, $type, $distinct = true ) {
-		global $wpdb;
+		global $wpbd;
 
 		$args = array();
 		
@@ -389,19 +389,26 @@ class ES_DB_Actions extends ES_DB {
 
 		$count = 0;
 		if ( $distinct ) {
-			$count = $wpdb->get_var(
-				$wpdb->prepare(
-					"SELECT COUNT(DISTINCT(`contact_id`)) as count FROM {$wpdb->prefix}ig_actions WHERE `campaign_id`= %d AND `message_id`= %d AND `type` = %d",
-					$args
-				)
+			$query = $wpbd->prepare(
+				"SELECT COUNT(DISTINCT(`contact_id`)) as count FROM {$wpbd->prefix}ig_actions WHERE `campaign_id`= %d AND `message_id`= %d AND `type` = %d",
+				$args
 			);
 		} else {
-			$count = $wpdb->get_var(
-				$wpdb->prepare(
-					"SELECT  COUNT(`contact_id`) as count FROM {$wpdb->prefix}ig_actions WHERE `campaign_id`= %d  AND `message_id`= %d AND `type` = %d",
-					$args
-				)
+			$query = $wpbd->prepare(
+				"SELECT  COUNT(`contact_id`) as count FROM {$wpbd->prefix}ig_actions WHERE `campaign_id`= %d  AND `message_id`= %d AND `type` = %d",
+				$args
 			);
+		}
+
+		$cache_key 		 = ES_Cache::generate_key( $query );
+		$exists_in_cache = ES_Cache::is_exists( $cache_key, 'query' );
+		if ( ! $exists_in_cache ) {
+			$count = $wpbd->get_var(
+				$query
+			);
+			ES_Cache::set( $cache_key, $count, 'query' );
+		} else {
+			$count = ES_Cache::get( $cache_key, 'query' );
 		}
 
 		return $count;

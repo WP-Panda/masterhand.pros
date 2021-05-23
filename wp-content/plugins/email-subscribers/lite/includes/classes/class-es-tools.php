@@ -37,22 +37,23 @@ class ES_Tools {
 
 		$response = array();
 
-		$email = sanitize_email( ig_es_get_request_data( 'es_test_email' ) );
-
-		$subject = ig_es_get_data( $_POST, 'subject', '', true );
-		$content = wp_kses_post( ig_es_get_request_data( 'content', '', false ) );
+		$email       = sanitize_email( ig_es_get_request_data( 'es_test_email' ) );
+		$campaign_id = ig_es_get_data( $_POST, 'campaign_id', 0 );
+		$template_id = ig_es_get_data( $_POST, 'template_id', 0 );
+		$subject     = ig_es_get_data( $_POST, 'subject', '', true );
+		$content     = ig_es_get_request_data( 'content', '', false );
+		$attachments = ig_es_get_data( $_POST, 'attachments', array() );
 
 		if ( ! empty( $email ) ) {
 
-			if ( ! empty( $content ) ) {
-				$content = str_replace( '{{EMAIL}}', 'User Email', $content );
-				$content = str_replace( '{{NAME}}', 'Username', $content );
-			}
-
-			$attachments = ig_es_get_data( $_POST, 'attachments', array() );
-
 			$merge_tags = array( 'attachments' => $attachments );
-
+			
+			if ( ! empty( $campaign_id ) ) {
+				$merge_tags['campaign_id'] = $campaign_id;
+			}
+			
+			$content = ES_Common::es_process_template_body( $content, $template_id, $campaign_id );
+			
 			$response = ES()->mailer->send_test_email( $email, $subject, $content, $merge_tags );
 
 			if ( $response && 'SUCCESS' === $response['status'] ) {

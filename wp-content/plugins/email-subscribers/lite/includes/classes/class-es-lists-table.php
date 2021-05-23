@@ -317,7 +317,9 @@ class ES_Lists_Table extends ES_List_Table {
 												</div>
 											</div>
 										</div>
+
 										<?php
+										
 										$submit_button_text = $is_new ? __( 'Save List', 'email-subscribers' ) : __( 'Save Changes', 'email-subscribers' );
 										?>
 										<input type="hidden" name="submitted" value="submitted"/>
@@ -501,6 +503,12 @@ class ES_Lists_Table extends ES_List_Table {
 				return "<a href='admin.php?page=download_report&report=users&status=select_list&list_id={$item['id']}&export-nonce={$export_nonce}'><svg fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' class='w-8 h-8 text-indigo-600 hover:text-indigo-500 active:text-indigo-600'><path d='M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg></a>";
 				break;
 
+			case 'hash':
+				$list_hash = $item['hash'];
+
+				return '<code class="es-code">' . $list_hash . '</code>';
+				break;
+
 			default:
 				return '';
 		}
@@ -554,9 +562,13 @@ class ES_Lists_Table extends ES_List_Table {
 	 */
 	public function get_columns() {
 
+		$allowedtags  = ig_es_allowed_html_tags_in_esc();
+		$tooltip_html = ES_Common::get_tooltip_html( __( 'Unique hash key that can be used to subscribe users to this list from external sites.', 'email-subscribers' ) );
+		
 		$columns = array(
 			'cb'           => '<input type="checkbox" />',
 			'name'         => __( 'Name', 'email-subscribers' ),
+			'hash'         => __( 'Hash', 'email-subscribers' ) . ' ' . $tooltip_html,
 			'subscribed'   => __( 'Subscribed', 'email-subscribers' ),
 			'unsubscribed' => __( 'Unsubscribed', 'email-subscribers' ),
 			'unconfirmed'  => __( 'Unconfirmed', 'email-subscribers' ),

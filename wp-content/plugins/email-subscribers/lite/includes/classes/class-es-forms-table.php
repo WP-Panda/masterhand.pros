@@ -87,19 +87,19 @@ class ES_Forms_Table extends ES_List_Table {
 				echo wp_kses_post( $this->edit_form( absint( $form ) ) );
 			} else { 
 				?>
-		<div class="flex">
-			<div>
-				<h2 class="wp-heading-inline text-3xl font-bold text-gray-700 sm:leading-9 sm:truncate pr-4">
-						<?php esc_html_e( 'Forms', 'email-subscribers' ); ?>
-				</h2>
-			</div>
-			<div class="mt-1">
-				<a href="admin.php?page=es_forms&action=new" class="ig-es-title-button ml-2 leading-5 align-middle">
-					<?php esc_html_e('Add New', 'email-subscribers'); ?>
-				</a>
-			</div>
-		</div>
-		<div><hr class="wp-header-end"></div>
+				<div class="flex">
+					<div>
+						<h2 class="wp-heading-inline text-3xl font-bold text-gray-700 sm:leading-9 sm:truncate pr-4">
+							<?php esc_html_e( 'Forms', 'email-subscribers' ); ?>
+						</h2>
+					</div>
+					<div class="mt-1">
+						<a href="admin.php?page=es_forms&action=new" class="ig-es-title-button ml-2 leading-5 align-middle">
+							<?php esc_html_e('Add New', 'email-subscribers'); ?>
+						</a>
+					</div>
+				</div>
+				<div><hr class="wp-header-end"></div>
 				<?php 
 				if ( 'form_created' === $action ) {
 					$message = __( 'Form added successfully!', 'email-subscribers' );
@@ -133,7 +133,7 @@ class ES_Forms_Table extends ES_List_Table {
 					<br class="clear">
 				</div>
 			</div>
-				<?php 
+			<?php 
 			}
 	}
 
@@ -303,39 +303,45 @@ class ES_Forms_Table extends ES_List_Table {
 
 		<div class="max-w-full -mt-3 font-sans">
 			<header class="wp-heading-inline">
-				<div class="md:flex md:items-center md:justify-between justify-center">
-					<div class="flex-1 min-w-0">
-						<nav class="text-gray-400 my-0" aria-label="Breadcrumb">
-						<ol class="list-none p-0 inline-flex">
-							<li class="flex items-center text-sm tracking-wide">
-							<a class="hover:underline" href="admin.php?page=es_forms"><?php esc_html_e('Forms ', 'email-subscribers'); ?></a>
-							<svg class="fill-current w-2.5 h-2.5 mx-2 mt-mx" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
-							</li>
-						</ol>
-					</nav>
-						<h2 class="-mt-1 text-2xl font-medium text-gray-700 sm:leading-7 sm:truncate">
-								<?php
-								if ( $is_new ) {
-									esc_html_e( ' New Form', 'email-subscribers' );
-								} else {
-									esc_html_e( ' Edit Form', 'email-subscribers' );
-								}
-
-								?>
-							</h2>
+				<nav class="text-gray-400 my-0" aria-label="Breadcrumb">
+					<div class="flex">
+						<div class="w-1/2">
+							<ol class="list-none p-0 inline-flex">
+								<li class="flex items-center text-sm tracking-wide">
+									<a class="hover:underline" href="admin.php?page=es_forms"><?php esc_html_e('Forms ', 'email-subscribers'); ?></a>
+									<svg class="fill-current w-2.5 h-2.5 mx-2 mt-mx" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
+								</li>
+							</ol>
 						</div>
+					</div>
+				</nav>
+				<div class="flex">
+					<div class="w-1/2">
+						<h2 class="-mt-1 text-2xl font-medium text-gray-700 sm:leading-7 sm:truncate">
+							<?php
+							if ( $is_new ) {
+								esc_html_e( ' New Form', 'email-subscribers' );
+							} else {
+								esc_html_e( ' Edit Form', 'email-subscribers' );
+							}
+
+							?>
+						</h2>
+					</div>
+					<div class="w-1/2 -mt-2.5 inline text-right">
+						<a class="px-1.5 py-2 mt-2 es-documentation" href="https://www.icegram.com/documentation/how-to-create-a-form-in-email-subscribers/?utm_source=in_app&utm_medium=es_forms&utm_campaign=es_doc" target="_blank">
+							<svg class="w-6 h-6 -mt-1 inline text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<title><?php esc_html_e('Documentation ', 'email-subscribers'); ?></title>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+							</svg>
+						</a>
 					</div>
 				</header>
 				<div class=""><hr class="wp-header-end"></div>
 				<div id="poststuff">
 					<div id="post-body" class="metabox-holder column-1">
 						<div id="post-body-content" class="pt-0.5">
-							<div class="text-right mt-1">
-							<a class="hover:underline text-base font-medium" href="https://www.icegram.com/documentation/how-to-create-a-form-in-email-subscribers/" target="_blank">
-								<?php esc_html_e( 'How to create form?', 'email-subscribers' ); ?> &rarr;
-							</a>
-							</div>
-							<div class="bg-white shadow-md rounded-lg mt-3 pt-1">
+							<div class="bg-white shadow-md rounded-lg mt-5 pt-1">
 								<form class="pt-8 ml-5 mr-4 text-left flex-row mt-2 item-center " method="post" action="admin.php?page=es_forms&action=<?php echo esc_attr( $action ); ?>&form=<?php echo esc_attr( $id ); ?>&_wpnonce=<?php echo esc_attr( $nonce ); ?>">
 
 
@@ -410,7 +416,7 @@ class ES_Forms_Table extends ES_List_Table {
 																	echo 'checked="checked"';
 																} 
 																?>
-																 />
+																/>
 															</td>
 															<td class="pr-6 pb-8">
 																<input type="checkbox" class="form-checkbox es_required" name="form_data[name_required]" value="yes" 
@@ -422,157 +428,157 @@ class ES_Forms_Table extends ES_List_Table {
 																/>
 															</td>
 															<td class="pr-6 pb-8"><input class="es_name_label form-input block border-gray-400 w-5/6 pr-12 h-8 shadow-sm  focus:bg-gray-100 sm:text-sm sm:leading-5" name="form_data[name_label]" value="<?php echo esc_attr( $form_data['name_label'] ); ?>" 
-																																																																	<?php 
-																																																																	if ( 'yes' === $form_data['name_required'] ) {
-																																																																		echo 'disabled=disabled';
-																																																																	} 
-																																																																	?>
-															 ></td>
-															<td class="pr-6 pb-8"><input class="es_name_label form-input block border-gray-400 w-5/6 pr-12 h-8 shadow-sm  focus:bg-gray-100 sm:text-sm sm:leading-5" name="form_data[name_place_holder]" value="<?php echo esc_attr( $form_data['name_place_holder'] ); ?>" 
-																																																																		   <?php 
-																																																																			if ( 'yes' === $form_data['name_required'] ) {
-																																																																				echo 'disabled=disabled';
-																																																																			} 
-																																																																			?>
-															 ></td>
-														</tr>
-														<tr class="form-field">
-															<td class="pr-6 pb-6"><b class="text-gray-500 text-sm font-normal pb-2"><?php esc_html_e( 'Button', 'email-subscribers' ); ?></b></td>
-															<td class="pr-6 pb-6"><input type="checkbox" class="form-checkbox" name="form_data[button_visible]" value="yes" disabled="disabled" checked="checked"></td>
-															<td class="pr-6 pb-6"><input type="checkbox" class="form-checkbox" name="form_data[button_required]" value="yes" disabled="disabled" checked="checked"></td>
-															<td class="pr-6 pb-6"><input class="form-input block border-gray-400 w-5/6 pr-12 h-8 shadow-sm  focus:bg-gray-100 sm:text-sm sm:leading-5" name="form_data[button_label]" value="<?php echo esc_attr( $form_data['button_label'] ); ?>"></td>
-														</tr>
+																<?php 
+																if ( 'yes' === $form_data['name_required'] ) {
+																	echo 'disabled=disabled';
+																} 
+																?>
+																></td>
+																<td class="pr-6 pb-8"><input class="es_name_label form-input block border-gray-400 w-5/6 pr-12 h-8 shadow-sm  focus:bg-gray-100 sm:text-sm sm:leading-5" name="form_data[name_place_holder]" value="<?php echo esc_attr( $form_data['name_place_holder'] ); ?>" 
+																	<?php 
+																	if ( 'yes' === $form_data['name_required'] ) {
+																		echo 'disabled=disabled';
+																	} 
+																	?>
+																	></td>
+																</tr>
+																<tr class="form-field">
+																	<td class="pr-6 pb-6"><b class="text-gray-500 text-sm font-normal pb-2"><?php esc_html_e( 'Button', 'email-subscribers' ); ?></b></td>
+																	<td class="pr-6 pb-6"><input type="checkbox" class="form-checkbox" name="form_data[button_visible]" value="yes" disabled="disabled" checked="checked"></td>
+																	<td class="pr-6 pb-6"><input type="checkbox" class="form-checkbox" name="form_data[button_required]" value="yes" disabled="disabled" checked="checked"></td>
+																	<td class="pr-6 pb-6"><input class="form-input block border-gray-400 w-5/6 pr-12 h-8 shadow-sm  focus:bg-gray-100 sm:text-sm sm:leading-5" name="form_data[button_label]" value="<?php echo esc_attr( $form_data['button_label'] ); ?>"></td>
+																</tr>
 
-													</table>
+															</table>
+														</div>
+													</div>
 												</div>
+												<div class="flex flex-row border-b border-gray-100">
+													<div class="flex w-1/5">
+														<div class="ml-4 pt-4 mb-2">
+															<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Lists', 'email-subscribers' ); ?></span></label>
+															<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-8"><?php esc_html_e( 'Contacts will be added into selected list(s)', 'email-subscribers' ); ?></p>
+														</div>
+													</div>
+													<div class="flex">
+														<div class="ml-16 mb-6 mr-4 mt-4">
+															<?php
+															$allowedtags = ig_es_allowed_html_tags_in_esc();
+															if ( count( $lists ) > 0 ) {
+																$lists_checkboxes = ES_Shortcode::prepare_lists_checkboxes( $lists, array_keys( $lists ), 3, (array) $form_data['lists'] );
+																echo wp_kses( $lists_checkboxes , $allowedtags );
+
+															} else {
+																$create_list_link = admin_url( 'admin.php?page=es_lists&action=new' );
+																?>
+																<span><b class="text-sm font-normal text-gray-600 pb-2">
+																	<?php 
+																	/* translators: %s: Create list page url */
+																	echo sprintf( esc_html__('List not found. Please %s', 'email-subscribers' ), '<a href="' . esc_url( $create_list_link ) . '"> ' . esc_html__( 'create your first list', 'email-subscribers') . '</a>' );
+																	?>
+																</b></span>
+															<?php } ?>
+														</div>
+													</div>
+												</div>
+
+												<div class="flex flex-row border-b border-gray-100">
+													<div class="flex w-1/5">
+														<div class="ml-4 pt-4 mb-2">
+															<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Allow contact to choose list(s)', 'email-subscribers' ); ?></span></label>
+															<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-4"><?php esc_html_e( 'Allow contacts to choose list(s) in which they want to subscribe.', 'email-subscribers' ); ?></p>
+														</div>
+													</div>
+													<div class="flex ">
+														<div class="ml-16 mb-4 mr-4 mt-12">
+															<label for="allow_contact" class=" inline-flex items-center cursor-pointer">
+																<span class="relative">
+																	<input id="allow_contact" type="checkbox" class=" absolute es-check-toggle opacity-0 w-0 h-0" name="form_data[list_visible]" value="yes" 
+																	<?php 
+																	if ( 'yes' === $form_data['list_visible'] ) {
+																		echo 'checked="checked"';
+																	}
+
+																	?>
+																	/>
+
+																	<span class="es-mail-toggle-line"></span>
+																	<span class="es-mail-toggle-dot"></span>	
+																</span>
+
+															</label>
+
+														</div>
+													</div>
+												</div>
+
+
+												<?php do_action('ig_es_add_additional_options', $form_data); ?>
+
+
+												<div class="flex flex-row border-b border-gray-100">
+													<div class="flex w-1/5">
+														<div class="ml-4 pt-4 mb-2">
+															<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Show GDPR consent checkbox', 'email-subscribers' ); ?></span></label>
+															<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-8"><?php esc_html_e( 'Show consent checkbox to get the consent of a contact before adding them to list(s)', 'email-subscribers' ); ?></p>
+														</div>
+													</div>
+													<div class="flex ">
+														<div class="ml-16 mb-2 mr-4 mt-6">
+															<table class="ig_es_form_table">
+																<tr>
+																	<td>
+																		<label for="gdpr_consent" class=" inline-flex items-center cursor-pointer">
+																			<span class="relative">
+																				<input id="gdpr_consent" type="checkbox" class="absolute es-check-toggle opacity-0 w-0 h-0" name="form_data[gdpr_consent]" value="yes" 
+																				<?php 
+																				if ( 'yes' === $form_data['gdpr_consent'] ) {
+																					echo 'checked="checked"';
+																				}
+																				?>
+																				/>
+
+																				<span class="es-mail-toggle-line"></span>
+																				<span class="es-mail-toggle-dot"></span>		
+																			</span>
+																		</label>
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<textarea class="form-textarea text-sm" rows="2" cols="50" name="form_data[gdpr_consent_text]"><?php echo wp_kses_post( $form_data['gdpr_consent_text'] ); ?></textarea>
+																		<p class="italic text-xs text-gray-400 mt-2 leading-snug pb-4"><?php esc_html_e( 'Consent text will show up at subscription form next to consent checkbox.', 'email-subscribers' ); ?></p>
+																	</td>
+																</tr>
+															</table>
+														</div>
+													</div>
+												</div>
+												<input type="hidden" name="form_data[af_id]" value="<?php echo esc_attr( $form_data['af_id'] ); ?>"/>
+												<input type="hidden" name="submitted" value="submitted"/>
+												<?php
+												$submit_button_text = $is_new ? __( 'Save Form', 'email-subscribers' ) : __( 'Save Changes', 'email-subscribers' );
+												if ( count( $lists ) > 0 ) { 
+													?>
+													<p class="submit"><input type="submit" name="submit" id="ig_es_campaign_post_notification_submit_button" class="cursor-pointer align-middle ig-es-primary-button px-4 py-2 ml-6 mr-2" value="<?php echo esc_attr( $submit_button_text ); ?>"/>
+														<a href="admin.php?page=es_forms" class="cursor-pointer align-middle rounded-md border border-indigo-600 hover:shadow-md focus:outline-none focus:shadow-outline-indigo text-sm leading-5 font-medium transition ease-in-out duration-150 px-4 my-2 py-2 mx-2 "><?php esc_html_e( 'Cancel', 'email-subscribers' ); ?></a></p>
+														<?php 
+												} else {
+													$lists_page_url = admin_url( 'admin.php?page=es_lists' );
+													/* translators: %s: List Page url */
+													$message = __( sprintf( 'List(s) not found. Please create a first list from <a href="%s">here</a>', $lists_page_url ), 'email-subscribers' );
+													$status  = 'error';
+													ES_Common::show_message( $message, $status );
+												}
+												?>
+												</form>
 											</div>
 										</div>
-										<div class="flex flex-row border-b border-gray-100">
-											<div class="flex w-1/5">
-												<div class="ml-4 pt-4 mb-2">
-													<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Lists', 'email-subscribers' ); ?></span></label>
-													<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-8"><?php esc_html_e( 'Contacts will be added into selected list(s)', 'email-subscribers' ); ?></p>
-												</div>
-											</div>
-											<div class="flex">
-												<div class="ml-16 mb-6 mr-4 mt-4">
-													<?php
-													$allowedtags = ig_es_allowed_html_tags_in_esc();
-													if ( count( $lists ) > 0 ) {
-														$lists_checkboxes = ES_Shortcode::prepare_lists_checkboxes( $lists, array_keys( $lists ), 3, (array) $form_data['lists'] );
-														echo wp_kses( $lists_checkboxes , $allowedtags );
-
-													} else {
-														$create_list_link = admin_url( 'admin.php?page=es_lists&action=new' );
-														?>
-														<span><b class="text-sm font-normal text-gray-600 pb-2">
-															<?php 
-															/* translators: %s: Create list page url */
-															echo sprintf( esc_html__('List not found. Please %s', 'email-subscribers' ), '<a href="' . esc_url( $create_list_link ) . '"> ' . esc_html__( 'create your first list', 'email-subscribers') . '</a>' );
-															?>
-															</b></span>
-													<?php } ?>
-												</div>
-											</div>
-										</div>
-
-										<div class="flex flex-row border-b border-gray-100">
-											<div class="flex w-1/5">
-												<div class="ml-4 pt-4 mb-2">
-													<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Allow contact to choose list(s)', 'email-subscribers' ); ?></span></label>
-													<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-4"><?php esc_html_e( 'Allow contacts to choose list(s) in which they want to subscribe.', 'email-subscribers' ); ?></p>
-												</div>
-											</div>
-											<div class="flex ">
-												<div class="ml-16 mb-4 mr-4 mt-12">
-													<label for="allow_contact" class=" inline-flex items-center cursor-pointer">
-														<span class="relative">
-															<input id="allow_contact" type="checkbox" class=" absolute es-check-toggle opacity-0 w-0 h-0" name="form_data[list_visible]" value="yes" 
-															<?php 
-															if ( 'yes' === $form_data['list_visible'] ) {
-																echo 'checked="checked"';
-															}
-
-															?>
-															 />
-
-															<span class="es-mail-toggle-line"></span>
-															<span class="es-mail-toggle-dot"></span>	
-														</span>
-
-													</label>
-
-												</div>
-											</div>
-										</div>
-
-										
-										<?php do_action('ig_es_add_additional_options', $form_data); ?>
-
-
-										<div class="flex flex-row border-b border-gray-100">
-											<div class="flex w-1/5">
-												<div class="ml-4 pt-4 mb-2">
-													<label for="tag-link"><span class="block ml-4 pr-4 text-sm font-medium text-gray-600 pb-2"><?php esc_html_e( 'Show GDPR consent checkbox', 'email-subscribers' ); ?></span></label>
-													<p class="italic text-xs text-gray-400 mt-2 ml-4 leading-snug pb-8"><?php esc_html_e( 'Show consent checkbox to get the consent of a contact before adding them to list(s)', 'email-subscribers' ); ?></p>
-												</div>
-											</div>
-											<div class="flex ">
-												<div class="ml-16 mb-2 mr-4 mt-6">
-													<table class="ig_es_form_table">
-														<tr>
-															<td>
-																<label for="gdpr_consent" class=" inline-flex items-center cursor-pointer">
-																	<span class="relative">
-																		<input id="gdpr_consent" type="checkbox" class="absolute es-check-toggle opacity-0 w-0 h-0" name="form_data[gdpr_consent]" value="yes" 
-																		<?php 
-																		if ( 'yes' === $form_data['gdpr_consent'] ) {
-																			echo 'checked="checked"';
-																		}
-																		?>
-																		 />
-
-																		<span class="es-mail-toggle-line"></span>
-																		<span class="es-mail-toggle-dot"></span>		
-																	</span>
-																</label>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<textarea class="form-textarea text-sm" rows="2" cols="50" name="form_data[gdpr_consent_text]"><?php echo wp_kses_post( $form_data['gdpr_consent_text'] ); ?></textarea>
-																<p class="italic text-xs text-gray-400 mt-2 leading-snug pb-4"><?php esc_html_e( 'Consent text will show up at subscription form next to consent checkbox.', 'email-subscribers' ); ?></p>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-										<input type="hidden" name="form_data[af_id]" value="<?php echo esc_attr( $form_data['af_id'] ); ?>"/>
-										<input type="hidden" name="submitted" value="submitted"/>
-										<?php
-										$submit_button_text = $is_new ? __( 'Save Form', 'email-subscribers' ) : __( 'Save Changes', 'email-subscribers' );
-										if ( count( $lists ) > 0 ) { 
-											?>
-											<p class="submit"><input type="submit" name="submit" id="ig_es_campaign_post_notification_submit_button" class="cursor-pointer align-middle ig-es-primary-button px-4 py-2 ml-6 mr-2" value="<?php echo esc_attr( $submit_button_text ); ?>"/>
-											<a href="admin.php?page=es_forms" class="cursor-pointer align-middle rounded-md border border-indigo-600 hover:shadow-md focus:outline-none focus:shadow-outline-indigo text-sm leading-5 font-medium transition ease-in-out duration-150 px-4 my-2 py-2 mx-2 "><?php esc_html_e( 'Cancel', 'email-subscribers' ); ?></a></p>
-											<?php 
-										} else {
-											$lists_page_url = admin_url( 'admin.php?page=es_lists' );
-											/* translators: %s: List Page url */
-											$message = __( sprintf( 'List(s) not found. Please create a first list from <a href="%s">here</a>', $lists_page_url ), 'email-subscribers' );
-											$status  = 'error';
-											ES_Common::show_message( $message, $status );
-										}
-										?>
-									</form>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
 
 
-					<?php
+								<?php
 
 	}
 
@@ -835,10 +841,11 @@ class ES_Forms_Table extends ES_List_Table {
 			case 'shortcode':
 				$shortcode = '[email-subscribers-form id="' . $item['id'] . '"]';
 
-				return '<code id="es-shortcode">' . $shortcode . '</code>';
+				return '<code class="es-code">' . $shortcode . '</code>';
 			break;
 			case 'total_active_subscribers':
-				return ES()->contacts_db->get_total_contacts_by_form_id( $item['id'] );
+				$total_active_subscribers = ES()->contacts_db->get_total_contacts_by_form_id( $item['id'] );
+				return number_format( $total_active_subscribers );
 			default:
 				return '';
 		}
@@ -984,11 +991,11 @@ class ES_Forms_Table extends ES_List_Table {
 	public function search_box( $text, $input_id) {
 		?>
 
-			<p class="search-box">
-				<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr( $text ); ?>:</label>
-				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>"/>
-				<?php submit_button( __( 'Search Forms', 'email-subscribers' ), 'button', false, false, array( 'id' => 'search-submit' ) ); ?>
-			</p>
+		<p class="search-box">
+			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr( $text ); ?>:</label>
+			<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>"/>
+			<?php submit_button( __( 'Search Forms', 'email-subscribers' ), 'button', false, false, array( 'id' => 'search-submit' ) ); ?>
+		</p>
 		<?php
 	}
 

@@ -633,7 +633,7 @@ if ( ! class_exists( 'ES_Queue' ) ) {
 
 								// Check if email sending limit or time limit or memory limit has been reached.
 								if ( $email_sending_limit <= 0 || IG_ES_Background_Process_Helper::time_exceeded( $batch_start_time, 0.8 ) || IG_ES_Background_Process_Helper::memory_exceeded() ) {
-									break 2;
+									break 2; // Break inner and outer loop
 								}
 							}
 						}
@@ -712,10 +712,14 @@ if ( ! class_exists( 'ES_Queue' ) ) {
 								ES()->campaigns_db->update_status( $campaign_id, IG_ES_CAMPAIGN_STATUS_QUEUED );
 							}
 
-							
-		
-							ES_DB_Mailing_Queue::update_sent_status( $notification_guid, 'Sending' );
-		
+							// Set status to Sending only if it in the queued status currently.
+							if ( 'In Queue' === $notification['status'] ) {
+								ES_DB_Mailing_Queue::update_sent_status( $notification_guid, 'Sending' );
+							}
+
+							// Sync mailing queue content with the related campaign.
+							$notification = ES_DB_Mailing_Queue::sync_content( $notification );
+
 							// Get subscribers from the sending_queue table based on fetched guid
 							$emails_data  = ES_DB_Sending_Queue::get_emails_to_be_sent_by_hash( $notification_guid, $es_c_croncount );
 							$total_emails = count( $emails_data );

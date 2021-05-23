@@ -91,7 +91,7 @@ if ( ! class_exists( 'IG_ES_Campaign_Rules' ) ) {
 			$current_page = ig_es_get_request_data( 'page' );
 
 			if ( in_array( $current_page, array( 'es_newsletters', 'es_sequence' ), true ) ) {
-				wp_register_script( 'alpine', plugins_url( '/js/alpine.js', __FILE__ ), array(), '2.8.0', false );
+				wp_register_script( 'alpine', plugins_url( '/js/alpine.js', __FILE__ ), array(), '2.8.2', false );
 				wp_enqueue_script( 'alpine' );
 			}
 		}
@@ -207,8 +207,8 @@ if ( ! class_exists( 'IG_ES_Campaign_Rules' ) ) {
 										</span>
 									</div>
 									<div class="w-3/12 text-right">
-										<span class="es_spinner_image_admin inline-block align-middle -mt-1 mr-1" id="spinner-image" style="display:none"><img src="<?php echo esc_url( ES_PLUGIN_URL . 'lite/public/images/spinner.gif' ); ?>" alt="<?php echo esc_attr( 'Loading...', 'email-subscribers' ); ?>"/></span>
-										<a class="inline-flex items-center text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:shadow-outline focus:border-blue-300 -mt-1 mr-2 px-3 py-1 cursor-pointer close-conditions" x-on:click=" <?php echo esc_attr( $sidebar_id ); ?> = false"><?php esc_html_e( 'Save Rules', 'email-subscribers' ); ?></a>
+										<span class="es_spinner_image_admin inline-block align-middle -mt-1 mr-1" id="spinner-image" style="display:none"><img src="<?php echo esc_url( ES_PLUGIN_URL . 'lite/public/images/spinner.gif' ); ?>" alt="<?php echo esc_attr__( 'Loading...', 'email-subscribers' ); ?>"/></span>
+										<a class="-mt-1 mr-2 px-3 py-0.5 ig-es-primary-button cursor-pointer close-conditions" x-on:click=" <?php echo esc_attr( $sidebar_id ); ?> = false"><?php esc_html_e( 'Save Rules', 'email-subscribers' ); ?></a>
 										<a x-on:click=" <?php echo esc_attr( $sidebar_id ); ?> = false" class="-mt-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer">
 											<span class="sr-only"><?php echo esc_html__( 'Close panel', 'email-subscribers' ); ?></span>
 											<!-- Heroicon name: outline/x -->
@@ -388,6 +388,7 @@ if ( ! class_exists( 'IG_ES_Campaign_Rules' ) ) {
 														</div>
 														<!-- /End replace -->
 													</div>
+
 												</div>
 												<?php do_action( 'ig_es_upsell_campaign_rules'); ?>
 											</div>
@@ -412,10 +413,15 @@ if ( ! class_exists( 'IG_ES_Campaign_Rules' ) ) {
 					foreach ( $conditions as $i => $condition_group ) :
 						if ( ! empty( $condition_group ) ) :
 							?>
-						<div class="ig-es-condition-render-group clear">
+						<div class="ig-es-condition-render-group">
 							<?php
 							if ( $i ) {
-								echo '<span class="clear float-left pr-1 ig-es-condition-operators text-xs font-medium text-gray-400 tracking-wide uppercase mt-1 mr-1">' . esc_html__( 'and', 'email-subscribers' ) . '</span>';
+								echo '<span class="clear float-left pr-1 ig-es-condition-operators text-xs font-medium text-gray-400 tracking-wide uppercase mt-1 mr-1">' . esc_html__( 'and', 'email-subscribers' );
+								if ( count( $condition_group ) > 1 ) {
+									echo esc_html( ' ( ' );
+								}
+								echo wp_kses( '</span>', $allowedtags );
+								
 							}
 							foreach ( $condition_group as $j => $condition ) :
 								$field    = isset( $condition['field'] ) ? $condition['field'] : ( isset( $condition[0] ) ? $condition[0] : '' );
@@ -426,14 +432,19 @@ if ( ! class_exists( 'IG_ES_Campaign_Rules' ) ) {
 									<div class="ig-es-condition-render ig-es-condition-render-<?php echo esc_attr( $condition['field'] ); ?>" title="<?php echo esc_attr( strip_tags( sprintf( '%s %s %s', $nice['field'], $nice['operator'], $nice['value'] ) ) ); ?>">
 									<?php
 									if ( $j ) {
-										echo '<span class="clear ig-es-condition-type ig-es-condition-operators text-xs font-medium text-gray-400 tracking-wide uppercase mt-1 mr-1">' . esc_html__( 'or', 'email-subscribers' ) . '</span>';
+										echo '<span class="ig-es-condition-type ig-es-condition-operators text-xs font-medium text-gray-400 tracking-wide uppercase mt-1 mr-1">' . esc_html__( ' or', 'email-subscribers' ) . '</span>';
 									}
 									?>
 										<span class="ig-es-condition-type ig-es-condition-field mt-1"><?php echo wp_kses( $nice['field'], $allowedtags ); ?></span>
 										<span class="ig-es-condition-type ig-es-condition-operator mt-1"><?php echo wp_kses( $nice['operator'], $allowedtags ); ?></span>
 										<span class="ig-es-condition-type ig-es-condition-value mt-1 pl-2"><?php echo wp_kses( $nice['value'], $allowedtags ); ?></span>
 									</div>
-							<?php endforeach; ?>
+							<?php 
+							endforeach; 
+							if ( $i && count( $condition_group ) > 1 ) {
+								echo '<span class="float-left pr-1 text-xs font-medium text-gray-400 tracking-wide uppercase mt-1">' . esc_html__( ') ', 'email-subscribers' ) . '</span>';
+							}
+							?>
 						</div>
 					<?php
 						endif;

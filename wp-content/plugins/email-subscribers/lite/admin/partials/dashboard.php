@@ -43,7 +43,6 @@ $reports_url               = admin_url( 'admin.php?page=es_reports' );
 $templates_url             = admin_url( 'edit.php?post_type=es_template' );
 $settings_url              = admin_url( 'admin.php?page=es_settings' );
 $facebook_url              = 'https://www.facebook.com/groups/2298909487017349/';
-$setup_email_sending_doc  = 'https://www.icegram.com/documentation/how-to-configure-email-sending-in-email-subscribers';
 
 $feature_blocks = array(
 	'form' => array(
@@ -84,7 +83,7 @@ $feature_blocks = array(
 		'cta_text'              => __('Start', 'email-subscribers'),
 		'feature_url'           => $new_sequence_url,
 		'graphics_img'          => 'lite/admin/images/dashboard-autoresponder-sequence.png',
-		'documentation_url'     => 'https://www.icegram.com/documentation/email-sequence/', 
+		'documentation_url'     => 'https://www.icegram.com/documentation/email-sequence/?utm_source=in_app&utm_medium=sequence&utm_campaign=es_doc_upsell', 
 	),
 );
 

@@ -302,15 +302,15 @@ class ES_DB_Lists extends ES_DB {
 		if ( empty( $list ) || ! is_scalar( $list ) ) {
 			return 0;
 		}
-
+		
 		$lower_list = strtolower( $list );
-
+		
 		$is_list_exists = $this->is_list_exists( $lower_list );
-
+		
 		if ( $is_list_exists ) {
 			return 0;
 		}
-
+		
 		$data = array(
 			'slug' => ! empty( $slug ) ? $slug : sanitize_title( $list ),
 			'name' => $list,

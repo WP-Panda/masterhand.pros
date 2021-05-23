@@ -209,6 +209,8 @@ class Email_Subscribers_Public {
 									echo esc_html__( 'Sorry, you are not allowed to access this page.', 'email-subscribers' );
 									die();
 								}
+							} elseif ( ! empty( $_POST['List-Unsubscribe'] ) && 'One-Click' === $_POST['List-Unsubscribe'] ) {
+								$unsubscribe_lists = ES()->lists_contacts_db->get_list_ids_by_contact( $db_id, 'subscribed' );
 							}
 
 							$message = get_option( 'ig_es_unsubscribe_success_message' );
@@ -261,7 +263,6 @@ class Email_Subscribers_Public {
 
 			} elseif ( in_array( $option, array( 'viewstatus', 'open' ) ) ) {
 				if ( ! empty( $guid ) && ! empty( $email ) ) {
-					ES_DB_Sending_Queue::update_viewed_status( $guid, $email, $message_id );
 
 					if ( $campaign_id > 0 && $db_id > 0 ) {
 						do_action( 'ig_es_message_open', $db_id, $message_id, $campaign_id );
