@@ -468,7 +468,7 @@
                                             <div class="fre-blog-item fre-blog-item-2">
                                                 <div class="overlay-block">
                                                     <div class="fre-blog-item_t center"><a
-                                                                href="https://www.masterhand.pro/business-promotion-with-know-how/">Business
+                                                                href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">Business
                                                             promotion with Know-How</a></div>
                                                     <div class="fre-blog-item_d center"><p>Some 2-3 articles/posts per
                                                             month
@@ -477,7 +477,7 @@
                                                             your brand with potential customers.</p></div>
                                                     <br>
                                                     <div class="fre-blog-item_more"><a
-                                                                href="https://www.masterhand.pro/business-promotion-with-know-how/">MORE
+                                                                href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">MORE
                                                             DETAILS</a></div>
                                                 </div>
                                             </div>

@@ -27,12 +27,12 @@ global $current_user;
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!--old favicon commented<?php ae_favicon(); ?>-->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://www.masterhand.pro/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.masterhand.pro/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://www.masterhand.pro/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.masterhand.pro/favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.masterhand.pro/favicon.png">
-    <link rel="manifest" href="https://www.masterhand.pro/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo WPP_HOME; ?>/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo WPP_HOME; ?>/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo WPP_HOME; ?>/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo WPP_HOME; ?>/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo WPP_HOME; ?>/favicon.png">
+    <link rel="manifest" href="<?php echo WPP_HOME; ?>/site.webmanifest">
 	<?php
 
 		wp_head();

@@ -9,6 +9,10 @@
 		define( 'CONCATENATE_SCRIPTS', false );
 	}
 
+	if ( ! defined( 'WPP_HOME' ) ) {
+		define( 'WPP_HOME', get_home_url() );
+	}
+
 	define( "ET_UPDATE_PATH", "http://update.enginethemes.com/?do=product-update" );
 	define( "ET_VERSION", '1.8.7' );
 
@@ -1088,12 +1092,12 @@
 			}
 
 			$this->add_script( 'my-project-page', get_template_directory_uri() . '/assets/js/my-project.js', [
-					'jquery',
-					'underscore',
-					'backbone',
-					'appengine',
-					'front'
-				], ET_VERSION, true );
+				'jquery',
+				'underscore',
+				'backbone',
+				'appengine',
+				'front'
+			], ET_VERSION, true );
 
 			// author profile js
 			// if( is_singular( PROFILE ) || is_author() ){
@@ -1452,17 +1456,17 @@
 		$page_on_front = get_option( 'page_on_front' );
 		// List page
 		$pages = get_pages( [
+			'post_status' => 'publish',
+			'meta_key'    => '_wp_page_template',
+			'meta_value'  => 'page-home-new.php'
+		] );
+		if ( empty( $pages ) ) {
+			$homepage_new = et_get_page_link( 'home-new' );
+			$pages        = get_pages( [
 				'post_status' => 'publish',
 				'meta_key'    => '_wp_page_template',
 				'meta_value'  => 'page-home-new.php'
 			] );
-		if ( empty( $pages ) ) {
-			$homepage_new = et_get_page_link( 'home-new' );
-			$pages        = get_pages( [
-					'post_status' => 'publish',
-					'meta_key'    => '_wp_page_template',
-					'meta_value'  => 'page-home-new.php'
-				] );
 			$page         = $pages[ 0 ];
 			update_option( 'page_on_front', $page->ID );
 			update_option( 'set_page_front', 1 );
@@ -1681,11 +1685,11 @@
 				foreach ( $list_profile as $p ) {
 					$profile_id           = $p->ID;
 					$works                = get_posts( [
-							'post_status'    => [ 'complete' ],
-							'post_type'      => BID,
-							'author'         => $p->post_author,
-							'posts_per_page' => - 1,
-						] );
+						'post_status'    => [ 'complete' ],
+						'post_type'      => BID,
+						'author'         => $p->post_author,
+						'posts_per_page' => - 1,
+					] );
 					$total_project_worked = count( $works );
 
 					update_post_meta( $profile_id, 'total_projects_worked', $total_project_worked );

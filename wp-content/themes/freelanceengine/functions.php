@@ -2967,7 +2967,7 @@
 									'blogname'     => $blogname,
 									'display_name' => $user->display_name,
 									'project_name' => '<a style="color:#2C33C1" href="' . $project_url . '">' . $project_name . '</a>',
-									'pay_link'     => '<a style="color:#2C33C1" href="https://www.masterhand.pro/options-project/?id=' . $et_order_product_id . '&user_id=' . $user->ID . '&email_hash=' . $hash . '">' . __( "link", ET_DOMAIN ) . '</a>',
+									'pay_link'     => '<a style="color:#2C33C1" href="' . WPP_HOME . '/options-project/?id=' . $et_order_product_id . '&user_id=' . $user->ID . '&email_hash=' . $hash . '">' . __( "link", ET_DOMAIN ) . '</a>',
 								];
 								//$receiver_email
 								foreach ( $params as $key => $value ) {
