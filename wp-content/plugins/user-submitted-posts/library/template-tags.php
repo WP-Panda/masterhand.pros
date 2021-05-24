@@ -13,13 +13,8 @@
 
 		global $post;
 
-		if ( empty( $post_ID ) ) {
-
-			if ( ! empty( $post ) ) {
-				$post_ID = $post->ID;
-
-			}
-
+		if ( empty( $post_ID ) && ! empty( $post ) && true !== $post ) {
+			$post_ID = $post->ID;
 		}
 
 		if ( get_post_meta( $post_ID, 'is_submission', true ) == true ) {
@@ -34,9 +29,9 @@
 
 
 	/**
-		Returns an array of URLs for the specified post image
-		Usage: <?php $images = usp_get_post_images(); foreach ($images as $image) { echo $image; } ?>
-	*/
+	 * Returns an array of URLs for the specified post image
+	 * Usage: <?php $images = usp_get_post_images(); foreach ($images as $image) { echo $image; } ?>
+	 */
 	function usp_get_post_images( $post_ID = false ) {
 
 		global $post;
