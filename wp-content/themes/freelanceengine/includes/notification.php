@@ -970,7 +970,13 @@
 		function fre_notify_item( $notify ) {
 			// parse post excerpt to get data
 			$post_excerpt = str_replace( '&amp;', '&', $notify->post_excerpt );
-			parse_str( $post_excerpt );
+
+			if ( ! empty( $post_excerpt ) ) {
+				parse_str( $post_excerpt, $data );
+				extract( $data );
+			}
+
+			//type=bid_edited&project=16384&bid_id=16396
 
 			if ( ! isset( $type ) || ! $type ) {
 				return;
@@ -1501,7 +1507,9 @@
 				$postdata[]   = $notify;
 				$type         = '';
 				$post_excerpt = str_replace( '&amp;', '&', $notify->post_excerpt );
-				parse_str( $post_excerpt );
+				parse_str( $post_excerpt, $data );
+
+				extract( $data );
 				/*If ae_private_message not active is continue*/
 				if ( $type == 'new_private_message' ) {
 					if ( ! function_exists( 'ae_private_message_activate' ) ) {
@@ -1613,8 +1621,9 @@
 		$request = $_REQUEST;
 		$res     = false;
 		if ( $request[ 'type' ] == 'clear_all' ) {
-			$col_del = $wpdb->delete( $wpdb->get_blog_prefix() . 'posts', [ 'post_type'   => 'notify',
-			                                                                'post_author' => (int) $request[ 'ID' ]
+			$col_del = $wpdb->delete( $wpdb->get_blog_prefix() . 'posts', [
+				'post_type'   => 'notify',
+				'post_author' => (int) $request[ 'ID' ]
 			] );
 			if ( $col_del != 0 ) {
 				$res = true;

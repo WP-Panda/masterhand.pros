@@ -62,9 +62,7 @@ jQuery(function ($) {
         classFieldRequired: 'review-field-required validate-fld-error',
         blockUi: new AE.Views.BlockUi,
         url_send: ae_globals.ajaxURL,
-
         reviewId: 0,
-
         send: function ($target) {
             var data = $target.serializeObject() || [];
             //data.project_id = $('#project-id').val();

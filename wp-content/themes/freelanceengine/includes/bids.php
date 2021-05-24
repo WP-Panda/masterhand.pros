@@ -323,6 +323,8 @@
 					case 3:
 						$stat = '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
 						break;
+					default:
+						$stat = '';
 				}
 			} else {
 				$stat = '';
@@ -621,9 +623,9 @@
 
 				// update bid_content (textarea)
 				wp_update_post( wp_slash( [
-						'ID'           => $post_data[ 'bid_id' ],
-						'post_content' => $post_data[ 'bid_content' ]
-					] ) );
+					'ID'           => $post_data[ 'bid_id' ],
+					'post_content' => $post_data[ 'bid_content' ]
+				] ) );
 
 				// notify client about bid edit
 				do_action( 'bid_edit', $post_data );
@@ -1069,10 +1071,10 @@
 				$freelancer_id = get_post_field( 'post_author', $bid_id );
 
 				$q_bid = new WP_Query( [
-						'post_type'   => BID,
-						'post_parent' => $project_id,
-						'post_status' => [ 'publish', 'unaccept' ]
-					] );
+					'post_type'   => BID,
+					'post_parent' => $project_id,
+					'post_status' => [ 'publish', 'unaccept' ]
+				] );
 				if ( $q_bid->have_posts() ) {
 					foreach ( $q_bid->posts as $bid ) {
 						if ( $bid->post_author != $freelancer_id ) {
