@@ -52,7 +52,7 @@
 						ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl' ) );
 					}
 				?>
-                <input type="hidden" id="author_url" value="<?= $linkurl ?>">
+                <input type="hidden" id="author_url" value="<?php echo $linkurl ?>">
 				<?php if ( get_field( 'network-txt' ) ) { ?>
                     <div class="page-referrals-network">
 						<?php if ( get_field( 'network-header' ) ) { ?>
@@ -75,7 +75,7 @@
                                         data-name="banner1"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner1" data-template="banner1">
-										<?= get_banner( "banner1" ) ?>
+	                                    <?php echo get_banner( "banner1" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -86,7 +86,7 @@
                                         data-name="banner2"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner2" data-template="banner2">
-										<?= get_banner( "banner2" ) ?>
+	                                    <?php echo get_banner( "banner2" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -97,7 +97,7 @@
                                         data-name="banner3"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner3" data-template="banner3">
-										<?= get_banner( "banner3" ) ?>
+	                                    <?php echo get_banner( "banner3" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -109,7 +109,7 @@
                                         data-name="banner4"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner4" data-template="banner4">
-										<?= get_banner( "banner4" ) ?>
+	                                    <?php echo get_banner( "banner4" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -120,7 +120,7 @@
                                         data-name="banner5"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner5" data-template="banner5">
-										<?= get_banner( "banner5" ) ?>
+	                                    <?php echo get_banner( "banner5" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -131,7 +131,7 @@
                                         data-name="banner6"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner6" data-template="banner6">
-										<?= get_banner( "banner6" ) ?>
+	                                    <?php echo get_banner( "banner6" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -223,9 +223,9 @@
 							foreach ( $referrals as $item ) {
 								$profile_id = get_user_meta( $item[ 'user_id' ], 'user_profile_id', true ); ?>
                                 <div class="page-referrals_item">
-                                    <a href="<?= '/author/' . $item[ 'user_login' ] ?>"><?php echo get_avatar( $item[ 'user_id' ], 70 ); ?></a>
+                                    <a href="<?php echo '/author/' . $item[ 'user_login' ] ?>"><?php echo get_avatar( $item[ 'user_id' ], 70 ); ?></a>
                                     <a class="name"
-                                       href="<?= '/author/' . $item[ 'user_login' ] ?>"><?= $item[ 'user_name' ] ?></a>
+                                       href="<?php echo '/author/' . $item[ 'user_login' ] ?>"><?php echo $item[ 'user_name' ] ?></a>
                                     <span class="status">
                                     <?php $user_status = get_user_pro_status( $item[ 'user_id' ] );
 	                                    $visualFlag    = getValueByProperty( $user_status, 'visual_flag' );
@@ -249,7 +249,7 @@
 												break;
 										}
 									} ?>
-                                    <span class="free-rating-new">+<?= getActivityRatingUser( $item[ 'user_id' ] ); ?></span>
+                                    <span class="free-rating-new">+<?php echo getActivityRatingUser( $item[ 'user_id' ] ); ?></span>
                                 </div>
 							<?php } ?>
 						<?php } ?>
@@ -261,14 +261,14 @@
 
 
     <script>
-        jQuery(function ($) {
+        // jQuery(function ($) {
 
 
             function generate_poster_ajax(action, template) {
 
-                $('body').addClass('processing');
+                jQuery('body').addClass('processing');
 
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     url: '/wp-admin/admin-ajax.php',
                     headers: {
@@ -278,18 +278,18 @@
                     },
                     data: {template: template, action: 'generate_poster'}
                 }).done(function (msg) {
-                    $('body').removeClass('processing');
+                    jQuery('body').removeClass('processing');
 
                     if (msg == '0') {
                         if (action == 'show') {
-                            window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
+                            window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
                         } else {
-                            myWindow = window.open(<?= json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?= json_encode( $user_ID )?> +'.pdf');
+                            myWindow = window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
                             myWindow.focus();
                             myWindow.print();
                         }
 
-                        $.ajax({
+                        jQuery.ajax({
                             type: "POST",
                             url: '/wp-admin/admin-ajax.php',
                             data: {template: template, action: 'delete_cache_poster'}
@@ -302,10 +302,10 @@
                 });
             }
 
-            $('.sharing .addtoany_list .a2a_button_email').click(function () {
-                $('.sharing .addtoany_list .a2a_button_email')["0"].href = "mailto:?subject=Check%20this%20out%3A%20Banner&body=" + $('.str_link')["0"].innerHTML
+        jQuery('.sharing .addtoany_list .a2a_button_email').click(function () {
+            jQuery('.sharing .addtoany_list .a2a_button_email')["0"].href = "mailto:?subject=Check%20this%20out%3A%20Banner&body=" + jQuery('.str_link')["0"].innerHTML
             })
-        })
+        // })
     </script>
     <div class="loading-blur loading">
         <div class="loading-overlay"></div>
