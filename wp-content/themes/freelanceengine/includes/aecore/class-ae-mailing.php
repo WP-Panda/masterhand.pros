@@ -694,10 +694,8 @@
 			$content = str_ireplace( '[user_email]', $user->user_email, $content );
 
 			// new email
-			$new_email = get_user_meta( $user_id, 'user_new_email', true );
-
-			$content = str_ireplace( '[user_new_email]', $new_email, $content );
-
+			$new_email = get_user_meta( $user_id, 'user_new_email' );
+			$content   = str_ireplace( '[user_new_email]', $new_email[ 0 ], $content );
 
 			/**
 			 * member display name
@@ -718,10 +716,10 @@
 			//
 			//        $confirm_link = '<a style="color:#2C33C1" href="' . $confirm_link . '" >' . __("Confirm link", ET_DOMAIN) . '</a>';
 
-			$hash         = get_user_meta( $user_id, 'key_confirm', true );
+			$hash         = get_user_meta( $user_id, 'key_confirm' );
 			$confirm_link = '<a style="color:#2C33C1" href="' . add_query_arg( [
 					'act' => 'confirm',
-					'key' => $hash
+					'key' => $hash[ 0 ]
 				], home_url() ) . '" >' . __( "Confirm link", ET_DOMAIN ) . '</a>';
 
 			/**
