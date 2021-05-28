@@ -36,6 +36,7 @@ add_action('wp_ajax_nopriv_check_register','check_register');
     }
 
 add_action('print_footer_scripts', 'check_register_js', 99);
+
 function check_register_js()
 {
     ?>
