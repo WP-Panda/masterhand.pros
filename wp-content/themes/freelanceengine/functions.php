@@ -1,5 +1,6 @@
 <?php
 	require_once 'wpp/init.php';
+	require_once 'settings/init.php';
 	if ( is_admin() ) {
 		/** Absolute path to the WordPress directory. */
 		if ( ! defined( 'ABSPATH' ) ) {
