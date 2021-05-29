@@ -16,13 +16,11 @@
 	 */
 	get_header();
 
-	$pid = get_the_ID();
-	$parid = wp_get_post_parent_id( $pid );
-
 ?>
 
     <div class="fre-page-wrapper page-benefits page-pro-benefits">
         <div class="container">
+
             <div id="if-pro">
 				<?php if ( ( get_field( 'pro_plenty_jobs_header' ) ) || ( get_field( 'pro_plenty_jobs_text' ) ) ) { ?>
                     <div class="plenty-jobs-wrap">
@@ -38,6 +36,7 @@
                         </div>
                     </div>
 				<?php } ?>
+
                 <div class="masterhand-professional">
                     <div class="row">
 						<?php if ( ( get_field( 'pro_text_left' ) ) || ( get_field( 'pro_first_image' ) ) ) { ?>
@@ -47,6 +46,7 @@
                                 </div>
                             </div>
 						<?php } ?>
+
                         <div class="col-sm-6 col-xs-12 lh-text">
                             <div class="masterhan-create-wrap">
 								<?php if ( get_field( 'pro_sign_up_header' ) ) { ?>
