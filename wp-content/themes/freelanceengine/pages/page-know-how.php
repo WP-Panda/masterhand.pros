@@ -98,23 +98,31 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 col-xs-12">
+                                        <!--<div class="col-md-6 col-xs-12">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <button type="submit" class="fre-submit-btn">
-                                                        <?php _e( 'ATTACH FILES', WPP_TEXT_DOMAIN ); ?>
+                                                        <?php /*_e( 'ATTACH FILES', WPP_TEXT_DOMAIN ); */?>
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="unsubmit-btn">
-                                                        <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
-                                                    </button>
+
+                                            </div>
+                                        </div>-->
+                                        <div class="col-md-12 col-xs-12">
+                                            <div id="media-uploader" class="dropzone  dz-clickable">
+                                                <div class="dz-message" data-dz-message>
+                                                    <span>
+                                                        <?php _e( 'Select or drop files here to upload', WPP_TEXT_DOMAIN ); ?>
+                                                    </span>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="media-ids" value="">
                                         </div>
-                                        <div class="col-md-6 col-xs-12">
-                                            <div id="media-uploader" class="dropzone  dz-clickable"></div>
-                                            <input type="hidden" name="media-ids" value=""></div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="unsubmit-btn">
+			                                    <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-xs-12">
@@ -123,7 +131,8 @@
 											<?php _e( 'Message', WPP_TEXT_DOMAIN ); ?>
                                         </label>
                                         <div class="textarea_style">
-                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                            <div id="editor-container"> </div>
+                                            <!--<textarea name="" id="" cols="30" rows="10"></textarea>-->
                                         </div>
                                     </div>
                                 </div>

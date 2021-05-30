@@ -1006,6 +1006,10 @@
 				'jquery',
 			], time(), true );
 
+			$this->add_script( 'quill', get_template_directory_uri() . '/assets/libs/quill/quill.min.js', [
+				'jquery',
+			], time(), true );
+
 			$this->add_script( 'wpp', get_template_directory_uri() . '/assets/js/wpp-js.js', [
 				'jquery',
 				'dropzone',
@@ -1049,7 +1053,8 @@
 			$this->add_style( 'custom1', get_template_directory_uri() . '/css/custom.css', [], ET_VERSION );
 			$this->add_style( 'scroll-bar', get_template_directory_uri() . '/assets/css/jquery.mCustomScrollbar.css', ET_VERSION );
 			$this->add_style( 'bb-codes', get_template_directory_uri() . '/assets/js/easy-bbcode-editor/jquery.editor.css', ET_VERSION );
-			$this->add_style( 'dropzone', get_template_directory_uri() . '/assets/libs/dropzone/dropzone.min.js', ET_VERSION );
+			$this->add_style( 'dropzone', get_template_directory_uri() . '/assets/libs/dropzone/dropzone.min.css', ET_VERSION );
+			$this->add_style( 'quill', get_template_directory_uri() . '/assets/libs/quill/quill.snow.css', ET_VERSION );
 			$this->add_style( 'dmin', get_template_directory_uri() . '/assets/libs/dropzone/basic.min.css', ET_VERSION );
 			// style.css
 			$this->add_style( 'freelanceengine-style', get_stylesheet_uri(), ET_VERSION );

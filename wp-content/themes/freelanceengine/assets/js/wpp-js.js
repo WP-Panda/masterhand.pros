@@ -525,6 +525,12 @@
 
     $("#media-uploader").dropzone({
         url: WppJsData.upload,
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 5,
+        maxFilesize: 1,
+        createImageThumbnails: true,
         acceptedFiles: 'image/*',
         success: function (file, response) {
             file.previewElement.classList.add("dz-success");
@@ -549,6 +555,20 @@
             var _ref;
             return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
         }
+    });
+
+
+    var quill = new Quill('#editor-container', {
+        modules: {
+            toolbar: [
+                [{ header: [2,3,4,5, false] }],
+                ['bold', 'italic', 'underline'],
+                ['link', 'blockquote'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'  // or 'bubble'
     });
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
