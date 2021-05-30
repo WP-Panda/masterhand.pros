@@ -521,4 +521,34 @@
 
     listControl();
 
+    Dropzone.autoDiscover = false;
+
+    $("#media-uploader").dropzone({
+        url: WppJsData.upload,
+        acceptedFiles: 'image/*',
+        success: function (file, response) {
+            file.previewElement.classList.add("dz-success");
+            file['attachment_id'] = response; // push the id for future reference
+            var ids = $('#media-ids').val() + ',' + response;
+            $('#media-ids').val(ids);
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        },
+        // update the following section is for removing image from library
+        addRemoveLinks: true,
+        removedfile: function (file) {
+            var attachment_id = file.attachment_id;
+            $.ajax({
+                type: 'POST',
+                url: WppJsData.delete,
+                data: {
+                    media_id: attachment_id
+                }
+            });
+            var _ref;
+            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+        }
+    });
+
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);

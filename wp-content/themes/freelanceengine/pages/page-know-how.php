@@ -29,8 +29,12 @@
                     <div class="plenty-jobs-item">
                         <div class="plenty-jobs">
                             <div class="plenty-jobs__before"></div>
-                            <div class="plenty-jobs__title"><?php wpp_setting( $page_setting, 'pro_plenty_jobs_header' ); ?></div>
-                            <div class="plenty-jobs__text"><?php wpp_setting( $page_setting, 'pro_plenty_jobs_text' ); ?></div>
+                            <div class="plenty-jobs__title">
+								<?php wpp_setting( $page_setting, 'pro_plenty_jobs_header' ); ?>
+                            </div>
+                            <div class="plenty-jobs__text">
+								<?php wpp_setting( $page_setting, 'pro_plenty_jobs_text' ); ?>
+                            </div>
                             <div class="plenty-jobs__after"></div>
                         </div>
                     </div>
@@ -46,14 +50,25 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-12 lh-text">
+
                             <div class="masterhan-create-wrap">
-                                <div class="masterhan-create__title"><?php wpp_setting( $page_setting, 'pro_sign_up_header' ); ?></div>
-                                <div class="masterhan-create__text"><?php wpp_setting( $page_setting, 'pro_sign_up_text' ); ?></div>
+                                <div class="masterhan-create__title">
+									<?php wpp_setting( $page_setting, 'pro_sign_up_header' ); ?>
+                                </div>
+                                <div class="masterhan-create__text">
+									<?php wpp_setting( $page_setting, 'pro_sign_up_text' ); ?>
+                                </div>
                             </div>
+
                             <div class="masterhan-create-wrap">
-                                <div class="masterhan-create__title"><?php wpp_setting( $page_setting, 'pro_text_right_side_header' ); ?></div>
-                                <div class="masterhan-create__text"><?php wpp_setting( $page_setting, 'pro_text_right_side' ); ?></div>
+                                <div class="masterhan-create__title">
+									<?php wpp_setting( $page_setting, 'pro_text_right_side_header' ); ?>
+                                </div>
+                                <div class="masterhan-create__text">
+									<?php wpp_setting( $page_setting, 'pro_text_right_side' ); ?>
+                                </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -63,21 +78,62 @@
 
                     <div class="sign-up-wrap how">
                         <div class="sign-up__before"></div>
-                        <div class="sign-up__title"><?php wpp_setting( $page_setting, 'pro_sign_up_bottom_header' ); ?></div>
-                        <div class="sign-up__text"><?php wpp_setting( $page_setting, 'pro_sign_up_bottom_text' ); ?></div>
-						<?php if ( function_exists( 'user_submitted_posts' ) ) {
-							user_submitted_posts();
-						} ?>
-
-                        <div class="plenty-jobs__title">
-                            Your published articles:
+                        <div class="sign-up__title">
+							<?php wpp_setting( $page_setting, 'pro_sign_up_bottom_header' ); ?>
                         </div>
+                        <div class="sign-up__text">
+							<?php wpp_setting( $page_setting, 'pro_sign_up_bottom_text' ); ?>
+                        </div>
+                        <div class="row">
+                            <form action="">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="fre-input-field">
+                                        <label for="" class="fre-field-title">
+											<?php _e( 'Category', WPP_TEXT_DOMAIN ); ?>
+                                        </label>
+                                        <div class="select_style">
+                                            <select name="" id="">
+                                                <option value=""><?php _e( 'Please select a category..', WPP_TEXT_DOMAIN ); ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="fre-submit-btn">
+                                                        <?php _e( 'ATTACH FILES', WPP_TEXT_DOMAIN ); ?>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="unsubmit-btn">
+                                                        <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <div id="media-uploader" class="dropzone  dz-clickable"></div>
+                                            <input type="hidden" name="media-ids" value=""></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="fre-input-field">
+                                        <label for="" class="fre-field-title">
+											<?php _e( 'Message', WPP_TEXT_DOMAIN ); ?>
+                                        </label>
+                                        <div class="textarea_style">
+                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+						<?php printf( '<div class="plenty-jobs__title">%s</div>', __( 'Your published articles:', WPP_TEXT_DOMAIN ) ); ?>
 
                         <div class="row">
                             <ul>
 								<?php
-									global $post;
-
 									if ( is_user_logged_in() ) {
 										global $current_user;
 										if ( ! is_object( $current_user ) ) {
@@ -85,32 +141,37 @@
 										}
 									}
 
-									$author_name = $current_user->user_login;
-									$args        = [
-										'posts_per_page' => 3,
-										'post_type'      => 'post',
-										'author_name'    => $author_name
+									$args = [
+										'show_posts'  => 3,
+										'page'        => 1,
+										'post_type'   => 'post',
+										'author_name' => $current_user->user_login
 									];
 
-									$myposts     = get_posts( $args );
+									$author_posts = get_posts( $args );
 
-									foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
+									foreach ( $author_posts as $post ) :
+										setup_postdata( $post ); ?>
+
                                         <div class="col-md-6 col-xs-12">
-                                            <a href="<?php the_permalink(); ?>"
-                                               class="link-social"><?php the_title(); ?></a>
+                                            <a href="<?php the_permalink(); ?>" class="link-social" title="">
+												<?php the_title(); ?>
+                                            </a>
                                         </div>
 
                                         <div class="col-md-6 col-xs-12">
 											<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
 												ADDTOANY_SHARE_SAVE_KIT();
 											} ?>
-
                                         </div>
-									<?php endforeach; ?>
+
+									<?php endforeach;
+								?>
                             </ul>
                         </div>
 
                         <div class="sign-up__after"></div>
+
                     </div>
                 </div>
 
