@@ -525,18 +525,22 @@
 
     $("#media-uploader").dropzone({
         url: WppJsData.upload,
-        autoProcessQueue: false,
+        autoProcessQueue: true,
         uploadMultiple: true,
-        parallelUploads: 5,
+        parallelUploads: 1,
         maxFiles: 5,
-        maxFilesize: 1,
+        maxFilesize: 10,
         createImageThumbnails: true,
         acceptedFiles: 'image/*',
+        sending: function (file, xhr, formData) {
+            console.log(file)
+        },
         success: function (file, response) {
             file.previewElement.classList.add("dz-success");
             file['attachment_id'] = response; // push the id for future reference
             var ids = $('#media-ids').val() + ',' + response;
             $('#media-ids').val(ids);
+            console.log(response);
         },
         error: function (file, response) {
             file.previewElement.classList.add("dz-error");
@@ -561,13 +565,13 @@
     var quill = new Quill('#editor-container', {
         modules: {
             toolbar: [
-                [{ header: [2,3,4,5, false] }],
+                [{header: [2, 3, 4, 5, false]}],
                 ['bold', 'italic', 'underline'],
                 ['link', 'blockquote'],
-                [{ list: 'ordered' }, { list: 'bullet' }]
+                [{list: 'ordered'}, {list: 'bullet'}],
             ]
         },
-        placeholder: 'Compose an epic...',
+        placeholder: WppJsData.quill_text,
         theme: 'snow'  // or 'bubble'
     });
 

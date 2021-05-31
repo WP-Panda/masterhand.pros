@@ -11,8 +11,8 @@
     height: 100%;
     margin: 0px;
     position: relative;
-    min-height: 206px;
-    max-height: 206px;
+    min-height: 208px;
+    max-height: 208px;
     overflow-x: auto;
 }
 .ql-container.ql-disabled .ql-tooltip {
@@ -849,7 +849,7 @@
     background-color: #000;
 }
 .ql-toolbar.ql-snow {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     padding: 8px;
@@ -944,5 +944,9 @@
     color: #06c;
 }
 .ql-container.ql-snow {
-    border: 1px solid #ccc;
+}
+
+#wpp-send-post-form .textarea_style {
+    background-color: #f4f4f4;
+    border-radius: 5px;
 }

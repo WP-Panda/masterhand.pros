@@ -5040,3 +5040,24 @@ box-shadow: 0px 0px 10px rgba(0, 0, 2, 0.03);
     max-height: 60px;
     min-height: 60px !important;
 }
+
+form#wpp-send-post-form .select_style {
+	background-color: #f4f4f4;
+	border-color: #f4f4f4;
+	border-radius: 5px;
+}
+
+form#wpp-send-post-form .select_style:before {
+	color: #000;
+	z-index: 0;
+}
+
+form#wpp-send-post-form select {
+	border: none;
+	z-index: 2;
+}
+
+form#wpp-send-post-form .fre-submit-btn {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}

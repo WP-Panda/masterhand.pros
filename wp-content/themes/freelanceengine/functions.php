@@ -1021,7 +1021,8 @@
 
 			wp_localize_script( 'wpp', 'WppJsData', [
 				'upload' => admin_url( 'admin-ajax.php?action=handle_dropped_media' ),
-				'delete' => admin_url( 'admin-ajax.php?action=handle_deleted_media' )
+				'delete' => admin_url( 'admin-ajax.php?action=handle_deleted_media' ),
+                'quill_text' => __('Leave a message...',WPP_TEXT_DOMAIN)
 			] );
 		}
 

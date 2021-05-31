@@ -85,7 +85,7 @@
 							<?php wpp_setting( $page_setting, 'pro_sign_up_bottom_text' ); ?>
                         </div>
                         <div class="row">
-                            <form action="">
+                            <form id="wpp-send-post-form" enctype="multipart/form-data" >
                                 <div class="col-md-6 col-xs-12">
                                     <div class="fre-input-field">
                                         <label for="" class="fre-field-title">
@@ -98,16 +98,6 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <!--<div class="col-md-6 col-xs-12">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="fre-submit-btn">
-                                                        <?php /*_e( 'ATTACH FILES', WPP_TEXT_DOMAIN ); */?>
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>-->
                                         <div class="col-md-12 col-xs-12">
                                             <div id="media-uploader" class="dropzone  dz-clickable">
                                                 <div class="dz-message" data-dz-message>
@@ -118,11 +108,6 @@
                                             </div>
                                             <input type="hidden" name="media-ids" value="">
                                         </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="unsubmit-btn">
-			                                    <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-xs-12">
@@ -132,16 +117,21 @@
                                         </label>
                                         <div class="textarea_style">
                                             <div id="editor-container"> </div>
-                                            <!--<textarea name="" id="" cols="30" rows="10"></textarea>-->
+                                            <input name="message_text" type="hidden">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="fre-submit-btn">
+			                            <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
+                                    </button>
                                 </div>
                             </form>
                         </div>
 						<?php printf( '<div class="plenty-jobs__title">%s</div>', __( 'Your published articles:', WPP_TEXT_DOMAIN ) ); ?>
 
                         <div class="row">
-                            <ul>
+
 								<?php
 									if ( is_user_logged_in() ) {
 										global $current_user;
@@ -176,7 +166,7 @@
 
 									<?php endforeach;
 								?>
-                            </ul>
+
                         </div>
 
                         <div class="sign-up__after"></div>

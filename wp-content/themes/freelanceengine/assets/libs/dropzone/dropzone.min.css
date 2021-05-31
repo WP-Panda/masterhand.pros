@@ -213,9 +213,10 @@
 }
 
 .dropzone {
-    border: 7px dashed #2c33c1;
-    background: white;
+    border: 8px dashed #b3b3b3;
+    background: #f4f4f4;
     padding: 20px 20px;
+    border-radius: 5px;
 }
 
 .dropzone.dz-clickable {
@@ -306,6 +307,7 @@
     right: 16px;
     position: absolute;
     top: 9px;
+    z-index: 555;
 }
 
 .dropzone .dz-preview .dz-remove:hover {
@@ -528,6 +530,6 @@
     top: -6px;
     right: -6px;
     bottom: -6px;
-    border: 6px solid #Fff;
+    border: 6px solid #F4f4f4;
     pointer-events: none;
 }

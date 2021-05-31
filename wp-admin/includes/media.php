@@ -306,6 +306,8 @@ function media_handle_upload( $file_id, $post_id, $post_data = array(), $overrid
 		return new WP_Error( 'upload_error', $file['error'] );
 	}
 
+
+
 	$name = $_FILES[ $file_id ]['name'];
 	$ext  = pathinfo( $name, PATHINFO_EXTENSION );
 	$name = wp_basename( $name, ".$ext" );

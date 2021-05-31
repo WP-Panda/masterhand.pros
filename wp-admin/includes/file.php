@@ -786,14 +786,17 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	 */
 	$overrides = apply_filters( "{$action}_overrides", $overrides, $file );
 
+
 	// You may define your own function and pass the name in $overrides['upload_error_handler'].
 	$upload_error_handler = 'wp_handle_upload_error';
 	if ( isset( $overrides['upload_error_handler'] ) ) {
 		$upload_error_handler = $overrides['upload_error_handler'];
 	}
 
+
 	// You may have had one or more 'wp_handle_upload_prefilter' functions error out the file. Handle that gracefully.
 	if ( isset( $file['error'] ) && ! is_numeric( $file['error'] ) && $file['error'] ) {
+		wpp_dump($file['error']);
 		return call_user_func_array( $upload_error_handler, array( &$file, $file['error'] ) );
 	}
 
@@ -875,6 +878,8 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 		return call_user_func_array( $upload_error_handler, array( &$file, $error_msg ) );
 	}
 
+
+
 	// A correct MIME type will pass this test. Override $mimes or use the upload_mimes filter.
 	if ( $test_type ) {
 		$wp_filetype     = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'], $mimes );
@@ -924,6 +929,8 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	 * @param string   $type          Mime type of the newly-uploaded file.
 	 */
 	$move_new_file = apply_filters( 'pre_move_uploaded_file', null, $file, $new_file, $type );
+
+
 
 	if ( null === $move_new_file ) {
 		if ( 'wp_handle_upload' === $action ) {
@@ -1016,6 +1023,8 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
 	if ( isset( $overrides['action'] ) ) {
 		$action = $overrides['action'];
 	}
+
+
 
 	return _wp_handle_upload( $file, $overrides, $time, $action );
 }
