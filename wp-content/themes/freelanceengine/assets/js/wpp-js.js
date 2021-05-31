@@ -521,8 +521,13 @@
 
     listControl();
 
-    Dropzone.autoDiscover = false;
 
+    /***
+     * SEND POST
+     * @type {boolean}
+     */
+    Dropzone.autoDiscover = false;
+//DROPZONE
     $("#media-uploader").dropzone({
         url: WppJsData.upload,
         autoProcessQueue: true,
@@ -536,11 +541,13 @@
             console.log(file)
         },
         success: function (file, response) {
-            file.previewElement.classList.add("dz-success");
-            file['attachment_id'] = response; // push the id for future reference
-            var ids = $('#media-ids').val() + ',' + response;
-            $('#media-ids').val(ids);
-            console.log(response);
+            if (response.success) {
+                file.previewElement.classList.add("dz-success");
+                file['attachment_id'] = response.data.attachment_id; // push the id for future reference
+                var ids = $('#media-ids').val() + ',' + response.data.attachment_id;
+                $('#media-ids').val(ids);
+                console.log(response.data.attachment_id);
+            }
         },
         error: function (file, response) {
             file.previewElement.classList.add("dz-error");
@@ -561,7 +568,7 @@
         }
     });
 
-
+//EDITOR
     var quill = new Quill('#editor-container', {
         modules: {
             toolbar: [
@@ -574,5 +581,29 @@
         placeholder: WppJsData.quill_text,
         theme: 'snow'  // or 'bubble'
     });
+
+    $(document).on('submit', '#wpp-send-post-form', function (e) {
+        e.preventDefault();
+        $('body').showLoader();
+        var $this = $(this),
+            $msg = document.querySelector('.message_text');
+            $msg.value = JSON.stringify(quill.getContents());
+
+        var $data = {
+            action: 'wpp_send_message',
+            data: $this.serialize()
+        }
+
+        $.post(ae_globals.plupload_config.url, $data, function (response) {
+
+            if (response.success) {
+
+            }
+
+            $('.loading').remove()
+
+        });
+
+    })
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);

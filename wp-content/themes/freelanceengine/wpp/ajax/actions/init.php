@@ -17,7 +17,10 @@
 		'wpp_export_company_edit_load' => false,
 		'wpp_export_company_edit'      => false,
 		'wpp_export_company_remove'    => false,
-		'wpp_interval_export'          => false
+		'wpp_interval_export'          => false,
+		'wpp_handle_dropped_media'     => false,
+		'wpp_handle_deleted_media'     => false,
+		'wpp_send_message'     => false
 	];
 
 

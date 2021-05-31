@@ -87,6 +87,16 @@
                         <div class="row">
                             <form id="wpp-send-post-form" enctype="multipart/form-data" >
                                 <div class="col-md-6 col-xs-12">
+
+                                    <div class="fre-input-field">
+                                        <label for="" class="fre-field-title">
+			                                <?php _e( 'Title', WPP_TEXT_DOMAIN ); ?>
+                                        </label>
+                                        <div class="input_style">
+                                            <input type="text" name="title" class="input-wpp" placeholder="<?php _e( 'Enter the title', WPP_TEXT_DOMAIN ); ?>">
+                                        </div>
+                                    </div>
+
                                     <div class="fre-input-field">
                                         <label for="" class="fre-field-title">
 											<?php _e( 'Category', WPP_TEXT_DOMAIN ); ?>
@@ -106,7 +116,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="media-ids" value="">
+                                            <input id="media-ids" type="hidden" name="media-ids" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +127,7 @@
                                         </label>
                                         <div class="textarea_style">
                                             <div id="editor-container"> </div>
-                                            <input name="message_text" type="hidden">
+                                            <input name="message_text" class="message_text" type="hidden">
                                         </div>
                                     </div>
                                 </div>

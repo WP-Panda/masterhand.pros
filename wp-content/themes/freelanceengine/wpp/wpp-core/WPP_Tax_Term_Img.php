@@ -217,10 +217,10 @@
 		<?php }
 	}
 
-	WPP_Tax_Term_Img::init();
+	//WPP_Tax_Term_Img::init();
 
 
-	function wpp_term_img( $id ) {
+	/*function wpp_term_img( $id ) {
 		$thumbnail_id = get_term_meta( $id, 'wpp_thumbnail_id', true );
 
 		if ( $thumbnail_id ) {
@@ -232,4 +232,4 @@
 		$image = str_replace( ' ', '%20', $image );
 
 		echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Миниатюра' ) . '" width="100%" />';
-	}
+	}*/
