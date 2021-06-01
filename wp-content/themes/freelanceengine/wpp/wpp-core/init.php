@@ -7,11 +7,12 @@
 
 	defined( 'ABSPATH' ) || exit;
 
+	define( 'WPP_CORE', true );
 
 	require_once 'for-template.php';
 	require_once 'wpp-conditional-tags.php';
 	require_once 'WPP_Tax_Term_Img.php';
-	require_once 'Wpp_Fr_Post_Gallery.php';
+	require_once 'extention/init.php';
 
 	require_once 'quill/Listener.php';
 	require_once 'quill/BlockListener.php';

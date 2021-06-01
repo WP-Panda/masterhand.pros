@@ -1,0 +1,74 @@
+#wpp_images_container ul li.image {
+    width: 75px;
+    height: 75px;
+    float: left;
+    cursor: move;
+    border: 1px solid #d5d5d5;
+    margin: 9px 9px 0 0;
+    background: #f7f7f7;
+    border-radius: 2px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#wpp_images_container ul li:hover ul.actions {
+    display: block;
+}
+
+#wpp_images_container ul ul.actions {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 2px;
+    display: none;
+}
+
+#wpp_images_container ul ul.actions li a.delete {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    font-size: 1.4em;
+}
+
+#wpp_images_container ul ul.actions li a.delete:hover::before {
+    color: #a00;
+}
+
+#wpp_images_container ul ul.actions li a.delete::before {
+    font-family: Dashicons;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "";
+    color: #999;
+    background: #fff;
+    border-radius: 50%;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+}
+
+#wpp_images_container ul.wpp_post_images.ui-sortable {
+    overflow: hidden;
+    float: left;
+    padding: 10px 0;
+}
+
+ul.wpp_post_images img {
+    width: 100%;
+    border: 1px solid #949494;
+    height: auto;
+}

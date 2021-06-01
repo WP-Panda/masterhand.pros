@@ -7,8 +7,4 @@
 
 	defined( 'ABSPATH' ) || exit;
 
-	$array = [ 'route', 'metaboxes' ];
-
-	foreach ( $array as $file ) :
-		require_once $file . '.php';
-	endforeach;
+	require_once  'post-gallery/init.php';

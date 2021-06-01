@@ -7,18 +7,42 @@
 
 	defined( 'ABSPATH' ) || exit;
 
-	/**
-	 * Проверка расширения файла
-	 *
-	 * @param       $file
-	 * @param array $exts
-	 *
-	 * @return bool
-	 */
-	function wpp_validate_file_ext( $file, $exts = [] ) {
+	if ( ! function_exists( 'wpp_validate_file_ext' ) ) :
 
-		$ext = pathinfo( $file, PATHINFO_EXTENSION );
+		/**
+		 * Проверка расширения файла
+		 *
+		 * @param       $file
+		 * @param array $exts
+		 *
+		 * @return bool
+		 */
+		function wpp_validate_file_ext( $file, $exts = [] ) {
 
-		return in_array( $ext, $exts );
+			$ext = pathinfo( $file, PATHINFO_EXTENSION );
 
-	}
+			return in_array( $ext, $exts );
+
+		}
+
+	endif;
+
+
+	if ( ! function_exists( 'wpp_clean' ) ) :
+
+		/**
+		 * Очистка Данных
+		 *
+		 * @param $var
+		 *
+		 * @return array|string
+		 */
+		function wpp_clean( $var ) {
+			if ( is_array( $var ) ) {
+				return array_map( 'wpp_clean', $var );
+			} else {
+				return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+			}
+		}
+
+	endif;
