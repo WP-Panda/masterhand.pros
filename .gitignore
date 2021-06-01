@@ -3,3 +3,4 @@
 *.sql
 *.sqlite
 srdb/
+wp-content/uploads
