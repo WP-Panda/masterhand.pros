@@ -1010,19 +1010,39 @@
 				'jquery',
 			], time(), true );
 
-			$this->add_script( 'wpp', get_template_directory_uri() . '/assets/js/wpp-js.js', [
-				'jquery',
-				'dropzone',
-				'underscore',
-				'backbone',
-				'appengine',
-				'front'
-			], time(), true );
+			if ( is_single() ) {
+				wp_enqueue_script( 'slick' );
+			}
+
+			if ( is_single() ) {
+				$depts = [
+					'jquery',
+					'dropzone',
+					'underscore',
+					'backbone',
+					'appengine',
+					'front',
+					'slick',
+                    'sticky'
+				];
+			} else {
+				$depts = [
+					'jquery',
+					'dropzone',
+					'underscore',
+					'backbone',
+					'appengine',
+					'front'
+				];
+			}
+
+
+			$this->add_script( 'wpp', get_template_directory_uri() . '/assets/js/wpp-js.js', $depts, time(), true );
 
 			wp_localize_script( 'wpp', 'WppJsData', [
-				'upload' => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
-				'delete' => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
-                'quill_text' => __('Leave a message...',WPP_TEXT_DOMAIN)
+				'upload'     => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
+				'delete'     => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
+				'quill_text' => __( 'Leave a message...', WPP_TEXT_DOMAIN )
 			] );
 		}
 
@@ -1057,8 +1077,15 @@
 			$this->add_style( 'dropzone', get_template_directory_uri() . '/assets/libs/dropzone/dropzone.min.css', ET_VERSION );
 			$this->add_style( 'quill', get_template_directory_uri() . '/assets/libs/quill/quill.snow.css', ET_VERSION );
 			$this->add_style( 'dmin', get_template_directory_uri() . '/assets/libs/dropzone/basic.min.css', ET_VERSION );
+
+			if ( is_single() ) {
+				wp_enqueue_style( 'slick-theme' );
+			}
+
 			// style.css
-			$this->add_style( 'freelanceengine-style', get_stylesheet_uri(), ET_VERSION );
+			$depts = is_single() ? [ 'slick' ] : [];
+
+			$this->add_style( 'freelanceengine-style', get_stylesheet_uri(), $depts, ET_VERSION );
 			// style.css
 			// $this->add_style('style-theme', get_template_directory_uri() .'/css/style-theme.css' , array(
 			//     'bootstrap'
@@ -1322,6 +1349,7 @@
 	}
 
 	add_filter( 'wp_link_query_args', 'fre_wp_link_query_args' );
+
 	function posts_groupby_profile( $groupby, $query ) {
 		global $wpdb;
 		$query_vars = ( isset( $query->query_vars[ 'post_type' ] ) ) ? $query->query_vars : '';
@@ -3541,3 +3569,14 @@ v 1.0
 	}
 
 	add_action( 'wp_head', 'add_recaptcha' );
+
+
+	function dequeue_jquery_migrate( $scripts ) {
+		if ( ! is_admin() && ! empty( $scripts->registered['jquery'] ) ) {
+			$scripts->registered['jquery']->deps = array_diff(
+				$scripts->registered['jquery']->deps,
+				[ 'jquery-migrate' ]
+			);
+		}
+	}
+	add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );

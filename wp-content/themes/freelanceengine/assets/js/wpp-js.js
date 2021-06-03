@@ -569,25 +569,27 @@
     });
 
 //EDITOR
-    var quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: [
-                [{header: [2, 3, 4, 5, false]}],
-                ['bold', 'italic', 'underline'],
-                ['link', 'blockquote'],
-                [{list: 'ordered'}, {list: 'bullet'}],
-            ]
-        },
-        placeholder: WppJsData.quill_text,
-        theme: 'snow'  // or 'bubble'
-    });
+    if ($('#editor-container').length) {
+        var quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: [
+                    [{header: [2, 3, 4, 5, false]}],
+                    ['bold', 'italic', 'underline'],
+                    ['link', 'blockquote'],
+                    [{list: 'ordered'}, {list: 'bullet'}],
+                ]
+            },
+            placeholder: WppJsData.quill_text,
+            theme: 'snow'  // or 'bubble'
+        });
+    }
 
     $(document).on('submit', '#wpp-send-post-form', function (e) {
         e.preventDefault();
         $('body').showLoader();
         var $this = $(this),
             $msg = document.querySelector('.message_text');
-            $msg.value = JSON.stringify(quill.getContents());
+        $msg.value = JSON.stringify(quill.getContents());
 
         var $data = {
             action: 'wpp_send_message',
@@ -604,6 +606,25 @@
 
         });
 
-    })
+    });
+
+
+    $('.wpp-post-slider').slick({
+        dots: true,
+    });
+
+
+    /* $('#cats-list').on('sticky-start', function() { console.log("Started"); });
+     $('#cats-list').on('sticky-end', function() { console.log("Ended"); });
+     $('#cats-list').on('sticky-update', function() { console.log("Update"); });
+     $('#cats-list').on('sticky-bottom-reached', function() { console.log("Bottom reached"); });
+     $('#cats-list').on('sticky-bottom-unreached', function() { console.log("Bottom unreached"); });*/
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
+
+jQuery(function ($) {
+    $(window).on('load', function () {
+        alert("window is loaded");
+        $('#cats-list').sticky({topSpacing: 50});
+    })
+});

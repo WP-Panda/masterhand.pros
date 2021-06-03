@@ -11,7 +11,9 @@
 
 	require_once 'for-template.php';
 	require_once 'wpp-conditional-tags.php';
-	require_once 'WPP_Tax_Term_Img.php';
+	require_once 'wpp-conditional-tags.php';
+	require_once 'Wpp_Fr_Assets.php';
+	require_once 'Bfi_Thumb.php';
 	require_once 'extention/init.php';
 
 	require_once 'quill/Listener.php';

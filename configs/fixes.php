@@ -7,6 +7,7 @@
 
 	defined( 'ABSPATH' ) || exit;
 
+	define( 'WPP_HOME', get_home_url() );
 
 	/**
 	 * @param $methods

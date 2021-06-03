@@ -9,9 +9,7 @@
 		define( 'CONCATENATE_SCRIPTS', false );
 	}
 
-	if ( ! defined( 'WPP_HOME' ) ) {
-		define( 'WPP_HOME', get_home_url() );
-	}
+
 
 	define( "ET_UPDATE_PATH", "http://update.enginethemes.com/?do=product-update" );
 	define( "ET_VERSION", '1.8.7' );

@@ -22,7 +22,6 @@
 				$post_id = $post->ID;
 			}
 
-
 			$attachments_ids_sting = get_post_meta( $post_id, '_wpp_post_gallery', true );
 
 			if ( empty( $attachments_ids_sting ) ) {
@@ -51,7 +50,7 @@
 			if ( ! empty( $attachments ) ) {
 				$images = [];
 				foreach ( $attachments as $attachment ) {
-					$images[] = wp_get_attachment_image_src( $attachment );
+					$images[] = wp_get_attachment_image_src( $attachment , 'full')[0];
 				}
 
 				return $images;
