@@ -1023,7 +1023,7 @@
 					'appengine',
 					'front',
 					'slick',
-                    'sticky'
+					'sticky'
 				];
 			} else {
 				$depts = [
@@ -1099,6 +1099,7 @@
      * custom query prev query post
     */
 		function pre_get_posts( $query ) {
+
 			if ( is_post_type_archive( PROFILE ) ) {
 				if ( ! $query->is_main_query() ) {
 					return $query;
@@ -1110,16 +1111,20 @@
 					$query->set( 'post_status', 'publish' );
 				}
 			}
+
 			//        if (is_tax('skill')) {
 			//            if ($query->is_main_query()) {
 			//                $query->set('post_type', PROJECT);
 			//                $query->set('post_status', 'publish');
 			//            }
 			//        }
+
 			if ( ( is_post_type_archive( PROJECT ) || is_tax( 'project_category' ) || is_tax( 'project_type' ) || is_tax( 'skill' ) ) && ! is_admin() ) {
+
 				if ( ! $query->is_main_query() ) {
 					return $query;
 				}
+
 				if ( current_user_can( 'manage_options' ) ) {
 					$query->set( 'post_status', [
 						'pending',
@@ -1130,6 +1135,7 @@
 					$query->set( 'post_status', 'publish' );
 				}
 			}
+
 			if ( is_author() && $query->is_main_query() ) {
 				$query->set( 'post_status', [
 					'publish',
@@ -3084,6 +3090,7 @@
             </select>
 		<?php }
 	} );
+
 	add_filter( 'parse_query', function( $query ) {
 		global $pagenow;
 		$author_type = isset( $_GET[ 'author_type' ] ) ? $_GET[ 'author_type' ] : '';
@@ -3109,6 +3116,8 @@
 			}
 		}
 	} );
+
+
 	add_action( 'load-edit.php', function() {
 		add_filter( 'post_class', function() {
 			global $post;
@@ -3572,11 +3581,9 @@ v 1.0
 
 
 	function dequeue_jquery_migrate( $scripts ) {
-		if ( ! is_admin() && ! empty( $scripts->registered['jquery'] ) ) {
-			$scripts->registered['jquery']->deps = array_diff(
-				$scripts->registered['jquery']->deps,
-				[ 'jquery-migrate' ]
-			);
+		if ( ! is_admin() && ! empty( $scripts->registered[ 'jquery' ] ) ) {
+			$scripts->registered[ 'jquery' ]->deps = array_diff( $scripts->registered[ 'jquery' ]->deps, [ 'jquery-migrate' ] );
 		}
 	}
+
 	add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );

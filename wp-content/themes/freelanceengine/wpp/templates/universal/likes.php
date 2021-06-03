@@ -6,6 +6,5 @@
 	 */
 
 	defined( 'ABSPATH' ) || exit;
-
-	require_once 'geo.php';
-	require_once 'get_data.php';
+	extract( $args );
+	likesPost( $post_id );

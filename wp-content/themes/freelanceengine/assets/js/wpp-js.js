@@ -609,11 +609,26 @@
     });
 
 
+    var targetDiv = $('body');
+
+    $(window).scroll(function() {
+
+        var windowpos = $(window).scrollTop();
+
+        if( windowpos >= 100 ) {
+            targetDiv.addClass('wpp-scroll');
+        } else {
+            targetDiv.removeClass('wpp-scroll');
+        }
+
+    });
+
     $('.wpp-post-slider').slick({
         dots: true,
     });
-
-
+    $(window).on('load', function () {
+       // $('#cats-list').sticky({topSpacing: 50});
+    })
     /* $('#cats-list').on('sticky-start', function() { console.log("Started"); });
      $('#cats-list').on('sticky-end', function() { console.log("Ended"); });
      $('#cats-list').on('sticky-update', function() { console.log("Update"); });
@@ -622,9 +637,10 @@
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
 
+/*
 jQuery(function ($) {
-    $(window).on('load', function () {
+
         alert("window is loaded");
-        $('#cats-list').sticky({topSpacing: 50});
+
     })
-});
+});*/

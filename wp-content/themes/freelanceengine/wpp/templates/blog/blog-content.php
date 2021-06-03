@@ -6,6 +6,5 @@
 	 */
 
 	defined( 'ABSPATH' ) || exit;
-
-	require_once 'geo.php';
-	require_once 'get_data.php';
+?>
+<div class="blog-content"><?php the_content(); ?></div>
