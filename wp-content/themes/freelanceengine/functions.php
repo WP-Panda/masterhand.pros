@@ -1,6 +1,7 @@
 <?php
 	require_once 'wpp/init.php';
 	require_once 'settings/init.php';
+
 	if ( is_admin() ) {
 		/** Absolute path to the WordPress directory. */
 		if ( ! defined( 'ABSPATH' ) ) {
@@ -8,6 +9,7 @@
 		}
 		define( 'CONCATENATE_SCRIPTS', false );
 	}
+
 	define( "ET_UPDATE_PATH", "http://update.enginethemes.com/?do=product-update" );
 	define( "ET_VERSION", '1.8.7' );
 	if ( ! defined( 'ET_URL' ) ) {
@@ -67,6 +69,8 @@
 	}
 
 	class ET_FreelanceEngine extends AE_Base{
+
+
 		function __construct() {
 			// disable admin bar if user can not manage options
 			if ( ! current_user_can( 'manage_options' ) || et_load_mobile() ) {
@@ -99,10 +103,8 @@
 				] );
 			}
 			$this->add_action( 'init', 'fre_init' );
-			// register_nav_menu('et_header', __("Fullscreen Header menu", ET_DOMAIN));
 			register_nav_menu( 'et_header_standard', __( "Standard Header menu", ET_DOMAIN ) );
-			// register_nav_menu('et_mobile', __("Mobile menu", ET_DOMAIN));
-			// register_nav_menu('et_footer', __("Footer menu", ET_DOMAIN));
+
 			/**
 			 * Add role for themes
 			 */
@@ -120,12 +122,10 @@
 			 * enqueue front end styles
 			 */
 			$this->add_action( 'wp_print_styles', 'on_add_styles', 10 );
-			// $this->add_action( 'wp_footer', 'on_add_styles',10 );
 			/**
 			 * Filer query pre get post.
 			 */
 			$this->add_action( 'pre_get_posts', 'pre_get_posts', 10 );
-			//$this->add_filter( 'posts_orderby', 'order_by_post_status', 10, 2 );
 			/**
 			 * call new classes in footer
 			 */
@@ -179,7 +179,6 @@
 			 * add action admin menu prevent seller enter admin area
 			 */
 			$this->add_action( 'admin_menu', 'redirect_seller' );
-			//$this->add_action( 'login_init', 'redirect_login' );
 			// add theme support.
 			add_theme_support( 'automatic-feed-links' );
 			//add new image size
@@ -3587,3 +3586,16 @@ v 1.0
 	}
 
 	add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );
+
+
+	function debuuuuuug( $query ) {
+
+		if ( is_array( $query->query[ 'post_status' ] ) && in_array( 'fuf', $query->query[ 'post_status' ] ) ) {
+			do_action( 'qm/debug', $query->post_count );
+			do_action( 'qm/debug', $query );
+		}
+
+		return $query;
+	}
+
+// add_action('pre_get_posts', 'debuuuuuug', 100000000000000000);

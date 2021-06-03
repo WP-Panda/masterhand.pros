@@ -18,7 +18,7 @@
 
 	$query_args = [
 		// 'post_parent' => $convert->ID,
-		'posts_per_page' => 6,
+	'posts_per_page' => 6,
 		'post_status'    => 'publish',
 		'post_type'      => PORTFOLIO,
 		'author'         => $author_id,
