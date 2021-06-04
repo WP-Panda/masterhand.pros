@@ -8,6 +8,7 @@
 	defined( 'ABSPATH' ) || exit;
 
 	$array = [
+		'user_helpers',
 		'profile-meta'
 	];
 

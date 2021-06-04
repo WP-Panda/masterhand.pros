@@ -14,9 +14,8 @@
 	 * @subpackage FreelanceEngine
 	 * @since      FreelanceEngine 1.0
 	 */
+
 	get_header();
-
-
 	$page_setting = wpp_pages_settins( 'page_know_how' );
 ?>
 

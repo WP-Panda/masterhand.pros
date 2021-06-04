@@ -8,6 +8,7 @@
  * @subpackage FreelanceEngine
  * @since      FreelanceEngine 1.0
  */
+wpp_action_template();
 global $current_user;
 ?><!DOCTYPE html>
 <!--[if IE 7]>

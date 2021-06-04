@@ -7,7 +7,7 @@
 
 	defined( 'ABSPATH' ) || exit;
 
-	$array = [ 'route', 'metaboxes' ];
+	$array = ['constantes', 'theme_class', 'route', 'metaboxes' ];
 
 	foreach ( $array as $file ) :
 		require_once $file . '.php';

@@ -109,8 +109,19 @@
 
 		$_page = ( $data_reversed[ 1 ] === 'page' && ! empty( (int) $data_reversed[ 0 ] ) ) ? (int) $data_reversed[ 0 ] : 1;
 
-		$_paginate_base = str_replace( [ 'page/' . $_page . '/', 'page/' . $_page ], '', $_POST['page'] );
+		$_paginate_base = str_replace( [ 'page/' . $_page . '/', 'page/' . $_page ], '', $_POST[ 'page' ] );
 
-		return (object)[ 'paginate_base' => $_paginate_base, 'page' => $_page ];
+		return (object) [ 'paginate_base' => $_paginate_base, 'page' => $_page ];
 
+	}
+
+
+	/**
+	 * Экшен для темплэйта
+	 */
+	function wpp_action_template() {
+		global $template;
+		$template = explode( '.', basename( $template ) )[ 0 ];
+
+		do_action( 'wpp_' . $template );
 	}

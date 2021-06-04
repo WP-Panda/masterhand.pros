@@ -1,82 +1,27 @@
 <?php
 	require_once 'wpp/init.php';
-	require_once 'settings/init.php';
 
-	if ( is_admin() ) {
-		/** Absolute path to the WordPress directory. */
-		if ( ! defined( 'ABSPATH' ) ) {
-			define( 'ABSPATH', dirname( __FILE__ ) . '/' );
-		}
-		define( 'CONCATENATE_SCRIPTS', false );
-	}
 
-	define( "ET_UPDATE_PATH", "http://update.enginethemes.com/?do=product-update" );
-	define( "ET_VERSION", '1.8.7' );
-	if ( ! defined( 'ET_URL' ) ) {
-		define( 'ET_URL', 'http://www.enginethemes.com/' );
-	}
-	if ( ! defined( 'ET_CONTENT_DIR' ) ) {
-		define( 'ET_CONTENT_DIR', WP_CONTENT_DIR . '/et-content/' );
-	}
-	define( 'TEMPLATEURL', get_template_directory_uri() );
-	$theme_name = 'freelanceengine';
-	define( 'THEME_NAME', $theme_name );
-	define( 'ET_DOMAIN', 'enginetheme' );
-	define( 'MOBILE_PATH', TEMPLATEPATH . '/mobile/' );
-	define( 'PROFILE', 'fre_profile' );
-	define( 'PROJECT', 'project' );
-	define( 'ADVERT', 'advert' );
-	define( 'COMPANY', 'company' );
-	define( 'BID', 'bid' );
-	define( 'PORTFOLIO', 'portfolio' );
-	define( 'EMPLOYER', 'employer' );
-	define( 'FREELANCER', 'freelancer' );
-	define( 'PRICE', 'price' );
-	define( 'CURRENCY', 'currency' );
-	// define( 'ALLOW_UNFILTERED_UPLOADS', true );
-	if ( ! defined( 'THEME_CONTENT_DIR ' ) ) {
-		define( 'THEME_CONTENT_DIR', WP_CONTENT_DIR . '/et-content' . '/' . $theme_name );
-	}
-	if ( ! defined( 'THEME_CONTENT_URL' ) ) {
-		define( 'THEME_CONTENT_URL', content_url() . '/et-content' . '/' . $theme_name );
-	}
-	// theme language path
-	if ( ! defined( 'THEME_LANGUAGE_PATH' ) ) {
-		define( 'THEME_LANGUAGE_PATH', THEME_CONTENT_DIR . '/lang/' );
-	}
-	if ( ! defined( 'ET_LANGUAGE_PATH' ) ) {
-		define( 'ET_LANGUAGE_PATH', THEME_CONTENT_DIR . '/lang' );
-	}
-	if ( ! defined( 'ET_CSS_PATH' ) ) {
-		define( 'ET_CSS_PATH', THEME_CONTENT_DIR . '/css' );
-	}
-	if ( ! defined( 'USE_SOCIAL' ) ) {
-		define( 'USE_SOCIAL', 1 );
-	}
 	function isConfirmEmail( $user_ID ) {
-		//if(!get_user_meta($user_ID, 'paypal_confirmation', true))
-		//    wp_send_json(array(
-		//        'success' => false,
-		//        'msg' => "Paypal account ".get_user_meta($user_ID, 'paypal', true)." is not confirmed, please, confrim your paypal account in your profile and try the operation again"
-		//    ));
 		return true;
 	}
 
 	require_once dirname( __FILE__ ) . '/includes/index.php';
 	require_once TEMPLATEPATH . '/customizer/customizer.php';
-	if ( ! class_exists( 'AE_Base' ) ) {
-		return;
-	}
+	require_once 'settings/init.php';
 
 	class ET_FreelanceEngine extends AE_Base{
 
 
 		function __construct() {
 			// disable admin bar if user can not manage options
+
 			if ( ! current_user_can( 'manage_options' ) || et_load_mobile() ) {
 				show_admin_bar( false );
-			};
+			}
+
 			global $wp_roles;
+
 			/**
 			 * register wp_role FREELANCER
 			 */
@@ -90,6 +35,7 @@
 					// Use false to explicitly deny
 				] );
 			}
+
 			/**
 			 * add new role EMPLOYER
 			 */
@@ -390,6 +336,8 @@
 		 *
 		 * @since  1.0
 		 * @author ThaiNt
+		 *
+		 * @return string
 		 */
 		public function logout_home( $logouturl, $redir ) {
 			$redir = get_option( 'siteurl' );
@@ -492,6 +440,8 @@
 		 *
 		 * @param String $url  The post url
 		 * @param Object $post current post object
+		 *
+		 * @return string
 		 */
 		public function post_link( $url, $post ) {
 			if ( $post->post_type == PROFILE ) {
@@ -511,6 +461,8 @@
 		 * @since  1.0
 		 *
 		 * @author Dakachi
+		 *
+		 * @return string
 		 */
 		public function order_terms( $orderby, $args, $taxonomies ) {
 			if ( $taxonomies ) {
@@ -551,6 +503,8 @@
 		 * hook to filter comment type dropdown and add review favorite to filter comment
 		 *
 		 * @param Array $comment_types
+		 *
+		 * @return string
 		 */
 		function admin_comment_types_dropdown( $comment_types ) {
 			$comment_types[ 'fre_review' ] = __( "Professional Review", ET_DOMAIN );
@@ -1245,6 +1199,12 @@
 		}
 	}
 
+	if ( ! class_exists( 'AE_Base' ) ) {
+		return;
+	}
+
+
+
 	global $et_freelance;
 	add_action( 'after_setup_theme', 'et_setup_theme' );
 	function et_setup_theme() {
@@ -1255,12 +1215,6 @@
 		}
 	}
 
-	// add_action('user_register ' , 'de_new_user_alert');
-	// function de_new_user_alert($user_id) {
-	//     // $display_name = get_the_author_meta( 'display_name', $user_id );
-	//     // $email = get_the_author_meta( 'user_email', $user_id );
-	//     wp_mail('admin email', 'new user register ', 'there is a new user register on your site with id' . $user_id );
-	// }
 	/**
 	 * add custom status to wordpress post status
 	 */
@@ -1308,20 +1262,8 @@
 	}
 
 	add_action( 'admin_footer-post.php', 'fre_append_post_status_list' );
-	/**
-	 * set default user roles for social login
-	 *
-	 * @author Tambh
-	 */
-	add_filter( 'ae_social_login_user_roles_default', 'fre_default_user_roles' );
-	if ( ! function_exists( 'fre_default_user_roles' ) ) {
-		function fre_default_user_roles( $default_role ) {
-			return [
-				FREELANCER => __( 'Professional', ET_DOMAIN ),
-				EMPLOYER   => __( 'Client', ET_DOMAIN )
-			];
-		}
-	}
+
+
 	/**
 	 * Replace Link Reply
 	 *
