@@ -84,15 +84,16 @@
 							<?php wpp_setting( $page_setting, 'pro_sign_up_bottom_text' ); ?>
                         </div>
                         <div class="row">
-                            <form id="wpp-send-post-form" enctype="multipart/form-data" >
+                            <form id="wpp-send-post-form" enctype="multipart/form-data">
                                 <div class="col-md-6 col-xs-12">
 
                                     <div class="fre-input-field">
                                         <label for="" class="fre-field-title">
-			                                <?php _e( 'Title', WPP_TEXT_DOMAIN ); ?>
+											<?php _e( 'Title', WPP_TEXT_DOMAIN ); ?>
                                         </label>
                                         <div class="input_style">
-                                            <input type="text" name="title" class="input-wpp" placeholder="<?php _e( 'Enter the title', WPP_TEXT_DOMAIN ); ?>">
+                                            <input type="text" name="title" class="input-wpp"
+                                                   placeholder="<?php _e( 'Enter the title', WPP_TEXT_DOMAIN ); ?>">
                                         </div>
                                     </div>
 
@@ -101,8 +102,18 @@
 											<?php _e( 'Category', WPP_TEXT_DOMAIN ); ?>
                                         </label>
                                         <div class="select_style">
-                                            <select name="" id="">
+                                            <select name="term" id="">
                                                 <option value=""><?php _e( 'Please select a category..', WPP_TEXT_DOMAIN ); ?></option>
+												<?php $categoryes = get_categories( [
+													'parent'     => 1,
+													'hide_empty' => false
+												] );
+													if ( ! empty( $categoryes ) ) {
+														foreach ( $categoryes as $cat ) {
+															printf( '<option value="%s">%s</option>', $cat->term_id, $cat->name );
+														}
+													}
+												?>
                                             </select>
                                         </div>
                                     </div>
@@ -125,14 +136,14 @@
 											<?php _e( 'Message', WPP_TEXT_DOMAIN ); ?>
                                         </label>
                                         <div class="textarea_style">
-                                            <div id="editor-container"> </div>
+                                            <div id="editor-container"></div>
                                             <input name="message_text" class="message_text" type="hidden">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="fre-submit-btn">
-			                            <?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
+										<?php _e( 'SUBMIT', WPP_TEXT_DOMAIN ); ?>
                                     </button>
                                 </div>
                             </form>
@@ -141,40 +152,40 @@
 
                         <div class="row">
 
-								<?php
-									if ( is_user_logged_in() ) {
-										global $current_user;
-										if ( ! is_object( $current_user ) ) {
-											$current_user = wp_get_current_user();
-										}
+							<?php
+								if ( is_user_logged_in() ) {
+									global $current_user;
+									if ( ! is_object( $current_user ) ) {
+										$current_user = wp_get_current_user();
 									}
+								}
 
-									$args = [
-										'show_posts'  => 3,
-										'page'        => 1,
-										'post_type'   => 'post',
-										'author_name' => $current_user->user_login
-									];
+								$args = [
+									'show_posts'  => 3,
+									'page'        => 1,
+									'post_type'   => 'post',
+									'author_name' => $current_user->user_login
+								];
 
-									$author_posts = get_posts( $args );
+								$author_posts = get_posts( $args );
 
-									foreach ( $author_posts as $post ) :
-										setup_postdata( $post ); ?>
+								foreach ( $author_posts as $post ) :
+									setup_postdata( $post ); ?>
 
-                                        <div class="col-md-6 col-xs-12">
-                                            <a href="<?php the_permalink(); ?>" class="link-social" title="">
-												<?php the_title(); ?>
-                                            </a>
-                                        </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <a href="<?php the_permalink(); ?>" class="link-social" title="">
+											<?php the_title(); ?>
+                                        </a>
+                                    </div>
 
-                                        <div class="col-md-6 col-xs-12">
-											<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
-												ADDTOANY_SHARE_SAVE_KIT();
-											} ?>
-                                        </div>
+                                    <div class="col-md-6 col-xs-12">
+										<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
+											ADDTOANY_SHARE_SAVE_KIT();
+										} ?>
+                                    </div>
 
-									<?php endforeach;
-								?>
+								<?php endforeach;
+							?>
 
                         </div>
 

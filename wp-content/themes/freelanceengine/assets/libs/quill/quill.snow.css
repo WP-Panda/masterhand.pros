@@ -11,8 +11,8 @@
     height: 100%;
     margin: 0px;
     position: relative;
-    min-height: 208px;
-    max-height: 208px;
+    min-height: 337px;
+    max-height: 337px;
     overflow-x: auto;
 }
 .ql-container.ql-disabled .ql-tooltip {
@@ -949,4 +949,8 @@
 #wpp-send-post-form .textarea_style {
     background-color: #f4f4f4;
     border-radius: 5px;
+}
+
+.ql-editor li {
+    color: #878787;
 }

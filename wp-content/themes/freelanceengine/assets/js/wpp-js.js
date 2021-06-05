@@ -521,69 +521,69 @@
 
     listControl();
 
-
-    /***
-     * SEND POST
-     * @type {boolean}
-     */
-    Dropzone.autoDiscover = false;
+    if ($('#media-uploader').length) {
+        /***
+         * SEND POST
+         * @type {boolean}
+         */
+        Dropzone.autoDiscover = false;
 //DROPZONE
-    $("#media-uploader").dropzone({
-        url: WppJsData.upload,
-        autoProcessQueue: true,
-        uploadMultiple: true,
-        parallelUploads: 1,
-        maxFiles: 5,
-        maxFilesize: 10,
-        createImageThumbnails: true,
-        acceptedFiles: 'image/*',
-        sending: function (file, xhr, formData) {
-            console.log(file)
-        },
-        success: function (file, response) {
-            if (response.success) {
-                file.previewElement.classList.add("dz-success");
-                file['attachment_id'] = response.data.attachment_id; // push the id for future reference
-                var ids = $('#media-ids').val() + ',' + response.data.attachment_id;
-                $('#media-ids').val(ids);
-                console.log(response.data.attachment_id);
-            }
-        },
-        error: function (file, response) {
-            file.previewElement.classList.add("dz-error");
-        },
-        // update the following section is for removing image from library
-        addRemoveLinks: true,
-        removedfile: function (file) {
-            var attachment_id = file.attachment_id;
-            $.ajax({
-                type: 'POST',
-                url: WppJsData.delete,
-                data: {
-                    media_id: attachment_id
+        var droppp = new Dropzone("#media-uploader", {
+            url: WppJsData.upload,
+            autoProcessQueue: true,
+            uploadMultiple: true,
+            parallelUploads: 1,
+            maxFiles: 5,
+            maxFilesize: 10,
+            createImageThumbnails: true,
+            acceptedFiles: 'image/*',
+            sending: function (file, xhr, formData) {
+                console.log(file)
+            },
+            success: function (file, response) {
+                if (response.success) {
+                    file.previewElement.classList.add("dz-success");
+                    file['attachment_id'] = response.data.attachment_id; // push the id for future reference
+                    var ids = $('#media-ids').val() + ',' + response.data.attachment_id;
+                    $('#media-ids').val(ids);
+                    console.log(response.data.attachment_id);
                 }
-            });
-            var _ref;
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-        }
-    });
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+            },
+            // update the following section is for removing image from library
+            addRemoveLinks: true,
+            removedfile: function (file) {
+                var attachment_id = file.attachment_id;
+                $.ajax({
+                    type: 'POST',
+                    url: WppJsData.delete,
+                    data: {
+                        media_id: attachment_id
+                    }
+                });
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            }
+        });
 
 //EDITOR
-    if ($('#editor-container').length) {
-        var quill = new Quill('#editor-container', {
-            modules: {
-                toolbar: [
-                    [{header: [2, 3, 4, 5, false]}],
-                    ['bold', 'italic', 'underline'],
-                    ['link', 'blockquote'],
-                    [{list: 'ordered'}, {list: 'bullet'}],
-                ]
-            },
-            placeholder: WppJsData.quill_text,
-            theme: 'snow'  // or 'bubble'
-        });
+        if ($('#editor-container').length) {
+            var quill = new Quill('#editor-container', {
+                modules: {
+                    toolbar: [
+                        [{header: [2, 3, 4, 5, false]}],
+                        ['bold', 'italic', 'underline'],
+                        ['link', 'blockquote'],
+                        [{list: 'ordered'}, {list: 'bullet'}],
+                    ]
+                },
+                placeholder: WppJsData.quill_text,
+                theme: 'snow'  // or 'bubble'
+            });
+        }
     }
-
     $(document).on('submit', '#wpp-send-post-form', function (e) {
         e.preventDefault();
         $('body').showLoader();
@@ -599,7 +599,10 @@
         $.post(ae_globals.plupload_config.url, $data, function (response) {
 
             if (response.success) {
-
+                quill.deleteText(0, quill.getLength());
+                //droppp.removeAllFiles();
+                $this.find('input').val('');
+                $this.find('select').prop('selectedIndex', 0);
             }
 
             $('.loading').remove()
@@ -611,11 +614,11 @@
 
     var targetDiv = $('body');
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
 
         var windowpos = $(window).scrollTop();
 
-        if( windowpos >= 100 ) {
+        if (windowpos >= 100) {
             targetDiv.addClass('wpp-scroll');
         } else {
             targetDiv.removeClass('wpp-scroll');
@@ -623,17 +626,12 @@
 
     });
 
-    $('.wpp-post-slider').slick({
-        dots: true,
-    });
-    $(window).on('load', function () {
-       // $('#cats-list').sticky({topSpacing: 50});
-    })
-    /* $('#cats-list').on('sticky-start', function() { console.log("Started"); });
-     $('#cats-list').on('sticky-end', function() { console.log("Ended"); });
-     $('#cats-list').on('sticky-update', function() { console.log("Update"); });
-     $('#cats-list').on('sticky-bottom-reached', function() { console.log("Bottom reached"); });
-     $('#cats-list').on('sticky-bottom-unreached', function() { console.log("Bottom unreached"); });*/
+    if ($('.wpp-post-slider').length) {
+        $('.wpp-post-slider').slick({
+            dots: true,
+        });
+    }
+
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
 

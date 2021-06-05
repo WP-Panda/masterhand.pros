@@ -5055,9 +5055,23 @@ form#wpp-send-post-form .select_style:before {
 form#wpp-send-post-form select {
 	border: none;
 	z-index: 2;
+	position: relative;
+	cursor: pointer;
 }
 
 form#wpp-send-post-form .fre-submit-btn {
 	margin-top: 25px;
 	margin-bottom: 25px;
+}
+
+
+input.input-wpp {
+	background-color: #f4f4f4;
+	border-color: #f4f4f4!important;
+	color: #878787!important;
+}
+
+input.input-wpp::placeholder{
+	color: #878787!important;
+	font-weight:400
 }
