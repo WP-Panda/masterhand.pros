@@ -9,6 +9,7 @@
 
 	define( 'WPP_CORE', true );
 
+	require_once 'helpers/init.php';
 	require_once 'for-template.php';
 	require_once 'wpp-conditional-tags.php';
 	require_once 'wpp-conditional-tags.php';

@@ -33,8 +33,9 @@
 		'companies/init',
 		'error-api',
 		'helpers',
-		'ajax/actions/init',
-		'setting/init'
+		'ajax/init',
+		'setting/init',
+		'skills/init'
 	];
 
 	foreach ( $array as $file ) :

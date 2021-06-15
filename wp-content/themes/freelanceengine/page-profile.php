@@ -14,13 +14,12 @@
 	global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
 
 	//convert current user
-	$ae_users        = AE_Users::get_instance();
-	$user_profile_id = get_user_meta( $user_ID, "user_profile_id", true );
-	$user_data       = $ae_users->convert( $current_user->data );
-	$user_role       = ae_user_role( $current_user->ID );
-	//convert current profile
-	$post_object = $ae_post_factory->get( PROFILE );
+	$ae_users = AE_Users::get_instance();
 
+	$user_data = $ae_users->convert( $current_user->data );
+	$user_role = ae_user_role( $current_user->ID );
+	//convert current profile
+	$post_object     = $ae_post_factory->get( PROFILE );
 	$profile_id      = get_user_meta( $user_ID, 'user_profile_id', true );
 	$user_phone_code = get_user_meta( $user_ID, 'ihs-country-code', true );
 	$user_phone      = get_user_meta( $user_ID, 'user_phone', true );
@@ -38,12 +37,12 @@
 
 	$current_profile_categories = get_the_terms( $profile, 'project_category' );
 	//define variables:
-	$job_title      = isset( $profile->et_professional_title ) ? $profile->et_professional_title : '';
-	$hour_rate      = isset( $profile->hour_rate ) ? $profile->hour_rate : '';
-	$currency       = isset( $profile->currency ) ? $profile->currency : '';
-	$experience     = isset( $profile->et_experience ) ? $profile->et_experience : '';
-	$hour_rate      = isset( $profile->hour_rate ) ? $profile->hour_rate : '';
-	$about          = isset( $profile->post_content ) ? $profile->post_content : '';
+	$job_title      = $profile->et_professional_title ?? '';
+	$hour_rate      = $profile->hour_rate ?? '';
+	$currency       = $profile->currency ?? '';
+	$experience     = $profile->et_experience ?? '';
+	$hour_rate      = $profile->hour_rate ?? '';
+	$about          = $profile->post_content ?? '';
 	$display_name   = $user_data->display_name;
 	$user_available = isset( $user_data->user_available ) && $user_data->user_available == "on" ? 'checked' : '';
 
@@ -102,7 +101,10 @@
 			$style = 'style="background-image: url(' . $img_url[ 0 ] . '); background-repeat: no-repeat; background-size: 100% 100%;"';
 		}
 	}
+
+	// Тут надо прямо разбираться!!!!!
 	$visualFlag = getValueByProperty( $user_status, 'visual_flag' );
+
 	if ( $visualFlag ) {
 		$visualFlagNumber = get_user_meta( $user_ID, 'visual_flag', true );
 	}
@@ -123,42 +125,21 @@
 ?>
 
     <div class="fre-page-wrapper list-profile-wrapper" <?php echo $style ?? ''; ?>>
-        <div class="fre-page-title hidden-xs">
-            <div class="container">
-                <h1>
-					<?php _e( 'My Profile', ET_DOMAIN ) ?>
-                </h1>
-            </div>
-        </div>
+		<?php wpp_get_template_part( 'wpp/templates/universal/page-h1', [ 'title' => __( 'My Profile', ET_DOMAIN ) ] ); ?>
 
         <div class="fre-page-section">
             <div class="container">
                 <div class="profile-freelance-wrap">
-					<?php if ( ( ! empty( $user_confirm_email ) && $user_confirm_email !== 'confirm' ) || ( empty( $user_confirm_email ) ) ) { ?>
-                        <div class="notice-first-login blue">
-                            <p>
-                                <i class="fa fa-warning"></i>
-                                Please confirm your email to activate your account <a
-                                        class="request-confirm fre-submit-btn btn-right">Activate Account</a>
-                            </p>
-                        </div>
-					<?php } ?>
-					<?php if ( empty( $profile_id ) && ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) ) { ?>
-                        <div class="notice-first-login">
-                            <p>
-                                <i class="fa fa-warning"></i>
-								<?php _e( 'Paypal account and Profile completion are required to bid on projects and make deals. Please go to Settings to complete your profile.', ET_DOMAIN ) ?>
-                            </p>
-                        </div>
-					<?php } ?>
-					<?php if ( empty( $profile_id ) && ( fre_share_role() || ae_user_role( $user_ID ) == EMPLOYER ) ) { ?>
-                        <div class="notice-first-login">
-                            <p>
-                                <i class="fa fa-warning"></i>
-								<?php _e( 'Paypal account and Profile completion are recommended to make SafePay deals and receive money(refunds). Please go to Settings to complete your profile.', ET_DOMAIN ) ?>
-                            </p>
-                        </div>
-					<?php } ?>
+					<?php
+
+						wpp_get_template_part( 'wpp/templates/profile/notis/confirm-email', [
+							'user_confirm_email' => $user_confirm_email
+						] );
+						wpp_get_template_part( 'wpp/templates/profile/notis/first-login', [
+							'profile_id' => $profile_id,
+							'user_ID'    => $user_ID
+						] );
+					?>
                     <div class="fre-profile-box">
                         <div class="profile-freelance-info-wrap active">
                             <div class="profile-freelance-info top cnt-profile-hide row" id="cnt-profile-default"
@@ -171,20 +152,10 @@
 										<?php echo $display_name ?>
 										<?php if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
 											echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . ' </span>';
-											// echo '<span class="status">' . $user_pro_name . ' </span>';
 											echo '<div class="status_expire">Expire: ' . $user_pro_expire . '</div>';
-										} ?>
-										<?php switch ( $visualFlagNumber ) {
-											case 1:
-												echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
-												break;
-											case 2:
-												echo '<span class="status">' . translate( 'Creator', ET_DOMAIN ) . '</span>';
-												break;
-											case 3:
-												echo '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
-												break;
-										} ?>
+										}
+											wpp_get_template_part( 'wpp/templates/profile/status-label', [ 'visualFlagNumber' => $visualFlagNumber ] );
+										?>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12 free-rating">
 										<?php HTML_review_rating_user( $user_ID ) ?>
@@ -336,76 +307,11 @@
                             };
                     </script>
 
-                    <div class="fre-profile-box skills_awards_wp">
-                        <div class="row skills_awards">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 skill-list">
-                                <!-- пока нет наград - ставим 12 вместо col-lg-6 col-md-6 col-sm-6-->
-                                <a href="#modal_edit_skills" data-toggle="modal"
-                                   class="unsubmit-btn btn-right open-edit-skills">
-									<? _e( 'Add skills', ET_DOMAIN ); ?>
-                                </a>
-                                <div class="bl_t">
-									<?php echo __( 'Skills and Endorsements:', ET_DOMAIN ); ?>
-									<?php if ( ! $is_company ) { ?>
-                                        <div class="skill-list__placeholder"> <?php echo __( 'You can put here your personal skills, related keywords . For example Polite, Demanding, Recognize Brilliance, Pay Promptly etc.', ET_DOMAIN ); ?>
-                                        </div>
-									<?php } else { ?>
-                                        <div class="skill-list__placeholder">
-											<?php echo __( 'You can put here your professional and personal skills, related keywords . For example Drilling, General Woodworking, Cleaning Sewer Lines, Problem-Solving etc.', ET_DOMAIN );
-											?>
-                                        </div>
-									<?php } ?>
-                                </div>
 
-                                <ul id="list_skills_user">
-									<?php
-										wp_enqueue_style( 'endoSkSel' );
-										wp_enqueue_style( 'endoSk' );
-										wp_enqueue_script( 'endoSkSel' );
-										wp_enqueue_script( 'endoSk' );
-										renderSkillsInProfile( $user_ID );
-									?>
-                                </ul>
-								<? get_template_part( 'template-js/modal', 'edit-skills' ); ?>
-                            </div>
-                            <!-- пока нет наград - скрываем НЕ УДАЛЯТЬ!!!!!!!!!!!!
-                        <div class="col-sm-6 col-xs-12 award-list">
-                            <div class="bl_t">
-                                <?php echo __( 'Awards:', ET_DOMAIN ); ?>
-                            </div>
-                            <ul class="row">
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw1.png" alt=""/>1-st place on DC 2018
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw2.png" alt=""/>Pro league in Germany
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw3.png" alt=""/>Gold Members
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw4.png" alt=""/>League of Masters
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw1.png" alt=""/>League of Masters
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw2.png" alt=""/> Best proffesional
-                                </li>
-                                <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/img/aw3.png" alt=""/>100 deals of Octomber
-                                </li>
-                            </ul>
-                        </div>-->
-                        </div>
-                        <div class="show_more">
-							<?php echo __( 'Show more', ET_DOMAIN ); ?><i class="fa fa-angle-down"></i>
-                        </div>
-                        <div class="hide_more">
-							<?php echo __( 'Hide more', ET_DOMAIN ); ?><i class="fa fa-angle-up"></i>
-                        </div>
-                    </div>
-                    <!--profile-box--->
+					<?php wpp_get_template_part( 'wpp/templates/profile/skills-box', [
+						'is_company' => $is_company,
+						'user_ID'    => $user_ID
+					] ); ?>
 
 					<?php if ( fre_share_role() || $user_role == FREELANCER ) { ?>
                         <div class="profile-freelance-available hidden">
@@ -459,7 +365,7 @@
                                         </li>
                                     </ul>
                                     <ul class="dop">
-										<? getActivityDetailUser( $user_ID ) ?>
+										<?php getActivityDetailUser( $user_ID ) ?>
                                     </ul>
                                 </div>
                                 <div class="col-sm-12 col-md-4 col-lg-4 col-xs-12">
@@ -467,65 +373,59 @@
 										<?php if ( fre_share_role() || ae_user_role( $user_data->ID ) == FREELANCER ) { ?>
                                             <div class="fre-blog-item fre-blog-item-2">
                                                 <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center"><a
-                                                                href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">Business
-                                                            promotion with Know-How</a></div>
-                                                    <div class="fre-blog-item_d center"><p>Some 2-3 articles/posts per
-                                                            month
-                                                            would work very effectively to promote your business and
-                                                            support
-                                                            your brand with potential customers.</p></div>
+                                                    <div class="fre-blog-item_t center">
+                                                        <a href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">
+                                                            Business promotion with Know-How
+                                                        </a>
+                                                    </div>
+                                                    <div class="fre-blog-item_d center">
+                                                        <p><?php _e( 'Some 2-3 articles/posts per month would work very effectively to promote your business and support your brand with potential customers.', WPP_TEXT_DOMAIN ) ?></p>
+                                                    </div>
                                                     <br>
-                                                    <div class="fre-blog-item_more"><a
-                                                                href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">MORE
-                                                            DETAILS</a></div>
+													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/business-promotion-with-know-how/' ] ); ?>
                                                 </div>
                                             </div>
                                             <div class="fre-blog-item fre-blog-item-2">
                                                 <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center"><a
-                                                                href="/pro-benefits-for-pro/">Pro
-                                                            benefits for Pro</a></div>
-                                                    <div class="fre-blog-item_d center"><p>You are a Trusted
-                                                            Professional.
-                                                            Choose and activate your PRO plan to get benefits from it.
-                                                        </p></div>
+                                                    <div class="fre-blog-item_t center">
+                                                        <a href="/pro-benefits-for-pro/">
+															<?php _e( 'Pro benefits for Pro', WPP_TEXT_DOMAIN ) ?>
+                                                        </a>
+                                                    </div>
+                                                    <div class="fre-blog-item_d center">
+                                                        <p><?php _e( 'You are a Trusted Professional. Choose and activate your PRO plan to get benefits from it.', WPP_TEXT_DOMAIN ) ?></p>
+                                                    </div>
                                                     <br>
-                                                    <div class="fre-blog-item_more"><a href="/pro-benefits-for-pro/">MORE
-                                                            DETAILS</a></div>
+													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/pro-benefits-for-pro/' ] ); ?>
                                                 </div>
                                             </div>
                                             <div class="fre-blog-item fre-blog-item-2">
                                                 <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center"><a
-                                                                href="/why-referals-are-very-important-pro-2/">Why
-                                                            referals
-                                                            are very important for PRO</a></div>
-                                                    <div class="fre-blog-item_d center"><p>You can be in TOP
-                                                            Professionals.
-                                                            Promote your business constantly. Share your profile via
-                                                            email,
-                                                            in social networks, and even offline.
-                                                        </p></div>
+                                                    <div class="fre-blog-item_t center">
+                                                        <a href="/why-referals-are-very-important-pro-2/">
+															<?php _e( 'Why referals are very important for PRO', WPP_TEXT_DOMAIN ) ?>
+                                                        </a>
+                                                    </div>
+                                                    <div class="fre-blog-item_d center">
+                                                        <p><?php _e( 'YYou can be in TOP Professionals. Promote your business constantly. Share your profile via email, in social networks, and even offline.', WPP_TEXT_DOMAIN ) ?></p>
+                                                    </div>
                                                     <br>
-                                                    <div class="fre-blog-item_more"><a
-                                                                href="/why-referals-are-very-important-pro-2/">MORE
-                                                            DETAILS</a></div>
+													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/why-referals-are-very-important-pro-2/' ] ); ?>
                                                 </div>
                                             </div>
 										<?php } else { ?>
                                             <div class="fre-blog-item fre-blog-item-1">
                                                 <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center"><a
-                                                                href="/pro-benefits-for-client/">Pro
-                                                            benefits for Client</a></div>
-                                                    <div class="fre-blog-item_d center"><p>You are a Trusted Client.
-                                                            Choose
-                                                            and activate your PRO plan to get many benefits from it.</p>
+                                                    <div class="fre-blog-item_t center">
+                                                        <a href="/pro-benefits-for-client/">
+															<?php _e( 'Pro benefits for Client', WPP_TEXT_DOMAIN ) ?>
+                                                        </a>
+                                                    </div>
+                                                    <div class="fre-blog-item_d center">
+                                                        <p><?php _e( 'You are a Trusted Client. Choose and activate your PRO plan to get many benefits from it.', WPP_TEXT_DOMAIN ) ?></p>
                                                     </div>
                                                     <br>
-                                                    <div class="fre-blog-item_more"><a href="/pro-benefits-for-client/">MORE
-                                                            DETAILS</a></div>
+													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/pro-benefits-for-client/' ] ); ?>
                                                 </div>
 
                                             </div>
@@ -541,9 +441,7 @@
                                                             email
                                                             and social networks.</p></div>
                                                     <br>
-                                                    <div class="fre-blog-item_more"><a
-                                                                href="/why-referals-are-very-important-client/">MORE
-                                                            DETAILS</a></div>
+													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/why-referals-are-very-important-client/' ] ); ?>
                                                 </div>
                                             </div>
 										<?php } ?>
@@ -607,18 +505,7 @@
 										<?php echo __( "Referrals Connected:", ET_DOMAIN ); ?>
                                         <span><?php echo $count_referrals ?></span></p>
                                 </div>
-                                <!-- <div class="awards"><span><?php echo __( "Awards:", ET_DOMAIN ); ?></span>
-                                <ul>
-                                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/aw3.png" alt=""/><span
-                                                class="visible-xs">Gold Members</span></li>
-                                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/aw4.png" alt=""/><span
-                                                class="visible-xs">Gold Members</span></li>
-                                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/aw1.png" alt=""/><span
-                                                class="visible-xs">Gold Members</span></li>
-                                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/aw2.png" alt=""/><span
-                                                class="visible-xs">Gold Members</span></li>
-                                </ul>
-                            </div>-->
+								<?php //wpp_get_template_part( 'wpp/templates/profile/awards-small' ); ?>
                             </div>
                             <div class="col-sm-3 col-xs-12">
                                 <a href='/referrals' class='fre-status unsubmit-btn btn-right'>
@@ -882,60 +769,9 @@
 
 
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-7 col-xs-12">
-										<?php $fb     = get_post_meta( $profile_id, 'facebook', true );
-											$skype    = get_post_meta( $profile_id, 'skype', true );
-											$web      = get_post_meta( $profile_id, 'website', true );
-											$viber    = get_post_meta( $profile_id, 'viber', true );
-											$wapp     = get_post_meta( $profile_id, 'whatsapp', true );
-											$telegram = get_post_meta( $profile_id, 'telegram', true );
-											$wechat   = get_post_meta( $profile_id, 'wechat', true );
-											$ln       = get_post_meta( $profile_id, 'linkedin', true );
-											if ( $fb ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Facebook:</span>
-                                                    <a href="<?php echo $fb; ?>" target="_blank" rel="nofollow">
-														<?php echo $fb; ?>
-                                                    </a>
-                                                </p>
-											<?php }
-											if ( $skype ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Skype:</span>
-													<?php echo $skype; ?>
-                                                </p>
-											<?php }
-											if ( $web ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Website:</span>
-													<?php echo $web; ?>
-                                                </p>
-											<?php }
-											if ( $viber ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Viber:</span>
-													<?php echo $viber; ?>
-                                                </p>
-											<?php } ?>
-										<?php if ( $wapp ) { ?>
-                                            <p class="col-sm-6 col-xs-12"><span>WhatsApp:</span>
-												<?php echo $wapp; ?>
-                                            </p>
-										<?php }
-											if ( $telegram ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Telegram:</span>
-													<?php echo $telegram; ?>
-                                                </p>
-											<?php }
-											if ( $wechat ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>WeChat:</span>
-													<?php echo $wechat; ?>
-                                                </p>
-											<?php }
-											if ( $ln ) { ?>
-                                                <p class="col-sm-6 col-xs-12"><span>Linkedin:</span>
-                                                    <a href="<?php echo $ln; ?>" target="_blank" rel="nofollow">
-														<?php echo $ln; ?>
-                                                    </a>
-                                                </p>
-											<?php } ?>
-                                    </div>
+
+
+									<?php wpp_get_template_part( 'wpp/templates/profile/social-links', [ 'profile_id' => $profile_id ] ); ?>
                                 </div>
                                 <!--soc inf + email verf -->
 
@@ -964,7 +800,7 @@
 																<?php _e( 'Change Photo', ET_DOMAIN ) ?>
                                                             </a>
                                                         </div>
-                                                        <div class=" <?php if ( fre_share_role() || $user_role == FREELANCER ) { ?> col-md-8 col-lg-6 <? } else { ?> col-md-10 col-lg-10 <?php } ?> col-sm-12 col-xs-12 fre-input-field">
+                                                        <div class=" <?php if ( fre_share_role() || $user_role == FREELANCER ) { ?> col-md-8 col-lg-6 <?php } else { ?> col-md-10 col-lg-10 <?php } ?> col-sm-12 col-xs-12 fre-input-field">
                                                             <label class="fre-field-title">About me</label>
 															<?php
 
@@ -1039,7 +875,7 @@
                                                                         <option data-icon="<?php echo $data[ 'flag' ] ?>" <?php echo $is_selected ?>>
 																			<?php echo $data[ 'code' ] ?>
                                                                         </option>
-																	<? }
+																	<?php }
 																?>
                                                             </select>
                                                         </div>
@@ -1112,7 +948,7 @@
                                                                 </div>
                                                             </div>
 														<?php } ?>
-														<? if ( $user_role == FREELANCER ) { ?>
+														<?php if ( $user_role == FREELANCER ) { ?>
                                                             <div class="col-sm-12 col-xs-12 fre-input-field">
 																<?php $email_skill = isset( $profile->email_skill ) ? (int) $profile->email_skill : 1; ?>
                                                                 <label class="checkline" for="email-skill">
@@ -1135,7 +971,7 @@
 														<?php if ( $personal_cover ) { ?>
                                                             <div class="col-sm-12 col-xs-12 text-center">
                                                                 <label class="fre-field-title"><?php _e( 'Personal cover', ET_DOMAIN ); ?>
-                                                                    <span><? _e( '(Max upload file size 2MB, allowed file types png, jpg)', ET_DOMAIN ); ?></span>
+                                                                    <span><?php _e( '(Max upload file size 2MB, allowed file types png, jpg)', ET_DOMAIN ); ?></span>
                                                                 </label>
                                                                 <div class="box_upload_img">
                                                                     <ul id="listImgPreviews"
@@ -1155,7 +991,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </li>
-																			<? } ?>
+																			<?php } ?>
                                                                     </ul>
                                                                     <div class="upfiles-container">
                                                                         <div class="fre-upload-file">
@@ -1254,13 +1090,7 @@
 
     <!-- CURRENT PROFILE -->
 <?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) { ?>
-    <script type="data/json" id="current_profile">
-        <?php echo json_encode( $profile ) ?>
-    
-
-
-
-    </script>
+    <script type="data/json" id="current_profile"> <?php echo json_encode( $profile ) ?></script>
 <?php } ?>
     <!-- END / CURRENT PROFILE -->
 

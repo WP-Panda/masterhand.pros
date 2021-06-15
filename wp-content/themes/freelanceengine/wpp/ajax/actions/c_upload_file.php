@@ -83,7 +83,7 @@
 				}
 				$insert = $wpdb->insert( $table_name, $one_row );
 				if ( empty( $insert ) ) {
-					wpp_d_log( $one_row );
+					//wpp_d_log( $one_row );
 				}
 				$new ++;
 			} else {

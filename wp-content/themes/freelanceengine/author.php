@@ -257,7 +257,7 @@
                                 <div class="bl_t">
 									<?php echo __( 'Skills and Endorsements:', ET_DOMAIN ); ?>
                                 </div>
-								<? wp_enqueue_style( 'endoSk' );
+								<?/* wp_enqueue_style( 'endoSk' );
 									if ( is_plugin_active( 'referral_code/referral_code.php' ) ) {
 										$list_referral = get_referral( $user_ID );
 										$res           = false;
@@ -279,8 +279,26 @@
 									if ( $modeEndorse ) {
 										wp_enqueue_script( 'endoSk' );
 									}
-									renderSkillsInProfile( $author_id, $modeEndorse, $user_ID );
+									renderSkillsInProfile( $author_id, $modeEndorse, $user_ID );*/
 								?>
+                                <ul id="list_skills_user">
+		                            <?php
+
+			                            $endorse_class = wpp_is_endorse_allow( $author_id) ? ' mode-endorse' : '';
+
+			                            $skills = WPP_Skills_User::getInstance()->get_user_skill_list($author_id );
+			                            if ( ! empty( $skills ) ) :
+				                            foreach ( $skills as $skill ) {
+
+					                            $endorsed_data = wpp_is_endorse_allow( $author_id  ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id , $skill[ 'id' ] ) : '';
+					                            $endorsed      = wpp_is_endorsed( $author_id , $skill[ 'id' ] ) ? ' endorsed' : '';
+
+
+					                            printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>', $endorse_class, $endorsed, $endorsed_data, $skill[ 'title' ], __( 'counts of endorsement', WPP_TEXT_DOMAIN ), $skill[ 'count' ] );
+				                            }
+			                            endif;
+		                            ?>
+                                </ul>
                             </div>
                             <!-- пока нет наград - скрываем НЕ УДАЛЯТЬ!!!!!!!!!!!!
                         <div class="col-sm-6 col-xs-12 award-list">

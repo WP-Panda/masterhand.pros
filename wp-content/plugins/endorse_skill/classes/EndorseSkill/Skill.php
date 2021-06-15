@@ -173,7 +173,7 @@ class Skill extends Base
 //		'/[\s|+|=|_|;|\\|\']/'
 
 		$str = preg_replace('/[^a-zA-Z\s-]/', '', $str);
-		$str = preg_replace('/\s{2,}/', ' ', $str);
+		$str = preg_replace('/\s{2,}/', '', $str);
 		return $str;
 	}
 }

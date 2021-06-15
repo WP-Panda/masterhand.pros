@@ -46,3 +46,22 @@
 		}
 
 	endif;
+
+
+	if ( ! function_exists( 'wpp_clean_str' ) ) :
+
+		/**
+		 * Очистка строки, оставляет только цифры, буквы, и одиночные пробелы
+		 *
+		 * @param $str
+		 *
+		 * @return null|string
+		 */
+		function wpp_clean_str( $str ) {
+			$str = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/u", '', $str );
+			$str = preg_replace( '/\s{2,}/', ' ', $str );
+
+			return $str;
+		}
+
+	endif;
