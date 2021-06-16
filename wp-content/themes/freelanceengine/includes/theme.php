@@ -213,7 +213,7 @@
 		if ( $bid_id === false ) {
 			global $post;
 
-			if ( isset( $post ) ) {
+			if ( isset( $post->ID) ) {
 				$bid_id = (int) $post->ID;
 			}
 		} else {

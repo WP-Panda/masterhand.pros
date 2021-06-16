@@ -126,12 +126,6 @@ class WPP_Get_IMG {
 					imagesavealpha( $image, true ); // сохраняет прозрачность
 				}
 
-				if ( empty( $image ) || empty( $web_p ) ) {
-					wpp_console( $src );
-					wpp_console( $dir_full );
-					wpp_console( $path );
-					wpp_console( $web_p );
-				}
 				imagewebp( $image, $web_p, 100 ); // сохраняет файл в webp
 				$out = ! empty( $image ) ? str_replace( $upload_dir['basedir'], $upload_dir['baseurl'], $web_p ) : false;
 			}

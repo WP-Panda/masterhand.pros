@@ -152,7 +152,7 @@ if($convert) {
                                         echo '<div class="portfolio-container">';
                                             get_template_part('template/portfolios', 'filter' );
                                             // list portfolio
-                                            get_template_part( 'list', 'portfolios' );
+	                                        wpp_get_template_part( 'wpp/templates/profile/lists/portfolios' );
                                         echo '</div>';
                                         else :
                                         endif;

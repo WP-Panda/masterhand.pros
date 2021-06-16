@@ -1,15 +1,22 @@
 <?php
 	//global $user_ID;
+	global $wp_query, $ae_post_factory, $post, $wpp_fr;
 	$max_doxs = 5;
+
+	$is_edit = false;
 
 	if ( is_author() ) {
 		$author_id = get_query_var( 'author' );
+		if ( (int) $wpp_fr->user === (int) $author_id ) {
+			$is_edit = true;
+		}
 	} else {
-		$author_id = get_current_user_id();
+		$author_id = $wpp_fr->user;
 	}
 
 	$profile_id    = get_user_meta( $author_id, 'user_profile_id', true );
 	$document_list = get_post_meta( $profile_id, 'document_list', true );
+
 
 	if ( ! empty( $document_list ) ) {
 		$documents_id = is_numeric( $document_list ) ? [ $document_list ] : explode( ', ', $document_list );
@@ -25,7 +32,7 @@
     <div class="row">
         <div class="col-sm-6 col-xs-12">
             <div class="freelance-portfolio-title"><?php _e( 'Documents & Licenses', ET_DOMAIN ) ?></div>
-            <input type="hidden" name="profile_id" value="<?= $profile_id ?>"/>
+            <input type="hidden" name="profile_id" value="<?php echo $profile_id ?>"/>
         </div>
 		<?php
 			if ( $count_docs < $max_doxs ) { ?>
@@ -136,12 +143,16 @@
 	<?php } else { ?>
         <ul class="freelance-portfolio-list row">
 			<?php
+
 				foreach ( $documents_id as $item ) {
+					//_dump( $item );
 					$doc_data = get_post( $item );
-					$document = [ 'id'    => $item,
-					              'url'   => wp_get_attachment_url( $item ),
-					              'mime'  => $doc_data->post_mime_type,
-					              'title' => $doc_data->post_title
+					//wpp_dump( $doc_data );
+					$document = [
+						'id'    => $item,
+						'url'   => wp_get_attachment_url( $item ),
+						'mime'  => $doc_data->post_mime_type,
+						'title' => $doc_data->post_title
 					];
 
 					$is_application_mime = stripos( $document[ 'mime' ], 'application' ) !== false ? true : false;
@@ -180,7 +191,7 @@
                                  style="background:url(<?php echo $document[ 'url' ] ?>) center no-repeat;">
                                 <a href="javascript:void(0)" class="fre-view-portfolio-new"
                                    data-id="<?php echo $document[ 'id' ] ?>"></a>
-                                <img src="<?= $document[ 'url' ] ?>" style="display:none;">
+                                <img src="<?php echo $document[ 'url' ] ?>" style="display:none;">
 
 								<?php if ( $is_application_mime ) { ?>
                                     <img src="<?php echo $icon ?>"
@@ -191,10 +202,10 @@
                                     </span>
 								<?php } ?>
                             </div>
-							<?php if ( $is_edit ) { ?>
+							<?php if ( true === $is_edit ) { ?>
                                 <div class="portfolio-action">
 									<?php if ( $is_application_mime ) { ?>
-                                        <a href="<?= $document[ 'url' ] ?>" target="_blank"
+                                        <a href="<?php echo $document[ 'url' ] ?>" target="_blank"
                                            class="fre-submit-btn btn-center"><?php _e( 'Open', ET_DOMAIN ) ?></a>
 									<?php } else { ?>
                                         <a href="#modal_show_file" data-toggle="modal" class="fre-submit-btn btn-center"

@@ -11,18 +11,19 @@
 	 * @subpackage FreelanceEngine
 	 * @since      FreelanceEngine 1.0
 	 */
-	global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
+	global $wp_query, $ae_post_factory, $post, $current_user, $wpp_fr;
 
 	//convert current user
 	$ae_users = AE_Users::get_instance();
 
 	$user_data = $ae_users->convert( $current_user->data );
-	$user_role = ae_user_role( $current_user->ID );
+
+	$user_role = ae_user_role( $wpp_fr->user );
 	//convert current profile
 	$post_object     = $ae_post_factory->get( PROFILE );
-	$profile_id      = get_user_meta( $user_ID, 'user_profile_id', true );
-	$user_phone_code = get_user_meta( $user_ID, 'ihs-country-code', true );
-	$user_phone      = get_user_meta( $user_ID, 'user_phone', true );
+	$profile_id      = get_user_meta( $wpp_fr->user, 'user_profile_id', true );
+	$user_phone_code = get_user_meta( $wpp_fr->user, 'ihs-country-code', true );
+	$user_phone      = get_user_meta( $wpp_fr->user, 'user_phone', true );
 
 	$profile = [];
 	if ( $profile_id ) {
@@ -32,8 +33,6 @@
 			$profile = $post_object->convert( $profile_post );
 		}
 	}
-
-	$isFreelancer = ( userRole( $user_ID ) == FREELANCER ) ? 1 : 0;
 
 	$current_profile_categories = get_the_terms( $profile, 'project_category' );
 	//define variables:
@@ -235,7 +234,7 @@
                                 <div class="col-md-2 col-sm-3 col-lg-2 col-xs-12 skills">
                                     <div class="skill col-sm-12 col-xs-6">
 										<?php echo __( 'skills & endorsements', ET_DOMAIN ); ?>
-                                        <span><?php echo countEndorseSkillsUser( $user_ID ) ?></span>
+                                        <span><?php //echo //countEndorseSkillsUser( $user_ID ) ?></span>
                                     </div>
                                     <div class="skill col-sm-12 col-xs-6">
 										<?php echo __( 'awards', ET_DOMAIN ); ?><span>0</span>
@@ -368,85 +367,59 @@
 										<?php getActivityDetailUser( $user_ID ) ?>
                                     </ul>
                                 </div>
+
                                 <div class="col-sm-12 col-md-4 col-lg-4 col-xs-12">
                                     <div class="category">
-										<?php if ( fre_share_role() || ae_user_role( $user_data->ID ) == FREELANCER ) { ?>
-                                            <div class="fre-blog-item fre-blog-item-2">
-                                                <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center">
-                                                        <a href="<?php echo WPP_HOME; ?>/business-promotion-with-know-how/">
-                                                            Business promotion with Know-How
-                                                        </a>
-                                                    </div>
-                                                    <div class="fre-blog-item_d center">
-                                                        <p><?php _e( 'Some 2-3 articles/posts per month would work very effectively to promote your business and support your brand with potential customers.', WPP_TEXT_DOMAIN ) ?></p>
-                                                    </div>
-                                                    <br>
-													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/business-promotion-with-know-how/' ] ); ?>
-                                                </div>
-                                            </div>
-                                            <div class="fre-blog-item fre-blog-item-2">
-                                                <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center">
-                                                        <a href="/pro-benefits-for-pro/">
-															<?php _e( 'Pro benefits for Pro', WPP_TEXT_DOMAIN ) ?>
-                                                        </a>
-                                                    </div>
-                                                    <div class="fre-blog-item_d center">
-                                                        <p><?php _e( 'You are a Trusted Professional. Choose and activate your PRO plan to get benefits from it.', WPP_TEXT_DOMAIN ) ?></p>
-                                                    </div>
-                                                    <br>
-													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/pro-benefits-for-pro/' ] ); ?>
-                                                </div>
-                                            </div>
-                                            <div class="fre-blog-item fre-blog-item-2">
-                                                <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center">
-                                                        <a href="/why-referals-are-very-important-pro-2/">
-															<?php _e( 'Why referals are very important for PRO', WPP_TEXT_DOMAIN ) ?>
-                                                        </a>
-                                                    </div>
-                                                    <div class="fre-blog-item_d center">
-                                                        <p><?php _e( 'YYou can be in TOP Professionals. Promote your business constantly. Share your profile via email, in social networks, and even offline.', WPP_TEXT_DOMAIN ) ?></p>
-                                                    </div>
-                                                    <br>
-													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/why-referals-are-very-important-pro-2/' ] ); ?>
-                                                </div>
-                                            </div>
-										<?php } else { ?>
-                                            <div class="fre-blog-item fre-blog-item-1">
-                                                <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center">
-                                                        <a href="/pro-benefits-for-client/">
-															<?php _e( 'Pro benefits for Client', WPP_TEXT_DOMAIN ) ?>
-                                                        </a>
-                                                    </div>
-                                                    <div class="fre-blog-item_d center">
-                                                        <p><?php _e( 'You are a Trusted Client. Choose and activate your PRO plan to get many benefits from it.', WPP_TEXT_DOMAIN ) ?></p>
-                                                    </div>
-                                                    <br>
-													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/pro-benefits-for-client/' ] ); ?>
-                                                </div>
+										<?php
+											if ( wpp_fre_is_freelancer() ) {
 
-                                            </div>
-                                            <div class="fre-blog-item fre-blog-item-1">
-                                                <div class="overlay-block">
-                                                    <div class="fre-blog-item_t center"><a
-                                                                href="/why-referals-are-very-important-client/">Why
-                                                            referals
-                                                            are very important for Client</a></div>
-                                                    <div class="fre-blog-item_d center"><p>You can be a highly ranked
-                                                            Client- uphold your reputation and increase your rating
-                                                            constantly. Invite new referrals using special tools via
-                                                            email
-                                                            and social networks.</p></div>
-                                                    <br>
-													<?php wpp_get_template_part( 'wpp/templates/universal/more-btn', [ 'url' => '/why-referals-are-very-important-client/' ] ); ?>
-                                                </div>
-                                            </div>
-										<?php } ?>
+												$args = [
+													[
+														'url'   => '/business-promotion-with-know-how/',
+														'ankor' => __( 'Business promotion with Know-How', WPP_TEXT_DOMAIN ),
+														'text'  => __( 'Some 2-3 articles/posts per month would work very effectively to promote your business and support your brand with potential customers.', WPP_TEXT_DOMAIN ),
+														'type'  => 2
+													],
+													[
+														'url'   => '/pro-benefits-for-pro/',
+														'ankor' => __( 'Pro benefits for Pro', WPP_TEXT_DOMAIN ),
+														'text'  => __( 'You are a Trusted Professional. Choose and activate your PRO plan to get benefits from it.', WPP_TEXT_DOMAIN ),
+														'type'  => 2
+													],
+													[
+														'url'   => '/why-referals-are-very-important-pro-2/',
+														'ankor' => __( 'Why referals are very important for PRO', WPP_TEXT_DOMAIN ),
+														'text'  => __( 'You can be in TOP Professionals. Promote your business constantly. Share your profile via email, in social networks, and even offline.', WPP_TEXT_DOMAIN ),
+														'type'  => 2
+													]
+												];
+
+											} else {
+
+												$args = [
+													[
+														'url'   => '/pro-benefits-for-client/',
+														'ankor' => __( 'Pro benefits for Client', WPP_TEXT_DOMAIN ),
+														'text'  => __( 'You are a Trusted Client. Choose and activate your PRO plan to get many benefits from it.', WPP_TEXT_DOMAIN ),
+														'type'  => 1
+													],
+													[
+														'url'   => '/why-referals-are-very-important-client/',
+														'ankor' => __( 'Why referals are very important for Client', WPP_TEXT_DOMAIN ),
+														'text'  => __( 'You can be a highly ranked Client- uphold your reputation and increase your rating constantly. Invite new referrals using special tools via email and social networks.', WPP_TEXT_DOMAIN ),
+														'type'  => 1
+													]
+												];
+
+											}
+
+											foreach ( $args as $one ) {
+												wpp_get_template_part( 'wpp/templates/profile/info-side-block', $one );
+											} ?>
+
                                     </div>
                                 </div>
+
                                 <div class="col-sm-12 col-md-4 col-lg-4 col-xs-12" hidden>
                                     <div class="category">
 										<?php $stposts = [
@@ -567,7 +540,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 visible-xs fre-jobs_txt">
-										<?php if ( fre_share_role() || $isFreelancer ) {
+										<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) {
 											if ( $hour_rate > 0 ) { ?>
                                                 <div class="rate visible-xs">
 													<?php echo __( "Rate:", ET_DOMAIN ); ?>
@@ -582,7 +555,7 @@
                                            class="fre-submit-btn employer-info-edit-btn btn-right">
 											<?php _e( 'Edit', ET_DOMAIN ) ?>
                                         </a>
-										<?php if ( fre_share_role() || $isFreelancer ) { ?>
+										<?php if ( fre_share_role() ||wpp_fre_is_freelancer() ) { ?>
 											<?php if ( $hour_rate > 0 ) { ?>
                                                 <div class="rate hidden-xs">
 													<?php echo __( "Rate:", ET_DOMAIN ); ?>
@@ -1063,8 +1036,9 @@
                                     </div>
                                 </div>
 
-								<?php get_template_part( 'list', 'portfolios' );
-								get_template_part( 'list', 'documents' );
+								<?php
+								wpp_get_template_part( 'wpp/templates/profile/lists/portfolios' );
+								wpp_get_template_part( 'wpp/templates/profile/lists/documents' );
 								wp_reset_query();
 								if ( ! $is_company ) {
 									?>

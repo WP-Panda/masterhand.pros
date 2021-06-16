@@ -2,22 +2,21 @@
 	/**
 	 * Use for page author.php and page-profile.php
 	 */
-	global $wp_query, $ae_post_factory, $post;
-	$current_user = wp_get_current_user();
+	global $wp_query, $ae_post_factory, $post, $wpp_fr;
 
 	$wp_query->query = array_merge( $wp_query->query, [ 'posts_per_page' => 6 ] );
 
 	$post_object = $ae_post_factory->get( 'portfolio' );
 	$is_edit     = false;
+
 	if ( is_author() ) {
 		$author_id = get_query_var( 'author' );
 	} else {
-		$author_id = get_current_user_id();
+		$author_id = $wpp_fr->user;
 		$is_edit   = true;
 	}
 
 	$query_args = [
-		// 'post_parent' => $convert->ID,
 		'posts_per_page' => 6,
 		'post_status'    => 'publish',
 		'post_type'      => PORTFOLIO,
@@ -26,16 +25,9 @@
 	];
 
 	query_posts( $query_args );
-	//echo '<pre>' . var_dump($current_user) . '</pre>';
-
-	//new2
-	//if (function_exists('count_portfolio')) {
-	//    $cp = count_portfolio($current_user);
-	//    // $cp = 2;
-	//}
 
 	if ( function_exists( 'set_function_for_add_pro_status' ) ) {
-		$pro_status      = get_user_pro_status( $user_ID );
+		$pro_status      = get_user_pro_status( $author_id );
 		$count_portfolio = getValueByProperty( $pro_status, 'work_in_portfolio' );
 		$flag            = ! $count_portfolio ? false : true;
 	} else {

@@ -24,20 +24,24 @@
 	}
 
 	$array = [
+		'WppFr',
+		'WppFr_Assets',
 		'wpp-core/init',
 		'helpers/init',
 		'users/init',
 		'fixes',
 		'php_ext',
 		'db',
-		'companies/init',
+		'modules/companies/init',
 		'error-api',
 		'helpers',
 		'ajax/init',
 		'setting/init',
-		'skills/init'
+		'modules/skills/init'
 	];
 
 	foreach ( $array as $file ) :
 		require_once $file . '.php';
 	endforeach;
+
+	$GLOBALS['wpp_fr'] = new WppMain\WppFr();

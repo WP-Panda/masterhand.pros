@@ -42,7 +42,7 @@
 		}
 	}
 
-	$isFreelancer = ( ae_user_role( $author_id ) == FREELANCER ) ? 1 : 0;
+	$isFreelancer = ( ae_user_role( $current_user->ID ) == FREELANCER ) ? 1 : 0;
 
 	//get profile skills
 	$current_skills             = get_the_terms( $profile, 'skill' );
@@ -237,9 +237,9 @@
 												} ?>
                                             <span class="rating-new">+<?= getActivityRatingUser( $metas ) ?></span>
                                         </div>
-                                        <div class="col-sm-3 col-xs-5 text-center endors <?= checkEndorseSkills( $user_ID, $metas ) ?>">
-											<?= checkEndorseSkills( $user_ID, $metas ) ?>
-                                        </div>
+                                        <!--<div class="col-sm-3 col-xs-5 text-center endors <?/*= checkEndorseSkills( $user_ID, $metas ) */?>">
+											<?/*= checkEndorseSkills( $user_ID, $metas ) */?>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
