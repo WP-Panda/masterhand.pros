@@ -58,13 +58,12 @@
                                                 </ul>
                                                 <div class="upfiles-container">
                                                     <div class="fre-upload-file">
-                                                        Upload Files
-                                                        <input id="upfiles" type="file" multiple=""
-                                                               accept=".jpeg, .gif, .png, .pdf, .xls, .xlsx, .txt, .doc, .docx">
+                                                       <?php _e('Upload Files', WPP_TEXT_DOMAIN ); ?>
+                                                        <input id="upfiles" type="file" multiple="" accept=".jpeg, .gif, .png, .pdf, .xls, .xlsx, .txt, .doc, .docx">
                                                     </div>
                                                 </div>
                                                 <p class="fre-allow-upload">
-													<? _e( '(Maximum upload file size is limited to 5MB, maximum for 10 items, allowed file types in the png, jpg, gif, pdf, xls, xlsx, doc, txt)' ); ?>
+													<?php _e( '(Maximum upload file size is limited to 5MB, maximum for 10 items, allowed file types in the png, jpg, gif, pdf, xls, xlsx, doc, txt)' ); ?>
                                                 </p>
                                             </div>
                                             <div class="fre-form-btn">

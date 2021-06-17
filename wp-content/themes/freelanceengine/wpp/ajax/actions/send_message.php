@@ -40,8 +40,7 @@
 		}
 
 		$insert_array = [
-			#'post_status'   => 'draft',
-			'post_status'   => 'publish',
+			'post_status'   => 'draft',
 			'post_type'     => 'post',
 			'post_author'   => get_current_user_id(),
 			'post_title'    => $title,
