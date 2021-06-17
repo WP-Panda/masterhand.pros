@@ -106,6 +106,8 @@
 	if ( $visualFlag ) {
 		$visualFlagNumber = get_user_meta( $author_id, 'visual_flag', true );
 	}
+
+
 ?>
 
     <div class="fre-page-wrapper list-profile-wrapper" <?php echo $style ?>>

@@ -53,13 +53,14 @@
                     <div class="fre-blog-list-sticky">
                         <div class="row">
 							<?php $sticky = get_option( 'sticky_posts' ); ?>
-							<?php $query = new WP_Query( [ 'posts_per_page'      => 1,
-							                               'ignore_sticky_posts' => 1,
-							                               'post_type'           => 'post',
-							                               'post_status'         => 'publish',
-							                               'post__in'            => $sticky,
-							                               'orderby'             => 'date',
-							                               'order'               => 'desc'
+							<?php $query = new WP_Query( [
+								'posts_per_page'      => 1,
+								'ignore_sticky_posts' => 1,
+								'post_type'           => 'post',
+								'post_status'         => 'publish',
+								'post__in'            => $sticky,
+								'orderby'             => 'date',
+								'order'               => 'desc'
 							] ); ?>
                             <div class="col-sm-7 col-md-8 col-lg-8 col-xs-12 fre-blog-list-sticky_main">
 								<?php while ( $query->have_posts() ) {
@@ -69,14 +70,15 @@
                             </div>
 							<?php wp_reset_query(); ?>
                             <div class="col-sm-5 col-md-4 col-lg-4 col-xs-12">
-								<?php $query = new WP_Query( [ 'posts_per_page'      => 3,
-								                               'offset'              => 1,
-								                               'ignore_sticky_posts' => 1,
-								                               'post_type'           => 'post',
-								                               'post_status'         => 'publish',
-								                               'post__in'            => $sticky,
-								                               'orderby'             => 'date',
-								                               'order'               => 'desc'
+								<?php $query = new WP_Query( [
+									'posts_per_page'      => 3,
+									'offset'              => 1,
+									'ignore_sticky_posts' => 1,
+									'post_type'           => 'post',
+									'post_status'         => 'publish',
+									'post__in'            => $sticky,
+									'orderby'             => 'date',
+									'order'               => 'desc'
 								] ); ?>
 								<?php while ( $query->have_posts() ) {
 									$query->the_post();
@@ -88,10 +90,11 @@
                     </div>
 
                     <div class="fre-blog-fst_bl">
-						<?php $query1 = new WP_Query( [ 'post_type'      => 'post',
-						                                'post_status'    => 'publish',
-						                                'posts_per_page' => 10,
-						                                'category__in'   => $blog_category1
+						<?php $query1 = new WP_Query( [
+							'post_type'      => 'post',
+							'post_status'    => 'publish',
+							'posts_per_page' => 10,
+							'category__in'   => $blog_category1
 						] ); ?>
 						<? if ( $query1 && ! is_wp_error( $query1 ) ) {
 							$term1 = get_term( $blog_category1, 'category' ); ?>
@@ -106,10 +109,11 @@
 							wp_reset_query(); ?>
                     </div>
                     <div class="fre-blog-snd_bl">
-						<?php $query2 = new WP_Query( [ 'post_type'      => 'post',
-						                                'post_status'    => 'publish',
-						                                'posts_per_page' => 10,
-						                                'cat'            => $blog_category2
+						<?php $query2 = new WP_Query( [
+							'post_type'      => 'post',
+							'post_status'    => 'publish',
+							'posts_per_page' => 10,
+							'cat'            => $blog_category2
 						] );
 							$count    = $query2->post_count;
 							if ( $query2 && ! is_wp_error( $query2 ) ) {
@@ -149,10 +153,11 @@
 							wp_reset_query(); ?>
                     </div>
                     <div class="fre-blog-snd_bl">
-						<?php $query3 = new WP_Query( [ 'post_type'      => 'post',
-						                                'post_status'    => 'publish',
-						                                'posts_per_page' => 10,
-						                                'cat'            => $blog_category3
+						<?php $query3 = new WP_Query( [
+							'post_type'      => 'post',
+							'post_status'    => 'publish',
+							'posts_per_page' => 10,
+							'cat'            => $blog_category3
 						] ); ?>
 						<? if ( $query3 && ! is_wp_error( $query3 ) ) {
 							$term3 = get_term( $blog_category3, 'category' ); ?>
@@ -192,10 +197,11 @@
 							wp_reset_query(); ?>
                     </div>
                     <div class="fre-blog-thd_bl">
-						<?php $query4 = new WP_Query( [ 'post_type'      => 'post',
-						                                'post_status'    => 'publish',
-						                                'posts_per_page' => 10,
-						                                'cat'            => $blog_category4
+						<?php $query4 = new WP_Query( [
+							'post_type'      => 'post',
+							'post_status'    => 'publish',
+							'posts_per_page' => 10,
+							'cat'            => $blog_category4
 						] ); ?>
 						<? if ( $query4 && ! is_wp_error( $query4 ) ) {
 							$term4 = get_term( $blog_category4, 'category' ); ?>
@@ -283,13 +289,14 @@
                         <div class="fre-blog-list-sticky">
                             <div class="row">
 								<?php $sticky = get_option( 'sticky_posts' );
-									$query    = new WP_Query( [ 'cat'                 => $term_id,
-									                            'posts_per_page'      => 2,
-									                            'ignore_sticky_posts' => 1,
-									                            'post_status'         => 'publish',
-									                            'post__in'            => $sticky,
-									                            'orderby'             => 'date',
-									                            'order'               => 'desc'
+									$query    = new WP_Query( [
+										'cat'                 => $term_id,
+										'posts_per_page'      => 2,
+										'ignore_sticky_posts' => 1,
+										'post_status'         => 'publish',
+										'post__in'            => $sticky,
+										'orderby'             => 'date',
+										'order'               => 'desc'
 									] );
 									while ( $query->have_posts() ) {
 										$query->the_post();
@@ -301,14 +308,15 @@
 									wp_reset_query(); ?>
                             </div>
                             <div class="row">
-								<?php $query = new WP_Query( [ 'cat'                 => $term_id,
-								                               'posts_per_page'      => 3,
-								                               'offset'              => 2,
-								                               'ignore_sticky_posts' => 1,
-								                               'post_status'         => 'publish',
-								                               'post__in'            => $sticky,
-								                               'orderby'             => 'date',
-								                               'order'               => 'desc'
+								<?php $query = new WP_Query( [
+									'cat'                 => $term_id,
+									'posts_per_page'      => 3,
+									'offset'              => 2,
+									'ignore_sticky_posts' => 1,
+									'post_status'         => 'publish',
+									'post__in'            => $sticky,
+									'orderby'             => 'date',
+									'order'               => 'desc'
 								] );
 									while ( $query->have_posts() ) {
 										$query->the_post();
@@ -341,14 +349,15 @@
 
                         <div class="profs-cat_t"><span><?php echo __( 'Latest articles', ET_DOMAIN ); ?></span></div>
                         <div class="fre-blog-snd_bl">
-							<?php $query = new WP_Query( [ 'post_type'           => 'post',
-							                               'post_status'         => 'publish',
-							                               'posts_per_page'      => 4,
-							                               'cat'                 => $term_id,
-							                               'ignore_sticky_posts' => 1,
-							                               'orderby'             => 'date',
-							                               'order'               => 'desc',
-							                               'post__not_in'        => $notin
+							<?php $query = new WP_Query( [
+								'post_type'           => 'post',
+								'post_status'         => 'publish',
+								'posts_per_page'      => 4,
+								'cat'                 => $term_id,
+								'ignore_sticky_posts' => 1,
+								'orderby'             => 'date',
+								'order'               => 'desc',
+								'post__not_in'        => $notin
 							] );
 							?>
                             <div class="fre-blog-list">

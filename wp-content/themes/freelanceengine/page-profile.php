@@ -20,10 +20,15 @@
 
 	$user_role = ae_user_role( $wpp_fr->user );
 	//convert current profile
-	$post_object     = $ae_post_factory->get( PROFILE );
-	$profile_id      = get_user_meta( $wpp_fr->user, 'user_profile_id', true );
-	$user_phone_code = get_user_meta( $wpp_fr->user, 'ihs-country-code', true );
-	$user_phone      = get_user_meta( $wpp_fr->user, 'user_phone', true );
+	$post_object = $ae_post_factory->get( PROFILE );
+
+	$usered_data = new Wpp_En_User();
+	$data        = $usered_data->get_user_data();
+
+	$profile_id      = $data->profile_id;
+	$user_phone_code = $data->ihs_country_code;
+	$user_phone      = $data->user_phone;
+	$user_confirm_email = $data->register_status;
 
 	$profile = [];
 	if ( $profile_id ) {
@@ -33,6 +38,7 @@
 			$profile = $post_object->convert( $profile_post );
 		}
 	}
+
 
 	$current_profile_categories = get_the_terms( $profile, 'project_category' );
 	//define variables:
@@ -48,8 +54,6 @@
 	include $_SERVER[ 'DOCUMENT_ROOT' ] . '/dbConfig.php';
 	$location = getLocation( $user_ID );
 
-	//for email
-	$user_confirm_email = get_user_meta( $user_ID, 'register_status', true );
 
 	get_header();
 	// Handle email change requests
@@ -121,6 +125,8 @@
 	}
 	$is_company = get_user_meta( $user_ID, 'is_company', true );
 
+
+	wpp_dump( $data );
 	$data_args = [
 		'user_data'                 => $user_data,
 		'display_name'              => $display_name,
