@@ -34,7 +34,6 @@
 				wp_enqueue_style( 'wpp-skill', get_template_directory_uri() . '/wpp/modules/skills/assets/css/endorse_skill.css', [], time(), 'all' );
 			endif;
 
-			wp_enqueue_style( 'referer', get_template_directory_uri() . '/wpp/modules/referral_code/css/referral_code_style.css', [], time(), 'all' );
 		}
 
 

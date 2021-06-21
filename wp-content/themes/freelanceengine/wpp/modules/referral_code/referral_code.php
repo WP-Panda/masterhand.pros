@@ -43,10 +43,11 @@
 				}
 			}
 
-			$wpdb->insert( TABLE_REFERRAL, [ 'user_id'          => $user_id,
-			                                 'referral_code'    => $code,
-			                                 'user_id_referral' => $referral_user_id
-				], [ '%d', '%d', '%d' ] );
+			$wpdb->insert( TABLE_REFERRAL, [
+				'user_id'          => $user_id,
+				'referral_code'    => $code,
+				'user_id_referral' => $referral_user_id
+			], [ '%d', '%d', '%d' ] );
 		}
 	}
 
@@ -124,6 +125,10 @@
 	}
 
 	add_action( 'admin_menu', 'referral_menu' );
+
+	function referral_code_styles() {
+		wp_enqueue_style( 'referer', get_template_directory_uri() . '/wpp/modules/referral_code/css/referral_code_style.css', [], time(), 'all' );
+	}
 
 	function show_referral_code() {
 		global $wpdb;
@@ -215,10 +220,11 @@
 		global $wpdb;
 		if ( ! empty( $user_id ) ) {
 			$code = (int) time() + $user_id;
-			$wpdb->insert( TABLE_REFERRAL, [ 'user_id'          => $user_id,
-			                                 'referral_code'    => $code,
-			                                 'user_id_referral' => 0
-				], [ '%d', '%d', '%d' ] );
+			$wpdb->insert( TABLE_REFERRAL, [
+				'user_id'          => $user_id,
+				'referral_code'    => $code,
+				'user_id_referral' => 0
+			], [ '%d', '%d', '%d' ] );
 		}
 	}
 
