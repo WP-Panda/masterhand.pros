@@ -37,11 +37,14 @@
 		'helpers',
 		'ajax/init',
 		'setting/init',
-		'modules/skills/init'
+		'modules/skills/init',
+		'modules/referral_code/referral_code',
+		'modules/pro_status/add-pro-status'
+
 	];
 
 	foreach ( $array as $file ) :
 		require_once $file . '.php';
 	endforeach;
 
-	$GLOBALS['wpp_fr'] = new WppMain\WppFr();
+	$GLOBALS[ 'wpp_fr' ] = new WppMain\WppFr();

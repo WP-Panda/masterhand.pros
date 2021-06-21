@@ -33,3 +33,8 @@
 
 		return empty( $check ) ? false : true;
 	}
+
+
+	function countEndorseSkillsUser( $user_id ) {
+		return WPP_Skills_User::getInstance()->count_user_skills( $user_id );
+	}

@@ -58,115 +58,7 @@
 		];
 		register_post_type( PROFILE, $args );
 
-		//    /**
-		//     * Create a taxonomy project category
-		//     *
-		//     * @uses  Inserts new taxonomy project category  object into the list
-		//     */
-		//    $labels = array(
-		//        'name' => _x('Profile Categories', 'Taxonomy plural name', ET_DOMAIN),
-		//        'singular_name' => _x('Profile Category', 'Taxonomy singular name', ET_DOMAIN),
-		//        'search_items' => __('Search Profile Categories', ET_DOMAIN),
-		//        'popular_items' => __('Popular Profile Categories', ET_DOMAIN),
-		//        'all_items' => __('All Profile Categories', ET_DOMAIN),
-		//        'parent_item' => __('Parent Profile Category', ET_DOMAIN),
-		//        'parent_item_colon' => __('Parent Profile Category', ET_DOMAIN),
-		//        'edit_item' => __('Edit Profile Category', ET_DOMAIN),
-		//        'update_item' => __('Update Profile Category', ET_DOMAIN),
-		//        'add_new_item' => __('Add New Profile Category', ET_DOMAIN),
-		//        'new_item_name' => __('New Profile Category Name', ET_DOMAIN),
-		//        'add_or_remove_items' => __('Add or remove Profile Categories', ET_DOMAIN),
-		//        'choose_from_most_used' => __('Choose from most used enginetheme', ET_DOMAIN),
-		//        'menu_name' => __('Profile Category', ET_DOMAIN),
-		//    );
-		//    $args = array(
-		//        'labels' => $labels,
-		//        'public' => true,
-		//        'show_in_nav_menus' => true,
-		//        'show_admin_column' => true,
-		//        'hierarchical' => true,
-		//        'show_tagcloud' => true,
-		//        'show_ui' => true,
-		//        'query_var' => true,
-		//        'rewrite' => array(
-		//            'slug' => 'cat-f',
-		////            'hierarchical' => ae_get_option('project_category_hierarchical', false)
-		//        ),
-		//        'capabilities' => array(
-		//            'manage_terms',
-		//            'edit_terms',
-		//            'delete_terms',
-		//            'assign_terms'
-		//        )
-		//    );
-		//    register_taxonomy('project_category', PROFILE, array(
-		//        'hierarchical' => true,
-		////        'labels' => $labels,
-		//        'show_ui' => true,
-		//        'query_var' => 'project_category',
-		//        'rewrite' => array( 'slug' => 'cat-f' )));
-
 		global $ae_post_factory;
-		// $ae_post_factory->set( PROFILE, new AE_Posts( PROFILE, array( 'project_category', 'skill', 'country' ), array(
-		//     'et_professional_title',
-		//     'rating_score',
-		//     'hour_rate',
-		//     'et_experience',
-		//     'et_receive_mail',
-		//     'currency'
-		// ) ) );
-
-
-		//*********************** NOT USED ******************
-		/**
-		 * Create a taxonomy profile category
-		 *
-		 * @uses  Inserts new taxonomy profile category  object into the list
-		 */
-		//    $labels = array(
-		//        'name' => _x('Profile Categories', 'Taxonomy plural name', ET_DOMAIN),
-		//        'singular_name' => _x('Profile Category', 'Taxonomy singular name', ET_DOMAIN),
-		//        'search_items' => __('Search Profile Categories', ET_DOMAIN),
-		//        'popular_items' => __('Popular Profile Categories', ET_DOMAIN),
-		//        'all_items' => __('All Profile Categories', ET_DOMAIN),
-		//        'parent_item' => __('Parent Profile Category', ET_DOMAIN),
-		//        'parent_item_colon' => __('Parent Profile Category', ET_DOMAIN),
-		//        'edit_item' => __('Edit Profile Category', ET_DOMAIN),
-		//        'update_item' => __('Update Profile Category', ET_DOMAIN),
-		//        'add_new_item' => __('Add New Profile Category', ET_DOMAIN),
-		//        'new_item_name' => __('New Profile Category Name', ET_DOMAIN),
-		//        'add_or_remove_items' => __('Add or remove Profile Categories', ET_DOMAIN),
-		//        'choose_from_most_used' => __('Choose from most used enginetheme', ET_DOMAIN),
-		//        'menu_name' => __('Profile Category', ET_DOMAIN),
-		//    );
-
-		//    $args = array(
-		//        'labels' => $labels,
-		//        'public' => true,
-		//        'show_in_nav_menus' => true,
-		//        'show_admin_column' => true,
-		//        'hierarchical' => true,
-		//        'show_tagcloud' => true,
-		//        'show_ui' => true,
-		//        'query_var' => true,
-		//        'rewrite' => array(
-		//            'slug' => ae_get_option('profile_category_slug', 'profile_category'),
-		//            'hierarchical' => ae_get_option('profile_category_hierarchical', false)
-		//        ),
-		//        'capabilities' => array(
-		//            'manage_terms',
-		//            'edit_terms',
-		//            'delete_terms',
-		//            'assign_terms'
-		//        )
-		//    );
-
-		//    register_taxonomy('profile_category', PROFILE, $args);
-
-		//   $ae_post_factory->set( PROFILE, new AE_Posts( PROFILE, array( 'project_category', 'skill' ), array(
-		//*********************** END NOT USED ******************
-
-
 		$ae_post_factory->set( PROFILE, new AE_Posts( PROFILE, [ 'project_category' ], [
 			'et_professional_title',
 			'hour_rate',
@@ -254,82 +146,7 @@
 	}
 
 	add_action( 'init', 'fre_register_portfolio' );
-	/**
-	 * Create a taxonomy
-	 *
-	 * @param string  Name of taxonomy object
-	 * @param array|string Name of the object type for the taxonomy object.
-	 * @param array|string Taxonomy arguments
-	 *
-	 * @return null|WP_Error WP_Error if errors, otherwise null.
-	 * @uses  Inserts new taxonomy object into the list
-	 * @uses  Adds query vars
-	 *
-	 */
 
-	//*********************** NOT USED ******************
-	//function fre_register_tax_skill()
-	//{
-	//    global $pagenow;
-	//    $isHierarchical = true;
-	//    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
-	//    if ($pagenow == 'edit-tags.php' || $action == 'ae-project-sync') {
-	//        $isHierarchical = false;
-	//        $method = isset($_REQUEST['method']) ? $_REQUEST['method'] : '';
-	//        if (in_array($method, array('create', 'update'))) {
-	//            /**
-	//             * isHierarchical = false --> skill don't save.
-	//             * danng
-	//             */
-	//            if ((isset($_REQUEST['archive']) && $_REQUEST['archive']) || (isset($_REQUEST['publish']) && $_REQUEST['publish']) || (isset($_REQUEST['reject_message']) && !empty($_REQUEST['reject_message']))) {
-	//                $isHierarchical = false;
-	//            } else {
-	//                $isHierarchical = true;
-	//            }
-	//        }
-	//    }
-	//    $labels = array(
-	//        'name' => _x('Skills', 'Taxonomy plural name', ET_DOMAIN),
-	//        'singular_name' => _x('Skill', 'Taxonomy singular name', ET_DOMAIN),
-	//        'search_items' => __('Search Skills', ET_DOMAIN),
-	//        'popular_items' => __('Popular Skills', ET_DOMAIN),
-	//        'all_items' => __('All Skills', ET_DOMAIN),
-	//        'parent_item' => __('Parent Skill', ET_DOMAIN),
-	//        'parent_item_colon' => __('Parent Skill', ET_DOMAIN),
-	//        'edit_item' => __('Edit Skill', ET_DOMAIN),
-	//        'update_item' => __('Update Skill ', ET_DOMAIN),
-	//        'add_new_item' => __('Add New Skill ', ET_DOMAIN),
-	//        'new_item_name' => __('New Skill Name', ET_DOMAIN),
-	//        'add_or_remove_items' => __('Add or remove skill', ET_DOMAIN),
-	//        'choose_from_most_used' => __('Choose from most used enginetheme', ET_DOMAIN),
-	//        'menu_name' => __('Skills', ET_DOMAIN),
-	//    );
-	//    $args = array(
-	//        'labels' => $labels,
-	//        'public' => true,
-	//        'show_in_nav_menus' => true,
-	//        'show_admin_column' => true,
-	//        'hierarchical' => $isHierarchical,
-	//        'show_tagcloud' => true,
-	//        'show_ui' => true,
-	//        'query_var' => true,
-	//        'rewrite' => array(
-	//            'slug' => ae_get_option('skill_slug', 'skill'),
-	//            'hierarchical' => false
-	//        ),
-	//        'query_var' => true,
-	//        'capabilities' => array(
-	//            'manage_terms',
-	//            'edit_terms',
-	//            'delete_terms',
-	//            'assign_terms'
-	//        )
-	//    );
-	//    register_taxonomy('skill', array(PROFILE, PORTFOLIO, PROJECT), $args);
-	//}
-
-	//add_action('init', 'fre_register_tax_skill');
-	//*********************** END NOT USED ******************
 
 	function fre_update_profile_available( $result, $user_data ) {
 		if ( ae_user_role( $result ) == FREELANCER ) {
@@ -931,18 +748,7 @@
 							$query_args[ 'orderby' ]  = 'meta_value_num date';
 							$query_args[ 'order' ]    = 'DESC';
 							break;
-						//                    case 'rating':
-						//                        $query_args['meta_key'] = 'rating_score';
-						//                        $query_args['orderby'] = 'meta_value_num date';
-						//                        $query_args['meta_query'][] = array(
-						//                            'relation' => 'AND',
-						//                            array(
-						//                                'key' => 'rating_score',
-						//                                'compare' => 'BETWEEN',
-						//                                'value' => array(0, 5)
-						//                            )
-						//                        );
-						//                        break;
+
 					}
 				}
 				//check query projects worked
@@ -1068,9 +874,9 @@
 			$profile   = $ae_post_factory->get( $this->post_type );
 			if ( ! AE_Users::is_activate( $user_ID ) ) {
 				wp_send_json( [
-						'success' => false,
-						'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
-					] );
+					'success' => false,
+					'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
+				] );
 			}
 			// set status for profile
 			if ( ! isset( $request[ 'post_status' ] ) ) {
@@ -1148,9 +954,9 @@
 					$profile_post = get_post( $profile_id );
 					if ( $profile_post && $profile_post->post_status != 'draft' ) {
 						wp_send_json( [
-								'success' => false,
-								'msg'     => __( "You only can have on profile.", ET_DOMAIN )
-							] );
+							'success' => false,
+							'msg'     => __( "You only can have on profile.", ET_DOMAIN )
+						] );
 					}
 				}
 			}
@@ -1184,10 +990,7 @@
 						update_user_meta( $user_ID, 'country', $request[ 'country' ] );
 					}
 				}
-				//            else {
-				//                delete_post_meta($profile_id, 'country');
-				//                delete_user_meta($user_ID, 'country');
-				//            }
+
 			}
 			if ( $request[ 'method' ] == 'update' ) {
 				if ( isset( $request[ 'state' ] ) ) {
@@ -1444,13 +1247,7 @@
 		 * @package FreelanceEngine
 		 */
 		public function filter_query_args( $query_args ) {
-			//*************** NOT USED *****************
-			//        if (isset($_REQUEST['query'])) {
-			//            $query = $_REQUEST['query'];
-			//            if (isset($query['skill']) && $query['skill'] != '') {
-			//                $query_args['skill'] = $query['skill'];
-			//            }
-			//        }
+
 			if ( isset( $_REQUEST[ 'query' ] ) ) {
 				$query = $_REQUEST[ 'query' ];
 				if ( isset( $query[ 'project_category' ] ) && $query[ 'project_category' ] != '' ) {
@@ -1498,30 +1295,6 @@
 			$et_ajaxnonce         = wp_create_nonce( 'portfolio_img_' . $result->ID . '_et_uploader' );
 			$result->et_ajaxnonce = $et_ajaxnonce;
 
-			//************* NOT USED ************************
-			//        //get html select skill for edit portfolio
-			//        $text_option = __('Select an option', ET_DOMAIN);
-			//        $html_edit_select_skill = '<select class="fre-chosen-multi" name="skill"
-			//         multiple data-first_click="true" data-placeholder="' . $text_option . '">';
-			//        $profile_id = get_user_meta($result->post_author, 'user_profile_id', true);
-			//        if ($profile_id) {
-			//            $skills = wp_get_object_terms($profile_id, 'skill');
-			//        } else {
-			//            $skills = get_terms('skill', array('hide_empty' => false));
-			//        }
-			//        if (!empty($skills)) {
-			//            $value = 'term_id';
-			//            foreach ($skills as $skill) {
-			//                $selected = '';
-			//                if (!empty($result->skill) && in_array($skill->$value, $result->skill)) {
-			//                    $selected = 'selected';
-			//                }
-			//                $html_edit_select_skill .= '<option value="' . $skill->$value . '" ' . $selected . '>' . $skill->name . '</option>';
-			//            }
-			//        }
-			//        $html_edit_select_skill .= '</select>';
-			//        $result->html_edit_select_skill = $html_edit_select_skill;
-			//*********************** END NOT USED ***************************
 
 			//get html select project_category for edit portfolio
 			$text_option                       = __( 'Select an option', ET_DOMAIN );
@@ -1684,57 +1457,6 @@
 		}
 	}
 
-	/**
-	 * Send Email Confirm
-	 *
-	 * @param $user_id
-	 * @param $user_data
-	 *
-	 * @author ThanhTu
-	 * @since  1.0
-	 */
-	// не удалять
-	//function fre_update_new_email($user_id, $user_data)
-	//{
-	//    global $user_ID, $current_user;
-	//    if (!isset($_REQUEST['do'])) {
-	//        return;
-	//    }
-	//    if ($user_ID == $user_data['ID'] && $user_data['user_email'] == $current_user->user_email) {
-	//        return;
-	//    }
-	//    $hash = md5($user_data['user_email'] . time() . mt_rand());
-	//    $new_email = array(
-	//        'hash' => $hash,
-	//        'newemail' => $user_data['user_email']
-	//    );
-	//    update_user_meta($user_data['ID'], 'adminhash', $new_email);
-	//    $new_details = get_option('adminhash');
-	//    // subject: Email Change Confirmation
-	//    $email_text = __('Hi ###USERNAME###,
-	//    Your administration email has just been changed on ###SITENAME###.
-	//    If it is correct, please click on the following link to confirm your change:
-	//    ###LINK###
-	//    Otherwise, you are free to ignore this email.
-	//    Regards,
-	//    All at ###SITENAME###
-	//    ###SITEURL###', ET_DOMAIN);
-	//    $result = wp_update_user(array(
-	//        'ID' => $user_data['ID'],
-	//        'user_email' => $current_user->user_email
-	//    ));
-	//    $userdata = get_userdata($result);
-	//    $content = str_replace('###USERNAME###', $current_user->user_login, $email_text);
-	//    $content = str_replace('###SITENAME###', get_site_option('site_name'), $content);
-	//    $content = str_replace('###LINK###', esc_url(et_get_page_link("profile") . '?adminhash=' . $hash), $content);
-	//    $content = str_replace('###SITEURL###', network_home_url(), $content);
-	//    wp_mail($user_data['user_email'],
-	//        sprintf(__('[%s]Email Change Confirmation', ET_DOMAIN), wp_specialchars_decode(get_option('blogname'))),
-	//        $content
-	//    );
-	//}
-	//
-	//add_action('ae_update_user', 'fre_update_new_email', 10, 2);
 
 	//new start
 	function fre_update_user_new_email( $user_data ) {

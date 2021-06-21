@@ -1,7 +1,6 @@
 <?php
-//$path = admin_url('admin.php?page=pro-status');
 $path = admin_url('admin.php') . '?page=' . $type_user;
-//var_dump($result);
+
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -208,127 +207,6 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
 
 
 <div class="wrap">
-    <!--    <h2>--><? //= ucfirst($type_user) ?><!-- statuses</h2>-->
-    <!--<table width='100%' cellpadding='5' cellspacing='0'>
-        <?php foreach ($result as $item) { ?>
-            <tr>
-                <?php foreach ($item as $key => $value) { ?>
-                    <?php if (is_numeric($key)) { ?>
-                        <td>
-                            <?php if ($item[0] != 'id') {
-        if ($key != 0 && array_key_exists('property_type', $item) && $item['property_type'] == 0)
-            echo $value == 0 ? '-' : '+';
-        elseif ($key == 0 && array_key_exists('option_value', $item)) {
-            echo $value . ' ' . $item['option_value'];
-        } else
-            echo $value;
-//                            else !empty($item['option_value']) ? $item['property_name'].' '.$item['option_value'] : $item['property_name'];
-    } else {
-        if ($value == 'id') { ?>
-                                    <input type="submit" name="submit" value="Add status"
-                                           onclick="modalWindow.show('modal_form_status')">
-                                <?php } else { ?>
-                                    <input type="submit" name="submit" value="Edit"
-                                           onclick="modalWindow.show('modal_form_status', <?= $value ?>, 'status')">
-                                <?php }
-    } ?>
-                        </td>
-                    <?php } ?>
-                <?php } ?>
-            </tr>
-        <?php } ?>
-    </table>-->
-    <!--<div class="config">
-        <table width='25%' cellpadding='5' cellspacing='0' name="status_list">
-            <thead>
-            <tr>
-                <td colspan="2"><h2>Status name</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Status name</td>
-            </tr>
-            </thead>
-            <tbody>
-            <?php /*foreach ($statuses as $item) { */ ?>
-                <tr>
-                    <td><? /*= $item['status_position'] */ ?></td>
-                    <td><? /*= $item['status_name'] */ ?></td>
-                    <td class="button_delete" onclick="delete_status(this)">
-                        <a href="#">delete</a>
-                        <input type="hidden" value="<? /*= $item['status_id'] */ ?>" name="status_id">
-                        <input type="hidden" value="<? /*= $item['status_position'] */ ?>" name="status_position">
-                    </td>
-                </tr>
-            <?php /*} */ ?>
-            </tbody>
-        </table>
-        <table width="50%" cellpadding='5' cellspacing='0' name="property_list">
-            <thead>
-            <tr>
-                <td colspan="6"><h2>Property</h2></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Name</td>
-                <td>Display</td>
-                <td>Published</td>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <td colspan="6">
-                    <input type="submit" name="submit" value="Create property"
-                           onclick="modalWindow.show('modal_form_property')">
-                </td>
-            </tr>
-            </tfoot>
-            <tbody>
-            <?php foreach ($properties as $item) {
-        if ($item['property_type'] != 3) { ?>
-                    <tr>
-                        <td><?= $item['property_position'] ?></td>
-                        <td><?= !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?></td>
-                        <td><?= $item['property_display'] ?></td>
-                        <td><?= $item['property_published'] ?></td>
-                        <td class="button_delete"
-                            onclick="modalWindow.show('modal_form_property', <?= $item['property_id'] ?>, 'property')">
-                            <a href="#">Edit</a>
-                        </td>
-                        <td class="button_delete" onclick="delete_property(this)">
-                            <a href="#">delete</a>
-                            <input type="hidden" value="<?= $item['property_id'] ?>" name="property_id">
-                            <input type="hidden" value="<?= $item['property_position'] ?>" name="property_position">
-                        </td>
-                    </tr>
-                <?php }
-    } ?>
-            </tbody>
-        </table>
-        <table width='25%' cellpadding='5' cellspacing='0' name="option_list">
-            <thead>
-            <tr>
-                <td colspan="2"><h2>Options</td>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($options as $item) { ?>
-                <tr>
-                    <td><?= $item['option_key'] ?></td>
-                    <td><?= $item['option_value'] ?></td>
-                </tr>
-            <?php } ?>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" name="submit" value="Edit options"
-                           onclick="modalWindow.show('modal_form_option')">
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-    </div> -->
     <?php if (1 == 2 && $type_user == 'employer') {
         $table = $wpdb->get_blog_prefix() . 'pro_properties';
         $additional_properties = $wpdb->get_results("
@@ -514,71 +392,6 @@ ORDER BY property_position", ARRAY_A); ?>
         </div>
     </form>
 </div>
-
-<!--<div id="modal_form_additional" class="simple-little-table" name="modal_form"> Сaмo oкнo -->
-<!--    <span id="modal_close" onclick="modalWindow.close('modal_form_additional')">X</span>  Кнoпкa зaкрыть -->
-<!--    <h2>Additional options:</h2>-->
-<!--    <form id="additional" action="--><? //= $path ?><!--" method="post">-->
-<!--        <div class="name_additional">-->
-<!--            <label style="display: block;">Type:-->
-<!--                <label for='type_additional'>Additional options <input type="radio" name="type" id="type_additional"-->
-<!--                                                                       value="3" checked></label>-->
-<!--            </label>-->
-<!---->
-<!--            <label style="display: block;">Display in the general list:-->
-<!--                <label for='display_y' style="padding-left: 15px;">Yes-->
-<!--                    <input type="radio" name="display" id="display_y" value="1" checked>-->
-<!--                </label>-->
-<!--                <label for='display_n'>No <input type="radio" name="display" id="display_n" value="0"></label>-->
-<!--            </label>-->
-<!---->
-<!--            <label style="display: block;">Published:-->
-<!--                <label for='published_y' style="padding-left: 15px;">Yes-->
-<!--                    <input type="radio" name="published" id="published_y" value="1" checked>-->
-<!--                </label>-->
-<!--                <label for='published_n'>No <input type="radio" name="published" id="published_n" value="0"></label>-->
-<!--            </label>-->
-<!---->
-<!--            <script>-->
-<!--                jQuery(function ($) {-->
-<!--                    $(document).ready(function () {-->
-<!--                        var display_y = document.querySelector('#modal_form_additional input[id="display_y"]')-->
-<!--                        $(display_y).change(function () {-->
-<!--                            var published_n = document.querySelector('#modal_form_additional input[id="published_n"]')-->
-<!--                            if (published_n.checked == true) {-->
-<!--                                document.querySelector('#modal_form_additional input[id="display_n"]').checked = true-->
-<!--                                alert('First publish the property!');-->
-<!--                            }-->
-<!--                        })-->
-<!---->
-<!--                        var published_n = document.querySelector('#modal_form_additional input[id="published_n"]')-->
-<!--                        $(published_n).change(function () {-->
-<!--                            document.querySelector('#modal_form_additional input[id="display_n"]').checked = true-->
-<!--                        })-->
-<!--                    })-->
-<!--                })-->
-<!--            </script>-->
-<!---->
-<!--            <label for='name'>Name option<input type="text" name="name" id="name" placeholder="" value=""></label>-->
-<!---->
-<!--            <label for='position'>Insert after:<select name="position" id="position">-->
-<!--                    <option value="0">Top</option>-->
-<!--                    --><?php //foreach ($additional_properties as $item) { ?>
-<!--                        <option value="--><? //= $item['property_position'] ?><!--">-->
-<!--                            --><? //= !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?>
-<!--                        </option>-->
-<!--                    --><?php //} ?>
-<!--                </select></label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="submit" name="submit" value="Save">-->
-<!--            <input type="hidden" name="action" value="create_additional">-->
-<!--            <input type="hidden" name="property_id" id="property_id" value="">-->
-<!--            <input type="hidden" name="type_user" id="type_user" value="--><? //= $type_user ?><!--">-->
-<!--            <input type="hidden" name="position_old_additional" id="position_old_additional" value="">-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
 
 <div id="modal_form_option" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_option')">X</span> <!-- Кнoпкa зaкрыть -->

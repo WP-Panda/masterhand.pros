@@ -1,10 +1,7 @@
-<?php
-
-
-?>
-<link href="<?= $PATH_INC ?>/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="<?php echo $PATH_INC ?>/css/bootstrap.min.css" rel="stylesheet"/>
 <div class="col-xs-12">
-    <div class="text-info text-center"><?= $plugin_data['Name'] ?> v<?= $plugin_data['Version'] ?></div>
+    <div class="text-info text-center"><?php echo $plugin_data[ 'Name' ] ?>
+        v<?php echo $plugin_data[ 'Version' ] ?></div>
 </div>
 <div class="blockLoader">
     <div class="showLoad" onclick="mod.hideLoad()"></div>
@@ -26,17 +23,16 @@
             </thead>
             <tbody>
 
-            <?php foreach ($referrals as $item) {
-                include 'tpl/list.php';
-
-             } ?>
+			<?php foreach ( $referrals as $item ) {
+				include 'tpl/list.php';
+			} ?>
 
             </tbody>
 
             <tfoot>
             <tr>
                 <td class="pagination_referrals" colspan="6">
-                    <?= $pagination ?>
+					<?php echo $pagination ?>
                 </td>
             </tr>
             </tfoot>
@@ -44,5 +40,5 @@
     </div>
 </div>
 <script>
-    <?php include_once('js/referral_code.js') ?>
+	<?php include_once( 'js/referral_code.js' ) ?>
 </script>

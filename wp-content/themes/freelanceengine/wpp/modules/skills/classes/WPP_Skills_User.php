@@ -12,10 +12,12 @@
 		protected static $_instance = null;
 		protected static $meta_key = '_wpp_skills';
 		protected $lk_tbl;
+		protected $sk_tbl;
 
 		public function __construct() {
 			parent::__construct();
 			$this->lk_tbl = $this->db->prefix . self::tbl_likes;
+			$this->sk_tbl = $this->db->prefix . self::tbl_skill;
 		}
 
 		/**
@@ -76,7 +78,7 @@
 
 				foreach ( $skills_list as $skill ) {
 
-					$skill_data              = WPP_Skills_Actions::getInstance()->get_skill( $skill, 'id' );
+					$skill_data = WPP_Skills_Actions::getInstance()->get_skill( $skill, 'id' );
 
 					$list[ $skill_data->id ] = [
 						'title' => $skill_data->title,
@@ -89,6 +91,13 @@
 			}
 
 			return false;
+		}
+
+		public function count_user_skills( $user_id ) {
+
+			$skills = get_user_meta( $user_id, self::$meta_key, true );
+
+			return ! empty( $skills ) ? count( $skills ) : 0;
 		}
 
 		public static function getInstance() {

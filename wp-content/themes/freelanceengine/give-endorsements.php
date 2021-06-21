@@ -105,10 +105,14 @@
 
 	if ( $personal_cover ) {
 		$img_url = get_user_meta( $user_ID, 'cover_url' );
+		$style = '';
 		if ( $img_url ) {
 			$style = 'style="background-image: url(' . $img_url[ 0 ] . '); background-repeat: no-repeat; background-size: 100% 100%;"';
 		}
-	}
+	} else {
+	    $style = '';
+    }
+
 	$visualFlag = getValueByProperty( $user_status, 'visual_flag' );
 	if ( $visualFlag ) {
 		$visualFlagNumber = get_user_meta( $user_ID, 'visual_flag', true );
@@ -125,7 +129,7 @@
 	}
 ?>
 
-    <div class="fre-page-wrapper give-endorsments list-profile-wrapper" <?= $style ?>>
+    <div class="fre-page-wrapper give-endorsments list-profile-wrapper" <?php echo  $style ?>>
         <div class="fre-page-title">
             <div class="container">
                 <h1 class="page_t">
@@ -164,7 +168,7 @@
 							$result[ $k ][] = $post_title[ $i ];
 						}
 
-						array_walk( $result, create_function( '&$v', '$v = (count($v) == 1)? array_pop($v): $v;' ) );
+						@array_walk( $result, create_function( '&$v', '$v = (count($v) == 1)? array_pop($v): $v;' ) );
 						$professionals = array_unique( $professionals ); ?>
 
 					<?php if ( $professionals ) { ?>
@@ -224,21 +228,21 @@
                             </div>
 
                             <div class="page-referrals_list page-reffers-list fre-profile-box">
-                                <div class="page-referrals_item" data-id="<?= $metas ?>">
+                                <div class="page-referrals_item" data-id="<?php echo  $metas ?>">
                                     <div class="row">
                                         <div class="col-sm-9 col-xs-7">
                                             <a class="hidden-xs"
-                                               href="<?= get_author_posts_url( $metas ) ?>"><?php echo get_avatar( $metas, 70 ); ?></a>
+                                               href="<?php echo  get_author_posts_url( $metas ) ?>"><?php echo get_avatar( $metas, 70 ); ?></a>
                                             <a class="name"
-                                               href="<?= get_author_posts_url( $metas ) ?>"><?php echo get_the_author_meta( 'display_name', $metas ) ?></a>
+                                               href="<?php echo  get_author_posts_url( $metas ) ?>"><?php echo get_the_author_meta( 'display_name', $metas ) ?></a>
 											<?php $user_status = get_user_pro_status( $metas );
 												if ( userHaveProStatus( $metas ) ) {
 													echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
 												} ?>
-                                            <span class="rating-new">+<?= getActivityRatingUser( $metas ) ?></span>
+                                            <span class="rating-new">+<?php echo  getActivityRatingUser( $metas ) ?></span>
                                         </div>
-                                        <!--<div class="col-sm-3 col-xs-5 text-center endors <?/*= checkEndorseSkills( $user_ID, $metas ) */?>">
-											<?/*= checkEndorseSkills( $user_ID, $metas ) */?>
+                                        <!--<div class="col-sm-3 col-xs-5 text-center endors <? /*= checkEndorseSkills( $user_ID, $metas ) */ ?>">
+											<? /*= checkEndorseSkills( $user_ID, $metas ) */ ?>
                                         </div>-->
                                     </div>
                                 </div>
@@ -254,6 +258,7 @@
 <?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) { ?>
     <script type="data/json" id="current_profile">
         <?php echo json_encode( $profile ) ?>
+    
     </script>
 <?php }
 	if ( ! empty( $current_skills ) ) { ?>
@@ -261,6 +266,7 @@
         <?php echo json_encode( $current_skills ) ?>
 
 
+        
         </script>
 	<?php }
 	get_footer();

@@ -57,12 +57,12 @@
 				echo '<ul class="project-detail-attach">';
 				foreach ( $attachment as $key => $att ) {
 					$file_type = wp_check_filetype( $att->post_title, [
-							'jpg'  => 'image/jpeg',
-							'jpeg' => 'image/jpeg',
-							'gif'  => 'image/gif',
-							'png'  => 'image/png',
-							'bmp'  => 'image/bmp'
-						] );
+						'jpg'  => 'image/jpeg',
+						'jpeg' => 'image/jpeg',
+						'gif'  => 'image/gif',
+						'png'  => 'image/png',
+						'bmp'  => 'image/bmp'
+					] );
 					echo '<li><a href="' . $att->guid . '"><i class="fa fa-paperclip" aria-hidden="true"></i>' . $att->post_title . '</a></li>';
 				}
 				echo '</ul>';
@@ -189,7 +189,7 @@
                     <div class="col-sm-3 col-xs-12 skills">
                         <div class="skill col-lg-8 col-md-6 col-sm-6 col-xs-6">
 							<?php echo __( 'skills & endorsements', ET_DOMAIN ); ?>
-                            <span><?= countEndorseSkillsUser( $author_id ) ?></span>
+                            <span><?php echo countEndorseSkillsUser( $author_id ) ?></span>
                         </div>
                         <div class="skill col-sm-12 col-xs-6">
 							<?php echo __( 'awards', ET_DOMAIN ); ?><span>0</span>

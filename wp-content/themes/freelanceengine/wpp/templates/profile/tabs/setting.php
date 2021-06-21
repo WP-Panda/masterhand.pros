@@ -281,14 +281,14 @@
 											<?php _e( 'Change Photo', ET_DOMAIN ) ?>
                                         </a>
                                     </div>
-                                    <div class=" <?php if ( fre_share_role() || $user_role == FREELANCER ) { ?> col-md-8 col-lg-6 <?php } else { ?> col-md-10 col-lg-10 <?php } ?> col-sm-12 col-xs-12 fre-input-field">
+                                    <div class=" <?php if ( fre_share_role() || wpp_fre_is_freelancer() ) { ?> col-md-8 col-lg-6 <?php } else { ?> col-md-10 col-lg-10 <?php } ?> col-sm-12 col-xs-12 fre-input-field">
                                         <label class="fre-field-title">About me</label>
 										<?php
 
 											wp_editor( $about, 'post_content', ae_editor_settings() );
 										?>
                                     </div>
-									<?php if ( fre_share_role() || $user_role == FREELANCER ) { ?>
+									<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) {  ?>
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field fre-hourly-field">
                                             <label class="fre-field-title ratelbl"><?php _e( 'Rate', ET_DOMAIN ) ?></label>
                                             <input type="number" <?php if ( $hour_rate ) {
@@ -327,7 +327,7 @@
                                     </div>
 
                                     <!--new start-->
-									<?php include_once 'inc/select-location-profile-edit.php'; ?>
+									<?php wpp_get_template_part( 'inc/select-location-profile-edit' ); ?>
                                     <!--new end-->
 
                                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field default-currency-wrap">
@@ -361,7 +361,7 @@
                                         </select>
                                     </div>
 
-									<?php if ( fre_share_role() || $user_role == FREELANCER ) { ?>
+									<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) { ?>
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field fre-experience-field">
                                             <label class="fre-field-title"><?php _e( 'Years experience', ET_DOMAIN ); ?></label>
                                             <input type="number" value="<?php echo $experience; ?>"
@@ -429,7 +429,7 @@
                                             </div>
                                         </div>
 									<?php } ?>
-									<?php if ( $user_role == FREELANCER ) { ?>
+									<?php if ( wpp_fre_is_freelancer() ) { ?>
                                         <div class="col-sm-12 col-xs-12 fre-input-field">
 											<?php $email_skill = isset( $profile->email_skill ) ? (int) $profile->email_skill : 1; ?>
                                             <label class="checkline" for="email-skill">

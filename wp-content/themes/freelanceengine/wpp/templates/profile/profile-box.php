@@ -105,7 +105,7 @@
             <div class="col-md-2 col-sm-3 col-lg-2 col-xs-12 skills">
                 <div class="skill col-sm-12 col-xs-6">
 					<?php echo __( 'skills & endorsements', ET_DOMAIN ); ?>
-                    <span><?php //echo //countEndorseSkillsUser( $user_ID ) ?></span>
+                    <span><?php echo countEndorseSkillsUser( $user_ID ) ?></span>
                 </div>
                 <div class="skill col-sm-12 col-xs-6">
 					<?php echo __( 'awards', ET_DOMAIN ); ?><span>0</span>

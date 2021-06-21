@@ -47,11 +47,11 @@ global $post, $user_ID;
                     <? $bid_id_accepted = get_post_meta($post->ID, 'accepted', true);
                     if(get_post_meta($bid_id_accepted, 'fre_bid_order')) {
                         if (ae_user_role($user_ID) == FREELANCER) {
-                            renderSkillsInProject($post->post_author, $user_ID);
+                          //  renderSkillsInProject($post->post_author, $user_ID);
 
                         } else {
                             $bid_author = get_post_field('post_author', $bid_id_accepted);
-                            renderSkillsInProject($bid_author, $user_ID);
+                           // renderSkillsInProject($bid_author, $user_ID);
                         }
                     }
                     ?>
