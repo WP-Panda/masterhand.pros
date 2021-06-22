@@ -42,7 +42,7 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
 </style>
 
 <div class="container-fluid">
-    <h4 class="mt-3 mb-3"><?= ucfirst($type_user) ?> statuses</h4>
+    <h4 class="mt-3 mb-3"><?php echo  ucfirst($type_user) ?> statuses</h4>
 
     <div class="row mb-2">
         <div class="col">
@@ -62,12 +62,12 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     <tbody>
                     <?php foreach ($statuses as $item) { ?>
                         <tr>
-                            <td><?= $item['status_position'] ?></td>
-                            <td><?= $item['status_name'] ?></td>
+                            <td><?php echo  $item['status_position'] ?></td>
+                            <td><?php echo  $item['status_name'] ?></td>
                             <td class="button_delete" onclick="delete_status(this)">
                                 <button type="button" class="btn btn-danger">Delete</button>
-                                <input type="hidden" value="<?= $item['status_id'] ?>" name="status_id">
-                                <input type="hidden" value="<?= $item['status_position'] ?>" name="status_position">
+                                <input type="hidden" value="<?php echo  $item['status_id'] ?>" name="status_id">
+                                <input type="hidden" value="<?php echo  $item['status_position'] ?>" name="status_position">
                             </td>
                         </tr>
                     <?php } ?>
@@ -99,18 +99,18 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     <?php foreach ($properties as $item) {
                         if ($item['property_type'] != 4) { ?>
                             <tr>
-                                <td><?= $item['property_position'] ?></td>
-                                <td><?= !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?></td>
-                                <td><?= $item['property_display'] ?></td>
-                                <td><?= $item['property_published'] ?></td>
+                                <td><?php echo  $item['property_position'] ?></td>
+                                <td><?php echo  !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?></td>
+                                <td><?php echo  $item['property_display'] ?></td>
+                                <td><?php echo  $item['property_published'] ?></td>
                                 <td class="button_delete"
-                                    onclick="modalWindow.show('modal_form_property', <?= $item['property_id'] ?>, 'property')">
+                                    onclick="modalWindow.show('modal_form_property', <?php echo  $item['property_id'] ?>, 'property')">
                                     <button type="button" class="btn btn-primary">Edit</button>
                                 </td>
                                 <td class="button_delete" onclick="delete_property(this)">
                                     <button type="button" class="btn btn-danger">Delete</button>
-                                    <input type="hidden" value="<?= $item['property_id'] ?>" name="property_id">
-                                    <input type="hidden" value="<?= $item['property_position'] ?>"
+                                    <input type="hidden" value="<?php echo  $item['property_id'] ?>" name="property_id">
+                                    <input type="hidden" value="<?php echo  $item['property_position'] ?>"
                                            name="property_position">
                                 </td>
                             </tr>
@@ -142,8 +142,8 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     <tbody>
                     <?php foreach ($options as $item) { ?>
                         <tr>
-                            <td><?= $item['option_key'] ?></td>
-                            <td><?= $item['option_value'] ?></td>
+                            <td><?php echo  $item['option_key'] ?></td>
+                            <td><?php echo  $item['option_value'] ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
@@ -180,7 +180,7 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
 //                            else !empty($item['option_value']) ? $item['property_name'].' '.$item['option_value'] : $item['property_name'];
                                         } else {
                                             if ($value == 'id') { ?>
-                                                <?= (!$item[1]) ? '<div class="alert alert-danger" role="alert">No Statuses</div>' : '' ?>
+                                                <?php echo  (!$item[1]) ? '<div class="alert alert-danger" role="alert">No Statuses</div>' : '' ?>
                                                 <div class="add-btn">
                                                     <input type="submit" name="submit" class="btn btn-primary"
                                                            value="Add status"
@@ -190,7 +190,7 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                                                 <div class="add-btn">
                                                     <input type="submit" name="submit" class="btn btn-primary"
                                                            value="Edit"
-                                                           onclick="modalWindow.show('modal_form_status', <?= $value ?>, 'status')">
+                                                           onclick="modalWindow.show('modal_form_status', <?php echo  $value ?>, 'status')">
                                                 </div>
                                             <?php }
                                         } ?>
@@ -238,18 +238,18 @@ ORDER BY property_position", ARRAY_A); ?>
                 <tbody>
                 <?php foreach ($additional_properties as $item) { ?>
                     <tr>
-                        <td><?= $item['property_position'] ?></td>
-                        <td><?= $item['property_name'] ?></td>
-                        <td><?= $item['property_display'] ?></td>
-                        <td><?= $item['property_published'] ?></td>
+                        <td><?php echo  $item['property_position'] ?></td>
+                        <td><?php echo  $item['property_name'] ?></td>
+                        <td><?php echo  $item['property_display'] ?></td>
+                        <td><?php echo  $item['property_published'] ?></td>
                         <td class="button_delete"
-                            onclick="modalWindow.show('modal_form_additional', <?= $item['property_id'] ?>, 'additional')">
+                            onclick="modalWindow.show('modal_form_additional', <?php echo  $item['property_id'] ?>, 'additional')">
                             <a href="#">Edit</a>
                         </td>
                         <td class="button_delete" onclick="delete_additional(this)">
                             <a href="#">delete</a>
-                            <input type="hidden" value="<?= $item['property_id'] ?>" name="property_id">
-                            <input type="hidden" value="<?= $item['property_position'] ?>" name="property_position">
+                            <input type="hidden" value="<?php echo  $item['property_id'] ?>" name="property_id">
+                            <input type="hidden" value="<?php echo  $item['property_position'] ?>" name="property_position">
                         </td>
                     </tr>
                 <?php } ?>
@@ -262,14 +262,14 @@ ORDER BY property_position", ARRAY_A); ?>
 <div id="modal_form_status" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_status')">X</span> <!-- Кнoпкa зaкрыть -->
     <h5 name="title_status">Status:</h5>
-    <form id="status" action="<?= $path ?>" method="post">
+    <form id="status" action="<?php echo  $path ?>" method="post">
         <div class="name_status">
             <label for='name'>Name status<input type="text" name="name" id="name" placeholder="" value=""></label>
             <label for='position'>Insert after:<select name="position" id="position">
                     <option value="0">Top</option>
                     <?php foreach ($statuses as $item) { ?>
-                        <option value="<?= $item['status_position'] ?>">
-                            <?= $item['status_name'] ?>
+                        <option value="<?php echo  $item['status_position'] ?>">
+                            <?php echo  $item['status_name'] ?>
                         </option>
                     <?php } ?>
                 </select></label>
@@ -277,23 +277,23 @@ ORDER BY property_position", ARRAY_A); ?>
         <?php foreach ($properties as $item) { ?>
             <?php if ($item['property_published'] == 1) { ?>
                 <?php if ($item['property_type'] != 0) { ?>
-                    <label for="prop_<?= $item['property_id'] ?>">
-                        <?= $item['property_name'] ?>
+                    <label for="prop_<?php echo  $item['property_id'] ?>">
+                        <?php echo  $item['property_name'] ?>
                         <?php if (!empty($item['option_value'])) {
                             $option = $item['option_value'];
                             echo $option .= $item['option_value'] > 1 ? ' months' : ' month';
                         } ?>
-                        <input type="text" name="<?= $item['property_id'] ?>" id="prop_<?= $item['property_id'] ?>"
+                        <input type="text" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>"
                                value="">
                     </label>
                 <?php } else { ?>
-                    <label for="prop_<?= $item['property_id'] ?>" style="display: block">
-                        <?= $item['property_name'] ?>
-                        <input type="checkbox" name="<?= $item['property_id'] ?>" id="prop_<?= $item['property_id'] ?>">
+                    <label for="prop_<?php echo  $item['property_id'] ?>" style="display: block">
+                        <?php echo  $item['property_name'] ?>
+                        <input type="checkbox" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>">
                     </label>
                 <?php } ?>
             <?php } else { ?>
-                <input type="text" name="<?= $item['property_id'] ?>" id="prop_<?= $item['property_id'] ?>"
+                <input type="text" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>"
                        value="" style="display: none">
             <?php } ?>
         <?php } ?>
@@ -302,7 +302,7 @@ ORDER BY property_position", ARRAY_A); ?>
             <input type="hidden" name="action" value="create_status">
             <input type="hidden" name="status_id" id="status_id" value="">
             <input type="hidden" name="position_old_status" id="position_old_status" value="">
-            <input type="hidden" name="type_user" id="type_user" value="<?= $type_user ?>">
+            <input type="hidden" name="type_user" id="type_user" value="<?php echo  $type_user ?>">
         </div>
     </form>
 </div>
@@ -310,7 +310,7 @@ ORDER BY property_position", ARRAY_A); ?>
 <div id="modal_form_property" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_property')">X</span> <!-- Кнoпкa зaкрыть -->
     <h2 name="title_prop">Property:</h2>
-    <form id="property" action="<?= $path ?>" method="post">
+    <form id="property" action="<?php echo  $path ?>" method="post">
         <div class="name_property">
             <label style="display: block;">Type:
                 <label for='type_int' style="padding-left: 15px;">Integer
@@ -377,8 +377,8 @@ ORDER BY property_position", ARRAY_A); ?>
             <label for='position'>Insert after:<select name="position" id="position">
                     <option value="0">Top</option>
                     <?php foreach ($properties as $item) { ?>
-                        <option value="<?= $item['property_position'] ?>">
-                            <?= !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?>
+                        <option value="<?php echo  $item['property_position'] ?>">
+                            <?php echo  !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?>
                         </option>
                     <?php } ?>
                 </select></label>
@@ -387,7 +387,7 @@ ORDER BY property_position", ARRAY_A); ?>
             <input type="submit" name="submit" value="Save">
             <input type="hidden" name="action" value="create_property">
             <input type="hidden" name="property_id" id="property_id" value="">
-            <input type="hidden" name="type_user" id="type_user" value="<?= $type_user ?>">
+            <input type="hidden" name="type_user" id="type_user" value="<?php echo  $type_user ?>">
             <input type="hidden" name="position_old_property" id="position_old_property" value="">
         </div>
     </form>
@@ -396,11 +396,11 @@ ORDER BY property_position", ARRAY_A); ?>
 <div id="modal_form_option" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_option')">X</span> <!-- Кнoпкa зaкрыть -->
     <h2 name="title_option">Option:</h2>
-    <form id="option" action="<?= $path ?>" method="post">
+    <form id="option" action="<?php echo  $path ?>" method="post">
         <div class="name_option">
             <?php foreach ($options as $item) { ?>
                 <label for='currency'>Currency <input type="text" name="currency" id="currency" placeholder=""
-                                                      value="<?= $item['option_value'] ?>"></label>
+                                                      value="<?php echo  $item['option_value'] ?>"></label>
             <?php } ?>
         </div>
         <div>

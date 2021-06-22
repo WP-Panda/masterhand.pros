@@ -10,12 +10,11 @@
 	$path .= $_SERVER[ 'HTTP_HOST' ];
 
 	$referrals = 0;
-	if ( is_plugin_active( 'referral_code/referral_code.php' ) ) {
-		$referrals = get_list_referrals( 'all', $user_ID );
-	}
+	$referrals = get_list_referrals( 'all', $user_ID );
+
 ?>
     <script src="/wp-content/plugins/endorse_skill/js/select2.full.min.js"></script>
-    <link rel="stylesheet" href="/wp-content/plugins/endorse_skill/css/select2.min.css">
+    <link rel="stylesheet" href="/wp-content/plugins/endorse_skill/css/select2.min.css">-
 
     <div class="fre-page-wrapper page-referrals">
         <div class="fre-page-title">
@@ -75,7 +74,7 @@
                                         data-name="banner1"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner1" data-template="banner1">
-	                                    <?php echo get_banner( "banner1" ) ?>
+										<?php echo get_banner( "banner1" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -86,7 +85,7 @@
                                         data-name="banner2"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner2" data-template="banner2">
-	                                    <?php echo get_banner( "banner2" ) ?>
+										<?php echo get_banner( "banner2" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -97,7 +96,7 @@
                                         data-name="banner3"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner3" data-template="banner3">
-	                                    <?php echo get_banner( "banner3" ) ?>
+										<?php echo get_banner( "banner3" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -109,7 +108,7 @@
                                         data-name="banner4"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner4" data-template="banner4">
-	                                    <?php echo get_banner( "banner4" ) ?>
+										<?php echo get_banner( "banner4" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -120,7 +119,7 @@
                                         data-name="banner5"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner5" data-template="banner5">
-	                                    <?php echo get_banner( "banner5" ) ?>
+										<?php echo get_banner( "banner5" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -131,7 +130,7 @@
                                         data-name="banner6"><?php _e( 'GENERATE PERSONAL BANNER' ); ?></button>
                                 <div style="">
                                     <div id="content_banner6" data-template="banner6">
-	                                    <?php echo get_banner( "banner6" ) ?>
+										<?php echo get_banner( "banner6" ) ?>
                                     </div>
                                 </div>
                             </li>
@@ -264,47 +263,47 @@
         // jQuery(function ($) {
 
 
-            function generate_poster_ajax(action, template) {
+        function generate_poster_ajax(action, template) {
 
-                jQuery('body').addClass('processing');
+            jQuery('body').addClass('processing');
 
-                jQuery.ajax({
-                    type: "POST",
-                    url: '/wp-admin/admin-ajax.php',
-                    headers: {
-                        "Cache-Control": "no-cache, no-store, must-revalidate",
-                        "Pragma": "no-cache",
-                        "Expires": "0"
-                    },
-                    data: {template: template, action: 'generate_poster'}
-                }).done(function (msg) {
-                    jQuery('body').removeClass('processing');
+            jQuery.ajax({
+                type: "POST",
+                url: '/wp-admin/admin-ajax.php',
+                headers: {
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0"
+                },
+                data: {template: template, action: 'generate_poster'}
+            }).done(function (msg) {
+                jQuery('body').removeClass('processing');
 
-                    if (msg == '0') {
-                        if (action == 'show') {
-                            window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
-                        } else {
-                            myWindow = window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
-                            myWindow.focus();
-                            myWindow.print();
+                if (msg == '0') {
+                    if (action == 'show') {
+                        window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
+                    } else {
+                        myWindow = window.open(<?php echo json_encode( $path ) ?> +'/wp-content/plugins/generate_poster/cache/' + template + '_' + <?php echo json_encode( $user_ID )?> +'.pdf');
+                        myWindow.focus();
+                        myWindow.print();
+                    }
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: '/wp-admin/admin-ajax.php',
+                        data: {template: template, action: 'delete_cache_poster'}
+                    }).done(function (msg) {
+                        if (msg !== '0') {
+                            console.log(msg)
                         }
-
-                        jQuery.ajax({
-                            type: "POST",
-                            url: '/wp-admin/admin-ajax.php',
-                            data: {template: template, action: 'delete_cache_poster'}
-                        }).done(function (msg) {
-                            if (msg !== '0') {
-                                console.log(msg)
-                            }
-                        });
-                    } else console.log(msg);
-                });
-            }
+                    });
+                } else console.log(msg);
+            });
+        }
 
         jQuery('.sharing .addtoany_list .a2a_button_email').click(function () {
             jQuery('.sharing .addtoany_list .a2a_button_email')["0"].href = "mailto:?subject=Check%20this%20out%3A%20Banner&body=" + jQuery('.str_link')["0"].innerHTML
-            })
+        })
         // })
     </script>
     <div class="loading-blur loading">

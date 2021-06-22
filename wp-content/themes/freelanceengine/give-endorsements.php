@@ -118,15 +118,12 @@
 		$visualFlagNumber = get_user_meta( $user_ID, 'visual_flag', true );
 	}
 
-	if ( is_plugin_active( 'referral_code/referral_code.php' ) ) {
+
 		$referral_code   = get_referral_code_by_user( $user_ID );
 		$count_referrals = get_count_referrals( $user_ID );
 		$referrals       = get_list_referrals( 'all', $user_ID );
 		$sponsor_name    = get_sponsor( $user_ID );
-	} else {
-		$referral_code   = '0000000000';
-		$count_referrals = 0;
-	}
+
 ?>
 
     <div class="fre-page-wrapper give-endorsments list-profile-wrapper" <?php echo  $style ?>>

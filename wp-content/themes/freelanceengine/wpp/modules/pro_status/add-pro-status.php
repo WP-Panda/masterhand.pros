@@ -25,7 +25,6 @@
 		render_list_paid_users();
 	}
 
-
 	function get_base_status( $user_role = '' ) {
 		global $wpdb;
 		if ( ! empty( $user_role ) ) {
@@ -45,11 +44,9 @@
 		}
 	}
 
-
 	function show_settings_freelance() {
 		show_settings( 'freelance' );
 	}
-
 
 	function show_settings_employer() {
 		show_settings( 'employer' );
@@ -58,9 +55,9 @@
 
 	function show_settings( $type ) {
 		global $wpdb;
-		$type_user = $type;
-		$where     = '';
-		$result    = table_properties( $type_user, $where, 1 );
+		$type_user  = $type;
+		$where      = '';
+		$result     = table_properties( $type_user, $where, 1 );
 		$table      = $wpdb->get_blog_prefix() . 'pro_status';
 		$statuses   = $wpdb->get_results( "SELECT id as status_id, status_position, status_name FROM $table WHERE user_role='$type_user' ORDER BY status_position", ARRAY_A );
 		$table      = $wpdb->get_blog_prefix() . 'pro_properties';

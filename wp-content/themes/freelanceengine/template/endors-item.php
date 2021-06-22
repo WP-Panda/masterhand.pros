@@ -31,13 +31,13 @@
 			<?php if ( userHaveProStatus( $postid ) ) {
 				echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
 			} ?>
-            <span class="rating-new">+<?= getActivityRatingUser( $postid ) ?></span>
+            <span class="rating-new">+<?php getActivityRatingUser( $postid ) ?></span>
         </div>
         <div class="col-sm-3 col-xs-2 safe-deals">
 			<?php echo $count; ?>
         </div>
-        <div class="col-sm-3 col-xs-5 text-center endors <?= checkEndorseSkills( $user_ID, $postid ); ?>">
-			<?= checkEndorseSkills( $user_ID, $postid ); ?>
+        <div class="col-sm-3 col-xs-5 text-center endors <?php echo  checkEndorseSkills( $user_ID, $postid ); ?>">
+			<?php echo  checkEndorseSkills( $user_ID, $postid ); ?>
         </div>
         <div class="col-sm-12 col-xs-12 fre-project_lnk">
 			<?php while ( $query2->have_posts() ) {
