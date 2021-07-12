@@ -156,8 +156,11 @@
 						wpp_get_template_part( 'wpp/templates/profile/profile-box', $data_args );
 
 						$linkname = '';
-						$linkurl  = $user_data->author_url;//'http://master.loc/author/alexey_marat/';
+
+						$linkurl  = $user_data->author_url;
+
 						$linkref  = $_SERVER[ "HTTP_HOST" ] . '/register/?code=' . $referral_code;
+
 						if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
 							ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl' ) );
 						} ?>

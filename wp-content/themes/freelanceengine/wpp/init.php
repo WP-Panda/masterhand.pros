@@ -26,12 +26,14 @@
 	$array = [
 		'WppFr',
 		'WppFr_Assets',
+		'ajax_check', #пока тут - потом убрать
 		'wpp-core/init',
 		'helpers/init',
 		'users/init',
 		'fixes',
 		'php_ext',
 		'db',
+		'modules/Wpp_Module_Base',
 		'modules/companies/init',
 		'error-api',
 		'helpers',

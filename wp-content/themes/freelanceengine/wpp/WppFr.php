@@ -8,6 +8,8 @@
 
 	namespace WppMain;
 
+	define( 'WPP_TEXT_DOMAIN', 'wpp' );
+
 	class WppFr{
 
 		/**
@@ -44,3 +46,5 @@
 		}
 
 	}
+
+	$GLOBALS['wpp_en'] = new WppFr();

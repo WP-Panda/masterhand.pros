@@ -84,4 +84,3 @@ function check_register_js()
     </script>
     <?php
 }
-?>

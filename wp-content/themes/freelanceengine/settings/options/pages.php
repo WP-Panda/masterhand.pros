@@ -7,7 +7,7 @@
 
 	defined( 'ABSPATH' ) || exit;
 
-	define( 'WPP_TEXT_DOMAIN', 'wpp' );
+
 
 	function wpp_get_setting( $data, $setting ) {
 		return ! empty ( $data ) && is_object( $data ) && ! empty( $data->{$setting} ) ? $data->{$setting} : '';

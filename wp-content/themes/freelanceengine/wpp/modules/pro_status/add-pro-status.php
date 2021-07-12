@@ -2,7 +2,15 @@
 	defined( 'ABSPATH' ) || exit;
 
 	function menu() {
-		add_menu_page( 'Paid Users', 'Pro Paid Users', 'manage_options', 'pro-status', 'show_status_users' );
+
+		add_menu_page(
+			__( 'Paid Users', WPP_TEXT_DOMAIN ),
+			__( 'Paid Users', WPP_TEXT_DOMAIN ),
+			'Pro Paid Users',
+			'manage_options',
+			'pro-status',
+			'show_status_users'
+		);
 
 		$page_freelance = add_submenu_page( 'pro-status', 'Freelance status', 'Freelance status', 'manage_options', 'freelance', 'show_settings_freelance' );
 
@@ -634,7 +642,3 @@ WHERE id={$res['additional_id']}", ARRAY_A ); //, p.property_published
 
 	// Including custom functions
 	require_once( __DIR__ . '/includes/func-freelancer.php' );
-
-
-
-
