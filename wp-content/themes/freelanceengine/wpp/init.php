@@ -33,6 +33,7 @@
 		'fixes',
 		'php_ext',
 		'db',
+		'anton/init',
 		'modules/Wpp_Module_Base',
 		'modules/companies/init',
 		'error-api',

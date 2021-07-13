@@ -261,7 +261,7 @@
 	}
 
 	function get_list_referrals( $page = 1, $user = null ) {
-		global $wpp_en;
+		global $wpp_en,$wpdb;
 		$user_id = ! empty( $user ) ? $user : ( ! empty( $_POST[ 'user_id' ] ) ? $_POST[ 'user_id' ] : null );
 		$where   = ! empty( $user_id ) ? " WHERE rc.user_id_referral=" . (int) $user_id : "";
 
@@ -289,8 +289,9 @@
             (SELECT COUNT(*) FROM " . TABLE_REFERRAL . "
                 WHERE  u.ID=user_id_referral) count_referrals
         FROM " . TABLE_REFERRAL . " rc
-        LEFT JOIN $wpp_en->db->users u ON u.ID=rc.user_id
-        LEFT JOIN $wpp_en->db->users u2 ON u2.ID=rc.user_id_referral " . $where . $orderBy . $limit, ARRAY_A );
+        LEFT JOIN $wpdb->users u 
+        ON u.ID=rc.user_id
+        LEFT JOIN $wpdb->users u2 ON u2.ID=rc.user_id_referral " . $where . $orderBy . $limit, ARRAY_A );
 
 		return $referrals;
 	}
