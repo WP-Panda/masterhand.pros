@@ -1,7 +1,8 @@
-<link href="<?php echo get_stylesheet_directory_uri() ?>/wpp/modules/referral_code/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="<?php echo get_stylesheet_directory_uri() ?>/wpp/modules/referral_code/css/bootstrap.min.css"
+      rel="stylesheet"/>
 <div class="col-xs-12">
-    <div class="text-info text-center"><?php /*echo $plugin_data[ 'Name' ] */?><!--
-        v--><?php /*echo $plugin_data[ 'Version' ] */?></div>
+    <div class="text-info text-center"><?php /*echo $plugin_data[ 'Name' ] */ ?><!--
+        v--><?php /*echo $plugin_data[ 'Version' ] */ ?></div>
 </div>
 <div class="blockLoader">
     <div class="showLoad" onclick="mod.hideLoad()"></div>

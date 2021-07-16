@@ -20,6 +20,29 @@
 			parent::__construct( $args );
 		}
 
+		/**
+		 * Получение максимального значения нутреннего USER ID
+		 *
+		 * @return bool
+		 */
+		function max_referal_code() {
+			global $wpp_en;
+
+			$query = sprintf( "SELECT max(cast(meta_value as unsigned)) FROM %s WHERE meta_key='%s'", $wpp_en->prefix . 'usermeta', '_user_ids' );
+
+			$_ID = $wpp_en->db->get_var( $query );
+
+			return $_ID ?? false;
+
+		}
+
+
+		function gernerate_user_id() {
+			$current = $this->max_referal_code();
+
+			return empty( $current ) ? 5000000001 : (int) $current + 1;
+		}
+
 	}
 
 	new Wpp_Referal();
@@ -35,7 +58,8 @@
 
 		if ( ! empty( $user_id ) ) {
 
-			$code = (int) time() + $user_id;
+			$code_u = new Wpp_Referal();
+			$code   = $code_u->gernerate_user_id();
 
 			$code_keys = [ 'code', 'referral_code', 'referral-code' ];
 
@@ -56,21 +80,20 @@
 			if ( ! empty( $referral_code ) ) {
 
 				#Проверка компания или нет
-				$is_type_company = ! empty( $_REQUEST[ 'type_prof' ] ) && COMPANY === $_REQUEST[ 'type_prof' ];
+				$is_company = get_company( $referral_code );
 
-				if ( $is_type_company ) {
+				if ( ! empty( $_REQUEST[ 'type_prof' ] ) && COMPANY === $_REQUEST[ 'type_prof' ] ) {
 
 					#validen li Код
-					$is_company = check_ref_code_by_company( $referral_code );
+
 
 					if ( $is_company ) {
+
 						add_user_meta( $user_id, 'is_company', 1 );
 						do_action( 'activityRating_asReferral', $user_id );
+						#update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
 						// тут удаляется компания
-						/**
-						 * @todo тут удалять надо не компанию пост а из таблицы компраний
-						 */
-						wp_delete_post( $referral_code, false );
+						company_delete( $referral_code );
 					}
 
 				} else {
@@ -81,8 +104,10 @@
 					if ( $referral_user_id ) {
 						Fre_Mailing::get_instance()->notification_registration_referral_code( $referral_user_id, $user_id );
 						do_action( 'fre_new_referral', $referral_user_id, $user_id );
-						do_action( 'activityRating_asReferral', $user_id );
-						do_action( 'activityRating_asReferrer', $referral_user_id );
+						update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
+						update_user_meta( $user_id, '_activityRating_asReferrer', $referral_user_id );
+						#do_action( 'activityRating_asReferral', $user_id );
+						#do_action( 'activityRating_asReferrer', $referral_user_id );
 					}
 				}
 			}
@@ -97,18 +122,6 @@
 
 	add_action( 'user_register', 'generate_referral_code' );
 
-
-	function check_ref_code_by_company( $referral_code ) {
-
-		global $wpp_en;
-
-		if ( ! empty( $referral_code ) ) {
-			$out = $wpp_en->db->get_var( "SELECT EXISTS(SELECT id FROM {$wpp_en->db->get_blog_prefix()}posts WHERE id = {$referral_code} AND post_type = '" . COMPANY . "')" );
-		}
-
-		return $out ?? false;
-
-	}
 
 	/**
 	 * Получение юзера по реферальному коду
@@ -261,7 +274,7 @@
 	}
 
 	function get_list_referrals( $page = 1, $user = null ) {
-		global $wpp_en,$wpdb;
+		global $wpp_en, $wpdb;
 		$user_id = ! empty( $user ) ? $user : ( ! empty( $_POST[ 'user_id' ] ) ? $_POST[ 'user_id' ] : null );
 		$where   = ! empty( $user_id ) ? " WHERE rc.user_id_referral=" . (int) $user_id : "";
 

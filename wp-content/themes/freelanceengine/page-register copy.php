@@ -4,8 +4,9 @@
 	 */
 	global $post;
 	get_header();
-	$code = ! empty( $_REQUEST[ 'code' ] ) ? $_REQUEST[ 'code' ] : null;
-	if ( ! isset( $_REQUEST[ 'role' ] ) ) {
+	$code = $_REQUEST[ 'code' ] ?? null;
+
+	if ( empty( $_REQUEST[ 'role' ] ) ) {
 		?>
         <div class="fre-page-wrapper">
             <div class="fre-page-section">
@@ -90,9 +91,14 @@
 								<?php if ( $role == FREELANCER ) { ?>
                                     <div class="fre-input-field prof_type">
                                         <label><?php _e( '', ET_DOMAIN ) ?></label>
-                                        <span><input type="radio" name="type_prof" value="profession"
-                                                     checked>Individual Name</span>
-                                        <span><input type="radio" name="type_prof" value="company">Company Name</span>
+                                        <span>
+                                            <input type="radio" name="type_prof" value="profession" checked>
+											<?php _e( 'Individual Name', ET_DOMAIN ); ?>
+                                        </span>
+                                        <span>
+                                            <input type="radio" name="type_prof" value="company">
+											<?php _e( 'Company Name', ET_DOMAIN ); ?>
+                                        </span>
                                     </div>
                                     <div class="fre-input-field" style="display: none">
                                         <label><?php _e( 'Company Name', ET_DOMAIN ) ?></label>
@@ -143,10 +149,10 @@
 										<?php
 											if ( $results ) {
 												foreach ( $results as $result ) {
-													echo "<option value='$result->id'>$result->name</option>";
+													printf( '<option value="%s">%s</option>', $result->id, $result->name );
 												}
 											} else {
-												echo '<option value="">Country not available</option>';
+												printf( '<option value="">%s</option>', __( 'Country not available', ET_DOMAIN ) );
 											} ?>
                                     </select>
                                 </div>
@@ -154,14 +160,14 @@
                                 <div class="fre-input-field select disabled">
                                     <label><?php _e( 'Select State', ET_DOMAIN ) ?></label>
                                     <select name="state" id="state" required="required" disabled>
-                                        <option value="">Select country first</option>
+                                        <option value=""><?php _e( 'Select country first', ET_DOMAIN ); ?></option>
                                     </select>
                                 </div>
 
                                 <div class="fre-input-field select disabled">
                                     <label><?php _e( 'Select City', ET_DOMAIN ) ?></label>
                                     <select name="city" id="city" required="required" disabled>
-                                        <option value="">Select state first</option>
+                                        <option value=""><?php _e( 'Select state first', ET_DOMAIN ) ?></option>
                                     </select>
                                 </div>
                                 <div class="fre-input-field">

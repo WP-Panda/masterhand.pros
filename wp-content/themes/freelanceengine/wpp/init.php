@@ -24,6 +24,7 @@
 	}
 
 	$array = [
+		//'s',
 		'WppFr',
 		'WppFr_Assets',
 		'ajax_check', #пока тут - потом убрать
@@ -31,6 +32,7 @@
 		'helpers/init',
 		'users/init',
 		'fixes',
+		'deprecated',
 		'php_ext',
 		'db',
 		'anton/init',

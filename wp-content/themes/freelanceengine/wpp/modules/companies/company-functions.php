@@ -90,7 +90,6 @@
 			}
 
 
-
 		}
 
 		return [
@@ -100,17 +99,33 @@
 		];
 	}
 
+	/**
+	 * Получение компании
+	 *
+	 * @param $_ID
+	 *
+	 * @return array|bool|null|object|void
+	 */
+	function get_company( $_ID ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'wpp_company_data';
+		$check      = $wpdb->get_row( "SELECT * FROM $table_name WHERE `id` = " . $_ID );
+
+		return $check ?? false;
+	}
 
 	/**
 	 * Удаление компрании
 	 *
 	 * @param $_ID
+	 *
+	 * @return bool
 	 */
 	function company_delete( $_ID ) {
 
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'wpp_company_data';
-		$check      = $wpdb->get_row( "SELECT * FROM $table_name WHERE `id` = " . $_ID );
+		$check      = get_company( $_ID );
 
 		if ( empty( $check ) ) {
 			return false;
