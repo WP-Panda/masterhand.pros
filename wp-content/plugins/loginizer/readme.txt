@@ -4,7 +4,7 @@ Tags: access, admin, Loginizer, login, logs, ban ip, failed login, ip, whitelist
 Requires at least: 3.0
 Tested up to: 5.7
 Requires PHP: 5.5
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -76,6 +76,14 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.6.7 =
+* [Feature] Added Bulk Export/Import Blacklist and Whitelist IPs via CSV.
+* [Improvement] Added option to Blacklist selected IPs from Failed Login Attempts Logs.
+* [Improvement] Added external link in Brute Force logs for IP information of the IPs attempting brute force.
+* [Improvement] [Pro] Added Loginizer 2FA status column on Users list page to show 2FA preferences selected by users.
+* [Improvement] [Pro] Added Show/Hide button for OTP field on 2FA login page.
+* [Bug Fix] [Pro] Two Factor Authentication lead to 502 Bad Gateway error on WP Engine instances. This is resolved now.
 
 = 1.6.6 =
 * [Improvement] For new installs, the loginizer_logs table will now use the server default MySQL Engine.

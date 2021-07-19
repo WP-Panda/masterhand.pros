@@ -17,6 +17,8 @@ class UpdraftPlus_Storage_Methods_Interface {
 	 */
 	public static function get_storage_object($method) {
 	
+		if (!preg_match('/^[\-a-z0-9]+$/i', $method)) return new WP_Error('no_such_storage_class', "The specified storage method ($method) was not found");
+	
 		static $objects = array();
 	
 		if (!empty($objects[$method])) return $objects[$method];

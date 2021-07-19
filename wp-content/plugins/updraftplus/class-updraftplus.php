@@ -393,6 +393,7 @@ class UpdraftPlus {
 			}
 		}
 		$ret = pclose($handle);
+		// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 		if (false === $found || 0 != $ret) return false;
 
 		if ((int) $matches[2]<100 || ($matches[1] + $matches[3] != $matches[2])) return false;
@@ -939,8 +940,10 @@ class UpdraftPlus {
 		// Attempt to raise limit to avoid false positives
 		if (function_exists('set_time_limit')) @set_time_limit(UPDRAFTPLUS_SET_TIME_LIMIT);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$max_execution_time = (int) @ini_get("max_execution_time");// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		
+		$mp = (int) $wpdb->get_var("SELECT @@session.max_allowed_packet");
 
-		$logline = "UpdraftPlus WordPress backup plugin (https://updraftplus.com): ".$this->version." WP: ".$wp_version." PHP: ".phpversion()." (".PHP_SAPI.", ".(function_exists('php_uname') ? @php_uname() : PHP_OS).") MySQL: $mysql_version WPLANG: ".get_locale()." Server: ".$_SERVER["SERVER_SOFTWARE"]." safe_mode: $safe_mode max_execution_time: $max_execution_time memory_limit: $memory_limit (used: ${memory_usage}M | ${memory_usage2}M) multisite: ".(is_multisite() ? (is_subdomain_install() ? 'Y (sub-domain)' : 'Y (sub-folder)') : 'N')." openssl: ".(defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'N')." mcrypt: ".(function_exists('mcrypt_encrypt') ? 'Y' : 'N')." LANG: ".getenv('LANG')." ZipArchive::addFile: ";// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$logline = "UpdraftPlus WordPress backup plugin (https://updraftplus.com): ".$this->version." WP: ".$wp_version." PHP: ".phpversion()." (".PHP_SAPI.", ".(function_exists('php_uname') ? @php_uname() : PHP_OS).") MySQL: $mysql_version (max packet size=$mp) WPLANG: ".get_locale()." Server: ".$_SERVER["SERVER_SOFTWARE"]." safe_mode: $safe_mode max_execution_time: $max_execution_time memory_limit: $memory_limit (used: ${memory_usage}M | ${memory_usage2}M) multisite: ".(is_multisite() ? (is_subdomain_install() ? 'Y (sub-domain)' : 'Y (sub-folder)') : 'N')." openssl: ".(defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'N')." mcrypt: ".(function_exists('mcrypt_encrypt') ? 'Y' : 'N')." LANG: ".getenv('LANG')." ZipArchive::addFile: ";// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 
 		// method_exists causes some faulty PHP installations to segfault, leading to support requests
 		if (version_compare(phpversion(), '5.2.0', '>=') && extension_loaded('zip')) {
@@ -1613,7 +1616,6 @@ class UpdraftPlus {
 		$updraft_dir = $this->backups_dir_location();
 		global $wpdb;
 		$table_name = $wpdb->get_blog_prefix().'options';
-		$tmp_file = md5(time().rand()).".sqltest.tmp";
 		$pfile = md5(time().rand()).'.tmp';
 		file_put_contents($updraft_dir.'/'.$pfile, "[mysqldump]\npassword=\"".addslashes(DB_PASSWORD)."\"\n");
 
@@ -1637,27 +1639,49 @@ class UpdraftPlus {
 			// Allow --max_allowed_packet to be configured via constant. Experience has shown some customers with complex CMS or pagebuilder setups can have extrememly large postmeta entries.
 			$msqld_max_allowed_packet = (defined('UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET') && (is_int(UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET) || is_string(UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET))) ? UPDRAFTPLUS_MYSQLDUMP_MAX_ALLOWED_PACKET : '1M';
 				
-			$exec .= "$potsql --defaults-file=$pfile --max_allowed_packet=$msqld_max_allowed_packet --quote-names --add-drop-table --skip-comments --skip-set-charset --allow-keywords --dump-date --extended-insert --where=option_name=$siteurl --user=".escapeshellarg(DB_USER)." --host=".escapeshellarg(DB_HOST)." ".DB_NAME." ".escapeshellarg($table_name)."";
+			$exec .= "$potsql --defaults-file=$pfile --max_allowed_packet=$msqld_max_allowed_packet --quote-names --add-drop-table";
+			
+			static $mysql_version = null;
+			if (null === $mysql_version) {
+				$mysql_version = $wpdb->get_var('SELECT VERSION()');
+				if ('' == $mysql_version) $mysql_version = $wpdb->db_version();
+			}
+			if ($mysql_version && version_compare($mysql_version, '5.1', '>=')) {
+				$exec .= " --no-tablespaces";
+			}
+			
+			$exec .= " --skip-comments --skip-set-charset --allow-keywords --dump-date --extended-insert --where=option_name=$siteurl --user=".escapeshellarg(DB_USER)." ";
+			
+			if (preg_match('#^(.*):(\d+)$#', DB_HOST, $matches)) {
+				// The escapeshellarg() on $matches[2] is only to avoid tripping static analysis tools
+				$exec .= "--host=".escapeshellarg($matches[1])." --port=".escapeshellarg($matches[2])." ";
+			} elseif (preg_match('#^(.*):(.*)$#', DB_HOST, $matches) && file_exists($matches[2])) {
+				$exec .= "--host=".escapeshellarg($matches[1])." --socket=".escapeshellarg($matches[2])." ";
+			} else {
+				$exec .= "--host=".escapeshellarg(DB_HOST)." ";
+			}
+			
+			$exec .= DB_NAME." ".escapeshellarg($table_name);
 			
 			$handle = function_exists('popen') ? popen($exec, "r") : false;
 			if ($handle) {
-				if (!feof($handle)) {
-					$output = fread($handle, 8192);
-					if ($output && $log_it) {
-						$log_output = (strlen($output) > 512) ? substr($output, 0, 512).' (truncated - '.strlen($output).' bytes total)' : $output;
-						$this->log("Output: ".str_replace("\n", '\\n', trim($log_output)));
-					}
-				} else {
-					$output = '';
+				$output = '';
+				// We expect the INSERT statement in the first 100KB
+				while (!feof($handle) && strlen($output) < 102400) {
+					$output .= fgets($handle, 102400);
+				}
+				if ($output && $log_it) {
+					$log_output = (strlen($output) > 512) ? substr($output, 0, 512).' (truncated - '.strlen($output).' bytes total)' : $output;
+					$this->log("Output: ".str_replace("\n", '\\n', trim($log_output)));
 				}
 				$ret = pclose($handle);
+				// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 				if (0 != $ret) {
 					if ($log_it) {
 						$this->log("Binary mysqldump: error (code: $ret)");
 					}
 				} else {
-// $dumped = file_get_contents($updraft_dir.'/'.$tmp_file, false, null, 0, 4096);
-					if (stripos($output, 'insert into') !== false) {
+					if (false !== stripos($output, 'insert into')) {
 						if ($log_it) $this->log("Working binary mysqldump found: $potsql");
 						$result = $potsql;
 						break;
@@ -1668,8 +1692,7 @@ class UpdraftPlus {
 			}
 		}
 
-		@unlink($updraft_dir.'/'.$pfile);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-		@unlink($updraft_dir.'/'.$tmp_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (file_exists($updraft_dir.'/'.$pfile)) unlink($updraft_dir.'/'.$pfile);
 
 		if ($cacheit) $this->jobdata_set('binsqldump', $result);
 
@@ -1741,6 +1764,7 @@ class UpdraftPlus {
 						if ($w && $log_it) $this->log("Output: ".trim($w));
 					}
 					$ret = pclose($handle);
+					// The manual page for pclose() claims that only -1 indicates an error, but this is untrue
 					if (0 != $ret) {
 						if ($log_it) $this->log("Binary zip: error (code: $ret)");
 						$all_ok = false;
@@ -2075,6 +2099,8 @@ class UpdraftPlus {
 			$e_type = "E_UNKNOWN ($errno)";
 				break;
 		}
+		
+		if (false !== stripos($errstr, 'table which is not valid in this version of Gravity Forms')) return false;
 
 		if (!is_string($errstr)) $errstr = serialize($errstr);
 
@@ -5228,7 +5254,7 @@ class UpdraftPlus {
 		}
 
 		$select_restore_tables = '<div class="notice below-h2 updraft-restore-option">';
-		$select_restore_tables .= '<p>'.__('If you do not want to restore all your tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
+		$select_restore_tables .= '<p>'.__('If you do not want to restore all your database tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
 
 		$select_restore_tables .= '<div class="updraftplus_restore_tables_options_container" style="display:none;">';
 

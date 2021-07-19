@@ -718,7 +718,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 					}
 				} catch (Exception $e) {
 					$msg = $e->getMessage();
-					$this->log("Upload error: ".$msg.' (line: '.$e->getLine().', file: '.$e->getFile().')');
+					$this->log("Upload exception (".get_class($e)."): $msg (line: ".$e->getLine().', file: '.$e->getFile().')');
 					
 					// If the issue was a problem refreshing the OAuth2 token, bootstrap again and try again
 					if (false !== ($p = strpos($msg, 'Error refreshing the OAuth2 token'))) {
@@ -1155,8 +1155,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 
 		$chunk_size = 1048576;
 
-		$hash = md5($file);
-		$transkey = 'resume_'.$hash;
+		$transkey = 'resume_'.md5($file);
 		// This is unset upon completion, so if it is set then we are resuming
 		$possible_location = $this->jobdata_get($transkey, null, 'gd'.$transkey);
 
@@ -1262,14 +1261,9 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			}
 			
 		} catch (UDP_Google_Service_Exception $e) {
-			$this->log("ERROR: upload error (".get_class($e)."): ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
-			$client->setDefer(false);
-			fclose($handle);
-			$this->jobdata_delete($transkey, 'gd'.$transkey);
-			if (false == $try_again) throw($e);
-			// Reset this counter to prevent the something_useful_happened condition's possibility being sent into the far future and potentially missed
-			if ($updraftplus->current_resumption > 9) $updraftplus->jobdata_set('uploaded_lastreset', $updraftplus->current_resumption);
-			return $this->upload_file($file, $parent_id, false);
+			return $this->catch_upload_engine_exceptions($e, $handle, $try_again, $file, $parent_id);
+		} catch (UDP_Google_IO_Exception $e) {
+			return $this->catch_upload_engine_exceptions($e, $handle, $try_again, $file, $parent_id);
 		}
 
 		// The final value of $status will be the data from the API for the object
@@ -1284,6 +1278,30 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 
 	}
 
+	/**
+	 * This function is used to handle certain exceptions that can rise from uploading files to Google Drive when a retry is possibly desirable.
+	 *
+	 * @param Exception $e         - the Google exception we caught
+	 * @param Resource  $handle    - a file handler object that needs closing
+	 * @param Boolean   $try_again - indicates if we should try again
+	 * @param String    $file      - the full file path
+	 * @param String    $parent_id - the Google Drive ID for the parent folder
+	 *
+	 * @return Boolean
+	 */
+	private function catch_upload_engine_exceptions($e, $handle, $try_again, $file, $parent_id) {
+		$this->log('ERROR: upload exception ('.get_class($e).'): '.$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+		$this->client->setDefer(false);
+		fclose($handle);
+		$transkey = $transkey = 'resume_'.md5($file);
+		$this->jobdata_delete($transkey, 'gd'.$transkey);
+		if (false == $try_again) throw($e);
+		// Reset this counter to prevent the something_useful_happened condition's possibility being sent into the far future and potentially missed
+		global $updraftplus;
+		if ($updraftplus->current_resumption > 9) $updraftplus->jobdata_set('uploaded_lastreset', $updraftplus->current_resumption);
+		return $this->upload_file($file, $parent_id, false);
+	}
+	
 	public function download($file) {
 
 		global $updraftplus;

@@ -128,7 +128,7 @@ class UpdraftCentral_Main {
 			return array('responsetype' => 'error', 'code' => 'already_have');
 		}
 		
-		$our_keys[$updraft_key_index]['publickey_remote'] = base64_decode($_GET['public_key']);
+		$our_keys[$updraft_key_index]['publickey_remote'] = base64_decode(stripslashes($_GET['public_key']));
 		UpdraftPlus_Options::update_updraft_option('updraft_central_localkeys', $our_keys, true, 'no');
 		
 		return array('responsetype' => 'ok', 'code' => 'ok');

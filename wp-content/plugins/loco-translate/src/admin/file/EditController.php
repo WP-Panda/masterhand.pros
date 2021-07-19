@@ -90,15 +90,12 @@ class Loco_admin_file_EditController extends Loco_admin_file_BaseController {
         $syncmode = null;
         $locale = $this->getLocale();
         if( $locale instanceof Loco_Locale ){
-            // alternative POT file may be forced by PO headers
-            if( $head->has('X-Loco-Template') ){
-                $potfile = new Loco_fs_File( $head['X-Loco-Template'] );
+            // alternative POT file may be forced by sync options
+            $sync = new Loco_gettext_SyncOptions($head);
+            $syncmode = $sync->getSyncMode();
+            if( $sync->hasTemplate() ){
+                $potfile = $sync->getTemplate();
                 $potfile->normalize( $bundle->getDirectoryPath() );
-                // sync mode permits copying of translations since 2.4.3
-                // legacy sync behaviour was copy msgstr fields when they exist (no strip)
-                if( $head->has('X-Loco-Template-Mode') ){
-                    $syncmode = $head['X-Loco-Template-Mode'];
-                }
             }
             // else use project-configured template, assuming there is one
             // no way to get configured POT if invalid project
@@ -161,7 +158,8 @@ class Loco_admin_file_EditController extends Loco_admin_file_BaseController {
             else if( 1 === $settings->pot_protect ){
                 Loco_error_AdminNotices::warn( __("This is NOT a translation file. Manual editing of source strings is not recommended.",'loco-translate') )
                  ->addLink( Loco_mvc_AdminRouter::generate('config').'#loco--pot-protect', __('Settings','loco-translate') )
-                 ->addLink( apply_filters('loco_external','https://localise.biz/wordpress/plugin/manual/templates'), __('Documentation','loco-translate') );
+                 ->addLink( apply_filters('loco_external','https://localise.biz/wordpress/plugin/manual/templates'), __('Documentation','loco-translate') )
+                 ->noLog();
             }
         }
         

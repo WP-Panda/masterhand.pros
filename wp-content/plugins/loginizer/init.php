@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.6.6');
+define('LOGINIZER_VERSION', '1.6.7');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -674,7 +674,11 @@ function loginizer_is_blacklisted(){
 	global $wpdb, $loginizer, $lz_error;
 	
 	$blacklist = $loginizer['blacklist'];
-			
+	
+	if(empty($blacklist)){
+		return false;
+	}
+	  
 	foreach($blacklist as $k => $v){
 		
 		// Is the IP in the blacklist ?
@@ -716,6 +720,10 @@ function loginizer_is_whitelisted(){
 	
 	$whitelist = $loginizer['whitelist'];
 			
+	if(empty($whitelist)){
+		return false;
+	}
+	  
 	foreach($whitelist as $k => $v){
 		
 		// Is the IP in the blacklist ?
@@ -1253,8 +1261,13 @@ input[type="text"], textarea, select {
 	font-size:12px;
 }
 </style>
+		
+	<?php 
+	$lz_ip = lz_getip();
 	
-	<?php
+	if($lz_ip != '127.0.0.1' && @$_SERVER['SERVER_ADDR'] == $lz_ip){
+		echo '<div class="update-message notice error inline notice-error notice-alt"><p style="color:red"> &nbsp; Your Server IP Address seems to match the Client IP detected by Loginizer. You might want to change the IP detection method to HTTP_X_FORWARDED_FOR under System Information section.</p></div><br>';
+	 }
 	
 	loginizer_newsletter_subscribe();
 	
@@ -1617,7 +1630,7 @@ function loginizer_page_brute_force(){
 	}
 	
 	// Reset Logs
-	if(isset($_POST['lz_reset_ips']) && is_array($_POST['lz_reset_ips'])){
+	if(isset($_POST['lz_reset_ip']) && isset($_POST['lz_reset_ips']) && is_array($_POST['lz_reset_ips'])){
 
 		$ips = $_POST['lz_reset_ips'];
 		
@@ -1659,79 +1672,25 @@ function loginizer_page_brute_force(){
 		$start_ip = lz_optpost('start_ip');
 		$end_ip = lz_optpost('end_ip');
 		
-		if(empty($start_ip)){
-			$error[] = __('Please enter the Start IP', 'loginizer');
-		}
-		
-		// If no end IP we consider only 1 IP
-		if(empty($end_ip)){
-			$end_ip = $start_ip;
-		}
-				
-		if(!lz_valid_ip($start_ip)){
-			$error[] = __('Please provide a valid start IP', 'loginizer');
-		}
-		
-		if(!lz_valid_ip($end_ip)){
-			$error[] = __('Please provide a valid end IP', 'loginizer');			
-		}
-		
-		// Regular ranges will work
-		if(inet_ptoi($start_ip) > inet_ptoi($end_ip)){
-			
-			// BUT, if 0.0.0.1 - 255.255.255.255 is given, it will not work
-			if(inet_ptoi($start_ip) >= 0 && inet_ptoi($end_ip) < 0){
-				// This is right
-			}else{
-				$error[] = __('The End IP cannot be smaller than the Start IP', 'loginizer');
-			}
-			
-		}
+		// Validate the IP against all checks
+		loginizer_iprange_validate($start_ip, $end_ip, $loginizer['blacklist'], $error);
 		
 		if(empty($error)){
-			
+		
 			$blacklist = $loginizer['blacklist'];
 			
-			foreach($blacklist as $k => $v){
-				
-				// This is to check if there is any other range exists with the same Start or End IP
-				if(( inet_ptoi($start_ip) <= inet_ptoi($v['start']) && inet_ptoi($v['start']) <= inet_ptoi($end_ip) )
-					|| ( inet_ptoi($start_ip) <= inet_ptoi($v['end']) && inet_ptoi($v['end']) <= inet_ptoi($end_ip) )
-				){
-					$error[] = __('The Start IP or End IP submitted conflicts with an existing IP range !', 'loginizer');
-					break;
-				}
-				
-				// This is to check if there is any other range exists with the same Start IP
-				if(inet_ptoi($v['start']) <= inet_ptoi($start_ip) && inet_ptoi($start_ip) <= inet_ptoi($v['end'])){
-					$error[] = __('The Start IP is present in an existing range !', 'loginizer');
-					break;
-				}
-				
-				// This is to check if there is any other range exists with the same End IP
-				if(inet_ptoi($v['start']) <= inet_ptoi($end_ip) && inet_ptoi($end_ip) <= inet_ptoi($v['end'])){
-					$error[] = __('The End IP is present in an existing range!', 'loginizer');
-					break;
-				}
-				
-			}
-			
 			$newid = ( empty($blacklist) ? 0 : max(array_keys($blacklist)) ) + 1;
-		
-			if(empty($error)){
-				
-				$blacklist[$newid] = array();
-				$blacklist[$newid]['start'] = $start_ip;
-				$blacklist[$newid]['end'] = $end_ip;
-				$blacklist[$newid]['time'] = time();
-				
-				update_option('loginizer_blacklist', $blacklist);
-				
-				echo '<div id="message" class="updated fade"><p>'
-						. __('Blacklist IP range added successfully', 'loginizer')
-						. '</p></div><br />';
-				
-			}
+			
+			$blacklist[$newid] = array();
+			$blacklist[$newid]['start'] = $start_ip;
+			$blacklist[$newid]['end'] = $end_ip;
+			$blacklist[$newid]['time'] = time();
+			
+			update_option('loginizer_blacklist', $blacklist);
+			
+			echo '<div id="message" class="updated fade"><p>'
+					. __('Blacklist IP range added successfully', 'loginizer')
+					. '</p></div><br />';
 			
 		}
 		
@@ -1746,81 +1705,154 @@ function loginizer_page_brute_force(){
 		$start_ip = lz_optpost('start_ip_w');
 		$end_ip = lz_optpost('end_ip_w');
 		
-		if(empty($start_ip)){
-			$error[] = __('Please enter the Start IP', 'loginizer');
-		}
-		
-		// If no end IP we consider only 1 IP
-		if(empty($end_ip)){
-			$end_ip = $start_ip;
-		}
-				
-		if(!lz_valid_ip($start_ip)){
-			$error[] = __('Please provide a valid start IP', 'loginizer');
-		}
-		
-		if(!lz_valid_ip($end_ip)){
-			$error[] = __('Please provide a valid end IP', 'loginizer');
-		}
-			
-		if(inet_ptoi($start_ip) > inet_ptoi($end_ip)){
-			
-			// BUT, if 0.0.0.1 - 255.255.255.255 is given, it will not work
-			if(inet_ptoi($start_ip) >= 0 && inet_ptoi($end_ip) < 0){
-				// This is right
-			}else{
-				$error[] = __('The End IP cannot be smaller than the Start IP', 'loginizer');
-			}
-			
-		}
+		// Validate the IP against all checks
+		loginizer_iprange_validate($start_ip, $end_ip, $loginizer['whitelist'], $error);
 		
 		if(empty($error)){
 			
 			$whitelist = $loginizer['whitelist'];
 			
-			foreach($whitelist as $k => $v){
-				
-				// This is to check if there is any other range exists with the same Start or End IP
-				if(( inet_ptoi($start_ip) <= inet_ptoi($v['start']) && inet_ptoi($v['start']) <= inet_ptoi($end_ip) )
-					|| ( inet_ptoi($start_ip) <= inet_ptoi($v['end']) && inet_ptoi($v['end']) <= inet_ptoi($end_ip) )
-				){
-					$error[] = __('The Start IP or End IP submitted conflicts with an existing IP range !', 'loginizer');
-					break;
-				}
-				
-				// This is to check if there is any other range exists with the same Start IP
-				if(inet_ptoi($v['start']) <= inet_ptoi($start_ip) && inet_ptoi($start_ip) <= inet_ptoi($v['end'])){
-					$error[] = __('The Start IP is present in an existing range !', 'loginizer');
-					break;
-				}
-				
-				// This is to check if there is any other range exists with the same End IP
-				if(inet_ptoi($v['start']) <= inet_ptoi($end_ip) && inet_ptoi($end_ip) <= inet_ptoi($v['end'])){
-					$error[] = __('The End IP is present in an existing range!', 'loginizer');
-					break;
-				}
-				
-			}
-			
 			$newid = ( empty($whitelist) ? 0 : max(array_keys($whitelist)) ) + 1;
 			
-			if(empty($error)){
-				
-				$whitelist[$newid] = array();
-				$whitelist[$newid]['start'] = $start_ip;
-				$whitelist[$newid]['end'] = $end_ip;
-				$whitelist[$newid]['time'] = time();
-				
-				update_option('loginizer_whitelist', $whitelist);
-				
-				echo '<div id="message" class="updated fade"><p>'
-						. __('Whitelist IP range added successfully', 'loginizer')
-						. '</p></div><br />';
-				
-			}
+			$whitelist[$newid] = array();
+			$whitelist[$newid]['start'] = $start_ip;
+			$whitelist[$newid]['end'] = $end_ip;
+			$whitelist[$newid]['time'] = time();
+			
+			update_option('loginizer_whitelist', $whitelist);
+			
+			echo '<div id="message" class="updated fade"><p>'
+					. __('Whitelist IP range added successfully', 'loginizer')
+					. '</p></div><br />';
 			
 		}
 		
+		if(!empty($error)){
+			lz_report_error($error);echo '<br />';
+		}
+	}
+	
+	if(isset($_POST['lz_import_csv'])){
+
+		if(!empty($_FILES['lz_import_file_csv']['name'])){
+
+			$lz_csv_type = lz_optpost('lz_csv_type');
+			
+			// Is the submitted type in the allowed list ? 
+			if(!in_array($lz_csv_type, array('blacklist', 'whitelist'))){
+				$error[] = __('Invalid import type', 'loginizer');
+			}
+			
+			if(empty($error)){
+				
+				//Get the extension of the file
+				$csv_file_name = basename($_FILES['lz_import_file_csv']['name']);
+				$csv_ext_name = strtolower(pathinfo($csv_file_name, PATHINFO_EXTENSION));
+
+				//Check if it's a csv file
+				if($csv_ext_name == 'csv'){
+					
+					$file = fopen($_FILES['lz_import_file_csv']['tmp_name'], "r");
+
+					$line_count = 0;
+					$update_record = 0;
+					
+					while($content = fgetcsv($file)){
+
+						//Increment the $line_count
+						$line_count++;
+						
+						//Skip the first line
+						if($line_count <= 1){
+							continue;
+						}
+						
+						if(loginizer_iprange_validate($content[0], $content[1], $loginizer[$lz_csv_type], $error, $line_count)){
+							
+							$newid = ( empty($loginizer[$lz_csv_type]) ? 0 : max(array_keys($loginizer[$lz_csv_type])) ) + 1;
+							
+							$loginizer[$lz_csv_type][$newid] = array();
+							$loginizer[$lz_csv_type][$newid]['start'] = $content[0];
+							$loginizer[$lz_csv_type][$newid]['end'] = $content[1];
+							$loginizer[$lz_csv_type][$newid]['time'] = time();
+							
+							$update_record = 1;
+							
+						}
+					}
+					
+					fclose($file);
+					
+					if(!empty($update_record)){
+						
+						update_option('loginizer_'.$lz_csv_type, $loginizer[$lz_csv_type]);
+						
+						echo '<div id="message" class="updated fade"><p>'
+								. __('Imported '.ucfirst($lz_csv_type).' IP range(s) successfully', 'loginizer')
+								. '</p></div><br />';
+						
+					}
+					
+					if(!empty($error)){
+						lz_report_error($error);echo '<br />';
+					}
+				}
+				
+			}
+		}
+	}
+ 
+	//Brute Force Bulk Blacklist/ Whitelist Ip
+	if(isset($_POST['lz_blacklist_selected_ip'])){
+		if(isset($_POST['lz_reset_ips']) && is_array($_POST['lz_reset_ips'])){
+
+			$ips = $_POST['lz_reset_ips'];
+			
+			foreach($ips as $ip){
+				if(!lz_valid_ip($ip)){
+					$error[] = 'The IP - '.esc_html($ip).' is invalid !';
+				}
+			}
+			
+			if(count($ips) < 1){
+				$error[] = __('There are no IPs submitted', 'loginizer');
+			}
+			
+			// Should we start deleting logs
+			if(empty($error)){
+				
+				$update_record = 0;
+				
+				foreach($ips as $ip){
+					
+					if(loginizer_iprange_validate($ip, '', $loginizer['blacklist'], $error)){
+							
+						$newid = ( empty($loginizer['blacklist']) ? 0 : max(array_keys($loginizer['blacklist'])) ) + 1;
+						
+						$loginizer['blacklist'][$newid] = array();
+						$loginizer['blacklist'][$newid]['start'] = $ip;
+						$loginizer['blacklist'][$newid]['end'] = $ip;
+						$loginizer['blacklist'][$newid]['time'] = time();
+						
+						$update_record = 1;
+					}
+				}
+				
+				if(!empty($update_record)){
+						
+					update_option('loginizer_blacklist', $loginizer['blacklist']);
+					
+					echo '<div id="message" class="updated fade"><p>'
+							. __('The selected IP(s) have been blacklisted', 'loginizer')
+							. '</p></div><br />';
+					
+				}
+				
+			}
+		}else{
+			$error[] = __('No IP(s) selected', 'loginizer');
+		}
+			
 		if(!empty($error)){
 			lz_report_error($error);echo '<br />';
 		}
@@ -1887,6 +1919,57 @@ function loginizer_page_brute_force(){
 			window.location = '<?php echo menu_page_url('loginizer_brute_force', false);?>&lzpage='+jQuery("#current-page-selector").val();
 			return false;
 		}
+		
+		function lz_export_ajax(lz_csv_type){
+	
+			var data = new Object();
+			data["action"] = "loginizer_export";
+			data["lz_csv_type"] = lz_csv_type;
+			data["nonce"]	= "<?php echo wp_create_nonce('loginizer_admin_ajax'); ?>";
+			
+			var admin_url = "<?php admin_url(); ?>"+"admin-ajax.php";
+			
+			jQuery.post(admin_url, data, function(response){
+				
+				// Was the ajax call successful ?
+				if(response.substring(0,2) == "-1"){
+					
+					var err_message = response.substring(2);
+					
+					if(err_message){
+						alert(err_message);
+					}else{
+						alert("Failed to export data");
+					}
+					
+					return false;
+				}
+				
+				/*
+				* Make CSV downloadable
+				*/
+				var downloadLink = document.createElement("a");
+				var fileData = ['\ufeff'+response];
+
+				var blobObject = new Blob(fileData,{
+				 type: "text/csv;charset=utf-8;"
+				});
+
+				var url = URL.createObjectURL(blobObject);
+				downloadLink.href = url;
+				downloadLink.download = "loginizer-"+lz_csv_type+".csv";
+
+				/*
+				* Actually download CSV
+				*/
+				document.body.appendChild(downloadLink);
+				downloadLink.click();
+				document.body.removeChild(downloadLink);
+				
+			});
+			
+		}
+		
 		</script>
 		
 		<form method="get" onsubmit="return yesdsd();">
@@ -1938,7 +2021,7 @@ function loginizer_page_brute_force(){
 							<input type="checkbox" value="'.esc_attr($iv['ip']).'" name="lz_reset_ips[]" />
 						</td>
 						<td>
-							'.esc_html($iv['ip']).'
+							<a href="https://ipinfo.io/'.esc_html($iv['ip']).'" target="_blank">'.esc_html($iv['ip']).'&nbsp;<span class="dashicons dashicons-external"></span></a>
 						</td>
 						<td>
 							'.esc_html($iv['username']).'
@@ -1966,6 +2049,8 @@ function loginizer_page_brute_force(){
 		<input name="lz_reset_ip" class="button button-primary action" value="<?php echo __('Remove From Logs', 'loginizer'); ?>" type="submit" />
 		&nbsp; &nbsp; 
 		<input name="lz_reset_all_ip" class="button button-primary action" value="<?php echo __('Clear All Logs', 'loginizer'); ?>" type="submit" />
+		&nbsp; &nbsp; 
+		<input name="lz_blacklist_selected_ip" class="button button-primary action" value="<?php echo __('Blacklist Selected IPs', 'loginizer'); ?>" type="submit" />
 		</div>
 	</div>
 	</form>
@@ -2137,6 +2222,32 @@ function del_confirm_all(msg){
 		</div>
 		
 		<div id="lz_bl_nav" style="margin: 5px 10px; text-align:right"></div>
+		
+		<!--Brute Force Blacklist Import CSV Form-->
+		<div class="inside" id="blacklist_csv" style="display:none;">
+			<form action="" method="post" enctype="multipart/form-data">
+				<?php wp_nonce_field('loginizer-options'); ?>
+				<input type="hidden" value="blacklist" name="lz_csv_type" />
+				<h3><?php echo __('Import Blacklist IPs (CSV)', 'loginizer'); ?>:</h3>
+				<input type="file" name="lz_import_file_csv" value="Import CSV" />
+				<br><br>
+				<input name="lz_import_csv" class="button button-primary action" value="<?php echo __('Submit', 'loginizer'); ?>" type="submit" />
+			</form>
+		</div>
+		<!---->
+		
+		<!--Brute Force Blacklist Export CSV Form-->
+		<div class="inside" style="float:right;">
+			<form action="" method="post">
+				<?php wp_nonce_field('loginizer-options'); ?>
+				<input type="hidden" value="blacklist" name="lz_csv_type" />
+				<input class="button button-primary action" value="<?php echo __('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#blacklist_csv').toggle();"/>
+				<input name="lz_export_csv" onclick="lz_export_ajax('blacklist'); return false;" class="button button-primary action" value="<?php echo __('Export CSV', 'loginizer'); ?>" type="submit" />
+			</form>
+		
+		</div>
+		<!---->
+		
 		<table id="lz_bl_table" class="wp-list-table fixed striped users" border="0" width="95%" cellpadding="10" align="center">
 			<tr>
 				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Start IP','loginizer'); ?></th>
@@ -2215,6 +2326,31 @@ function del_confirm_all(msg){
 		</div>
 		
 		<div id="lz_wl_nav" style="margin: 5px 10px; text-align:right"></div>
+		
+		<!--Brute Force Whitelist Import CSV Form-->
+		<div class="inside" id="lz_whitelist_csv_div" style="display:none;">
+			<form action="" method="post" enctype="multipart/form-data">
+				<?php wp_nonce_field('loginizer-options'); ?>
+				<input type="hidden" value="whitelist" name="lz_csv_type" />
+				<h3><?php echo __('Import Whitelist IPs (CSV)', 'loginizer'); ?>:</h3>
+				<input type="file" name="lz_import_file_csv" value="Import CSV" />
+				<br><br>
+				<input name="lz_import_csv" class="button button-primary action" value="<?php echo __('Submit', 'loginizer'); ?>" type="submit" />
+			</form>
+		</div>
+		<!---->
+		
+		<!--Brute Force Whitelist Export CSV Form-->
+		<div class="inside" style="float:right;">
+			<form action="" method="post">
+				<?php wp_nonce_field('loginizer-options'); ?>
+				<input type="hidden" value="whitelist" name="lz_csv_type" />
+				<input class="button button-primary action" value="<?php echo __('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#lz_whitelist_csv_div').toggle();"/>
+				<input name="lz_export_csv" onclick="lz_export_ajax('whitelist'); return false;" class="button button-primary action" value="<?php echo __('Export CSV', 'loginizer'); ?>" type="submit" />
+			</form>
+		</div>
+		<!---->
+		
 		<table id="lz_wl_table" class="wp-list-table fixed striped users" border="0" width="95%" cellpadding="10" align="center">
 		<tr>
 			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Start IP','loginizer'); ?></th>
@@ -2319,6 +2455,153 @@ function del_confirm_all(msg){
 
 loginizer_page_footer();
 
+}
+
+add_action('wp_ajax_loginizer_export', 'loginizer_export');
+
+// Export CSV
+function loginizer_export(){
+
+	// Some AJAX security
+	check_ajax_referer('loginizer_admin_ajax', 'nonce');
+	 
+	if(!current_user_can('manage_options')){
+		wp_die('Sorry, but you do not have permissions to change settings.');
+	}
+	
+	$lz_csv_type = lz_optpost('lz_csv_type');
+	
+	switch($lz_csv_type){
+		
+		case 'blacklist':
+		$csv_array = get_option('loginizer_blacklist');
+		$filename = 'loginizer-blacklist';
+		break;
+		
+		case 'whitelist':
+		$csv_array = get_option('loginizer_whitelist');
+		$filename = 'loginizer-whitelist';
+		break;
+	}
+	
+	if(empty($csv_array)){
+		echo -1;
+		echo __('No data to export', 'loginizer');
+		wp_die();
+	}
+		
+	header('Content-Type: text/csv; charset=utf-8');
+	header('Content-Disposition: attachment; filename='.$filename.'.csv');
+	
+	$allowed_fields = array('start' => 'Start IP', 'end' => 'End IP', 'time' => 'Time');
+
+	$file = fopen("php://output","w");
+	
+	fputcsv($file, array_values($allowed_fields));
+
+	foreach($csv_array as $ik => $iv){
+		
+		$iv['start'] = $iv['start'];
+		$iv['end'] = $iv['end'];
+		$iv['time'] = date('d/m/Y', $iv['time']);
+		
+		$row = array();
+		foreach($allowed_fields as $ak => $av){
+			$row[$ak] = $iv[$ak];
+		}
+		
+		fputcsv($file, $row);
+	}
+
+	fclose($file);
+	
+	wp_die();
+        
+}
+	
+// IP range validations
+function loginizer_iprange_validate($start_ip, $end_ip, $cur_list, &$error = array(), $line_count = ''){
+	
+	$line_error = '';
+	if(!empty($line_count)){
+		$line_error = ' '.__('Line no.', 'loginizer').' '.$line_count;
+	}
+			
+	if(empty($start_ip)){
+		$cur_error[] = __('Please enter the Start IP', 'loginizer').$line_error;
+	}
+
+	// If no end IP we consider only 1 IP
+	if(empty($end_ip)){
+		$end_ip = $start_ip;
+	}
+	
+	if(!lz_valid_ip($start_ip)){
+		$cur_error[] = __('Please provide a valid start IP', 'loginizer').$line_error;
+	}
+	
+	if(!lz_valid_ip($end_ip)){
+		$cur_error[] = __('Please provide a valid end IP', 'loginizer').$line_error;
+	}
+	
+	if(inet_ptoi($start_ip) > inet_ptoi($end_ip)){
+		
+		// BUT, if 0.0.0.1 - 255.255.255.255 is given, it will not work
+		if(inet_ptoi($start_ip) >= 0 && inet_ptoi($end_ip) < 0){
+			// This is right
+		}else{
+			$cur_error[] = __('The End IP cannot be smaller than the Start IP', 'loginizer').$line_error;
+		}
+		
+	}
+			
+	if(!empty($cur_error)){
+		
+		foreach($cur_error as $rk => $rv){
+			$error[] = $rv;
+		}
+		
+		return false;
+	}
+	
+	if(!empty($cur_list)){
+		
+		foreach($cur_list as $k => $v){
+			
+			// This is to check if there is any other range exists with the same Start or End IP
+			if(( inet_ptoi($start_ip) <= inet_ptoi($v['start']) && inet_ptoi($v['start']) <= inet_ptoi($end_ip) )
+				|| ( inet_ptoi($start_ip) <= inet_ptoi($v['end']) && inet_ptoi($v['end']) <= inet_ptoi($end_ip) )
+			){
+				$cur_error[] = __('The Start IP or End IP submitted conflicts with an existing IP range !', 'loginizer').$line_error;
+				break;
+			}
+			
+			// This is to check if there is any other range exists with the same Start IP
+			if(inet_ptoi($v['start']) <= inet_ptoi($start_ip) && inet_ptoi($start_ip) <= inet_ptoi($v['end'])){
+				$cur_error[] = __('The Start IP is present in an existing range !', 'loginizer').$line_error;
+				break;
+			}
+			
+			// This is to check if there is any other range exists with the same End IP
+			if(inet_ptoi($v['start']) <= inet_ptoi($end_ip) && inet_ptoi($end_ip) <= inet_ptoi($v['end'])){
+				$cur_error[] = __('The End IP is present in an existing range!', 'loginizer').$line_error;
+				break;
+			}
+			
+		}
+		
+	}
+			
+	if(!empty($cur_error)){
+		
+		foreach($cur_error as $rk => $rv){
+			$error[] = $rv;
+		}
+		
+		return false;
+	}
+	
+	return true;
 }
 
 //---------------------
@@ -2561,7 +2844,7 @@ input[type="text"], textarea, select {
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('captcha_key', $loginizer['captcha_key']); ?>" name="captcha_key" /><br />
-					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.google.com/recaptcha/" target="_blank">Google</a>', 'loginizer'); ?>
+					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google</a>', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
