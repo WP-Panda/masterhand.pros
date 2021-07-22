@@ -9,9 +9,9 @@ Author URI: https://plugin-planet.com/
 Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 4.1
-Tested up to: 5.7
-Stable tag: 20210211
-Version: 20210211
+Tested up to: 5.8
+Stable tag: 20210719
+Version: 20210719
 Requires PHP: 5.6.20
 Text Domain: ga-google-analytics
 Domain Path: /languages
@@ -137,7 +137,7 @@ Save changes and done. After 24-48 hours, you can log into your Google Analytics
 
 __Notes:__
 
-Global Site Tag is required for Google Analytics 4. For steps on setting up GA 4, check out the [plugin homepage](https://wordpress.org/plugins/ga-google-analytics/) (under "GA Tracking Options").
+Global Site Tag is required for Google Analytics 4. For steps on setting up GA 4, check out the [plugin homepage](https://wordpress.org/plugins/ga-google-analytics/) (under "GA Tracking Options"). This information also is available at [Plugin Planet](https://plugin-planet.com/ga-pro-enable-google-analytics-4/).
 
 Also note that it can take 24-48 hours after adding the tracking code before any analytical data appears in your [Google Analytics account](https://developers.google.com/analytics/). To check that the GA tacking code is included, look at the source code of your web page(s). Learn more at the [Google Analytics Help Center](https://support.google.com/analytics/?hl=en#topic=3544906).
 
@@ -319,6 +319,11 @@ If you like GA Google Analytics, please take a moment to [give a 5-star rating](
 
 > New Pro version available! Check out [GA Pro &raquo;](https://plugin-planet.com/ga-google-analytics-pro/)
 
+
+**20210719**
+
+* Improves readme/documentation
+* Tests on WordPress 5.8
 
 **20210211**
 

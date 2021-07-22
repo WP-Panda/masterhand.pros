@@ -3,7 +3,7 @@
  * Plugin Name: AddToAny Share Buttons
  * Plugin URI: https://www.addtoany.com/
  * Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, LinkedIn, Pinterest, WhatsApp and many more.
- * Version: 1.7.44
+ * Version: 1.7.45
  * Author: AddToAny
  * Author URI: https://www.addtoany.com/
  * Text Domain: add-to-any
@@ -321,7 +321,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			
 			// AddToAny counter enabled?
 			$counter_enabled = ( ! $args['is_follow'] // Disable counters on Follow Kits
-				&& in_array( $active_service, array( 'facebook', 'pinterest', 'reddit' ) )
+				&& in_array( $active_service, array( 'pinterest', 'reddit', 'tumblr' ) )
 				&& isset( $options['special_' . $active_service . '_options'] )
 				&& isset( $options['special_' . $active_service . '_options']['show_count'] ) 
 				&& $options['special_' . $active_service . '_options']['show_count'] == '1' 

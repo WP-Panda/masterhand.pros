@@ -8,7 +8,7 @@ class MailsterEmailVerify {
 	public function __construct() {
 
 		$this->plugin_path = plugin_dir_path( MAILSTER_EMAILVERIFY_FILE );
-		$this->plugin_url = plugin_dir_url( MAILSTER_EMAILVERIFY_FILE );
+		$this->plugin_url  = plugin_dir_url( MAILSTER_EMAILVERIFY_FILE );
 
 		register_activation_hook( MAILSTER_EMAILVERIFY_FILE, array( &$this, 'activate' ) );
 		register_deactivation_hook( MAILSTER_EMAILVERIFY_FILE, array( &$this, 'deactivate' ) );
@@ -31,16 +31,16 @@ class MailsterEmailVerify {
 			mailster_notice( sprintf( __( 'Define your verification options on the %s!', 'mailster-email-verify' ), '<a href="edit.php?post_type=newsletter&page=mailster_settings&mailster_remove_notice=emailverification#emailverification">Settings Page</a>' ), '', 3600, 'emailverification' );
 
 			$defaults = array(
-				'sev_import' => false,
-				'sev_check_mx' => true,
-				'sev_check_smtp' => false,
-				'sev_check_error' => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
-				'sev_dep' => true,
-				'sev_dep_error' => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
-				'sev_domains' => '',
+				'sev_import'        => false,
+				'sev_check_mx'      => true,
+				'sev_check_smtp'    => false,
+				'sev_check_error'   => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
+				'sev_dep'           => true,
+				'sev_dep_error'     => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
+				'sev_domains'       => '',
 				'sev_domains_error' => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
-				'sev_emails' => '',
-				'sev_emails_error' => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
+				'sev_emails'        => '',
+				'sev_emails_error'  => __( 'Sorry, your email address is not accepted!', 'mailster-email-verify' ),
 			);
 
 			$mailster_options = mailster_options();
@@ -133,19 +133,19 @@ class MailsterEmailVerify {
 		list( $user, $domain ) = explode( '@', $email );
 
 		// check for email addresses
-		$blacklisted_emails = explode( "\n", mailster_option( 'sev_emails', '' ) );
+		$blacklisted_emails = $this->textarea_to_array( mailster_option( 'sev_emails', '' ) );
 		if ( in_array( $email, $blacklisted_emails ) ) {
 			return new WP_Error( 'sev_emails_error', mailster_option( 'sev_emails_error' ), 'email' );
 		}
 
 		// check for white listed
-		$whitelisted_domains = explode( "\n", mailster_option( 'sev_whitelist', '' ) );
+		$whitelisted_domains = $this->textarea_to_array( mailster_option( 'sev_whitelist', '' ) );
 		if ( in_array( $domain, $whitelisted_domains ) ) {
 			return true;
 		}
 
 		// check for domains
-		$blacklisted_domains = explode( "\n", mailster_option( 'sev_domains', '' ) );
+		$blacklisted_domains = $this->textarea_to_array( mailster_option( 'sev_domains', '' ) );
 		if ( in_array( $domain, $blacklisted_domains ) ) {
 			return new WP_Error( 'sev_domains_error', mailster_option( 'sev_domains_error' ), 'email' );
 		}
@@ -171,9 +171,9 @@ class MailsterEmailVerify {
 
 			$from = mailster_option( 'from' );
 
-			$validator = new SMTP_Validate_Email( $email, $from );
+			$validator    = new SMTP_Validate_Email( $email, $from );
 			$smtp_results = $validator->validate();
-			$valid = (isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ]) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
+			$valid        = ( isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ] ) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
 			if ( ! $valid ) {
 				return new WP_Error( 'sev_smtp_error', mailster_option( 'sev_check_error' ), 'email' );
 			}
@@ -181,6 +181,12 @@ class MailsterEmailVerify {
 
 		return true;
 
+	}
+
+
+	private function textarea_to_array( $value ) {
+
+		return array_map( 'trim', explode( "\n", $value ) );
 	}
 
 
@@ -197,11 +203,11 @@ class MailsterEmailVerify {
 		}
 
 		$file = $this->plugin_path . '/dep.txt';
-		if ( ! file_exists( $file )  ) {
+		if ( ! file_exists( $file ) ) {
 			mailster_update_option( 'sev_dep', false );
 			return array();
 		}
-		$raw = file_get_contents( $file );
+		$raw     = file_get_contents( $file );
 		$domains = explode( "\n", $raw );
 		return $domains;
 
@@ -257,10 +263,10 @@ class MailsterEmailVerify {
 
 
 	public function notice() {
-?>
+		?>
 	<div id="message" class="error">
 	  <p>
-	   <strong>Email Verify for Mailster</strong> requires the <a href="https://mailster.co/?utm_campaign=wporg&utm_source=Email+Verify+for+Mailster">Mailster Newsletter Plugin</a>, at least version <strong><?php echo MAILSTER_EMAILVERIFY_REQUIRED_VERSION ?></strong>. Plugin deactivated.
+	   <strong>Email Verify for Mailster</strong> requires the <a href="https://mailster.co/?utm_campaign=wporg&utm_source=Email+Verify+for+Mailster&utm_medium=plugin">Mailster Newsletter Plugin</a>, at least version <strong><?php echo MAILSTER_EMAILVERIFY_REQUIRED_VERSION; ?></strong>. Plugin deactivated.
 	  </p>
 	</div>
 		<?php

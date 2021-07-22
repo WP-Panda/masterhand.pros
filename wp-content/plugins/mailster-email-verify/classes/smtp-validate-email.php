@@ -91,7 +91,7 @@ class SMTP_Validate_Email {
 	 * has a "catch-all", sets all the emails on that domain as invalid.
 	 */
 	public $catchall_is_valid = true;
-	public $catchall_test = false; // Set to true to perform a catchall test
+	public $catchall_test     = false; // Set to true to perform a catchall test
 
 	/**
 	 * Being unable to communicate with the remote MTA could mean an address
@@ -141,10 +141,10 @@ class SMTP_Validate_Email {
 
 	// some smtp response codes
 	const SMTP_CONNECT_SUCCESS = 220;
-	const SMTP_QUIT_SUCCESS = 221;
+	const SMTP_QUIT_SUCCESS    = 221;
 	const SMTP_GENERIC_SUCCESS = 250;
-	const SMTP_USER_NOT_LOCAL = 251;
-	const SMTP_CANNOT_VRFY = 252;
+	const SMTP_USER_NOT_LOCAL  = 251;
+	const SMTP_CANNOT_VRFY     = 252;
 
 	const SMTP_SERVICE_UNAVAILABLE = 421;
 
@@ -205,7 +205,7 @@ class SMTP_Validate_Email {
 		if ( ! $this->catchall_test ) {
 			return false;
 		}
-		$test = 'catch-all-test-' . time();
+		$test     = 'catch-all-test-' . time();
 		$accepted = $this->rcpt( $test . '@' . $domain );
 		if ( $accepted ) {
 			// success on a non-existing address is a "catch-all"
@@ -215,7 +215,7 @@ class SMTP_Validate_Email {
 		// log the case in which we get disconnected
 		// while trying to perform a catchall detect
 		$this->noop();
-		if ( ! ($this->connected()) ) {
+		if ( ! ( $this->connected() ) ) {
 			$this->debug( 'Disconnected after trying a non-existing recipient on ' . $domain );
 		}
 		// nb: disconnects are considered as a non-catch-all case this way
@@ -263,9 +263,9 @@ class SMTP_Validate_Email {
 			$mxs[ $domain ] = 0;
 
 			$this->debug( 'MX records (' . $domain . '): ' . print_r( $mxs, true ) );
-			$this->domains_info[ $domain ] = array();
+			$this->domains_info[ $domain ]          = array();
 			$this->domains_info[ $domain ]['users'] = $users;
-			$this->domains_info[ $domain ]['mxs'] = $mxs;
+			$this->domains_info[ $domain ]['mxs']   = $mxs;
 
 			// try each host, $_weight unused in the foreach body, but array_keys() doesn't guarantee the order
 			foreach ( $mxs as $host => $_weight ) {
@@ -275,7 +275,7 @@ class SMTP_Validate_Email {
 					if ( $this->connected() ) {
 						break;
 					}
-				} catch (SMTP_Validate_Email_Exception_No_Connection $e) {
+				} catch ( SMTP_Validate_Email_Exception_No_Connection $e ) {
 					// unable to connect to host, so these addresses are invalid?
 					$this->debug( 'Unable to connect. Exception caught: ' . $e->getMessage() );
 					$this->set_domain_results( $users, $domain, $this->no_conn_is_valid );
@@ -289,7 +289,7 @@ class SMTP_Validate_Email {
 					if ( $this->helo() ) {
 
 						// try issuing MAIL FROM
-						if ( ! ($this->mail( $this->from_user . '@' . $this->from_domain )) ) {
+						if ( ! ( $this->mail( $this->from_user . '@' . $this->from_domain ) ) ) {
 							// MAIL FROM not accepted, we can't talk
 							$this->set_domain_results( $users, $domain, $this->no_comm_is_valid );
 						}
@@ -310,7 +310,7 @@ class SMTP_Validate_Email {
 							// accounts on such domains as invalid, mark all the
 							// users as invalid and move on
 							if ( $is_catchall_domain ) {
-								if ( ! ($this->catchall_is_valid) ) {
+								if ( ! ( $this->catchall_is_valid ) ) {
 									$this->set_domain_results( $users, $domain, $this->catchall_is_valid );
 									continue;
 								}
@@ -321,7 +321,7 @@ class SMTP_Validate_Email {
 								$this->noop();
 								// rcpt to for each user
 								foreach ( $users as $user ) {
-									$address = $user . '@' . $domain;
+									$address                   = $user . '@' . $domain;
 									$this->results[ $address ] = $this->rcpt( $address );
 									$this->noop();
 								}
@@ -341,13 +341,13 @@ class SMTP_Validate_Email {
 						$this->set_domain_results( $users, $domain, $this->no_comm_is_valid );
 
 					}
-				} catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
+				} catch ( SMTP_Validate_Email_Exception_Unexpected_Response $e ) {
 
 					// Unexpected responses handled as $this->no_comm_is_valid, that way anyone can
 					// decide for themselves if such results are considered valid or not
 					$this->set_domain_results( $users, $domain, $this->no_comm_is_valid );
 
-				} catch (SMTP_Validate_Email_Exception_Timeout $e) {
+				} catch ( SMTP_Validate_Email_Exception_Timeout $e ) {
 
 					// A timeout is a comm failure, so treat the results on that domain
 					// according to $this->no_comm_is_valid as well
@@ -403,9 +403,9 @@ class SMTP_Validate_Email {
 	 */
 	protected function connect( $host ) {
 		$remote_socket = $host . ':' . $this->connect_port;
-		$errnum = 0;
-		$errstr = '';
-		$this->host = $remote_socket;
+		$errnum        = 0;
+		$errstr        = '';
+		$this->host    = $remote_socket;
 		// open connection
 		$this->debug( 'Connecting to ' . $this->host );
 		$this->socket = @stream_socket_client(
@@ -419,8 +419,10 @@ class SMTP_Validate_Email {
 		// connected?
 		if ( ! $this->connected() ) {
 			$this->debug( 'Connect failed: ' . $errstr . ', error number: ' . $errnum . ', host: ' . $this->host );
-			throw new SMTP_Validate_Email_Exception_No_Connection('Cannot ' .
-			'open a connection to remote host (' . $this->host . ')');
+			throw new SMTP_Validate_Email_Exception_No_Connection(
+				'Cannot ' .
+				'open a connection to remote host (' . $this->host . ')'
+			);
 		}
 		$result = stream_set_timeout( $this->socket, $this->connect_timeout );
 		if ( ! $result ) {
@@ -474,19 +476,19 @@ class SMTP_Validate_Email {
 			$this->state['helo'] = true;
 			// are we going for a TLS connection?
 			/*
-            if ($this->tls == true) {
-                // send STARTTLS, wait 3 minutes
-                $this->send('STARTTLS');
-                $this->expect(self::SMTP_CONNECT_SUCCESS, $this->command_timeouts['tls']);
-                $result = stream_socket_enable_crypto($this->socket, true,
-                    STREAM_CRYPTO_METHOD_TLS_CLIENT);
-                if (!$result) {
-                    throw new SMTP_Validate_Email_Exception_No_TLS('Cannot enable TLS');
-                }
-            }
-            */
+			if ($this->tls == true) {
+				// send STARTTLS, wait 3 minutes
+				$this->send('STARTTLS');
+				$this->expect(self::SMTP_CONNECT_SUCCESS, $this->command_timeouts['tls']);
+				$result = stream_socket_enable_crypto($this->socket, true,
+					STREAM_CRYPTO_METHOD_TLS_CLIENT);
+				if (!$result) {
+					throw new SMTP_Validate_Email_Exception_No_TLS('Cannot enable TLS');
+				}
+			}
+			*/
 			return true;
-		} catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
+		} catch ( SMTP_Validate_Email_Exception_Unexpected_Response $e ) {
 			// connected, but recieved an unexpected response, so disconnect
 			$this->debug( 'Unexpected response after connecting: ' . $e->getMessage() );
 			$this->disconnect( false );
@@ -504,7 +506,7 @@ class SMTP_Validate_Email {
 			// modern
 			$this->send( 'EHLO ' . $this->from_domain );
 			$this->expect( self::SMTP_GENERIC_SUCCESS, $this->command_timeouts['ehlo'] );
-		} catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
+		} catch ( SMTP_Validate_Email_Exception_Unexpected_Response $e ) {
 			// legacy
 			$this->send( 'HELO ' . $this->from_domain );
 			$this->expect( self::SMTP_GENERIC_SUCCESS, $this->command_timeouts['helo'] );
@@ -530,7 +532,7 @@ class SMTP_Validate_Email {
 			$this->state['mail'] = true;
 			$this->state['rcpt'] = false;
 			return true;
-		} catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
+		} catch ( SMTP_Validate_Email_Exception_Unexpected_Response $e ) {
 			// got something unexpected in response to MAIL FROM
 			$this->debug( "Unexpected response to MAIL FROM\n:" . $e->getMessage() );
 			// hotmail has been known to do this + was closing the connection
@@ -552,7 +554,7 @@ class SMTP_Validate_Email {
 		if ( ! $this->state['mail'] ) {
 			throw new SMTP_Validate_Email_Exception_No_Mail_From( 'Need MAIL FROM before RCPT TO' );
 		}
-		$is_valid = false;
+		$is_valid       = false;
 		$expected_codes = array(
 			self::SMTP_GENERIC_SUCCESS,
 			self::SMTP_USER_NOT_LOCAL,
@@ -567,11 +569,11 @@ class SMTP_Validate_Email {
 			try {
 				$this->expect( $expected_codes, $this->command_timeouts['rcpt'] );
 				$this->state['rcpt'] = true;
-				$is_valid = true;
-			} catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
+				$is_valid            = true;
+			} catch ( SMTP_Validate_Email_Exception_Unexpected_Response $e ) {
 				$this->debug( 'Unexpected response to RCPT TO: ' . $e->getMessage() );
 			}
-		} catch (SMTP_Validate_Email_Exception $e) {
+		} catch ( SMTP_Validate_Email_Exception $e ) {
 			$this->debug( 'Sending RCPT TO failed: ' . $e->getMessage() );
 		}
 		return $is_valid;
@@ -649,8 +651,10 @@ class SMTP_Validate_Email {
 		$result = fwrite( $this->socket, $cmd . self::CRLF );
 		// did the send work?
 		if ( $result === false ) {
-			throw new SMTP_Validate_Email_Exception_Send_Failed('Send failed ' .
-			'on: ' . $this->host);
+			throw new SMTP_Validate_Email_Exception_Send_Failed(
+				'Send failed ' .
+				'on: ' . $this->host
+			);
 		}
 		return $result;
 	}
@@ -706,14 +710,14 @@ class SMTP_Validate_Email {
 
 			$text = $line = $this->recv( $timeout );
 			while ( preg_match( '/^[0-9]+-/', $line ) ) {
-				$line = $this->recv( $timeout );
+				$line  = $this->recv( $timeout );
 				$text .= $line;
 			}
 			sscanf( $line, '%d%s', $code, $text );
-			if ( ($empty_response_allowed === false && ($code === null || ! in_array( $code, $codes ))) || $code == self::SMTP_SERVICE_UNAVAILABLE ) {
+			if ( ( $empty_response_allowed === false && ( $code === null || ! in_array( $code, $codes ) ) ) || $code == self::SMTP_SERVICE_UNAVAILABLE ) {
 				throw new SMTP_Validate_Email_Exception_Unexpected_Response( $line );
 			}
-		} catch (SMTP_Validate_Email_Exception_No_Response $e) {
+		} catch ( SMTP_Validate_Email_Exception_No_Response $e ) {
 
 			// no response in expect() probably means that the
 			// remote server forcibly closed the connection so
@@ -733,9 +737,9 @@ class SMTP_Validate_Email {
 	 * @return array        ['user', 'domain']
 	 */
 	protected function parse_email( $email ) {
-		$parts = explode( '@', $email );
+		$parts  = explode( '@', $email );
 		$domain = array_pop( $parts );
-		$user = implode( '@', $parts );
+		$user   = implode( '@', $parts );
 		return array( $user, $domain );
 	}
 
@@ -766,8 +770,8 @@ class SMTP_Validate_Email {
 	 * @return void
 	 */
 	public function set_sender( $email ) {
-		$parts = $this->parse_email( $email );
-		$this->from_user = $parts[0];
+		$parts             = $this->parse_email( $email );
+		$this->from_user   = $parts[0];
 		$this->from_domain = $parts[1];
 	}
 
@@ -778,7 +782,7 @@ class SMTP_Validate_Email {
 	 * @return array         MX hosts and their weights
 	 */
 	protected function mx_query( $domain ) {
-		$hosts = array();
+		$hosts  = array();
 		$weight = array();
 		if ( function_exists( 'getmxrr' ) ) {
 			getmxrr( $domain, $hosts, $weight );
@@ -821,14 +825,14 @@ class SMTP_Validate_Email {
 			$i++;
 			if ( preg_match( "/^$hostname\tMX preference = ([0-9]+), mail exchanger = (.+)$/i", $line, $parts ) ) {
 				$mxweights[ $i ] = trim( $parts[1] );
-				$mxhosts[ $i ] = trim( $parts[2] );
+				$mxhosts[ $i ]   = trim( $parts[2] );
 			}
 			if ( preg_match( '/responsible mail addr = (.+)$/i', $line, $parts ) ) {
 				$mxweights[ $i ] = $i;
-				$mxhosts[ $i ] = trim( $parts[1] );
+				$mxhosts[ $i ]   = trim( $parts[1] );
 			}
 		}
-		return ($i != -1);
+		return ( $i != -1 );
 	}
 
 	/**
