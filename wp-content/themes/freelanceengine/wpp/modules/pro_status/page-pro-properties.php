@@ -1,5 +1,5 @@
 <?php
-$path = admin_url('admin.php') . '?page=' . $type_user;
+	$path = admin_url( 'admin.php' ) . '?page=' . $type_user;
 
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -42,7 +42,7 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
 </style>
 
 <div class="container-fluid">
-    <h4 class="mt-3 mb-3"><?php echo  ucfirst($type_user) ?> statuses</h4>
+    <h4 class="mt-3 mb-3"><?php echo ucfirst( $type_user ) ?> statuses</h4>
 
     <div class="row mb-2">
         <div class="col">
@@ -60,17 +60,18 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($statuses as $item) { ?>
+					<?php foreach ( $statuses as $item ) { ?>
                         <tr>
-                            <td><?php echo  $item['status_position'] ?></td>
-                            <td><?php echo  $item['status_name'] ?></td>
+                            <td><?php echo $item[ 'status_position' ] ?></td>
+                            <td><?php echo $item[ 'status_name' ] ?></td>
                             <td class="button_delete" onclick="delete_status(this)">
                                 <button type="button" class="btn btn-danger">Delete</button>
-                                <input type="hidden" value="<?php echo  $item['status_id'] ?>" name="status_id">
-                                <input type="hidden" value="<?php echo  $item['status_position'] ?>" name="status_position">
+                                <input type="hidden" value="<?php echo $item[ 'status_id' ] ?>" name="status_id">
+                                <input type="hidden" value="<?php echo $item[ 'status_position' ] ?>"
+                                       name="status_position">
                             </td>
                         </tr>
-                    <?php } ?>
+					<?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -96,26 +97,27 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($properties as $item) {
-                        if ($item['property_type'] != 4) { ?>
+					<?php foreach ( $properties as $item ) {
+						if ( $item[ 'property_type' ] != 4 ) { ?>
                             <tr>
-                                <td><?php echo  $item['property_position'] ?></td>
-                                <td><?php echo  !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?></td>
-                                <td><?php echo  $item['property_display'] ?></td>
-                                <td><?php echo  $item['property_published'] ?></td>
+                                <td><?php echo $item[ 'property_position' ] ?></td>
+                                <td><?php echo ! empty( $item[ 'option_value' ] ) ? $item[ 'property_name' ] . ' ' . $item[ 'option_value' ] : $item[ 'property_name' ] ?></td>
+                                <td><?php echo $item[ 'property_display' ] ?></td>
+                                <td><?php echo $item[ 'property_published' ] ?></td>
                                 <td class="button_delete"
-                                    onclick="modalWindow.show('modal_form_property', <?php echo  $item['property_id'] ?>, 'property')">
+                                    onclick="modalWindow.show('modal_form_property', <?php echo $item[ 'property_id' ] ?>, 'property')">
                                     <button type="button" class="btn btn-primary">Edit</button>
                                 </td>
                                 <td class="button_delete" onclick="delete_property(this)">
                                     <button type="button" class="btn btn-danger">Delete</button>
-                                    <input type="hidden" value="<?php echo  $item['property_id'] ?>" name="property_id">
-                                    <input type="hidden" value="<?php echo  $item['property_position'] ?>"
+                                    <input type="hidden" value="<?php echo $item[ 'property_id' ] ?>"
+                                           name="property_id">
+                                    <input type="hidden" value="<?php echo $item[ 'property_position' ] ?>"
                                            name="property_position">
                                 </td>
                             </tr>
-                        <?php }
-                    } ?>
+						<?php }
+					} ?>
                     </tbody>
                 </table>
                 <div class="add-btn">
@@ -140,12 +142,12 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($options as $item) { ?>
+					<?php foreach ( $options as $item ) { ?>
                         <tr>
-                            <td><?php echo  $item['option_key'] ?></td>
-                            <td><?php echo  $item['option_value'] ?></td>
+                            <td><?php echo $item[ 'option_key' ] ?></td>
+                            <td><?php echo $item[ 'option_value' ] ?></td>
                         </tr>
-                    <?php } ?>
+					<?php } ?>
                     </tbody>
                 </table>
                 <div class="add-btn">
@@ -164,41 +166,41 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
             </div>
             <div class="collapse multi-collapse" id="totalListCollapse">
                 <table class="table table-striped table-bordered">
-                    <?php foreach ($result as $item) { ?>
+					<?php foreach ( $result as $item ) { ?>
                         <tr>
-                            <?php foreach ($item as $key => $value) { ?>
-                                <?php if (is_numeric($key)) { ?>
+							<?php foreach ( $item as $key => $value ) { ?>
+								<?php if ( is_numeric( $key ) ) { ?>
                                     <td>
-                                        <?php if ($item[0] != 'id') {
-                                            if ($key != 0 && array_key_exists('property_type', $item) && $item['property_type'] == 0)
-                                                echo $value == 0 ? '-' : '+';
-                                            elseif ($key == 0 && array_key_exists('option_value', $item)) {
-                                                echo $value . ' ' . $item['option_value'];
-                                            } else {
-                                                echo $value == -1 ? '~' : $value;
-                                            }
-//                            else !empty($item['option_value']) ? $item['property_name'].' '.$item['option_value'] : $item['property_name'];
-                                        } else {
-                                            if ($value == 'id') { ?>
-                                                <?php echo  (!$item[1]) ? '<div class="alert alert-danger" role="alert">No Statuses</div>' : '' ?>
+										<?php if ( $item[ 0 ] != 'id' ) {
+											if ( $key != 0 && array_key_exists( 'property_type', $item ) && $item[ 'property_type' ] == 0 ) {
+												echo $value == 0 ? '-' : '+';
+											} elseif ( $key == 0 && array_key_exists( 'option_value', $item ) ) {
+												echo $value . ' ' . $item[ 'option_value' ];
+											} else {
+												echo $value == - 1 ? '~' : $value;
+											}
+											//                            else !empty($item['option_value']) ? $item['property_name'].' '.$item['option_value'] : $item['property_name'];
+										} else {
+											if ( $value == 'id' ) { ?>
+												<?php echo ( ! $item[ 1 ] ) ? '<div class="alert alert-danger" role="alert">No Statuses</div>' : '' ?>
                                                 <div class="add-btn">
                                                     <input type="submit" name="submit" class="btn btn-primary"
                                                            value="Add status"
                                                            onclick="modalWindow.show('modal_form_status')">
                                                 </div>
-                                            <?php } else { ?>
+											<?php } else { ?>
                                                 <div class="add-btn">
                                                     <input type="submit" name="submit" class="btn btn-primary"
                                                            value="Edit"
-                                                           onclick="modalWindow.show('modal_form_status', <?php echo  $value ?>, 'status')">
+                                                           onclick="modalWindow.show('modal_form_status', <?php echo $value ?>, 'status')">
                                                 </div>
-                                            <?php }
-                                        } ?>
+											<?php }
+										} ?>
                                     </td>
-                                <?php } ?>
-                            <?php } ?>
+								<?php } ?>
+							<?php } ?>
                         </tr>
-                    <?php } ?>
+					<?php } ?>
                 </table>
             </div>
         </div>
@@ -207,13 +209,13 @@ $path = admin_url('admin.php') . '?page=' . $type_user;
 
 
 <div class="wrap">
-    <?php if (1 == 2 && $type_user == 'employer') {
-        $table = $wpdb->get_blog_prefix() . 'pro_properties';
-        $additional_properties = $wpdb->get_results("
+	<?php if ( 1 == 2 && $type_user == 'employer' ) {
+		$table                 = $wpdb->get_blog_prefix() . 'pro_properties';
+		$additional_properties = $wpdb->get_results( "
 SELECT id as property_id, property_position, property_name, property_display, property_type, property_published 
 FROM $table
 WHERE user_role='$type_user' AND property_type=3
-ORDER BY property_position", ARRAY_A); ?>
+ORDER BY property_position", ARRAY_A ); ?>
         <div>
             <table width="50%" cellpadding='5' cellspacing='0' name="additional_list">
                 <thead>
@@ -236,73 +238,77 @@ ORDER BY property_position", ARRAY_A); ?>
                 </tr>
                 </tfoot>
                 <tbody>
-                <?php foreach ($additional_properties as $item) { ?>
+				<?php foreach ( $additional_properties as $item ) { ?>
                     <tr>
-                        <td><?php echo  $item['property_position'] ?></td>
-                        <td><?php echo  $item['property_name'] ?></td>
-                        <td><?php echo  $item['property_display'] ?></td>
-                        <td><?php echo  $item['property_published'] ?></td>
+                        <td><?php echo $item[ 'property_position' ] ?></td>
+                        <td><?php echo $item[ 'property_name' ] ?></td>
+                        <td><?php echo $item[ 'property_display' ] ?></td>
+                        <td><?php echo $item[ 'property_published' ] ?></td>
                         <td class="button_delete"
-                            onclick="modalWindow.show('modal_form_additional', <?php echo  $item['property_id'] ?>, 'additional')">
+                            onclick="modalWindow.show('modal_form_additional', <?php echo $item[ 'property_id' ] ?>, 'additional')">
                             <a href="#">Edit</a>
                         </td>
                         <td class="button_delete" onclick="delete_additional(this)">
                             <a href="#">delete</a>
-                            <input type="hidden" value="<?php echo  $item['property_id'] ?>" name="property_id">
-                            <input type="hidden" value="<?php echo  $item['property_position'] ?>" name="property_position">
+                            <input type="hidden" value="<?php echo $item[ 'property_id' ] ?>" name="property_id">
+                            <input type="hidden" value="<?php echo $item[ 'property_position' ] ?>"
+                                   name="property_position">
                         </td>
                     </tr>
-                <?php } ?>
+				<?php } ?>
                 </tbody>
             </table>
         </div>
-    <?php } ?>
+	<?php } ?>
 </div>
 
 <div id="modal_form_status" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_status')">X</span> <!-- Кнoпкa зaкрыть -->
     <h5 name="title_status">Status:</h5>
-    <form id="status" action="<?php echo  $path ?>" method="post">
+    <form id="status" action="<?php echo $path ?>" method="post">
         <div class="name_status">
             <label for='name'>Name status<input type="text" name="name" id="name" placeholder="" value=""></label>
             <label for='position'>Insert after:<select name="position" id="position">
                     <option value="0">Top</option>
-                    <?php foreach ($statuses as $item) { ?>
-                        <option value="<?php echo  $item['status_position'] ?>">
-                            <?php echo  $item['status_name'] ?>
+					<?php foreach ( $statuses as $item ) { ?>
+                        <option value="<?php echo $item[ 'status_position' ] ?>">
+							<?php echo $item[ 'status_name' ] ?>
                         </option>
-                    <?php } ?>
+					<?php } ?>
                 </select></label>
         </div>
-        <?php foreach ($properties as $item) { ?>
-            <?php if ($item['property_published'] == 1) { ?>
-                <?php if ($item['property_type'] != 0) { ?>
-                    <label for="prop_<?php echo  $item['property_id'] ?>">
-                        <?php echo  $item['property_name'] ?>
-                        <?php if (!empty($item['option_value'])) {
-                            $option = $item['option_value'];
-                            echo $option .= $item['option_value'] > 1 ? ' months' : ' month';
-                        } ?>
-                        <input type="text" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>"
+		<?php foreach ( $properties as $item ) { ?>
+			<?php if ( $item[ 'property_published' ] == 1 ) { ?>
+				<?php if ( $item[ 'property_type' ] != 0 ) { ?>
+                    <label for="prop_<?php echo $item[ 'property_id' ] ?>">
+						<?php echo $item[ 'property_name' ] ?>
+						<?php if ( ! empty( $item[ 'option_value' ] ) ) {
+							$option = $item[ 'option_value' ];
+							echo $option .= $item[ 'option_value' ] > 1 ? ' months' : ' month';
+						} ?>
+                        <input type="text" name="<?php echo $item[ 'property_id' ] ?>"
+                               id="prop_<?php echo $item[ 'property_id' ] ?>"
                                value="">
                     </label>
-                <?php } else { ?>
-                    <label for="prop_<?php echo  $item['property_id'] ?>" style="display: block">
-                        <?php echo  $item['property_name'] ?>
-                        <input type="checkbox" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>">
+				<?php } else { ?>
+                    <label for="prop_<?php echo $item[ 'property_id' ] ?>" style="display: block">
+						<?php echo $item[ 'property_name' ] ?>
+                        <input type="checkbox" name="<?php echo $item[ 'property_id' ] ?>"
+                               id="prop_<?php echo $item[ 'property_id' ] ?>">
                     </label>
-                <?php } ?>
-            <?php } else { ?>
-                <input type="text" name="<?php echo  $item['property_id'] ?>" id="prop_<?php echo  $item['property_id'] ?>"
+				<?php } ?>
+			<?php } else { ?>
+                <input type="text" name="<?php echo $item[ 'property_id' ] ?>"
+                       id="prop_<?php echo $item[ 'property_id' ] ?>"
                        value="" style="display: none">
-            <?php } ?>
-        <?php } ?>
+			<?php } ?>
+		<?php } ?>
         <div class="footer-modal">
             <input type="submit" name="submit" value="Save" class="btn btn-primary">
             <input type="hidden" name="action" value="create_status">
             <input type="hidden" name="status_id" id="status_id" value="">
             <input type="hidden" name="position_old_status" id="position_old_status" value="">
-            <input type="hidden" name="type_user" id="type_user" value="<?php echo  $type_user ?>">
+            <input type="hidden" name="type_user" id="type_user" value="<?php echo $type_user ?>">
         </div>
     </form>
 </div>
@@ -310,7 +316,7 @@ ORDER BY property_position", ARRAY_A); ?>
 <div id="modal_form_property" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_property')">X</span> <!-- Кнoпкa зaкрыть -->
     <h2 name="title_prop">Property:</h2>
-    <form id="property" action="<?php echo  $path ?>" method="post">
+    <form id="property" action="<?php echo $path ?>" method="post">
         <div class="name_property">
             <label style="display: block;">Type:
                 <label for='type_int' style="padding-left: 15px;">Integer
@@ -376,18 +382,18 @@ ORDER BY property_position", ARRAY_A); ?>
 
             <label for='position'>Insert after:<select name="position" id="position">
                     <option value="0">Top</option>
-                    <?php foreach ($properties as $item) { ?>
-                        <option value="<?php echo  $item['property_position'] ?>">
-                            <?php echo  !empty($item['option_value']) ? $item['property_name'] . ' ' . $item['option_value'] : $item['property_name'] ?>
+					<?php foreach ( $properties as $item ) { ?>
+                        <option value="<?php echo $item[ 'property_position' ] ?>">
+							<?php echo ! empty( $item[ 'option_value' ] ) ? $item[ 'property_name' ] . ' ' . $item[ 'option_value' ] : $item[ 'property_name' ] ?>
                         </option>
-                    <?php } ?>
+					<?php } ?>
                 </select></label>
         </div>
         <div>
             <input type="submit" name="submit" value="Save">
             <input type="hidden" name="action" value="create_property">
             <input type="hidden" name="property_id" id="property_id" value="">
-            <input type="hidden" name="type_user" id="type_user" value="<?php echo  $type_user ?>">
+            <input type="hidden" name="type_user" id="type_user" value="<?php echo $type_user ?>">
             <input type="hidden" name="position_old_property" id="position_old_property" value="">
         </div>
     </form>
@@ -396,12 +402,12 @@ ORDER BY property_position", ARRAY_A); ?>
 <div id="modal_form_option" class="simple-little-table" name="modal_form"><!-- Сaмo oкнo -->
     <span id="modal_close" onclick="modalWindow.close('modal_form_option')">X</span> <!-- Кнoпкa зaкрыть -->
     <h2 name="title_option">Option:</h2>
-    <form id="option" action="<?php echo  $path ?>" method="post">
+    <form id="option" action="<?php echo $path ?>" method="post">
         <div class="name_option">
-            <?php foreach ($options as $item) { ?>
+			<?php foreach ( $options as $item ) { ?>
                 <label for='currency'>Currency <input type="text" name="currency" id="currency" placeholder=""
-                                                      value="<?php echo  $item['option_value'] ?>"></label>
-            <?php } ?>
+                                                      value="<?php echo $item[ 'option_value' ] ?>"></label>
+			<?php } ?>
         </div>
         <div>
             <input type="submit" name="submit" value="Save">
@@ -411,5 +417,5 @@ ORDER BY property_position", ARRAY_A); ?>
 </div>
 
 
-<?php include_once('js/page-pro-properties.js') ?>
+<?php include_once( 'js/page-pro-properties.js' ) ?>
 
