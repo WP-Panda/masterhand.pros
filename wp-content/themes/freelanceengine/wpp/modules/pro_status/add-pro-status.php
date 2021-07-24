@@ -1,26 +1,43 @@
 <?php
 	defined( 'ABSPATH' ) || exit;
 
-	function menu() {
+	add_action( 'admin_menu', 'pro_menu' );
+
+	/**
+	 * Регистрация Страниц
+	 */
+	function pro_menu() {
 
 		add_menu_page(
 			__( 'Paid Users', WPP_TEXT_DOMAIN ),
 			__( 'Paid Users', WPP_TEXT_DOMAIN ),
-			'Pro Paid Users',
 			'manage_options',
 			'pro-status',
-			'show_status_users'
+			'show_status_users',
+			get_stylesheet_directory_uri() . '/wpp/modules/pro_status/assets/img/pro.png');
+
+		$page_freelance = add_submenu_page(
+			'pro-status',
+			__( 'Freelance status', WPP_TEXT_DOMAIN ),
+			__( 'Freelance status', WPP_TEXT_DOMAIN ),
+			'manage_options',
+			'freelance',
+			'show_settings_freelance'
 		);
 
-		$page_freelance = add_submenu_page( 'pro-status', 'Freelance status', 'Freelance status', 'manage_options', 'freelance', 'show_settings_freelance' );
+		$page_employer = add_submenu_page(
+			'pro-status',
+			__( 'Employer status', WPP_TEXT_DOMAIN ),
+			__( 'Employer status', WPP_TEXT_DOMAIN ),
+			'manage_options',
+			'employer',
+			'show_settings_employer'
+		);
 
-		add_action( 'admin_print_styles-' . $page_freelance, 'wpp_pro_admin_styles' );
-
-		$page_employer = add_submenu_page( 'pro-status', 'Employer status', 'Employer status', 'manage_options', 'employer', 'show_settings_employer' );
 		add_action( 'admin_print_styles-' . $page_employer, 'wpp_pro_admin_styles' );
+		add_action( 'admin_print_styles-' . $page_freelance, 'wpp_pro_admin_styles' );
 	}
 
-	add_action( 'admin_menu', 'menu' );
 
 	function wpp_pro_admin_styles() {
 		wp_enqueue_style( 'wpp_pro_status', get_template_directory_uri() . '/wpp/modules/pro_status/css/add-pro-status-public.css', [], time(), 'all' );

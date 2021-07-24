@@ -9,6 +9,10 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	private $vault_mothership = 'https://vault.updraftplus.com/plugin-info/';
 	
 	private $vault_config;
+	
+	protected $provider_can_use_aws_sdk = true;
+	
+	protected $provider_has_regions = true;
 
 	/**
 	 * This function makes testing easier, rather than having to change the URLs in multiple places
@@ -615,10 +619,6 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		return ' - <a href="'.esc_attr($this->get_url('get_more_quota')).'">'.__('Get more quota', 'updraftplus').'</a> - <a href="'.UpdraftPlus::get_current_clean_url().'" id="updraftvault_recountquota">'.__('Refresh current status', 'updraftplus').'</a>';
 	}
 
-	public function credentials_test($posted_settings) {
-		$this->credentials_test_engine($this->get_config(), $posted_settings);
-	}
-	
 	public function ajax_vault_recountquota($echo_results = true) {
 		// Force the opts to be refreshed
 		$config = $this->get_config();

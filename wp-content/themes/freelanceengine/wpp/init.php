@@ -43,6 +43,7 @@
 		'ajax/init',
 		'setting/init',
 		'modules/skills/init',
+		'modules/activity_rating/index',
 		'modules/referral_code/referral_code',
 		'modules/pro_status/add-pro-status'
 

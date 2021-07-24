@@ -39,7 +39,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	 * @param array $args
 	 * @param array $instance
 	 */
-	public function widget( $args = array(), $instance ) {
+	public function widget( $args, $instance ) {
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
@@ -125,7 +125,7 @@ class A2A_Follow_Widget extends WP_Widget {
 	 * @param array $args
 	 * @param array $instance
 	 */
-	public function widget( $args = array(), $instance ) {
+	public function widget( $args, $instance ) {
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',

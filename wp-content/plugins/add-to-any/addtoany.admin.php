@@ -382,7 +382,7 @@ function A2A_SHARE_SAVE_options_page() {
 				$active_services[] = $service;
 				
 				// AddToAny counter enabled?
-				if ( in_array( $service, array( 'facebook', 'pinterest', 'reddit' ) ) ) {
+				if ( in_array( $service, array( 'pinterest', 'reddit', 'tumblr' ) ) ) {
 					$new_options['special_' . $service . '_options'] = array(
 						'show_count' => ( ( isset( $_POST['addtoany_' . $service . '_show_count'] ) && $_POST['addtoany_' . $service . '_show_count'] == '1') ? '1' : '-1' )
 					);
@@ -492,7 +492,7 @@ function A2A_SHARE_SAVE_options_page() {
 						if ( ! isset( $site['icon'] ) )
 							$site['icon'] = 'default';
 							
-						$special_service = ( in_array( $service_safe_name, array( 'facebook', 'pinterest', 'reddit' ) ) ) 
+						$special_service = ( in_array( $service_safe_name, array( 'pinterest', 'reddit', 'tumblr', ) ) ) 
 							? ' class="addtoany_special_service"' : '';
 					?>
 						<li data-addtoany-icon-name="<?php echo esc_attr( $site['icon'] ); ?>"<?php echo $special_service; ?> id="a2a_wp_<?php echo esc_attr( $service_safe_name ); ?>" title="<?php echo esc_attr( $site['name'] ); ?>">
@@ -985,7 +985,7 @@ function A2A_SHARE_SAVE_admin_head() {
 							jQuery('#addtoany_admin_form').append('<input class="addtoany_hidden_options" name="addtoany_' + service_name + '_verb" type="hidden" value="' + fb_verb_value + '"/>');
 						}
 					// AddToAny counters
-					} else if ( jQuery.inArray( service_name, ['facebook', 'pinterest', 'reddit'] ) > -1 ) {
+					} else if ( jQuery.inArray( service_name, ['pinterest', 'reddit', 'tumblr'] ) > -1 ) {
 						show_count_value = (jQuery('#' + services_array[i] + '_show_count').is(':checked')) ? '1' : '-1' ;
 						jQuery('#addtoany_admin_form').append('<input class="addtoany_hidden_options" name="addtoany_' + service_name + '_show_count" type="hidden" value="' + show_count_value + '"/>');
 					}
@@ -1105,7 +1105,7 @@ function A2A_SHARE_SAVE_admin_head() {
 				$active_services_quoted .= ',';
 			
 			// AddToAny counter enabled?
-			if ( in_array( $service, array( 'facebook', 'pinterest', 'reddit' ) ) ) {
+			if ( in_array( $service, array( 'pinterest', 'reddit', 'tumblr', ) ) ) {
 				if ( isset( $_POST['addtoany_' . $service . '_show_count'] ) && $_POST['addtoany_' . $service . '_show_count'] == '1'
 					|| ! isset( $_POST['addtoany_' . $service . '_show_count'] )
 					&& isset( $options['special_' . $service . '_options'] )

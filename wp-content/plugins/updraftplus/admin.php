@@ -880,6 +880,8 @@ class UpdraftPlus_Admin {
 			'createbutton' => __('Create', 'updraftplus'),
 			'uploadbutton' => __('Upload', 'updraftplus'),
 			'youdidnotselectany' => __('You did not select any components to restore. Please select at least one, and then try again.', 'updraftplus'),
+			'restoreactivitylogfullscreen' => __('Full-screen', 'updraftplus'),
+			'restoreactivitylogscreenexit' => __('Exit full-screen', 'updraftplus'),
 			'proceedwithupdate' => __('Proceed with update', 'updraftplus'),
 			'close' => __('Close', 'updraftplus'),
 			'restore' => __('Restore', 'updraftplus'),
@@ -1522,6 +1524,11 @@ class UpdraftPlus_Admin {
 				// If the file doesn't exist and they're using one of the cloud options, fetch it down from the cloud.
 				$needs_downloading = true;
 				$updraftplus->log('File does not yet exist locally - needs downloading');
+			} elseif (is_array($services) && 1 == count($services) && 'email' == $services[0]) {
+				$updraftplus->log(__('The email protocol does not allow a remote backup to be retrieved from an email that has been sent. Therefore, please download the attachment from the original backup email and upload it using the "Upload backup files" facility in the "Existing Backups" tab.', 'updraftplus'), 'error');
+				$updraftplus->jobdata_set('dlfile_'.$timestamp.'_'.$type.'_'.$findex, 'failed');
+				$updraftplus->jobdata_set('dlerrors_'.$timestamp.'_'.$type.'_'.$findex, $updraftplus->errors);
+				return array('result' => 'error', 'code' => 'no_email_download');
 			} elseif ($known_size > 0 && filesize($fullpath) < $known_size) {
 				$updraftplus->log("The file was found locally (".filesize($fullpath).") but did not match the size in the backup history ($known_size) - will resume downloading");
 				$needs_downloading = true;
@@ -4068,10 +4075,10 @@ class UpdraftPlus_Admin {
 				if (!empty($active_service)) {
 					if (is_array($active_service)) {
 						foreach ($active_service as $serv) {
-							echo "jQuery('.${serv}').show();\n";
+							echo "jQuery('.".esc_js($serv)."').show();\n";
 						}
 					} else {
-						echo "jQuery('.${active_service}').show();\n";
+						echo "jQuery('.".esc_js($active_service)."').show();\n";
 					}
 				} else {
 					echo "jQuery('.none').show();\n";
@@ -4926,7 +4933,7 @@ ENDHERE;
 		echo '	<p><a target="_blank" href="?action=downloadlog&page=updraftplus&updraftplus_backup_nonce='.htmlspecialchars($updraftplus->nonce).'">'.__('Follow this link to download the log file for this restoration (needed for any support requests).', 'updraftplus').'</a></p>';
 		echo '</div>'; // end .updraft_restore_main--components
 		echo '<div class="updraft_restore_main--activity">';
-		echo '	<h2 class="updraft_restore_main--activity-title">'.__('Activity log', 'updraftplus').' <span id="updraftplus_ajax_restore_last_activity"></span></h2>';
+		echo '	<h2 class="updraft_restore_main--activity-title">'.__('Activity log', 'updraftplus').' <i id="activity-full-log" title="'.__('Full-screen', 'updraftplus').'" class="dashicons dashicons-fullscreen-alt" style="float: right; cursor: pointer; margin-left: 7px;"></i> <span id="updraftplus_ajax_restore_last_activity"></span></h2>';
 		echo '	<div id="updraftplus_ajax_restore_output"></div>';
 		echo '</div>'; // end .updraft_restore_main--activity
 		echo '

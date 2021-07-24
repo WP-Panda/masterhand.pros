@@ -402,7 +402,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 		echo '<table><thead></thead><tbody>';
 		foreach ($opts as $key => $opt) {
 			// Administrators can already read these in other ways, but we err on the side of caution
-			if (false !== stripos($opt, 'api_key')) $opt = '***';
+			if (is_string($opt) && false !== stripos($opt, 'api_key')) $opt = '***';
 			echo '<tr><td>'.htmlspecialchars($key).'</td><td>'.htmlspecialchars(print_r($opt, true)).'</td>';
 		}
 		echo '</tbody></table>';

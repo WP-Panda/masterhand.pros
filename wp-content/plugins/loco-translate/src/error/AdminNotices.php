@@ -35,10 +35,10 @@ class Loco_error_AdminNotices extends Loco_hooks_Hookable {
     public static function add( Loco_error_Exception $error ){
         $notices = self::get();
         // if exception wasn't thrown we have to do some work to establish where it was invoked
-        if( __FILE__ === $error->getFile() ){
+        if( __FILE__ === $error->getRealFile() ){
             $error->setCallee(1);
         }
-        // write error immediately under WP_CLIT
+        // write error immediately under WP_CLI
         if( 'cli' === PHP_SAPI && class_exists('WP_CLI',false) ){
             $error->logCli();
             return $error;
@@ -52,10 +52,8 @@ class Loco_error_AdminNotices extends Loco_hooks_Hookable {
         if( did_action('admin_notices') ){
             $notices->on_admin_notices();
         }
-        // Log messages of minimum priority and up, depending on debug mode
-        // note that non-debug level is in line with error_reporting set by WordPress (notices ignored)
-        $priority = loco_debugging() ? Loco_error_Exception::LEVEL_DEBUG : Loco_error_Exception::LEVEL_WARNING;
-        if( $error->getLevel() <= $priority ){
+        // Log message automatically if enabled
+        if( $error->loggable() ){
             $error->log();
         }
         return $error;

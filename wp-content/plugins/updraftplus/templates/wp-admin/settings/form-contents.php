@@ -288,8 +288,7 @@ foreach ($default_options as $k => $v) {
 ?>
 </table>
 
-<script type="text/javascript">
-/* <![CDATA[ */
+<script>
 <?php
 	$storage_objects_and_ids = UpdraftPlus_Storage_Methods_Interface::get_storage_objects_and_ids(array_keys($updraftplus->backup_methods));
 	// In PHP 5.5+, there's array_column() for this
@@ -300,7 +299,6 @@ foreach ($default_options as $k => $v) {
 
 	echo $updraftplus_admin->get_settings_js($method_objects, $really_is_writable, $updraft_dir, $active_service);
 ?>
-/* ]]> */
 </script>
 <table class="form-table width-900">
 	<tr>
