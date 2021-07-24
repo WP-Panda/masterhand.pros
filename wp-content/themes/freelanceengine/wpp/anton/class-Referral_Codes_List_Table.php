@@ -18,6 +18,9 @@ class Referral_Codes_List_Table extends WP_List_Table {
 		$this->prepare_items();
 
 		add_action( 'wp_print_scripts', [ __CLASS__, '_list_table_css' ] );
+		add_action( 'admin_enqueue_scripts', function(){
+			wp_enqueue_script( 'my-wp-admin', get_template_directory_uri() .'/js/wp-admin.js' );
+		}, 99 );
 	}
 
 	// создает элементы таблицы
@@ -162,6 +165,9 @@ class Referral_Codes_List_Table extends WP_List_Table {
 			table.referralcodes .column-referral_code{ width: 20%; }
 			table.referralcodes .column-referrer{ width: 20%; }
 			table.referralcodes .column-referral_count{ width: 20%; }
+			.referrals{
+				display: none;
+			}
 		</style>
 		<?php
 	}
@@ -174,7 +180,32 @@ class Referral_Codes_List_Table extends WP_List_Table {
 			$actions = [];
 			$actions['edit'] = sprintf( '<a href="%s">%s</a>', '#', 'Показать рефералов' );
 
-			return esc_html( $item[$colname] ) . $this->row_actions( $actions );
+			global $wpdb;
+
+			$user_id = $wpdb->get_var("SELECT user_id FROM wp_referral_code
+				WHERE referral_code = '".$item['referral_code']."'");
+
+			$referrals = $wpdb->get_col("SELECT u.user_login FROM wp_referral_code as rc
+			 	INNER JOIN wp_users AS u ON rc.user_id = u.ID
+			 	WHERE rc.user_id_referral = '".$user_id."'
+			 	ORDER BY u.user_login");
+
+			$referrals_string = '<ol>';
+
+			foreach ($referrals as $referral)	{
+				$referrals_string .= '<li>' . $referral . '</li>';
+			}
+
+			$referrals_string .= '</ol>';
+
+			if ($item['referral_count']) {
+				return esc_html( $item[$colname] ) . $this->row_actions( $actions ) . '<div class="referrals"><p><strong>Рефералы:</strong></p>' .
+				  $referrals_string . '<p><button type="button" class="button cancel alignleft">Закрыть</button></p></div>';
+			} else {
+				return esc_html( $item[$colname] );
+			}
+
+
 		}
 		else {
 			return isset($item[$colname]) ? $item[$colname] : print_r($item, 1);
