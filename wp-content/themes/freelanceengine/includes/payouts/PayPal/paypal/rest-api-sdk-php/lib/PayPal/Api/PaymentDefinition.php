@@ -176,28 +176,6 @@ class PaymentDefinition extends PayPalModel {
 	}
 
 	/**
-	 * Array of charge_models for this payment definition.
-	 *
-	 * @param \PayPal\Api\ChargeModel[] $charge_models
-	 *
-	 * @return $this
-	 */
-	public function setChargeModels( $charge_models ) {
-		$this->charge_models = $charge_models;
-
-		return $this;
-	}
-
-	/**
-	 * Array of charge_models for this payment definition.
-	 *
-	 * @return \PayPal\Api\ChargeModel[]
-	 */
-	public function getChargeModels() {
-		return $this->charge_models;
-	}
-
-	/**
 	 * Append ChargeModels to the list.
 	 *
 	 * @param \PayPal\Api\ChargeModel $chargeModel
@@ -212,6 +190,28 @@ class PaymentDefinition extends PayPalModel {
 				array_merge( $this->getChargeModels(), array( $chargeModel ) )
 			);
 		}
+	}
+
+	/**
+	 * Array of charge_models for this payment definition.
+	 *
+	 * @return \PayPal\Api\ChargeModel[]
+	 */
+	public function getChargeModels() {
+		return $this->charge_models;
+	}
+
+	/**
+	 * Array of charge_models for this payment definition.
+	 *
+	 * @param \PayPal\Api\ChargeModel[] $charge_models
+	 *
+	 * @return $this
+	 */
+	public function setChargeModels( $charge_models ) {
+		$this->charge_models = $charge_models;
+
+		return $this;
 	}
 
 	/**

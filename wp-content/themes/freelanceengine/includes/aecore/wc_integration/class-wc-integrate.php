@@ -16,14 +16,6 @@ class WC_Integrate {
 	 */
 	static $instance = null;
 
-	public static function getInstance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
-
 	/**
 	 * Add integration hook, Call when action
 	 */
@@ -63,6 +55,14 @@ class WC_Integrate {
 		add_action( 'after_payment_list', array( self::getInstance(), 'add_wc_payment' ) );
 	}
 
+	public static function getInstance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
 	/**
 	 * Register posttyle to Woocomerce
 	 *
@@ -71,13 +71,13 @@ class WC_Integrate {
 	function register_post_type_to_wc() {
 		global $wc_order_types;
 		$args                    = array(
-			'exclude_from_orders_screen' => false,
-			'add_order_meta_boxes' => true,
-			'exclude_from_order_count' => false,
-			'exclude_from_order_views' => false,
-			'exclude_from_order_reports' => false,
+			'exclude_from_orders_screen'       => false,
+			'add_order_meta_boxes'             => true,
+			'exclude_from_order_count'         => false,
+			'exclude_from_order_views'         => false,
+			'exclude_from_order_reports'       => false,
 			'exclude_from_order_sales_reports' => false,
-			'class_name' => 'ET_WC_Order'
+			'class_name'                       => 'ET_WC_Order'
 		);
 		$wc_order_types['order'] = $args;
 	}

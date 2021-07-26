@@ -44,121 +44,30 @@ class Wpp_Fr_Assets {
 	}
 
 	/**
-	 * Return asset URL.
-	 *
-	 * @param string $path Assets path.
-	 *
-	 * @return string
+	 * Register/queue frontend scripts.
 	 */
-	private static function get_asset_url( $path ) {
+	public static function load_scripts() {
 
-		$url = str_replace( wp_normalize_path( ABSPATH ), home_url( '/' ), wp_normalize_path( __DIR__ ) );
+		/*global $post;*/
 
-		return apply_filters( 'wpp_get_assets_url', $url . '/assets/' . $path, $path );
-	}
+		/*if ( ! did_action( 'before_wpp_fr_init' ) ) {
+			return;
+		}*/
 
-	/**
-	 * Register a script for use.
-	 *
-	 * @uses   wp_register_script()
-	 *
-	 * @param  string $handle Name of the script. Should be unique.
-	 * @param  string $path Full URL of the script, or path of the script relative to the WordPress root
-	 *                             directory.
-	 * @param  string[] $deps An array of registered script handles this script depends on.
-	 * @param  string $version String specifying script version number, if it has one, which is added to the
-	 *                             URL as a query string for cache busting purposes. If version is set to false, a
-	 *                             version number is automatically added equal to current installed WordPress
-	 *                             version. If set to null, no version is added.
-	 * @param  boolean $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default
-	 *                             'false'.
-	 */
-	private static function register_script( $handle, $path, $deps = [ 'jquery' ], $version = WPP_FRAMEWORK, $in_footer = true ) {
-		self::$scripts[] = $handle;
-		$register        = wp_register_script( $handle, $path, $deps, $version, $in_footer );
-	}
+		self::register_scripts();
+		self::register_styles();
 
-	/**
-	 * Register and enqueue a script for use.
-	 *
-	 * @uses   wp_enqueue_script()
-	 *
-	 * @param  string $handle Name of the script. Should be unique.
-	 * @param  string $path Full URL of the script, or path of the script relative to the WordPress root
-	 *                             directory.
-	 * @param  string[] $deps An array of registered script handles this script depends on.
-	 * @param  string $version String specifying script version number, if it has one, which is added to the
-	 *                             URL as a query string for cache busting purposes. If version is set to false, a
-	 *                             version number is automatically added equal to current installed WordPress
-	 *                             version. If set to null, no version is added.
-	 * @param  boolean $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default
-	 *                             'false'.
-	 */
-	private static function enqueue_script( $handle, $path = '', $deps = [ 'jquery' ], $version = WPP_FRAMEWORK, $in_footer = true ) {
-		if ( ! in_array( $handle, self::$scripts, true ) && $path ) {
-			self::register_script( $handle, $path, $deps, $version, $in_footer );
+		// CSS Styles.
+		$enqueue_styles = self::get_styles();
+		if ( $enqueue_styles ) {
+			foreach ( $enqueue_styles as $handle => $args ) {
+				if ( ! isset( $args['has_rtl'] ) ) {
+					$args['has_rtl'] = false;
+				}
+				self::enqueue_style( $handle, $args['src'], $args['deps'], $args['version'], $args['media'], $args['has_rtl'] );
+			}
 		}
-		wp_enqueue_script( $handle );
-	}
 
-	/**
-	 * Register a style for use.
-	 *
-	 * @uses   wp_register_style()
-	 *
-	 * @param  string $handle Name of the stylesheet. Should be unique.
-	 * @param  string $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress
-	 *                           root directory.
-	 * @param  string[] $deps An array of registered stylesheet handles this stylesheet depends on.
-	 * @param  string $version String specifying stylesheet version number, if it has one, which is added to the
-	 *                           URL as a query string for cache busting purposes. If version is set to false, a
-	 *                           version number is automatically added equal to current installed WordPress
-	 *                           version. If set to null, no version is added.
-	 * @param  string $media The media for which this stylesheet has been defined. Accepts media types like
-	 *                           'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and
-	 *                           '(max-width: 640px)'.
-	 * @param  boolean $has_rtl If has RTL version to load too.
-	 */
-	private static function register_style( $handle, $path, $deps = [], $version = WPP_FRAMEWORK, $media = 'all', $has_rtl = false ) {
-		self::$styles[] = $handle;
-		wp_register_style( $handle, $path, $deps, $version, $media );
-		if ( $has_rtl ) {
-			wp_style_add_data( $handle, 'rtl', 'replace' );
-		}
-	}
-
-	/**
-	 * Register and enqueue a styles for use.
-	 *
-	 * @uses   wp_enqueue_style()
-	 *
-	 * @param  string $handle Name of the stylesheet. Should be unique.
-	 * @param  string $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress
-	 *                           root directory.
-	 * @param  string[] $deps An array of registered stylesheet handles this stylesheet depends on.
-	 * @param  string $version String specifying stylesheet version number, if it has one, which is added to the
-	 *                           URL as a query string for cache busting purposes. If version is set to false, a
-	 *                           version number is automatically added equal to current installed WordPress
-	 *                           version. If set to null, no version is added.
-	 * @param  string $media The media for which this stylesheet has been defined. Accepts media types like
-	 *                           'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and
-	 *                           '(max-width: 640px)'.
-	 * @param  boolean $has_rtl If has RTL version to load too.
-	 */
-	private static function enqueue_style( $handle, $path = '', $deps = [], $version = WPP_FRAMEWORK, $media = 'all', $has_rtl = false ) {
-		if ( ! in_array( $handle, self::$styles, true ) && $path ) {
-			self::register_style( $handle, $path, $deps, $version, $media, $has_rtl );
-		}
-		wp_enqueue_style( $handle );
-	}
-
-	/**
-	 * Get styles for the frontend.
-	 *
-	 * @return array
-	 */
-	public static function get_styles() {
-		return apply_filters( 'wpp_fr_enqueue_styles', [] );
 	}
 
 	/**
@@ -185,6 +94,20 @@ class Wpp_Fr_Assets {
 			self::register_script( $name, $props['src'], $props['deps'], $props['version'] );
 		}
 
+	}
+
+	/**
+	 * Return asset URL.
+	 *
+	 * @param string $path Assets path.
+	 *
+	 * @return string
+	 */
+	private static function get_asset_url( $path ) {
+
+		$url = str_replace( wp_normalize_path( ABSPATH ), home_url( '/' ), wp_normalize_path( __DIR__ ) );
+
+		return apply_filters( 'wpp_get_assets_url', $url . '/assets/' . $path, $path );
 	}
 
 	/**
@@ -217,30 +140,72 @@ class Wpp_Fr_Assets {
 	}
 
 	/**
-	 * Register/queue frontend scripts.
+	 * Register a style for use.
+	 *
+	 * @uses   wp_register_style()
+	 *
+	 * @param  string $handle Name of the stylesheet. Should be unique.
+	 * @param  string $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress
+	 *                           root directory.
+	 * @param  string[] $deps An array of registered stylesheet handles this stylesheet depends on.
+	 * @param  string $version String specifying stylesheet version number, if it has one, which is added to the
+	 *                           URL as a query string for cache busting purposes. If version is set to false, a
+	 *                           version number is automatically added equal to current installed WordPress
+	 *                           version. If set to null, no version is added.
+	 * @param  string $media The media for which this stylesheet has been defined. Accepts media types like
+	 *                           'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and
+	 *                           '(max-width: 640px)'.
+	 * @param  boolean $has_rtl If has RTL version to load too.
 	 */
-	public static function load_scripts() {
-
-		/*global $post;*/
-
-		/*if ( ! did_action( 'before_wpp_fr_init' ) ) {
-			return;
-		}*/
-
-		self::register_scripts();
-		self::register_styles();
-
-		// CSS Styles.
-		$enqueue_styles = self::get_styles();
-		if ( $enqueue_styles ) {
-			foreach ( $enqueue_styles as $handle => $args ) {
-				if ( ! isset( $args['has_rtl'] ) ) {
-					$args['has_rtl'] = false;
-				}
-				self::enqueue_style( $handle, $args['src'], $args['deps'], $args['version'], $args['media'], $args['has_rtl'] );
-			}
+	private static function register_style( $handle, $path, $deps = [], $version = WPP_FRAMEWORK, $media = 'all', $has_rtl = false ) {
+		self::$styles[] = $handle;
+		wp_register_style( $handle, $path, $deps, $version, $media );
+		if ( $has_rtl ) {
+			wp_style_add_data( $handle, 'rtl', 'replace' );
 		}
+	}
 
+	/**
+	 * Get styles for the frontend.
+	 *
+	 * @return array
+	 */
+	public static function get_styles() {
+		return apply_filters( 'wpp_fr_enqueue_styles', [] );
+	}
+
+	/**
+	 * Register and enqueue a styles for use.
+	 *
+	 * @uses   wp_enqueue_style()
+	 *
+	 * @param  string $handle Name of the stylesheet. Should be unique.
+	 * @param  string $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress
+	 *                           root directory.
+	 * @param  string[] $deps An array of registered stylesheet handles this stylesheet depends on.
+	 * @param  string $version String specifying stylesheet version number, if it has one, which is added to the
+	 *                           URL as a query string for cache busting purposes. If version is set to false, a
+	 *                           version number is automatically added equal to current installed WordPress
+	 *                           version. If set to null, no version is added.
+	 * @param  string $media The media for which this stylesheet has been defined. Accepts media types like
+	 *                           'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and
+	 *                           '(max-width: 640px)'.
+	 * @param  boolean $has_rtl If has RTL version to load too.
+	 */
+	private static function enqueue_style( $handle, $path = '', $deps = [], $version = WPP_FRAMEWORK, $media = 'all', $has_rtl = false ) {
+		if ( ! in_array( $handle, self::$styles, true ) && $path ) {
+			self::register_style( $handle, $path, $deps, $version, $media, $has_rtl );
+		}
+		wp_enqueue_style( $handle );
+	}
+
+	/**
+	 * Localize scripts only when enqueued.
+	 */
+	public static function localize_printed_scripts() {
+		foreach ( self::$scripts as $handle ) {
+			self::localize_script( $handle );
+		}
 	}
 
 	/**
@@ -282,12 +247,47 @@ class Wpp_Fr_Assets {
 	}
 
 	/**
-	 * Localize scripts only when enqueued.
+	 * Register and enqueue a script for use.
+	 *
+	 * @uses   wp_enqueue_script()
+	 *
+	 * @param  string $handle Name of the script. Should be unique.
+	 * @param  string $path Full URL of the script, or path of the script relative to the WordPress root
+	 *                             directory.
+	 * @param  string[] $deps An array of registered script handles this script depends on.
+	 * @param  string $version String specifying script version number, if it has one, which is added to the
+	 *                             URL as a query string for cache busting purposes. If version is set to false, a
+	 *                             version number is automatically added equal to current installed WordPress
+	 *                             version. If set to null, no version is added.
+	 * @param  boolean $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default
+	 *                             'false'.
 	 */
-	public static function localize_printed_scripts() {
-		foreach ( self::$scripts as $handle ) {
-			self::localize_script( $handle );
+	private static function enqueue_script( $handle, $path = '', $deps = [ 'jquery' ], $version = WPP_FRAMEWORK, $in_footer = true ) {
+		if ( ! in_array( $handle, self::$scripts, true ) && $path ) {
+			self::register_script( $handle, $path, $deps, $version, $in_footer );
 		}
+		wp_enqueue_script( $handle );
+	}
+
+	/**
+	 * Register a script for use.
+	 *
+	 * @uses   wp_register_script()
+	 *
+	 * @param  string $handle Name of the script. Should be unique.
+	 * @param  string $path Full URL of the script, or path of the script relative to the WordPress root
+	 *                             directory.
+	 * @param  string[] $deps An array of registered script handles this script depends on.
+	 * @param  string $version String specifying script version number, if it has one, which is added to the
+	 *                             URL as a query string for cache busting purposes. If version is set to false, a
+	 *                             version number is automatically added equal to current installed WordPress
+	 *                             version. If set to null, no version is added.
+	 * @param  boolean $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default
+	 *                             'false'.
+	 */
+	private static function register_script( $handle, $path, $deps = [ 'jquery' ], $version = WPP_FRAMEWORK, $in_footer = true ) {
+		self::$scripts[] = $handle;
+		$register        = wp_register_script( $handle, $path, $deps, $version, $in_footer );
 	}
 }
 

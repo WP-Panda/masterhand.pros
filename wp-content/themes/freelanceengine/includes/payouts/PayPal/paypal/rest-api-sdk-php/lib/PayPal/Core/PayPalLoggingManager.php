@@ -31,6 +31,21 @@ class PayPalLoggingManager {
 	private $loggerName;
 
 	/**
+	 * Default Constructor
+	 *
+	 * @param string $loggerName Generally represents the class name.
+	 */
+	private function __construct( $loggerName ) {
+		$config = PayPalConfigManager::getInstance()->getConfigHashmap();
+		// Checks if custom factory defined, and is it an implementation of @PayPalLogFactory
+		$factory = array_key_exists( 'log.AdapterFactory', $config ) && in_array( 'PayPal\Log\PayPalLogFactory', class_implements( $config['log.AdapterFactory'] ) ) ? $config['log.AdapterFactory'] : '\PayPal\Log\PayPalDefaultLogFactory';
+		/** @var PayPalLogFactory $factoryInstance */
+		$factoryInstance  = new $factory();
+		$this->logger     = $factoryInstance->getLogger( $loggerName );
+		$this->loggerName = $loggerName;
+	}
+
+	/**
 	 * Returns the singleton object
 	 *
 	 * @param string $loggerName
@@ -45,21 +60,6 @@ class PayPalLoggingManager {
 		PayPalLoggingManager::$instances[ $loggerName ] = $instance;
 
 		return $instance;
-	}
-
-	/**
-	 * Default Constructor
-	 *
-	 * @param string $loggerName Generally represents the class name.
-	 */
-	private function __construct( $loggerName ) {
-		$config = PayPalConfigManager::getInstance()->getConfigHashmap();
-		// Checks if custom factory defined, and is it an implementation of @PayPalLogFactory
-		$factory = array_key_exists( 'log.AdapterFactory', $config ) && in_array( 'PayPal\Log\PayPalLogFactory', class_implements( $config['log.AdapterFactory'] ) ) ? $config['log.AdapterFactory'] : '\PayPal\Log\PayPalDefaultLogFactory';
-		/** @var PayPalLogFactory $factoryInstance */
-		$factoryInstance  = new $factory();
-		$this->logger     = $factoryInstance->getLogger( $loggerName );
-		$this->loggerName = $loggerName;
 	}
 
 	/**
@@ -81,21 +81,21 @@ class PayPalLoggingManager {
 	}
 
 	/**
-	 * Log Info
-	 *
-	 * @param string $message
-	 */
-	public function info( $message ) {
-		$this->logger->info( $message );
-	}
-
-	/**
 	 * Log Fine
 	 *
 	 * @param string $message
 	 */
 	public function fine( $message ) {
 		$this->info( $message );
+	}
+
+	/**
+	 * Log Info
+	 *
+	 * @param string $message
+	 */
+	public function info( $message ) {
+		$this->logger->info( $message );
 	}
 
 	/**

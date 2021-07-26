@@ -15,23 +15,6 @@ class WPP_Form_Constructor {
 		$this->setting_args = $args;
 	}
 
-	function get_default() {
-
-		$default = [
-			'id'          => false,
-			'wrap_class'  => 'col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field',
-			'label_class' => 'fre-field-title',
-			'type'        => 'text',
-			'label'       => false,
-			'value'       => false,
-			'input_class' => 'wpp-form-input',
-			'placeholder' => false,
-		];
-
-		return $default;
-	}
-
-
 	function parse_data() {
 		foreach ( $this->setting_args as $one_field ) :
 
@@ -60,6 +43,22 @@ class WPP_Form_Constructor {
 			printf( $wrap, $wrap_class, $label_class, $label, $input_class, $value, $id, $placeholder, $field );
 
 		endforeach;
+	}
+
+	function get_default() {
+
+		$default = [
+			'id'          => false,
+			'wrap_class'  => 'col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field',
+			'label_class' => 'fre-field-title',
+			'type'        => 'text',
+			'label'       => false,
+			'value'       => false,
+			'input_class' => 'wpp-form-input',
+			'placeholder' => false,
+		];
+
+		return $default;
 	}
 
 

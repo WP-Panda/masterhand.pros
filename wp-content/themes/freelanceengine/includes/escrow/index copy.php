@@ -67,8 +67,9 @@ function fre_process_escrow( $payment_type, $data ) {
 					$message = str_replace( '[price_bid]', $str_price_bid, $message );
 					$message = str_replace( '[bid_detail]', $str_bid_detail, $message );
 
-					$mailing->wp_mail( $author_project_email, $subject, $message, array( 'post'    => $project_id,
-					                                                                     'user_id' => $author_project_id
+					$mailing->wp_mail( $author_project_email, $subject, $message, array(
+						'post'    => $project_id,
+						'user_id' => $author_project_id
 					) );
 				}
 			}

@@ -74,6 +74,12 @@ class WPP_Get_IMG {
 		$this->attr          = $attr;
 	}
 
+	public static function get_img( $attachment_id, $size = 'thumbnail', $icon = false, $attr = '' ) {
+		$obj = new static( (int ) $attachment_id, $size, $icon, $attr );
+
+		return $obj->get_attributes();
+	}
+
 	public function get_attributes() {
 		add_filter( 'wp_get_attachment_image_attributes', [ $this, 'capture_attributes' ], self::FILTER_PRIORITY );
 		wp_get_attachment_image( $this->attachment_id, $this->size, $this->icon, $this->attr );
@@ -94,12 +100,6 @@ class WPP_Get_IMG {
 		}
 
 		return $attr;
-	}
-
-	public function capture_attributes( $attributes ) {
-		$this->attributes = $attributes;
-
-		return $attributes;
 	}
 
 	public static function convert_to_webp( $src ) {
@@ -134,9 +134,9 @@ class WPP_Get_IMG {
 		return $out;
 	}
 
-	public static function get_img( $attachment_id, $size = 'thumbnail', $icon = false, $attr = '' ) {
-		$obj = new static( (int ) $attachment_id, $size, $icon, $attr );
+	public function capture_attributes( $attributes ) {
+		$this->attributes = $attributes;
 
-		return $obj->get_attributes();
+		return $attributes;
 	}
 }

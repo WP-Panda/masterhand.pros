@@ -11,18 +11,6 @@ class AE_PPAdaptive {
 	public $api_signature;
 
 	/**
-	 * return class $instance
-	 */
-	public static function get_instance() {
-		if ( self::$instance == null ) {
-
-			self::$instance = new AE_PPAdaptive();
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * description
 	 *
 	 * @param $appID
@@ -55,6 +43,18 @@ class AE_PPAdaptive {
 			$this->endpoint   = 'https://svcs.paypal.com/AdaptivePayments/';
 			$this->paypal_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=';
 		}
+	}
+
+	/**
+	 * return class $instance
+	 */
+	public static function get_instance() {
+		if ( self::$instance == null ) {
+
+			self::$instance = new AE_PPAdaptive();
+		}
+
+		return self::$instance;
 	}
 
 	public function get_pending_message( $pendingReason ) {

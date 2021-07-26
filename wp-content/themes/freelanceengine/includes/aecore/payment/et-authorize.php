@@ -65,6 +65,59 @@ class ET_Authorize extends ET_Payment {
 
 	}
 
+	/**
+	 * get api setting
+	 */
+	public static function get_api() {
+		$api = get_option( 'et_authorize_api', array() );
+		if ( ! isset( $api['x_login'] ) ) {
+			$api['x_login'] = '';
+		}
+		if ( ! isset( $api['x_transaction_key'] ) ) {
+			$api['x_transaction_key'] = '';
+		}
+		if ( ! isset( $api['x_MD5_hash'] ) ) {
+			$api['x_MD5_hash'] = '';
+		}
+
+		return $api;
+	}
+
+	/**
+	 * save api setting
+	 */
+	static function set_api( $api = array() ) {
+		update_option( 'et_authorize_api', $api );
+		if ( ! self::is_enable() ) {
+			$gateways = self::get_gateways();
+			if ( isset( $gateways['authorize']['active'] ) && $gateways['authorize']['active'] != - 1 ) {
+				ET_Payment::disable_gateway( 'authorize' );
+
+				return __( 'Your Authorize.Net was disabled because of invalid settings!', ET_DOMAIN );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * check authorize api setting available or not
+	 */
+	public static function is_enable() {
+		$api = self::get_api();
+		if ( ! isset( $api['x_login'] ) || $api['x_login'] == '' ) {
+			return false;
+		}
+		if ( ! isset( $api['x_transaction_key'] ) || $api['x_transaction_key'] == '' ) {
+			return false;
+		}
+		if ( ! isset( $api['x_MD5_hash'] ) || $api['x_MD5_hash'] == '' ) {
+			return false;
+		}
+
+		return true;
+	}
+
 	function set_checkout( $extends, $amount ) {
 
 		$post_location = $this->_post_location;
@@ -105,12 +158,6 @@ class ET_Authorize extends ET_Payment {
 		return $this->_nvp;
 	}
 
-	function add_field( $name, $value ) {
-		$this->_nvp[ $name ] = $value;
-
-		return '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
-	}
-
 	/**
 	 * set receipt link to relay response
 	 *
@@ -121,6 +168,12 @@ class ET_Authorize extends ET_Payment {
 		$this->_x_receipt_link_method = $method;
 		$this->_x_receipt_link_text   = $text;
 		//$this->_x_receipt_link_url		=	$url;
+	}
+
+	function add_field( $name, $value ) {
+		$this->_nvp[ $name ] = $value;
+
+		return '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
 	}
 
 	/**
@@ -149,59 +202,6 @@ class ET_Authorize extends ET_Payment {
 		$_md5_hash = strtoupper( md5( trim( $this->_md5_hash ) . $this->_login . $trans_id . $amount ) );
 
 		return $_md5_hash;
-	}
-
-	/**
-	 * save api setting
-	 */
-	static function set_api( $api = array() ) {
-		update_option( 'et_authorize_api', $api );
-		if ( ! self::is_enable() ) {
-			$gateways = self::get_gateways();
-			if ( isset( $gateways['authorize']['active'] ) && $gateways['authorize']['active'] != - 1 ) {
-				ET_Payment::disable_gateway( 'authorize' );
-
-				return __( 'Your Authorize.Net was disabled because of invalid settings!', ET_DOMAIN );
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * get api setting
-	 */
-	public static function get_api() {
-		$api = get_option( 'et_authorize_api', array() );
-		if ( ! isset( $api['x_login'] ) ) {
-			$api['x_login'] = '';
-		}
-		if ( ! isset( $api['x_transaction_key'] ) ) {
-			$api['x_transaction_key'] = '';
-		}
-		if ( ! isset( $api['x_MD5_hash'] ) ) {
-			$api['x_MD5_hash'] = '';
-		}
-
-		return $api;
-	}
-
-	/**
-	 * check authorize api setting available or not
-	 */
-	public static function is_enable() {
-		$api = self::get_api();
-		if ( ! isset( $api['x_login'] ) || $api['x_login'] == '' ) {
-			return false;
-		}
-		if ( ! isset( $api['x_transaction_key'] ) || $api['x_transaction_key'] == '' ) {
-			return false;
-		}
-		if ( ! isset( $api['x_MD5_hash'] ) || $api['x_MD5_hash'] == '' ) {
-			return false;
-		}
-
-		return true;
 	}
 
 }

@@ -20,18 +20,12 @@ class WPP_Skills_User extends WPP_Skills {
 		$this->sk_tbl = $this->db->prefix . self::tbl_skill;
 	}
 
-	/**
-	 * Получение скиллов из профиля пользователя
-	 *
-	 * @param null $user_id
-	 *
-	 * @return bool|mixed
-	 */
-	public function get_user_skills_meta( $user_id = null ) {
-		$user_id = $user_id ?? $this->user;
-		$skills  = get_user_meta( $user_id, self::$meta_key, true );
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
 
-		return $skills ?? false;
+		return self::$_instance;
 	}
 
 	/**
@@ -43,21 +37,6 @@ class WPP_Skills_User extends WPP_Skills {
 	public function set_user_skills_meta( $skills, $user_id = null ) {
 		$user_id = $user_id ?? $this->user;
 		update_user_meta( $user_id, self::$meta_key, $skills );
-	}
-
-	/**
-	 * Получение количествыа лайков скила у одного человека
-	 *
-	 * @param      $skill_id
-	 * @param null $user_id
-	 *
-	 * @return null|string
-	 */
-	public function get_likes_count_for_user_skill( $skill_id, $user_id = null ) {
-		$user_id = $user_id ?? $this->user;
-		$count   = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
-
-		return $count;
 	}
 
 	/**
@@ -93,19 +72,40 @@ class WPP_Skills_User extends WPP_Skills {
 		return false;
 	}
 
+	/**
+	 * Получение скиллов из профиля пользователя
+	 *
+	 * @param null $user_id
+	 *
+	 * @return bool|mixed
+	 */
+	public function get_user_skills_meta( $user_id = null ) {
+		$user_id = $user_id ?? $this->user;
+		$skills  = get_user_meta( $user_id, self::$meta_key, true );
+
+		return $skills ?? false;
+	}
+
+	/**
+	 * Получение количествыа лайков скила у одного человека
+	 *
+	 * @param      $skill_id
+	 * @param null $user_id
+	 *
+	 * @return null|string
+	 */
+	public function get_likes_count_for_user_skill( $skill_id, $user_id = null ) {
+		$user_id = $user_id ?? $this->user;
+		$count   = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
+
+		return $count;
+	}
+
 	public function count_user_skills( $user_id ) {
 
 		$skills = get_user_meta( $user_id, self::$meta_key, true );
 
 		return ! empty( $skills ) ? count( $skills ) : 0;
-	}
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 
 }

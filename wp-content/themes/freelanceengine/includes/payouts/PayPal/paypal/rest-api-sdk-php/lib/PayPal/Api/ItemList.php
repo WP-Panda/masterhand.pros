@@ -18,28 +18,6 @@ use PayPal\Common\PayPalModel;
  */
 class ItemList extends PayPalModel {
 	/**
-	 * List of items.
-	 *
-	 * @param \PayPal\Api\Item[] $items
-	 *
-	 * @return $this
-	 */
-	public function setItems( $items ) {
-		$this->items = array_values( $items );
-
-		return $this;
-	}
-
-	/**
-	 * List of items.
-	 *
-	 * @return \PayPal\Api\Item[]
-	 */
-	public function getItems() {
-		return $this->items;
-	}
-
-	/**
 	 * Append Items to the list.
 	 *
 	 * @param \PayPal\Api\Item $item
@@ -54,6 +32,28 @@ class ItemList extends PayPalModel {
 				array_merge( $this->getItems(), array( $item ) )
 			);
 		}
+	}
+
+	/**
+	 * List of items.
+	 *
+	 * @return \PayPal\Api\Item[]
+	 */
+	public function getItems() {
+		return $this->items;
+	}
+
+	/**
+	 * List of items.
+	 *
+	 * @param \PayPal\Api\Item[] $items
+	 *
+	 * @return $this
+	 */
+	public function setItems( $items ) {
+		$this->items = array_values( $items );
+
+		return $this;
 	}
 
 	/**

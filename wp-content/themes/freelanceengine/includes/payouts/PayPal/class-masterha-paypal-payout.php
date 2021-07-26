@@ -20,18 +20,12 @@ use PayPal\Rest\ApiContext;
  */
 class FP_WC_PP_PayPal_Payout {
 
-	protected $environment = 'sandbox';
-
-	protected $receivers = array();
-
-	protected $status = null;
-
-	protected $currency = 'USD';
-
-	protected $items = [];
-
 	public $errors = [];
-
+	protected $environment = 'sandbox';
+	protected $receivers = array();
+	protected $status = null;
+	protected $currency = 'USD';
+	protected $items = [];
 	protected $output = null;
 
 	protected $api_credentials = array();
@@ -55,10 +49,26 @@ class FP_WC_PP_PayPal_Payout {
 		);
 	}
 
-	public function getApiContext() {
-		$oAuthTokenCredential = new OAuthTokenCredential( $this->api_credentials['client_id'], $this->api_credentials['secret_key'] );
+	public function init() {
+		$this->preparePayout();
+		$this->createBatchPayout();
 
-		return new ApiContext( $oAuthTokenCredential );
+		return $this->getPayoutBatchStatus( null, true );
+	}
+
+	public function preparePayout() {
+		$senderBatchHeader = new PayoutSenderBatchHeader();
+		$senderBatchHeader->setSenderBatchId( uniqid() );
+		$senderBatchHeader->setEmailSubject( "You have a payment" );
+
+		$this->payment = new Payout();
+		$this->payment->setSenderBatchHeader( $senderBatchHeader );
+
+		$this->getPayoutItems();
+
+		foreach ( $this->items as $item ) {
+			$this->payment->addItem( $item );
+		}
 	}
 
 	public function getPayoutItems() {
@@ -78,6 +88,39 @@ class FP_WC_PP_PayPal_Payout {
 		}
 	}
 
+	public function createBatchPayout() {
+		try {
+			$this->setEnvironment( $this->getApiContext() );
+			$this->output = $this->payment->create( null, $this->getApiContext() );
+		} catch ( Exception $e ) {
+			wp_send_json( array(
+				'success' => false,
+				'msg'     => [ $e->getMessage() ]
+			) );
+		}
+
+		return true;
+	}
+
+	public function setEnvironment( $apiContext ) {
+		$apiContext->setConfig(
+			array(
+				'mode'             => $this->environment,
+				'log.LogEnabled'   => true,
+				'log.FileName'     => plugin_dir_path( __FILE__ ) . 'PayPal.txt',
+				'log.LogLevel'     => 'sandbox' === $this->environment ? 'DEBUG' : 'FINE',
+				'validation.level' => 'log',
+				'cache.enabled'    => true,
+			)
+		);
+	}
+
+	public function getApiContext() {
+		$oAuthTokenCredential = new OAuthTokenCredential( $this->api_credentials['client_id'], $this->api_credentials['secret_key'] );
+
+		return new ApiContext( $oAuthTokenCredential );
+	}
+
 	public function getPayoutBatchStatus( $payoutItemId = null, $process = false ) {
 		if ( $process ) {
 			$payoutItemId = $this->output->getBatchHeader()->getPayoutBatchId();
@@ -94,55 +137,6 @@ class FP_WC_PP_PayPal_Payout {
 		}
 
 		return $payoutBatchStatus->toArray();
-	}
-
-	public function setEnvironment( $apiContext ) {
-		$apiContext->setConfig(
-			array(
-				'mode'             => $this->environment,
-				'log.LogEnabled'   => true,
-				'log.FileName'     => plugin_dir_path( __FILE__ ) . 'PayPal.txt',
-				'log.LogLevel'     => 'sandbox' === $this->environment ? 'DEBUG' : 'FINE',
-				'validation.level' => 'log',
-				'cache.enabled'    => true,
-			)
-		);
-	}
-
-	public function preparePayout() {
-		$senderBatchHeader = new PayoutSenderBatchHeader();
-		$senderBatchHeader->setSenderBatchId( uniqid() );
-		$senderBatchHeader->setEmailSubject( "You have a payment" );
-
-		$this->payment = new Payout();
-		$this->payment->setSenderBatchHeader( $senderBatchHeader );
-
-		$this->getPayoutItems();
-
-		foreach ( $this->items as $item ) {
-			$this->payment->addItem( $item );
-		}
-	}
-
-	public function createBatchPayout() {
-		try {
-			$this->setEnvironment( $this->getApiContext() );
-			$this->output = $this->payment->create( null, $this->getApiContext() );
-		} catch ( Exception $e ) {
-			wp_send_json( array(
-				'success' => false,
-				'msg'     => [ $e->getMessage() ]
-			) );
-		}
-
-		return true;
-	}
-
-	public function init() {
-		$this->preparePayout();
-		$this->createBatchPayout();
-
-		return $this->getPayoutBatchStatus( null, true );
 	}
 
 	public function getErrors() {

@@ -305,6 +305,7 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
                                     <?php echo json_encode( $postdata ); ?>
 
 
+                            
                             </script>
 						<?php } else {
 							$no_result_previous = NO_RESULT;

@@ -21,22 +21,12 @@ class WPP_Skills_Actions extends WPP_Skills {
 		$this->time   = current_time( 'mysql' );
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
 
-	/**
-	 * Получение скила
-	 *
-	 * @param $skill
-	 *
-	 * @return array|null|object|void
-	 */
-	public function get_skill( $skill, $type = null ) {
-
-		$skill = $this->sanitize_skill( $skill );
-
-		$field = ! empty( $type ) ? sprintf( '`%s`', $type ) : '`title`';
-
-		return $this->db->get_row( sprintf( "SELECT * FROM %s WHERE %s= '%s'", $this->sk_tbl, $field, $skill ) );
-
+		return self::$_instance;
 	}
 
 	/**
@@ -65,6 +55,42 @@ class WPP_Skills_Actions extends WPP_Skills {
 		}
 
 		return $insert;
+
+	}
+
+	/**
+	 * Очистка скила
+	 *
+	 * @param $skill
+	 *
+	 * @return bool|null|string
+	 */
+	public function sanitize_skill( $skill ) {
+
+		$skill = wpp_clean_str( $skill );
+
+		if ( ! empty( $skill ) && ' ' !== $skill ) {
+			return $skill;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
+	 * Получение скила
+	 *
+	 * @param $skill
+	 *
+	 * @return array|null|object|void
+	 */
+	public function get_skill( $skill, $type = null ) {
+
+		$skill = $this->sanitize_skill( $skill );
+
+		$field = ! empty( $type ) ? sprintf( '`%s`', $type ) : '`title`';
+
+		return $this->db->get_row( sprintf( "SELECT * FROM %s WHERE %s= '%s'", $this->sk_tbl, $field, $skill ) );
 
 	}
 
@@ -101,6 +127,21 @@ class WPP_Skills_Actions extends WPP_Skills {
 
 	}
 
+	/**
+	 *  Лайкнуто или нет
+	 *
+	 * @param $likes_id
+	 * @param $skill_id
+	 *
+	 * @return array|null|object|void
+	 */
+	public function is_endorse( $likes_id, $skill_id ) {
+		$user_id = $user_id ?? $this->user;
+		$check   = $this->db->get_row( sprintf( "SELECT * FROM %s WHERE `skill_id`='%s' AND `liker_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id, $likes_id ) );
+
+		return $check;
+	}
+
 	public function remove_likes( $likes_id, $skill_id ) {
 		$user_id = $user_id ?? $this->user;
 		$check   = $this->is_endorse( $likes_id, $skill_id );
@@ -121,51 +162,6 @@ class WPP_Skills_Actions extends WPP_Skills {
 		} else {
 			return [ 'error' => true, 'msg' => 'Likes to Bee' ];
 		}
-	}
-
-
-	/**
-	 *  Лайкнуто или нет
-	 *
-	 * @param $likes_id
-	 * @param $skill_id
-	 *
-	 * @return array|null|object|void
-	 */
-	public function is_endorse( $likes_id, $skill_id ) {
-		$user_id = $user_id ?? $this->user;
-		$check   = $this->db->get_row( sprintf( "SELECT * FROM %s WHERE `skill_id`='%s' AND `liker_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id, $likes_id ) );
-
-		return $check;
-	}
-
-
-	/**
-	 * Очистка скила
-	 *
-	 * @param $skill
-	 *
-	 * @return bool|null|string
-	 */
-	public function sanitize_skill( $skill ) {
-
-		$skill = wpp_clean_str( $skill );
-
-		if ( ! empty( $skill ) && ' ' !== $skill ) {
-			return $skill;
-		} else {
-			return false;
-		}
-
-	}
-
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 
 }

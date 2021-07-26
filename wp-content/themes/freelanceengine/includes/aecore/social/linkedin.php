@@ -5,12 +5,12 @@
  * @author Quang Ð?t
  */
 class ET_LinkedInAuth extends ET_SocialAuth {
-	private $state;
-	private $linkedin_secret_key;
 	protected $linkedin_api_key;
 	protected $linkedin_base_url;
 	protected $linkedin_token_url;
 	protected $linkedin_people_url;
+	private $state;
+	private $linkedin_secret_key;
 
 	public function __construct() {
 		parent::__construct( 'linkedin', 'et_linkedin_id', array(
@@ -34,46 +34,6 @@ class ET_LinkedInAuth extends ET_SocialAuth {
 	}
 
 	// implement abstract method
-	protected function send_created_mail( $user_id ) {
-		do_action( 'et_after_register', $user_id );
-	}
-
-	/**
-	 * When user click login button Linkedin, it will execution function bellow
-	 * @return $link
-	 */
-	public function lkin_redirect() {
-		try {
-			// turn on session
-			if ( ! isset( $_SESSION ) ) {
-				ob_start();
-				@session_start();
-			}
-			/**
-			 * Step1: Request an Authorization Code
-			 */
-			$redirect_uri = home_url( '?action=linked_auth_callback' );
-			$link         = $this->linkedin_base_url . '?';
-			$link         .= 'response_type=code&';
-			$link         .= 'client_id=' . $this->linkedin_api_key . '&';
-			$link         .= 'redirect_uri=' . $redirect_uri . '&';
-			$link         .= 'state=' . $this->state . '&';
-			$link         .= 'scope=r_basicprofile r_emailaddress';
-			// wp_set_auth_cookie($link);
-			$resp = array(
-				'success'  => true,
-				'msg'      => 'Success',
-				'redirect' => $link
-			);
-		} catch ( Exception $e ) {
-			$resp = array(
-				'success' => false,
-				'msg'     => $e->getMessage()
-			);
-
-		}
-		wp_send_json( $resp );
-	}
 
 	/**
 	 * function handle after linkedin callback
@@ -196,5 +156,46 @@ class ET_LinkedInAuth extends ET_SocialAuth {
 				exit();
 			}
 		}
+	}
+
+	/**
+	 * When user click login button Linkedin, it will execution function bellow
+	 * @return $link
+	 */
+	public function lkin_redirect() {
+		try {
+			// turn on session
+			if ( ! isset( $_SESSION ) ) {
+				ob_start();
+				@session_start();
+			}
+			/**
+			 * Step1: Request an Authorization Code
+			 */
+			$redirect_uri = home_url( '?action=linked_auth_callback' );
+			$link         = $this->linkedin_base_url . '?';
+			$link         .= 'response_type=code&';
+			$link         .= 'client_id=' . $this->linkedin_api_key . '&';
+			$link         .= 'redirect_uri=' . $redirect_uri . '&';
+			$link         .= 'state=' . $this->state . '&';
+			$link         .= 'scope=r_basicprofile r_emailaddress';
+			// wp_set_auth_cookie($link);
+			$resp = array(
+				'success'  => true,
+				'msg'      => 'Success',
+				'redirect' => $link
+			);
+		} catch ( Exception $e ) {
+			$resp = array(
+				'success' => false,
+				'msg'     => $e->getMessage()
+			);
+
+		}
+		wp_send_json( $resp );
+	}
+
+	protected function send_created_mail( $user_id ) {
+		do_action( 'et_after_register', $user_id );
 	}
 }

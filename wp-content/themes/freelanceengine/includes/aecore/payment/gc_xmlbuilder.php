@@ -35,14 +35,6 @@ class gc_XmlBuilder {
 		$this->xml    = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
 	}
 
-	function _indent() {
-		for ( $i = 0, $j = count( $this->stack ); $i < $j; $i ++ ) {
-			$this->xml .= $this->indent;
-		}
-	}
-
-	//Used when an element has sub-elements
-	// This function adds an open tag to the output
 	function Push( $element, $attributes = array() ) {
 		$this->_indent();
 		$this->xml .= '<' . $element;
@@ -55,9 +47,19 @@ class gc_XmlBuilder {
 		$this->stack[] = $element;
 	}
 
+	//Used when an element has sub-elements
+	// This function adds an open tag to the output
+
+	function _indent() {
+		for ( $i = 0, $j = count( $this->stack ); $i < $j; $i ++ ) {
+			$this->xml .= $this->indent;
+		}
+	}
+
 	//Used when an element has no subelements.
 	//Data within the open and close tags are provided with the
 	//contents variable
+
 	function Element( $element, $content, $attributes = array() ) {
 		$this->_indent();
 		$this->xml .= '<' . $element;

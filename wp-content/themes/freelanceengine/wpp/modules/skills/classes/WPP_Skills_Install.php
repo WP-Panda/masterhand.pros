@@ -18,6 +18,14 @@ class WPP_Skills_Install extends WPP_Skills {
 		//add_action( 'init', [ __CLASS__, 'wpp_create_table' ] );
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
 	/**
 	 * Cоздание таблицы для базы
 	 *
@@ -40,7 +48,6 @@ class WPP_Skills_Install extends WPP_Skills {
 		update_option( self::option_control, self::v );
 
 	}
-
 
 	/**
 	 * Структура таблиц
@@ -80,14 +87,6 @@ class WPP_Skills_Install extends WPP_Skills {
 
 		return $data;
 
-	}
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 
 }

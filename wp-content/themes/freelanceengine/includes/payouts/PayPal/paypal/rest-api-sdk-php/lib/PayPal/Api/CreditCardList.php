@@ -18,28 +18,6 @@ use PayPal\Common\PayPalResourceModel;
  */
 class CreditCardList extends PayPalResourceModel {
 	/**
-	 * A list of credit card resources
-	 *
-	 * @param \PayPal\Api\CreditCard[] $items
-	 *
-	 * @return $this
-	 */
-	public function setItems( $items ) {
-		$this->items = $items;
-
-		return $this;
-	}
-
-	/**
-	 * A list of credit card resources
-	 *
-	 * @return \PayPal\Api\CreditCard[]
-	 */
-	public function getItems() {
-		return $this->items;
-	}
-
-	/**
 	 * Append Items to the list.
 	 *
 	 * @param \PayPal\Api\CreditCard $creditCard
@@ -54,6 +32,28 @@ class CreditCardList extends PayPalResourceModel {
 				array_merge( $this->getItems(), array( $creditCard ) )
 			);
 		}
+	}
+
+	/**
+	 * A list of credit card resources
+	 *
+	 * @return \PayPal\Api\CreditCard[]
+	 */
+	public function getItems() {
+		return $this->items;
+	}
+
+	/**
+	 * A list of credit card resources
+	 *
+	 * @param \PayPal\Api\CreditCard[] $items
+	 *
+	 * @return $this
+	 */
+	public function setItems( $items ) {
+		$this->items = $items;
+
+		return $this;
 	}
 
 	/**

@@ -114,6 +114,7 @@ class Lexer {
 			Listener::PRIORITY_GARBAGE_COLLECTOR => [],
 		],
 	];
+	private $_lines = [];
 
 	/**
 	 * Initializer
@@ -160,21 +161,35 @@ class Lexer {
 	}
 
 	/**
-	 * Get the input json as array.
+	 * Checks if a string is a json or not.
 	 *
-	 * @return array The json as array formated.
+	 * Example values which return true:
+	 *
+	 * ```php
+	 * Json::isJson('{"123":"456"}');
+	 * Json::isJson('{"123":456}');
+	 * Json::isJson('[{"123":"456"}]');
+	 * Json::isJson('[{"123":"456"}]');
+	 * ```
+	 *
+	 * @param mixed $value The value to test if its a json or not.
+	 *
+	 * @return boolean Whether the string is a json or not.
 	 */
-	public function getJsonArray(): array {
-		return is_array( $this->json ) ? $this->json : self::decodeJson( $this->json );
-	}
+	public static function isJson( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return false;
+		}
 
-	/**
-	 * Get the ops section from the json otherwise json array.
-	 *
-	 * @return array
-	 */
-	public function getOps(): array {
-		return isset( $this->getJsonArray()['ops'] ) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
+		$firstChar = substr( $value, 0, 1 );
+
+		if ( $firstChar !== '{' && $firstChar !== '[' ) {
+			return false;
+		}
+
+		$json_check = json_decode( $value );
+
+		return json_last_error() === JSON_ERROR_NONE;
 	}
 
 	/**
@@ -195,7 +210,29 @@ class Lexer {
 		return $this->_lines;
 	}
 
-	private $_lines = [];
+	/**
+	 * Renders the current delta into a html string.
+	 *
+	 * @return string The html code for the given delta input.
+	 */
+	public function render() {
+		$this->_lines = $this->opsToLines( $this->getOps() );
+
+		foreach ( $this->_lines as $line ) {
+			$this->processListeners( $line, Listener::TYPE_INLINE );
+			$this->processListeners( $line, Listener::TYPE_BLOCK );
+		}
+
+		$this->renderListeneres( Listener::TYPE_INLINE );
+		$this->renderListeneres( Listener::TYPE_BLOCK );
+
+		$buff = null;
+		foreach ( $this->_lines as $line ) {
+			$buff .= $line->output;
+		}
+
+		return $buff;
+	}
 
 	/**
 	 * Convert the arrray operations array into lines
@@ -240,17 +277,6 @@ class Lexer {
 		}
 
 		return $lines;
-	}
-
-	/**
-	 * Whether the current line as a newline char.
-	 *
-	 * @param string $input
-	 *
-	 * @return string
-	 */
-	protected function lineHasNewline( $input ) {
-		return ( strpos( $input, self::NEWLINE_EXPRESSION ) !== false ) ? true : false;
 	}
 
 	/**
@@ -301,6 +327,46 @@ class Lexer {
 	}
 
 	/**
+	 * Whether the current line as a newline char.
+	 *
+	 * @param string $input
+	 *
+	 * @return string
+	 */
+	protected function lineHasNewline( $input ) {
+		return ( strpos( $input, self::NEWLINE_EXPRESSION ) !== false ) ? true : false;
+	}
+
+	/**
+	 * Get the ops section from the json otherwise json array.
+	 *
+	 * @return array
+	 */
+	public function getOps(): array {
+		return isset( $this->getJsonArray()['ops'] ) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
+	}
+
+	/**
+	 * Get the input json as array.
+	 *
+	 * @return array The json as array formated.
+	 */
+	public function getJsonArray(): array {
+		return is_array( $this->json ) ? $this->json : self::decodeJson( $this->json );
+	}
+
+	/**
+	 * Decode a given json string into a php array.
+	 *
+	 * @param string $json Input json
+	 *
+	 * @return array
+	 */
+	public static function decodeJson( $json ) {
+		return json_decode( $json, true );
+	}
+
+	/**
 	 * Undocumented function
 	 *
 	 * @param Line $line
@@ -329,73 +395,6 @@ class Lexer {
 				$listener->render( $this );
 			}
 		}
-	}
-
-	/**
-	 * Renders the current delta into a html string.
-	 *
-	 * @return string The html code for the given delta input.
-	 */
-	public function render() {
-		$this->_lines = $this->opsToLines( $this->getOps() );
-
-		foreach ( $this->_lines as $line ) {
-			$this->processListeners( $line, Listener::TYPE_INLINE );
-			$this->processListeners( $line, Listener::TYPE_BLOCK );
-		}
-
-		$this->renderListeneres( Listener::TYPE_INLINE );
-		$this->renderListeneres( Listener::TYPE_BLOCK );
-
-		$buff = null;
-		foreach ( $this->_lines as $line ) {
-			$buff .= $line->output;
-		}
-
-		return $buff;
-	}
-
-	/**
-	 * Checks if a string is a json or not.
-	 *
-	 * Example values which return true:
-	 *
-	 * ```php
-	 * Json::isJson('{"123":"456"}');
-	 * Json::isJson('{"123":456}');
-	 * Json::isJson('[{"123":"456"}]');
-	 * Json::isJson('[{"123":"456"}]');
-	 * ```
-	 *
-	 * @param mixed $value The value to test if its a json or not.
-	 *
-	 * @return boolean Whether the string is a json or not.
-	 */
-	public static function isJson( $value ) {
-		if ( ! is_scalar( $value ) ) {
-			return false;
-		}
-
-		$firstChar = substr( $value, 0, 1 );
-
-		if ( $firstChar !== '{' && $firstChar !== '[' ) {
-			return false;
-		}
-
-		$json_check = json_decode( $value );
-
-		return json_last_error() === JSON_ERROR_NONE;
-	}
-
-	/**
-	 * Decode a given json string into a php array.
-	 *
-	 * @param string $json Input json
-	 *
-	 * @return array
-	 */
-	public static function decodeJson( $json ) {
-		return json_decode( $json, true );
 	}
 
 	/**

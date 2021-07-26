@@ -14,18 +14,16 @@ class Lang {
 		$this->langPath   = $this->modulePath . 'lang' . DIRECTORY_SEPARATOR;
 	}
 
-	public function getLangTag() {
-		return $this->langTag;
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
 	}
 
 	public function getLangPath() {
 		return $this->langPath;
-	}
-
-	public function setLangTag( $lang ) {
-		$this->langTag = ! empty( $lang ) ? $lang : $this->langTagDefault;
-
-		return $this;
 	}
 
 	public function setLangPath( $path = '', $relative = true ) {
@@ -59,11 +57,13 @@ class Lang {
 		return $key === 'ALL' ? $this->lang : ( ! empty( $key ) && isset( $this->lang[ $key ] ) ? $this->lang[ $key ] : '' );
 	}
 
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
+	public function getLangTag() {
+		return $this->langTag;
+	}
 
-		return self::$_instance;
+	public function setLangTag( $lang ) {
+		$this->langTag = ! empty( $lang ) ? $lang : $this->langTagDefault;
+
+		return $this;
 	}
 }

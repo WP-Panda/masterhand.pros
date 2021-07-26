@@ -52,21 +52,6 @@ class PayPalCredentialManager {
 	}
 
 	/**
-	 * Create singleton instance for this class.
-	 *
-	 * @param array|null $config
-	 *
-	 * @return PayPalCredentialManager
-	 */
-	public static function getInstance( $config = null ) {
-		if ( ! self::$instance ) {
-			self::$instance = new self( $config == null ? PayPalConfigManager::getInstance()->getConfigHashmap() : $config );
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * Load credentials for multiple accounts, with priority given to Signature credential.
 	 *
 	 * @param array $config
@@ -112,6 +97,21 @@ class PayPalCredentialManager {
 			$suffix ++;
 			$key = $prefix . $suffix;
 		}
+	}
+
+	/**
+	 * Create singleton instance for this class.
+	 *
+	 * @param array|null $config
+	 *
+	 * @return PayPalCredentialManager
+	 */
+	public static function getInstance( $config = null ) {
+		if ( ! self::$instance ) {
+			self::$instance = new self( $config == null ? PayPalConfigManager::getInstance()->getConfigHashmap() : $config );
+		}
+
+		return self::$instance;
 	}
 
 	/**

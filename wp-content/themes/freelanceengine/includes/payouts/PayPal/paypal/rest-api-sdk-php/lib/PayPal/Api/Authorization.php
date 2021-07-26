@@ -33,6 +33,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Authorization extends PayPalResourceModel {
 	/**
+	 * Shows details for an authorization, by ID.
+	 *
+	 * @param string $authorizationId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Authorization
+	 */
+	public static function get( $authorizationId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $authorizationId, 'authorizationId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/authorization/$authorizationId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Authorization();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * ID of the authorization transaction.
 	 *
 	 * @param string $id
@@ -43,15 +69,6 @@ class Authorization extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * ID of the authorization transaction.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -391,32 +408,6 @@ class Authorization extends PayPalResourceModel {
 	}
 
 	/**
-	 * Shows details for an authorization, by ID.
-	 *
-	 * @param string $authorizationId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Authorization
-	 */
-	public static function get( $authorizationId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $authorizationId, 'authorizationId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/authorization/$authorizationId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Authorization();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Captures and processes an authorization, by ID. To use this call, the original payment call must specify an intent of `authorize`.
 	 *
 	 * @param Capture $capture
@@ -441,6 +432,15 @@ class Authorization extends PayPalResourceModel {
 		$ret->fromJson( $json );
 
 		return $ret;
+	}
+
+	/**
+	 * ID of the authorization transaction.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

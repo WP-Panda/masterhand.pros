@@ -25,18 +25,6 @@ class AE_Posts {
 	public $wp_query;
 
 	/**
-	 * return class $instance
-	 */
-	public static function get_instance() {
-		if ( self::$instance == null ) {
-
-			self::$instance = new AE_Posts( 'post' );
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * construct a object post with meta data
 	 *
 	 * @param string $post_type object post name
@@ -93,129 +81,15 @@ class AE_Posts {
 	}
 
 	/**
-	 * convert post data to an object with meta data
-	 *
-	 * @param object $post_data
-	 * @param string $thumbnail Post thumbnail size
-	 * @param bool $excerpt convert excerpt
-	 * @param bool $singular convert in singular or a listing
-	 *
-	 * @return post object after convert
-	 *         - wp_error object if post invalid
-	 * @author Dakachi
-	 * @since  1.0
+	 * return class $instance
 	 */
-	public function convert( $post_data, $thumbnail = 'medium_post_thumbnail', $excerpt = true, $singular = false ) {
-		$result = [];
-		$post   = (array) $post_data;
+	public static function get_instance() {
+		if ( self::$instance == null ) {
 
-		if ( ! isset( $post['ID'] ) ) {
-			return $result;
-		}
-		/**
-		 * convert need post data
-		 */
-		foreach ( $this->convert as $key ) {
-			if ( isset( $post[ $key ] ) ) {
-				$result[ $key ] = $post[ $key ];
-			}
+			self::$instance = new AE_Posts( 'post' );
 		}
 
-		// array statuses
-		$status = [
-			'reject'    => __( "REJECTED", ET_DOMAIN ),
-			'archive'   => __( "ARCHIVED", ET_DOMAIN ),
-			'pending'   => __( "PENDING", ET_DOMAIN ),
-			'draft'     => __( "DRAFT", ET_DOMAIN ),
-			'publish'   => __( "ACTIVE", ET_DOMAIN ),
-			'trash'     => __( "TRASHED", ET_DOMAIN ),
-			'sold'      => __( "SOLD", ET_DOMAIN ),
-			'accept'    => __( 'ACCEPT', ET_DOMAIN ),
-			'disputing' => __( 'disputing', ET_DOMAIN )
-		];
-
-		$result['status_text'] = isset( $status[ $result['post_status'] ] ) ? $status[ $result['post_status'] ] : '';
-
-		$result['post_date'] = get_the_date( '', $post['ID'] );
-
-		// generate post taxonomy
-
-		if ( ! empty( $this->taxs ) ) {
-
-			foreach ( $this->taxs as $name ) {
-				$terms = wp_get_object_terms( $post['ID'], $name );
-				$arr   = [];
-				if ( is_wp_error( $terms ) ) {
-					continue;
-				}
-
-				foreach ( $terms as $term ) {
-					$arr[] = $term->term_id;
-				}
-				$result[ $name ]              = $arr;
-				$result['tax_input'][ $name ] = $terms;
-			}
-		}
-
-		$meta = apply_filters( 'ae_' . $this->post_type . '_convert_metadata', $this->meta, $post, $singular );
-
-
-		// generate meta data
-		if ( ! empty( $meta ) ) {
-			foreach ( $meta as $key ) {
-				$result[ $key ] = get_post_meta( $post['ID'], $key, true );
-			}
-		}
-
-		if ( ! empty( $this->localize ) ) {
-			foreach ( $this->localize as $key => $localize ) {
-				$a = [];
-				foreach ( $localize['data'] as $loc ) {
-					array_push( $a, $result[ $loc ] );
-				}
-
-				$result[ $key ] = vsprintf( $localize['text'], $a );
-			}
-		}
-
-		unset( $result['post_password'] );
-		$result['id']                 = $post['ID'];
-		$result['permalink']          = get_permalink( $result['ID'] );
-		$result['unfiltered_content'] = $result['post_content'];
-
-		/**
-		 * get post content in loop
-		 */
-		ob_start();
-		echo apply_filters( 'the_content', $result['post_content'] );
-		$the_content = ob_get_clean();
-
-		$result['post_content'] = $the_content;
-
-		/* set post excerpt */
-		if ( isset( $result['post_excerpt'] ) && $result['post_excerpt'] == '' ) {
-			$result['post_excerpt'] = wp_trim_words( $the_content, 20 );
-		}
-
-		/**
-		 * return post thumbnail url
-		 */
-		if ( has_post_thumbnail( $result['ID'] ) ) {
-			$result['featured_image']    = get_post_thumbnail_id( $result['ID'] );
-			$feature_image               = wp_get_attachment_image_src( $result['featured_image'], $thumbnail );
-			$result['the_post_thumnail'] = $feature_image[0];
-		} else {
-			$result['the_post_thumnail'] = '';
-			$result['featured_image']    = '';
-		}
-		$result['the_post_thumbnail'] = $result['the_post_thumnail'];
-		/**
-		 * assign convert post to current post
-		 */
-		$this->current_post = apply_filters( 'ae_convert_' . $this->post_type, (object) $result );
-
-		//masterhnad_send_teams($result->project_category);
-		return $this->current_post;
+		return self::$instance;
 	}
 
 	/**
@@ -231,6 +105,46 @@ class AE_Posts {
 		//     return $this->current__main_post;
 		// }
 		return $this->current_post;
+	}
+
+	/**
+	 * sync request from client,
+	 * request should have attribute method to specify which action want to do
+	 *
+	 * @param array $request
+	 *
+	 * @return object result or WP_Error
+	 * @author Dakachi
+	 * @since  1.0
+	 */
+	function sync( $request ) {
+
+		extract( $request );
+
+		//unset($request['method']);
+
+		switch ( $method ) {
+			case 'create':
+				$result = $this->insert( $request );
+				break;
+
+			case 'update':
+				$result = $this->update( $request );
+				break;
+
+			case 'remove':
+				$result = $this->delete( $request['ID'] );
+				break;
+
+			case 'read':
+				$result = $this->get( $request['ID'] );
+				break;
+
+			default:
+				return new WP_Error( 'invalid_method', __( "Invalid method", ET_DOMAIN ) );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -493,6 +407,36 @@ class AE_Posts {
 	}
 
 	/**
+	 * update post meta and taxonomy
+	 *
+	 * @param object $result post
+	 * @param array $args the post data
+	 * @param array $args
+	 *
+	 * @author Dakachi
+	 * @since  version 1.0
+	 */
+	public function update_custom_field( $result, $args ) {
+		// update post meta
+		if ( ! empty( $this->meta ) ) {
+			foreach ( $this->meta as $key => $meta ) {
+
+				// do not update expired date
+				if ( $meta == 'et_expired_date' ) {
+					continue;
+				}
+
+				if ( isset( $args[ $meta ] ) ) {
+					if ( ! is_array( $args[ $meta ] ) ) {
+						$args[ $meta ] = esc_attr( $args[ $meta ] );
+					}
+					update_post_meta( $result, $meta, $args[ $meta ] );
+				}
+			}
+		}
+	}
+
+	/**
 	 * update postdata and post metadata to an database
 	 * # used wp_update_post ,get_postdata
 	 * # used update_post_meta
@@ -625,33 +569,129 @@ class AE_Posts {
 	}
 
 	/**
-	 * update post meta and taxonomy
+	 * convert post data to an object with meta data
 	 *
-	 * @param object $result post
-	 * @param array $args the post data
-	 * @param array $args
+	 * @param object $post_data
+	 * @param string $thumbnail Post thumbnail size
+	 * @param bool $excerpt convert excerpt
+	 * @param bool $singular convert in singular or a listing
 	 *
+	 * @return post object after convert
+	 *         - wp_error object if post invalid
 	 * @author Dakachi
-	 * @since  version 1.0
+	 * @since  1.0
 	 */
-	public function update_custom_field( $result, $args ) {
-		// update post meta
-		if ( ! empty( $this->meta ) ) {
-			foreach ( $this->meta as $key => $meta ) {
+	public function convert( $post_data, $thumbnail = 'medium_post_thumbnail', $excerpt = true, $singular = false ) {
+		$result = [];
+		$post   = (array) $post_data;
 
-				// do not update expired date
-				if ( $meta == 'et_expired_date' ) {
+		if ( ! isset( $post['ID'] ) ) {
+			return $result;
+		}
+		/**
+		 * convert need post data
+		 */
+		foreach ( $this->convert as $key ) {
+			if ( isset( $post[ $key ] ) ) {
+				$result[ $key ] = $post[ $key ];
+			}
+		}
+
+		// array statuses
+		$status = [
+			'reject'    => __( "REJECTED", ET_DOMAIN ),
+			'archive'   => __( "ARCHIVED", ET_DOMAIN ),
+			'pending'   => __( "PENDING", ET_DOMAIN ),
+			'draft'     => __( "DRAFT", ET_DOMAIN ),
+			'publish'   => __( "ACTIVE", ET_DOMAIN ),
+			'trash'     => __( "TRASHED", ET_DOMAIN ),
+			'sold'      => __( "SOLD", ET_DOMAIN ),
+			'accept'    => __( 'ACCEPT', ET_DOMAIN ),
+			'disputing' => __( 'disputing', ET_DOMAIN )
+		];
+
+		$result['status_text'] = isset( $status[ $result['post_status'] ] ) ? $status[ $result['post_status'] ] : '';
+
+		$result['post_date'] = get_the_date( '', $post['ID'] );
+
+		// generate post taxonomy
+
+		if ( ! empty( $this->taxs ) ) {
+
+			foreach ( $this->taxs as $name ) {
+				$terms = wp_get_object_terms( $post['ID'], $name );
+				$arr   = [];
+				if ( is_wp_error( $terms ) ) {
 					continue;
 				}
 
-				if ( isset( $args[ $meta ] ) ) {
-					if ( ! is_array( $args[ $meta ] ) ) {
-						$args[ $meta ] = esc_attr( $args[ $meta ] );
-					}
-					update_post_meta( $result, $meta, $args[ $meta ] );
+				foreach ( $terms as $term ) {
+					$arr[] = $term->term_id;
 				}
+				$result[ $name ]              = $arr;
+				$result['tax_input'][ $name ] = $terms;
 			}
 		}
+
+		$meta = apply_filters( 'ae_' . $this->post_type . '_convert_metadata', $this->meta, $post, $singular );
+
+
+		// generate meta data
+		if ( ! empty( $meta ) ) {
+			foreach ( $meta as $key ) {
+				$result[ $key ] = get_post_meta( $post['ID'], $key, true );
+			}
+		}
+
+		if ( ! empty( $this->localize ) ) {
+			foreach ( $this->localize as $key => $localize ) {
+				$a = [];
+				foreach ( $localize['data'] as $loc ) {
+					array_push( $a, $result[ $loc ] );
+				}
+
+				$result[ $key ] = vsprintf( $localize['text'], $a );
+			}
+		}
+
+		unset( $result['post_password'] );
+		$result['id']                 = $post['ID'];
+		$result['permalink']          = get_permalink( $result['ID'] );
+		$result['unfiltered_content'] = $result['post_content'];
+
+		/**
+		 * get post content in loop
+		 */
+		ob_start();
+		echo apply_filters( 'the_content', $result['post_content'] );
+		$the_content = ob_get_clean();
+
+		$result['post_content'] = $the_content;
+
+		/* set post excerpt */
+		if ( isset( $result['post_excerpt'] ) && $result['post_excerpt'] == '' ) {
+			$result['post_excerpt'] = wp_trim_words( $the_content, 20 );
+		}
+
+		/**
+		 * return post thumbnail url
+		 */
+		if ( has_post_thumbnail( $result['ID'] ) ) {
+			$result['featured_image']    = get_post_thumbnail_id( $result['ID'] );
+			$feature_image               = wp_get_attachment_image_src( $result['featured_image'], $thumbnail );
+			$result['the_post_thumnail'] = $feature_image[0];
+		} else {
+			$result['the_post_thumnail'] = '';
+			$result['featured_image']    = '';
+		}
+		$result['the_post_thumbnail'] = $result['the_post_thumnail'];
+		/**
+		 * assign convert post to current post
+		 */
+		$this->current_post = apply_filters( 'ae_convert_' . $this->post_type, (object) $result );
+
+		//masterhnad_send_teams($result->project_category);
+		return $this->current_post;
 	}
 
 	/**
@@ -697,46 +737,6 @@ class AE_Posts {
 	 */
 	public function get( $ID ) {
 		$result = $this->convert( get_post( $ID ) );
-
-		return $result;
-	}
-
-	/**
-	 * sync request from client,
-	 * request should have attribute method to specify which action want to do
-	 *
-	 * @param array $request
-	 *
-	 * @return object result or WP_Error
-	 * @author Dakachi
-	 * @since  1.0
-	 */
-	function sync( $request ) {
-
-		extract( $request );
-
-		//unset($request['method']);
-
-		switch ( $method ) {
-			case 'create':
-				$result = $this->insert( $request );
-				break;
-
-			case 'update':
-				$result = $this->update( $request );
-				break;
-
-			case 'remove':
-				$result = $this->delete( $request['ID'] );
-				break;
-
-			case 'read':
-				$result = $this->get( $request['ID'] );
-				break;
-
-			default:
-				return new WP_Error( 'invalid_method', __( "Invalid method", ET_DOMAIN ) );
-		}
 
 		return $result;
 	}
@@ -925,6 +925,22 @@ $ae_post_factory->set( 'post', new AE_Posts( 'post' ) );
 class AE_PostAction extends AE_Base {
 
 	/**
+	 * construct  function
+	 *
+	 * @param string $post_type
+	 *
+	 * @return void
+	 * @since    1.0
+	 * @package  Appengine
+	 * @category void
+	 * @author   Daikachi
+	 */
+	function __construct( $post_type = 'post' ) {
+		$this->post_type = $post_type;
+		$this->add_ajax( 'ae-fetch-blogs', 'fetch_post' );
+	}
+
+	/**
 	 * catch event publish a post and set up order
 	 *
 	 * @param int $ad_id
@@ -991,25 +1007,6 @@ class AE_PostAction extends AE_Base {
 				}
 			}
 		}
-	}
-
-	/**
-	 * construct  function
-	 *
-	 * @param string $post_type
-	 *
-	 * @return void
-	 * @since    1.0
-	 * @package  Appengine
-	 * @category void
-	 * @author   Daikachi
-	 */
-	function __construct( $post_type = 'post' ) {
-		$this->post_type = $post_type;
-		$this->add_ajax( 'ae-fetch-blogs', 'fetch_post' );
-	}
-
-	protected function query_post() {
 	}
 
 	/**
@@ -1308,6 +1305,9 @@ class AE_PostAction extends AE_Base {
 
 	function filter_query_args( $query_args ) {
 		return $query_args;
+	}
+
+	protected function query_post() {
 	}
 
 

@@ -10,6 +10,13 @@ defined( 'ABSPATH' ) || exit;
 Class WPP_Company_Query {
 
 	/**
+	 * Query vars set by the user
+	 *
+	 * @since 1.0.0
+	 * @var array
+	 */
+	public $query;
+	/**
 	 * Company Table Name
 	 *
 	 * @since 1.0.0
@@ -17,30 +24,10 @@ Class WPP_Company_Query {
 	 */
 	protected $table_name = 'wpp_company_data';
 
-	/**
-	 * Query vars set by the user
-	 *
-	 * @since 1.0.0
-	 * @var array
-	 */
-	public $query;
-
 	public function __construct( $query = '' ) {
 		if ( ! empty( $query ) ) {
 			$this->query( $query );
 		}
-	}
-
-	/**
-	 * Initiates object properties and sets default values.
-	 *
-	 * @since 1.0.0
-	 */
-	public function init() {
-		global $wpdb;
-		unset( $this->query );
-		$this->table_name = $wpdb->prefix . $this->table_name;
-
 	}
 
 	/**
@@ -60,6 +47,17 @@ Class WPP_Company_Query {
 		return $this->get_companies();
 	}
 
+	/**
+	 * Initiates object properties and sets default values.
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
+		global $wpdb;
+		unset( $this->query );
+		$this->table_name = $wpdb->prefix . $this->table_name;
+
+	}
 
 	/**
 	 * Retrieves an array of companies based on query variables.

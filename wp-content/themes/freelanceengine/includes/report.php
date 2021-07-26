@@ -108,6 +108,35 @@ class Fre_ReportForm extends AE_Base {
 	}
 
 	/**
+	 * prevent normal user access report content
+	 *
+	 * @since  1.3
+	 * @author Dakachi
+	 */
+	public static function AccessReport() {
+
+		global $post, $user_ID;
+		if ( current_user_can( 'manage_options' ) ) {
+			return true;
+		}
+		// check project owner
+		$project = $post;
+
+		// check freelancer was accepted on project
+		$bid_id = get_post_meta( $project->ID, "accepted", true );
+		$bid    = get_post( $bid_id );
+
+		// current user is not project owner, or working on
+		if ( ! $bid_id || $post->post_status != 'disputing' || ( $user_ID != $project->post_author && $user_ID != $bid->post_author ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	// employer force to close project and end working
+
+	/**
 	 * ajax callback get report collection
 	 *
 	 * @author Dakachi
@@ -185,7 +214,8 @@ class Fre_ReportForm extends AE_Base {
 		}
 	}
 
-	// employer force to close project and end working
+	// freelancer quit a project function
+
 	function close_project() {
 		global $user_ID;
 		$request = $_REQUEST;
@@ -225,95 +255,7 @@ class Fre_ReportForm extends AE_Base {
 		] );
 	}
 
-	// freelancer quit a project function
-	function quit_project() {
-		global $user_ID;
-		$request = $_REQUEST;
-
-		$report = $this->insert_report( $request );
-
-		// update project
-		if ( is_wp_error( $report ) ) {
-			wp_send_json( [
-				'success' => false,
-				'msg'     => $report->get_error_message()
-			] );
-		}
-		$project_id = $request['comment_post_ID'];
-
-		$old_status = get_post_field( 'post_status', $project_id );
-		if ( $old_status == 'complete' ) {
-			wp_send_json( [
-				'success' => false,
-				'msg'     => __( 'This project is complete.', ET_DOMAIN )
-			] );
-		}
-
-		// change post status to disputing
-		wp_update_post( [
-			'ID'          => $request['comment_post_ID'],
-			'post_status' => 'disputing'
-		] );
-
-		update_post_meta( $project_id, 'dispute_by', $user_ID );
-
-		do_action( 'fre_report_quit_project', $project_id, $request );
-
-		$mailing = Fre_Mailing::get_instance();
-		$mailing->quit_project( $project_id, $request['comment_content'] );
-		// update meta key
-		// update_post_meta( $request['comment_post_ID'], 'dispute_by', $meta_value, $prev_value = '' )
-
-		wp_send_json( [
-			'success' => true,
-			'url'     => get_permalink( $project_id ) . '?dispute=1'
-		] );
-	}
-
 	// employer and freelancer report a disputing project
-	function report_dispute() {
-	}
-
-	/**
-	 * ajax callback user send report to a project
-	 * request param contain $comment_content, $comment_post_ID
-	 *
-	 * @since  1.3
-	 * @author Dakachi
-	 */
-	function report() {
-		global $user_ID;
-		$request = $_REQUEST;
-
-		$report = $this->insert_report( $request );
-
-		// update project
-		if ( is_wp_error( $report ) ) {
-			wp_send_json( [
-				'success' => false,
-				'msg'     => $report->get_error_message()
-			] );
-		}
-		$project_id = $request['comment_post_ID'];
-		$report     = get_comment( $report );
-
-		if ( isset( $_REQUEST['fileID'] ) ) {
-			$file_arr = [];
-			foreach ( (array) $_REQUEST['fileID'] as $key => $file ) {
-				$file_arr[] = $file['attach_id'];
-			}
-			update_comment_meta( $report->comment_ID, 'fre_comment_file', $file_arr );
-		}
-
-		do_action( 'fre_report_dispute_project', $project_id, $report );
-
-		$mailing = Fre_Mailing::get_instance();
-		$mailing->new_report( $project_id, $report );
-		wp_send_json( [
-			'success' => true,
-			'data'    => $this->report->convert( $report )
-		] );
-	}
 
 	/**
 	 * group all report to afunction and call insert function
@@ -375,31 +317,92 @@ class Fre_ReportForm extends AE_Base {
 		return $report;
 	}
 
+	function quit_project() {
+		global $user_ID;
+		$request = $_REQUEST;
+
+		$report = $this->insert_report( $request );
+
+		// update project
+		if ( is_wp_error( $report ) ) {
+			wp_send_json( [
+				'success' => false,
+				'msg'     => $report->get_error_message()
+			] );
+		}
+		$project_id = $request['comment_post_ID'];
+
+		$old_status = get_post_field( 'post_status', $project_id );
+		if ( $old_status == 'complete' ) {
+			wp_send_json( [
+				'success' => false,
+				'msg'     => __( 'This project is complete.', ET_DOMAIN )
+			] );
+		}
+
+		// change post status to disputing
+		wp_update_post( [
+			'ID'          => $request['comment_post_ID'],
+			'post_status' => 'disputing'
+		] );
+
+		update_post_meta( $project_id, 'dispute_by', $user_ID );
+
+		do_action( 'fre_report_quit_project', $project_id, $request );
+
+		$mailing = Fre_Mailing::get_instance();
+		$mailing->quit_project( $project_id, $request['comment_content'] );
+		// update meta key
+		// update_post_meta( $request['comment_post_ID'], 'dispute_by', $meta_value, $prev_value = '' )
+
+		wp_send_json( [
+			'success' => true,
+			'url'     => get_permalink( $project_id ) . '?dispute=1'
+		] );
+	}
+
+	function report_dispute() {
+	}
+
 	/**
-	 * prevent normal user access report content
+	 * ajax callback user send report to a project
+	 * request param contain $comment_content, $comment_post_ID
 	 *
 	 * @since  1.3
 	 * @author Dakachi
 	 */
-	public static function AccessReport() {
+	function report() {
+		global $user_ID;
+		$request = $_REQUEST;
 
-		global $post, $user_ID;
-		if ( current_user_can( 'manage_options' ) ) {
-			return true;
+		$report = $this->insert_report( $request );
+
+		// update project
+		if ( is_wp_error( $report ) ) {
+			wp_send_json( [
+				'success' => false,
+				'msg'     => $report->get_error_message()
+			] );
 		}
-		// check project owner
-		$project = $post;
+		$project_id = $request['comment_post_ID'];
+		$report     = get_comment( $report );
 
-		// check freelancer was accepted on project
-		$bid_id = get_post_meta( $project->ID, "accepted", true );
-		$bid    = get_post( $bid_id );
-
-		// current user is not project owner, or working on
-		if ( ! $bid_id || $post->post_status != 'disputing' || ( $user_ID != $project->post_author && $user_ID != $bid->post_author ) ) {
-			return false;
+		if ( isset( $_REQUEST['fileID'] ) ) {
+			$file_arr = [];
+			foreach ( (array) $_REQUEST['fileID'] as $key => $file ) {
+				$file_arr[] = $file['attach_id'];
+			}
+			update_comment_meta( $report->comment_ID, 'fre_comment_file', $file_arr );
 		}
 
-		return true;
+		do_action( 'fre_report_dispute_project', $project_id, $report );
+
+		$mailing = Fre_Mailing::get_instance();
+		$mailing->new_report( $project_id, $report );
+		wp_send_json( [
+			'success' => true,
+			'data'    => $this->report->convert( $report )
+		] );
 	}
 
 	public function removeFile() {

@@ -114,28 +114,6 @@ class Payer extends PayPalModel {
 	}
 
 	/**
-	 * List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
-	 *
-	 * @param \PayPal\Api\FundingInstrument[] $funding_instruments
-	 *
-	 * @return $this
-	 */
-	public function setFundingInstruments( $funding_instruments ) {
-		$this->funding_instruments = $funding_instruments;
-
-		return $this;
-	}
-
-	/**
-	 * List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
-	 *
-	 * @return \PayPal\Api\FundingInstrument[]
-	 */
-	public function getFundingInstruments() {
-		return $this->funding_instruments;
-	}
-
-	/**
 	 * Append FundingInstruments to the list.
 	 *
 	 * @param \PayPal\Api\FundingInstrument $fundingInstrument
@@ -150,6 +128,28 @@ class Payer extends PayPalModel {
 				array_merge( $this->getFundingInstruments(), array( $fundingInstrument ) )
 			);
 		}
+	}
+
+	/**
+	 * List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
+	 *
+	 * @return \PayPal\Api\FundingInstrument[]
+	 */
+	public function getFundingInstruments() {
+		return $this->funding_instruments;
+	}
+
+	/**
+	 * List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
+	 *
+	 * @param \PayPal\Api\FundingInstrument[] $funding_instruments
+	 *
+	 * @return $this
+	 */
+	public function setFundingInstruments( $funding_instruments ) {
+		$this->funding_instruments = $funding_instruments;
+
+		return $this;
 	}
 
 	/**

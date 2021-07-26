@@ -24,6 +24,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Template extends PayPalResourceModel {
 	/**
+	 * Retrieve the details for a particular template by passing the template ID to the request URI.
+	 *
+	 * @param string $templateId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Template
+	 */
+	public static function get( $templateId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $templateId, 'templateId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/invoicing/templates/$templateId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Template();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Unique identifier id of the template.
 	 *
 	 * @param string $template_id
@@ -34,15 +60,6 @@ class Template extends PayPalResourceModel {
 		$this->template_id = $template_id;
 
 		return $this;
-	}
-
-	/**
-	 * Unique identifier id of the template.
-	 *
-	 * @return string
-	 */
-	public function getTemplateId() {
-		return $this->template_id;
 	}
 
 	/**
@@ -112,28 +129,6 @@ class Template extends PayPalResourceModel {
 	}
 
 	/**
-	 * Settings for each template
-	 *
-	 * @param \PayPal\Api\TemplateSettings[] $settings
-	 *
-	 * @return $this
-	 */
-	public function setSettings( $settings ) {
-		$this->settings = $settings;
-
-		return $this;
-	}
-
-	/**
-	 * Settings for each template
-	 *
-	 * @return \PayPal\Api\TemplateSettings[]
-	 */
-	public function getSettings() {
-		return $this->settings;
-	}
-
-	/**
 	 * Append Settings to the list.
 	 *
 	 * @param \PayPal\Api\TemplateSettings $templateSettings
@@ -148,6 +143,28 @@ class Template extends PayPalResourceModel {
 				array_merge( $this->getSettings(), array( $templateSettings ) )
 			);
 		}
+	}
+
+	/**
+	 * Settings for each template
+	 *
+	 * @return \PayPal\Api\TemplateSettings[]
+	 */
+	public function getSettings() {
+		return $this->settings;
+	}
+
+	/**
+	 * Settings for each template
+	 *
+	 * @param \PayPal\Api\TemplateSettings[] $settings
+	 *
+	 * @return $this
+	 */
+	public function setSettings( $settings ) {
+		$this->settings = $settings;
+
+		return $this;
 	}
 
 	/**
@@ -208,32 +225,6 @@ class Template extends PayPalResourceModel {
 	}
 
 	/**
-	 * Retrieve the details for a particular template by passing the template ID to the request URI.
-	 *
-	 * @param string $templateId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Template
-	 */
-	public static function get( $templateId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $templateId, 'templateId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/invoicing/templates/$templateId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Template();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Delete a particular template by passing the template ID to the request URI.
 	 *
 	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
@@ -254,6 +245,15 @@ class Template extends PayPalResourceModel {
 		);
 
 		return true;
+	}
+
+	/**
+	 * Unique identifier id of the template.
+	 *
+	 * @return string
+	 */
+	public function getTemplateId() {
+		return $this->template_id;
 	}
 
 	/**

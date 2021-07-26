@@ -2,18 +2,6 @@
 
 class Twocheckout_Sale extends Twocheckout {
 
-	public static function retrieve( $params = array() ) {
-		$request = new Twocheckout_Api_Requester();
-		if ( array_key_exists( "sale_id", $params ) || array_key_exists( "invoice_id", $params ) ) {
-			$urlSuffix = '/api/sales/detail_sale';
-		} else {
-			$urlSuffix = '/api/sales/list_sales';
-		}
-		$result = $request->doCall( $urlSuffix, $params );
-
-		return Twocheckout_Util::returnResponse( $result );
-	}
-
 	public static function refund( $params = array() ) {
 		$request = new Twocheckout_Api_Requester();
 		if ( array_key_exists( "lineitem_id", $params ) ) {
@@ -59,6 +47,18 @@ class Twocheckout_Sale extends Twocheckout {
 		} else {
 			throw new Twocheckout_Error( 'You must pass a sale_id or lineitem_id to use this method.' );
 		}
+
+		return Twocheckout_Util::returnResponse( $result );
+	}
+
+	public static function retrieve( $params = array() ) {
+		$request = new Twocheckout_Api_Requester();
+		if ( array_key_exists( "sale_id", $params ) || array_key_exists( "invoice_id", $params ) ) {
+			$urlSuffix = '/api/sales/detail_sale';
+		} else {
+			$urlSuffix = '/api/sales/list_sales';
+		}
+		$result = $request->doCall( $urlSuffix, $params );
 
 		return Twocheckout_Util::returnResponse( $result );
 	}

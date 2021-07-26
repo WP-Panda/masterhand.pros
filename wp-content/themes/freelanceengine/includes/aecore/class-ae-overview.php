@@ -160,125 +160,6 @@ class AE_Overview extends AE_Page {
 	}
 
 	/**
-	 * get daily registration
-	 */
-	protected function get_daily_registration() {
-		global $wpdb;
-
-		$key = $wpdb->prefix . 'capabilities';
-
-		$from      = strtotime( '-2 weeks' );
-		$from_date = date( 'Y-m-d 00:00:00', $from );
-
-		$sql = "SELECT date({$wpdb->users}.user_registered) as date, count({$wpdb->users}.ID) as count FROM {$wpdb->users}
-				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
-				WHERE
-					STRCMP(user_registered, '$from_date') >= 0
-				GROUP BY date({$wpdb->users}.user_registered)";
-
-		$result    = $wpdb->get_results( $sql, ARRAY_A );
-		$statistic = [];
-
-		foreach ( $result as $index => $row ) {
-			if ( $index > 0 ) {
-				$distance = ( strtotime( $row['date'] ) - strtotime( $result[ ( $index - 1 ) ]['date'] ) ) / ( 24 * 3600 );
-
-				if ( $distance > 1 ) {
-					for ( $i = 0; $i < $distance - 1; $i ++ ) {
-						$week        = $i + 1;
-						$statistic[] = [
-							date( 'F j, Y', strtotime( $result[ ( $index - 1 ) ]['date'] ) + $week * 60 * 60 * 24 ),
-							0
-						];
-					}
-				}
-			}
-			$statistic[] = [
-				date( 'F j, Y', strtotime( $row['date'] ) ),
-				$row['count']
-			];
-		}
-
-		return $statistic;
-	}
-
-	/**
-	 * get weekly registration
-	 */
-	protected function get_weekly_registration() {
-		global $wpdb;
-
-		$key = $wpdb->prefix . 'capabilities';
-
-		$from      = strtotime( '-3 months' );
-		$from_date = date( 'Y-m-d 00:00:00', $from );
-
-		$sql = "SELECT WEEK({$wpdb->users}.user_registered) as `date`, count({$wpdb->users}.ID) as count FROM {$wpdb->users}
-				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
-				WHERE
-					STRCMP(user_registered, '$from_date') >= 0
-				GROUP BY `date`";
-
-		$result    = $wpdb->get_results( $sql, ARRAY_A );
-		$statistic = [];
-
-		foreach ( $result as $index => $row ) {
-			$date = $row['date'] * 7;
-
-			if ( $index > 0 ) {
-				$distance = $row['date'] - $result[ ( $index - 1 ) ]['date'];
-				if ( $distance > 1 ) {
-					for ( $i = 0; $i < $distance - 1; $i ++ ) {
-						$week        = ( $result[ ( $index - 1 ) ]['date'] + ( $i + 1 ) ) * 7;
-						$statistic[] = [
-							date( 'F j, Y', strtotime( '01 January 2014' ) + $week * 60 * 60 * 24 ),
-							0
-						];
-					}
-				}
-			}
-
-			$statistic[] = [
-				date( 'F j, Y', strtotime( '01 January 2014' ) + $date * 60 * 60 * 24 ),
-				$row['count']
-			];
-		}
-
-		return $statistic;
-	}
-
-	/**
-	 * get monthly registration
-	 */
-	protected function get_monthly_registration() {
-		global $wpdb;
-
-		$key = $wpdb->prefix . 'capabilities';
-
-		// if ( $from == false ) $from = strtotime('-2 weeks');
-		$from_date = date( 'Y-m-d 00:00:00', strtotime( '01-01-' . date( "Y" ) ) );
-
-		$sql = "SELECT MONTH({$wpdb->users}.user_registered) as date, user_registered as post_date , count({$wpdb->users}.ID) as count FROM {$wpdb->users}
-				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
-				WHERE
-					STRCMP(user_registered, '$from_date') >= 0
-				GROUP BY date";
-
-		$result    = $wpdb->get_results( $sql, ARRAY_A );
-		$statistic = [];
-
-		foreach ( $result as $index => $row ) {
-			$year        = date( "Y", strtotime( $row['post_date'] ) );
-			$statistic[] = [
-				date( 'F j, Y', strtotime( '01-' . $row['date'] . '-' . $year ) ),
-				$row['count']
-			];
-		}
-
-		return $statistic;
-	}
-
-	/**
 	 * Retrieve site's monthly stat
 	 *
 	 * @param String $post_type The post type want to retrieve
@@ -414,6 +295,80 @@ class AE_Overview extends AE_Page {
 		return $statistic;
 	}
 
+	/**
+	 * get daily registration
+	 */
+	protected function get_daily_registration() {
+		global $wpdb;
+
+		$key = $wpdb->prefix . 'capabilities';
+
+		$from      = strtotime( '-2 weeks' );
+		$from_date = date( 'Y-m-d 00:00:00', $from );
+
+		$sql = "SELECT date({$wpdb->users}.user_registered) as date, count({$wpdb->users}.ID) as count FROM {$wpdb->users}
+				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
+				WHERE
+					STRCMP(user_registered, '$from_date') >= 0
+				GROUP BY date({$wpdb->users}.user_registered)";
+
+		$result    = $wpdb->get_results( $sql, ARRAY_A );
+		$statistic = [];
+
+		foreach ( $result as $index => $row ) {
+			if ( $index > 0 ) {
+				$distance = ( strtotime( $row['date'] ) - strtotime( $result[ ( $index - 1 ) ]['date'] ) ) / ( 24 * 3600 );
+
+				if ( $distance > 1 ) {
+					for ( $i = 0; $i < $distance - 1; $i ++ ) {
+						$week        = $i + 1;
+						$statistic[] = [
+							date( 'F j, Y', strtotime( $result[ ( $index - 1 ) ]['date'] ) + $week * 60 * 60 * 24 ),
+							0
+						];
+					}
+				}
+			}
+			$statistic[] = [
+				date( 'F j, Y', strtotime( $row['date'] ) ),
+				$row['count']
+			];
+		}
+
+		return $statistic;
+	}
+
+	/**
+	 * get monthly registration
+	 */
+	protected function get_monthly_registration() {
+		global $wpdb;
+
+		$key = $wpdb->prefix . 'capabilities';
+
+		// if ( $from == false ) $from = strtotime('-2 weeks');
+		$from_date = date( 'Y-m-d 00:00:00', strtotime( '01-01-' . date( "Y" ) ) );
+
+		$sql = "SELECT MONTH({$wpdb->users}.user_registered) as date, user_registered as post_date , count({$wpdb->users}.ID) as count FROM {$wpdb->users}
+				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
+				WHERE
+					STRCMP(user_registered, '$from_date') >= 0
+				GROUP BY date";
+
+		$result    = $wpdb->get_results( $sql, ARRAY_A );
+		$statistic = [];
+
+		foreach ( $result as $index => $row ) {
+			$year        = date( "Y", strtotime( $row['post_date'] ) );
+			$statistic[] = [
+				date( 'F j, Y', strtotime( '01-' . $row['date'] . '-' . $year ) ),
+				$row['count']
+			];
+		}
+
+		return $statistic;
+	}
+
 	protected function get_daily_payment( $status = '' ) {
 		global $wpdb;
 
@@ -458,7 +413,6 @@ class AE_Overview extends AE_Page {
 
 		return $statistic;
 	}
-
 
 	public function get_weekly_payment( $status = 'publish' ) {
 		global $wpdb;
@@ -558,6 +512,51 @@ class AE_Overview extends AE_Page {
 
 	public function overview_styles() {
 		$this->add_style( 'jqplot_style', ae_get_url() . '/assets/css/jquery.jqplot.min.css', [], false, 'all' );
+	}
+
+	/**
+	 * get weekly registration
+	 */
+	protected function get_weekly_registration() {
+		global $wpdb;
+
+		$key = $wpdb->prefix . 'capabilities';
+
+		$from      = strtotime( '-3 months' );
+		$from_date = date( 'Y-m-d 00:00:00', $from );
+
+		$sql = "SELECT WEEK({$wpdb->users}.user_registered) as `date`, count({$wpdb->users}.ID) as count FROM {$wpdb->users}
+				INNER JOIN {$wpdb->usermeta} ON {$wpdb->usermeta}.user_id = {$wpdb->users}.ID AND {$wpdb->usermeta}.meta_key = '$key'
+				WHERE
+					STRCMP(user_registered, '$from_date') >= 0
+				GROUP BY `date`";
+
+		$result    = $wpdb->get_results( $sql, ARRAY_A );
+		$statistic = [];
+
+		foreach ( $result as $index => $row ) {
+			$date = $row['date'] * 7;
+
+			if ( $index > 0 ) {
+				$distance = $row['date'] - $result[ ( $index - 1 ) ]['date'];
+				if ( $distance > 1 ) {
+					for ( $i = 0; $i < $distance - 1; $i ++ ) {
+						$week        = ( $result[ ( $index - 1 ) ]['date'] + ( $i + 1 ) ) * 7;
+						$statistic[] = [
+							date( 'F j, Y', strtotime( '01 January 2014' ) + $week * 60 * 60 * 24 ),
+							0
+						];
+					}
+				}
+			}
+
+			$statistic[] = [
+				date( 'F j, Y', strtotime( '01 January 2014' ) + $date * 60 * 60 * 24 ),
+				$row['count']
+			];
+		}
+
+		return $statistic;
 	}
 }
 

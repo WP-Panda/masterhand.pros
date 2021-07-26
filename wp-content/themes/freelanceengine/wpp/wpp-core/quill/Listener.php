@@ -32,6 +32,7 @@ abstract class Listener {
 	 * for TEXT listeneres - as they need to be the very last entry.
 	 */
 	const PRIORITY_GARBAGE_COLLECTOR = 2;
+	private $_picks = [];
 
 	/**
 	 * Undocumented function
@@ -57,8 +58,6 @@ abstract class Listener {
 	public function priority(): int {
 		return self::PRIORITY_EARLY_BIRD;
 	}
-
-	private $_picks = [];
 
 	/**
 	 * Pick a certain line during the process() process in order to use them later in render method.

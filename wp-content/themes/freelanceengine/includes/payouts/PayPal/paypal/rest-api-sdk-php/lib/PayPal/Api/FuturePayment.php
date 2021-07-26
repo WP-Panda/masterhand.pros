@@ -13,6 +13,21 @@ use PayPal\Transport\PayPalRestCall;
 class FuturePayment extends Payment {
 
 	/**
+	 * Get a Refresh Token from Authorization Code
+	 *
+	 * @param $authorizationCode
+	 * @param ApiContext $apiContext
+	 *
+	 * @return string|null refresh token
+	 */
+	public static function getRefreshToken( $authorizationCode, $apiContext = null ) {
+		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
+		$credential = $apiContext->getCredential();
+
+		return $credential->getRefreshToken( $apiContext->getConfig(), $authorizationCode );
+	}
+
+	/**
 	 * Extends the Payment object to create future payments
 	 *
 	 * @param null $apiContext
@@ -40,21 +55,6 @@ class FuturePayment extends Payment {
 		$this->fromJson( $json );
 
 		return $this;
-	}
-
-	/**
-	 * Get a Refresh Token from Authorization Code
-	 *
-	 * @param $authorizationCode
-	 * @param ApiContext $apiContext
-	 *
-	 * @return string|null refresh token
-	 */
-	public static function getRefreshToken( $authorizationCode, $apiContext = null ) {
-		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
-		$credential = $apiContext->getCredential();
-
-		return $credential->getRefreshToken( $apiContext->getConfig(), $authorizationCode );
 	}
 
 }

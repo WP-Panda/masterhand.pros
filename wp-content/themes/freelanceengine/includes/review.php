@@ -7,18 +7,6 @@ class Fre_Review extends AE_Comments {
 	static $current_review;
 	static $instance;
 
-	/**
-	 * return class $instance
-	 */
-	public static function get_instance( $type = "em_review" ) {
-		if ( self::$instance == null ) {
-
-			self::$instance = new Fre_Review( $type );
-		}
-
-		return self::$instance;
-	}
-
 	public function __construct( $type = "em_review" ) {
 		$this->comment_type = $type;
 		$this->meta         = [
@@ -30,6 +18,18 @@ class Fre_Review extends AE_Comments {
 
 		$this->duplicate  = true;
 		$this->limit_time = 120;
+	}
+
+	/**
+	 * return class $instance
+	 */
+	public static function get_instance( $type = "em_review" ) {
+		if ( self::$instance == null ) {
+
+			self::$instance = new Fre_Review( $type );
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -299,6 +299,104 @@ class Fre_ReviewAction extends AE_Base {
 	/*
 	 * add review by freelancer.
 	*/
+
+	function update_after_empoyer_review( $project_id, $comment_id ) {
+		global $wpdb;
+
+		$rate = 0;
+
+		$bid_id_accepted = get_post_meta( $project_id, 'accepted', true );
+
+		$freelancer_id = get_post_field( 'post_author', $bid_id_accepted );
+
+		$profile_id = get_user_meta( $freelancer_id, 'user_profile_id', true );
+
+		//update status for project
+		wp_update_post( [
+			'ID'          => $project_id,
+			'post_status' => 'complete'
+		] );
+
+		//update bid post
+		$bids_post = get_children( [
+			'post_parent' => $project_id,
+			'post_type'   => BID,
+			'numberposts' => - 1,
+			'post_status' => 'any'
+		] );
+
+		if ( ! empty( $bids_post ) ) {
+			foreach ( $bids_post as $bid ) {
+				if ( $bid->ID == $bid_id_accepted ) {
+					wp_update_post( [
+						'ID'          => $bid_id_accepted,
+						'post_status' => 'complete'
+					] );
+				} else {
+					wp_update_post( [
+						'ID'          => $bid->ID,
+						'post_status' => 'hide'
+					] );
+				}
+			}
+		}
+
+		if ( isset( $_POST['score'] ) && $_POST['score'] ) {
+			$rate = (float) $_POST['score'];
+			if ( $rate > 5 ) {
+				$rate = 5;
+			}
+			update_comment_meta( $comment_id, 'et_rate', $rate );
+			update_post_meta( $bid_id_accepted, 'rating_score', $rate );
+		}
+
+		$sql = "select AVG(M.meta_value)  as rate_point, COUNT(C.comment_ID) as count
+                from $wpdb->posts as  p
+                Join $wpdb->comments as C
+                    on p.ID = C.comment_post_ID
+                        join $wpdb->commentmeta as M
+                            on C.comment_ID = M.comment_id
+                            Where p.post_author = $freelancer_id
+                            and p.post_status ='complete'
+                            and p.post_type ='" . BID . "'
+                            and M.meta_key = 'et_rate'
+                            and C.comment_type ='em_review'
+                            and C.comment_approved = 1 ";
+
+		$results = $wpdb->get_results( $sql );
+
+		// update post rating score
+		if ( $results ) {
+			wp_cache_set( "reviews-{$freelancer_id}", $results[0]->count );
+			update_post_meta( $profile_id, 'rating_score', $results[0]->rate_point );
+		} else {
+			update_post_meta( $profile_id, 'rating_score', $rate );
+		}
+
+		//update projects worked for profile
+		$total_projects_worked_current = get_post_meta( $profile_id, 'total_projects_worked' );
+		if ( $total_projects_worked_current ) {
+			$total_project_worked_new = intval( $total_projects_worked_current[0] ) + 1;
+			update_post_meta( $profile_id, 'total_projects_worked', $total_project_worked_new );
+		} else {
+			$works                = get_posts( [
+				'post_status'    => [ 'complete' ],
+				'post_type'      => BID,
+				'author'         => $freelancer_id,
+				'posts_per_page' => - 1,
+			] );
+			$total_project_worked = count( $works );
+			add_post_meta( $profile_id, 'total_projects_worked', $total_project_worked );
+		}
+
+		// send mail to freelancer.
+		$this->mail->review_freelancer_email( $project_id );
+	}
+
+	/*
+	 * update profile and project after employer complete project and review a bid.
+	*/
+
 	function freelancer_review_action() {
 		global $user_ID;
 		$args       = $_POST;
@@ -407,102 +505,6 @@ class Fre_ReviewAction extends AE_Base {
 				'msg'     => $comment->get_error_message()
 			] );
 		}
-	}
-
-	/*
-	 * update profile and project after employer complete project and review a bid.
-	*/
-	function update_after_empoyer_review( $project_id, $comment_id ) {
-		global $wpdb;
-
-		$rate = 0;
-
-		$bid_id_accepted = get_post_meta( $project_id, 'accepted', true );
-
-		$freelancer_id = get_post_field( 'post_author', $bid_id_accepted );
-
-		$profile_id = get_user_meta( $freelancer_id, 'user_profile_id', true );
-
-		//update status for project
-		wp_update_post( [
-			'ID'          => $project_id,
-			'post_status' => 'complete'
-		] );
-
-		//update bid post
-		$bids_post = get_children( [
-			'post_parent' => $project_id,
-			'post_type'   => BID,
-			'numberposts' => - 1,
-			'post_status' => 'any'
-		] );
-
-		if ( ! empty( $bids_post ) ) {
-			foreach ( $bids_post as $bid ) {
-				if ( $bid->ID == $bid_id_accepted ) {
-					wp_update_post( [
-						'ID'          => $bid_id_accepted,
-						'post_status' => 'complete'
-					] );
-				} else {
-					wp_update_post( [
-						'ID'          => $bid->ID,
-						'post_status' => 'hide'
-					] );
-				}
-			}
-		}
-
-		if ( isset( $_POST['score'] ) && $_POST['score'] ) {
-			$rate = (float) $_POST['score'];
-			if ( $rate > 5 ) {
-				$rate = 5;
-			}
-			update_comment_meta( $comment_id, 'et_rate', $rate );
-			update_post_meta( $bid_id_accepted, 'rating_score', $rate );
-		}
-
-		$sql = "select AVG(M.meta_value)  as rate_point, COUNT(C.comment_ID) as count
-                from $wpdb->posts as  p
-                Join $wpdb->comments as C
-                    on p.ID = C.comment_post_ID
-                        join $wpdb->commentmeta as M
-                            on C.comment_ID = M.comment_id
-                            Where p.post_author = $freelancer_id
-                            and p.post_status ='complete'
-                            and p.post_type ='" . BID . "'
-                            and M.meta_key = 'et_rate'
-                            and C.comment_type ='em_review'
-                            and C.comment_approved = 1 ";
-
-		$results = $wpdb->get_results( $sql );
-
-		// update post rating score
-		if ( $results ) {
-			wp_cache_set( "reviews-{$freelancer_id}", $results[0]->count );
-			update_post_meta( $profile_id, 'rating_score', $results[0]->rate_point );
-		} else {
-			update_post_meta( $profile_id, 'rating_score', $rate );
-		}
-
-		//update projects worked for profile
-		$total_projects_worked_current = get_post_meta( $profile_id, 'total_projects_worked' );
-		if ( $total_projects_worked_current ) {
-			$total_project_worked_new = intval( $total_projects_worked_current[0] ) + 1;
-			update_post_meta( $profile_id, 'total_projects_worked', $total_project_worked_new );
-		} else {
-			$works                = get_posts( [
-				'post_status'    => [ 'complete' ],
-				'post_type'      => BID,
-				'author'         => $freelancer_id,
-				'posts_per_page' => - 1,
-			] );
-			$total_project_worked = count( $works );
-			add_post_meta( $profile_id, 'total_projects_worked', $total_project_worked );
-		}
-
-		// send mail to freelancer.
-		$this->mail->review_freelancer_email( $project_id );
 	}
 
 	/*

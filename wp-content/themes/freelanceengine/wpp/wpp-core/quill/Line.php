@@ -89,6 +89,7 @@ class Line {
 	 * @var boolean Whether this line has a newline or not, this information is already provided by the lines to ops method.
 	 */
 	protected $hasNewline;
+	private $_debug = [];
 
 	/**
 	 * Constructor
@@ -139,6 +140,82 @@ class Line {
 	}
 
 	/**
+	 * Get the previous line.
+	 *
+	 * If no previous line exists, false is returned.
+	 *
+	 * ```php
+	 * $nextNotEmpty = $line->previous(function(Line $line) {
+	 *     return !$line->isEmpty();
+	 * });
+	 * ```
+	 *
+	 * if true is returned this line will be assigned.
+	 *
+	 * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
+	 *
+	 * @return Line
+	 */
+	public function previous( $fn = null ) {
+		if ( $fn === null ) {
+			return $this->lexer->getLine( $this->index - 1 );
+		}
+
+		return $this->iterate( $this, function ( $i ) {
+			return $i - 1;
+		}, $fn );
+	}
+
+	/**
+	 * Iteration helper the go forward and backward in lines.
+	 *
+	 * The condition contains whether index should go up or down.
+	 *
+	 * ```php
+	 * return $this->iterate($line, function ($i) {
+	 *    return $i+1;
+	 * }, function(Line $line) {
+	 *      // will stop the process and return this current line
+	 *      return true;
+	 * });
+	 * ```
+	 *
+	 * @param Line $line
+	 * @param callable $condition The condition callable for the index
+	 * @param callable $fn The function which is returend to determine whether this line should be picked or not.
+	 *
+	 * @return boolean|Line
+	 */
+	protected function iterate( Line $line, callable $condition, callable $fn ) {
+		$i        = $line->getIndex();
+		$iterate  = true;
+		$response = false;
+		while ( $iterate ) {
+			$i    = call_user_func( $condition, $i );
+			$elmn = $this->lexer->getLine( $i );
+			// no next element found
+			if ( ! $elmn ) {
+				$iterate = false;
+			} elseif ( call_user_func( $fn, $elmn ) ) {
+				// fn match (return true) return current element.
+				$response = $elmn;
+				$iterate  = false;
+			}
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Getter method for the index of the line.
+	 *
+	 * @return integer
+	 */
+	public function getIndex() {
+		return $this->index;
+	}
+
+	/**
 	 * Get the Lexer
 	 *
 	 * @since 1.2.0
@@ -162,6 +239,16 @@ class Line {
 		}
 
 		return $this->lexer->escape( $this->getUnsafeInput() );
+	}
+
+	/**
+	 * Whether the current line is escaped or not.
+	 *
+	 * @since 1.2.0
+	 * @return boolean
+	 */
+	public function isEscaped() {
+		return $this->isEscaped;
 	}
 
 	/**
@@ -232,6 +319,55 @@ class Line {
 	}
 
 	/**
+	 * While loop down (to the next elements) until false is returend.
+	 *
+	 * > This metod wont return the line.
+	 *
+	 * @param callable $condition The while condition until false is returned.
+	 *
+	 * @since 1.3.0
+	 */
+	public function whileNext( callable $condition ) {
+		$next = $this->next();
+		if ( $next ) {
+			return $next->while( function ( &$index, Line $line ) use ( $condition ) {
+				$index ++;
+
+				return call_user_func( $condition, $line );
+			} );
+		}
+	}
+
+	/**
+	 * Get the next element.
+	 *
+	 * If a closure is provided you can define a condition of whether next element should be taken or not.
+	 *
+	 * For example you can iterate to the next element which is not empty:
+	 *
+	 * ```php
+	 * $nextNotEmpty = $line->next(function(Line $line) {
+	 *     return !$line->isEmpty();
+	 * });
+	 * ```
+	 *
+	 * if true is returned this line will be assigned.
+	 *
+	 * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
+	 *
+	 * @return Line
+	 */
+	public function next( $fn = null ) {
+		if ( $fn === null ) {
+			return $this->lexer->getLine( $this->index + 1 );
+		}
+
+		return $this->iterate( $this, function ( $i ) {
+			return $i + 1;
+		}, $fn );
+	}
+
+	/**
 	 * While trough lines forward or backwards define trough index until false is returned.
 	 *
 	 * An example how to while trough lines, increasing (down) the index until a certain condition
@@ -282,26 +418,6 @@ class Line {
 	}
 
 	/**
-	 * While loop down (to the next elements) until false is returend.
-	 *
-	 * > This metod wont return the line.
-	 *
-	 * @param callable $condition The while condition until false is returned.
-	 *
-	 * @since 1.3.0
-	 */
-	public function whileNext( callable $condition ) {
-		$next = $this->next();
-		if ( $next ) {
-			return $next->while( function ( &$index, Line $line ) use ( $condition ) {
-				$index ++;
-
-				return call_user_func( $condition, $line );
-			} );
-		}
-	}
-
-	/**
 	 * While loop up (to the previous elements) until false is returend.
 	 *
 	 * > This metod wont return the line.
@@ -319,102 +435,6 @@ class Line {
 				return call_user_func( $condition, $line );
 			} );
 		}
-	}
-
-	/**
-	 * Iteration helper the go forward and backward in lines.
-	 *
-	 * The condition contains whether index should go up or down.
-	 *
-	 * ```php
-	 * return $this->iterate($line, function ($i) {
-	 *    return $i+1;
-	 * }, function(Line $line) {
-	 *      // will stop the process and return this current line
-	 *      return true;
-	 * });
-	 * ```
-	 *
-	 * @param Line $line
-	 * @param callable $condition The condition callable for the index
-	 * @param callable $fn The function which is returend to determine whether this line should be picked or not.
-	 *
-	 * @return boolean|Line
-	 */
-	protected function iterate( Line $line, callable $condition, callable $fn ) {
-		$i        = $line->getIndex();
-		$iterate  = true;
-		$response = false;
-		while ( $iterate ) {
-			$i    = call_user_func( $condition, $i );
-			$elmn = $this->lexer->getLine( $i );
-			// no next element found
-			if ( ! $elmn ) {
-				$iterate = false;
-			} elseif ( call_user_func( $fn, $elmn ) ) {
-				// fn match (return true) return current element.
-				$response = $elmn;
-				$iterate  = false;
-			}
-		}
-
-		return $response;
-	}
-
-	/**
-	 * Get the next element.
-	 *
-	 * If a closure is provided you can define a condition of whether next element should be taken or not.
-	 *
-	 * For example you can iterate to the next element which is not empty:
-	 *
-	 * ```php
-	 * $nextNotEmpty = $line->next(function(Line $line) {
-	 *     return !$line->isEmpty();
-	 * });
-	 * ```
-	 *
-	 * if true is returned this line will be assigned.
-	 *
-	 * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
-	 *
-	 * @return Line
-	 */
-	public function next( $fn = null ) {
-		if ( $fn === null ) {
-			return $this->lexer->getLine( $this->index + 1 );
-		}
-
-		return $this->iterate( $this, function ( $i ) {
-			return $i + 1;
-		}, $fn );
-	}
-
-	/**
-	 * Get the previous line.
-	 *
-	 * If no previous line exists, false is returned.
-	 *
-	 * ```php
-	 * $nextNotEmpty = $line->previous(function(Line $line) {
-	 *     return !$line->isEmpty();
-	 * });
-	 * ```
-	 *
-	 * if true is returned this line will be assigned.
-	 *
-	 * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
-	 *
-	 * @return Line
-	 */
-	public function previous( $fn = null ) {
-		if ( $fn === null ) {
-			return $this->lexer->getLine( $this->index - 1 );
-		}
-
-		return $this->iterate( $this, function ( $i ) {
-			return $i - 1;
-		}, $fn );
 	}
 
 	/**
@@ -440,25 +460,6 @@ class Line {
 	 */
 	public function setAsEscaped() {
 		$this->isEscaped = true;
-	}
-
-	/**
-	 * Whether the current line is escaped or not.
-	 *
-	 * @since 1.2.0
-	 * @return boolean
-	 */
-	public function isEscaped() {
-		return $this->isEscaped;
-	}
-
-	/**
-	 * Getter method for the index of the line.
-	 *
-	 * @return integer
-	 */
-	public function getIndex() {
-		return $this->index;
 	}
 
 	/**
@@ -504,6 +505,23 @@ class Line {
 	}
 
 	/**
+	 * Check whether insert is json/array input. if yes return the requres key.
+	 *
+	 * @param string $key The key from the json array
+	 *
+	 * @return mixed
+	 */
+	public function insertJsonKey( $key ) {
+		if ( ! $this->isJsonInsert() ) {
+			return false;
+		}
+
+		$insert = $this->getArrayInsert();
+
+		return array_key_exists( $key, $insert ) ? $insert[ $key ] : false;
+	}
+
+	/**
 	 * Some plugins have a json as insert value, in order to detected such values
 	 * you can use this method.
 	 *
@@ -524,25 +542,6 @@ class Line {
 	public function getArrayInsert() {
 		return Lexer::decodeJson( $this->input );
 	}
-
-	/**
-	 * Check whether insert is json/array input. if yes return the requres key.
-	 *
-	 * @param string $key The key from the json array
-	 *
-	 * @return mixed
-	 */
-	public function insertJsonKey( $key ) {
-		if ( ! $this->isJsonInsert() ) {
-			return false;
-		}
-
-		$insert = $this->getArrayInsert();
-
-		return array_key_exists( $key, $insert ) ? $insert[ $key ] : false;
-	}
-
-	private $_debug = [];
 
 	/**
 	 * Add debug message for this line if {{Lexer::$debug}} is enabled.

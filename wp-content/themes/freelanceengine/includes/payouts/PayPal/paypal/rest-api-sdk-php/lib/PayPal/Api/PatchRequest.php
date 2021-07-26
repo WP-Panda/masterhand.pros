@@ -15,28 +15,6 @@ use PayPal\Common\PayPalModel;
  */
 class PatchRequest extends PayPalModel {
 	/**
-	 * Placeholder for holding array of patch objects
-	 *
-	 * @param \PayPal\Api\Patch[] $patches
-	 *
-	 * @return $this
-	 */
-	public function setPatches( $patches ) {
-		$this->patches = $patches;
-
-		return $this;
-	}
-
-	/**
-	 * Placeholder for holding array of patch objects
-	 *
-	 * @return \PayPal\Api\Patch[]
-	 */
-	public function getPatches() {
-		return $this->patches;
-	}
-
-	/**
 	 * Append Patches to the list.
 	 *
 	 * @param \PayPal\Api\Patch $patch
@@ -51,6 +29,28 @@ class PatchRequest extends PayPalModel {
 				array_merge( $this->getPatches(), array( $patch ) )
 			);
 		}
+	}
+
+	/**
+	 * Placeholder for holding array of patch objects
+	 *
+	 * @return \PayPal\Api\Patch[]
+	 */
+	public function getPatches() {
+		return $this->patches;
+	}
+
+	/**
+	 * Placeholder for holding array of patch objects
+	 *
+	 * @param \PayPal\Api\Patch[] $patches
+	 *
+	 * @return $this
+	 */
+	public function setPatches( $patches ) {
+		$this->patches = $patches;
+
+		return $this;
 	}
 
 	/**

@@ -87,32 +87,6 @@ abstract class ET_Order {
 
 	protected $_post_parent;
 
-	static function register_order_post_type() {
-		$args = array(
-			'labesls'            => array(
-				'name' => __( 'Order', ET_DOMAIN )
-			),
-			'public'             => true,
-			'show_ui'            => false,
-			'publicly_queryable' => false,
-			'_builtin'           => true,
-			/* internal use only. don't use this when registering your own post type. */
-			'_edit_link'         => 'post.php?post=%d',
-			/* internal use only. don't use this when registering your own post type. */
-			'capability_type'    => 'post',
-			'map_meta_cap'       => true,
-			'hierarchical'       => true,
-			'rewrite'            => false,
-			'query_var'          => false,
-			'supports'           => array(
-				'title',
-				'author',
-				'custom-fields'
-			),
-		);
-		register_post_type( 'order', $args );
-	}
-
 	/**
 	 * construct an object order
 	 *
@@ -219,55 +193,21 @@ abstract class ET_Order {
 		}
 	}
 
-	public function get_order_data() {
-		return array(
-			'payer' => $this->_payer,
-
-			'created_date' => $this->_created_date,
-			'status'       => $this->_stat,
-			'payment'      => $this->_payment,
-			'products'     => $this->_products,
-
-			'currency'              => $this->_currency,
-			'payment_code'          => $this->_payment_code,
-			'total'                 => $this->_total,
-			'total_before_discount' => $this->_total_before_discount,
-			'discount_rate'         => $this->_discount_rate,
-			'discount_method'       => $this->_discount_method,
-			'paid_date'             => $this->_paid_date,
-			'shipping'              => $this->_shipping
-		);
+	/**
+	 * set up shipping infomation for order
+	 *
+	 * @param array $ship
+	 *    - name
+	 *    - address
+	 *  - city
+	 *  - state
+	 *  - amount
+	 *  - country
+	 */
+	public function set_shipping( $ship = array() ) {
+		$this->_shipping = $ship;
 	}
 
-	//convert order to an associate array
-	public function generate_data_to_pay() {
-
-		$order = array(
-
-			'payment_code'     => $this->_payment_code,
-			'ID'               => $this->_ID,
-			'payer'            => $this->_payer,
-			'currencyCodeType' => $this->_currency,
-			'products'         => $this->_products,
-
-			'total'                 => $this->_total,
-			'total_before_discount' => $this->_total_before_discount,
-
-			'ship'            => $this->_shipping,
-			'payment'         => $this->_payment,
-			'payer_id'        => $this->_payer_id,
-			// use in paypal
-			'coupon_code'     => $this->_coupon_code,
-			'discount_rate'   => $this->_discount_rate,
-			'discount_method' => $this->_discount_method
-		);
-
-		return $order;
-	}
-
-	/*
-	 * update order infomation to database
-	*/
 	function update_order() {
 
 		if ( $this->_total_before_discount == '' && $this->_total == '' ) {
@@ -321,9 +261,87 @@ abstract class ET_Order {
 		return $this->_ID;
 	}
 
+	//convert order to an associate array
+
+	static function register_order_post_type() {
+		$args = array(
+			'labesls'            => array(
+				'name' => __( 'Order', ET_DOMAIN )
+			),
+			'public'             => true,
+			'show_ui'            => false,
+			'publicly_queryable' => false,
+			'_builtin'           => true,
+			/* internal use only. don't use this when registering your own post type. */
+			'_edit_link'         => 'post.php?post=%d',
+			/* internal use only. don't use this when registering your own post type. */
+			'capability_type'    => 'post',
+			'map_meta_cap'       => true,
+			'hierarchical'       => true,
+			'rewrite'            => false,
+			'query_var'          => false,
+			'supports'           => array(
+				'title',
+				'author',
+				'custom-fields'
+			),
+		);
+		register_post_type( 'order', $args );
+	}
+
+	/*
+	 * update order infomation to database
+	*/
+
+	public function get_order_data() {
+		return array(
+			'payer' => $this->_payer,
+
+			'created_date' => $this->_created_date,
+			'status'       => $this->_stat,
+			'payment'      => $this->_payment,
+			'products'     => $this->_products,
+
+			'currency'              => $this->_currency,
+			'payment_code'          => $this->_payment_code,
+			'total'                 => $this->_total,
+			'total_before_discount' => $this->_total_before_discount,
+			'discount_rate'         => $this->_discount_rate,
+			'discount_method'       => $this->_discount_method,
+			'paid_date'             => $this->_paid_date,
+			'shipping'              => $this->_shipping
+		);
+	}
+
 	/*
 	 * remove an order from database
 	*/
+
+	public function generate_data_to_pay() {
+
+		$order = array(
+
+			'payment_code'     => $this->_payment_code,
+			'ID'               => $this->_ID,
+			'payer'            => $this->_payer,
+			'currencyCodeType' => $this->_currency,
+			'products'         => $this->_products,
+
+			'total'                 => $this->_total,
+			'total_before_discount' => $this->_total_before_discount,
+
+			'ship'            => $this->_shipping,
+			'payment'         => $this->_payment,
+			'payer_id'        => $this->_payer_id,
+			// use in paypal
+			'coupon_code'     => $this->_coupon_code,
+			'discount_rate'   => $this->_discount_rate,
+			'discount_method' => $this->_discount_method
+		);
+
+		return $order;
+	}
+
 	function delete_order() {
 
 		// delete meta
@@ -340,21 +358,6 @@ abstract class ET_Order {
 		// destroy object
 		$this->_ID    = '';
 		$this->_total = '';
-	}
-
-	protected function calculate_discount( $total ) {
-		if ( $this->_coupon_code && $this->_discount_rate ) {
-			if ( $this->_discount_method == 'percent' ) {
-				$total -= ( $this->_discount_rate * $total ) / 100;
-			} else {
-				$total -= $this->_discount_rate;
-			}
-		}
-		if ( $total < 0 ) {
-			$total = 0;
-		}
-
-		return number_format( $total, 2, '.', '' );
 	}
 
 	/**
@@ -391,6 +394,21 @@ abstract class ET_Order {
 		return number_format( $total, 2, '.', '' );
 	}
 
+	protected function calculate_discount( $total ) {
+		if ( $this->_coupon_code && $this->_discount_rate ) {
+			if ( $this->_discount_method == 'percent' ) {
+				$total -= ( $this->_discount_rate * $total ) / 100;
+			} else {
+				$total -= $this->_discount_rate;
+			}
+		}
+		if ( $total < 0 ) {
+			$total = 0;
+		}
+
+		return number_format( $total, 2, '.', '' );
+	}
+
 	/**
 	 * set up product for order
 	 *
@@ -423,19 +441,8 @@ abstract class ET_Order {
 		return $this->_total;
 	}
 
-	/**
-	 * set up shipping infomation for order
-	 *
-	 * @param array $ship
-	 *    - name
-	 *    - address
-	 *  - city
-	 *  - state
-	 *  - amount
-	 *  - country
-	 */
-	public function set_shipping( $ship = array() ) {
-		$this->_shipping = $ship;
+	public function get_payment_code() {
+		return $this->_payment_code;
 	}
 
 	/**
@@ -448,23 +455,20 @@ abstract class ET_Order {
 		update_post_meta( $this->_ID, 'et_order_payment_code', $this->_payment_code );
 	}
 
-	public function get_payment_code() {
-		return $this->_payment_code;
-	}
-
 	public function set_status( $status ) {
 		$this->_stat = $status;
-	}
-
-	public function set_payer_id( $id ) {
-		$this->_payer_id = $id;
 	}
 
 	public function get_payer_id() {
 		return $this->_payer_id;
 	}
 
+	public function set_payer_id( $id ) {
+		$this->_payer_id = $id;
+	}
+
 	// function accept visitor
+
 	function accept( ET_PaymentVisitor $visitor ) {
 		if ( $this->_setup_checkout ) {
 			return $visitor->setup_checkout( $this );

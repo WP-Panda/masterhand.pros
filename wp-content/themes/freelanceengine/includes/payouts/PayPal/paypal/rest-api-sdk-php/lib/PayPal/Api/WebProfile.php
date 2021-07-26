@@ -23,6 +23,54 @@ use PayPal\Validation\ArgumentValidator;
  */
 class WebProfile extends PayPalResourceModel {
 	/**
+	 * Shows details for a web experience profile, by ID.
+	 *
+	 * @param string $profileId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return WebProfile
+	 */
+	public static function get( $profileId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $profileId, 'profileId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payment-experience/web-profiles/$profileId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new WebProfile();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * Lists all web experience profiles for a merchant or subject.
+	 *
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return WebProfile[]
+	 */
+	public static function get_list( $apiContext = null, $restCall = null ) {
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payment-experience/web-profiles/",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+
+		return WebProfile::getList( $json );
+	}
+
+	/**
 	 * The unique ID of the web experience profile.
 	 *
 	 * @param string $id
@@ -33,15 +81,6 @@ class WebProfile extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * The unique ID of the web experience profile.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -202,6 +241,15 @@ class WebProfile extends PayPalResourceModel {
 	}
 
 	/**
+	 * The unique ID of the web experience profile.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
 	 * Partially-updates a web experience profile. Pass the profile ID to the request URI. Pass a patch object with the operation, path of the profile location to update, and, if needed, a new value to complete the operation in the JSON request body.
 	 *
 	 * @param Patch[] $patch
@@ -228,54 +276,6 @@ class WebProfile extends PayPalResourceModel {
 		);
 
 		return true;
-	}
-
-	/**
-	 * Shows details for a web experience profile, by ID.
-	 *
-	 * @param string $profileId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return WebProfile
-	 */
-	public static function get( $profileId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $profileId, 'profileId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payment-experience/web-profiles/$profileId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new WebProfile();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
-	 * Lists all web experience profiles for a merchant or subject.
-	 *
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return WebProfile[]
-	 */
-	public static function get_list( $apiContext = null, $restCall = null ) {
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payment-experience/web-profiles/",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-
-		return WebProfile::getList( $json );
 	}
 
 	/**

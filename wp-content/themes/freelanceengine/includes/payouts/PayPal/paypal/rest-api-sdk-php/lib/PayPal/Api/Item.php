@@ -128,6 +128,15 @@ class Item extends PayPalModel {
 	}
 
 	/**
+	 * 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+	 *
+	 * @return string
+	 */
+	public function getCurrency() {
+		return $this->currency;
+	}
+
+	/**
 	 * Item cost. 10 characters max.
 	 *
 	 * @return string
@@ -147,15 +156,6 @@ class Item extends PayPalModel {
 		$this->currency = $currency;
 
 		return $this;
-	}
-
-	/**
-	 * 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-	 *
-	 * @return string
-	 */
-	public function getCurrency() {
-		return $this->currency;
 	}
 
 	/**
@@ -323,29 +323,6 @@ class Item extends PayPalModel {
 	}
 
 	/**
-	 * Set of optional data used for PayPal risk determination.
-	 * @deprecated Not publicly available
-	 *
-	 * @param \PayPal\Api\NameValuePair[] $supplementary_data
-	 *
-	 * @return $this
-	 */
-	public function setSupplementaryData( $supplementary_data ) {
-		$this->supplementary_data = $supplementary_data;
-
-		return $this;
-	}
-
-	/**
-	 * Set of optional data used for PayPal risk determination.
-	 * @deprecated Not publicly available
-	 * @return \PayPal\Api\NameValuePair[]
-	 */
-	public function getSupplementaryData() {
-		return $this->supplementary_data;
-	}
-
-	/**
 	 * Append SupplementaryData to the list.
 	 * @deprecated Not publicly available
 	 *
@@ -364,6 +341,29 @@ class Item extends PayPalModel {
 	}
 
 	/**
+	 * Set of optional data used for PayPal risk determination.
+	 * @deprecated Not publicly available
+	 * @return \PayPal\Api\NameValuePair[]
+	 */
+	public function getSupplementaryData() {
+		return $this->supplementary_data;
+	}
+
+	/**
+	 * Set of optional data used for PayPal risk determination.
+	 * @deprecated Not publicly available
+	 *
+	 * @param \PayPal\Api\NameValuePair[] $supplementary_data
+	 *
+	 * @return $this
+	 */
+	public function setSupplementaryData( $supplementary_data ) {
+		$this->supplementary_data = $supplementary_data;
+
+		return $this;
+	}
+
+	/**
 	 * Remove SupplementaryData from the list.
 	 * @deprecated Not publicly available
 	 *
@@ -375,29 +375,6 @@ class Item extends PayPalModel {
 		return $this->setSupplementaryData(
 			array_diff( $this->getSupplementaryData(), array( $nameValuePair ) )
 		);
-	}
-
-	/**
-	 * Set of optional data used for PayPal post-transaction notifications.
-	 * @deprecated Not publicly available
-	 *
-	 * @param \PayPal\Api\NameValuePair[] $postback_data
-	 *
-	 * @return $this
-	 */
-	public function setPostbackData( $postback_data ) {
-		$this->postback_data = $postback_data;
-
-		return $this;
-	}
-
-	/**
-	 * Set of optional data used for PayPal post-transaction notifications.
-	 * @deprecated Not publicly available
-	 * @return \PayPal\Api\NameValuePair[]
-	 */
-	public function getPostbackData() {
-		return $this->postback_data;
 	}
 
 	/**
@@ -416,6 +393,29 @@ class Item extends PayPalModel {
 				array_merge( $this->getPostbackData(), array( $nameValuePair ) )
 			);
 		}
+	}
+
+	/**
+	 * Set of optional data used for PayPal post-transaction notifications.
+	 * @deprecated Not publicly available
+	 * @return \PayPal\Api\NameValuePair[]
+	 */
+	public function getPostbackData() {
+		return $this->postback_data;
+	}
+
+	/**
+	 * Set of optional data used for PayPal post-transaction notifications.
+	 * @deprecated Not publicly available
+	 *
+	 * @param \PayPal\Api\NameValuePair[] $postback_data
+	 *
+	 * @return $this
+	 */
+	public function setPostbackData( $postback_data ) {
+		$this->postback_data = $postback_data;
+
+		return $this;
 	}
 
 	/**

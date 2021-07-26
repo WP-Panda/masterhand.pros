@@ -42,28 +42,6 @@ class FundingOption extends PayPalModel {
 	}
 
 	/**
-	 * List of funding sources that contributes to a payment.
-	 *
-	 * @param \PayPal\Api\FundingSource[] $funding_sources
-	 *
-	 * @return $this
-	 */
-	public function setFundingSources( $funding_sources ) {
-		$this->funding_sources = $funding_sources;
-
-		return $this;
-	}
-
-	/**
-	 * List of funding sources that contributes to a payment.
-	 *
-	 * @return \PayPal\Api\FundingSource[]
-	 */
-	public function getFundingSources() {
-		return $this->funding_sources;
-	}
-
-	/**
 	 * Append FundingSources to the list.
 	 *
 	 * @param \PayPal\Api\FundingSource $fundingSource
@@ -78,6 +56,28 @@ class FundingOption extends PayPalModel {
 				array_merge( $this->getFundingSources(), array( $fundingSource ) )
 			);
 		}
+	}
+
+	/**
+	 * List of funding sources that contributes to a payment.
+	 *
+	 * @return \PayPal\Api\FundingSource[]
+	 */
+	public function getFundingSources() {
+		return $this->funding_sources;
+	}
+
+	/**
+	 * List of funding sources that contributes to a payment.
+	 *
+	 * @param \PayPal\Api\FundingSource[] $funding_sources
+	 *
+	 * @return $this
+	 */
+	public function setFundingSources( $funding_sources ) {
+		$this->funding_sources = $funding_sources;
+
+		return $this;
 	}
 
 	/**
@@ -160,28 +160,6 @@ class FundingOption extends PayPalModel {
 	}
 
 	/**
-	 * Sets Links
-	 *
-	 * @param \PayPal\Api\Links[] $links
-	 *
-	 * @return $this
-	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
-
-		return $this;
-	}
-
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
 	 * Append Links to the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -196,6 +174,28 @@ class FundingOption extends PayPalModel {
 				array_merge( $this->getLinks(), array( $links ) )
 			);
 		}
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
 	}
 
 	/**

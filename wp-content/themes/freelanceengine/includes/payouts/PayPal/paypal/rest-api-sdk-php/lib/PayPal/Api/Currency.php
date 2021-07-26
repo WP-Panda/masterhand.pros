@@ -31,15 +31,6 @@ class Currency extends PayPalModel {
 	}
 
 	/**
-	 * 3 letter currency code as defined by ISO 4217.
-	 *
-	 * @return string
-	 */
-	public function getCurrency() {
-		return $this->currency;
-	}
-
-	/**
 	 * amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
 	 *
 	 * @param string|double $value
@@ -52,6 +43,15 @@ class Currency extends PayPalModel {
 		$this->value = $value;
 
 		return $this;
+	}
+
+	/**
+	 * 3 letter currency code as defined by ISO 4217.
+	 *
+	 * @return string
+	 */
+	public function getCurrency() {
+		return $this->currency;
 	}
 
 	/**

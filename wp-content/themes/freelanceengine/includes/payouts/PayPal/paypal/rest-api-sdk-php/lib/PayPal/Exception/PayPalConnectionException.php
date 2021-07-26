@@ -35,21 +35,21 @@ class PayPalConnectionException extends \Exception {
 	}
 
 	/**
-	 * Sets Data
-	 *
-	 * @param $data
-	 */
-	public function setData( $data ) {
-		$this->data = $data;
-	}
-
-	/**
 	 * Gets Data
 	 *
 	 * @return string
 	 */
 	public function getData() {
 		return $this->data;
+	}
+
+	/**
+	 * Sets Data
+	 *
+	 * @param $data
+	 */
+	public function setData( $data ) {
+		$this->data = $data;
 	}
 
 	/**

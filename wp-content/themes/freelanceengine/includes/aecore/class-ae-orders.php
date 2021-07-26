@@ -21,40 +21,12 @@ class AE_Order extends ET_Order {
 		}
 	}
 
-	public function get_order_data() {
-		return [
-			'ID'              => $this->_ID,
-			'payer'           => $this->_payer,
-			'product_id'      => $this->_product_id,
-			'created_date'    => $this->_created_date,
-			'status'          => $this->_stat,
-			'payment'         => $this->_payment,
-			'products'        => $this->_products,
-			'currency'        => $this->_currency,
-			'payment_code'    => $this->_payment_code,
-			'total'           => $this->_total,
-			'paid_date'       => $this->_paid_date,
-			'shipping'        => $this->_shipping,
-			'payment_package' => $this->payment_package,
-			'payment_plan'    => $this->payment_plan
-		];
-	}
-
 	/**
 	 * Override parent class
 	 */
 	function update_order() {
 		parent::update_order();
 		update_post_meta( $this->_ID, 'et_order_plan_id', $this->payment_package );
-	}
-
-	public function generate_data_to_pay() {
-		$return                    = parent::generate_data_to_pay();
-		$return['payment_package'] = $this->payment_package;
-		$return['order_name']      = $this->order_name;
-		$return['product_id']      = $this->_product_id;
-
-		return $return;
 	}
 
 	/**
@@ -94,6 +66,34 @@ class AE_Order extends ET_Order {
 		$order_query = new WP_Query( $args );
 
 		return $order_query;
+	}
+
+	public function get_order_data() {
+		return [
+			'ID'              => $this->_ID,
+			'payer'           => $this->_payer,
+			'product_id'      => $this->_product_id,
+			'created_date'    => $this->_created_date,
+			'status'          => $this->_stat,
+			'payment'         => $this->_payment,
+			'products'        => $this->_products,
+			'currency'        => $this->_currency,
+			'payment_code'    => $this->_payment_code,
+			'total'           => $this->_total,
+			'paid_date'       => $this->_paid_date,
+			'shipping'        => $this->_shipping,
+			'payment_package' => $this->payment_package,
+			'payment_plan'    => $this->payment_plan
+		];
+	}
+
+	public function generate_data_to_pay() {
+		$return                    = parent::generate_data_to_pay();
+		$return['payment_package'] = $this->payment_package;
+		$return['order_name']      = $this->order_name;
+		$return['product_id']      = $this->_product_id;
+
+		return $return;
 	}
 
 	public function set_payment_plan( $plan_id ) {

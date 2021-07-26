@@ -34,10 +34,11 @@ class AE_map {
 	 * @since AEFramework 1.0.0
 	 */
 	function render() {
-		$value = wp_parse_args( $this->value, array( 'latitude'  => 10.828248,
-		                                             'longitude' => 106.629127,
-		                                             'address'   => 'Hồ Chí Minh, Việt Nam',
-		                                             'style'     => null
+		$value = wp_parse_args( $this->value, array(
+			'latitude'  => 10.828248,
+			'longitude' => 106.629127,
+			'address'   => 'Hồ Chí Minh, Việt Nam',
+			'style'     => null
 		) );
 		extract( $value );
 		?>

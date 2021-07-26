@@ -3,16 +3,12 @@
 namespace ActivityRating;
 
 class Base {
-	protected static $_instance = null;
-
-	protected static $_debug = true;
-
 	const VERSION = '1.1';
-
 	const tbRating = 'activity_rating';
 	const tbRatingDetail = 'activity_rating_detail';
 	const tbConfig = 'activity_rating_config';
-
+	protected static $_instance = null;
+	protected static $_debug = true;
 	public $tbConfig = '';
 	public $tbRating = '';
 	public $tbRatingDetail = '';
@@ -35,6 +31,14 @@ class Base {
 		$this->logger = Log::getInstance();
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
 	public function run( $action ) {
 		$action = 'action' . ucfirst( trim( $action ) );
 		if ( ! method_exists( $this, $action ) ) {
@@ -52,6 +56,40 @@ class Base {
 		}
 
 		self::outputJSON( $output, 1 );
+	}
+
+	public static function outputJSON( $data = [], $status = false ) {
+		$response = [];
+
+		if ( is_string( $data ) ) {
+			$response['msg'] = $data;
+		} else {
+			$response = ! empty( $data ) ? $data : [];
+		}
+
+		$response['status'] = isset( $response['status'] ) ? $response['status'] : ( $status ? 'success' : 'error' );
+
+		$response['msg'] = ( $response['status'] == 'error' && empty( $response['msg'] ) ) ? 'Error!!!' : $response['msg'];
+
+		if ( self::$_debug ) {
+			if ( $log = Log::getInstance()->getLog() ) {
+				$response['log'] = $log;
+			}
+
+			$calledClass = get_called_class();
+			$sqlError    = $calledClass::getInstance()->db->last_error;
+			if ( $sqlError ) {
+				$response['sqlError']   = $sqlError;
+				$response['sqlRequest'] = $calledClass::getInstance()->db->last_query;
+			}
+			//			$response['debug'] = debug_backtrace();
+		}
+
+		ob_clean();
+		header_remove();
+		header( 'Content-type: text/json; charset=UTF-8' );
+		echo json_encode( $response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		exit;
 	}
 
 	public function getLangTag() {
@@ -106,53 +144,11 @@ class Base {
 		return is_numeric( $str ) || is_string( $str ) ? floatval( $str ) : 0;
 	}
 
-	public static function outputJSON( $data = [], $status = false ) {
-		$response = [];
-
-		if ( is_string( $data ) ) {
-			$response['msg'] = $data;
-		} else {
-			$response = ! empty( $data ) ? $data : [];
-		}
-
-		$response['status'] = isset( $response['status'] ) ? $response['status'] : ( $status ? 'success' : 'error' );
-
-		$response['msg'] = ( $response['status'] == 'error' && empty( $response['msg'] ) ) ? 'Error!!!' : $response['msg'];
-
-		if ( self::$_debug ) {
-			if ( $log = Log::getInstance()->getLog() ) {
-				$response['log'] = $log;
-			}
-
-			$calledClass = get_called_class();
-			$sqlError    = $calledClass::getInstance()->db->last_error;
-			if ( $sqlError ) {
-				$response['sqlError']   = $sqlError;
-				$response['sqlRequest'] = $calledClass::getInstance()->db->last_query;
-			}
-			//			$response['debug'] = debug_backtrace();
-		}
-
-		ob_clean();
-		header_remove();
-		header( 'Content-type: text/json; charset=UTF-8' );
-		echo json_encode( $response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-		exit;
-	}
-
 	public function tbIsExists( $tb_name = '' ) {
 		$tb_name = empty( $tb_name ) ? $this->tbConfig : $tb_name;
 		$q       = $this->db->query( "SHOW TABLES FROM `{$this -> db_name}` LIKE '{$tb_name}'" );
 
 		//return ( $q ) ? true : false;
 		return true;
-	}
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 }

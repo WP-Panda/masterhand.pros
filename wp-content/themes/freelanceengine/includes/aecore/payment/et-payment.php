@@ -29,36 +29,17 @@ abstract class ET_Payment {
 	 * setup settings for ET_Payment
 	 */
 	//abstract function set_settings ( $settings = array () ) ;
-	/**
-	 * retrieve supported payment gateways
-	 */
-	public static function get_support_payment_gateway() {
 
-		$support = array(
-			'paypal' => array(
-				'label'       => 'Paypal',
-				'active'      => - 1,
-				'description' => __( "Send your payment via Paypal.", ET_DOMAIN )
-			),
+	public static function set_currency( $currency_code ) {
 
-			'2checkout' => array(
-				'label'       => '2CheckOut',
-				'active'      => - 1,
-				'description' => __( "Send your payment via 2Checkout.", ET_DOMAIN )
-			),
+		$currency_list = self::get_currency_list();
+		if ( isset( $currency_list[ $currency_code ] ) ) {
+			update_option( 'et_current_currency', $currency_list[ $currency_code ] );
 
-			// 'google_checkout'	=>	array ( 'label' =>'Google Checkout', 'active' => -1 ,
-			// 						'description' => __("Pay using your Google Wallet.",ET_DOMAIN)),
+			return true;
+		}
 
-			'cash' => array(
-				'label'       => __( 'Cash', ET_DOMAIN ),
-				'active'      => - 1,
-				'description' => __( "Send your cash payment to our bank account", ET_DOMAIN )
-			)
-		);
-
-		return apply_filters( 'et_support_payment_gateway', $support );
-
+		return false;
 	}
 
 	public static function get_currency_list() {
@@ -150,21 +131,7 @@ abstract class ET_Payment {
 	/*
 	 * update current used code
 	 */
-	public static function set_currency( $currency_code ) {
 
-		$currency_list = self::get_currency_list();
-		if ( isset( $currency_list[ $currency_code ] ) ) {
-			update_option( 'et_current_currency', $currency_list[ $currency_code ] );
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/*
-	 * get current used code
-	 */
 	public static function get_currency() {
 		// $cur	=	 get_option('et_current_currency', true);
 		// if( $cur == '' || empty($cur) || !is_array( $cur )) {
@@ -179,8 +146,9 @@ abstract class ET_Payment {
 	}
 
 	/*
-	 * enable payment gateway
+	 * get current used code
 	 */
+
 	public static function enable_gateway( $gateway ) {
 
 		$support_gateway = self::get_support_payment_gateway();
@@ -206,26 +174,42 @@ abstract class ET_Payment {
 
 	}
 
-	/**
-	 * disable a payment gateway
-	 *
-	 * @param string $gateway : gateway key
+	/*
+	 * enable payment gateway
 	 */
-	public static function disable_gateway( $gateway ) {
 
-		$gateways = self::get_gateways();
+	/**
+	 * retrieve supported payment gateways
+	 */
+	public static function get_support_payment_gateway() {
 
-		if ( isset( $gateways[ $gateway ] ) ) {
-			unset( $gateways[ $gateway ] );
-			update_option( 'et_payment_gateways', $gateways );
-		}
+		$support = array(
+			'paypal' => array(
+				'label'       => 'Paypal',
+				'active'      => - 1,
+				'description' => __( "Send your payment via Paypal.", ET_DOMAIN )
+			),
 
-		return true;
+			'2checkout' => array(
+				'label'       => '2CheckOut',
+				'active'      => - 1,
+				'description' => __( "Send your payment via 2Checkout.", ET_DOMAIN )
+			),
+
+			// 'google_checkout'	=>	array ( 'label' =>'Google Checkout', 'active' => -1 ,
+			// 						'description' => __("Pay using your Google Wallet.",ET_DOMAIN)),
+
+			'cash' => array(
+				'label'       => __( 'Cash', ET_DOMAIN ),
+				'active'      => - 1,
+				'description' => __( "Send your cash payment to our bank account", ET_DOMAIN )
+			)
+		);
+
+		return apply_filters( 'et_support_payment_gateway', $support );
+
 	}
 
-	/*
-	 * get available payment gateways
-	 */
 	public static function get_gateways() {
 		// get available payment gateway from db
 		$gateways = get_option( 'et_payment_gateways', true );
@@ -250,6 +234,27 @@ abstract class ET_Payment {
 
 
 		return apply_filters( 'et_get_payment_gateways', $gateways );
+	}
+
+	/*
+	 * get available payment gateways
+	 */
+
+	/**
+	 * disable a payment gateway
+	 *
+	 * @param string $gateway : gateway key
+	 */
+	public static function disable_gateway( $gateway ) {
+
+		$gateways = self::get_gateways();
+
+		if ( isset( $gateways[ $gateway ] ) ) {
+			unset( $gateways[ $gateway ] );
+			update_option( 'et_payment_gateways', $gateways );
+		}
+
+		return true;
 	}
 
 	/**
@@ -346,6 +351,49 @@ class ET_Paypal extends ET_Payment {
 		$this->_settings	=	$settings;*/
 	}
 
+	static function get_api() {
+
+		$api = (array) get_option( 'et_paypal_api', true );
+		if ( ! isset( $api['api_username'] ) ) {
+			$api['api_username'] = '';
+		}
+		if ( ! isset( $api['api_password'] ) ) {
+			$api['api_password'] = '';
+		}
+		if ( ! isset( $api['api_signature'] ) ) {
+			$api['api_signature'] = '';
+		}
+
+		return $api;
+
+	}
+
+	static function set_api( $api = array() ) {
+		update_option( 'et_paypal_api', $api );
+		if ( ! self::is_enable() ) {
+			$gateways = self::get_gateways();
+			if ( isset( $gateways['paypal']['active'] ) && $gateways['paypal']['active'] != - 1 ) {
+				ET_Payment::disable_gateway( 'paypal' );
+
+				return __( 'Paypal option is disabled because of invalid setting.', ET_DOMAIN );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * check paypal api setting available or not
+	 */
+	public static function is_enable() {
+		$api = self::get_api();
+		if ( isset( $api['api_username'] ) && $api['api_username'] != '' ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Function to perform the API call 3rd-Party Cart parameter
 	 *
@@ -385,6 +433,37 @@ class ET_Paypal extends ET_Payment {
 			wp_die( "PayPal IPN Request Failure", "PayPal IPN", array( 'response' => 200 ) );
 		}
 
+	}
+
+	/**
+	 * Check valid ipn
+	 *
+	 * @param array $ipn_response
+	 *
+	 * @return boolean
+	 * @since snippet.
+	 * @author Duocnv
+	 */
+	function check_ipn_request_is_valid( $ipn_response ) {
+		$validate_ipn = array( 'cmd' => '_notify-validate' );
+		$validate_ipn += stripslashes_deep( $ipn_response );
+		$params       = array(
+			'body'        => $validate_ipn,
+			'sslverify'   => false,
+			'timeout'     => 60,
+			'httpversion' => '1.1',
+			'compress'    => false,
+			'decompress'  => false,
+			'user-agent'  => 'AppEngine'
+		);
+		// Post back to get a response
+
+		$response = wp_remote_post( $this->_paypal_url, $params );
+		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 && strstr( $response['body'], 'VERIFIED' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -477,43 +556,14 @@ class ET_Paypal extends ET_Payment {
 	}
 
 	/**
-	 * Check valid ipn
-	 *
-	 * @param array $ipn_response
-	 *
-	 * @return boolean
-	 * @since snippet.
-	 * @author Duocnv
-	 */
-	function check_ipn_request_is_valid( $ipn_response ) {
-		$validate_ipn = array( 'cmd' => '_notify-validate' );
-		$validate_ipn += stripslashes_deep( $ipn_response );
-		$params       = array(
-			'body'        => $validate_ipn,
-			'sslverify'   => false,
-			'timeout'     => 60,
-			'httpversion' => '1.1',
-			'compress'    => false,
-			'decompress'  => false,
-			'user-agent'  => 'AppEngine'
-		);
-		// Post back to get a response
-
-		$response = wp_remote_post( $this->_paypal_url, $params );
-		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 && strstr( $response['body'], 'VERIFIED' ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * @return settings array
 	 * @see ET_Payment::get_settings()
 	 */
 	function get_settings() {
 		return $this->_settings;
 	}
+
+	// function accept visitor
 
 	/**
 	 * get paypal checkout url
@@ -523,52 +573,8 @@ class ET_Paypal extends ET_Payment {
 		return $this->_paypal_url;
 	}
 
-	static function set_api( $api = array() ) {
-		update_option( 'et_paypal_api', $api );
-		if ( ! self::is_enable() ) {
-			$gateways = self::get_gateways();
-			if ( isset( $gateways['paypal']['active'] ) && $gateways['paypal']['active'] != - 1 ) {
-				ET_Payment::disable_gateway( 'paypal' );
-
-				return __( 'Paypal option is disabled because of invalid setting.', ET_DOMAIN );
-			}
-		}
-
-		return true;
-	}
-
-	static function get_api() {
-
-		$api = (array) get_option( 'et_paypal_api', true );
-		if ( ! isset( $api['api_username'] ) ) {
-			$api['api_username'] = '';
-		}
-		if ( ! isset( $api['api_password'] ) ) {
-			$api['api_password'] = '';
-		}
-		if ( ! isset( $api['api_signature'] ) ) {
-			$api['api_signature'] = '';
-		}
-
-		return $api;
-
-	}
-
-	// function accept visitor
 	function accept( ET_PaymentVisitor $visitor ) {
 		$visitor->visitSimplePaypal( $this );
-	}
-
-	/**
-	 * check paypal api setting available or not
-	 */
-	public static function is_enable() {
-		$api = self::get_api();
-		if ( isset( $api['api_username'] ) && $api['api_username'] != '' ) {
-			return true;
-		}
-
-		return false;
 	}
 }
 

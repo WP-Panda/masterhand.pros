@@ -1,6 +1,7 @@
 <?php
 
 abstract class Twocheckout {
+	const VERSION = '0.3.0';
 	public static $sid;
 	public static $privateKey;
 	public static $username;
@@ -10,7 +11,6 @@ abstract class Twocheckout {
 	public static $baseUrl = 'https://www.2checkout.com';
 	public static $error;
 	public static $format = 'array';
-	const VERSION = '0.3.0';
 
 	public static function sellerId( $value = null ) {
 		self::$sid = $value;

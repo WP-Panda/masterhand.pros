@@ -21,6 +21,62 @@ use PayPal\Transport\PayPalRestCall;
 class OpenIdTokeninfo extends PayPalResourceModel {
 
 	/**
+	 * Creates an Access Token from an Authorization Code.
+	 *
+	 * @path /v1/identity/openidconnect/tokenservice
+	 * @method POST
+	 *
+	 * @param array $params (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
+	 *                                 (required) client_id from developer portal
+	 *                                 (required) client_secret from developer portal
+	 *                                 (required) code is Authorization code previously received from the authorization server
+	 *                                 (required) redirect_uri Redirection endpoint that must match the one provided during the
+	 *                                 authorization request that ended in receiving the authorization code.
+	 *                                 (optional) grant_type is the Token grant type. Defaults to authorization_code
+	 * @param string $clientId
+	 * @param string $clientSecret
+	 * @param ApiContext $apiContext Optional API Context
+	 * @param PayPalRestCall $restCall
+	 *
+	 * @return OpenIdTokeninfo
+	 */
+	public static function createFromAuthorizationCode( $params, $clientId = null, $clientSecret = null, $apiContext = null, $restCall = null ) {
+		static $allowedParams = array( 'grant_type' => 1, 'code' => 1, 'redirect_uri' => 1 );
+
+		if ( ! array_key_exists( 'grant_type', $params ) ) {
+			$params['grant_type'] = 'authorization_code';
+		}
+		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
+
+		if ( sizeof( $apiContext->get( $clientId ) ) > 0 ) {
+			$clientId = $apiContext->get( $clientId );
+		}
+
+		if ( sizeof( $apiContext->get( $clientSecret ) ) > 0 ) {
+			$clientSecret = $apiContext->get( $clientSecret );
+		}
+
+		$clientId     = $clientId ? $clientId : $apiContext->getCredential()->getClientId();
+		$clientSecret = $clientSecret ? $clientSecret : $apiContext->getCredential()->getClientSecret();
+
+		$json  = self::executeCall(
+			"/v1/identity/openidconnect/tokenservice",
+			"POST",
+			http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			array(
+				'Content-Type'  => 'application/x-www-form-urlencoded',
+				'Authorization' => 'Basic ' . base64_encode( $clientId . ":" . $clientSecret )
+			),
+			$apiContext,
+			$restCall
+		);
+		$token = new OpenIdTokeninfo();
+		$token->fromJson( $json );
+
+		return $token;
+	}
+
+	/**
 	 * OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
 	 *
 	 * @param string $scope
@@ -75,15 +131,6 @@ class OpenIdTokeninfo extends PayPalResourceModel {
 		$this->refresh_token = $refresh_token;
 
 		return $this;
-	}
-
-	/**
-	 * The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
-	 *
-	 * @return string
-	 */
-	public function getRefreshToken() {
-		return $this->refresh_token;
 	}
 
 	/**
@@ -152,63 +199,6 @@ class OpenIdTokeninfo extends PayPalResourceModel {
 		return $this->expires_in;
 	}
 
-
-	/**
-	 * Creates an Access Token from an Authorization Code.
-	 *
-	 * @path /v1/identity/openidconnect/tokenservice
-	 * @method POST
-	 *
-	 * @param array $params (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
-	 *                                 (required) client_id from developer portal
-	 *                                 (required) client_secret from developer portal
-	 *                                 (required) code is Authorization code previously received from the authorization server
-	 *                                 (required) redirect_uri Redirection endpoint that must match the one provided during the
-	 *                                 authorization request that ended in receiving the authorization code.
-	 *                                 (optional) grant_type is the Token grant type. Defaults to authorization_code
-	 * @param string $clientId
-	 * @param string $clientSecret
-	 * @param ApiContext $apiContext Optional API Context
-	 * @param PayPalRestCall $restCall
-	 *
-	 * @return OpenIdTokeninfo
-	 */
-	public static function createFromAuthorizationCode( $params, $clientId = null, $clientSecret = null, $apiContext = null, $restCall = null ) {
-		static $allowedParams = array( 'grant_type' => 1, 'code' => 1, 'redirect_uri' => 1 );
-
-		if ( ! array_key_exists( 'grant_type', $params ) ) {
-			$params['grant_type'] = 'authorization_code';
-		}
-		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
-
-		if ( sizeof( $apiContext->get( $clientId ) ) > 0 ) {
-			$clientId = $apiContext->get( $clientId );
-		}
-
-		if ( sizeof( $apiContext->get( $clientSecret ) ) > 0 ) {
-			$clientSecret = $apiContext->get( $clientSecret );
-		}
-
-		$clientId     = $clientId ? $clientId : $apiContext->getCredential()->getClientId();
-		$clientSecret = $clientSecret ? $clientSecret : $apiContext->getCredential()->getClientSecret();
-
-		$json  = self::executeCall(
-			"/v1/identity/openidconnect/tokenservice",
-			"POST",
-			http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			array(
-				'Content-Type'  => 'application/x-www-form-urlencoded',
-				'Authorization' => 'Basic ' . base64_encode( $clientId . ":" . $clientSecret )
-			),
-			$apiContext,
-			$restCall
-		);
-		$token = new OpenIdTokeninfo();
-		$token->fromJson( $json );
-
-		return $token;
-	}
-
 	/**
 	 * Creates an Access Token from an Refresh Token.
 	 *
@@ -255,5 +245,14 @@ class OpenIdTokeninfo extends PayPalResourceModel {
 		$this->fromJson( $json );
 
 		return $this;
+	}
+
+	/**
+	 * The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
+	 *
+	 * @return string
+	 */
+	public function getRefreshToken() {
+		return $this->refresh_token;
 	}
 }

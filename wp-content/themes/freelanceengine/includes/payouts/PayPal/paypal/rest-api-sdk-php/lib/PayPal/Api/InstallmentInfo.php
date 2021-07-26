@@ -85,28 +85,6 @@ class InstallmentInfo extends PayPalModel {
 	}
 
 	/**
-	 * List of available installment options and the cost associated with each one.
-	 *
-	 * @param \PayPal\Api\InstallmentOption[] $installment_options
-	 *
-	 * @return $this
-	 */
-	public function setInstallmentOptions( $installment_options ) {
-		$this->installment_options = $installment_options;
-
-		return $this;
-	}
-
-	/**
-	 * List of available installment options and the cost associated with each one.
-	 *
-	 * @return \PayPal\Api\InstallmentOption[]
-	 */
-	public function getInstallmentOptions() {
-		return $this->installment_options;
-	}
-
-	/**
 	 * Append InstallmentOptions to the list.
 	 *
 	 * @param \PayPal\Api\InstallmentOption $installmentOption
@@ -121,6 +99,28 @@ class InstallmentInfo extends PayPalModel {
 				array_merge( $this->getInstallmentOptions(), array( $installmentOption ) )
 			);
 		}
+	}
+
+	/**
+	 * List of available installment options and the cost associated with each one.
+	 *
+	 * @return \PayPal\Api\InstallmentOption[]
+	 */
+	public function getInstallmentOptions() {
+		return $this->installment_options;
+	}
+
+	/**
+	 * List of available installment options and the cost associated with each one.
+	 *
+	 * @param \PayPal\Api\InstallmentOption[] $installment_options
+	 *
+	 * @return $this
+	 */
+	public function setInstallmentOptions( $installment_options ) {
+		$this->installment_options = $installment_options;
+
+		return $this;
 	}
 
 	/**

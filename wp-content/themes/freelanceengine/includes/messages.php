@@ -3,6 +3,17 @@
 class Fre_Message extends AE_Comments {
 	public static $instance;
 
+	public function __construct() {
+		$this->comment_type = 'message';
+		$this->meta         = [];
+
+		$this->post_arr   = [];
+		$this->author_arr = [];
+
+		$this->duplicate  = true;
+		$this->limit_time = '';
+	}
+
 	/**
 	 * return class $instance
 	 */
@@ -13,17 +24,6 @@ class Fre_Message extends AE_Comments {
 		}
 
 		return self::$instance;
-	}
-
-	public function __construct() {
-		$this->comment_type = 'message';
-		$this->meta         = [];
-
-		$this->post_arr   = [];
-		$this->author_arr = [];
-
-		$this->duplicate  = true;
-		$this->limit_time = '';
 	}
 
 	function convert( $comment, $thumb = 'thumbnail', $merge_post = false, $merge_author = false ) {
@@ -158,18 +158,6 @@ class Fre_Message extends AE_Comments {
 class Fre_MessageAction extends AE_Base {
 	public static $instance;
 
-	/**
-	 * return class $instance
-	 */
-	public static function get_instance() {
-		if ( self::$instance == null ) {
-
-			self::$instance = new Fre_MessageAction();
-		}
-
-		return self::$instance;
-	}
-
 	function __construct() {
 
 		// send message
@@ -189,6 +177,18 @@ class Fre_MessageAction extends AE_Base {
 		//delete attack file
 		$this->add_ajax( 'free_remove_attack_file', 'removeAttack' );
 		$this->add_ajax( 'free_trash_comment', 'trash_comment' );
+	}
+
+	/**
+	 * return class $instance
+	 */
+	public static function get_instance() {
+		if ( self::$instance == null ) {
+
+			self::$instance = new Fre_MessageAction();
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -311,6 +311,27 @@ class Fre_MessageAction extends AE_Base {
 	}
 
 	/**
+	 * update project meta when there is a new message send
+	 *
+	 * @param integer $val
+	 * @param object $project
+	 *
+	 * @return void
+	 * @since    1.6.5
+	 * @package  freelanceengine
+	 * @category void
+	 * @author   Tambh
+	 */
+	public function fre_update_project_meta( $project, $val = 1 ) {
+		global $user_ID;
+		if ( $user_ID == $project->post_author ) {
+			update_post_meta( $project->ID, 'fre_freelancer_new_msg', $val );
+		} else {
+			update_post_meta( $project->ID, 'fre_employer_new_msg', $val );
+		}
+	}
+
+	/**
 	 * ajax callback get message collection
 	 *
 	 * @author Dakachi
@@ -385,6 +406,26 @@ class Fre_MessageAction extends AE_Base {
 				'success' => false,
 				'data'    => $data
 			] );
+		}
+	}
+
+	/**
+	 * reset project meta when there is a new message send
+	 *
+	 * @param object $project
+	 *
+	 * @return void
+	 * @since    1.6.5
+	 * @package  freelanceengine
+	 * @category void
+	 * @author   Tambh
+	 */
+	public function fre_reset_project_meta( $project ) {
+		global $user_ID;
+		if ( $user_ID == $project->post_author ) {
+			update_post_meta( $project->ID, 'fre_employer_new_msg', 0 );
+		} else {
+			update_post_meta( $project->ID, 'fre_freelancer_new_msg', 0 );
 		}
 	}
 
@@ -487,47 +528,6 @@ class Fre_MessageAction extends AE_Base {
 		}
 
 		return $response;
-	}
-
-	/**
-	 * update project meta when there is a new message send
-	 *
-	 * @param integer $val
-	 * @param object $project
-	 *
-	 * @return void
-	 * @since    1.6.5
-	 * @package  freelanceengine
-	 * @category void
-	 * @author   Tambh
-	 */
-	public function fre_update_project_meta( $project, $val = 1 ) {
-		global $user_ID;
-		if ( $user_ID == $project->post_author ) {
-			update_post_meta( $project->ID, 'fre_freelancer_new_msg', $val );
-		} else {
-			update_post_meta( $project->ID, 'fre_employer_new_msg', $val );
-		}
-	}
-
-	/**
-	 * reset project meta when there is a new message send
-	 *
-	 * @param object $project
-	 *
-	 * @return void
-	 * @since    1.6.5
-	 * @package  freelanceengine
-	 * @category void
-	 * @author   Tambh
-	 */
-	public function fre_reset_project_meta( $project ) {
-		global $user_ID;
-		if ( $user_ID == $project->post_author ) {
-			update_post_meta( $project->ID, 'fre_employer_new_msg', 0 );
-		} else {
-			update_post_meta( $project->ID, 'fre_freelancer_new_msg', 0 );
-		}
 	}
 
 	/**

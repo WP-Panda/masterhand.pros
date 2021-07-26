@@ -23,6 +23,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class PaymentInstruction extends PayPalResourceModel {
 	/**
+	 * Retrieve a payment instruction by passing the payment_id in the request URI. Use this request if you are implementing a solution that includes delayed payment like Pay Upon Invoice (PUI).
+	 *
+	 * @param string $paymentId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return PaymentInstruction
+	 */
+	public static function get( $paymentId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $paymentId, 'paymentId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/payment/$paymentId/payment-instruction",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new PaymentInstruction();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * ID of payment instruction
 	 *
 	 * @param string $reference_number
@@ -153,32 +179,6 @@ class PaymentInstruction extends PayPalResourceModel {
 	 */
 	public function getNote() {
 		return $this->note;
-	}
-
-	/**
-	 * Retrieve a payment instruction by passing the payment_id in the request URI. Use this request if you are implementing a solution that includes delayed payment like Pay Upon Invoice (PUI).
-	 *
-	 * @param string $paymentId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return PaymentInstruction
-	 */
-	public static function get( $paymentId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $paymentId, 'paymentId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/payment/$paymentId/payment-instruction",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new PaymentInstruction();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 }

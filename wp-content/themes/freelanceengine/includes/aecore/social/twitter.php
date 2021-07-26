@@ -34,20 +34,6 @@ class ET_TwitterAuth extends ET_SocialAuth {
 	}
 
 	/**
-	 * Return if twitter auth are ready to run
-	 */
-	public static function is_active() {
-		$consumer_key    = ae_get_option( self::OPT_CONSUMER_KEY, '' );
-		$consumer_secret = ae_get_option( self::OPT_CONSUMER_SECRET, '' );
-
-		return ( ! empty( $consumer_key ) && ! empty( $consumer_secret ) );
-	}
-
-	protected function send_created_mail( $user_id ) {
-		do_action( 'et_after_register', $user_id );
-	}
-
-	/**
 	 * Redirect and auth twitter account
 	 */
 	public function redirect() {
@@ -243,5 +229,19 @@ class ET_TwitterAuth extends ET_SocialAuth {
 			include TEMPLATEPATH . '/page-twitter-auth.php';
 			exit;
 		}
+	}
+
+	/**
+	 * Return if twitter auth are ready to run
+	 */
+	public static function is_active() {
+		$consumer_key    = ae_get_option( self::OPT_CONSUMER_KEY, '' );
+		$consumer_secret = ae_get_option( self::OPT_CONSUMER_SECRET, '' );
+
+		return ( ! empty( $consumer_key ) && ! empty( $consumer_secret ) );
+	}
+
+	protected function send_created_mail( $user_id ) {
+		do_action( 'et_after_register', $user_id );
 	}
 }

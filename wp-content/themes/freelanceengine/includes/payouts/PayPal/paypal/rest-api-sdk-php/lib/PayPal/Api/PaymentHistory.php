@@ -17,28 +17,6 @@ use PayPal\Common\PayPalModel;
  */
 class PaymentHistory extends PayPalModel {
 	/**
-	 * A list of Payment resources
-	 *
-	 * @param \PayPal\Api\Payment[] $payments
-	 *
-	 * @return $this
-	 */
-	public function setPayments( $payments ) {
-		$this->payments = $payments;
-
-		return $this;
-	}
-
-	/**
-	 * A list of Payment resources
-	 *
-	 * @return \PayPal\Api\Payment[]
-	 */
-	public function getPayments() {
-		return $this->payments;
-	}
-
-	/**
 	 * Append Payments to the list.
 	 *
 	 * @param \PayPal\Api\Payment $payment
@@ -53,6 +31,28 @@ class PaymentHistory extends PayPalModel {
 				array_merge( $this->getPayments(), array( $payment ) )
 			);
 		}
+	}
+
+	/**
+	 * A list of Payment resources
+	 *
+	 * @return \PayPal\Api\Payment[]
+	 */
+	public function getPayments() {
+		return $this->payments;
+	}
+
+	/**
+	 * A list of Payment resources
+	 *
+	 * @param \PayPal\Api\Payment[] $payments
+	 *
+	 * @return $this
+	 */
+	public function setPayments( $payments ) {
+		$this->payments = $payments;
+
+		return $this;
 	}
 
 	/**

@@ -158,28 +158,6 @@ class Error extends PayPalModel {
 	}
 
 	/**
-	 * Additional details of the error
-	 *
-	 * @param \PayPal\Api\ErrorDetails[] $details
-	 *
-	 * @return $this
-	 */
-	public function setDetails( $details ) {
-		$this->details = $details;
-
-		return $this;
-	}
-
-	/**
-	 * Additional details of the error
-	 *
-	 * @return \PayPal\Api\ErrorDetails[]
-	 */
-	public function getDetails() {
-		return $this->details;
-	}
-
-	/**
 	 * Append Details to the list.
 	 *
 	 * @param \PayPal\Api\ErrorDetails $errorDetails
@@ -194,6 +172,28 @@ class Error extends PayPalModel {
 				array_merge( $this->getDetails(), array( $errorDetails ) )
 			);
 		}
+	}
+
+	/**
+	 * Additional details of the error
+	 *
+	 * @return \PayPal\Api\ErrorDetails[]
+	 */
+	public function getDetails() {
+		return $this->details;
+	}
+
+	/**
+	 * Additional details of the error
+	 *
+	 * @param \PayPal\Api\ErrorDetails[] $details
+	 *
+	 * @return $this
+	 */
+	public function setDetails( $details ) {
+		$this->details = $details;
+
+		return $this;
 	}
 
 	/**
@@ -260,28 +260,6 @@ class Error extends PayPalModel {
 	}
 
 	/**
-	 * Sets Links
-	 *
-	 * @param \PayPal\Api\Links[] $links
-	 *
-	 * @return $this
-	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
-
-		return $this;
-	}
-
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
 	 * Append Links to the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -296,6 +274,28 @@ class Error extends PayPalModel {
 				array_merge( $this->getLinks(), array( $links ) )
 			);
 		}
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
 	}
 
 	/**

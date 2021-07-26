@@ -112,55 +112,6 @@ class SimpleXLSXGen {
 		return (string) fread( $fh, $size );
 	}
 
-	public function saveAs( $filename ) {
-		$fh = fopen( $filename, 'wb' );
-		if ( ! $fh ) {
-			return false;
-		}
-		if ( ! $this->_generate( $fh ) ) {
-			fclose( $fh );
-
-			return false;
-		}
-		fclose( $fh );
-
-		return true;
-	}
-
-	public function download() {
-		return $this->downloadAs( gmdate( 'YmdHi' ) . '.xlsx' );
-	}
-
-	public function downloadAs( $filename ) {
-		$fh = fopen( 'php://memory', 'wb' );
-		if ( ! $fh ) {
-			return false;
-		}
-
-		if ( ! $this->_generate( $fh ) ) {
-			fclose( $fh );
-
-			return false;
-		}
-
-		$size = ftell( $fh );
-
-		header( 'Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s \G\M\T', time() ) );
-		header( 'Content-Length: ' . $size );
-
-		while ( ob_get_level() ) {
-			ob_end_clean();
-		}
-		fseek( $fh, 0 );
-		fpassthru( $fh );
-
-		fclose( $fh );
-
-		return true;
-	}
-
 	private function _generate( $fh ) {
 
 		$zipSignature  = "\x50\x4b\x03\x04"; // local file header signature
@@ -419,5 +370,54 @@ class SimpleXLSXGen {
 		$excelDate = floor( ( 146097 * $century ) / 4 ) + floor( ( 1461 * $decade ) / 4 ) + floor( ( 153 * $month + 2 ) / 5 ) + $day + 1721119 - $myExcelBaseDate + $excel1900isLeapYear;
 
 		return (float) $excelDate + $excelTime;
+	}
+
+	public function saveAs( $filename ) {
+		$fh = fopen( $filename, 'wb' );
+		if ( ! $fh ) {
+			return false;
+		}
+		if ( ! $this->_generate( $fh ) ) {
+			fclose( $fh );
+
+			return false;
+		}
+		fclose( $fh );
+
+		return true;
+	}
+
+	public function download() {
+		return $this->downloadAs( gmdate( 'YmdHi' ) . '.xlsx' );
+	}
+
+	public function downloadAs( $filename ) {
+		$fh = fopen( 'php://memory', 'wb' );
+		if ( ! $fh ) {
+			return false;
+		}
+
+		if ( ! $this->_generate( $fh ) ) {
+			fclose( $fh );
+
+			return false;
+		}
+
+		$size = ftell( $fh );
+
+		header( 'Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' );
+		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s \G\M\T', time() ) );
+		header( 'Content-Length: ' . $size );
+
+		while ( ob_get_level() ) {
+			ob_end_clean();
+		}
+		fseek( $fh, 0 );
+		fpassthru( $fh );
+
+		fclose( $fh );
+
+		return true;
 	}
 }

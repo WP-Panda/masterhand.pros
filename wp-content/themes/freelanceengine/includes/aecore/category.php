@@ -117,6 +117,18 @@ class AE_Category extends AE_Term {
 
 	}
 
+	static public function get_category_color( $term_id, $taxonomy ) {
+		$colors = get_option( 'et_color_' . $taxonomy );
+
+		return ! empty( $colors[ $term_id ] ) ? $colors[ $term_id ] : 0;
+	}
+
+	static public function get_categories( $args = [] ) {
+		$handle = new AE_Category();
+
+		return $handle->getAll( $args );
+	}
+
 	public function getAll( $args = [] ) {
 		$ordered = [];
 		// check number of category
@@ -210,6 +222,28 @@ class AE_Category extends AE_Term {
 		return $result;
 	}
 
+	protected function set_term_color( $term_id, $color, $taxonomy ) {
+		$colors = get_option( 'et_color_' . $taxonomy );
+
+		if ( ! is_array( $colors ) ) {
+			$colors = [];
+		}
+
+		$colors[ $term_id ] = $color;
+		update_option( 'et_color_' . $taxonomy, $colors );
+	}
+
+	protected function set_term_icon( $term_id, $icon, $taxonomy ) {
+		$icons = get_option( 'et_icon_' . $taxonomy );
+
+		if ( ! is_array( $icons ) ) {
+			$icons = [];
+		}
+
+		$icons[ $term_id ] = $icon;
+		update_option( 'et_icon_' . $taxonomy, $icons );
+	}
+
 	public function update( $id, $args = [] ) {
 		$result = parent::update( $id, $args );
 
@@ -247,28 +281,6 @@ class AE_Category extends AE_Term {
 		update_option( $this->order_option, $data );
 	}
 
-	protected function set_term_color( $term_id, $color, $taxonomy ) {
-		$colors = get_option( 'et_color_' . $taxonomy );
-
-		if ( ! is_array( $colors ) ) {
-			$colors = [];
-		}
-
-		$colors[ $term_id ] = $color;
-		update_option( 'et_color_' . $taxonomy, $colors );
-	}
-
-	protected function set_term_icon( $term_id, $icon, $taxonomy ) {
-		$icons = get_option( 'et_icon_' . $taxonomy );
-
-		if ( ! is_array( $icons ) ) {
-			$icons = [];
-		}
-
-		$icons[ $term_id ] = $icon;
-		update_option( 'et_icon_' . $taxonomy, $icons );
-	}
-
 	public function get_term_color( $term_id, $taxonomy ) {
 		$colors = get_option( 'et_color_' . $taxonomy );
 
@@ -279,26 +291,6 @@ class AE_Category extends AE_Term {
 		$icons = get_option( 'et_icon_' . $taxonomy );
 
 		return isset( $icons[ $term_id ] ) ? $icons[ $term_id ] : 'fa-map-marker';
-	}
-
-	function set_color( $colors ) {
-		//this function should be override if tax have color
-		update_option( 'et_color_' . $this->taxonomy, $colors );
-	}
-
-	function set_icon( $icons ) {
-		//this function should be override if tax have color
-		update_option( 'et_icon_' . $this->taxonomy, $icons );
-	}
-
-	function get_icon() {
-		// this function should be override if tax have color
-		return (array) get_option( 'et_icon_' . $this->taxonomy, [] );
-	}
-
-	function get_color() {
-		// this function should be override if tax have color
-		return (array) get_option( 'et_color_' . $this->taxonomy, [] );
 	}
 
 	function change_color() {
@@ -318,6 +310,23 @@ class AE_Category extends AE_Term {
 		return $resp;
 	}
 
+	function update_term_color( $term_id, $color ) {
+		$colors = $this->get_color();
+
+		$colors[ $term_id ] = $color;
+		$this->set_color( $colors );
+	}
+
+	function get_color() {
+		// this function should be override if tax have color
+		return (array) get_option( 'et_color_' . $this->taxonomy, [] );
+	}
+
+	function set_color( $colors ) {
+		//this function should be override if tax have color
+		update_option( 'et_color_' . $this->taxonomy, $colors );
+	}
+
 	function change_icon() {
 		if ( ! empty( $_REQUEST['content']['term_id'] ) && ! empty( $_REQUEST['content']['icon'] ) ) {
 			$this->update_term_icon( $_REQUEST['content']['term_id'], $_REQUEST['content']['icon'] );
@@ -335,13 +344,6 @@ class AE_Category extends AE_Term {
 		return $resp;
 	}
 
-	function update_term_color( $term_id, $color ) {
-		$colors = $this->get_color();
-
-		$colors[ $term_id ] = $color;
-		$this->set_color( $colors );
-	}
-
 	function update_term_icon( $term_id, $icon ) {
 		$icons = $this->get_icon();
 
@@ -349,28 +351,26 @@ class AE_Category extends AE_Term {
 		$this->set_icon( $icons );
 	}
 
-	static public function get_category_color( $term_id, $taxonomy ) {
-		$colors = get_option( 'et_color_' . $taxonomy );
-
-		return ! empty( $colors[ $term_id ] ) ? $colors[ $term_id ] : 0;
+	function get_icon() {
+		// this function should be override if tax have color
+		return (array) get_option( 'et_icon_' . $this->taxonomy, [] );
 	}
 
-	static public function get_category_icon( $term_id, $taxonomy ) {
-		$icons = get_option( 'et_icon_' . $taxonomy );
-
-		return ! empty( $icons[ $term_id ] ) ? $icons[ $term_id ] : 0;
-	}
-
-	static public function get_categories( $args = [] ) {
-		$handle = new AE_Category();
-
-		return $handle->getAll( $args );
+	function set_icon( $icons ) {
+		//this function should be override if tax have color
+		update_option( 'et_icon_' . $this->taxonomy, $icons );
 	}
 
 	public function get_term( $_term ) {
 		$_term->icon = self::get_category_icon( $_term->term_id, $this->taxonomy );
 
 		return $_term;
+	}
+
+	static public function get_category_icon( $term_id, $taxonomy ) {
+		$icons = get_option( 'et_icon_' . $taxonomy );
+
+		return ! empty( $icons[ $term_id ] ) ? $icons[ $term_id ] : 0;
 	}
 }
 

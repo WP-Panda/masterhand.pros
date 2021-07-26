@@ -355,27 +355,6 @@ class Fre_Customize {
 	}
 
 	/**
-	 * This outputs the javascript needed to automate the live settings preview.
-	 * Also keep in mind that this function isn't necessary unless your settings
-	 * are using 'transport'=>'postMessage' instead of the default 'transport'
-	 * => 'refresh'
-	 *
-	 * Used by hook: 'customize_preview_init'
-	 *
-	 * @see add_action('customize_preview_init',$func)
-	 * @since MyTheme 1.0
-	 */
-	public static function live_preview() {
-		wp_enqueue_script(
-			'fre-themecustomizer', // Give the script a unique ID
-			get_template_directory_uri() . '/assets/js/theme-customizer.js', // Define the path to the JS file
-			array( 'jquery', 'customize-preview' ), // Define dependencies
-			'', // Define a version (optional)
-			true // Specify whether to put in footer (leave this true)
-		);
-	}
-
-	/**
 	 * This will generate a line of CSS for use in header output. If the setting
 	 * ($mod_name) has no defined value, the CSS will not be output.
 	 *
@@ -406,6 +385,27 @@ class Fre_Customize {
 		}
 
 		return $return;
+	}
+
+	/**
+	 * This outputs the javascript needed to automate the live settings preview.
+	 * Also keep in mind that this function isn't necessary unless your settings
+	 * are using 'transport'=>'postMessage' instead of the default 'transport'
+	 * => 'refresh'
+	 *
+	 * Used by hook: 'customize_preview_init'
+	 *
+	 * @see add_action('customize_preview_init',$func)
+	 * @since MyTheme 1.0
+	 */
+	public static function live_preview() {
+		wp_enqueue_script(
+			'fre-themecustomizer', // Give the script a unique ID
+			get_template_directory_uri() . '/assets/js/theme-customizer.js', // Define the path to the JS file
+			array( 'jquery', 'customize-preview' ), // Define dependencies
+			'', // Define a version (optional)
+			true // Specify whether to put in footer (leave this true)
+		);
 	}
 }
 

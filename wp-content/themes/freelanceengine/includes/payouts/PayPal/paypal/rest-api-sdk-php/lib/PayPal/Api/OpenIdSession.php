@@ -64,6 +64,28 @@ class OpenIdSession {
 		return sprintf( "%s/signin/authorize?%s", self::getBaseUrl( $config ), http_build_query( $params ) );
 	}
 
+	/**
+	 * Gets the base URL for the Redirect URI
+	 *
+	 * @param $config
+	 *
+	 * @return null|string
+	 */
+	private static function getBaseUrl( $config ) {
+
+		if ( array_key_exists( 'openid.RedirectUri', $config ) ) {
+			return $config['openid.RedirectUri'];
+		} else if ( array_key_exists( 'mode', $config ) ) {
+			switch ( strtoupper( $config['mode'] ) ) {
+				case 'SANDBOX':
+					return PayPalConstants::OPENID_REDIRECT_SANDBOX_URL;
+				case 'LIVE':
+					return PayPalConstants::OPENID_REDIRECT_LIVE_URL;
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * Returns the URL to which the user must be redirected to
@@ -90,28 +112,5 @@ class OpenIdSession {
 		);
 
 		return sprintf( "%s/webapps/auth/protocol/openidconnect/v1/endsession?%s", self::getBaseUrl( $config ), http_build_query( $params ) );
-	}
-
-	/**
-	 * Gets the base URL for the Redirect URI
-	 *
-	 * @param $config
-	 *
-	 * @return null|string
-	 */
-	private static function getBaseUrl( $config ) {
-
-		if ( array_key_exists( 'openid.RedirectUri', $config ) ) {
-			return $config['openid.RedirectUri'];
-		} else if ( array_key_exists( 'mode', $config ) ) {
-			switch ( strtoupper( $config['mode'] ) ) {
-				case 'SANDBOX':
-					return PayPalConstants::OPENID_REDIRECT_SANDBOX_URL;
-				case 'LIVE':
-					return PayPalConstants::OPENID_REDIRECT_LIVE_URL;
-			}
-		}
-
-		return null;
 	}
 }

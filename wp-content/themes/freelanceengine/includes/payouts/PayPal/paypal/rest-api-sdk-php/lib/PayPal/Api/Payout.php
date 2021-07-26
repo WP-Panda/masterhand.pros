@@ -20,6 +20,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Payout extends PayPalResourceModel {
 	/**
+	 * Obtain the status of a specific batch resource by passing the payout batch ID to the request URI. You can issue this call multiple times to get the current status.
+	 *
+	 * @param string $payoutBatchId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return PayoutBatch
+	 */
+	public static function get( $payoutBatchId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $payoutBatchId, 'payoutBatchId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/payouts/$payoutBatchId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new PayoutBatch();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * The original batch header as provided by the payment sender.
 	 *
 	 * @param \PayPal\Api\PayoutSenderBatchHeader $sender_batch_header
@@ -42,28 +68,6 @@ class Payout extends PayPalResourceModel {
 	}
 
 	/**
-	 * An array of payout items (that is, a set of individual payouts).
-	 *
-	 * @param \PayPal\Api\PayoutItem[] $items
-	 *
-	 * @return $this
-	 */
-	public function setItems( $items ) {
-		$this->items = $items;
-
-		return $this;
-	}
-
-	/**
-	 * An array of payout items (that is, a set of individual payouts).
-	 *
-	 * @return \PayPal\Api\PayoutItem[]
-	 */
-	public function getItems() {
-		return $this->items;
-	}
-
-	/**
 	 * Append Items to the list.
 	 *
 	 * @param \PayPal\Api\PayoutItem $payoutItem
@@ -81,6 +85,28 @@ class Payout extends PayPalResourceModel {
 	}
 
 	/**
+	 * An array of payout items (that is, a set of individual payouts).
+	 *
+	 * @return \PayPal\Api\PayoutItem[]
+	 */
+	public function getItems() {
+		return $this->items;
+	}
+
+	/**
+	 * An array of payout items (that is, a set of individual payouts).
+	 *
+	 * @param \PayPal\Api\PayoutItem[] $items
+	 *
+	 * @return $this
+	 */
+	public function setItems( $items ) {
+		$this->items = $items;
+
+		return $this;
+	}
+
+	/**
 	 * Remove Items from the list.
 	 *
 	 * @param \PayPal\Api\PayoutItem $payoutItem
@@ -91,6 +117,20 @@ class Payout extends PayPalResourceModel {
 		return $this->setItems(
 			array_diff( $this->getItems(), array( $payoutItem ) )
 		);
+	}
+
+	/**
+	 * You can submit a payout with a synchronous API call, which immediately returns the results of a PayPal payment.
+	 *
+	 * @param ApiContext $apiContext
+	 * @param PayPalRestCall $restCall
+	 *
+	 * @return PayoutBatch
+	 */
+	public function createSynchronous( $apiContext = null, $restCall = null ) {
+		$params = array( 'sync_mode' => 'true' );
+
+		return $this->create( $params, $apiContext, $restCall );
 	}
 
 	/**
@@ -118,46 +158,6 @@ class Payout extends PayPalResourceModel {
 			$restCall
 		);
 		$ret           = new PayoutBatch();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
-	 * You can submit a payout with a synchronous API call, which immediately returns the results of a PayPal payment.
-	 *
-	 * @param ApiContext $apiContext
-	 * @param PayPalRestCall $restCall
-	 *
-	 * @return PayoutBatch
-	 */
-	public function createSynchronous( $apiContext = null, $restCall = null ) {
-		$params = array( 'sync_mode' => 'true' );
-
-		return $this->create( $params, $apiContext, $restCall );
-	}
-
-	/**
-	 * Obtain the status of a specific batch resource by passing the payout batch ID to the request URI. You can issue this call multiple times to get the current status.
-	 *
-	 * @param string $payoutBatchId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return PayoutBatch
-	 */
-	public static function get( $payoutBatchId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $payoutBatchId, 'payoutBatchId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/payouts/$payoutBatchId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new PayoutBatch();
 		$ret->fromJson( $json );
 
 		return $ret;

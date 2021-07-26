@@ -76,6 +76,47 @@ class ApiContext {
 	}
 
 	/**
+	 * Resets the requestId that can be used to set the PayPal-request-id
+	 * header used for idempotency. In cases where you need to make multiple create calls
+	 * using the same ApiContext object, you need to reset request Id.
+	 * @deprecated Call setRequestId with a unique value.
+	 *
+	 * @return string
+	 */
+	public function resetRequestId() {
+		$this->requestId = $this->generateRequestId();
+
+		return $this->getRequestId();
+	}
+
+	/**
+	 * Generates a unique per request id that
+	 * can be used to set the PayPal-Request-Id header
+	 * that is used for idempotency
+	 * @deprecated
+	 *
+	 * @return string
+	 */
+	private function generateRequestId() {
+		static $pid = - 1;
+		static $addr = - 1;
+
+		if ( $pid == - 1 ) {
+			$pid = getmypid();
+		}
+
+		if ( $addr == - 1 ) {
+			if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ) {
+				$addr = ip2long( $_SERVER['SERVER_ADDR'] );
+			} else {
+				$addr = php_uname( 'n' );
+			}
+		}
+
+		return $addr . $pid . $_SERVER['REQUEST_TIME'] . mt_rand( 0, 0xffff );
+	}
+
+	/**
 	 * Get Request ID
 	 *
 	 * @return string
@@ -91,20 +132,6 @@ class ApiContext {
 	 */
 	public function setRequestId( $requestId ) {
 		$this->requestId = $requestId;
-	}
-
-	/**
-	 * Resets the requestId that can be used to set the PayPal-request-id
-	 * header used for idempotency. In cases where you need to make multiple create calls
-	 * using the same ApiContext object, you need to reset request Id.
-	 * @deprecated Call setRequestId with a unique value.
-	 *
-	 * @return string
-	 */
-	public function resetRequestId() {
-		$this->requestId = $this->generateRequestId();
-
-		return $this->getRequestId();
 	}
 
 	/**
@@ -134,32 +161,5 @@ class ApiContext {
 	 */
 	public function get( $searchKey ) {
 		return PayPalConfigManager::getInstance()->get( $searchKey );
-	}
-
-	/**
-	 * Generates a unique per request id that
-	 * can be used to set the PayPal-Request-Id header
-	 * that is used for idempotency
-	 * @deprecated
-	 *
-	 * @return string
-	 */
-	private function generateRequestId() {
-		static $pid = - 1;
-		static $addr = - 1;
-
-		if ( $pid == - 1 ) {
-			$pid = getmypid();
-		}
-
-		if ( $addr == - 1 ) {
-			if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ) {
-				$addr = ip2long( $_SERVER['SERVER_ADDR'] );
-			} else {
-				$addr = php_uname( 'n' );
-			}
-		}
-
-		return $addr . $pid . $_SERVER['REQUEST_TIME'] . mt_rand( 0, 0xffff );
 	}
 }

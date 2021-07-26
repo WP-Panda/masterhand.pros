@@ -2,9 +2,6 @@
 
 abstract class ET_SocialAuth extends AE_Base {
 	protected $social_option;
-
-	abstract protected function send_created_mail( $user_id );
-
 	protected $social_id = false;
 
 	public function __construct( $type, $social_option, $labels = array() ) {
@@ -78,81 +75,6 @@ abstract class ET_SocialAuth extends AE_Base {
 				$et_data['auth_labels'] = $this->labels;
 			}
 		}
-	}
-
-	protected function get_user( $social_id ) {
-		$args  = array(
-			'meta_key'   => $this->social_option,
-			'meta_value' => trim( $social_id ),
-			'number'     => 1
-		);
-		$users = get_users( $args );
-		if ( ! empty( $users ) && is_array( $users ) ) {
-			return $users[0];
-		} else {
-			return false;
-		}
-	}
-
-	protected function logged_user_in( $social_id ) {
-		$ae_user = $this->get_user( $social_id );
-		if ( $ae_user != false ) {
-			wp_set_auth_cookie( $ae_user->ID );
-			wp_set_current_user( $ae_user->ID );
-
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	protected function _create_user( $params ) {
-		// insert user
-		$ae_user = AE_Users::get_instance();
-		$result  = $ae_user->insert( $params );
-		if ( ! is_wp_error( $result ) ) {
-			// send email here
-			$this->send_created_mail( $result );
-			// login
-			$ae_user = wp_signon( array(
-				'user_login'    => $params['user_login'],
-				'user_password' => $params['user_pass']
-			) );
-			if ( is_wp_error( $ae_user ) ) {
-				return $ae_user;
-			} else {
-				// Authenticate successfully
-				return true;
-			}
-		} else {
-			return $result;
-		}
-	}
-
-	protected function connect_user( $email, $password ) {
-		if ( $this->social_id != false ) {
-			// get user first
-			$ae_user = get_user_by( 'email', $email );
-			if ( $ae_user == false ) {
-				return new WP_Error( 'et_password_not_matched', __( "Username and password does not matched", ET_DOMAIN ) );
-			}
-			// verify password
-			if ( wp_check_password( $password, $ae_user->data->user_pass, $ae_user->ID ) ) {
-				// connect user
-				update_user_meta( $ae_user->ID, $this->social_option, $this->social_id );
-
-				return true;
-			} else {
-				return new WP_Error( 'et_password_not_matched', __( "Username and password does not matched", ET_DOMAIN ) );
-			}
-		} else {
-			return new WP_Error( 'et_wrong_social_id', __( "There is an error occurred", ET_DOMAIN ) );
-		}
-	}
-
-	protected function social_connect_success() {
-		wp_redirect( home_url() );
-		exit;
 	}
 
 	public function authenticate_user() {
@@ -331,6 +253,83 @@ abstract class ET_SocialAuth extends AE_Base {
 			);
 		}
 		wp_send_json( $resp );
+	}
+
+	protected function logged_user_in( $social_id ) {
+		$ae_user = $this->get_user( $social_id );
+		if ( $ae_user != false ) {
+			wp_set_auth_cookie( $ae_user->ID );
+			wp_set_current_user( $ae_user->ID );
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected function get_user( $social_id ) {
+		$args  = array(
+			'meta_key'   => $this->social_option,
+			'meta_value' => trim( $social_id ),
+			'number'     => 1
+		);
+		$users = get_users( $args );
+		if ( ! empty( $users ) && is_array( $users ) ) {
+			return $users[0];
+		} else {
+			return false;
+		}
+	}
+
+	protected function _create_user( $params ) {
+		// insert user
+		$ae_user = AE_Users::get_instance();
+		$result  = $ae_user->insert( $params );
+		if ( ! is_wp_error( $result ) ) {
+			// send email here
+			$this->send_created_mail( $result );
+			// login
+			$ae_user = wp_signon( array(
+				'user_login'    => $params['user_login'],
+				'user_password' => $params['user_pass']
+			) );
+			if ( is_wp_error( $ae_user ) ) {
+				return $ae_user;
+			} else {
+				// Authenticate successfully
+				return true;
+			}
+		} else {
+			return $result;
+		}
+	}
+
+	abstract protected function send_created_mail( $user_id );
+
+	protected function connect_user( $email, $password ) {
+		if ( $this->social_id != false ) {
+			// get user first
+			$ae_user = get_user_by( 'email', $email );
+			if ( $ae_user == false ) {
+				return new WP_Error( 'et_password_not_matched', __( "Username and password does not matched", ET_DOMAIN ) );
+			}
+			// verify password
+			if ( wp_check_password( $password, $ae_user->data->user_pass, $ae_user->ID ) ) {
+				// connect user
+				update_user_meta( $ae_user->ID, $this->social_option, $this->social_id );
+
+				return true;
+			} else {
+				return new WP_Error( 'et_password_not_matched', __( "Username and password does not matched", ET_DOMAIN ) );
+			}
+		} else {
+			return new WP_Error( 'et_wrong_social_id', __( "There is an error occurred", ET_DOMAIN ) );
+		}
+	}
+
+	protected function social_connect_success() {
+		wp_redirect( home_url() );
+		exit;
 	}
 }
 

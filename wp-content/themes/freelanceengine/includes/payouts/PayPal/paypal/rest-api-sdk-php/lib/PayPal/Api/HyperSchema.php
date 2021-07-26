@@ -20,28 +20,6 @@ use PayPal\Common\PayPalModel;
  */
 class HyperSchema extends PayPalModel {
 	/**
-	 * Sets Links
-	 *
-	 * @param \PayPal\Api\Links[] $links
-	 *
-	 * @return $this
-	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
-
-		return $this;
-	}
-
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
 	 * Append Links to the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -56,6 +34,28 @@ class HyperSchema extends PayPalModel {
 				array_merge( $this->getLinks(), array( $links ) )
 			);
 		}
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
 	}
 
 	/**

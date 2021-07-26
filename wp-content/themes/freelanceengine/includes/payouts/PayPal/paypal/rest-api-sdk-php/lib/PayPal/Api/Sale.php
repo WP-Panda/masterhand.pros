@@ -38,6 +38,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Sale extends PayPalResourceModel {
 	/**
+	 * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
+	 *
+	 * @param string $saleId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Sale
+	 */
+	public static function get( $saleId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $saleId, 'saleId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/sale/$saleId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Sale();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Identifier of the sale transaction.
 	 *
 	 * @param string $id
@@ -48,15 +74,6 @@ class Sale extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * Identifier of the sale transaction.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -264,28 +281,6 @@ class Sale extends PayPalResourceModel {
 	}
 
 	/**
-	 * Reasons for PayPal holding recipient fund. It is set only if payment hold status is held
-	 *
-	 * @param string[] $payment_hold_reasons
-	 *
-	 * @return $this
-	 */
-	public function setPaymentHoldReasons( $payment_hold_reasons ) {
-		$this->payment_hold_reasons = $payment_hold_reasons;
-
-		return $this;
-	}
-
-	/**
-	 * Reasons for PayPal holding recipient fund. It is set only if payment hold status is held
-	 *
-	 * @return string[]
-	 */
-	public function getPaymentHoldReasons() {
-		return $this->payment_hold_reasons;
-	}
-
-	/**
 	 * Append PaymentHoldReasons to the list.
 	 *
 	 * @param string $string
@@ -300,6 +295,28 @@ class Sale extends PayPalResourceModel {
 				array_merge( $this->getPaymentHoldReasons(), array( $string ) )
 			);
 		}
+	}
+
+	/**
+	 * Reasons for PayPal holding recipient fund. It is set only if payment hold status is held
+	 *
+	 * @return string[]
+	 */
+	public function getPaymentHoldReasons() {
+		return $this->payment_hold_reasons;
+	}
+
+	/**
+	 * Reasons for PayPal holding recipient fund. It is set only if payment hold status is held
+	 *
+	 * @param string[] $payment_hold_reasons
+	 *
+	 * @return $this
+	 */
+	public function setPaymentHoldReasons( $payment_hold_reasons ) {
+		$this->payment_hold_reasons = $payment_hold_reasons;
+
+		return $this;
 	}
 
 	/**
@@ -536,32 +553,6 @@ class Sale extends PayPalResourceModel {
 	}
 
 	/**
-	 * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
-	 *
-	 * @param string $saleId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Sale
-	 */
-	public static function get( $saleId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $saleId, 'saleId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/sale/$saleId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Sale();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Refund a completed payment by passing the sale_id in the request URI. In addition, include an empty JSON payload in the request body for a full refund. For a partial refund, include an amount object in the request body.
 	 *
 	 * @deprecated Please use #refundSale instead.
@@ -588,6 +579,15 @@ class Sale extends PayPalResourceModel {
 		$ret->fromJson( $json );
 
 		return $ret;
+	}
+
+	/**
+	 * Identifier of the sale transaction.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

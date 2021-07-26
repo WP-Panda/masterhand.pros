@@ -18,28 +18,6 @@ use PayPal\Common\PayPalModel;
  */
 class PlanList extends PayPalModel {
 	/**
-	 * Array of billing plans.
-	 *
-	 * @param \PayPal\Api\Plan[] $plans
-	 *
-	 * @return $this
-	 */
-	public function setPlans( $plans ) {
-		$this->plans = $plans;
-
-		return $this;
-	}
-
-	/**
-	 * Array of billing plans.
-	 *
-	 * @return \PayPal\Api\Plan[]
-	 */
-	public function getPlans() {
-		return $this->plans;
-	}
-
-	/**
 	 * Append Plans to the list.
 	 *
 	 * @param \PayPal\Api\Plan $plan
@@ -54,6 +32,28 @@ class PlanList extends PayPalModel {
 				array_merge( $this->getPlans(), array( $plan ) )
 			);
 		}
+	}
+
+	/**
+	 * Array of billing plans.
+	 *
+	 * @return \PayPal\Api\Plan[]
+	 */
+	public function getPlans() {
+		return $this->plans;
+	}
+
+	/**
+	 * Array of billing plans.
+	 *
+	 * @param \PayPal\Api\Plan[] $plans
+	 *
+	 * @return $this
+	 */
+	public function setPlans( $plans ) {
+		$this->plans = $plans;
+
+		return $this;
 	}
 
 	/**
@@ -114,28 +114,6 @@ class PlanList extends PayPalModel {
 	}
 
 	/**
-	 * Sets Links
-	 *
-	 * @param \PayPal\Api\Links[] $links
-	 *
-	 * @return $this
-	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
-
-		return $this;
-	}
-
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
 	 * Append Links to the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -150,6 +128,28 @@ class PlanList extends PayPalModel {
 				array_merge( $this->getLinks(), array( $links ) )
 			);
 		}
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
 	}
 
 	/**

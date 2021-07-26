@@ -26,6 +26,7 @@ if ( isset( $project_category ) && $project_category != '' ) {
 
 
 
+
     </script>
     <div class="profile-filter-header visible-sm visible-xs">
         <a class="profile-filter-title" href=""><?php _e( 'Advanced search', ET_DOMAIN ); ?></a>

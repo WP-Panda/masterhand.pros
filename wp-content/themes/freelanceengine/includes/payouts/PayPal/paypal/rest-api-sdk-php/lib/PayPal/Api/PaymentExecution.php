@@ -61,28 +61,6 @@ class PaymentExecution extends PayPalModel {
 	}
 
 	/**
-	 * Transactional details including the amount and item details.
-	 *
-	 * @param \PayPal\Api\Transaction[] $transactions
-	 *
-	 * @return $this
-	 */
-	public function setTransactions( $transactions ) {
-		$this->transactions = $transactions;
-
-		return $this;
-	}
-
-	/**
-	 * Transactional details including the amount and item details.
-	 *
-	 * @return \PayPal\Api\Transaction[]
-	 */
-	public function getTransactions() {
-		return $this->transactions;
-	}
-
-	/**
 	 * Append Transactions to the list.
 	 *
 	 * @param \PayPal\Api\Transaction $transaction
@@ -97,6 +75,28 @@ class PaymentExecution extends PayPalModel {
 				array_merge( $this->getTransactions(), array( $transaction ) )
 			);
 		}
+	}
+
+	/**
+	 * Transactional details including the amount and item details.
+	 *
+	 * @return \PayPal\Api\Transaction[]
+	 */
+	public function getTransactions() {
+		return $this->transactions;
+	}
+
+	/**
+	 * Transactional details including the amount and item details.
+	 *
+	 * @param \PayPal\Api\Transaction[] $transactions
+	 *
+	 * @return $this
+	 */
+	public function setTransactions( $transactions ) {
+		$this->transactions = $transactions;
+
+		return $this;
 	}
 
 	/**

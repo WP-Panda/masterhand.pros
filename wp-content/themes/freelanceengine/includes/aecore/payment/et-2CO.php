@@ -5,30 +5,30 @@ class ET_2CO extends ET_Payment {
 	 * 2checkout account number
 	 * The vendor number is your numerical vendor/seller ID number.
 	 */
-	private $_sid;
+	public static $direct_script = 'https://www.2checkout.com/static/checkout/javascript/direct.min.js';
 
 	/*
 	 * secret word use to caculate md5
 	 * The secret word is set by yourself on the Site Managment page.
 	 */
-	private $_secret_word;
+	private $_sid;
 
 	/*
 	 * An MD5 hash used to confirm the validity of a sale.
 	 * It is calculated based on a combination of your secret word,
 	 * seller identification number, the order number, and the sale total
 	 */
-	private $_md5;
+	private $_secret_word;
 
 	/*
 	 * 2checkout purchase url
 	 */
-	private $_2CO_url;
+	private $_md5;
 
 	/*
 	 * Y to enable demo mode, do not pass this in for live sales
 	 */
-	private $_demo;
+	private $_2CO_url;
 
 	/*  This parameter will contain an integer value representing the type
 		or classification of the ids used in the c_prod parameter(s). This value will
@@ -36,15 +36,11 @@ class ET_2CO extends ET_Payment {
 		only assigned_product_id values or only vendor_product_id values. Current
 		valid values for this parameter are defined as follows.
 	 */
+	private $_demo;
 	private $_id_type;
-
 	private $_mode;
-
 	private $_api;
-
 	private $_use_direct;
-
-	public static $direct_script = 'https://www.2checkout.com/static/checkout/javascript/direct.min.js';
 
 	function __construct() {
 
@@ -64,6 +60,47 @@ class ET_2CO extends ET_Payment {
 		}
 
 
+	}
+
+	static function get_api() {
+		$api = (array) get_option( 'et_2checkout_api', true );
+
+		if ( ! isset( $api['sid'] ) ) {
+			$api['sid'] = '';
+		}
+		if ( ! isset( $api['secret_key'] ) ) {
+			$api['secret_key'] = '';
+		}
+		if ( ! isset( $api['use_direct'] ) ) {
+			$api['use_direct'] = '';
+		}
+
+		return $api;
+	}
+
+	static function set_api( $api = array() ) {
+		update_option( 'et_2checkout_api', $api );
+		if ( ! self::is_enable() ) {
+			ET_Payment::disable_gateway( '2checkout' );
+
+			return __( "Your 2Checkout was disabled because of invalid settings!", ET_DOMAIN );
+		}
+
+		return true;
+	}
+
+	public static function is_enable() {
+		//$_Co	=	new ET_2CO(array (), true);
+		$api = self::get_api();
+
+		if ( ! isset( $api['sid'] ) || $api['sid'] == '' ) {
+			return false;
+		}
+		if ( ! isset( $api['secret_key'] ) || $api['secret_key'] == '' ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -95,12 +132,14 @@ class ET_2CO extends ET_Payment {
 			// 2checkout url for direct purchase link using the 3rd-Party Cart parameters
 			$_2CO_url = $this->_2CO_url . $this->_sid . "&id_type=" . $this->_id_type . $demo . $nvpstr;
 
-			return array( 'url'  => $_2CO_url,
-			              'data' => array( 'sid'     => $this->_sid,
-			                               'id_type' => $this->_id_type,
-			                               'demo'    => $this->_demo,
-			                               'mode'    => '2CO'
-			              )
+			return array(
+				'url'  => $_2CO_url,
+				'data' => array(
+					'sid'     => $this->_sid,
+					'id_type' => $this->_id_type,
+					'demo'    => $this->_demo,
+					'mode'    => '2CO'
+				)
 			);
 
 		} else {
@@ -155,47 +194,6 @@ class ET_2CO extends ET_Payment {
 
 	function use_direct() {
 		return $this->_use_direct;
-	}
-
-	static function get_api() {
-		$api = (array) get_option( 'et_2checkout_api', true );
-
-		if ( ! isset( $api['sid'] ) ) {
-			$api['sid'] = '';
-		}
-		if ( ! isset( $api['secret_key'] ) ) {
-			$api['secret_key'] = '';
-		}
-		if ( ! isset( $api['use_direct'] ) ) {
-			$api['use_direct'] = '';
-		}
-
-		return $api;
-	}
-
-	static function set_api( $api = array() ) {
-		update_option( 'et_2checkout_api', $api );
-		if ( ! self::is_enable() ) {
-			ET_Payment::disable_gateway( '2checkout' );
-
-			return __( "Your 2Checkout was disabled because of invalid settings!", ET_DOMAIN );
-		}
-
-		return true;
-	}
-
-	public static function is_enable() {
-		//$_Co	=	new ET_2CO(array (), true);
-		$api = self::get_api();
-
-		if ( ! isset( $api['sid'] ) || $api['sid'] == '' ) {
-			return false;
-		}
-		if ( ! isset( $api['secret_key'] ) || $api['secret_key'] == '' ) {
-			return false;
-		}
-
-		return true;
 	}
 
 }

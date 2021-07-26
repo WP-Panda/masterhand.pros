@@ -30,6 +30,68 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Payment extends PayPalResourceModel {
 	/**
+	 * Shows details for a payment, by ID.
+	 *
+	 * @param string $paymentId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Payment
+	 */
+	public static function get( $paymentId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $paymentId, 'paymentId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/payment/$paymentId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Payment();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * List payments that were made to the merchant who issues the request. Payments can be in any state.
+	 *
+	 * @param array $params
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return PaymentHistory
+	 */
+	public static function all( $params, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $params, 'params' );
+		$payLoad       = "";
+		$allowedParams = array(
+			'count'       => 1,
+			'start_id'    => 1,
+			'start_index' => 1,
+			'start_time'  => 1,
+			'end_time'    => 1,
+			'payee_id'    => 1,
+			'sort_by'     => 1,
+			'sort_order'  => 1,
+		);
+		$json          = self::executeCall(
+			"/v1/payments/payment?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret           = new PaymentHistory();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Identifier of the payment resource created.
 	 *
 	 * @param string $id
@@ -40,15 +102,6 @@ class Payment extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * Identifier of the payment resource created.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -164,28 +217,6 @@ class Payment extends PayPalResourceModel {
 	}
 
 	/**
-	 * Transactional details including the amount and item details.
-	 *
-	 * @param \PayPal\Api\Transaction[] $transactions
-	 *
-	 * @return $this
-	 */
-	public function setTransactions( $transactions ) {
-		$this->transactions = $transactions;
-
-		return $this;
-	}
-
-	/**
-	 * Transactional details including the amount and item details.
-	 *
-	 * @return \PayPal\Api\Transaction[]
-	 */
-	public function getTransactions() {
-		return $this->transactions;
-	}
-
-	/**
 	 * Append Transactions to the list.
 	 *
 	 * @param \PayPal\Api\Transaction $transaction
@@ -203,6 +234,28 @@ class Payment extends PayPalResourceModel {
 	}
 
 	/**
+	 * Transactional details including the amount and item details.
+	 *
+	 * @return \PayPal\Api\Transaction[]
+	 */
+	public function getTransactions() {
+		return $this->transactions;
+	}
+
+	/**
+	 * Transactional details including the amount and item details.
+	 *
+	 * @param \PayPal\Api\Transaction[] $transactions
+	 *
+	 * @return $this
+	 */
+	public function setTransactions( $transactions ) {
+		$this->transactions = $transactions;
+
+		return $this;
+	}
+
+	/**
 	 * Remove Transactions from the list.
 	 *
 	 * @param \PayPal\Api\Transaction $transaction
@@ -213,29 +266,6 @@ class Payment extends PayPalResourceModel {
 		return $this->setTransactions(
 			array_diff( $this->getTransactions(), array( $transaction ) )
 		);
-	}
-
-	/**
-	 * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
-	 * @deprecated Not publicly available
-	 *
-	 * @param \PayPal\Api\Error[] $failed_transactions
-	 *
-	 * @return $this
-	 */
-	public function setFailedTransactions( $failed_transactions ) {
-		$this->failed_transactions = $failed_transactions;
-
-		return $this;
-	}
-
-	/**
-	 * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
-	 * @deprecated Not publicly available
-	 * @return \PayPal\Api\Error[]
-	 */
-	public function getFailedTransactions() {
-		return $this->failed_transactions;
 	}
 
 	/**
@@ -257,6 +287,29 @@ class Payment extends PayPalResourceModel {
 	}
 
 	/**
+	 * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
+	 * @deprecated Not publicly available
+	 * @return \PayPal\Api\Error[]
+	 */
+	public function getFailedTransactions() {
+		return $this->failed_transactions;
+	}
+
+	/**
+	 * Applicable for advanced payments like multi seller payment (MSP) to support partial failures
+	 * @deprecated Not publicly available
+	 *
+	 * @param \PayPal\Api\Error[] $failed_transactions
+	 *
+	 * @return $this
+	 */
+	public function setFailedTransactions( $failed_transactions ) {
+		$this->failed_transactions = $failed_transactions;
+
+		return $this;
+	}
+
+	/**
 	 * Remove FailedTransactions from the list.
 	 * @deprecated Not publicly available
 	 *
@@ -268,29 +321,6 @@ class Payment extends PayPalResourceModel {
 		return $this->setFailedTransactions(
 			array_diff( $this->getFailedTransactions(), array( $error ) )
 		);
-	}
-
-	/**
-	 * Collection of PayPal generated billing agreement tokens.
-	 * @deprecated Not publicly available
-	 *
-	 * @param string[] $billing_agreement_tokens
-	 *
-	 * @return $this
-	 */
-	public function setBillingAgreementTokens( $billing_agreement_tokens ) {
-		$this->billing_agreement_tokens = $billing_agreement_tokens;
-
-		return $this;
-	}
-
-	/**
-	 * Collection of PayPal generated billing agreement tokens.
-	 * @deprecated Not publicly available
-	 * @return string[]
-	 */
-	public function getBillingAgreementTokens() {
-		return $this->billing_agreement_tokens;
 	}
 
 	/**
@@ -309,6 +339,29 @@ class Payment extends PayPalResourceModel {
 				array_merge( $this->getBillingAgreementTokens(), array( $billingAgreementToken ) )
 			);
 		}
+	}
+
+	/**
+	 * Collection of PayPal generated billing agreement tokens.
+	 * @deprecated Not publicly available
+	 * @return string[]
+	 */
+	public function getBillingAgreementTokens() {
+		return $this->billing_agreement_tokens;
+	}
+
+	/**
+	 * Collection of PayPal generated billing agreement tokens.
+	 * @deprecated Not publicly available
+	 *
+	 * @param string[] $billing_agreement_tokens
+	 *
+	 * @return $this
+	 */
+	public function setBillingAgreementTokens( $billing_agreement_tokens ) {
+		$this->billing_agreement_tokens = $billing_agreement_tokens;
+
+		return $this;
 	}
 
 	/**
@@ -528,15 +581,6 @@ class Payment extends PayPalResourceModel {
 	}
 
 	/**
-	 * Get Approval Link
-	 *
-	 * @return null|string
-	 */
-	public function getApprovalLink() {
-		return $this->getLink( PayPalConstants::APPROVAL_URL );
-	}
-
-	/**
 	 * Get token from Approval Link
 	 *
 	 * @return null|string
@@ -546,6 +590,15 @@ class Payment extends PayPalResourceModel {
 		parse_str( parse_url( $this->getApprovalLink(), PHP_URL_QUERY ), $query );
 
 		return ! isset( $query[ $parameter_name ] ) ? null : $query[ $parameter_name ];
+	}
+
+	/**
+	 * Get Approval Link
+	 *
+	 * @return null|string
+	 */
+	public function getApprovalLink() {
+		return $this->getLink( PayPalConstants::APPROVAL_URL );
 	}
 
 	/**
@@ -569,32 +622,6 @@ class Payment extends PayPalResourceModel {
 		$this->fromJson( $json );
 
 		return $this;
-	}
-
-	/**
-	 * Shows details for a payment, by ID.
-	 *
-	 * @param string $paymentId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Payment
-	 */
-	public static function get( $paymentId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $paymentId, 'paymentId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/payment/$paymentId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Payment();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 	/**
@@ -623,6 +650,15 @@ class Payment extends PayPalResourceModel {
 	}
 
 	/**
+	 * Identifier of the payment resource created.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
 	 * Executes, or completes, a PayPal payment that the payer has approved. You can optionally update selective payment information when you execute a payment.
 	 *
 	 * @param PaymentExecution $paymentExecution
@@ -646,42 +682,6 @@ class Payment extends PayPalResourceModel {
 		$this->fromJson( $json );
 
 		return $this;
-	}
-
-	/**
-	 * List payments that were made to the merchant who issues the request. Payments can be in any state.
-	 *
-	 * @param array $params
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return PaymentHistory
-	 */
-	public static function all( $params, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $params, 'params' );
-		$payLoad       = "";
-		$allowedParams = array(
-			'count'       => 1,
-			'start_id'    => 1,
-			'start_index' => 1,
-			'start_time'  => 1,
-			'end_time'    => 1,
-			'payee_id'    => 1,
-			'sort_by'     => 1,
-			'sort_order'  => 1,
-		);
-		$json          = self::executeCall(
-			"/v1/payments/payment?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret           = new PaymentHistory();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 }

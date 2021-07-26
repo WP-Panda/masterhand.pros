@@ -11,6 +11,7 @@ global $wp_query;
 
 
 
+
     </script>
     <div class="project-filter-header visible-sm visible-xs">
         <a class="project-filter-title" href=""><?php _e( 'Advanced search', ET_DOMAIN ); ?></a>

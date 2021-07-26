@@ -165,38 +165,26 @@ class OAuthTokenCredential extends PayPalResourceModel {
 		return $this->accessToken;
 	}
 
+	/**
+	 * Helper method to encrypt data using clientSecret as key
+	 *
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	public function encrypt( $data ) {
+		return $this->cipher->encrypt( $data );
+	}
 
 	/**
-	 * Get a Refresh Token from Authorization Code
+	 * Helper method to decrypt data using clientSecret as key
 	 *
-	 * @param $config
-	 * @param $authorizationCode
-	 * @param array $params optional arrays to override defaults
+	 * @param $data
 	 *
-	 * @return string|null
+	 * @return string
 	 */
-	public function getRefreshToken( $config, $authorizationCode = null, $params = array() ) {
-		static $allowedParams = array(
-			'grant_type'    => 'authorization_code',
-			'code'          => 1,
-			'redirect_uri'  => 'urn:ietf:wg:oauth:2.0:oob',
-			'response_type' => 'token'
-		);
-
-		$params = is_array( $params ) ? $params : array();
-		if ( $authorizationCode ) {
-			//Override the authorizationCode if value is explicitly set
-			$params['code'] = $authorizationCode;
-		}
-		$payload = http_build_query( array_merge( $allowedParams, array_intersect_key( $params, $allowedParams ) ) );
-
-		$response = $this->getToken( $config, $this->clientId, $this->clientSecret, $payload );
-
-		if ( $response != null && isset( $response["refresh_token"] ) ) {
-			return $response['refresh_token'];
-		}
-
-		return null;
+	public function decrypt( $data ) {
+		return $this->cipher->decrypt( $data );
 	}
 
 	/**
@@ -212,47 +200,6 @@ class OAuthTokenCredential extends PayPalResourceModel {
 
 		return $this->accessToken;
 	}
-
-	/**
-	 * Retrieves the token based on the input configuration
-	 *
-	 * @param array $config
-	 * @param string $clientId
-	 * @param string $clientSecret
-	 * @param string $payload
-	 *
-	 * @return mixed
-	 * @throws PayPalConfigurationException
-	 * @throws \PayPal\Exception\PayPalConnectionException
-	 */
-	protected function getToken( $config, $clientId, $clientSecret, $payload ) {
-		$httpConfig = new PayPalHttpConfig( null, 'POST', $config );
-
-		// if proxy set via config, add it
-		if ( ! empty( $config['http.Proxy'] ) ) {
-			$httpConfig->setHttpProxy( $config['http.Proxy'] );
-		}
-
-		$handlers = array( self::$AUTH_HANDLER );
-
-		/** @var IPayPalHandler $handler */
-		foreach ( $handlers as $handler ) {
-			if ( ! is_object( $handler ) ) {
-				$fullHandler = "\\" . (string) $handler;
-				$handler     = new $fullHandler( new ApiContext( $this ) );
-			}
-			$handler->handle( $httpConfig, $payload, array( 'clientId'     => $clientId,
-			                                                'clientSecret' => $clientSecret
-			) );
-		}
-
-		$connection = new PayPalHttpConnection( $httpConfig, $config );
-		$res        = $connection->execute( $payload );
-		$response   = json_decode( $res, true );
-
-		return $response;
-	}
-
 
 	/**
 	 * Generates a new access token
@@ -292,24 +239,76 @@ class OAuthTokenCredential extends PayPalResourceModel {
 	}
 
 	/**
-	 * Helper method to encrypt data using clientSecret as key
+	 * Retrieves the token based on the input configuration
 	 *
-	 * @param $data
+	 * @param array $config
+	 * @param string $clientId
+	 * @param string $clientSecret
+	 * @param string $payload
 	 *
-	 * @return string
+	 * @return mixed
+	 * @throws PayPalConfigurationException
+	 * @throws \PayPal\Exception\PayPalConnectionException
 	 */
-	public function encrypt( $data ) {
-		return $this->cipher->encrypt( $data );
+	protected function getToken( $config, $clientId, $clientSecret, $payload ) {
+		$httpConfig = new PayPalHttpConfig( null, 'POST', $config );
+
+		// if proxy set via config, add it
+		if ( ! empty( $config['http.Proxy'] ) ) {
+			$httpConfig->setHttpProxy( $config['http.Proxy'] );
+		}
+
+		$handlers = array( self::$AUTH_HANDLER );
+
+		/** @var IPayPalHandler $handler */
+		foreach ( $handlers as $handler ) {
+			if ( ! is_object( $handler ) ) {
+				$fullHandler = "\\" . (string) $handler;
+				$handler     = new $fullHandler( new ApiContext( $this ) );
+			}
+			$handler->handle( $httpConfig, $payload, array(
+				'clientId'     => $clientId,
+				'clientSecret' => $clientSecret
+			) );
+		}
+
+		$connection = new PayPalHttpConnection( $httpConfig, $config );
+		$res        = $connection->execute( $payload );
+		$response   = json_decode( $res, true );
+
+		return $response;
 	}
 
 	/**
-	 * Helper method to decrypt data using clientSecret as key
+	 * Get a Refresh Token from Authorization Code
 	 *
-	 * @param $data
+	 * @param $config
+	 * @param $authorizationCode
+	 * @param array $params optional arrays to override defaults
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function decrypt( $data ) {
-		return $this->cipher->decrypt( $data );
+	public function getRefreshToken( $config, $authorizationCode = null, $params = array() ) {
+		static $allowedParams = array(
+			'grant_type'    => 'authorization_code',
+			'code'          => 1,
+			'redirect_uri'  => 'urn:ietf:wg:oauth:2.0:oob',
+			'response_type' => 'token'
+		);
+
+		$params = is_array( $params ) ? $params : array();
+		if ( $authorizationCode ) {
+			//Override the authorizationCode if value is explicitly set
+			$params['code'] = $authorizationCode;
+		}
+		$payload = http_build_query( array_merge( $allowedParams, array_intersect_key( $params, $allowedParams ) ) );
+
+		$response = $this->getToken( $config, $this->clientId, $this->clientSecret, $payload );
+
+		if ( $response != null && isset( $response["refresh_token"] ) ) {
+			return $response['refresh_token'];
+		}
+
+		return null;
 	}
 }

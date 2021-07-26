@@ -32,6 +32,13 @@ class Paginator {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getMaxPagesToShow() {
+		return $this->maxPagesToShow;
+	}
+
+	/**
 	 * @param int $maxPagesToShow
 	 *
 	 * @throws \InvalidArgumentException if $maxPagesToShow is less than 3.
@@ -46,8 +53,8 @@ class Paginator {
 	/**
 	 * @return int
 	 */
-	public function getMaxPagesToShow() {
-		return $this->maxPagesToShow;
+	public function getCurrentPage() {
+		return $this->currentPage;
 	}
 
 	/**
@@ -60,8 +67,8 @@ class Paginator {
 	/**
 	 * @return int
 	 */
-	public function getCurrentPage() {
-		return $this->currentPage;
+	public function getItemsPerPage() {
+		return $this->itemsPerPage;
 	}
 
 	/**
@@ -75,8 +82,8 @@ class Paginator {
 	/**
 	 * @return int
 	 */
-	public function getItemsPerPage() {
-		return $this->itemsPerPage;
+	public function getTotalItems() {
+		return $this->totalItems;
 	}
 
 	/**
@@ -90,22 +97,8 @@ class Paginator {
 	/**
 	 * @return int
 	 */
-	public function getTotalItems() {
-		return $this->totalItems;
-	}
-
-	/**
-	 * @return int
-	 */
 	public function getNumPages() {
 		return $this->numPages;
-	}
-
-	/**
-	 * @param string $urlPattern
-	 */
-	public function setUrlPattern( $urlPattern ) {
-		$this->urlPattern = $urlPattern;
 	}
 
 	/**
@@ -116,36 +109,42 @@ class Paginator {
 	}
 
 	/**
-	 * @param int $pageNum
+	 * @param string $urlPattern
+	 */
+	public function setUrlPattern( $urlPattern ) {
+		$this->urlPattern = $urlPattern;
+	}
+
+	public function __toString() {
+		return $this->toHtml();
+	}
+
+	/**
+	 * Render an HTML pagination control.
 	 *
 	 * @return string
 	 */
-	public function getPageUrl( $pageNum ) {
-		return str_replace( self::NUM_PLACEHOLDER, $pageNum, $this->urlPattern );
-	}
-
-	public function getNextPage() {
-		if ( $this->currentPage < $this->numPages ) {
-			return $this->currentPage + 1;
+	public function toHtml() {
+		if ( $this->numPages <= 1 ) {
+			return '';
 		}
-
-		return null;
-	}
-
-	public function getPrevPage() {
-		if ( $this->currentPage > 1 ) {
-			return $this->currentPage - 1;
+		$html = $this->isWrapUlOff ? '' : '<ul class="d-flex flex-wrap pagination ' . $this->customCSSClass . '">';
+		if ( $this->getPrevUrl() ) {
+			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getPrevUrl() ) . '">&laquo; ' . $this->previousText . '</span></li>';
 		}
-
-		return null;
-	}
-
-	public function getNextUrl() {
-		if ( ! $this->getNextPage() ) {
-			return null;
+		foreach ( $this->getPages() as $page ) {
+			if ( $page['url'] ) {
+				$html .= '<li' . ( $page['isCurrent'] ? ' class="page-item active"' : '' ) . '><span class="page-link" onclick="' . htmlspecialchars( $page['url'] ) . '">' . htmlspecialchars( $page['num'] ) . '</span></li>';
+			} else {
+				$html .= '<li class="disabled"><span>' . htmlspecialchars( $page['num'] ) . '</span></li>';
+			}
 		}
+		if ( $this->getNextUrl() ) {
+			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getNextUrl() ) . '">' . $this->nextText . ' &raquo;</span></li>';
+		}
+		$html .= $this->isWrapUlOff ? '' : '</ul>';
 
-		return $this->getPageUrl( $this->getNextPage() );
+		return $html;
 	}
 
 	/**
@@ -157,6 +156,23 @@ class Paginator {
 		}
 
 		return $this->getPageUrl( $this->getPrevPage() );
+	}
+
+	public function getPrevPage() {
+		if ( $this->currentPage > 1 ) {
+			return $this->currentPage - 1;
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param int $pageNum
+	 *
+	 * @return string
+	 */
+	public function getPageUrl( $pageNum ) {
+		return str_replace( self::NUM_PLACEHOLDER, $pageNum, $this->urlPattern );
 	}
 
 	/**
@@ -243,45 +259,20 @@ class Paginator {
 		);
 	}
 
-	/**
-	 * Render an HTML pagination control.
-	 *
-	 * @return string
-	 */
-	public function toHtml() {
-		if ( $this->numPages <= 1 ) {
-			return '';
-		}
-		$html = $this->isWrapUlOff ? '' : '<ul class="d-flex flex-wrap pagination ' . $this->customCSSClass . '">';
-		if ( $this->getPrevUrl() ) {
-			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getPrevUrl() ) . '">&laquo; ' . $this->previousText . '</span></li>';
-		}
-		foreach ( $this->getPages() as $page ) {
-			if ( $page['url'] ) {
-				$html .= '<li' . ( $page['isCurrent'] ? ' class="page-item active"' : '' ) . '><span class="page-link" onclick="' . htmlspecialchars( $page['url'] ) . '">' . htmlspecialchars( $page['num'] ) . '</span></li>';
-			} else {
-				$html .= '<li class="disabled"><span>' . htmlspecialchars( $page['num'] ) . '</span></li>';
-			}
-		}
-		if ( $this->getNextUrl() ) {
-			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getNextUrl() ) . '">' . $this->nextText . ' &raquo;</span></li>';
-		}
-		$html .= $this->isWrapUlOff ? '' : '</ul>';
-
-		return $html;
-	}
-
-	public function __toString() {
-		return $this->toHtml();
-	}
-
-	public function getCurrentPageFirstItem() {
-		$first = ( $this->currentPage - 1 ) * $this->itemsPerPage + 1;
-		if ( $first > $this->totalItems ) {
+	public function getNextUrl() {
+		if ( ! $this->getNextPage() ) {
 			return null;
 		}
 
-		return $first;
+		return $this->getPageUrl( $this->getNextPage() );
+	}
+
+	public function getNextPage() {
+		if ( $this->currentPage < $this->numPages ) {
+			return $this->currentPage + 1;
+		}
+
+		return null;
 	}
 
 	public function getCurrentPageLastItem() {
@@ -295,6 +286,15 @@ class Paginator {
 		}
 
 		return $last;
+	}
+
+	public function getCurrentPageFirstItem() {
+		$first = ( $this->currentPage - 1 ) * $this->itemsPerPage + 1;
+		if ( $first > $this->totalItems ) {
+			return null;
+		}
+
+		return $first;
 	}
 
 	public function setPreviousText( $text ) {

@@ -16,24 +16,6 @@ class FormatConverter {
 	}
 
 	/**
-	 * Format the input data with decimal places
-	 *
-	 * Defaults to 2 decimal places
-	 *
-	 * @param     $value
-	 * @param int $decimals
-	 *
-	 * @return null|string
-	 */
-	public static function formatToNumber( $value, $decimals = 2 ) {
-		if ( trim( $value ) != null ) {
-			return number_format( $value, $decimals, '.', '' );
-		}
-
-		return null;
-	}
-
-	/**
 	 * Helper method to format price values with associated currency information.
 	 *
 	 * It covers the cases where certain currencies does not accept decimal values. We will be adding
@@ -59,5 +41,23 @@ class FormatConverter {
 		}
 
 		return self::formatToNumber( $value, $decimals );
+	}
+
+	/**
+	 * Format the input data with decimal places
+	 *
+	 * Defaults to 2 decimal places
+	 *
+	 * @param     $value
+	 * @param int $decimals
+	 *
+	 * @return null|string
+	 */
+	public static function formatToNumber( $value, $decimals = 2 ) {
+		if ( trim( $value ) != null ) {
+			return number_format( $value, $decimals, '.', '' );
+		}
+
+		return null;
 	}
 }

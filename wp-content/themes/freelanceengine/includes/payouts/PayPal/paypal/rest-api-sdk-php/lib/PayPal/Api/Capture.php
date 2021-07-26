@@ -28,6 +28,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Capture extends PayPalResourceModel {
 	/**
+	 * Shows details for a captured payment, by ID.
+	 *
+	 * @param string $captureId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Capture
+	 */
+	public static function get( $captureId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $captureId, 'captureId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/capture/$captureId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Capture();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * The ID of the capture transaction.
 	 *
 	 * @param string $id
@@ -38,15 +64,6 @@ class Capture extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * The ID of the capture transaction.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -250,32 +267,6 @@ class Capture extends PayPalResourceModel {
 	}
 
 	/**
-	 * Shows details for a captured payment, by ID.
-	 *
-	 * @param string $captureId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Capture
-	 */
-	public static function get( $captureId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $captureId, 'captureId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/capture/$captureId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Capture();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Refund a captured payment by passing the capture_id in the request URI. In addition, include an amount object in the body of the request JSON.
 	 *
 	 * @deprecated Please use #refundCapturedPayment instead.
@@ -302,6 +293,15 @@ class Capture extends PayPalResourceModel {
 		$ret->fromJson( $json );
 
 		return $ret;
+	}
+
+	/**
+	 * The ID of the capture transaction.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

@@ -341,29 +341,6 @@ class CartBase extends PayPalModel {
 	}
 
 	/**
-	 * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
-	 * @deprecated Not publicly available
-	 *
-	 * @param \PayPal\Api\ExternalFunding[] $external_funding
-	 *
-	 * @return $this
-	 */
-	public function setExternalFunding( $external_funding ) {
-		$this->external_funding = $external_funding;
-
-		return $this;
-	}
-
-	/**
-	 * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
-	 * @deprecated Not publicly available
-	 * @return \PayPal\Api\ExternalFunding[]
-	 */
-	public function getExternalFunding() {
-		return $this->external_funding;
-	}
-
-	/**
 	 * Append ExternalFunding to the list.
 	 * @deprecated Not publicly available
 	 *
@@ -379,6 +356,29 @@ class CartBase extends PayPalModel {
 				array_merge( $this->getExternalFunding(), array( $externalFunding ) )
 			);
 		}
+	}
+
+	/**
+	 * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+	 * @deprecated Not publicly available
+	 * @return \PayPal\Api\ExternalFunding[]
+	 */
+	public function getExternalFunding() {
+		return $this->external_funding;
+	}
+
+	/**
+	 * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+	 * @deprecated Not publicly available
+	 *
+	 * @param \PayPal\Api\ExternalFunding[] $external_funding
+	 *
+	 * @return $this
+	 */
+	public function setExternalFunding( $external_funding ) {
+		$this->external_funding = $external_funding;
+
+		return $this;
 	}
 
 	/**

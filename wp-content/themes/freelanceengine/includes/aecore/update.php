@@ -81,11 +81,6 @@ class ET_Update {
 		return $update_info;
 	}
 
-	public function delete_old_theme( $removed, $local_destination, $remote_destination, $theme ) {
-		if ( isset( $theme['theme'] ) && $theme['theme'] == 'jobengine' ) {
-		}
-	}
-
 	/**
 	 * Return the remote version
 	 *
@@ -110,6 +105,11 @@ class ET_Update {
 		}
 
 		return false;
+	}
+
+	public function delete_old_theme( $removed, $local_destination, $remote_destination, $theme ) {
+		if ( isset( $theme['theme'] ) && $theme['theme'] == 'jobengine' ) {
+		}
 	}
 
 	/**

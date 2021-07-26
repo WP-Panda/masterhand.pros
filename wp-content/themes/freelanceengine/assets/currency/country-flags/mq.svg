@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 750 500">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 500">
     <rect width="750" height="500" fill="#21428e"/>
     <path d="M 375,0 V 500 M 0,250 H 750" stroke="#fff" stroke-width="72.5"/>
     <path id="path8"

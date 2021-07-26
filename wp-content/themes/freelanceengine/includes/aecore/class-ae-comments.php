@@ -34,6 +34,46 @@ class AE_Comments {
 	}
 
 	/**
+	 * fetch list of comments and convert them
+	 *
+	 * @param array $args
+	 *
+	 * @return array result after fetch
+	 * @since    1.0
+	 * @package  freelanceengine
+	 * @category void
+	 * @author   Daikachi
+	 */
+	public function fetch( $args ) {
+		$args['type']   = $this->comment_type;
+		$args['offset'] = $args['number'] * ( $args['page'] - 1 );
+
+		$comments     = get_comments( $args );
+		$comment_data = [];
+		/**
+		 * convert comment to build data
+		 */
+		foreach ( $comments as $key => $comment ) {
+			$comment_data[] = $this->convert( $comment, 'review_post_thumbnail' );
+		}
+
+		ob_start();
+		ae_comments_pagination( $args['total'], $args['page'], $args );
+		$paginate = ob_get_clean();
+
+		// reset author and post arr
+		$this->post_arr   = [];
+		$this->author_arr = [];
+
+		// return array of comments
+		return [
+			'data'     => $comment_data,
+			'query'    => $args,
+			'paginate' => $paginate
+		];
+	}
+
+	/**
 	 * convert comment data
 	 *
 	 * @param object $comment
@@ -118,46 +158,6 @@ class AE_Comments {
 		$this->current_comment = $comment;
 
 		return apply_filters( 'ae_convert_comment', $this->current_comment );
-	}
-
-	/**
-	 * fetch list of comments and convert them
-	 *
-	 * @param array $args
-	 *
-	 * @return array result after fetch
-	 * @since    1.0
-	 * @package  freelanceengine
-	 * @category void
-	 * @author   Daikachi
-	 */
-	public function fetch( $args ) {
-		$args['type']   = $this->comment_type;
-		$args['offset'] = $args['number'] * ( $args['page'] - 1 );
-
-		$comments     = get_comments( $args );
-		$comment_data = [];
-		/**
-		 * convert comment to build data
-		 */
-		foreach ( $comments as $key => $comment ) {
-			$comment_data[] = $this->convert( $comment, 'review_post_thumbnail' );
-		}
-
-		ob_start();
-		ae_comments_pagination( $args['total'], $args['page'], $args );
-		$paginate = ob_get_clean();
-
-		// reset author and post arr
-		$this->post_arr   = [];
-		$this->author_arr = [];
-
-		// return array of comments
-		return [
-			'data'     => $comment_data,
-			'query'    => $args,
-			'paginate' => $paginate
-		];
 	}
 	// abstract static function get_instance();
 

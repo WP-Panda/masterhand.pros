@@ -23,6 +23,19 @@ abstract class  ET_PaymentVisitor {
 		$this->_order = $order;
 	}
 
+	function set_settings( $args = array() ) {
+		$default_settings = array(
+			'return'        => 'http://localhost',
+			'cancel'        => 'http://localhost',
+			'continue_shop' => 'http://localhost'
+		);
+
+		$settings        = wp_parse_args( $args, $default_settings );
+		$this->_settings = $settings;
+		$this->add_return_param();
+
+	}
+
 	function add_return_param() {
 		global $wp_rewrite;
 		$order_data = $this->_order->generate_data_to_pay();
@@ -35,19 +48,6 @@ abstract class  ET_PaymentVisitor {
 		}
 
 		return $this->_settings;
-	}
-
-	function set_settings( $args = array() ) {
-		$default_settings = array(
-			'return'        => 'http://localhost',
-			'cancel'        => 'http://localhost',
-			'continue_shop' => 'http://localhost'
-		);
-
-		$settings        = wp_parse_args( $args, $default_settings );
-		$this->_settings = $settings;
-		$this->add_return_param();
-
 	}
 
 	abstract function setup_checkout( ET_Order $order );

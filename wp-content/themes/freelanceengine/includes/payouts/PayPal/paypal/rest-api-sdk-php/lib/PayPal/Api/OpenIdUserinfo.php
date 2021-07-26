@@ -35,6 +35,48 @@ use PayPal\Rest\ApiContext;
 class OpenIdUserinfo extends PayPalResourceModel {
 
 	/**
+	 * returns user details
+	 *
+	 * @path /v1/identity/openidconnect/userinfo
+	 * @method GET
+	 *
+	 * @param array $params (allowed values are access_token)
+	 *                                 access_token - access token from the createFromAuthorizationCode / createFromRefreshToken calls
+	 * @param ApiContext $apiContext Optional API Context
+	 * @param PayPalRestCall $restCall
+	 *
+	 * @return OpenIdUserinfo
+	 */
+	public static function getUserinfo( $params, $apiContext = null, $restCall = null ) {
+		static $allowedParams = array( 'schema' => 1 );
+
+		$params = is_array( $params ) ? $params : array();
+
+		if ( ! array_key_exists( 'schema', $params ) ) {
+			$params['schema'] = 'openid';
+		}
+		$requestUrl = "/v1/identity/openidconnect/userinfo?"
+		              . http_build_query( array_intersect_key( $params, $allowedParams ) );
+
+		$json = self::executeCall(
+			$requestUrl,
+			"GET",
+			"",
+			array(
+				'Authorization' => "Bearer " . $params['access_token'],
+				'Content-Type'  => 'x-www-form-urlencoded'
+			),
+			$apiContext,
+			$restCall
+		);
+
+		$ret = new OpenIdUserinfo();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Subject - Identifier for the End-User at the Issuer.
 	 *
 	 * @param string $user_id
@@ -494,48 +536,5 @@ class OpenIdUserinfo extends PayPalResourceModel {
 	 */
 	public function getPayerId() {
 		return $this->payer_id;
-	}
-
-
-	/**
-	 * returns user details
-	 *
-	 * @path /v1/identity/openidconnect/userinfo
-	 * @method GET
-	 *
-	 * @param array $params (allowed values are access_token)
-	 *                                 access_token - access token from the createFromAuthorizationCode / createFromRefreshToken calls
-	 * @param ApiContext $apiContext Optional API Context
-	 * @param PayPalRestCall $restCall
-	 *
-	 * @return OpenIdUserinfo
-	 */
-	public static function getUserinfo( $params, $apiContext = null, $restCall = null ) {
-		static $allowedParams = array( 'schema' => 1 );
-
-		$params = is_array( $params ) ? $params : array();
-
-		if ( ! array_key_exists( 'schema', $params ) ) {
-			$params['schema'] = 'openid';
-		}
-		$requestUrl = "/v1/identity/openidconnect/userinfo?"
-		              . http_build_query( array_intersect_key( $params, $allowedParams ) );
-
-		$json = self::executeCall(
-			$requestUrl,
-			"GET",
-			"",
-			array(
-				'Authorization' => "Bearer " . $params['access_token'],
-				'Content-Type'  => 'x-www-form-urlencoded'
-			),
-			$apiContext,
-			$restCall
-		);
-
-		$ret = new OpenIdUserinfo();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 }

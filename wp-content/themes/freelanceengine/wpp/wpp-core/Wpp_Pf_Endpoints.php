@@ -68,26 +68,32 @@ class Wpp_Pf_Endpoints {
 	}
 
 	/**
-	 * Get query current active query var.
+	 * Get page title for an endpoint.
 	 *
-	 * @return string
+	 * @param  string $endpoint Endpoint key.
+	 *
+	 * @return array
 	 */
-	public static function get_current_endpoint() {
+	public static function endpoint_settings() {
 
-		global $wp;
+		$end_points = [];
 
-		$args = self::endpoint_settings();
+		/*
+		 * Пример массива
+		'models'      => array (
+		'title'    => __( 'Item Title' ),
+		'icons'    => '',
+		'template' => '/templates/pages/list-models.php',
+		'order'    => 5,
+		'caps'     => 'manage_options',
+		'places'   => EP_ROOT
+		),
+		 */
 
-		do_action( 'qm/debug', $args );
-		//wpp_dump($args);
 
-		foreach ( $args as $key => $value ) {
-			if ( isset( $wp->query_vars[ $key ] ) ) {
-				return $key;
-			}
-		}
+		$end_points = apply_filters( 'wpp_pf_endpoints_args', $end_points );
 
-		return false;
+		return $end_points;
 	}
 
 	/**
@@ -140,34 +146,27 @@ class Wpp_Pf_Endpoints {
 	}
 
 	/**
-	 * Get page title for an endpoint.
+	 * Get query current active query var.
 	 *
-	 * @param  string $endpoint Endpoint key.
-	 *
-	 * @return array
+	 * @return string
 	 */
-	public static function endpoint_settings() {
+	public static function get_current_endpoint() {
 
-		$end_points = [];
+		global $wp;
 
-		/*
-		 * Пример массива
-		'models'      => array (
-		'title'    => __( 'Item Title' ),
-		'icons'    => '',
-		'template' => '/templates/pages/list-models.php',
-		'order'    => 5,
-		'caps'     => 'manage_options',
-		'places'   => EP_ROOT
-		),
-		 */
+		$args = self::endpoint_settings();
 
+		do_action( 'qm/debug', $args );
+		//wpp_dump($args);
 
-		$end_points = apply_filters( 'wpp_pf_endpoints_args', $end_points );
+		foreach ( $args as $key => $value ) {
+			if ( isset( $wp->query_vars[ $key ] ) ) {
+				return $key;
+			}
+		}
 
-		return $end_points;
+		return false;
 	}
-
 
 	public static function endpoints_nav() {
 

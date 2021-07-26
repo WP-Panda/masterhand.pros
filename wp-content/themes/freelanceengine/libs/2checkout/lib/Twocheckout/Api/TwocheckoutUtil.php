@@ -32,6 +32,14 @@ class Twocheckout_Util extends Twocheckout {
 		return $array;
 	}
 
+	public static function checkError( $contents ) {
+		if ( isset( $contents['errors'] ) ) {
+			throw new Twocheckout_Error( $contents['errors'][0]['message'] );
+		} elseif ( isset( $contents['exception'] ) ) {
+			throw new Twocheckout_Error( $contents['exception']['errorMsg'], $contents['exception']['errorCode'] );
+		}
+	}
+
 	public static function objectToJson( $object ) {
 		return json_encode( $object );
 	}
@@ -58,14 +66,6 @@ class Twocheckout_Util extends Twocheckout {
 
 		return $lineitemData;
 
-	}
-
-	public static function checkError( $contents ) {
-		if ( isset( $contents['errors'] ) ) {
-			throw new Twocheckout_Error( $contents['errors'][0]['message'] );
-		} elseif ( isset( $contents['exception'] ) ) {
-			throw new Twocheckout_Error( $contents['exception']['errorMsg'], $contents['exception']['errorCode'] );
-		}
 	}
 
 }

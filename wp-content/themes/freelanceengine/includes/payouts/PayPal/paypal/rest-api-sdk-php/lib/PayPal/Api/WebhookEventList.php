@@ -17,28 +17,6 @@ use PayPal\Common\PayPalModel;
  */
 class WebhookEventList extends PayPalModel {
 	/**
-	 * A list of webhooks events.
-	 *
-	 * @param \PayPal\Api\WebhookEvent[] $events
-	 *
-	 * @return $this
-	 */
-	public function setEvents( $events ) {
-		$this->events = $events;
-
-		return $this;
-	}
-
-	/**
-	 * A list of webhooks events.
-	 *
-	 * @return \PayPal\Api\WebhookEvent[]
-	 */
-	public function getEvents() {
-		return $this->events;
-	}
-
-	/**
 	 * Append Events to the list.
 	 *
 	 * @param \PayPal\Api\WebhookEvent $webhookEvent
@@ -53,6 +31,28 @@ class WebhookEventList extends PayPalModel {
 				array_merge( $this->getEvents(), array( $webhookEvent ) )
 			);
 		}
+	}
+
+	/**
+	 * A list of webhooks events.
+	 *
+	 * @return \PayPal\Api\WebhookEvent[]
+	 */
+	public function getEvents() {
+		return $this->events;
+	}
+
+	/**
+	 * A list of webhooks events.
+	 *
+	 * @param \PayPal\Api\WebhookEvent[] $events
+	 *
+	 * @return $this
+	 */
+	public function setEvents( $events ) {
+		$this->events = $events;
+
+		return $this;
 	}
 
 	/**
@@ -91,28 +91,6 @@ class WebhookEventList extends PayPalModel {
 	}
 
 	/**
-	 * Sets Links
-	 *
-	 * @param \PayPal\Api\Links[] $links
-	 *
-	 * @return $this
-	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
-
-		return $this;
-	}
-
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
 	 * Append Links to the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -127,6 +105,28 @@ class WebhookEventList extends PayPalModel {
 				array_merge( $this->getLinks(), array( $links ) )
 			);
 		}
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
 	}
 
 	/**

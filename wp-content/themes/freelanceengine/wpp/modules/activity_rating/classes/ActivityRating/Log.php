@@ -12,6 +12,14 @@ class Log {
 
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
 	public function logging( $flag = true ) {
 		$this->debug = $flag ? true : false;
 	}
@@ -48,22 +56,6 @@ class Log {
 		}
 	}
 
-	public function getLog( $key = null ) {
-		if ( is_null( $key ) ) {
-			return $this->logDebug;
-		}
-
-		return isset( $this->logDebug[ $key ] ) ? $this->logDebug[ $key ] : null;
-	}
-
-	public function reset( $key = null ) {
-		if ( is_null( $key ) ) {
-			$this->logDebug = [];
-		} else {
-			$this->logDebug[ $key ] = [];
-		}
-	}
-
 	public function save( $fileSuffix = '' ) {
 		$log = $this->getLog();
 		if ( ! empty( $log ) ) {
@@ -78,11 +70,19 @@ class Log {
 		}
 	}
 
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
+	public function getLog( $key = null ) {
+		if ( is_null( $key ) ) {
+			return $this->logDebug;
 		}
 
-		return self::$_instance;
+		return isset( $this->logDebug[ $key ] ) ? $this->logDebug[ $key ] : null;
+	}
+
+	public function reset( $key = null ) {
+		if ( is_null( $key ) ) {
+			$this->logDebug = [];
+		} else {
+			$this->logDebug[ $key ] = [];
+		}
 	}
 }

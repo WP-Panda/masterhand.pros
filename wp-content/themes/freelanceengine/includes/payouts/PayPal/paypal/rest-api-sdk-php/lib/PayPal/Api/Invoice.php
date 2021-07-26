@@ -49,6 +49,150 @@ use PayPal\Validation\UrlValidator;
  */
 class Invoice extends PayPalResourceModel {
 	/**
+	 * Searches for an invoice or invoices. Include a search object that specifies your search criteria in the request.
+	 *
+	 * @param Search $search
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return InvoiceSearchResponse
+	 */
+	public static function search( $search, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $search, 'search' );
+		$payLoad = $search->toJSON();
+		$json    = self::executeCall(
+			"/v1/invoicing/search",
+			"POST",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new InvoiceSearchResponse();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * Gets the details for a specified invoice, by ID.
+	 *
+	 * @param string $invoiceId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Invoice
+	 */
+	public static function get( $invoiceId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $invoiceId, 'invoiceId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/invoicing/invoices/$invoiceId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Invoice();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * Lists some or all merchant invoices. Filters the response by any specified optional query string parameters.
+	 *
+	 * @param array $params
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return InvoiceSearchResponse
+	 */
+	public static function getAll( $params = array(), $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $params, 'params' );
+
+		$allowedParams = array(
+			'page'                 => 1,
+			'page_size'            => 1,
+			'total_count_required' => 1
+		);
+
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/invoicing/invoices/?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new InvoiceSearchResponse();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * Generate a QR code for an invoice by passing the invoice ID to the request URI. The request generates a QR code that is 500 pixels in width and height. You can change the dimensions of the returned code by specifying optional query parameters.
+	 *
+	 * @param array $params
+	 * @param string $invoiceId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Image
+	 */
+	public static function qrCode( $invoiceId, $params = array(), $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $invoiceId, 'invoiceId' );
+		ArgumentValidator::validate( $params, 'params' );
+
+		$allowedParams = array(
+			'width'  => 1,
+			'height' => 1,
+			'action' => 1
+		);
+
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/invoicing/invoices/$invoiceId/qr-code?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Image();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * Generates the successive invoice number.
+	 *
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return InvoiceNumber
+	 */
+	public static function generateNumber( $apiContext = null, $restCall = null ) {
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/invoicing/invoices/next-invoice-number",
+			"POST",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new InvoiceNumber();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * The unique invoice resource identifier.
 	 *
 	 * @param string $id
@@ -59,15 +203,6 @@ class Invoice extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * The unique invoice resource identifier.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -182,28 +317,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
-	 *
-	 * @param \PayPal\Api\BillingInfo[] $billing_info
-	 *
-	 * @return $this
-	 */
-	public function setBillingInfo( $billing_info ) {
-		$this->billing_info = $billing_info;
-
-		return $this;
-	}
-
-	/**
-	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
-	 *
-	 * @return \PayPal\Api\BillingInfo[]
-	 */
-	public function getBillingInfo() {
-		return $this->billing_info;
-	}
-
-	/**
 	 * Append BillingInfo to the list.
 	 *
 	 * @param \PayPal\Api\BillingInfo $billingInfo
@@ -221,6 +334,28 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
+	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
+	 *
+	 * @return \PayPal\Api\BillingInfo[]
+	 */
+	public function getBillingInfo() {
+		return $this->billing_info;
+	}
+
+	/**
+	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
+	 *
+	 * @param \PayPal\Api\BillingInfo[] $billing_info
+	 *
+	 * @return $this
+	 */
+	public function setBillingInfo( $billing_info ) {
+		$this->billing_info = $billing_info;
+
+		return $this;
+	}
+
+	/**
 	 * Remove BillingInfo from the list.
 	 *
 	 * @param \PayPal\Api\BillingInfo $billingInfo
@@ -231,28 +366,6 @@ class Invoice extends PayPalResourceModel {
 		return $this->setBillingInfo(
 			array_diff( $this->getBillingInfo(), array( $billingInfo ) )
 		);
-	}
-
-	/**
-	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
-	 *
-	 * @param \PayPal\Api\Participant[] $cc_info
-	 *
-	 * @return $this
-	 */
-	public function setCcInfo( $cc_info ) {
-		$this->cc_info = $cc_info;
-
-		return $this;
-	}
-
-	/**
-	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
-	 *
-	 * @return \PayPal\Api\Participant[]
-	 */
-	public function getCcInfo() {
-		return $this->cc_info;
 	}
 
 	/**
@@ -270,6 +383,28 @@ class Invoice extends PayPalResourceModel {
 				array_merge( $this->getCcInfo(), array( $participant ) )
 			);
 		}
+	}
+
+	/**
+	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
+	 *
+	 * @return \PayPal\Api\Participant[]
+	 */
+	public function getCcInfo() {
+		return $this->cc_info;
+	}
+
+	/**
+	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
+	 *
+	 * @param \PayPal\Api\Participant[] $cc_info
+	 *
+	 * @return $this
+	 */
+	public function setCcInfo( $cc_info ) {
+		$this->cc_info = $cc_info;
+
+		return $this;
 	}
 
 	/**
@@ -308,28 +443,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
-	 *
-	 * @param \PayPal\Api\InvoiceItem[] $items
-	 *
-	 * @return $this
-	 */
-	public function setItems( $items ) {
-		$this->items = $items;
-
-		return $this;
-	}
-
-	/**
-	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
-	 *
-	 * @return \PayPal\Api\InvoiceItem[]
-	 */
-	public function getItems() {
-		return $this->items;
-	}
-
-	/**
 	 * Append Items to the list.
 	 *
 	 * @param \PayPal\Api\InvoiceItem $invoiceItem
@@ -344,6 +457,28 @@ class Invoice extends PayPalResourceModel {
 				array_merge( $this->getItems(), array( $invoiceItem ) )
 			);
 		}
+	}
+
+	/**
+	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
+	 *
+	 * @return \PayPal\Api\InvoiceItem[]
+	 */
+	public function getItems() {
+		return $this->items;
+	}
+
+	/**
+	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
+	 *
+	 * @param \PayPal\Api\InvoiceItem[] $items
+	 *
+	 * @return $this
+	 */
+	public function setItems( $items ) {
+		$this->items = $items;
+
+		return $this;
 	}
 
 	/**
@@ -692,28 +827,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * List of payment details for the invoice.
-	 *
-	 * @param \PayPal\Api\PaymentDetail[] $payments
-	 *
-	 * @return $this
-	 */
-	public function setPayments( $payments ) {
-		$this->payments = $payments;
-
-		return $this;
-	}
-
-	/**
-	 * List of payment details for the invoice.
-	 *
-	 * @return \PayPal\Api\PaymentDetail[]
-	 */
-	public function getPayments() {
-		return $this->payments;
-	}
-
-	/**
 	 * Append Payments to the list.
 	 *
 	 * @param \PayPal\Api\PaymentDetail $paymentDetail
@@ -731,6 +844,28 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
+	 * List of payment details for the invoice.
+	 *
+	 * @return \PayPal\Api\PaymentDetail[]
+	 */
+	public function getPayments() {
+		return $this->payments;
+	}
+
+	/**
+	 * List of payment details for the invoice.
+	 *
+	 * @param \PayPal\Api\PaymentDetail[] $payments
+	 *
+	 * @return $this
+	 */
+	public function setPayments( $payments ) {
+		$this->payments = $payments;
+
+		return $this;
+	}
+
+	/**
 	 * Remove Payments from the list.
 	 *
 	 * @param \PayPal\Api\PaymentDetail $paymentDetail
@@ -741,28 +876,6 @@ class Invoice extends PayPalResourceModel {
 		return $this->setPayments(
 			array_diff( $this->getPayments(), array( $paymentDetail ) )
 		);
-	}
-
-	/**
-	 * List of refund details for the invoice.
-	 *
-	 * @param \PayPal\Api\RefundDetail[] $refunds
-	 *
-	 * @return $this
-	 */
-	public function setRefunds( $refunds ) {
-		$this->refunds = $refunds;
-
-		return $this;
-	}
-
-	/**
-	 * List of refund details for the invoice.
-	 *
-	 * @return \PayPal\Api\RefundDetail[]
-	 */
-	public function getRefunds() {
-		return $this->refunds;
 	}
 
 	/**
@@ -780,6 +893,28 @@ class Invoice extends PayPalResourceModel {
 				array_merge( $this->getRefunds(), array( $refundDetail ) )
 			);
 		}
+	}
+
+	/**
+	 * List of refund details for the invoice.
+	 *
+	 * @return \PayPal\Api\RefundDetail[]
+	 */
+	public function getRefunds() {
+		return $this->refunds;
+	}
+
+	/**
+	 * List of refund details for the invoice.
+	 *
+	 * @param \PayPal\Api\RefundDetail[] $refunds
+	 *
+	 * @return $this
+	 */
+	public function setRefunds( $refunds ) {
+		$this->refunds = $refunds;
+
+		return $this;
 	}
 
 	/**
@@ -885,28 +1020,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * List of files attached to the invoice.
-	 *
-	 * @param \PayPal\Api\FileAttachment[] $attachments
-	 *
-	 * @return $this
-	 */
-	public function setAttachments( $attachments ) {
-		$this->attachments = $attachments;
-
-		return $this;
-	}
-
-	/**
-	 * List of files attached to the invoice.
-	 *
-	 * @return \PayPal\Api\FileAttachment[]
-	 */
-	public function getAttachments() {
-		return $this->attachments;
-	}
-
-	/**
 	 * Append Attachments to the list.
 	 *
 	 * @param \PayPal\Api\FileAttachment $fileAttachment
@@ -921,6 +1034,28 @@ class Invoice extends PayPalResourceModel {
 				array_merge( $this->getAttachments(), array( $fileAttachment ) )
 			);
 		}
+	}
+
+	/**
+	 * List of files attached to the invoice.
+	 *
+	 * @return \PayPal\Api\FileAttachment[]
+	 */
+	public function getAttachments() {
+		return $this->attachments;
+	}
+
+	/**
+	 * List of files attached to the invoice.
+	 *
+	 * @param \PayPal\Api\FileAttachment[] $attachments
+	 *
+	 * @return $this
+	 */
+	public function setAttachments( $attachments ) {
+		$this->attachments = $attachments;
+
+		return $this;
 	}
 
 	/**
@@ -960,32 +1095,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * Searches for an invoice or invoices. Include a search object that specifies your search criteria in the request.
-	 *
-	 * @param Search $search
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return InvoiceSearchResponse
-	 */
-	public static function search( $search, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $search, 'search' );
-		$payLoad = $search->toJSON();
-		$json    = self::executeCall(
-			"/v1/invoicing/search",
-			"POST",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new InvoiceSearchResponse();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Sends an invoice, by ID, to a recipient. Optionally, set the `notify_merchant` query parameter to send the merchant an invoice update notification. By default, `notify_merchant` is `true`.
 	 *
 	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
@@ -1006,6 +1115,15 @@ class Invoice extends PayPalResourceModel {
 		);
 
 		return true;
+	}
+
+	/**
+	 * The unique invoice resource identifier.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**
@@ -1109,65 +1227,6 @@ class Invoice extends PayPalResourceModel {
 	}
 
 	/**
-	 * Gets the details for a specified invoice, by ID.
-	 *
-	 * @param string $invoiceId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Invoice
-	 */
-	public static function get( $invoiceId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $invoiceId, 'invoiceId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/invoicing/invoices/$invoiceId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Invoice();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
-	 * Lists some or all merchant invoices. Filters the response by any specified optional query string parameters.
-	 *
-	 * @param array $params
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return InvoiceSearchResponse
-	 */
-	public static function getAll( $params = array(), $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $params, 'params' );
-
-		$allowedParams = array(
-			'page'                 => 1,
-			'page_size'            => 1,
-			'total_count_required' => 1
-		);
-
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/invoicing/invoices/?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new InvoiceSearchResponse();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Partial updates are not supported.
 	 *
 	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
@@ -1260,65 +1319,6 @@ class Invoice extends PayPalResourceModel {
 		);
 
 		return true;
-	}
-
-	/**
-	 * Generate a QR code for an invoice by passing the invoice ID to the request URI. The request generates a QR code that is 500 pixels in width and height. You can change the dimensions of the returned code by specifying optional query parameters.
-	 *
-	 * @param array $params
-	 * @param string $invoiceId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Image
-	 */
-	public static function qrCode( $invoiceId, $params = array(), $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $invoiceId, 'invoiceId' );
-		ArgumentValidator::validate( $params, 'params' );
-
-		$allowedParams = array(
-			'width'  => 1,
-			'height' => 1,
-			'action' => 1
-		);
-
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/invoicing/invoices/$invoiceId/qr-code?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Image();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
-	 * Generates the successive invoice number.
-	 *
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return InvoiceNumber
-	 */
-	public static function generateNumber( $apiContext = null, $restCall = null ) {
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/invoicing/invoices/next-invoice-number",
-			"POST",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new InvoiceNumber();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 }

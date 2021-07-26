@@ -20,6 +20,12 @@ class Wpp_Referal extends Wpp_Module_Base {
 		parent::__construct( $args );
 	}
 
+	function gernerate_user_id() {
+		$current = $this->max_referal_code();
+
+		return empty( $current ) ? 1111 : (int) $current + 1;
+	}
+
 	/**
 	 * Получение максимального значения нутреннего USER ID
 	 *
@@ -34,13 +40,6 @@ class Wpp_Referal extends Wpp_Module_Base {
 
 		return $_ID ?? false;
 
-	}
-
-
-	function gernerate_user_id() {
-		$current = $this->max_referal_code();
-
-		return empty( $current ) ? 1111 : (int) $current + 1;
 	}
 
 }

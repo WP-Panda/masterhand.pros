@@ -82,18 +82,6 @@ class Wpp_En_User {
 
 	}
 
-	/**
-	 * Мета Дата
-	 *
-	 * @param $meta_key
-	 *
-	 * @return mixed
-	 */
-	private function get_user_meta( $meta_key ) {
-		return get_user_meta( $this->user_id, $meta_key, true );
-	}
-
-
 	public function get_user_data() {
 
 		$data = $this->data;
@@ -120,6 +108,16 @@ class Wpp_En_User {
 
 	}
 
+	/**
+	 * Мета Дата
+	 *
+	 * @param $meta_key
+	 *
+	 * @return mixed
+	 */
+	private function get_user_meta( $meta_key ) {
+		return get_user_meta( $this->user_id, $meta_key, true );
+	}
 
 	public function get_profile_data( $profile_id = null ) {
 

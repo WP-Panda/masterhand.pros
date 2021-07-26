@@ -48,37 +48,6 @@ class TwitterOAuth {
 
 	//public $retry = TRUE;
 
-
-	/**
-	 * Set API URLS
-	 */
-	function accessTokenURL() {
-		return 'https://api.twitter.com/oauth/access_token';
-	}
-
-	function authenticateURL() {
-		return 'https://api.twitter.com/oauth/authenticate';
-	}
-
-	function authorizeURL() {
-		return 'https://api.twitter.com/oauth/authorize';
-	}
-
-	function requestTokenURL() {
-		return 'https://api.twitter.com/oauth/request_token';
-	}
-
-	/**
-	 * Debug helpers
-	 */
-	function lastStatusCode() {
-		return $this->http_status;
-	}
-
-	function lastAPICall() {
-		return $this->last_api_call;
-	}
-
 	/**
 	 * construct TwitterOAuth object
 	 */
@@ -90,6 +59,17 @@ class TwitterOAuth {
 		} else {
 			$this->token = null;
 		}
+	}
+
+	/**
+	 * Debug helpers
+	 */
+	function lastStatusCode() {
+		return $this->http_status;
+	}
+
+	function lastAPICall() {
+		return $this->last_api_call;
 	}
 
 	/**
@@ -107,98 +87,6 @@ class TwitterOAuth {
 		}
 
 		return $token;
-	}
-
-	/**
-	 * Get the authorize URL
-	 *
-	 * @returns a string
-	 */
-	function getAuthorizeURL( $token, $sign_in_with_twitter = true ) {
-		if ( is_array( $token ) ) {
-			$token = $token['oauth_token'];
-		}
-		if ( empty( $sign_in_with_twitter ) ) {
-			return $this->authorizeURL() . "?oauth_token={$token}";
-		} else {
-			return $this->authenticateURL() . "?oauth_token={$token}";
-		}
-	}
-
-	/**
-	 * Exchange request token and secret for an access token and
-	 * secret, to sign API calls.
-	 *
-	 * @returns array("oauth_token" => "the-access-token",
-	 *                "oauth_token_secret" => "the-access-secret",
-	 *                "user_id" => "9436992",
-	 *                "screen_name" => "abraham")
-	 */
-	function getAccessToken( $oauth_verifier ) {
-		$parameters                   = array();
-		$parameters['oauth_verifier'] = $oauth_verifier;
-		$request                      = $this->oAuthRequest( $this->accessTokenURL(), 'GET', $parameters );
-		$token                        = OAuthUtil::parse_parameters( $request );
-		$this->token                  = new OAuthConsumer( $token['oauth_token'], $token['oauth_token_secret'] );
-
-		return $token;
-	}
-
-	/**
-	 * One time exchange of username and password for access token and secret.
-	 *
-	 * @returns array("oauth_token" => "the-access-token",
-	 *                "oauth_token_secret" => "the-access-secret",
-	 *                "user_id" => "9436992",
-	 *                "screen_name" => "abraham",
-	 *                "x_auth_expires" => "0")
-	 */
-	function getXAuthToken( $username, $password ) {
-		$parameters                    = array();
-		$parameters['x_auth_username'] = $username;
-		$parameters['x_auth_password'] = $password;
-		$parameters['x_auth_mode']     = 'client_auth';
-		$request                       = $this->oAuthRequest( $this->accessTokenURL(), 'POST', $parameters );
-		$token                         = OAuthUtil::parse_parameters( $request );
-		$this->token                   = new OAuthConsumer( $token['oauth_token'], $token['oauth_token_secret'] );
-
-		return $token;
-	}
-
-	/**
-	 * GET wrapper for oAuthRequest.
-	 */
-	function get( $url, $parameters = array() ) {
-		$response = $this->oAuthRequest( $url, 'GET', $parameters );
-		if ( $this->format === 'json' && $this->decode_json ) {
-			return json_decode( $response );
-		}
-
-		return $response;
-	}
-
-	/**
-	 * POST wrapper for oAuthRequest.
-	 */
-	function post( $url, $parameters = array() ) {
-		$response = $this->oAuthRequest( $url, 'POST', $parameters );
-		if ( $this->format === 'json' && $this->decode_json ) {
-			return json_decode( $response );
-		}
-
-		return $response;
-	}
-
-	/**
-	 * DELETE wrapper for oAuthReqeust.
-	 */
-	function delete( $url, $parameters = array() ) {
-		$response = $this->oAuthRequest( $url, 'DELETE', $parameters );
-		if ( $this->format === 'json' && $this->decode_json ) {
-			return json_decode( $response );
-		}
-
-		return $response;
 	}
 
 	/**
@@ -263,6 +151,117 @@ class TwitterOAuth {
 		$this->http_info = array_merge( $this->http_info, curl_getinfo( $ci ) );
 		$this->url       = $url;
 		curl_close( $ci );
+
+		return $response;
+	}
+
+	function requestTokenURL() {
+		return 'https://api.twitter.com/oauth/request_token';
+	}
+
+	/**
+	 * Get the authorize URL
+	 *
+	 * @returns a string
+	 */
+	function getAuthorizeURL( $token, $sign_in_with_twitter = true ) {
+		if ( is_array( $token ) ) {
+			$token = $token['oauth_token'];
+		}
+		if ( empty( $sign_in_with_twitter ) ) {
+			return $this->authorizeURL() . "?oauth_token={$token}";
+		} else {
+			return $this->authenticateURL() . "?oauth_token={$token}";
+		}
+	}
+
+	function authorizeURL() {
+		return 'https://api.twitter.com/oauth/authorize';
+	}
+
+	function authenticateURL() {
+		return 'https://api.twitter.com/oauth/authenticate';
+	}
+
+	/**
+	 * Exchange request token and secret for an access token and
+	 * secret, to sign API calls.
+	 *
+	 * @returns array("oauth_token" => "the-access-token",
+	 *                "oauth_token_secret" => "the-access-secret",
+	 *                "user_id" => "9436992",
+	 *                "screen_name" => "abraham")
+	 */
+	function getAccessToken( $oauth_verifier ) {
+		$parameters                   = array();
+		$parameters['oauth_verifier'] = $oauth_verifier;
+		$request                      = $this->oAuthRequest( $this->accessTokenURL(), 'GET', $parameters );
+		$token                        = OAuthUtil::parse_parameters( $request );
+		$this->token                  = new OAuthConsumer( $token['oauth_token'], $token['oauth_token_secret'] );
+
+		return $token;
+	}
+
+	/**
+	 * Set API URLS
+	 */
+	function accessTokenURL() {
+		return 'https://api.twitter.com/oauth/access_token';
+	}
+
+	/**
+	 * One time exchange of username and password for access token and secret.
+	 *
+	 * @returns array("oauth_token" => "the-access-token",
+	 *                "oauth_token_secret" => "the-access-secret",
+	 *                "user_id" => "9436992",
+	 *                "screen_name" => "abraham",
+	 *                "x_auth_expires" => "0")
+	 */
+	function getXAuthToken( $username, $password ) {
+		$parameters                    = array();
+		$parameters['x_auth_username'] = $username;
+		$parameters['x_auth_password'] = $password;
+		$parameters['x_auth_mode']     = 'client_auth';
+		$request                       = $this->oAuthRequest( $this->accessTokenURL(), 'POST', $parameters );
+		$token                         = OAuthUtil::parse_parameters( $request );
+		$this->token                   = new OAuthConsumer( $token['oauth_token'], $token['oauth_token_secret'] );
+
+		return $token;
+	}
+
+	/**
+	 * GET wrapper for oAuthRequest.
+	 */
+	function get( $url, $parameters = array() ) {
+		$response = $this->oAuthRequest( $url, 'GET', $parameters );
+		if ( $this->format === 'json' && $this->decode_json ) {
+			return json_decode( $response );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * POST wrapper for oAuthRequest.
+	 */
+	function post( $url, $parameters = array() ) {
+		$response = $this->oAuthRequest( $url, 'POST', $parameters );
+		if ( $this->format === 'json' && $this->decode_json ) {
+			return json_decode( $response );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * DELETE wrapper for oAuthReqeust.
+	 */
+	function delete( $url, $parameters = array() ) {
+		$response = $this->oAuthRequest( $url, 'DELETE', $parameters );
+		if ( $this->format === 'json' && $this->decode_json ) {
+			return json_decode( $response );
+		}
 
 		return $response;
 	}

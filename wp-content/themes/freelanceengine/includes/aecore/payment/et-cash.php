@@ -13,10 +13,6 @@ class ET_Cash extends ET_Payment {
 		$this->_cash_message = self::get_message();
 	}
 
-	public static function set_message( $message ) {
-		update_option( 'et_cash_message', $message );
-	}
-
 	public static function get_message() {
 		$msg = get_option( 'et_cash_message' );
 		if ( empty( $msg ) ) {
@@ -24,6 +20,14 @@ class ET_Cash extends ET_Payment {
 		} else {
 			return $msg;
 		}
+	}
+
+	public static function set_message( $message ) {
+		update_option( 'et_cash_message', $message );
+	}
+
+	public static function is_enable() {
+		return true;
 	}
 
 	public function set_checkout() {
@@ -36,9 +40,5 @@ class ET_Cash extends ET_Payment {
 		do_action( 'et_cash_checkout', $this->_cash_message, $order );
 
 		return $this->_cash_message;
-	}
-
-	public static function is_enable() {
-		return true;
 	}
 }

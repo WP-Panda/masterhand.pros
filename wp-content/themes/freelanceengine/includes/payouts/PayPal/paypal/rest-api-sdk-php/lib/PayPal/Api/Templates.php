@@ -22,214 +22,6 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Templates extends PayPalResourceModel {
 	/**
-	 * List of addresses in merchant's profile.
-	 *
-	 * @param \PayPal\Api\Address[] $addresses
-	 *
-	 * @return $this
-	 */
-	public function setAddresses( $addresses ) {
-		$this->addresses = $addresses;
-
-		return $this;
-	}
-
-	/**
-	 * List of addresses in merchant's profile.
-	 *
-	 * @return \PayPal\Api\Address[]
-	 */
-	public function getAddresses() {
-		return $this->addresses;
-	}
-
-	/**
-	 * Append Addresses to the list.
-	 *
-	 * @param \PayPal\Api\Address $address
-	 *
-	 * @return $this
-	 */
-	public function addAddress( $address ) {
-		if ( ! $this->getAddresses() ) {
-			return $this->setAddresses( array( $address ) );
-		} else {
-			return $this->setAddresses(
-				array_merge( $this->getAddresses(), array( $address ) )
-			);
-		}
-	}
-
-	/**
-	 * Remove Addresses from the list.
-	 *
-	 * @param \PayPal\Api\Address $address
-	 *
-	 * @return $this
-	 */
-	public function removeAddress( $address ) {
-		return $this->setAddresses(
-			array_diff( $this->getAddresses(), array( $address ) )
-		);
-	}
-
-	/**
-	 * List of emails in merchant's profile.
-	 *
-	 * @param string[] $emails
-	 *
-	 * @return $this
-	 */
-	public function setEmails( $emails ) {
-		$this->emails = $emails;
-
-		return $this;
-	}
-
-	/**
-	 * List of emails in merchant's profile.
-	 *
-	 * @return string[]
-	 */
-	public function getEmails() {
-		return $this->emails;
-	}
-
-	/**
-	 * Append Emails to the list.
-	 *
-	 * @param string $string
-	 *
-	 * @return $this
-	 */
-	public function addEmail( $string ) {
-		if ( ! $this->getEmails() ) {
-			return $this->setEmails( array( $string ) );
-		} else {
-			return $this->setEmails(
-				array_merge( $this->getEmails(), array( $string ) )
-			);
-		}
-	}
-
-	/**
-	 * Remove Emails from the list.
-	 *
-	 * @param string $string
-	 *
-	 * @return $this
-	 */
-	public function removeEmail( $string ) {
-		return $this->setEmails(
-			array_diff( $this->getEmails(), array( $string ) )
-		);
-	}
-
-	/**
-	 * List of phone numbers in merchant's profile.
-	 *
-	 * @param \PayPal\Api\Phone[] $phones
-	 *
-	 * @return $this
-	 */
-	public function setPhones( $phones ) {
-		$this->phones = $phones;
-
-		return $this;
-	}
-
-	/**
-	 * List of phone numbers in merchant's profile.
-	 *
-	 * @return \PayPal\Api\Phone[]
-	 */
-	public function getPhones() {
-		return $this->phones;
-	}
-
-	/**
-	 * Append Phones to the list.
-	 *
-	 * @param \PayPal\Api\Phone $phone
-	 *
-	 * @return $this
-	 */
-	public function addPhone( $phone ) {
-		if ( ! $this->getPhones() ) {
-			return $this->setPhones( array( $phone ) );
-		} else {
-			return $this->setPhones(
-				array_merge( $this->getPhones(), array( $phone ) )
-			);
-		}
-	}
-
-	/**
-	 * Remove Phones from the list.
-	 *
-	 * @param \PayPal\Api\Phone $phone
-	 *
-	 * @return $this
-	 */
-	public function removePhone( $phone ) {
-		return $this->setPhones(
-			array_diff( $this->getPhones(), array( $phone ) )
-		);
-	}
-
-	/**
-	 * Array of templates.
-	 *
-	 * @param \PayPal\Api\Template[] $templates
-	 *
-	 * @return $this
-	 */
-	public function setTemplates( $templates ) {
-		$this->templates = $templates;
-
-		return $this;
-	}
-
-	/**
-	 * Array of templates.
-	 *
-	 * @return \PayPal\Api\Template[]
-	 */
-	public function getTemplates() {
-		return $this->templates;
-	}
-
-	/**
-	 * Append Templates to the list.
-	 *
-	 * @param \PayPal\Api\Template $template
-	 *
-	 * @return $this
-	 */
-	public function addTemplate( $template ) {
-		if ( ! $this->getTemplates() ) {
-			return $this->setTemplates( array( $template ) );
-		} else {
-			return $this->setTemplates(
-				array_merge( $this->getTemplates(), array( $template ) )
-			);
-		}
-	}
-
-	/**
-	 * Remove Templates from the list.
-	 *
-	 * @param \PayPal\Api\Template $template
-	 *
-	 * @return $this
-	 */
-	public function removeTemplate( $template ) {
-		return $this->setTemplates(
-			array_diff( $this->getTemplates(), array( $template ) )
-		);
-	}
-
-	/**
 	 * Retrieve the details for a particular template by passing the template ID to the request URI.
 	 *
 	 * @deprecated Please use `Template::get()` instead.
@@ -285,5 +77,213 @@ class Templates extends PayPalResourceModel {
 		$ret->fromJson( $json );
 
 		return $ret;
+	}
+
+	/**
+	 * Append Addresses to the list.
+	 *
+	 * @param \PayPal\Api\Address $address
+	 *
+	 * @return $this
+	 */
+	public function addAddress( $address ) {
+		if ( ! $this->getAddresses() ) {
+			return $this->setAddresses( array( $address ) );
+		} else {
+			return $this->setAddresses(
+				array_merge( $this->getAddresses(), array( $address ) )
+			);
+		}
+	}
+
+	/**
+	 * List of addresses in merchant's profile.
+	 *
+	 * @return \PayPal\Api\Address[]
+	 */
+	public function getAddresses() {
+		return $this->addresses;
+	}
+
+	/**
+	 * List of addresses in merchant's profile.
+	 *
+	 * @param \PayPal\Api\Address[] $addresses
+	 *
+	 * @return $this
+	 */
+	public function setAddresses( $addresses ) {
+		$this->addresses = $addresses;
+
+		return $this;
+	}
+
+	/**
+	 * Remove Addresses from the list.
+	 *
+	 * @param \PayPal\Api\Address $address
+	 *
+	 * @return $this
+	 */
+	public function removeAddress( $address ) {
+		return $this->setAddresses(
+			array_diff( $this->getAddresses(), array( $address ) )
+		);
+	}
+
+	/**
+	 * Append Emails to the list.
+	 *
+	 * @param string $string
+	 *
+	 * @return $this
+	 */
+	public function addEmail( $string ) {
+		if ( ! $this->getEmails() ) {
+			return $this->setEmails( array( $string ) );
+		} else {
+			return $this->setEmails(
+				array_merge( $this->getEmails(), array( $string ) )
+			);
+		}
+	}
+
+	/**
+	 * List of emails in merchant's profile.
+	 *
+	 * @return string[]
+	 */
+	public function getEmails() {
+		return $this->emails;
+	}
+
+	/**
+	 * List of emails in merchant's profile.
+	 *
+	 * @param string[] $emails
+	 *
+	 * @return $this
+	 */
+	public function setEmails( $emails ) {
+		$this->emails = $emails;
+
+		return $this;
+	}
+
+	/**
+	 * Remove Emails from the list.
+	 *
+	 * @param string $string
+	 *
+	 * @return $this
+	 */
+	public function removeEmail( $string ) {
+		return $this->setEmails(
+			array_diff( $this->getEmails(), array( $string ) )
+		);
+	}
+
+	/**
+	 * Append Phones to the list.
+	 *
+	 * @param \PayPal\Api\Phone $phone
+	 *
+	 * @return $this
+	 */
+	public function addPhone( $phone ) {
+		if ( ! $this->getPhones() ) {
+			return $this->setPhones( array( $phone ) );
+		} else {
+			return $this->setPhones(
+				array_merge( $this->getPhones(), array( $phone ) )
+			);
+		}
+	}
+
+	/**
+	 * List of phone numbers in merchant's profile.
+	 *
+	 * @return \PayPal\Api\Phone[]
+	 */
+	public function getPhones() {
+		return $this->phones;
+	}
+
+	/**
+	 * List of phone numbers in merchant's profile.
+	 *
+	 * @param \PayPal\Api\Phone[] $phones
+	 *
+	 * @return $this
+	 */
+	public function setPhones( $phones ) {
+		$this->phones = $phones;
+
+		return $this;
+	}
+
+	/**
+	 * Remove Phones from the list.
+	 *
+	 * @param \PayPal\Api\Phone $phone
+	 *
+	 * @return $this
+	 */
+	public function removePhone( $phone ) {
+		return $this->setPhones(
+			array_diff( $this->getPhones(), array( $phone ) )
+		);
+	}
+
+	/**
+	 * Append Templates to the list.
+	 *
+	 * @param \PayPal\Api\Template $template
+	 *
+	 * @return $this
+	 */
+	public function addTemplate( $template ) {
+		if ( ! $this->getTemplates() ) {
+			return $this->setTemplates( array( $template ) );
+		} else {
+			return $this->setTemplates(
+				array_merge( $this->getTemplates(), array( $template ) )
+			);
+		}
+	}
+
+	/**
+	 * Array of templates.
+	 *
+	 * @return \PayPal\Api\Template[]
+	 */
+	public function getTemplates() {
+		return $this->templates;
+	}
+
+	/**
+	 * Array of templates.
+	 *
+	 * @param \PayPal\Api\Template[] $templates
+	 *
+	 * @return $this
+	 */
+	public function setTemplates( $templates ) {
+		$this->templates = $templates;
+
+		return $this;
+	}
+
+	/**
+	 * Remove Templates from the list.
+	 *
+	 * @param \PayPal\Api\Template $template
+	 *
+	 * @return $this
+	 */
+	public function removeTemplate( $template ) {
+		return $this->setTemplates(
+			array_diff( $this->getTemplates(), array( $template ) )
+		);
 	}
 }

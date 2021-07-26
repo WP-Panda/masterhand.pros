@@ -258,6 +258,7 @@ $sponsor_name    = get_sponsor( $user_ID );
     
 
 
+
     </script>
 <?php }
 if ( ! empty( $current_skills ) ) { ?>
@@ -266,6 +267,7 @@ if ( ! empty( $current_skills ) ) { ?>
 
 
         
+
 
 
     </script>

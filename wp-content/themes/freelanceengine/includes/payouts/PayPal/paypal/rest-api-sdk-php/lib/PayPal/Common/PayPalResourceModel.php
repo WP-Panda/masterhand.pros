@@ -16,25 +16,27 @@ use PayPal\Transport\PayPalRestCall;
 class PayPalResourceModel extends PayPalModel implements IResource {
 
 	/**
-	 * Sets Links
+	 * Execute SDK Call to Paypal services
 	 *
-	 * @param \PayPal\Api\Links[] $links
+	 * @param string $url
+	 * @param string $method
+	 * @param string $payLoad
+	 * @param array $headers
+	 * @param ApiContext $apiContext
+	 * @param PayPalRestCall $restCall
+	 * @param array $handlers
 	 *
-	 * @return $this
+	 * @return string json response of the object
 	 */
-	public function setLinks( $links ) {
-		$this->links = $links;
+	protected static function executeCall( $url, $method, $payLoad, $headers = array(), $apiContext = null, $restCall = null, $handlers = array( 'PayPal\Handler\RestHandler' ) ) {
+		//Initialize the context and rest call object if not provided explicitly
+		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
+		$restCall   = $restCall ? $restCall : new PayPalRestCall( $apiContext );
 
-		return $this;
-	}
+		//Make the execution call
+		$json = $restCall->execute( $handlers, $url, $method, $payLoad, $headers );
 
-	/**
-	 * Gets Links
-	 *
-	 * @return \PayPal\Api\Links[]
-	 */
-	public function getLinks() {
-		return $this->links;
+		return $json;
 	}
 
 	public function getLink( $rel ) {
@@ -67,6 +69,28 @@ class PayPalResourceModel extends PayPalModel implements IResource {
 	}
 
 	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
+	}
+
+	/**
 	 * Remove Links from the list.
 	 *
 	 * @param \PayPal\Api\Links $links
@@ -77,31 +101,6 @@ class PayPalResourceModel extends PayPalModel implements IResource {
 		return $this->setLinks(
 			array_diff( $this->getLinks(), array( $links ) )
 		);
-	}
-
-
-	/**
-	 * Execute SDK Call to Paypal services
-	 *
-	 * @param string $url
-	 * @param string $method
-	 * @param string $payLoad
-	 * @param array $headers
-	 * @param ApiContext $apiContext
-	 * @param PayPalRestCall $restCall
-	 * @param array $handlers
-	 *
-	 * @return string json response of the object
-	 */
-	protected static function executeCall( $url, $method, $payLoad, $headers = array(), $apiContext = null, $restCall = null, $handlers = array( 'PayPal\Handler\RestHandler' ) ) {
-		//Initialize the context and rest call object if not provided explicitly
-		$apiContext = $apiContext ? $apiContext : new ApiContext( self::$credential );
-		$restCall   = $restCall ? $restCall : new PayPalRestCall( $apiContext );
-
-		//Make the execution call
-		$json = $restCall->execute( $handlers, $url, $method, $payLoad, $headers );
-
-		return $json;
 	}
 
 	/**

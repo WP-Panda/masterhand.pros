@@ -28,6 +28,64 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Plan extends PayPalResourceModel {
 	/**
+	 * Retrieve the details for a particular billing plan by passing the billing plan ID to the request URI.
+	 *
+	 * @param string $planId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Plan
+	 */
+	public static function get( $planId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $planId, 'planId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/billing-plans/$planId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Plan();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * List billing plans according to optional query string parameters specified.
+	 *
+	 * @param array $params
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return PlanList
+	 */
+	public static function all( $params, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $params, 'params' );
+		$payLoad       = "";
+		$allowedParams = array(
+			'page_size'      => 1,
+			'status'         => 1,
+			'page'           => 1,
+			'total_required' => 1
+		);
+		$json          = self::executeCall(
+			"/v1/payments/billing-plans/" . "?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret           = new PlanList();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Identifier of the billing plan. 128 characters max.
 	 *
 	 * @param string $id
@@ -38,15 +96,6 @@ class Plan extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * Identifier of the billing plan. 128 characters max.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -182,28 +231,6 @@ class Plan extends PayPalResourceModel {
 	}
 
 	/**
-	 * Array of payment definitions for this billing plan.
-	 *
-	 * @param \PayPal\Api\PaymentDefinition[] $payment_definitions
-	 *
-	 * @return $this
-	 */
-	public function setPaymentDefinitions( $payment_definitions ) {
-		$this->payment_definitions = $payment_definitions;
-
-		return $this;
-	}
-
-	/**
-	 * Array of payment definitions for this billing plan.
-	 *
-	 * @return \PayPal\Api\PaymentDefinition[]
-	 */
-	public function getPaymentDefinitions() {
-		return $this->payment_definitions;
-	}
-
-	/**
 	 * Append PaymentDefinitions to the list.
 	 *
 	 * @param \PayPal\Api\PaymentDefinition $paymentDefinition
@@ -221,6 +248,28 @@ class Plan extends PayPalResourceModel {
 	}
 
 	/**
+	 * Array of payment definitions for this billing plan.
+	 *
+	 * @return \PayPal\Api\PaymentDefinition[]
+	 */
+	public function getPaymentDefinitions() {
+		return $this->payment_definitions;
+	}
+
+	/**
+	 * Array of payment definitions for this billing plan.
+	 *
+	 * @param \PayPal\Api\PaymentDefinition[] $payment_definitions
+	 *
+	 * @return $this
+	 */
+	public function setPaymentDefinitions( $payment_definitions ) {
+		$this->payment_definitions = $payment_definitions;
+
+		return $this;
+	}
+
+	/**
 	 * Remove PaymentDefinitions from the list.
 	 *
 	 * @param \PayPal\Api\PaymentDefinition $paymentDefinition
@@ -231,28 +280,6 @@ class Plan extends PayPalResourceModel {
 		return $this->setPaymentDefinitions(
 			array_diff( $this->getPaymentDefinitions(), array( $paymentDefinition ) )
 		);
-	}
-
-	/**
-	 * Array of terms for this billing plan.
-	 *
-	 * @param \PayPal\Api\Terms[] $terms
-	 *
-	 * @return $this
-	 */
-	public function setTerms( $terms ) {
-		$this->terms = $terms;
-
-		return $this;
-	}
-
-	/**
-	 * Array of terms for this billing plan.
-	 *
-	 * @return \PayPal\Api\Terms[]
-	 */
-	public function getTerms() {
-		return $this->terms;
 	}
 
 	/**
@@ -270,6 +297,28 @@ class Plan extends PayPalResourceModel {
 				array_merge( $this->getTerms(), array( $terms ) )
 			);
 		}
+	}
+
+	/**
+	 * Array of terms for this billing plan.
+	 *
+	 * @return \PayPal\Api\Terms[]
+	 */
+	public function getTerms() {
+		return $this->terms;
+	}
+
+	/**
+	 * Array of terms for this billing plan.
+	 *
+	 * @param \PayPal\Api\Terms[] $terms
+	 *
+	 * @return $this
+	 */
+	public function setTerms( $terms ) {
+		$this->terms = $terms;
+
+		return $this;
 	}
 
 	/**
@@ -308,32 +357,6 @@ class Plan extends PayPalResourceModel {
 	}
 
 	/**
-	 * Retrieve the details for a particular billing plan by passing the billing plan ID to the request URI.
-	 *
-	 * @param string $planId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Plan
-	 */
-	public static function get( $planId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $planId, 'planId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/billing-plans/$planId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Plan();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Create a new billing plan by passing the details for the plan, including the plan name, description, and type, to the request URI.
 	 *
 	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
@@ -354,31 +377,6 @@ class Plan extends PayPalResourceModel {
 		$this->fromJson( $json );
 
 		return $this;
-	}
-
-	/**
-	 * Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
-	 *
-	 * @param PatchRequest $patchRequest
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return bool
-	 */
-	public function update( $patchRequest, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $this->getId(), "Id" );
-		ArgumentValidator::validate( $patchRequest, 'patchRequest' );
-		$payLoad = $patchRequest->toJSON();
-		self::executeCall(
-			"/v1/payments/billing-plans/{$this->getId()}",
-			"PATCH",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-
-		return true;
 	}
 
 	/**
@@ -405,35 +403,37 @@ class Plan extends PayPalResourceModel {
 	}
 
 	/**
-	 * List billing plans according to optional query string parameters specified.
+	 * Identifier of the billing plan. 128 characters max.
 	 *
-	 * @param array $params
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
+	 * Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
+	 *
+	 * @param PatchRequest $patchRequest
 	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
 	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
 	 *
-	 * @return PlanList
+	 * @return bool
 	 */
-	public static function all( $params, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $params, 'params' );
-		$payLoad       = "";
-		$allowedParams = array(
-			'page_size'      => 1,
-			'status'         => 1,
-			'page'           => 1,
-			'total_required' => 1
-		);
-		$json          = self::executeCall(
-			"/v1/payments/billing-plans/" . "?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			"GET",
+	public function update( $patchRequest, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $this->getId(), "Id" );
+		ArgumentValidator::validate( $patchRequest, 'patchRequest' );
+		$payLoad = $patchRequest->toJSON();
+		self::executeCall(
+			"/v1/payments/billing-plans/{$this->getId()}",
+			"PATCH",
 			$payLoad,
 			null,
 			$apiContext,
 			$restCall
 		);
-		$ret           = new PlanList();
-		$ret->fromJson( $json );
 
-		return $ret;
+		return true;
 	}
 
 }

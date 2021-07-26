@@ -18,11 +18,12 @@ $sql     = "select ID from  $wpdb->posts as P
 							AND M.meta_value = $author_id
 					";
 $results = $wpdb->get_col( $sql );
-query_posts( array( 'post_status'  => 'publish',
-                    'showposts'    => - 1,
-                    'post_type'    => 'project',
-                    'author'       => $current_user->ID,
-                    'post__not_in' => $results
+query_posts( array(
+	'post_status'  => 'publish',
+	'showposts'    => - 1,
+	'post_type'    => 'project',
+	'author'       => $current_user->ID,
+	'post__not_in' => $results
 ) );
 
 ?>

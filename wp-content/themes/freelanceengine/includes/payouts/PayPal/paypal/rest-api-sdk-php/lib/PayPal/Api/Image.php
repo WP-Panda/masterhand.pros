@@ -26,15 +26,6 @@ class Image extends PayPalModel {
 	}
 
 	/**
-	 * Get Image as Base-64 encoded String
-	 *
-	 * @return string
-	 */
-	public function getImage() {
-		return $this->image;
-	}
-
-	/**
 	 * Stores the Image to file
 	 *
 	 * @param string $name File Name
@@ -50,6 +41,15 @@ class Image extends PayPalModel {
 		file_put_contents( $name, base64_decode( $this->getImage() ) );
 
 		return $name;
+	}
+
+	/**
+	 * Get Image as Base-64 encoded String
+	 *
+	 * @return string
+	 */
+	public function getImage() {
+		return $this->image;
 	}
 
 }

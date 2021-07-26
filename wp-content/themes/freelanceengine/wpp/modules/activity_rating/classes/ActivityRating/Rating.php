@@ -3,18 +3,6 @@
 namespace ActivityRating;
 
 class Rating extends Base {
-	protected static $_instance = null;
-
-	public static $defaultTimeZone = 'UTC';
-
-	private $_dataAct = [
-		'userId'         => 0,
-		'type'           => '',
-		'value'          => 0,
-		'sourceId'       => 0,
-		'additionalData' => '',
-	];
-
 	const ACTIVITY_amountPayment = 'amountPayment';
 	const ACTIVITY_oneFieldProfile = 'oneFieldProfile';
 	const ACTIVITY_siteVisit = 'siteVisit';
@@ -28,6 +16,15 @@ class Rating extends Base {
 	const ACTIVITY_bidAccepted = 'bidAccepted';
 	const ACTIVITY_installmentPlan = 'installmentPlan';
 	const ACTIVITY_forReward = 'forReward';
+	public static $defaultTimeZone = 'UTC';
+	protected static $_instance = null;
+	private $_dataAct = [
+		'userId'         => 0,
+		'type'           => '',
+		'value'          => 0,
+		'sourceId'       => 0,
+		'additionalData' => '',
+	];
 
 	public static function initActions() {
 		add_action( 'init', [ self::getInstance(), 'doActionSiteVisit' ], 100 );
@@ -63,6 +60,63 @@ class Rating extends Base {
 		//		add_action('activityRating_forReward', [self::getInstance(), 'doActionForReward'], 1, 2);
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
+	public static function doActionForReward()//not work
+	{
+
+	}
+
+	public static function getMicroTime() {
+		$time = time();
+		$now  = \DateTime::createFromFormat( 'U', $time );
+		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
+
+		return $now->format( 'Y-m-d H:i:s.u' );
+	}
+
+	public static function getListActivity( $role = 'freelancer' ) {
+		$list = [];
+		if ( $role == EMPLOYER ) {
+			$list = [
+				self::ACTIVITY_amountPayment,
+				self::ACTIVITY_oneFieldProfile,
+				self::ACTIVITY_siteVisit,
+				self::ACTIVITY_asReferral,
+				self::ACTIVITY_asReferrer,
+				self::ACTIVITY_forSkill,
+				self::ACTIVITY_forEndorseSkill,
+				self::ACTIVITY_forReview,
+				self::ACTIVITY_projectSuccess,
+				self::ACTIVITY_bidAccepted,
+				self::ACTIVITY_installmentPlan,
+				self::ACTIVITY_forReward,
+			];
+		} else {
+			$list = [
+				self::ACTIVITY_amountPayment,
+				self::ACTIVITY_oneFieldProfile,
+				self::ACTIVITY_siteVisit,
+				self::ACTIVITY_onePortfolio,
+				self::ACTIVITY_asReferral,
+				self::ACTIVITY_asReferrer,
+				self::ACTIVITY_forSkill,
+				self::ACTIVITY_forEndorseSkill,
+				self::ACTIVITY_forReview,
+				self::ACTIVITY_projectSuccess,
+				self::ACTIVITY_installmentPlan,
+				self::ACTIVITY_forReward,
+			];
+		}
+
+		return $list;
+	}
 
 	public function session() {
 		if ( ! session_id() ) {
@@ -98,6 +152,126 @@ class Rating extends Base {
 				}
 			}
 		}
+	}
+
+	public static function getUTCDate() {
+		$time = time();
+		$now  = \DateTime::createFromFormat( 'U', $time );
+		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
+
+		return $now->format( 'Y-m-d' );
+	}
+
+	public function getLastTypeActivity( $userId = 0, $type = '' ) {
+		return $this->db->get_row( "SELECT DISTINCT * FROM {$this->tbRatingDetail} WHERE
+		user_id = {$this->toInt($userId)}
+		AND type_activity = '{$this->escapeStr($type)}'
+		ORDER BY time DESC", ARRAY_A );
+	}
+
+	private function dataActUid( $userId ) {
+		$this->_dataAct['userId'] = $this->toInt( $userId );
+	}
+
+	private function dataActType( $type ) {
+		$this->_dataAct['type'] = $this->escapeStr( $type );
+	}
+
+	private function calcWithPRO( $value ) {
+		//		$value = floatval($value) + (floatval($value) * Config::getInstance()->getCoeffProStatus());
+		$value = floatval( $value ) * Config::getInstance()->getCoeffProStatus();
+
+		return ceil( $value );
+	}
+
+	private function dataActValue( $value ) {
+		$this->_dataAct['value'] = $this->toInt( $value );
+	}
+
+	private function dataActPro( $value ) {
+		$this->_dataAct['valuePro'] = $this->toInt( $value );
+	}
+
+	private function saveDetail( $reWrite = true ) {
+		if ( empty( $this->_dataAct ) ) {
+			return false;
+		}
+
+		$addSum    = boolval( $reWrite ) ? '' : '+ value';
+		$addSumPro = boolval( $reWrite ) ? '' : '+ value_pro';
+		$time      = $this->getUTCTimestamp();
+		$sql       = "INSERT INTO {$this->tbRatingDetail} (user_id, type_activity, time, value, value_pro, source_id, additional_data)
+		VALUES (
+		{$this->getDataActUid()},
+		'{$this->getDataActType()}',
+		'{$this->escapeStr($time)}',
+		{$this->getDataActValue()},
+		{$this->getDataActPro()},
+		{$this->getDataActSourceId()},
+		'{$this->getDataActAdditional()}'
+		)
+		ON DUPLICATE KEY UPDATE value = VALUES(value) {$addSum}, value_pro = VALUES(value_pro) {$addSumPro}, additional_data = VALUES(additional_data), time = VALUES(time)
+		";
+		$result    = $this->db->query( $sql );
+
+		return $result;
+	}
+
+	public static function getUTCTimestamp( $asInt = 0 ) {
+		$time = time();
+		$now  = \DateTime::createFromFormat( 'U', $time );
+		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
+
+		return boolval( $asInt ) ? (int) $now->getTimestamp() : $now->format( 'Y-m-d H:i:s' );
+	}
+
+	private function getDataActUid() {
+		return $this->_dataAct['userId'];
+	}
+
+	private function getDataActType() {
+		return $this->_dataAct['type'];
+	}
+
+	private function getDataActValue() {
+		return $this->_dataAct['value'];
+	}
+
+	private function getDataActPro() {
+		return $this->_dataAct['valuePro'];
+	}
+
+	private function getDataActSourceId() {
+		return $this->_dataAct['sourceId'];
+	}
+
+	private function getDataActAdditional() {
+		return $this->_dataAct['additionalData'];
+	}
+
+	private function addToTotal( $value = 0, $pro = 0 ) {
+		$result = false;
+		if ( $this->getDataActUid() ) {
+			$sql    = "INSERT INTO {$this->tbRating} (user_id, rating, pro_rating, updated)
+			VALUES ({$this->getDataActUid()}, {$this->toInt($value)}, {$this->toInt($pro)}, '{$this->getUTCTimestamp()}')
+			ON DUPLICATE KEY UPDATE rating = VALUES(rating) + rating, pro_rating = VALUES(pro_rating) + pro_rating, updated = VALUES(updated)
+			";
+			$result = $this->db->query( $sql );
+			$this->resetDataAct();
+		}
+
+		return $result;
+	}
+
+	private function resetDataAct() {
+		$this->_dataAct = [
+			'userId'         => 0,
+			'type'           => '',
+			'value'          => 0,
+			'valuePro'       => 0,
+			'sourceId'       => 0,
+			'additionalData' => '',
+		];
 	}
 
 	public function employerPaymentProject( $bidId = 0 ) {
@@ -145,6 +319,10 @@ class Rating extends Base {
 		$this->logger->addLog( 'doActionAmountPayment_REQUEST', $_REQUEST );
 		$this->logger->addLog( 'doActionAmountPayment_REQUEST_URI', ! empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : 'null' );
 		$this->logger->save();
+	}
+
+	public function getDataAct() {
+		return $this->_dataAct;
 	}
 
 	public function doActionOneFieldProfile( $userId = 0 ) {
@@ -236,6 +414,96 @@ class Rating extends Base {
 			$this->logger->save();
 
 			$this->doActionInstallmentPlan();
+		}
+	}
+
+	public function getValueActivity( $userId = 0, $type = '', $sourceId = 0 ) {
+		return (int) $this->db->get_var( "SELECT value FROM {$this->tbRatingDetail} WHERE
+		user_id = {$this->toInt($userId)}
+		AND type_activity = '{$this->escapeStr($type)}'
+		AND source_id = {$this->toInt($sourceId)}" );
+	}
+
+	public function getValueActivityPro( $userId = 0, $type = '', $sourceId = 0 ) {
+		return (int) $this->db->get_var( "SELECT value_pro FROM {$this->tbRatingDetail} WHERE
+		user_id = {$this->toInt($userId)}
+		AND type_activity = '{$this->escapeStr($type)}'
+		AND source_id = {$this->toInt($sourceId)}" );
+	}
+
+	private function subtractFromTotal( $value = 0, $valuePro = 0 ) {
+		$result = false;
+		if ( $this->getDataActUid() ) {
+			$rating = $this->getRating( $this->getDataActUid() );
+			$pro    = $this->getProRating( $this->getDataActUid() );
+
+			$upd['rating']     = ( ceil( $value ) >= $rating ) ? 0 : $rating - ceil( $value );
+			$upd['pro_rating'] = ( ceil( $valuePro ) >= $pro ) ? 0 : $pro - ceil( $valuePro );
+			$upd['updated']    = $this->getUTCTimestamp();
+			$result            = $this->db->update( $this->tbRating, $upd, [ 'user_id' => $this->getDataActUid() ] );
+			$this->resetDataAct();
+		}
+
+		return $result;
+	}
+
+	public function getRating( $userId = 0 ) {
+		return $this->db->get_var( "SELECT rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
+	}
+
+	public function getProRating( $userId = 0 ) {
+		return $this->db->get_var( "SELECT pro_rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
+	}
+
+	public function doActionInstallmentPlan( $userId = 0 )//temporally called in doActionOneFieldProfile
+	{
+		global $user_ID;
+
+		$userId = $user_ID ? $user_ID : $userId;
+		if ( $userId ) {
+
+			$sql             = "SELECT IF(inp.meta_value = 1, 1, 0)
+			FROM {$this->tb_prefix}users u
+			LEFT JOIN {$this->tb_prefix}posts p ON p.post_author = u.ID AND p.post_type = 'fre_profile'
+			LEFT JOIN {$this->tb_prefix}postmeta inp ON inp.post_id = p.ID AND inp.meta_key = 'installmentPlan'
+
+			WHERE u.ID = {$this->toInt($userId)}";
+			$installmentPlan = $this->db->get_var( $sql );
+
+			$this->logger->addLog( '$installmentPlan$sql', $sql );
+			$this->logger->addLog( '$installmentPlan', $installmentPlan );
+			$this->logger->addLog( '$installmentPlan$empty', empty( $installmentPlan ) );
+			$this->logger->save();
+
+			$this->dataActUid( $userId );
+			$this->dataActType( self::ACTIVITY_installmentPlan );
+
+			if ( empty( $installmentPlan ) ) {
+				$valueActivity = 0;
+				$valuePro      = 0;
+			} else {
+				$method        = 'get' . ucfirst( userRole( $userId ) );
+				$valueActivity = Config::getInstance()->$method( self::ACTIVITY_installmentPlan );
+				//$valueActivity = (userHaveProStatus($userId)) ? $this->calcWithPRO($valueActivity) : ceil($valueActivity);
+				$valueActivity = ceil( $valueActivity );
+				$valuePro      = ( userHaveProStatus( $userId ) ) ? $this->calcWithPRO( $valueActivity ) : 0;
+			}
+
+			$this->dataActValue( $valueActivity );
+			$this->dataActPro( $valuePro );
+			$currentValue    = $this->getValueActivity( $this->getDataActUid(), self::ACTIVITY_installmentPlan );
+			$currentValuePro = $this->getValueActivityPro( $this->getDataActUid(), self::ACTIVITY_installmentPlan );
+			if ( $this->saveDetail() ) {
+				if ( $currentValue <= $valueActivity ) {
+					$valueToTotal = $valueActivity - $currentValue;
+					$proToTotal   = $valuePro - $currentValuePro;
+					$this->addToTotal( $valueToTotal, $proToTotal );
+				} else {
+					$valueToTotal = $currentValue - $valueActivity;
+					$proToTotal   = $currentValuePro - $valuePro;
+					$this->subtractFromTotal( $valueToTotal, $proToTotal );
+				}
+			}
 		}
 	}
 
@@ -386,6 +654,10 @@ class Rating extends Base {
 		}
 	}
 
+	private function dataActSourceId( $sourceId ) {
+		$this->_dataAct['sourceId'] = $this->toInt( $sourceId );
+	}
+
 	public function doActionForReview() {
 		global $user_ID;
 		if ( $user_ID ) {
@@ -435,6 +707,19 @@ class Rating extends Base {
 		$this->logger->save();
 	}
 
+	private function addFreelancerRating( $freelancerId ) {
+		$freelancerRating = $this->getTotal( $freelancerId );
+		$this->logger->addLog( '$freelancerRating', $freelancerRating );
+		$coefficient = Config::getInstance()->getCoeffFromRatingFreelancer();
+		$value       = floatval( $freelancerRating ) * $coefficient;
+
+		return ceil( $value );
+	}
+
+	public function getTotal( $userId = 0 ) {
+		return $this->db->get_var( "SELECT rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
+	}
+
 	public function doActionProjectSuccessFreelancer( $freelancerId = 0, $employerId = 0 ) {
 		$this->logger->addLog( '__METHOD__', __METHOD__ );
 
@@ -464,6 +749,15 @@ class Rating extends Base {
 		$this->logger->save();
 	}
 
+	private function addEmployerRating( $employerId ) {
+		$employerRating = $this->getTotal( $employerId );
+		$this->logger->addLog( '$employerRating', $employerRating );
+		$coefficient = Config::getInstance()->getCoeffFromRatingEmployer();
+		$value       = floatval( $employerRating ) * $coefficient;
+
+		return ceil( $value );
+	}
+
 	public function doActionBidAccepted() {
 		global $user_ID;
 		if ( $user_ID ) {
@@ -484,222 +778,6 @@ class Rating extends Base {
 		}
 	}
 
-	public static function doActionForReward()//not work
-	{
-
-	}
-
-	public function doActionInstallmentPlan( $userId = 0 )//temporally called in doActionOneFieldProfile
-	{
-		global $user_ID;
-
-		$userId = $user_ID ? $user_ID : $userId;
-		if ( $userId ) {
-
-			$sql             = "SELECT IF(inp.meta_value = 1, 1, 0)
-			FROM {$this->tb_prefix}users u
-			LEFT JOIN {$this->tb_prefix}posts p ON p.post_author = u.ID AND p.post_type = 'fre_profile'
-			LEFT JOIN {$this->tb_prefix}postmeta inp ON inp.post_id = p.ID AND inp.meta_key = 'installmentPlan'
-
-			WHERE u.ID = {$this->toInt($userId)}";
-			$installmentPlan = $this->db->get_var( $sql );
-
-			$this->logger->addLog( '$installmentPlan$sql', $sql );
-			$this->logger->addLog( '$installmentPlan', $installmentPlan );
-			$this->logger->addLog( '$installmentPlan$empty', empty( $installmentPlan ) );
-			$this->logger->save();
-
-			$this->dataActUid( $userId );
-			$this->dataActType( self::ACTIVITY_installmentPlan );
-
-			if ( empty( $installmentPlan ) ) {
-				$valueActivity = 0;
-				$valuePro      = 0;
-			} else {
-				$method        = 'get' . ucfirst( userRole( $userId ) );
-				$valueActivity = Config::getInstance()->$method( self::ACTIVITY_installmentPlan );
-				//$valueActivity = (userHaveProStatus($userId)) ? $this->calcWithPRO($valueActivity) : ceil($valueActivity);
-				$valueActivity = ceil( $valueActivity );
-				$valuePro      = ( userHaveProStatus( $userId ) ) ? $this->calcWithPRO( $valueActivity ) : 0;
-			}
-
-			$this->dataActValue( $valueActivity );
-			$this->dataActPro( $valuePro );
-			$currentValue    = $this->getValueActivity( $this->getDataActUid(), self::ACTIVITY_installmentPlan );
-			$currentValuePro = $this->getValueActivityPro( $this->getDataActUid(), self::ACTIVITY_installmentPlan );
-			if ( $this->saveDetail() ) {
-				if ( $currentValue <= $valueActivity ) {
-					$valueToTotal = $valueActivity - $currentValue;
-					$proToTotal   = $valuePro - $currentValuePro;
-					$this->addToTotal( $valueToTotal, $proToTotal );
-				} else {
-					$valueToTotal = $currentValue - $valueActivity;
-					$proToTotal   = $currentValuePro - $valuePro;
-					$this->subtractFromTotal( $valueToTotal, $proToTotal );
-				}
-			}
-		}
-	}
-
-	private function calcWithPRO( $value ) {
-		//		$value = floatval($value) + (floatval($value) * Config::getInstance()->getCoeffProStatus());
-		$value = floatval( $value ) * Config::getInstance()->getCoeffProStatus();
-
-		return ceil( $value );
-	}
-
-	private function addEmployerRating( $employerId ) {
-		$employerRating = $this->getTotal( $employerId );
-		$this->logger->addLog( '$employerRating', $employerRating );
-		$coefficient = Config::getInstance()->getCoeffFromRatingEmployer();
-		$value       = floatval( $employerRating ) * $coefficient;
-
-		return ceil( $value );
-	}
-
-	private function addFreelancerRating( $freelancerId ) {
-		$freelancerRating = $this->getTotal( $freelancerId );
-		$this->logger->addLog( '$freelancerRating', $freelancerRating );
-		$coefficient = Config::getInstance()->getCoeffFromRatingFreelancer();
-		$value       = floatval( $freelancerRating ) * $coefficient;
-
-		return ceil( $value );
-	}
-
-	private function saveDetail( $reWrite = true ) {
-		if ( empty( $this->_dataAct ) ) {
-			return false;
-		}
-
-		$addSum    = boolval( $reWrite ) ? '' : '+ value';
-		$addSumPro = boolval( $reWrite ) ? '' : '+ value_pro';
-		$time      = $this->getUTCTimestamp();
-		$sql       = "INSERT INTO {$this->tbRatingDetail} (user_id, type_activity, time, value, value_pro, source_id, additional_data)
-		VALUES (
-		{$this->getDataActUid()},
-		'{$this->getDataActType()}',
-		'{$this->escapeStr($time)}',
-		{$this->getDataActValue()},
-		{$this->getDataActPro()},
-		{$this->getDataActSourceId()},
-		'{$this->getDataActAdditional()}'
-		)
-		ON DUPLICATE KEY UPDATE value = VALUES(value) {$addSum}, value_pro = VALUES(value_pro) {$addSumPro}, additional_data = VALUES(additional_data), time = VALUES(time)
-		";
-		$result    = $this->db->query( $sql );
-
-		return $result;
-	}
-
-	private function addToTotal( $value = 0, $pro = 0 ) {
-		$result = false;
-		if ( $this->getDataActUid() ) {
-			$sql    = "INSERT INTO {$this->tbRating} (user_id, rating, pro_rating, updated)
-			VALUES ({$this->getDataActUid()}, {$this->toInt($value)}, {$this->toInt($pro)}, '{$this->getUTCTimestamp()}')
-			ON DUPLICATE KEY UPDATE rating = VALUES(rating) + rating, pro_rating = VALUES(pro_rating) + pro_rating, updated = VALUES(updated)
-			";
-			$result = $this->db->query( $sql );
-			$this->resetDataAct();
-		}
-
-		return $result;
-	}
-
-	private function subtractFromTotal( $value = 0, $valuePro = 0 ) {
-		$result = false;
-		if ( $this->getDataActUid() ) {
-			$rating = $this->getRating( $this->getDataActUid() );
-			$pro    = $this->getProRating( $this->getDataActUid() );
-
-			$upd['rating']     = ( ceil( $value ) >= $rating ) ? 0 : $rating - ceil( $value );
-			$upd['pro_rating'] = ( ceil( $valuePro ) >= $pro ) ? 0 : $pro - ceil( $valuePro );
-			$upd['updated']    = $this->getUTCTimestamp();
-			$result            = $this->db->update( $this->tbRating, $upd, [ 'user_id' => $this->getDataActUid() ] );
-			$this->resetDataAct();
-		}
-
-		return $result;
-	}
-
-	private function deleteSourseActivity( $userId, $activity, $sourceId ) {
-
-	}
-
-	private function dataActUid( $userId ) {
-		$this->_dataAct['userId'] = $this->toInt( $userId );
-	}
-
-	private function getDataActUid() {
-		return $this->_dataAct['userId'];
-	}
-
-	private function dataActType( $type ) {
-		$this->_dataAct['type'] = $this->escapeStr( $type );
-	}
-
-	private function getDataActType() {
-		return $this->_dataAct['type'];
-	}
-
-	private function dataActValue( $value ) {
-		$this->_dataAct['value'] = $this->toInt( $value );
-	}
-
-	private function getDataActValue() {
-		return $this->_dataAct['value'];
-	}
-
-	private function dataActPro( $value ) {
-		$this->_dataAct['valuePro'] = $this->toInt( $value );
-	}
-
-	private function getDataActPro() {
-		return $this->_dataAct['valuePro'];
-	}
-
-	private function dataActSourceId( $sourceId ) {
-		$this->_dataAct['sourceId'] = $this->toInt( $sourceId );
-	}
-
-	private function getDataActSourceId() {
-		return $this->_dataAct['sourceId'];
-	}
-
-	private function dataActAdditional( $add ) {
-		$this->_dataAct['additionalData'] = ( is_array( $add ) ) ? json_encode( $add ) : $this->escapeStr( $add );
-	}
-
-	private function getDataActAdditional() {
-		return $this->_dataAct['additionalData'];
-	}
-
-	public function getDataAct() {
-		return $this->_dataAct;
-	}
-
-	private function resetDataAct() {
-		$this->_dataAct = [
-			'userId'         => 0,
-			'type'           => '',
-			'value'          => 0,
-			'valuePro'       => 0,
-			'sourceId'       => 0,
-			'additionalData' => '',
-		];
-	}
-
-	public function getTotal( $userId = 0 ) {
-		return $this->db->get_var( "SELECT rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
-	}
-
-	public function getRating( $userId = 0 ) {
-		return $this->db->get_var( "SELECT rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
-	}
-
-	public function getProRating( $userId = 0 ) {
-		return $this->db->get_var( "SELECT pro_rating FROM {$this->tbRating} WHERE user_id = {$this->toInt($userId)}" );
-	}
-
 	public function getPro( $userId = 0, $sum = 1 ) {
 		$total = $this->getTotal( $userId );
 
@@ -715,93 +793,11 @@ class Rating extends Base {
 		return (array) $this->db->get_results( $sql, OBJECT_K );
 	}
 
-	public function getValueActivity( $userId = 0, $type = '', $sourceId = 0 ) {
-		return (int) $this->db->get_var( "SELECT value FROM {$this->tbRatingDetail} WHERE
-		user_id = {$this->toInt($userId)}
-		AND type_activity = '{$this->escapeStr($type)}'
-		AND source_id = {$this->toInt($sourceId)}" );
+	private function deleteSourseActivity( $userId, $activity, $sourceId ) {
+
 	}
 
-	public function getValueActivityPro( $userId = 0, $type = '', $sourceId = 0 ) {
-		return (int) $this->db->get_var( "SELECT value_pro FROM {$this->tbRatingDetail} WHERE
-		user_id = {$this->toInt($userId)}
-		AND type_activity = '{$this->escapeStr($type)}'
-		AND source_id = {$this->toInt($sourceId)}" );
-	}
-
-	public function getLastTypeActivity( $userId = 0, $type = '' ) {
-		return $this->db->get_row( "SELECT DISTINCT * FROM {$this->tbRatingDetail} WHERE
-		user_id = {$this->toInt($userId)}
-		AND type_activity = '{$this->escapeStr($type)}'
-		ORDER BY time DESC", ARRAY_A );
-	}
-
-	public static function getUTCTimestamp( $asInt = 0 ) {
-		$time = time();
-		$now  = \DateTime::createFromFormat( 'U', $time );
-		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
-
-		return boolval( $asInt ) ? (int) $now->getTimestamp() : $now->format( 'Y-m-d H:i:s' );
-	}
-
-	public static function getUTCDate() {
-		$time = time();
-		$now  = \DateTime::createFromFormat( 'U', $time );
-		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
-
-		return $now->format( 'Y-m-d' );
-	}
-
-	public static function getMicroTime() {
-		$time = time();
-		$now  = \DateTime::createFromFormat( 'U', $time );
-		$now->setTimeZone( new \DateTimeZone( 'UTC' ) );
-
-		return $now->format( 'Y-m-d H:i:s.u' );
-	}
-
-	public static function getListActivity( $role = 'freelancer' ) {
-		$list = [];
-		if ( $role == EMPLOYER ) {
-			$list = [
-				self::ACTIVITY_amountPayment,
-				self::ACTIVITY_oneFieldProfile,
-				self::ACTIVITY_siteVisit,
-				self::ACTIVITY_asReferral,
-				self::ACTIVITY_asReferrer,
-				self::ACTIVITY_forSkill,
-				self::ACTIVITY_forEndorseSkill,
-				self::ACTIVITY_forReview,
-				self::ACTIVITY_projectSuccess,
-				self::ACTIVITY_bidAccepted,
-				self::ACTIVITY_installmentPlan,
-				self::ACTIVITY_forReward,
-			];
-		} else {
-			$list = [
-				self::ACTIVITY_amountPayment,
-				self::ACTIVITY_oneFieldProfile,
-				self::ACTIVITY_siteVisit,
-				self::ACTIVITY_onePortfolio,
-				self::ACTIVITY_asReferral,
-				self::ACTIVITY_asReferrer,
-				self::ACTIVITY_forSkill,
-				self::ACTIVITY_forEndorseSkill,
-				self::ACTIVITY_forReview,
-				self::ACTIVITY_projectSuccess,
-				self::ACTIVITY_installmentPlan,
-				self::ACTIVITY_forReward,
-			];
-		}
-
-		return $list;
-	}
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
+	private function dataActAdditional( $add ) {
+		$this->_dataAct['additionalData'] = ( is_array( $add ) ) ? json_encode( $add ) : $this->escapeStr( $add );
 	}
 }

@@ -65,38 +65,6 @@ class WPP_Company_Table extends WP_List_Table {
 		}
 	}
 
-
-	function get_columns() {
-		$columns = [
-			'cb'           => '<input type="checkbox"/>',
-			'id'           => __( 'ID', 'wpp' ),
-			'title'        => __( 'Name', 'wpp' ),
-			'email'        => __( 'Email', 'wpp' ),
-			'phone'        => __( 'Phone', 'wpp' ),
-			'address'      => __( 'Address', 'wpp' ),
-			'site'         => __( 'Site', 'wpp' ),
-			'rating'       => __( 'Rating', 'wpp' ),
-			'email_count'  => __( 'E-mails', 'wpp' ),
-			'users_mailer' => __( 'Users', 'wpp' ),
-			'register'     => __( 'R', 'wpp' ),
-		];
-
-		return $columns;
-	}
-
-	public function get_sortable_columns() {
-		$sortable_columns = [
-			'id'          => [ 'id', true ],
-			'title'       => [ 'title', true ],
-			'address'     => [ 'address', true ],
-			'rating'      => [ 'rating', true ],
-			'email_count' => [ 'email_count', true ],
-			'register'    => [ 'register', true ],
-		];
-
-		return $sortable_columns;
-	}
-
 	/**
 	 * Column cb.
 	 *
@@ -117,29 +85,6 @@ class WPP_Company_Table extends WP_List_Table {
 		return [
 			'trash' => __( 'Delete', 'admin-table-tut' ),
 		];
-	}
-
-
-	/**
-	 * Get bulk actions.
-	 *
-	 * @return void
-	 */
-	public function process_bulk_action() {
-
-		if ( 'trash' === $this->current_action() ) {
-			$company_ids = filter_input( INPUT_GET, 'company_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-
-			if ( is_array( $company_ids ) ) {
-				$company_ids = array_map( 'intval', $company_ids );
-
-
-				if ( count( $company_ids ) ) {
-					array_map( 'company_delete', $company_ids );
-				}
-			}
-		}
 	}
 
 	function prepare_items() {
@@ -191,6 +136,59 @@ class WPP_Company_Table extends WP_List_Table {
 			'per_page'    => $per_page,
 			'total_pages' => ceil( $total_items / $per_page )
 		] );
+	}
+
+	function get_columns() {
+		$columns = [
+			'cb'           => '<input type="checkbox"/>',
+			'id'           => __( 'ID', 'wpp' ),
+			'title'        => __( 'Name', 'wpp' ),
+			'email'        => __( 'Email', 'wpp' ),
+			'phone'        => __( 'Phone', 'wpp' ),
+			'address'      => __( 'Address', 'wpp' ),
+			'site'         => __( 'Site', 'wpp' ),
+			'rating'       => __( 'Rating', 'wpp' ),
+			'email_count'  => __( 'E-mails', 'wpp' ),
+			'users_mailer' => __( 'Users', 'wpp' ),
+			'register'     => __( 'R', 'wpp' ),
+		];
+
+		return $columns;
+	}
+
+	public function get_sortable_columns() {
+		$sortable_columns = [
+			'id'          => [ 'id', true ],
+			'title'       => [ 'title', true ],
+			'address'     => [ 'address', true ],
+			'rating'      => [ 'rating', true ],
+			'email_count' => [ 'email_count', true ],
+			'register'    => [ 'register', true ],
+		];
+
+		return $sortable_columns;
+	}
+
+	/**
+	 * Get bulk actions.
+	 *
+	 * @return void
+	 */
+	public function process_bulk_action() {
+
+		if ( 'trash' === $this->current_action() ) {
+			$company_ids = filter_input( INPUT_GET, 'company_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+
+			if ( is_array( $company_ids ) ) {
+				$company_ids = array_map( 'intval', $company_ids );
+
+
+				if ( count( $company_ids ) ) {
+					array_map( 'company_delete', $company_ids );
+				}
+			}
+		}
 	}
 
 	public function interval_box() {

@@ -29,6 +29,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Refund extends PayPalResourceModel {
 	/**
+	 * Shows details for a refund, by ID.
+	 *
+	 * @param string $refundId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Refund
+	 */
+	public static function get( $refundId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $refundId, 'refundId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/refund/$refundId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Refund();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * ID of the refund transaction. 17 characters max.
 	 *
 	 * @param string $id
@@ -292,32 +318,6 @@ class Refund extends PayPalResourceModel {
 	 */
 	public function getReasonCode() {
 		return $this->reason_code;
-	}
-
-	/**
-	 * Shows details for a refund, by ID.
-	 *
-	 * @param string $refundId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Refund
-	 */
-	public static function get( $refundId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $refundId, 'refundId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/refund/$refundId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Refund();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 }

@@ -64,6 +64,16 @@ class AE_Mapstyle {
 		return null;
 	}
 
+	function get_style( $index ) {
+		if ( isset( self::$styles[ $index ] ) ) {
+			$style_object = json_decode( self::$styles[ $index ]['code'], true );
+
+			return $style_object;
+		}
+
+		return new WP_Error( "map_style", "Style not found." );
+	}
+
 	function get_list_style( $type = '' ) {
 		if ( $type == 'json' ) {
 			$object = [];
@@ -75,15 +85,5 @@ class AE_Mapstyle {
 		} else {
 			return self::$styles;
 		}
-	}
-
-	function get_style( $index ) {
-		if ( isset( self::$styles[ $index ] ) ) {
-			$style_object = json_decode( self::$styles[ $index ]['code'], true );
-
-			return $style_object;
-		}
-
-		return new WP_Error( "map_style", "Style not found." );
 	}
 }

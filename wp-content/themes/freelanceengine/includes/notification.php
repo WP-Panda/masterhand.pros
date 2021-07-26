@@ -75,18 +75,6 @@ add_action( 'init', 'fre_register_notification' );
 class Fre_Notification extends AE_PostAction {
 	public static $instance;
 
-	/**
-	 * getInstance method
-	 *
-	 */
-	public static function getInstance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
-
 	function __construct() {
 		$this->post_type = 'notify';
 
@@ -159,6 +147,18 @@ class Fre_Notification extends AE_PostAction {
 	}
 
 	/**
+	 * getInstance method
+	 *
+	 */
+	public static function getInstance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
 	 * Notify employer when admin resolve project
 	 *
 	 * @param Array $args
@@ -182,6 +182,25 @@ class Fre_Notification extends AE_PostAction {
 		];
 
 		return $this->insert( $notification );
+	}
+
+	/**
+	 * insert user notification post
+	 *
+	 * @param Array $notfication Notification post data
+	 *
+	 * @since  1.2
+	 * @author Dakachi
+	 */
+	function insert( $notification ) {
+		$notify = wp_insert_post( $notification );
+		if ( $notify ) {
+			$number = (int) get_user_meta( $notification['post_author'], 'fre_new_notify', true );
+			$number = $number + 1;
+			update_user_meta( $notification['post_author'], 'fre_new_notify', $number );
+		}
+
+		return $notify;
 	}
 
 	/**
@@ -396,7 +415,6 @@ class Fre_Notification extends AE_PostAction {
 		return $this->insert( $notification );
 	}
 
-
 	function act_lock_upload_file( $project_id ) {
 		global $user_ID, $ae_post_factory;
 		$post          = get_post( $project_id );
@@ -419,7 +437,6 @@ class Fre_Notification extends AE_PostAction {
 
 		return $this->insert( $notification );
 	}
-
 
 	function act_unlock_upload_file( $project_id ) {
 		global $user_ID, $ae_post_factory;
@@ -924,25 +941,6 @@ class Fre_Notification extends AE_PostAction {
 		}
 
 		return $user_id;
-	}
-
-	/**
-	 * insert user notification post
-	 *
-	 * @param Array $notfication Notification post data
-	 *
-	 * @since  1.2
-	 * @author Dakachi
-	 */
-	function insert( $notification ) {
-		$notify = wp_insert_post( $notification );
-		if ( $notify ) {
-			$number = (int) get_user_meta( $notification['post_author'], 'fre_new_notify', true );
-			$number = $number + 1;
-			update_user_meta( $notification['post_author'], 'fre_new_notify', $number );
-		}
-
-		return $notify;
 	}
 
 	/**

@@ -12,18 +12,6 @@ class AE_Pack extends AE_Posts {
 	public $post_type;
 
 	/**
-	 * return class $instance
-	 */
-	public static function get_instance() {
-
-		// if(self::$instance == null) {
-
-		//  self::$instance =   new AE_Pack ();
-		// }
-		return self::$instance;
-	}
-
-	/**
 	 * construct instance, set post_type and meta data
 	 *
 	 * @since 1.0
@@ -60,6 +48,34 @@ class AE_Pack extends AE_Posts {
 	}
 
 	/**
+	 * convert a post to pack object, which contain meta and tax data
+	 *
+	 * @param $object Post
+	 *
+	 * @return $object Post with meta data
+	 * @since  1.0
+	 * @author Dakachi
+	 */
+	public static function qa_convert( $post ) {
+		$instance = self::get_instance();
+		$result   = $instance->convert( $post );
+
+		return $result;
+	}
+
+	/**
+	 * return class $instance
+	 */
+	public static function get_instance() {
+
+		// if(self::$instance == null) {
+
+		//  self::$instance =   new AE_Pack ();
+		// }
+		return self::$instance;
+	}
+
+	/**
 	 * static function query badges
 	 *
 	 * @param array $args query params, see more about this on WP_Query
@@ -81,22 +97,6 @@ class AE_Pack extends AE_Posts {
 		$post_query = new WP_Query( $args );
 
 		return $post_query;
-	}
-
-	/**
-	 * convert a post to pack object, which contain meta and tax data
-	 *
-	 * @param $object Post
-	 *
-	 * @return $object Post with meta data
-	 * @since  1.0
-	 * @author Dakachi
-	 */
-	public static function qa_convert( $post ) {
-		$instance = self::get_instance();
-		$result   = $instance->convert( $post );
-
-		return $result;
 	}
 
 	/**

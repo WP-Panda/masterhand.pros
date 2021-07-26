@@ -84,14 +84,6 @@ add_action( 'init', 'fre_register_bid', 11 );
 class Fre_BidAction extends AE_PostAction {
 	public static $instance;
 
-	public static function get_instance() {
-		if ( self::$instance == null ) {
-			self::$instance = new Fre_BidAction();
-		}
-
-		return self::$instance;
-	}
-
 	public function __construct( $post_type = BID ) {
 
 		// init mail instance to send mail
@@ -149,6 +141,14 @@ class Fre_BidAction extends AE_PostAction {
 		$this->add_ajax( 'ae-review-show', 'review_show' );
 
 		self::$instance = $this;
+	}
+
+	public static function get_instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new Fre_BidAction();
+		}
+
+		return self::$instance;
 	}
 
 	function pre_get_posts( $query ) {
@@ -270,6 +270,13 @@ class Fre_BidAction extends AE_PostAction {
 		}
 
 		return $query_args;
+	}
+
+	function ae_get_bid_won_date( $bid_post_id ) {
+		$bid_post    = get_post( $bid_post_id );
+		$bid_convert = $this->ae_convert_bid( $bid_post );
+
+		return $bid_convert->bid_time_text;
 	}
 
 	/**
@@ -470,13 +477,6 @@ class Fre_BidAction extends AE_PostAction {
 		$result               = $this->ae_convert_check_bid_item( $result );
 
 		return $result;
-	}
-
-	function ae_get_bid_won_date( $bid_post_id ) {
-		$bid_post    = get_post( $bid_post_id );
-		$bid_convert = $this->ae_convert_bid( $bid_post );
-
-		return $bid_convert->bid_time_text;
 	}
 
 	function ae_convert_check_bid_item( $result ) {
@@ -742,6 +742,96 @@ class Fre_BidAction extends AE_PostAction {
 		] );
 	}
 
+	/**
+	 *Assign a job for a freelancer.
+	 */
+	function assign_project( $bid_id ) {
+
+		global $user_ID, $wpdb;
+		$project_id = get_post_field( 'post_parent', $bid_id );
+		$project    = get_post( $project_id );
+
+		$result = new WP_Error( $code = '200', $message = __( 'You don\'t have perminsion to accept this project.', ET_DOMAIN ), [] );
+
+		// check authenticate
+		if ( ! $user_ID ) {
+			return new WP_Error( $code = '200', $message == __( 'You must login to accept bid.', ET_DOMAIN ) );
+		}
+
+		if ( $project->post_status != 'publish' ) {
+
+			// a project have to published when bidding
+			return new WP_Error( $code = '200', $message = __( 'Your project was not pubished. You can not accept a bid!', ET_DOMAIN ) );
+		}
+
+		if ( (int) $project->post_author == $user_ID ) {
+
+			//update deadline project when bid accepted
+			$bid_time      = get_post_meta( $bid_id, 'bid_time', true );
+			$bit_type_time = get_post_meta( $bid_id, 'type_time', true );
+			$date          = new DateTime();
+			if ( $bit_type_time == 'day' ) {
+				$date->modify( '+' . $bid_time . ' days' );
+			} else if ( $bit_type_time == 'week' ) {
+				$date->modify( '+' . $bid_time . ' weeks' );
+			}
+			$deadline_time = $date->format( 'Y-m-d H:i:s' );
+			update_post_meta( $project->ID, 'project_deadline', $deadline_time );
+
+			// add accepted bid id to project meta
+			update_post_meta( $project->ID, 'accepted', $bid_id );
+
+			// change project status to close so mark it to on working
+			wp_update_post( [
+				'ID'          => $project->ID,
+				'post_status' => 'close'
+			] );
+
+			// change a bid to be accepted
+			wp_update_post( [
+				'ID'          => $bid_id,
+				'post_status' => 'accept'
+			] );
+
+			/**
+			 * fire action fre_assign_project after accept a bid
+			 *
+			 * @param Object $project the project was assigned
+			 * @param int $bid_id the id of accepted bid
+			 *
+			 * @since  1.2
+			 * @author Dakachi
+			 */
+			do_action( 'fre_assign_project', $project, $bid_id );
+
+
+			// send mail to freelancer if he won a project
+			$freelancer_id = get_post_field( 'post_author', $bid_id );
+
+			$q_bid = new WP_Query( [
+				'post_type'   => BID,
+				'post_parent' => $project_id,
+				'post_status' => [ 'publish', 'unaccept' ]
+			] );
+			if ( $q_bid->have_posts() ) {
+				foreach ( $q_bid->posts as $bid ) {
+					if ( $bid->post_author != $freelancer_id ) {
+						$result = $wpdb->update( $wpdb->posts, [ 'post_status' => 'unaccept' ], [ 'ID' => $bid->ID ] );
+					}
+				}
+			}
+			$this->mail->bid_accepted( $freelancer_id, $project->ID );
+			$this->mail->bid_accepted_alternative( $freelancer_id, $project->ID );
+
+			return true;
+		}
+
+		return $result;
+	}
+
+	/*
+	 *check perminsion before a freelancer bidding on a project.
+	*/
 
 	function ask_final_bid() {
 		$request = $_REQUEST;
@@ -792,8 +882,9 @@ class Fre_BidAction extends AE_PostAction {
 	}
 
 	/*
-	 *check perminsion before a freelancer bidding on a project.
+	 * update project and bid after have a bid succesfull.
 	*/
+
 	function fre_check_before_insert_bid( $args ) {
 		global $user_ID;
 
@@ -903,8 +994,10 @@ class Fre_BidAction extends AE_PostAction {
 	}
 
 	/*
-	 * update project and bid after have a bid succesfull.
+	 * current force delete = false,
+	 * remove currenbid one again with force = true
 	*/
+
 	function fre_update_after_bidding( $bid_id ) {
 		global $user_ID;
 		if ( 'publish' != get_post_status( $bid_id ) ) {
@@ -947,10 +1040,6 @@ class Fre_BidAction extends AE_PostAction {
 		] );
 	}
 
-	/*
-	 * current force delete = false,
-	 * remove currenbid one again with force = true
-	*/
 	function fre_delete_bid( $bid_id ) {
 		// current bid status = trash.
 		$project_id = get_post_field( 'post_parent', $bid_id );
@@ -1004,96 +1093,10 @@ class Fre_BidAction extends AE_PostAction {
 		] );
 	}
 
-	/**
-	 *Assign a job for a freelancer.
-	 */
-	function assign_project( $bid_id ) {
-
-		global $user_ID, $wpdb;
-		$project_id = get_post_field( 'post_parent', $bid_id );
-		$project    = get_post( $project_id );
-
-		$result = new WP_Error( $code = '200', $message = __( 'You don\'t have perminsion to accept this project.', ET_DOMAIN ), [] );
-
-		// check authenticate
-		if ( ! $user_ID ) {
-			return new WP_Error( $code = '200', $message == __( 'You must login to accept bid.', ET_DOMAIN ) );
-		}
-
-		if ( $project->post_status != 'publish' ) {
-
-			// a project have to published when bidding
-			return new WP_Error( $code = '200', $message = __( 'Your project was not pubished. You can not accept a bid!', ET_DOMAIN ) );
-		}
-
-		if ( (int) $project->post_author == $user_ID ) {
-
-			//update deadline project when bid accepted
-			$bid_time      = get_post_meta( $bid_id, 'bid_time', true );
-			$bit_type_time = get_post_meta( $bid_id, 'type_time', true );
-			$date          = new DateTime();
-			if ( $bit_type_time == 'day' ) {
-				$date->modify( '+' . $bid_time . ' days' );
-			} else if ( $bit_type_time == 'week' ) {
-				$date->modify( '+' . $bid_time . ' weeks' );
-			}
-			$deadline_time = $date->format( 'Y-m-d H:i:s' );
-			update_post_meta( $project->ID, 'project_deadline', $deadline_time );
-
-			// add accepted bid id to project meta
-			update_post_meta( $project->ID, 'accepted', $bid_id );
-
-			// change project status to close so mark it to on working
-			wp_update_post( [
-				'ID'          => $project->ID,
-				'post_status' => 'close'
-			] );
-
-			// change a bid to be accepted
-			wp_update_post( [
-				'ID'          => $bid_id,
-				'post_status' => 'accept'
-			] );
-
-			/**
-			 * fire action fre_assign_project after accept a bid
-			 *
-			 * @param Object $project the project was assigned
-			 * @param int $bid_id the id of accepted bid
-			 *
-			 * @since  1.2
-			 * @author Dakachi
-			 */
-			do_action( 'fre_assign_project', $project, $bid_id );
-
-
-			// send mail to freelancer if he won a project
-			$freelancer_id = get_post_field( 'post_author', $bid_id );
-
-			$q_bid = new WP_Query( [
-				'post_type'   => BID,
-				'post_parent' => $project_id,
-				'post_status' => [ 'publish', 'unaccept' ]
-			] );
-			if ( $q_bid->have_posts() ) {
-				foreach ( $q_bid->posts as $bid ) {
-					if ( $bid->post_author != $freelancer_id ) {
-						$result = $wpdb->update( $wpdb->posts, [ 'post_status' => 'unaccept' ], [ 'ID' => $bid->ID ] );
-					}
-				}
-			}
-			$this->mail->bid_accepted( $freelancer_id, $project->ID );
-			$this->mail->bid_accepted_alternative( $freelancer_id, $project->ID );
-
-			return true;
-		}
-
-		return $result;
-	}
-
 	/*
 	 * filter title bid in back-end
 	*/
+
 	function the_title_bid( $title, $bid_id = 0 ) {
 		if ( is_admin() && is_post_type_archive( BID ) && get_post_field( 'post_type', $bid_id ) == 'bid' ) {
 

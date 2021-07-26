@@ -36,6 +36,49 @@ class ET_GoogleCheckout extends ET_Payment {
 		//$this->_settings	=	$setting;
 	}
 
+	/**
+	 * get google checkout api setting
+	 */
+	static function get_api() {
+
+		$api = (array) get_option( 'et_google_checkout_api', true );
+		if ( ! isset( $api['merchant_id'] ) ) {
+			$api['merchant_id'] = '';
+		}
+		if ( ! isset( $api['merchant_key'] ) ) {
+			$api['merchant_key'] = '';
+		}
+
+		return $api;
+	}
+
+	/**
+	 * save setting
+	 */
+	static function set_api( $api = array() ) {
+		update_option( 'et_google_checkout_api', $api );
+		if ( ! self::is_enable() ) {
+			ET_Payment::disable_gateway( 'google_checkout' );
+
+			return __( 'Your Google Checkout was disabled because of invalid settings!', ET_DOMAIN );
+		}
+
+		return true;
+	}
+
+	/**
+	 * check api setting is ok and payment is available
+	 */
+	static function is_enable() {
+		$api = self::get_api();
+		if ( isset( $api['merchant_id'] ) && $api['merchant_id'] != ''
+		     && isset( $api['merchant_key'] ) && $api['merchant_key'] != '' ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	function set_checkout( $nvpstr, $payment_type = 'URL-Key' ) {
 
 		$signature = base64_encode( $this->generate_signature( $nvpstr ) );
@@ -84,49 +127,6 @@ class ET_GoogleCheckout extends ET_Payment {
 	 */
 	function get_digital_key( $ID ) {
 		return strtoupper( md5( $this->_merchant_key . $ID ) );
-	}
-
-	/**
-	 * save setting
-	 */
-	static function set_api( $api = array() ) {
-		update_option( 'et_google_checkout_api', $api );
-		if ( ! self::is_enable() ) {
-			ET_Payment::disable_gateway( 'google_checkout' );
-
-			return __( 'Your Google Checkout was disabled because of invalid settings!', ET_DOMAIN );
-		}
-
-		return true;
-	}
-
-	/**
-	 * get google checkout api setting
-	 */
-	static function get_api() {
-
-		$api = (array) get_option( 'et_google_checkout_api', true );
-		if ( ! isset( $api['merchant_id'] ) ) {
-			$api['merchant_id'] = '';
-		}
-		if ( ! isset( $api['merchant_key'] ) ) {
-			$api['merchant_key'] = '';
-		}
-
-		return $api;
-	}
-
-	/**
-	 * check api setting is ok and payment is available
-	 */
-	static function is_enable() {
-		$api = self::get_api();
-		if ( isset( $api['merchant_id'] ) && $api['merchant_id'] != ''
-		     && isset( $api['merchant_key'] ) && $api['merchant_key'] != '' ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	function accept( ET_PaymentVisitor $visitor ) {

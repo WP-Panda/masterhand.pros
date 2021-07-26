@@ -87,14 +87,6 @@ abstract class AE_Payment extends AE_Base {
 	}
 
 	/**
-	 * abstract function get payment package for submit place
-	 *
-	 * @since  1.0
-	 * @author Dakachi <ledd@youngworld.vn>
-	 */
-	abstract public function get_plans();
-
-	/**
 	 * catch action ae_process_payment_action and update post data after payment success
 	 *
 	 * @param $payment_return
@@ -239,68 +231,104 @@ abstract class AE_Payment extends AE_Base {
 	}
 
 	/**
+	 * action process payment update seller order data
 	 *
-	 * @param snippet
+	 * @param Array $payment_return The payment return data
+	 * @param Array $data Order data and payment type
 	 *
-	 * @return snippet
-	 * @since    snippet
-	 * @package  snippet
-	 * @category snippet
-	 * @author   Dakachi
+	 * @return bool true/false
+	 * @since   1.0
+	 * @author  Dakachi
+	 *
+	 * @package AE Payment
 	 */
-	function setup_orderdata( $data ) {
-		global $user_ID;
+	public function member_payment_process( $payment_return, $data ) {
+		extract( $data );
+		if ( ! $payment_return['ACK'] ) {
+			return false;
+		}
+		if ( $payment_type == 'free' ) {
+			return false;
+		}
 
-		// remember to check isset or empty here
-		$adID         = isset( $data['ID'] ) ? $data['ID'] : '';
-		$isPro        = $data['isPro'];
-		$author       = isset( $data['author'] ) ? $data['author'] : $user_ID;
-		$packageID    = isset( $data['packageID'] ) ? $data['packageID'] : '';
-		$paymentType  = isset( $data['paymentType'] ) ? $data['paymentType'] : '';
-		$options_name = isset( $data['options_name'] ) ? explode( ',', $data['options_name'] ) : '';
-		$options_days = isset( $data['options_days'] ) ? explode( ',', $data['options_days'] ) : '';
-		$errors       = [];
+		if ( $payment_type == 'usePackage' ) {
+			return false;
+		}
 
-		// job id invalid
-		if ( ! $isPro ) {
-			if ( $adID ) {
-				// author does not authorize job
-				$job = get_post( $adID );
+		$order_pay = $data['order']->get_order_data();
 
-				if ( $job->post_type != BID && $author != $job->post_author && ! current_user_can( 'manage_options' ) ) {
-					$author_error = __( "Post author information is incorrect!" . json_encode( $data ), ET_DOMAIN );
-					$errors[]     = $author_error;
-				}
+		// update user current order data associate with package
+		self::update_current_order( $order_pay['payer'], $order_pay['payment_package'], $data['order_id'] );
+		AE_Package::add_package_data( $order_pay['payment_package'], $order_pay['payer'] );
+
+		/**
+		 * do action after process user order
+		 *
+		 * @param $order_pay ['payer'] the user id
+		 * @param $data      The order data
+		 */
+		do_action( 'ae_member_process_order', $order_pay['payer'], $order_pay );
+
+		return true;
+	}
+
+	/**
+	 *  update order id user paid for package
+	 *
+	 * @param Integer $user_id The user ID
+	 * @param Integer $package The package ID
+	 * @param Integer $order_id The order ID want to update
+	 *
+	 * @return bool
+	 */
+	public static function update_current_order( $user_id, $package, $order_id ) {
+		$group             = self::get_current_order( $user_id );
+		$group[ $package ] = $order_id;
+
+
+		/****** BUG RẤT LỚN Ở ĐÂY ******/
+
+
+		return self::set_current_order( $user_id, $group );
+	}
+
+	/**
+	 * return the order id user paid for the package
+	 *
+	 * @param integer $user_id The user ID
+	 * @param integer $package_id The package id want to get order
+	 *
+	 * @return array $oder
+	 *
+	 * @since   1.0
+	 * @author  Dakachi
+	 */
+	public static function get_current_order( $user_id, $package_id = '' ) {
+		$order = get_user_meta( $user_id, 'ae_member_current_order', true );
+		if ( $package_id == '' ) {
+			if ( $order == '' ) {
+				return unserialize( $order );
+			} else {
+				return $order;
 			}
+		} else {
+			return ( isset( $order[ $package_id ] ) ? $order[ $package_id ] : '' );
 		}
+	}
 
-		// input data error
-		if ( ! empty( $errors ) ) {
-			$response = [
-				'success' => false,
-				'errors'  => $errors
-			];
-
-			wp_send_json( $response );
-		}
-
-		////////////////////////////////////////////////
-		////////////// process payment//////////////////
-		////////////////////////////////////////////////
-
-		$order_data = [
-			'payer'        => $author,
-			'total'        => '',
-			'status'       => 'draft',
-			'payment'      => $paymentType,
-			'paid_date'    => '',
-			'payment_plan' => $packageID,
-			'post_parent'  => $adID,
-			'options_name' => $options_name,
-			'options_days' => $options_days
-		];
-
-		return $order_data;
+	/**
+	 * update user current order
+	 *
+	 * @param $user_id the user pay id
+	 * @param $group   array of order and package 'sku' => 'order_id'
+	 *
+	 * @return  null
+	 *
+	 * @since  1.0
+	 * @author Dakachi
+	 */
+	public static function set_current_order( $user_id, $group ) {
+		update_user_meta( $user_id, 'ae_member_current_order', $group );
 	}
 
 	function setup_payment() {
@@ -501,103 +529,75 @@ abstract class AE_Payment extends AE_Base {
 	}
 
 	/**
-	 * action process payment update seller order data
 	 *
-	 * @param Array $payment_return The payment return data
-	 * @param Array $data Order data and payment type
+	 * @param snippet
 	 *
-	 * @return bool true/false
-	 * @since   1.0
-	 * @author  Dakachi
-	 *
-	 * @package AE Payment
+	 * @return snippet
+	 * @since    snippet
+	 * @package  snippet
+	 * @category snippet
+	 * @author   Dakachi
 	 */
-	public function member_payment_process( $payment_return, $data ) {
-		extract( $data );
-		if ( ! $payment_return['ACK'] ) {
-			return false;
-		}
-		if ( $payment_type == 'free' ) {
-			return false;
-		}
+	function setup_orderdata( $data ) {
+		global $user_ID;
 
-		if ( $payment_type == 'usePackage' ) {
-			return false;
-		}
+		// remember to check isset or empty here
+		$adID         = isset( $data['ID'] ) ? $data['ID'] : '';
+		$isPro        = $data['isPro'];
+		$author       = isset( $data['author'] ) ? $data['author'] : $user_ID;
+		$packageID    = isset( $data['packageID'] ) ? $data['packageID'] : '';
+		$paymentType  = isset( $data['paymentType'] ) ? $data['paymentType'] : '';
+		$options_name = isset( $data['options_name'] ) ? explode( ',', $data['options_name'] ) : '';
+		$options_days = isset( $data['options_days'] ) ? explode( ',', $data['options_days'] ) : '';
+		$errors       = [];
 
-		$order_pay = $data['order']->get_order_data();
+		// job id invalid
+		if ( ! $isPro ) {
+			if ( $adID ) {
+				// author does not authorize job
+				$job = get_post( $adID );
 
-		// update user current order data associate with package
-		self::update_current_order( $order_pay['payer'], $order_pay['payment_package'], $data['order_id'] );
-		AE_Package::add_package_data( $order_pay['payment_package'], $order_pay['payer'] );
-
-		/**
-		 * do action after process user order
-		 *
-		 * @param $order_pay ['payer'] the user id
-		 * @param $data      The order data
-		 */
-		do_action( 'ae_member_process_order', $order_pay['payer'], $order_pay );
-
-		return true;
-	}
-
-	/**
-	 * return the order id user paid for the package
-	 *
-	 * @param integer $user_id The user ID
-	 * @param integer $package_id The package id want to get order
-	 *
-	 * @return array $oder
-	 *
-	 * @since   1.0
-	 * @author  Dakachi
-	 */
-	public static function get_current_order( $user_id, $package_id = '' ) {
-		$order = get_user_meta( $user_id, 'ae_member_current_order', true );
-		if ( $package_id == '' ) {
-			if ( $order == '' ) {
-				return unserialize( $order );
-			} else {
-				return $order;
+				if ( $job->post_type != BID && $author != $job->post_author && ! current_user_can( 'manage_options' ) ) {
+					$author_error = __( "Post author information is incorrect!" . json_encode( $data ), ET_DOMAIN );
+					$errors[]     = $author_error;
+				}
 			}
-		} else {
-			return ( isset( $order[ $package_id ] ) ? $order[ $package_id ] : '' );
 		}
+
+		// input data error
+		if ( ! empty( $errors ) ) {
+			$response = [
+				'success' => false,
+				'errors'  => $errors
+			];
+
+			wp_send_json( $response );
+		}
+
+		////////////////////////////////////////////////
+		////////////// process payment//////////////////
+		////////////////////////////////////////////////
+
+		$order_data = [
+			'payer'        => $author,
+			'total'        => '',
+			'status'       => 'draft',
+			'payment'      => $paymentType,
+			'paid_date'    => '',
+			'payment_plan' => $packageID,
+			'post_parent'  => $adID,
+			'options_name' => $options_name,
+			'options_days' => $options_days
+		];
+
+		return $order_data;
 	}
 
 	/**
-	 * update user current order
-	 *
-	 * @param $user_id the user pay id
-	 * @param $group   array of order and package 'sku' => 'order_id'
-	 *
-	 * @return  null
+	 * abstract function get payment package for submit place
 	 *
 	 * @since  1.0
-	 * @author Dakachi
+	 * @author Dakachi <ledd@youngworld.vn>
 	 */
-	public static function set_current_order( $user_id, $group ) {
-		update_user_meta( $user_id, 'ae_member_current_order', $group );
-	}
-
-	/**
-	 *  update order id user paid for package
-	 *
-	 * @param Integer $user_id The user ID
-	 * @param Integer $package The package ID
-	 * @param Integer $order_id The order ID want to update
-	 *
-	 * @return bool
-	 */
-	public static function update_current_order( $user_id, $package, $order_id ) {
-		$group             = self::get_current_order( $user_id );
-		$group[ $package ] = $order_id;
-
-
-		/****** BUG RẤT LỚN Ở ĐÂY ******/
-
-
-		return self::set_current_order( $user_id, $group );
-	}
+	abstract public function get_plans();
 }

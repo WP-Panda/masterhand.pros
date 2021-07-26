@@ -149,19 +149,11 @@ function ae_user_get_total_package( $user_ID ) {
 }
 
 class ET_Session {
+	protected static $instance;
 	protected $_session_id;
 	protected $_expired_time;
 	protected $_exp_variant;
 	protected $_session_data;
-	protected static $instance;
-
-	public static function get_instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
 
 	protected function __construct() {
 
@@ -189,6 +181,38 @@ class ET_Session {
 
 	}
 
+	/**
+	 * set exprire time
+	 */
+	protected function set_expiration() {
+		$this->_exp_variant  = time() + (int) apply_filters( 'et_session_expiration_variant', 24 * 60 );
+		$this->_expired_time = time() + (int) apply_filters( 'et_session_expiration', 20 * 60 );
+	}
+
+	public function regenerate_id( $delete_old = false ) {
+		if ( $delete_old ) {
+			delete_option( "_et_session_{$this->_session_id}" );
+		}
+
+		$this->_session_id = $this->generate_id();
+
+		$this->set_cookie();
+	}
+
+	protected function generate_id() {
+		require_once( ABSPATH . 'wp-includes/class-phpass.php' );
+		$hasher = new PasswordHash( 8, false );
+
+		return md5( $hasher->get_random_bytes( 32 ) );
+	}
+
+	/**
+	 * Set the session cookie
+	 */
+	protected function set_cookie() {
+		setcookie( ET_SESSION_COOKIE, $this->_session_id . '||' . $this->_expired_time, $this->_expired_time, '/' );
+	}
+
 	public function read_data() {
 		if ( ! get_option( "_et_session_{$this->_session_id}", '' ) ) {
 			return false;
@@ -196,6 +220,14 @@ class ET_Session {
 		$this->_session_data = unserialize( get_option( "_et_session_{$this->_session_id}", '' ) );
 
 		return (array) $this->_session_data;
+	}
+
+	public static function get_instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -216,38 +248,6 @@ class ET_Session {
 			$this->_session_data[ $key ] = $value;
 			update_option( "_et_session_{$this->_session_id}", serialize( $this->_session_data ) );
 		}
-	}
-
-	/**
-	 * set exprire time
-	 */
-	protected function set_expiration() {
-		$this->_exp_variant  = time() + (int) apply_filters( 'et_session_expiration_variant', 24 * 60 );
-		$this->_expired_time = time() + (int) apply_filters( 'et_session_expiration', 20 * 60 );
-	}
-
-	/**
-	 * Set the session cookie
-	 */
-	protected function set_cookie() {
-		setcookie( ET_SESSION_COOKIE, $this->_session_id . '||' . $this->_expired_time, $this->_expired_time, '/' );
-	}
-
-	protected function generate_id() {
-		require_once( ABSPATH . 'wp-includes/class-phpass.php' );
-		$hasher = new PasswordHash( 8, false );
-
-		return md5( $hasher->get_random_bytes( 32 ) );
-	}
-
-	public function regenerate_id( $delete_old = false ) {
-		if ( $delete_old ) {
-			delete_option( "_et_session_{$this->_session_id}" );
-		}
-
-		$this->_session_id = $this->generate_id();
-
-		$this->set_cookie();
 	}
 
 	public function unset_session( $key = null ) {

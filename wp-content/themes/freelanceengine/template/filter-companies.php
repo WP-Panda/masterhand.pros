@@ -25,6 +25,7 @@ if ( isset( $company_category ) && $company_category != '' ) {
 		?>
 
 
+
     </script>
     <div class="project-filter-header visible-sm visible-xs">
         <a class="project-filter-title" href=""><?php _e( 'Company search', ET_DOMAIN ); ?></a>

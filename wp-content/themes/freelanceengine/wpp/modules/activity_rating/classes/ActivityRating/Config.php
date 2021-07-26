@@ -3,10 +3,8 @@
 namespace ActivityRating;
 
 class Config {
-	protected static $_instance = null;
-
 	const tbConfig = 'activity_rating_config';
-
+	protected static $_instance = null;
 	public $tbConfig = '';
 
 	private $_checkList = [
@@ -49,6 +47,14 @@ class Config {
 		$this->logger = Log::getInstance();
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
 	public function update( $data = [] ) {
 		if ( ! empty( $data ) && is_array( $data ) ) {
 			$sumUpd = 0;
@@ -67,6 +73,12 @@ class Config {
 		return false;
 	}
 
+	public function escapeStr( $str ) {
+		$str = is_array( $str ) ? '' : trim( strval( $str ) );
+
+		return $this->db->_escape( htmlspecialchars( $str ) );
+	}
+
 	public function getAll() {
 		$items = [];
 		$res   = $this->db->get_results( "SELECT name, value FROM {$this->tbConfig}", ARRAY_A );
@@ -81,34 +93,6 @@ class Config {
 
 	public function getCoeffProStatus() {
 		return intval( $this->get( "coefficient.proStatus" ) ) / 100;
-	}
-
-	public function getCoeffFromRatingEmployer() {
-		return intval( $this->getFreelancer( 'fromRatingEmployer' ) ) / 100;
-	}
-
-	public function getCoeffFromRatingFreelancer() {
-		return intval( $this->getEmployer( 'fromRatingFreelancer' ) ) / 100;
-	}
-
-	public function getCoeffAmountPayment() {
-		return $this->get( "coefficient.amountPayment" );
-	}
-
-	public function getValSiteVisit() {
-		return $this->get( "value.siteVisit" );
-	}
-
-	public function getValOneFieldProfile() {
-		return $this->get( "value.oneFieldProfile" );
-	}
-
-	public function getFreelancer( $key = '' ) {
-		return $this->get( "freelancer.value.{$key}" );
-	}
-
-	public function getEmployer( $key = '' ) {
-		return $this->get( "employer.value.{$key}" );
 	}
 
 	public function get( $name, $force = false ) {
@@ -127,6 +111,34 @@ class Config {
 		return $this->_list[ $name ];
 	}
 
+	public function getCoeffFromRatingEmployer() {
+		return intval( $this->getFreelancer( 'fromRatingEmployer' ) ) / 100;
+	}
+
+	public function getFreelancer( $key = '' ) {
+		return $this->get( "freelancer.value.{$key}" );
+	}
+
+	public function getCoeffFromRatingFreelancer() {
+		return intval( $this->getEmployer( 'fromRatingFreelancer' ) ) / 100;
+	}
+
+	public function getEmployer( $key = '' ) {
+		return $this->get( "employer.value.{$key}" );
+	}
+
+	public function getCoeffAmountPayment() {
+		return $this->get( "coefficient.amountPayment" );
+	}
+
+	public function getValSiteVisit() {
+		return $this->get( "value.siteVisit" );
+	}
+
+	public function getValOneFieldProfile() {
+		return $this->get( "value.oneFieldProfile" );
+	}
+
 	public function addError( $msg ) {
 		$this->logger->addLog( 'error', $msg );
 	}
@@ -135,19 +147,5 @@ class Config {
 		$error = $this->logger->getLog( 'error' );
 
 		return ( is_array( $error ) ) ? implode( ', ', $error ) : $error;
-	}
-
-	public function escapeStr( $str ) {
-		$str = is_array( $str ) ? '' : trim( strval( $str ) );
-
-		return $this->db->_escape( htmlspecialchars( $str ) );
-	}
-
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
 	}
 }

@@ -1,7 +1,8 @@
 <?php
-if ( ! defined( 'WP_LOAD_IMPORTERS' ) )
-	//return; /** Display verbose errors */ {
+if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) //return; /** Display verbose errors */ {
+{
 	define( 'IMPORT_DEBUG', false );
+}
 }
 
 // Load Importer API
@@ -373,9 +374,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 					}
 				}
 				$description = isset( $term['term_description'] ) ? $term['term_description'] : '';
-				$termarr     = array( 'slug'        => $term['slug'],
-				                      'description' => $description,
-				                      'parent'      => intval( $parent )
+				$termarr     = array(
+					'slug'        => $term['slug'],
+					'description' => $description,
+					'parent'      => intval( $parent )
 				);
 
 				$id = wp_insert_term( $term['term_name'], $term['term_taxonomy'], $termarr );

@@ -30,6 +30,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Order extends PayPalResourceModel {
 	/**
+	 * Shows details for an order, by ID.
+	 *
+	 * @param string $orderId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Order
+	 */
+	public static function get( $orderId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $orderId, 'orderId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/orders/$orderId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Order();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Identifier of the order transaction.
 	 *
 	 * @param string $id
@@ -40,15 +66,6 @@ class Order extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * Identifier of the order transaction.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -347,32 +364,6 @@ class Order extends PayPalResourceModel {
 	}
 
 	/**
-	 * Shows details for an order, by ID.
-	 *
-	 * @param string $orderId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Order
-	 */
-	public static function get( $orderId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $orderId, 'orderId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/orders/$orderId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Order();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Captures a payment for an order, by ID. To use this call, the original payment call must specify an intent of `order`. In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
 	 *
 	 * @param Capture $capture
@@ -397,6 +388,15 @@ class Order extends PayPalResourceModel {
 		$ret->fromJson( $json );
 
 		return $ret;
+	}
+
+	/**
+	 * Identifier of the order transaction.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

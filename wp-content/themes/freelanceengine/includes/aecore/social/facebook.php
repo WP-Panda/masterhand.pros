@@ -1,10 +1,10 @@
 <?php
 
 class ET_FaceAuth extends ET_SocialAuth {
-	private $fb_secret_key;
 	protected $fb_app_id;
 	protected $fb_token_url;
 	protected $fb_exchange_token;
+	private $fb_secret_key;
 
 	public function __construct() {
 		parent::__construct( 'facebook', 'et_facebook_id', array(
@@ -31,9 +31,6 @@ class ET_FaceAuth extends ET_SocialAuth {
 	}
 
 	// implement abstract method
-	protected function send_created_mail( $user_id ) {
-		do_action( 'et_after_register', $user_id );
-	}
 
 	public function auth_facebook() {
 		try {
@@ -214,5 +211,9 @@ class ET_FaceAuth extends ET_SocialAuth {
 			);
 		}
 		wp_send_json( $resp );
+	}
+
+	protected function send_created_mail( $user_id ) {
+		do_action( 'et_after_register', $user_id );
 	}
 }

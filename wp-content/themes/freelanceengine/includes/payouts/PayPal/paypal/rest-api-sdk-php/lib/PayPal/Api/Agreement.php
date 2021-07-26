@@ -31,6 +31,94 @@ use PayPal\Validation\ArgumentValidator;
  */
 class Agreement extends PayPalResourceModel {
 	/**
+	 * Retrieve details for a particular billing agreement by passing the ID of the agreement to the request URI.
+	 *
+	 * @param string $agreementId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return Agreement
+	 */
+	public static function get( $agreementId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $agreementId, 'agreementId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/billing-agreements/$agreementId",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new Agreement();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
+	 *
+	 * @deprecated Please use searchTransactions Instead
+	 *
+	 * @param string $agreementId
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return AgreementTransactions
+	 */
+	public static function transactions( $agreementId, $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $agreementId, 'agreementId' );
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/billing-agreements/$agreementId/transactions",
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new AgreementTransactions();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
+	 * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
+	 *
+	 * @param string $agreementId
+	 * @param array $params Parameters for search string. Options: start_date, and end_date
+	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+	 *
+	 * @return AgreementTransactions
+	 */
+	public static function searchTransactions( $agreementId, $params = array(), $apiContext = null, $restCall = null ) {
+		ArgumentValidator::validate( $agreementId, 'agreementId' );
+		ArgumentValidator::validate( $params, 'params' );
+
+		$allowedParams = array(
+			'start_date' => 1,
+			'end_date'   => 1,
+		);
+
+		$payLoad = "";
+		$json    = self::executeCall(
+			"/v1/payments/billing-agreements/$agreementId/transactions?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
+			"GET",
+			$payLoad,
+			null,
+			$apiContext,
+			$restCall
+		);
+		$ret     = new AgreementTransactions();
+		$ret->fromJson( $json );
+
+		return $ret;
+	}
+
+	/**
 	 * Identifier of the agreement.
 	 *
 	 * @param string $id
@@ -41,15 +129,6 @@ class Agreement extends PayPalResourceModel {
 		$this->id = $id;
 
 		return $this;
-	}
-
-	/**
-	 * Identifier of the agreement.
-	 *
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
 	}
 
 	/**
@@ -207,28 +286,6 @@ class Agreement extends PayPalResourceModel {
 	}
 
 	/**
-	 * Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
-	 *
-	 * @param \PayPal\Api\OverrideChargeModel[] $override_charge_models
-	 *
-	 * @return $this
-	 */
-	public function setOverrideChargeModels( $override_charge_models ) {
-		$this->override_charge_models = $override_charge_models;
-
-		return $this;
-	}
-
-	/**
-	 * Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
-	 *
-	 * @return \PayPal\Api\OverrideChargeModel[]
-	 */
-	public function getOverrideChargeModels() {
-		return $this->override_charge_models;
-	}
-
-	/**
 	 * Append OverrideChargeModels to the list.
 	 *
 	 * @param \PayPal\Api\OverrideChargeModel $overrideChargeModel
@@ -243,6 +300,28 @@ class Agreement extends PayPalResourceModel {
 				array_merge( $this->getOverrideChargeModels(), array( $overrideChargeModel ) )
 			);
 		}
+	}
+
+	/**
+	 * Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
+	 *
+	 * @return \PayPal\Api\OverrideChargeModel[]
+	 */
+	public function getOverrideChargeModels() {
+		return $this->override_charge_models;
+	}
+
+	/**
+	 * Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
+	 *
+	 * @param \PayPal\Api\OverrideChargeModel[] $override_charge_models
+	 *
+	 * @return $this
+	 */
+	public function setOverrideChargeModels( $override_charge_models ) {
+		$this->override_charge_models = $override_charge_models;
+
+		return $this;
 	}
 
 	/**
@@ -404,32 +483,6 @@ class Agreement extends PayPalResourceModel {
 	}
 
 	/**
-	 * Retrieve details for a particular billing agreement by passing the ID of the agreement to the request URI.
-	 *
-	 * @param string $agreementId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return Agreement
-	 */
-	public static function get( $agreementId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $agreementId, 'agreementId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/billing-agreements/$agreementId",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new Agreement();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
 	 * Update details of a billing agreement, such as the description, shipping address, and start date, by passing the ID of the agreement to the request URI.
 	 *
 	 * @param PatchRequest $patchRequest
@@ -452,6 +505,15 @@ class Agreement extends PayPalResourceModel {
 		);
 
 		return true;
+	}
+
+	/**
+	 * Identifier of the agreement.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**
@@ -577,68 +639,6 @@ class Agreement extends PayPalResourceModel {
 		);
 
 		return true;
-	}
-
-	/**
-	 * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
-	 *
-	 * @deprecated Please use searchTransactions Instead
-	 *
-	 * @param string $agreementId
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return AgreementTransactions
-	 */
-	public static function transactions( $agreementId, $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $agreementId, 'agreementId' );
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/billing-agreements/$agreementId/transactions",
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new AgreementTransactions();
-		$ret->fromJson( $json );
-
-		return $ret;
-	}
-
-	/**
-	 * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
-	 *
-	 * @param string $agreementId
-	 * @param array $params Parameters for search string. Options: start_date, and end_date
-	 * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-	 * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-	 *
-	 * @return AgreementTransactions
-	 */
-	public static function searchTransactions( $agreementId, $params = array(), $apiContext = null, $restCall = null ) {
-		ArgumentValidator::validate( $agreementId, 'agreementId' );
-		ArgumentValidator::validate( $params, 'params' );
-
-		$allowedParams = array(
-			'start_date' => 1,
-			'end_date'   => 1,
-		);
-
-		$payLoad = "";
-		$json    = self::executeCall(
-			"/v1/payments/billing-agreements/$agreementId/transactions?" . http_build_query( array_intersect_key( $params, $allowedParams ) ),
-			"GET",
-			$payLoad,
-			null,
-			$apiContext,
-			$restCall
-		);
-		$ret     = new AgreementTransactions();
-		$ret->fromJson( $json );
-
-		return $ret;
 	}
 
 }

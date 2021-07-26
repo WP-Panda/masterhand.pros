@@ -617,6 +617,7 @@ if ( $visualFlag ) {
 
 
 
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -694,6 +695,7 @@ if ( $visualFlag ) {
 
 
 
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -760,6 +762,7 @@ if ( $visualFlag ) {
 									<?php } ?>
                                         <script type="data/json" id="previous_project_post_data">
                                         <?php echo json_encode( $postdata ); ?>
+
 
 
 

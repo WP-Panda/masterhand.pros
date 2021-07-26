@@ -17,28 +17,6 @@ use PayPal\Common\PayPalModel;
  */
 class BankAccountsList extends PayPalModel {
 	/**
-	 * A list of bank account resources
-	 *
-	 * @param \PayPal\Api\BankAccount[] $bank_accounts
-	 *
-	 * @return $this
-	 */
-	public function setBankAccounts( $bank_accounts ) {
-		$this->{"bank-accounts"} = $bank_accounts;
-
-		return $this;
-	}
-
-	/**
-	 * A list of bank account resources
-	 *
-	 * @return \PayPal\Api\BankAccount[]
-	 */
-	public function getBankAccounts() {
-		return $this->{"bank-accounts"};
-	}
-
-	/**
 	 * Append BankAccounts to the list.
 	 *
 	 * @param \PayPal\Api\BankAccount $bankAccount
@@ -53,6 +31,28 @@ class BankAccountsList extends PayPalModel {
 				array_merge( $this->getBankAccounts(), array( $bankAccount ) )
 			);
 		}
+	}
+
+	/**
+	 * A list of bank account resources
+	 *
+	 * @return \PayPal\Api\BankAccount[]
+	 */
+	public function getBankAccounts() {
+		return $this->{"bank-accounts"};
+	}
+
+	/**
+	 * A list of bank account resources
+	 *
+	 * @param \PayPal\Api\BankAccount[] $bank_accounts
+	 *
+	 * @return $this
+	 */
+	public function setBankAccounts( $bank_accounts ) {
+		$this->{"bank-accounts"} = $bank_accounts;
+
+		return $this;
 	}
 
 	/**

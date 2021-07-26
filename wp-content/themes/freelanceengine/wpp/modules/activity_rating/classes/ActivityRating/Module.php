@@ -36,6 +36,14 @@ class Module extends Base {
 		$this->varsTpl['lang']       = $this->getLang( 'ALL' );
 	}
 
+	public static function getInstance() {
+		if ( self::$_instance === null ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
 	public function actionIndex() {
 
 		$config       = Config::getInstance()->getAll();
@@ -111,16 +119,17 @@ class Module extends Base {
 		self::outputJSON( $result, 1 );
 	}
 
-	public function getList() {
-		$addWhere = $this->getSearch();
-		$addWhere = ! empty( $addWhere ) ? "WHERE {$addWhere}" : '';
+	public function setSearch( $word = '' ) {
+		if ( ! empty( $word ) ) {
+			$word = $this->escapeStr( $word );
 
-		$orderBy = "ORDER BY {$this->getOrderBy()}";
-		$limit   = $this->getPageStep() ? "LIMIT {$this->getSqlLimit()}" : '';
+			$addSearch = " s.user_id = {$this->toInt($word)}
+			OR s.name LIKE '%{$word}%'";
 
-		$sql = "SELECT * FROM {$this->tbRating} s {$addWhere} {$orderBy} {$limit}";
+			$this->sqlSearch = $addSearch;
+		}
 
-		return $this->db->get_results( $sql, ARRAY_A );
+		return $this;
 	}
 
 	public function setOrderBy( $orderBy = '' ) {
@@ -142,8 +151,38 @@ class Module extends Base {
 		}
 	}
 
+	public static function checkField( $field = '' ) {
+		$arr = [ 'user_id', 'updated', ];
+
+		return in_array( $field, $arr );
+	}
+
+	public function getList() {
+		$addWhere = $this->getSearch();
+		$addWhere = ! empty( $addWhere ) ? "WHERE {$addWhere}" : '';
+
+		$orderBy = "ORDER BY {$this->getOrderBy()}";
+		$limit   = $this->getPageStep() ? "LIMIT {$this->getSqlLimit()}" : '';
+
+		$sql = "SELECT * FROM {$this->tbRating} s {$addWhere} {$orderBy} {$limit}";
+
+		return $this->db->get_results( $sql, ARRAY_A );
+	}
+
+	protected function getSearch() {
+		return $this->sqlSearch;
+	}
+
 	protected function getOrderBy() {
 		return $this->sqlOrderBy;
+	}
+
+	public function getPageStep() {
+		return $this->_pageStep;
+	}
+
+	protected function getSqlLimit() {
+		return empty( $this->sqlLimit ) ? '0,' . (int) $this->getPageStep() : $this->sqlLimit;
 	}
 
 	public function setSqlLimit( $page = 1, $offset = 0 ) {
@@ -163,72 +202,11 @@ class Module extends Base {
 		return $this;
 	}
 
-	public function getPageStep() {
-		return $this->_pageStep;
-	}
-
-	protected function getSqlLimit() {
-		return empty( $this->sqlLimit ) ? '0,' . (int) $this->getPageStep() : $this->sqlLimit;
-	}
-
-	public function setSearch( $word = '' ) {
-		if ( ! empty( $word ) ) {
-			$word = $this->escapeStr( $word );
-
-			$addSearch = " s.user_id = {$this->toInt($word)}
-			OR s.name LIKE '%{$word}%'";
-
-			$this->sqlSearch = $addSearch;
-		}
-
-		return $this;
-	}
-
-	protected function getSearch() {
-		return $this->sqlSearch;
-	}
-
-	public static function checkField( $field = '' ) {
-		$arr = [ 'user_id', 'updated', ];
-
-		return in_array( $field, $arr );
-	}
-
 	public function installTb() {
 		$this->db->query( $this->sgl_tbRating() );
 		$this->db->query( $this->sgl_tbRatingDetail() );
 		$this->db->query( $this->sgl_tbRatingConfig() );
 		$this->db->query( $this->sgl_defConfig() );
-	}
-
-	public function uninstallTb() {
-		$this->db->query( "DROP TABLE IF EXISTS {$this->tbConfig}" );
-		$this->db->query( "DROP TABLE IF EXISTS {$this->tbRating}" );
-		$this->db->query( "DROP TABLE IF EXISTS {$this->tbRatingDetail}" );
-	}
-
-	public function updateTb() {
-		$exist_column = $this->db->query( "SELECT pro_rating FROM {$this->tbRating} LIMIT 1" );
-		if ( $this->db->last_error != '' ) {
-			$this->db->query( $this->updatetbRating() );
-		}
-
-		$exist_column = $this->db->query( "SELECT value_pro FROM {$this->tbRatingDetail} LIMIT 1" );
-		if ( $this->db->last_error != '' ) {
-			$this->db->query( "ALTER TABLE `{$this->tbRatingDetail}` ADD `value_pro` BIGINT NOT NULL DEFAULT '0' AFTER `value`" );
-		}
-
-		if ( self::VERSION == '1.1' ) {
-			$var = $this->db->get_var( "SELECT value FROM {$this->tbConfig} WHERE name = 'employer.value.fromRatingFreelancer'" );
-			if ( empty( $var ) ) {
-				$this->db->query( "INSERT INTO {$this->tbConfig} (name, value) VALUES ('employer.value.fromRatingFreelancer', 1)" );
-			}
-
-			$var = $this->db->get_var( "SELECT value FROM {$this->tbConfig} WHERE name = 'employer.value.forEndorseSkill'" );
-			if ( empty( $var ) ) {
-				$this->db->query( "INSERT INTO {$this->tbConfig} (name, value) VALUES ('employer.value.forEndorseSkill', 1)" );
-			}
-		}
 	}
 
 	private function sgl_tbRating() {
@@ -241,10 +219,6 @@ class Module extends Base {
 		COLLATE=utf8_general_ci
 		ENGINE=InnoDB
 		";
-	}
-
-	private function updatetbRating() {
-		return "ALTER TABLE `{$this->tbRating}` ADD `pro_rating` BIGINT NOT NULL DEFAULT '0' AFTER `rating`";
 	}
 
 	private function sgl_tbRatingDetail() {
@@ -302,11 +276,37 @@ class Module extends Base {
 		";
 	}
 
-	public static function getInstance() {
-		if ( self::$_instance === null ) {
-			self::$_instance = new self();
+	public function uninstallTb() {
+		$this->db->query( "DROP TABLE IF EXISTS {$this->tbConfig}" );
+		$this->db->query( "DROP TABLE IF EXISTS {$this->tbRating}" );
+		$this->db->query( "DROP TABLE IF EXISTS {$this->tbRatingDetail}" );
+	}
+
+	public function updateTb() {
+		$exist_column = $this->db->query( "SELECT pro_rating FROM {$this->tbRating} LIMIT 1" );
+		if ( $this->db->last_error != '' ) {
+			$this->db->query( $this->updatetbRating() );
 		}
 
-		return self::$_instance;
+		$exist_column = $this->db->query( "SELECT value_pro FROM {$this->tbRatingDetail} LIMIT 1" );
+		if ( $this->db->last_error != '' ) {
+			$this->db->query( "ALTER TABLE `{$this->tbRatingDetail}` ADD `value_pro` BIGINT NOT NULL DEFAULT '0' AFTER `value`" );
+		}
+
+		if ( self::VERSION == '1.1' ) {
+			$var = $this->db->get_var( "SELECT value FROM {$this->tbConfig} WHERE name = 'employer.value.fromRatingFreelancer'" );
+			if ( empty( $var ) ) {
+				$this->db->query( "INSERT INTO {$this->tbConfig} (name, value) VALUES ('employer.value.fromRatingFreelancer', 1)" );
+			}
+
+			$var = $this->db->get_var( "SELECT value FROM {$this->tbConfig} WHERE name = 'employer.value.forEndorseSkill'" );
+			if ( empty( $var ) ) {
+				$this->db->query( "INSERT INTO {$this->tbConfig} (name, value) VALUES ('employer.value.forEndorseSkill', 1)" );
+			}
+		}
+	}
+
+	private function updatetbRating() {
+		return "ALTER TABLE `{$this->tbRating}` ADD `pro_rating` BIGINT NOT NULL DEFAULT '0' AFTER `rating`";
 	}
 }

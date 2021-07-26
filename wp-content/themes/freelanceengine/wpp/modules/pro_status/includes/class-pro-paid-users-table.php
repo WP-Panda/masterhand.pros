@@ -13,32 +13,6 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 class Pro_Paid_Users_Table extends WP_List_Table {
 
-	/**
-	 * Retrieve pro users data from database
-	 *
-	 * @return array|object|null
-	 */
-	public static function get_pro_users() {
-		global $wpdb;
-
-		$sql = "
-                SELECT ppu.id, ppu.user_id, ppu.order_duration, ppu.price, ppu.activation_date, ppu.expired_date, u.user_nicename, u.user_email, u.display_name, ps.status_name  
-                FROM {$wpdb->prefix}pro_paid_users as ppu
-                LEFT JOIN {$wpdb->prefix}users as u ON ppu.user_id = u.id
-                LEFT JOIN {$wpdb->prefix}pro_status as ps ON ppu.status_id = ps.id
-               ";
-
-		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
-		}
-
-		$result = $wpdb->get_results( $sql, 'ARRAY_A' );
-
-		return $result;
-
-	}
-
 	public function __construct() {
 		global $status, $page;
 
@@ -131,150 +105,6 @@ class Pro_Paid_Users_Table extends WP_List_Table {
 		$date = date_create_from_format( 'Y-m-d H:i:s', $ed );
 
 		return sprintf( '<span data-expired-date="%1$s">%2$s</span>', $ed, date_format( $date, 'Y-m-d' ) );
-	}
-
-	/** ************************************************************************
-	 * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
-	 * is given special treatment when columns are processed. It ALWAYS needs to
-	 * have it's own method.
-	 *
-	 * @see WP_List_Table::::single_row_columns()
-	 *
-	 * @param array $item A singular item (one full row's worth of data)
-	 *
-	 * @return string Text to be placed inside the column <td> (movie title only)
-	 **************************************************************************/
-	//    function column_cb($item){
-	//        return sprintf('<input type="checkbox" name="delete[]" value="%1$s" />', $item['id']);
-	//    }
-
-	/** ************************************************************************
-	 * REQUIRED! This method dictates the table's columns and titles. This should
-	 * return an array where the key is the column slug (and class) and the value
-	 * is the column's title text. If you need a checkbox for bulk actions, refer
-	 * to the $columns array below.
-	 *
-	 * The 'cb' column is treated differently than the rest. If including a checkbox
-	 * column in your table you must create a column_cb() method. If you don't need
-	 * bulk actions or checkboxes, simply leave the 'cb' entry out of your array.
-	 *
-	 * @see WP_List_Table::::single_row_columns()
-	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
-	 **************************************************************************/
-	function get_columns() {
-		$columns = [
-			//            'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
-			//            'id'     => '#',
-			'display_name'    => 'User Name',
-			'user_email'      => 'User Email',
-			'role'            => 'Role',
-			'price'           => 'Price',
-			'user_id'         => 'User ID',
-			'status_name'     => 'Status Name',
-			'order_duration'  => 'Order Duration',
-			'activation_date' => 'Activation Date',
-			'expired_date'    => 'Expired Date',
-		];
-
-		return $columns;
-	}
-
-	/** ************************************************************************
-	 * Optional. If you want one or more columns to be sortable (ASC/DESC toggle),
-	 * you will need to register it here. This should return an array where the
-	 * key is the column that needs to be sortable, and the value is db column to
-	 * sort by. Often, the key and value will be the same, but this is not always
-	 * the case (as the value is a column name from the database, not the list table).
-	 *
-	 * This method merely defines which columns should be sortable and makes them
-	 * clickable - it does not handle the actual sorting. You still need to detect
-	 * the ORDERBY and ORDER querystring variables within prepare_items() and sort
-	 * your data accordingly (usually by modifying your query).
-	 *
-	 * @return array An associative array containing all the columns that should be sortable:
-	 *               'slugs'=>array('data_values',bool)
-	 **************************************************************************/
-	function get_sortable_columns() {
-		$sortable_columns = [
-
-			//            'id'     => ['id', false],     //true means it's already sorted
-			'status_name'     => [ 'status_name', false ],
-			'order_duration'  => [ 'order_duration', false ],
-			'activation_date' => [ 'activation_date', false ],
-			'expired_date'    => [ 'expired_date', false ],
-
-		];
-
-		return $sortable_columns;
-	}
-
-	/** ************************************************************************
-	 * Optional. If you need to include bulk actions in your list table, this is
-	 * the place to define them. Bulk actions are an associative array in the format
-	 * 'slug'=>'Visible Title'
-	 *
-	 * If this method returns an empty value, no bulk action will be rendered. If
-	 * you specify any bulk actions, the bulk actions box will be rendered with
-	 * the table automatically on display().
-	 *
-	 * Also note that list tables are not automatically wrapped in <form> elements,
-	 * so you will need to create those manually in order for bulk actions to function.
-	 *
-	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
-	 **************************************************************************/
-	//    function get_bulk_actions() {
-	//        $actions = array(
-	//            'delete'    => 'Delete'
-	//        );
-	//        return $actions;
-	//    }
-
-	/**
-	 * Delete a user record.
-	 *
-	 * @param int $id user ID
-	 */
-	public static function delete_user( $id ) {
-		global $wpdb;
-
-		//        $wpdb->delete("{$wpdb->prefix}pro_paid_users",['id' => $id],['%d']);
-
-		$user_id = $wpdb->get_var( "SELECT user_id FROM {$wpdb->prefix}pro_paid_users WHERE id={$id}" );
-
-		if ( ae_user_role( $user_id ) == FREELANCER ) {
-			$wpdb->update( "{$wpdb->prefix}pro_paid_users", [ 'status_id' => PRO_BASIC_STATUS_FREELANCER ], [ 'id' => $id ] );
-		} else {
-			$wpdb->update( "{$wpdb->prefix}pro_paid_users", [ 'status_id' => PRO_BASIC_STATUS_EMPLOYER ], [ 'id' => $id ] );
-		}
-	}
-
-
-	/** ************************************************************************
-	 * Optional. You can handle your bulk actions anywhere or anyhow you prefer.
-	 * For this example package, we will handle it in the class to keep things
-	 * clean and organized.
-	 *
-	 * @see $this->prepare_items()
-	 **************************************************************************/
-	function process_bulk_action() {
-
-		//Detect when a bulk action is being triggered...
-		if ( 'delete' === $this->current_action() ) {
-
-			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
-
-
-			if ( ! wp_verify_nonce( $nonce, 'delete_pro_user' ) ) {
-				die( 'Go get a life script kiddies' );
-			} else {
-				self::delete_user( absint( $_GET['user'] ) );
-
-				wp_redirect( esc_url( add_query_arg() ) );
-				exit;
-			}
-		}
-
 	}
 
 	/** ************************************************************************
@@ -413,6 +243,175 @@ class Pro_Paid_Users_Table extends WP_List_Table {
 			'per_page'    => $per_page,   //WE have to determine how many items to show on a page
 			'total_pages' => ceil( $total_items / $per_page )   //WE have to calculate the total number of pages
 		] );
+	}
+
+	/** ************************************************************************
+	 * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
+	 * is given special treatment when columns are processed. It ALWAYS needs to
+	 * have it's own method.
+	 *
+	 * @see WP_List_Table::::single_row_columns()
+	 *
+	 * @param array $item A singular item (one full row's worth of data)
+	 *
+	 * @return string Text to be placed inside the column <td> (movie title only)
+	 **************************************************************************/
+	//    function column_cb($item){
+	//        return sprintf('<input type="checkbox" name="delete[]" value="%1$s" />', $item['id']);
+	//    }
+
+	/** ************************************************************************
+	 * REQUIRED! This method dictates the table's columns and titles. This should
+	 * return an array where the key is the column slug (and class) and the value
+	 * is the column's title text. If you need a checkbox for bulk actions, refer
+	 * to the $columns array below.
+	 *
+	 * The 'cb' column is treated differently than the rest. If including a checkbox
+	 * column in your table you must create a column_cb() method. If you don't need
+	 * bulk actions or checkboxes, simply leave the 'cb' entry out of your array.
+	 *
+	 * @see WP_List_Table::::single_row_columns()
+	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
+	 **************************************************************************/
+	function get_columns() {
+		$columns = [
+			//            'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
+			//            'id'     => '#',
+			'display_name'    => 'User Name',
+			'user_email'      => 'User Email',
+			'role'            => 'Role',
+			'price'           => 'Price',
+			'user_id'         => 'User ID',
+			'status_name'     => 'Status Name',
+			'order_duration'  => 'Order Duration',
+			'activation_date' => 'Activation Date',
+			'expired_date'    => 'Expired Date',
+		];
+
+		return $columns;
+	}
+
+	/** ************************************************************************
+	 * Optional. If you want one or more columns to be sortable (ASC/DESC toggle),
+	 * you will need to register it here. This should return an array where the
+	 * key is the column that needs to be sortable, and the value is db column to
+	 * sort by. Often, the key and value will be the same, but this is not always
+	 * the case (as the value is a column name from the database, not the list table).
+	 *
+	 * This method merely defines which columns should be sortable and makes them
+	 * clickable - it does not handle the actual sorting. You still need to detect
+	 * the ORDERBY and ORDER querystring variables within prepare_items() and sort
+	 * your data accordingly (usually by modifying your query).
+	 *
+	 * @return array An associative array containing all the columns that should be sortable:
+	 *               'slugs'=>array('data_values',bool)
+	 **************************************************************************/
+	function get_sortable_columns() {
+		$sortable_columns = [
+
+			//            'id'     => ['id', false],     //true means it's already sorted
+			'status_name'     => [ 'status_name', false ],
+			'order_duration'  => [ 'order_duration', false ],
+			'activation_date' => [ 'activation_date', false ],
+			'expired_date'    => [ 'expired_date', false ],
+
+		];
+
+		return $sortable_columns;
+	}
+
+	/** ************************************************************************
+	 * Optional. If you need to include bulk actions in your list table, this is
+	 * the place to define them. Bulk actions are an associative array in the format
+	 * 'slug'=>'Visible Title'
+	 *
+	 * If this method returns an empty value, no bulk action will be rendered. If
+	 * you specify any bulk actions, the bulk actions box will be rendered with
+	 * the table automatically on display().
+	 *
+	 * Also note that list tables are not automatically wrapped in <form> elements,
+	 * so you will need to create those manually in order for bulk actions to function.
+	 *
+	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
+	 **************************************************************************/
+	//    function get_bulk_actions() {
+	//        $actions = array(
+	//            'delete'    => 'Delete'
+	//        );
+	//        return $actions;
+	//    }
+
+	/** ************************************************************************
+	 * Optional. You can handle your bulk actions anywhere or anyhow you prefer.
+	 * For this example package, we will handle it in the class to keep things
+	 * clean and organized.
+	 *
+	 * @see $this->prepare_items()
+	 **************************************************************************/
+	function process_bulk_action() {
+
+		//Detect when a bulk action is being triggered...
+		if ( 'delete' === $this->current_action() ) {
+
+			// In our file that handles the request, verify the nonce.
+			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+
+
+			if ( ! wp_verify_nonce( $nonce, 'delete_pro_user' ) ) {
+				die( 'Go get a life script kiddies' );
+			} else {
+				self::delete_user( absint( $_GET['user'] ) );
+
+				wp_redirect( esc_url( add_query_arg() ) );
+				exit;
+			}
+		}
+
+	}
+
+	/**
+	 * Delete a user record.
+	 *
+	 * @param int $id user ID
+	 */
+	public static function delete_user( $id ) {
+		global $wpdb;
+
+		//        $wpdb->delete("{$wpdb->prefix}pro_paid_users",['id' => $id],['%d']);
+
+		$user_id = $wpdb->get_var( "SELECT user_id FROM {$wpdb->prefix}pro_paid_users WHERE id={$id}" );
+
+		if ( ae_user_role( $user_id ) == FREELANCER ) {
+			$wpdb->update( "{$wpdb->prefix}pro_paid_users", [ 'status_id' => PRO_BASIC_STATUS_FREELANCER ], [ 'id' => $id ] );
+		} else {
+			$wpdb->update( "{$wpdb->prefix}pro_paid_users", [ 'status_id' => PRO_BASIC_STATUS_EMPLOYER ], [ 'id' => $id ] );
+		}
+	}
+
+	/**
+	 * Retrieve pro users data from database
+	 *
+	 * @return array|object|null
+	 */
+	public static function get_pro_users() {
+		global $wpdb;
+
+		$sql = "
+                SELECT ppu.id, ppu.user_id, ppu.order_duration, ppu.price, ppu.activation_date, ppu.expired_date, u.user_nicename, u.user_email, u.display_name, ps.status_name  
+                FROM {$wpdb->prefix}pro_paid_users as ppu
+                LEFT JOIN {$wpdb->prefix}users as u ON ppu.user_id = u.id
+                LEFT JOIN {$wpdb->prefix}pro_status as ps ON ppu.status_id = ps.id
+               ";
+
+		if ( ! empty( $_REQUEST['orderby'] ) ) {
+			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+		}
+
+		$result = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+		return $result;
+
 	}
 }
 

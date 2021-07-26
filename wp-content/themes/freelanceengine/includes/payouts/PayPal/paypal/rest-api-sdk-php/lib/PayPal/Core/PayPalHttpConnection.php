@@ -51,80 +51,6 @@ class PayPalHttpConnection {
 	}
 
 	/**
-	 * Gets all Http Headers
-	 *
-	 * @return array
-	 */
-	private function getHttpHeaders() {
-		$ret = array();
-		foreach ( $this->httpConfig->getHeaders() as $k => $v ) {
-			$ret[] = "$k: $v";
-		}
-
-		return $ret;
-	}
-
-	/**
-	 * Parses the response headers for debugging.
-	 *
-	 * @param resource $ch
-	 * @param string $data
-	 *
-	 * @return int
-	 */
-	protected function parseResponseHeaders( $ch, $data ) {
-		if ( ! $this->skippedHttpStatusLine ) {
-			$this->skippedHttpStatusLine = true;
-
-			return strlen( $data );
-		}
-
-		$trimmedData = trim( $data );
-		if ( strlen( $trimmedData ) == 0 ) {
-			return strlen( $data );
-		}
-
-		// Added condition to ignore extra header which dont have colon ( : )
-		if ( strpos( $trimmedData, ":" ) == false ) {
-			return strlen( $data );
-		}
-
-		list( $key, $value ) = explode( ":", $trimmedData, 2 );
-
-		$key   = trim( $key );
-		$value = trim( $value );
-
-		// This will skip over the HTTP Status Line and any other lines
-		// that don't look like header lines with values
-		if ( strlen( $key ) > 0 && strlen( $value ) > 0 ) {
-			// This is actually a very basic way of looking at response headers
-			// and may miss a few repeated headers with different (appended)
-			// values but this should work for debugging purposes.
-			$this->responseHeaders[ $key ] = $value;
-		}
-
-		return strlen( $data );
-	}
-
-
-	/**
-	 * Implodes a key/value array for printing.
-	 *
-	 * @param array $arr
-	 *
-	 * @return string
-	 */
-	protected function implodeArray( $arr ) {
-		$retStr = '';
-		foreach ( $arr as $key => $value ) {
-			$retStr .= $key . ': ' . $value . ', ';
-		}
-		rtrim( $retStr, ', ' );
-
-		return $retStr;
-	}
-
-	/**
 	 * Executes an HTTP request
 	 *
 	 * @param string $data query string OR POST content as a string
@@ -222,5 +148,78 @@ class PayPalHttpConnection {
 
 		//Return result object
 		return $result;
+	}
+
+	/**
+	 * Gets all Http Headers
+	 *
+	 * @return array
+	 */
+	private function getHttpHeaders() {
+		$ret = array();
+		foreach ( $this->httpConfig->getHeaders() as $k => $v ) {
+			$ret[] = "$k: $v";
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * Implodes a key/value array for printing.
+	 *
+	 * @param array $arr
+	 *
+	 * @return string
+	 */
+	protected function implodeArray( $arr ) {
+		$retStr = '';
+		foreach ( $arr as $key => $value ) {
+			$retStr .= $key . ': ' . $value . ', ';
+		}
+		rtrim( $retStr, ', ' );
+
+		return $retStr;
+	}
+
+	/**
+	 * Parses the response headers for debugging.
+	 *
+	 * @param resource $ch
+	 * @param string $data
+	 *
+	 * @return int
+	 */
+	protected function parseResponseHeaders( $ch, $data ) {
+		if ( ! $this->skippedHttpStatusLine ) {
+			$this->skippedHttpStatusLine = true;
+
+			return strlen( $data );
+		}
+
+		$trimmedData = trim( $data );
+		if ( strlen( $trimmedData ) == 0 ) {
+			return strlen( $data );
+		}
+
+		// Added condition to ignore extra header which dont have colon ( : )
+		if ( strpos( $trimmedData, ":" ) == false ) {
+			return strlen( $data );
+		}
+
+		list( $key, $value ) = explode( ":", $trimmedData, 2 );
+
+		$key   = trim( $key );
+		$value = trim( $value );
+
+		// This will skip over the HTTP Status Line and any other lines
+		// that don't look like header lines with values
+		if ( strlen( $key ) > 0 && strlen( $value ) > 0 ) {
+			// This is actually a very basic way of looking at response headers
+			// and may miss a few repeated headers with different (appended)
+			// values but this should work for debugging purposes.
+			$this->responseHeaders[ $key ] = $value;
+		}
+
+		return strlen( $data );
 	}
 }

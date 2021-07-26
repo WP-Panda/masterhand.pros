@@ -56,84 +56,6 @@ class ET_Admin extends AE_Base {
 	}
 
 	/**
-	 * update user avatar
-	 */
-	public function ae_upload_image( $attach_data, $data ) {
-
-		if ( isset( $data["method"] ) && $data["method"] == "change_avatar" ) {
-			if ( ! isset( $data['author'] ) ) {
-				return;
-			}
-
-			$ae_users = AE_Users::get_instance();
-
-			//update user avatar
-			$user = $ae_users->update( [
-				'ID'            => $data['author'],
-				'et_avatar'     => $attach_data['attach_id'],
-				'et_avatar_url' => $attach_data['thumbnail'][0]
-			] );
-		}
-		switch ( $data ) {
-			case 'site_logo_black':
-			case 'site_logo_white':
-				$options = AE_Options::get_instance();
-
-				// save this setting to theme options
-				$options->$data = $attach_data;
-				if ( $data == 'site_logo_black' ) {
-					$options->site_logo = $attach_data;
-				}
-				$options->save();
-
-				break;
-
-			default:
-				// code...
-				break;
-		}
-	}
-
-	/**
-	 * ajax function reset option
-	 */
-	function reset_option() {
-
-		$option_name     = $_REQUEST['option_name'];
-		$default_options = $this->get_default_options();
-
-		if ( isset( $default_options[ $option_name ] ) ) {
-			$options               = AE_Options::get_instance();
-			$options->$option_name = $default_options[ $option_name ];
-			$options->save();
-			wp_send_json( [
-				'msg' => $default_options[ $option_name ]
-			] );
-		}
-	}
-
-	function get_template_default_options( $name ) {
-		$default_options = $this->get_default_options();
-		if ( isset( $default_options[ $name ] ) ) {
-			return $default_options[ $name ];
-		}
-	}
-
-	function admin_custom_css() {
-		?>
-        <style type="text/css">
-            .custom-icon {
-                margin: 10px;
-            }
-
-            .custom-icon input {
-                width: 80%;
-            }
-        </style>
-		<?php
-	}
-
-	/**
 	 * retrieve site default options
 	 */
 	function get_default_options() {
@@ -459,6 +381,84 @@ class ET_Admin extends AE_Base {
 			'notify_payment_code'           => '<p>For your project <b>[project_name]</b> was created payment code.<br>Payment code: [payment_code]</p>',
 			'init'                          => 1
 		] );
+	}
+
+	/**
+	 * update user avatar
+	 */
+	public function ae_upload_image( $attach_data, $data ) {
+
+		if ( isset( $data["method"] ) && $data["method"] == "change_avatar" ) {
+			if ( ! isset( $data['author'] ) ) {
+				return;
+			}
+
+			$ae_users = AE_Users::get_instance();
+
+			//update user avatar
+			$user = $ae_users->update( [
+				'ID'            => $data['author'],
+				'et_avatar'     => $attach_data['attach_id'],
+				'et_avatar_url' => $attach_data['thumbnail'][0]
+			] );
+		}
+		switch ( $data ) {
+			case 'site_logo_black':
+			case 'site_logo_white':
+				$options = AE_Options::get_instance();
+
+				// save this setting to theme options
+				$options->$data = $attach_data;
+				if ( $data == 'site_logo_black' ) {
+					$options->site_logo = $attach_data;
+				}
+				$options->save();
+
+				break;
+
+			default:
+				// code...
+				break;
+		}
+	}
+
+	/**
+	 * ajax function reset option
+	 */
+	function reset_option() {
+
+		$option_name     = $_REQUEST['option_name'];
+		$default_options = $this->get_default_options();
+
+		if ( isset( $default_options[ $option_name ] ) ) {
+			$options               = AE_Options::get_instance();
+			$options->$option_name = $default_options[ $option_name ];
+			$options->save();
+			wp_send_json( [
+				'msg' => $default_options[ $option_name ]
+			] );
+		}
+	}
+
+	function get_template_default_options( $name ) {
+		$default_options = $this->get_default_options();
+		if ( isset( $default_options[ $name ] ) ) {
+			return $default_options[ $name ];
+		}
+	}
+
+	function admin_custom_css() {
+		?>
+        <style type="text/css">
+            .custom-icon {
+                margin: 10px;
+            }
+
+            .custom-icon input {
+                width: 80%;
+            }
+        </style>
+		<?php
 	}
 
 	function update_first_time() {

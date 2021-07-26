@@ -1,12 +1,12 @@
 <?php
 
 class ET_GoogleAuth extends ET_SocialAuth {
-	private $state;
-	private $gplus_secret_key;
 	protected $gplus_client_id;
 	protected $gplus_base_url;
 	protected $gplus_exchange_url;
 	protected $gplus_token_info_url;
+	private $state;
+	private $gplus_secret_key;
 
 	public function __construct() {
 		parent::__construct( 'google', 'et_google_id', array(
@@ -29,41 +29,6 @@ class ET_GoogleAuth extends ET_SocialAuth {
 	}
 
 	// implement abstract method
-	protected function send_created_mail( $user_id ) {
-		do_action( 'et_after_register', $user_id );
-	}
-
-	public function ae_gplus_redirect() {
-		try {
-			// turn on session
-			if ( ! isset( $_SESSION ) ) {
-				ob_start();
-				@session_start();
-			}
-			$this->state  = md5( uniqid() );
-			$redirect_uri = home_url( '?action=gplus_auth_callback' );
-			$link         = $this->gplus_base_url . '?';
-			$link         .= 'scope=https://www.googleapis.com/auth/userinfo.email&';
-			$link         .= 'state=' . $this->state . '&';
-			$link         .= 'redirect_uri=' . $redirect_uri . '&';
-			$link         .= 'client_id=' . $this->gplus_client_id . '&';
-			$link         .= 'response_type=code&';
-			$resp         = array(
-				'success'  => true,
-				'msg'      => __( 'success', ET_DOMAIN ),
-				'redirect' => $link,
-			);
-
-		} catch ( Exception $e ) {
-
-			$resp = array(
-				'success' => false,
-				'msg'     => $e->getMessage()
-			);
-
-		}
-		wp_send_json( $resp );
-	}
 
 	public function auth_google() {
 		if ( ( isset( $_REQUEST['code'] ) && ! empty( $_REQUEST['code'] ) ) && ( isset( $_REQUEST['state'] ) || $_REQUEST['state'] == $this->state ) ) {
@@ -181,5 +146,41 @@ class ET_GoogleAuth extends ET_SocialAuth {
 				exit();
 			}
 		}
+	}
+
+	public function ae_gplus_redirect() {
+		try {
+			// turn on session
+			if ( ! isset( $_SESSION ) ) {
+				ob_start();
+				@session_start();
+			}
+			$this->state  = md5( uniqid() );
+			$redirect_uri = home_url( '?action=gplus_auth_callback' );
+			$link         = $this->gplus_base_url . '?';
+			$link         .= 'scope=https://www.googleapis.com/auth/userinfo.email&';
+			$link         .= 'state=' . $this->state . '&';
+			$link         .= 'redirect_uri=' . $redirect_uri . '&';
+			$link         .= 'client_id=' . $this->gplus_client_id . '&';
+			$link         .= 'response_type=code&';
+			$resp         = array(
+				'success'  => true,
+				'msg'      => __( 'success', ET_DOMAIN ),
+				'redirect' => $link,
+			);
+
+		} catch ( Exception $e ) {
+
+			$resp = array(
+				'success' => false,
+				'msg'     => $e->getMessage()
+			);
+
+		}
+		wp_send_json( $resp );
+	}
+
+	protected function send_created_mail( $user_id ) {
+		do_action( 'et_after_register', $user_id );
 	}
 }

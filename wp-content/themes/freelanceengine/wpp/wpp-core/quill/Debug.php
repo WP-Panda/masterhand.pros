@@ -35,38 +35,6 @@ class Debug {
 	}
 
 	/**
-	 * Get an array of lines which does not have status done.
-	 *
-	 * @return array
-	 */
-	protected function getNotDoneLines() {
-		$lines = [];
-		foreach ( $this->lexer->getLines() as $line ) {
-			if ( ! $line->isDone() ) {
-				$lines[] = $line;
-			}
-		}
-
-		return $lines;
-	}
-
-	/**
-	 * Get an array of lines which does not have the status picked
-	 *
-	 * @return array
-	 */
-	protected function getNotPickedLines() {
-		$lines = [];
-		foreach ( $this->lexer->getLines() as $line ) {
-			if ( ! $line->isPicked() && ! $line->isDone() ) {
-				$lines[] = $line;
-			}
-		}
-
-		return $lines;
-	}
-
-	/**
 	 * return a string with debug informations.
 	 *
 	 * @return string
@@ -167,5 +135,37 @@ class Debug {
 		}
 
 		return $buffer . '</table>';
+	}
+
+	/**
+	 * Get an array of lines which does not have the status picked
+	 *
+	 * @return array
+	 */
+	protected function getNotPickedLines() {
+		$lines = [];
+		foreach ( $this->lexer->getLines() as $line ) {
+			if ( ! $line->isPicked() && ! $line->isDone() ) {
+				$lines[] = $line;
+			}
+		}
+
+		return $lines;
+	}
+
+	/**
+	 * Get an array of lines which does not have status done.
+	 *
+	 * @return array
+	 */
+	protected function getNotDoneLines() {
+		$lines = [];
+		foreach ( $this->lexer->getLines() as $line ) {
+			if ( ! $line->isDone() ) {
+				$lines[] = $line;
+			}
+		}
+
+		return $lines;
 	}
 }

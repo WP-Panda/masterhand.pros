@@ -57,28 +57,6 @@ class TemplateData extends PayPalModel {
 	}
 
 	/**
-	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
-	 *
-	 * @param \PayPal\Api\BillingInfo[] $billing_info
-	 *
-	 * @return $this
-	 */
-	public function setBillingInfo( $billing_info ) {
-		$this->billing_info = $billing_info;
-
-		return $this;
-	}
-
-	/**
-	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
-	 *
-	 * @return \PayPal\Api\BillingInfo[]
-	 */
-	public function getBillingInfo() {
-		return $this->billing_info;
-	}
-
-	/**
 	 * Append BillingInfo to the list.
 	 *
 	 * @param \PayPal\Api\BillingInfo $billingInfo
@@ -96,6 +74,28 @@ class TemplateData extends PayPalModel {
 	}
 
 	/**
+	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
+	 *
+	 * @return \PayPal\Api\BillingInfo[]
+	 */
+	public function getBillingInfo() {
+		return $this->billing_info;
+	}
+
+	/**
+	 * The required invoice recipient email address and any optional billing information. One recipient is supported.
+	 *
+	 * @param \PayPal\Api\BillingInfo[] $billing_info
+	 *
+	 * @return $this
+	 */
+	public function setBillingInfo( $billing_info ) {
+		$this->billing_info = $billing_info;
+
+		return $this;
+	}
+
+	/**
 	 * Remove BillingInfo from the list.
 	 *
 	 * @param \PayPal\Api\BillingInfo $billingInfo
@@ -106,28 +106,6 @@ class TemplateData extends PayPalModel {
 		return $this->setBillingInfo(
 			array_diff( $this->getBillingInfo(), array( $billingInfo ) )
 		);
-	}
-
-	/**
-	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
-	 *
-	 * @param string[] $cc_info
-	 *
-	 * @return $this
-	 */
-	public function setCcInfo( $cc_info ) {
-		$this->cc_info = $cc_info;
-
-		return $this;
-	}
-
-	/**
-	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
-	 *
-	 * @return string[]
-	 */
-	public function getCcInfo() {
-		return $this->cc_info;
 	}
 
 	/**
@@ -145,6 +123,28 @@ class TemplateData extends PayPalModel {
 				array_merge( $this->getCcInfo(), array( $email ) )
 			);
 		}
+	}
+
+	/**
+	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
+	 *
+	 * @return string[]
+	 */
+	public function getCcInfo() {
+		return $this->cc_info;
+	}
+
+	/**
+	 * For invoices sent by email, one or more email addresses to which to send a Cc: copy of the notification. Supports only email addresses under participant.
+	 *
+	 * @param string[] $cc_info
+	 *
+	 * @return $this
+	 */
+	public function setCcInfo( $cc_info ) {
+		$this->cc_info = $cc_info;
+
+		return $this;
 	}
 
 	/**
@@ -183,28 +183,6 @@ class TemplateData extends PayPalModel {
 	}
 
 	/**
-	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
-	 *
-	 * @param \PayPal\Api\InvoiceItem[] $items
-	 *
-	 * @return $this
-	 */
-	public function setItems( $items ) {
-		$this->items = $items;
-
-		return $this;
-	}
-
-	/**
-	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
-	 *
-	 * @return \PayPal\Api\InvoiceItem[]
-	 */
-	public function getItems() {
-		return $this->items;
-	}
-
-	/**
 	 * Append Items to the list.
 	 *
 	 * @param \PayPal\Api\InvoiceItem $invoiceItem
@@ -219,6 +197,28 @@ class TemplateData extends PayPalModel {
 				array_merge( $this->getItems(), array( $invoiceItem ) )
 			);
 		}
+	}
+
+	/**
+	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
+	 *
+	 * @return \PayPal\Api\InvoiceItem[]
+	 */
+	public function getItems() {
+		return $this->items;
+	}
+
+	/**
+	 * The list of items to include in the invoice. Maximum value is 100 items per invoice.
+	 *
+	 * @param \PayPal\Api\InvoiceItem[] $items
+	 *
+	 * @return $this
+	 */
+	public function setItems( $items ) {
+		$this->items = $items;
+
+		return $this;
 	}
 
 	/**
@@ -545,28 +545,6 @@ class TemplateData extends PayPalModel {
 	}
 
 	/**
-	 * List of files attached to the invoice.
-	 *
-	 * @param \PayPal\Api\FileAttachment[] $attachments
-	 *
-	 * @return $this
-	 */
-	public function setAttachments( $attachments ) {
-		$this->attachments = $attachments;
-
-		return $this;
-	}
-
-	/**
-	 * List of files attached to the invoice.
-	 *
-	 * @return \PayPal\Api\FileAttachment[]
-	 */
-	public function getAttachments() {
-		return $this->attachments;
-	}
-
-	/**
 	 * Append Attachments to the list.
 	 *
 	 * @param \PayPal\Api\FileAttachment $fileAttachment
@@ -581,6 +559,28 @@ class TemplateData extends PayPalModel {
 				array_merge( $this->getAttachments(), array( $fileAttachment ) )
 			);
 		}
+	}
+
+	/**
+	 * List of files attached to the invoice.
+	 *
+	 * @return \PayPal\Api\FileAttachment[]
+	 */
+	public function getAttachments() {
+		return $this->attachments;
+	}
+
+	/**
+	 * List of files attached to the invoice.
+	 *
+	 * @param \PayPal\Api\FileAttachment[] $attachments
+	 *
+	 * @return $this
+	 */
+	public function setAttachments( $attachments ) {
+		$this->attachments = $attachments;
+
+		return $this;
 	}
 
 	/**

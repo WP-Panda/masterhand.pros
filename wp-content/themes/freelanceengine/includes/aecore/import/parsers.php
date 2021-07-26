@@ -540,6 +540,40 @@ class WXR_Parser_Regex_yw {
 		);
 	}
 
+	function fopen( $filename, $mode = 'r' ) {
+		if ( $this->has_gzip ) {
+			return gzopen( $filename, $mode );
+		}
+
+		return fopen( $filename, $mode );
+	}
+
+	function feof( $fp ) {
+		if ( $this->has_gzip ) {
+			return gzeof( $fp );
+		}
+
+		return feof( $fp );
+	}
+
+	function fgets( $fp, $len = 8192 ) {
+		if ( $this->has_gzip ) {
+			return gzgets( $fp, $len );
+		}
+
+		return fgets( $fp, $len );
+	}
+
+	function process_category( $c ) {
+		return array(
+			'term_id'              => $this->get_tag( $c, 'wp:term_id' ),
+			'cat_name'             => $this->get_tag( $c, 'wp:cat_name' ),
+			'category_nicename'    => $this->get_tag( $c, 'wp:category_nicename' ),
+			'category_parent'      => $this->get_tag( $c, 'wp:category_parent' ),
+			'category_description' => $this->get_tag( $c, 'wp:category_description' ),
+		);
+	}
+
 	function get_tag( $string, $tag ) {
 		global $wpdb;
 		preg_match( "|<$tag.*?>(.*?)</$tag>|is", $string, $return );
@@ -551,16 +585,6 @@ class WXR_Parser_Regex_yw {
 		}
 
 		return $return;
-	}
-
-	function process_category( $c ) {
-		return array(
-			'term_id'              => $this->get_tag( $c, 'wp:term_id' ),
-			'cat_name'             => $this->get_tag( $c, 'wp:cat_name' ),
-			'category_nicename'    => $this->get_tag( $c, 'wp:category_nicename' ),
-			'category_parent'      => $this->get_tag( $c, 'wp:category_parent' ),
-			'category_description' => $this->get_tag( $c, 'wp:category_description' ),
-		);
 	}
 
 	function process_tag( $t ) {
@@ -695,39 +719,15 @@ class WXR_Parser_Regex_yw {
 		return $postdata;
 	}
 
-	function _normalize_tag( $matches ) {
-		return '<' . strtolower( $matches[1] );
-	}
-
-	function fopen( $filename, $mode = 'r' ) {
-		if ( $this->has_gzip ) {
-			return gzopen( $filename, $mode );
-		}
-
-		return fopen( $filename, $mode );
-	}
-
-	function feof( $fp ) {
-		if ( $this->has_gzip ) {
-			return gzeof( $fp );
-		}
-
-		return feof( $fp );
-	}
-
-	function fgets( $fp, $len = 8192 ) {
-		if ( $this->has_gzip ) {
-			return gzgets( $fp, $len );
-		}
-
-		return fgets( $fp, $len );
-	}
-
 	function fclose( $fp ) {
 		if ( $this->has_gzip ) {
 			return gzclose( $fp );
 		}
 
 		return fclose( $fp );
+	}
+
+	function _normalize_tag( $matches ) {
+		return '<' . strtolower( $matches[1] );
 	}
 }
