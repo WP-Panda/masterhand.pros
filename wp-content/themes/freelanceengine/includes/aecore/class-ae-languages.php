@@ -1,317 +1,404 @@
 <?php
 
+/**
+ * Class AE_Languge control how to addnew language to site
+ * support static function to load text domain
+ *
+ * @author  Dakachi
+ * @version 1.0
+ */
+class AE_Language extends AE_Base {
+
+	protected $_pot_name;
+	protected $_pot;
+
+	protected $_mo_name;
+
 	/**
-	 * Class AE_Languge control how to addnew language to site
-	 * support static function to load text domain
-	 *
-	 * @author  Dakachi
-	 * @version 1.0
+	 * a mo
 	 */
-	class AE_Language extends AE_Base{
+	protected $_mo;
 
-		protected $_pot_name;
-		protected $_pot;
+	/**
+	 * current site language, get from AE_Options website_language attribute
+	 */
+	protected $_selected_lang;
 
-		protected $_mo_name;
+	/**
+	 * all language have in site
+	 */
+	protected $_language_list;
 
-		/**
-		 * a mo
-		 */
-		protected $_mo;
+	/**
+	 * wp includes dir
+	 */
+	protected $_wp_include_dir;
 
-		/**
-		 * current site language, get from AE_Options website_language attribute
-		 */
-		protected $_selected_lang;
+	/**
+	 * site option instance AE_Options
+	 */
+	protected $option;
 
-		/**
-		 * all language have in site
-		 */
-		protected $_language_list;
+	/**
+	 * a static instance for singleton
+	 */
+	static $instance;
 
-		/**
-		 * wp includes dir
-		 */
-		protected $_wp_include_dir;
-
-		/**
-		 * site option instance AE_Options
-		 */
-		protected $option;
-
-		/**
-		 * a static instance for singleton
-		 */
-		static $instance;
-
-		public static function get_instance() {
-			if ( self::$instance == null ) {
-				self::$instance = new AE_Language();
-			}
-
-			return self::$instance;
+	public static function get_instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new AE_Language();
 		}
 
-		/**
-		 * construct AE_Language instance, init hook
-		 *
-		 * @since 1.0
-		 */
-		function __construct() {
+		return self::$instance;
+	}
 
-			if ( ! defined( 'THEME_LANGUAGE_PATH' ) ) {
-				die( 'You have to defined THEME_LANGUAGE_PATH to use languge feature' );
-			}
+	/**
+	 * construct AE_Language instance, init hook
+	 *
+	 * @since 1.0
+	 */
+	function __construct() {
 
-			//$this->_wp_include_dir = preg_replace('/wp-content$/', 'wp-includes', WP_CONTENT_DIR);
-			$this->_wp_include_dir = ABSPATH . WPINC;
-
-			if ( ! class_exists( 'PO' ) ) {
-				require_once $this->get_includes_dir() . '/pomo/po.php';
-			}
-
-			$this->_file_name = 'engine';
-
-			// $this->_pot			= new MO();
-
-			$this->_mo = new MO();
-
-			$this->option         = AE_Options::get_instance();
-			$this->_selected_lang = $this->option->current_language;
-
-			/**
-			 * request for add new language, generate mo file
-			 */
-			$this->add_action( 'wp_ajax_ae-language-sync', 'add_new_lang' );
-
-			/**
-			 * request for change language  on site, update to AE_Options website_language attribute
-			 */
-			$this->add_ajax( 'ae-language-change', 'change_language', true, false );
-
-			/**
-			 * trigger save in translation form to update language
-			 */
-			$this->add_action( 'wp_ajax_et-save-language', 'save_language' );
-
-			/**
-			 * request for load translation form, return a form of string to translate
-			 */
-			$this->add_action( 'wp_ajax_et-load-translation-form', 'load_translation_form' );
-
-			// add_action('after_setup_theme', array ( 'AE_Language' ,'load_text_domain' ) );
-			//ae-language-change
-
-			$this->create_content_directory();
+		if ( ! defined( 'THEME_LANGUAGE_PATH' ) ) {
+			die( 'You have to defined THEME_LANGUAGE_PATH to use languge feature' );
 		}
 
-		/**
-		 * save site language to option
-		 *
-		 * @param string $lang_name
-		 *
-		 * @since 1.0
-		 */
-		public function set_site_language( $lang_name ) {
-			$this->option->website_language = $lang_name;
-			$this->option->save();
+		//$this->_wp_include_dir = preg_replace('/wp-content$/', 'wp-includes', WP_CONTENT_DIR);
+		$this->_wp_include_dir = ABSPATH . WPINC;
+
+		if ( ! class_exists( 'PO' ) ) {
+			require_once $this->get_includes_dir() . '/pomo/po.php';
 		}
 
+		$this->_file_name = 'engine';
+
+		// $this->_pot			= new MO();
+
+		$this->_mo = new MO();
+
+		$this->option         = AE_Options::get_instance();
+		$this->_selected_lang = $this->option->current_language;
+
 		/**
-		 * add new lang to host, base on request lang_name
-		 * send an json back to client
-		 *
-		 * @since 1.0
+		 * request for add new language, generate mo file
 		 */
-		function add_new_lang() {
+		$this->add_action( 'wp_ajax_ae-language-sync', 'add_new_lang' );
 
-			$lang_name = str_replace( ' ', '-', $_POST[ 'lang_name' ] );
-			$lang_arr  = $this->get_language_list();
+		/**
+		 * request for change language  on site, update to AE_Options website_language attribute
+		 */
+		$this->add_ajax( 'ae-language-change', 'change_language', true, false );
 
-			// validate language name
-			if ( $lang_name == "" || in_array( $lang_name, $lang_arr ) ) {
+		/**
+		 * trigger save in translation form to update language
+		 */
+		$this->add_action( 'wp_ajax_et-save-language', 'save_language' );
+
+		/**
+		 * request for load translation form, return a form of string to translate
+		 */
+		$this->add_action( 'wp_ajax_et-load-translation-form', 'load_translation_form' );
+
+		// add_action('after_setup_theme', array ( 'AE_Language' ,'load_text_domain' ) );
+		//ae-language-change
+
+		$this->create_content_directory();
+	}
+
+	/**
+	 * save site language to option
+	 *
+	 * @param string $lang_name
+	 *
+	 * @since 1.0
+	 */
+	public function set_site_language( $lang_name ) {
+		$this->option->website_language = $lang_name;
+		$this->option->save();
+	}
+
+	/**
+	 * add new lang to host, base on request lang_name
+	 * send an json back to client
+	 *
+	 * @since 1.0
+	 */
+	function add_new_lang() {
+
+		$lang_name = str_replace( ' ', '-', $_POST['lang_name'] );
+		$lang_arr  = $this->get_language_list();
+
+		// validate language name
+		if ( $lang_name == "" || in_array( $lang_name, $lang_arr ) ) {
+			$return = [
+				'success' => false,
+				'msg'     => __( "Invalid file name!", ET_DOMAIN )
+			];
+		} else {
+			if ( $this->generate_mo( $lang_name ) ) {
+
+				// update site language options
+
+				$this->set_site_language( $lang_name );
+
 				$return = [
-					'success' => false,
-					'msg'     => __( "Invalid file name!", ET_DOMAIN )
+					'success' => true,
+					'msg'     => __( "Adding new language successfully.", ET_DOMAIN ),
+					'data'    => [
+						'lang_name' => $lang_name,
+						'ID'        => $lang_name
+					]
 				];
-			} else {
-				if ( $this->generate_mo( $lang_name ) ) {
-
-					// update site language options
-
-					$this->set_site_language( $lang_name );
-
-					$return = [
-						'success' => true,
-						'msg'     => __( "Adding new language successfully.", ET_DOMAIN ),
-						'data'    => [
-							'lang_name' => $lang_name,
-							'ID'        => $lang_name
-						]
-					];
-				}
 			}
-
-			// wp send json function
-			wp_send_json( $return );
 		}
+
+		// wp send json function
+		wp_send_json( $return );
+	}
+
+	/**
+	 *    create a directory et-content in wp-content to store engine themes content
+	 *
+	 * @param  array sub directory path
+	 *
+	 * @return  void
+	 * @since 1.0
+	 */
+	public function create_content_directory() {
+
+		if ( function_exists( 'is_writable' ) ) {
+			if ( ! is_writable( WP_CONTENT_DIR ) && ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/' ) ) {
+				$this->add_action( 'admin_notices', 'notice_after_installing_theme' );
+
+				return;
+			}
+		}
+
+		if ( ! is_dir( WP_CONTENT_DIR . '/et-content' ) ) {
+			mkdir( WP_CONTENT_DIR . '/et-content', 0755 );
+			fopen( WP_CONTENT_DIR . '/et-content/index.html', 'w' );
+		}
+
+		if ( ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME ) ) {
+			mkdir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME, 0755 );
+			fopen( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/index.html', 'w' );
+		}
+
+		if ( ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/' ) ) {
+			mkdir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/', 0755 );
+			fopen( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/index.html', 'w' );
+		}
+	}
+
+	function notice_after_installing_theme() {
+		?>
+        <style type="text/css">
+            .et-create-folder-notice {
+                background-color: lightYellow;
+                border: 1px solid #E6DB55;
+                border-radius: 3px;
+                webkit-border-radius: 3px;
+                moz-border-radius: 3px;
+                margin: 20px 15px 0 0;
+                padding: 0 10px;
+            }
+        </style>
+        <div id="notice_wizard" class="et-create-folder-notice">
+            <p>
+				<?php
+				printf( __( "Theme functions required to create a folder wp-content/et-content. Please set chmod folder wp-content to 755.", ET_DOMAIN ) );
+				?>
+            </p>
+        </div>
+		<?php
+	}
+
+	/**
+	 * get wp_includes dir
+	 * return string : wp_includes dir
+	 *
+	 * @since 1.0
+	 */
+	function get_includes_dir() {
+		return $this->_wp_include_dir;
+	}
+
+	/**
+	 * list all language mo file in theme
+	 *
+	 * @since 1.0
+	 */
+	public function get_language_list() {
 
 		/**
-		 *    create a directory et-content in wp-content to store engine themes content
-		 *
-		 * @param  array sub directory path
-		 *
-		 * @return  void
-		 * @since 1.0
+		 * use wp function get_available_languages to get language list
 		 */
-		public function create_content_directory() {
+		if ( defined( 'THEME_LANGUAGE_PATH' ) ) {
+			$custom_langs = get_available_languages( THEME_LANGUAGE_PATH );
+		} else {
+			$custom_langs = [];
+		}
 
-			if ( function_exists( 'is_writable' ) ) {
-				if ( ! is_writable( WP_CONTENT_DIR ) && ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/' ) ) {
-					$this->add_action( 'admin_notices', 'notice_after_installing_theme' );
-
-					return;
-				}
-			}
-
-			if ( ! is_dir( WP_CONTENT_DIR . '/et-content' ) ) {
-				mkdir( WP_CONTENT_DIR . '/et-content', 0755 );
-				fopen( WP_CONTENT_DIR . '/et-content/index.html', 'w' );
-			}
-
-			if ( ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME ) ) {
-				mkdir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME, 0755 );
-				fopen( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/index.html', 'w' );
-			}
-
-			if ( ! is_dir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/' ) ) {
-				mkdir( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/', 0755 );
-				fopen( WP_CONTENT_DIR . '/et-content/' . THEME_NAME . '/lang/index.html', 'w' );
+		$default_langs = get_available_languages( DEFAULT_LANGUAGE_PATH );
+		foreach ( $default_langs as $key => $value ) {
+			if ( ! in_array( $value, $custom_langs ) ) {
+				$custom_langs[] = $value;
 			}
 		}
 
-		function notice_after_installing_theme() {
-			?>
-            <style type="text/css">
-                .et-create-folder-notice {
-                    background-color: lightYellow;
-                    border: 1px solid #E6DB55;
-                    border-radius: 3px;
-                    webkit-border-radius: 3px;
-                    moz-border-radius: 3px;
-                    margin: 20px 15px 0 0;
-                    padding: 0 10px;
-                }
-            </style>
-            <div id="notice_wizard" class="et-create-folder-notice">
-                <p>
-					<?php
-						printf( __( "Theme functions required to create a folder wp-content/et-content. Please set chmod folder wp-content to 755.", ET_DOMAIN ) );
-					?>
-                </p>
-            </div>
-			<?php
+		$this->_language_list = $custom_langs;
+
+		return $this->_language_list;
+	}
+
+	/**
+	 * generate a po file, deprecated
+	 *
+	 * @return bool true if generate pot success and false if generate pot failed.
+	 * @since 1.0
+	 */
+	function generate_pot() {
+
+		// check enginethem.po exist or not
+		$b = glob( DEFAULT_LANGUAGE_PATH . $this->_pot_name );
+
+		if ( ! empty( $b ) ) {
+			return false;
 		}
 
-		/**
-		 * get wp_includes dir
-		 * return string : wp_includes dir
-		 *
-		 * @since 1.0
-		 */
-		function get_includes_dir() {
-			return $this->_wp_include_dir;
+		// $file_name	=	$this->_pot_name;
+		// $makePOT	=	new MakePOT();
+		// $makePOT->xgettext('wp-theme', TEMPLATEPATH, DEFAULT_LANGUAGE_PATH.'/'.$file_name);
+
+		// $pot		=	$this->_pot ;
+		// $pot->import_from_file(DEFAULT_LANGUAGE_PATH.$file_name);
+
+		// // set file header
+		// $pot->set_header( 'Project-Id-Version', 'Job Engine v'.CE_VERSION);
+		// $pot->set_header( 'Report-Msgid-Bugs-To', ET_URL );
+		// $pot->set_header( 'POT-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
+		// $pot->set_header( 'MIME-Version', '1.0' );
+		// $pot->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
+		// $pot->set_header( 'Content-Transfer-Encoding', '8bit' );
+		// $pot->set_header( 'PO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
+		// $pot->set_header( 'Last-Translator', 'Engine Themes <contact@enginethemes.com>' );
+		// $pot->set_header( 'Language-Team', 'Engine Themes <contact@enginethemes.com>' );
+		// $pot->set_header('Plural-Forms', 'nplurals=2; plural=n == 1 ? 0 : 1');
+
+		// $pot->export_to_file(DEFAULT_LANGUAGE_PATH.$file_name,true );
+		// return true;
+		return true;
+
+	}
+
+	/**
+	 * generate mo file
+	 *
+	 * @param string $file_name
+	 *
+	 * @return bool true/false
+	 * @since 1.0
+	 */
+	function generate_mo( $file_name ) {
+		$this->_mo_name = $file_name . '.mo';
+
+		// check file exist or not
+		$b = glob( DEFAULT_LANGUAGE_PATH . $this->_mo_name );
+
+		if ( ! empty( $b ) ) {
+			return false;
 		}
 
-		/**
-		 * list all language mo file in theme
-		 *
-		 * @since 1.0
-		 */
-		public function get_language_list() {
+		$this->generate_pot();
 
-			/**
-			 * use wp function get_available_languages to get language list
-			 */
-			if ( defined( 'THEME_LANGUAGE_PATH' ) ) {
-				$custom_langs = get_available_languages( THEME_LANGUAGE_PATH );
-			} else {
-				$custom_langs = [];
-			}
+		$mo = $this->_mo;
 
-			$default_langs = get_available_languages( DEFAULT_LANGUAGE_PATH );
-			foreach ( $default_langs as $key => $value ) {
-				if ( ! in_array( $value, $custom_langs ) ) {
-					$custom_langs[] = $value;
-				}
-			}
+		$mo->set_header( 'Project-Id-Version', THEME_NAME . 'v' . ET_VERSION );
+		$mo->set_header( 'Report-Msgid-Bugs-To', ET_URL );
+		$mo->set_header( 'MO-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
+		$mo->set_header( 'MIME-Version', '1.0' );
+		$mo->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
+		$mo->set_header( 'Content-Transfer-Encoding', '8bit' );
+		$mo->set_header( 'MO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
+		$mo->set_header( 'Last-Translator', 'Engine Themes <contact@enginethemes.com>' );
+		$mo->set_header( 'Language-Team', 'Engine Themes <contact@enginethemes.com>' );
 
-			$this->_language_list = $custom_langs;
+		$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $file_name . '.mo', true );
 
-			return $this->_language_list;
+		return true;
+	}
+
+	/**
+	 * generate translate string from engine.po
+	 *
+	 * @since 1.0
+	 */
+	function get_translate_string() {
+		$this->_pot = new PO();
+		$this->generate_pot();
+		$this->_pot->import_from_file( DEFAULT_LANGUAGE_PATH . '/engine.po', true );
+
+		return apply_filters( 'et_get_translate_string', $this->_pot->entries );
+	}
+
+	/**
+	 * static function to load text domain,
+	 * it should be call by add_action ('after_setup_theme', array ('AE_Language', 'load_text_domain'));
+	 *
+	 * @since 1.0
+	 */
+	public static function load_text_domain() {
+
+		//load mo file and localize
+		$options       = AE_Options::get_instance();
+		$selected_lang = $options->website_language;
+
+		if ( in_array( $selected_lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
+			load_textdomain( ET_DOMAIN, THEME_LANGUAGE_PATH . "/$selected_lang.mo" );
+		} else {
+			load_textdomain( ET_DOMAIN, DEFAULT_LANGUAGE_PATH . "/$selected_lang.mo" );
+		}
+	}
+
+	/**
+	 * update language translate, catch request from ajax update translate string to po and mo file
+	 *
+	 * @since 1.0
+	 */
+	function save_language() {
+
+		$selected_lang = $_POST['lang_name'];
+		$langArr       = $this->get_language_list();
+
+		//file name invalid
+		if ( $selected_lang == '' || $selected_lang == null || $selected_lang == 'null' || ! in_array( $selected_lang, $langArr ) ) {
+			wp_send_json( [
+				'success' => false,
+				'msg'     => __( "Invalid file name!", ET_DOMAIN )
+			] );
+			exit;
 		}
 
-		/**
-		 * generate a po file, deprecated
-		 *
-		 * @return bool true if generate pot success and false if generate pot failed.
-		 * @since 1.0
-		 */
-		function generate_pot() {
+		$singular    = isset( $_POST['singular'] ) ? $_POST['singular'] : [];
+		$translation = isset( $_POST['translations'] ) ? $_POST['translations'] : [];
+		$context     = isset( $_POST['context'] ) ? $_POST['context'] : [];
 
-			// check enginethem.po exist or not
-			$b = glob( DEFAULT_LANGUAGE_PATH . $this->_pot_name );
-
-			if ( ! empty( $b ) ) {
-				return false;
-			}
-
-			// $file_name	=	$this->_pot_name;
-			// $makePOT	=	new MakePOT();
-			// $makePOT->xgettext('wp-theme', TEMPLATEPATH, DEFAULT_LANGUAGE_PATH.'/'.$file_name);
-
-			// $pot		=	$this->_pot ;
-			// $pot->import_from_file(DEFAULT_LANGUAGE_PATH.$file_name);
-
-			// // set file header
-			// $pot->set_header( 'Project-Id-Version', 'Job Engine v'.CE_VERSION);
-			// $pot->set_header( 'Report-Msgid-Bugs-To', ET_URL );
-			// $pot->set_header( 'POT-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
-			// $pot->set_header( 'MIME-Version', '1.0' );
-			// $pot->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
-			// $pot->set_header( 'Content-Transfer-Encoding', '8bit' );
-			// $pot->set_header( 'PO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
-			// $pot->set_header( 'Last-Translator', 'Engine Themes <contact@enginethemes.com>' );
-			// $pot->set_header( 'Language-Team', 'Engine Themes <contact@enginethemes.com>' );
-			// $pot->set_header('Plural-Forms', 'nplurals=2; plural=n == 1 ? 0 : 1');
-
-			// $pot->export_to_file(DEFAULT_LANGUAGE_PATH.$file_name,true );
-			// return true;
-			return true;
-
+		if ( empty( $singular ) || empty( $translation ) || empty( $context ) ) {
+			wp_send_json( [
+				'success' => true,
+				'msg'     => __( "There was no changes in your translation.", ET_DOMAIN )
+			] );
 		}
 
-		/**
-		 * generate mo file
-		 *
-		 * @param string $file_name
-		 *
-		 * @return bool true/false
-		 * @since 1.0
-		 */
-		function generate_mo( $file_name ) {
-			$this->_mo_name = $file_name . '.mo';
+		$mo = new MO();
+		$po = new PO();
 
-			// check file exist or not
-			$b = glob( DEFAULT_LANGUAGE_PATH . $this->_mo_name );
+		$language_files = [
+			'mo' => $mo,
+			'po' => $po
+		];
 
-			if ( ! empty( $b ) ) {
-				return false;
-			}
-
-			$this->generate_pot();
-
-			$mo = $this->_mo;
+		foreach ( $language_files as $type => $mo ) {
 
 			$mo->set_header( 'Project-Id-Version', THEME_NAME . 'v' . ET_VERSION );
 			$mo->set_header( 'Report-Msgid-Bugs-To', ET_URL );
@@ -320,207 +407,120 @@
 			$mo->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
 			$mo->set_header( 'Content-Transfer-Encoding', '8bit' );
 			$mo->set_header( 'MO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
-			$mo->set_header( 'Last-Translator', 'Engine Themes <contact@enginethemes.com>' );
-			$mo->set_header( 'Language-Team', 'Engine Themes <contact@enginethemes.com>' );
+			$mo->set_header( 'Last-Translator', 'JOB <EMAIL@ADDRESS>' );
+			$mo->set_header( 'Language-Team', 'ENGINETHEMES.COM <enginethemes@enginethemes.com>' );
 
-			$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $file_name . '.mo', true );
-
-			return true;
-		}
-
-		/**
-		 * generate translate string from engine.po
-		 *
-		 * @since 1.0
-		 */
-		function get_translate_string() {
-			$this->_pot = new PO();
-			$this->generate_pot();
-			$this->_pot->import_from_file( DEFAULT_LANGUAGE_PATH . '/engine.po', true );
-
-			return apply_filters( 'et_get_translate_string', $this->_pot->entries );
-		}
-
-		/**
-		 * static function to load text domain,
-		 * it should be call by add_action ('after_setup_theme', array ('AE_Language', 'load_text_domain'));
-		 *
-		 * @since 1.0
-		 */
-		public static function load_text_domain() {
-
-			//load mo file and localize
-			$options       = AE_Options::get_instance();
-			$selected_lang = $options->website_language;
-
-			if ( in_array( $selected_lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
-				load_textdomain( ET_DOMAIN, THEME_LANGUAGE_PATH . "/$selected_lang.mo" );
+			// import language file from et_content/lang if exist
+			if ( $type == 'mo' ) {
+				// mo file
+				if ( in_array( $selected_lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
+					$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
+				} else {
+					$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
+				}
 			} else {
-				load_textdomain( ET_DOMAIN, DEFAULT_LANGUAGE_PATH . "/$selected_lang.mo" );
+				// po file
+				if ( file_exists( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.po' ) ) {
+					$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.po' );
+				} elseif ( file_exists( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' ) ) {
+					$temp = new MO();
+					$temp->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
+					$mo->entries = $temp->entries;
+				} else {
+					$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/engine.po' );
+				}
 			}
+
+			foreach ( $singular as $key => $value ) {
+
+				// if( $translation[$key] == "" && $type == 'mo' ) {
+				// 	if(isset( $mo->entries[$value] ))
+				// 		unset($mo->entries[$value]);
+				// 	continue;
+				// }
+
+				if ( $context[ $key ] != '' ) {
+					$mo->add_entry( new Translation_Entry( [
+						'singular'     => trim( stripcslashes( $value ), '' ),
+						'context'      => trim( stripcslashes( $context[ $key ] ), '' ),
+						'translations' => [
+							'0' => trim( ( stripcslashes( $translation[ $key ] ) ), '' )
+						]
+					] ) );
+				} else {
+					$mo->add_entry( new Translation_Entry( [
+						'singular'     => trim( stripcslashes( $value ), '' ),
+						'translations' => [
+							'0' => trim( ( stripcslashes( $translation[ $key ] ) ), '' )
+						]
+					] ) );
+				}
+			}
+
+			$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.' . $type );
 		}
 
-		/**
-		 * update language translate, catch request from ajax update translate string to po and mo file
-		 *
-		 * @since 1.0
-		 */
-		function save_language() {
+		wp_send_json( [
+			'success' => true,
+			'msg'     => __( "Translation saved! ", ET_DOMAIN )
+		] );
+	}
 
-			$selected_lang = $_POST[ 'lang_name' ];
-			$langArr       = $this->get_language_list();
+	/**
+	 * ajax function load translation form and send a html form back to client
+	 *
+	 * @since 1.0
+	 */
+	function load_translation_form() {
+		$lang_name = $_POST['lang_name'];
+		new PO();
 
-			//file name invalid
-			if ( $selected_lang == '' || $selected_lang == null || $selected_lang == 'null' || ! in_array( $selected_lang, $langArr ) ) {
-				wp_send_json( [
-					'success' => false,
-					'msg'     => __( "Invalid file name!", ET_DOMAIN )
-				] );
-				exit;
+		/*et_generate_pot();
+		$pot->import_from_file(DEFAULT_LANGUAGE_PATH.'/engine.po',true );
+		*/
+		$translated = [];
+		$mo         = new MO();
+
+		$langArr = $this->get_language_list();
+
+		if ( in_array( $lang_name, $langArr ) ) {
+			if ( in_array( $lang_name, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
+				$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $lang_name . '.mo' );
+			} else {
+				$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $lang_name . '.mo' );
 			}
 
-			$singular    = isset( $_POST[ 'singular' ] ) ? $_POST[ 'singular' ] : [];
-			$translation = isset( $_POST[ 'translations' ] ) ? $_POST[ 'translations' ] : [];
-			$context     = isset( $_POST[ 'context' ] ) ? $_POST[ 'context' ] : [];
-
-			if ( empty( $singular ) || empty( $translation ) || empty( $context ) ) {
-				wp_send_json( [
-					'success' => true,
-					'msg'     => __( "There was no changes in your translation.", ET_DOMAIN )
-				] );
-			}
-
-			$mo = new MO();
-			$po = new PO();
-
-			$language_files = [
-				'mo' => $mo,
-				'po' => $po
-			];
-
-			foreach ( $language_files as $type => $mo ) {
-
-				$mo->set_header( 'Project-Id-Version', THEME_NAME . 'v' . ET_VERSION );
-				$mo->set_header( 'Report-Msgid-Bugs-To', ET_URL );
-				$mo->set_header( 'MO-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
-				$mo->set_header( 'MIME-Version', '1.0' );
-				$mo->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
-				$mo->set_header( 'Content-Transfer-Encoding', '8bit' );
-				$mo->set_header( 'MO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
-				$mo->set_header( 'Last-Translator', 'JOB <EMAIL@ADDRESS>' );
-				$mo->set_header( 'Language-Team', 'ENGINETHEMES.COM <enginethemes@enginethemes.com>' );
-
-				// import language file from et_content/lang if exist
-				if ( $type == 'mo' ) {
-					// mo file
-					if ( in_array( $selected_lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
-						$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
-					} else {
-						$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
-					}
-				} else {
-					// po file
-					if ( file_exists( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.po' ) ) {
-						$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.po' );
-					} elseif ( file_exists( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' ) ) {
-						$temp = new MO();
-						$temp->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $selected_lang . '.mo' );
-						$mo->entries = $temp->entries;
-					} else {
-						$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/engine.po' );
-					}
-				}
-
-				foreach ( $singular as $key => $value ) {
-
-					// if( $translation[$key] == "" && $type == 'mo' ) {
-					// 	if(isset( $mo->entries[$value] ))
-					// 		unset($mo->entries[$value]);
-					// 	continue;
-					// }
-
-					if ( $context[ $key ] != '' ) {
-						$mo->add_entry( new Translation_Entry( [
-							'singular'     => trim( stripcslashes( $value ), '' ),
-							'context'      => trim( stripcslashes( $context[ $key ] ), '' ),
-							'translations' => [
-								'0' => trim( ( stripcslashes( $translation[ $key ] ) ), '' )
-							]
-						] ) );
-					} else {
-						$mo->add_entry( new Translation_Entry( [
-							'singular'     => trim( stripcslashes( $value ), '' ),
-							'translations' => [
-								'0' => trim( ( stripcslashes( $translation[ $key ] ) ), '' )
-							]
-						] ) );
-					}
-				}
-
-				$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $selected_lang . '.' . $type );
-			}
-
-			wp_send_json( [
-				'success' => true,
-				'msg'     => __( "Translation saved! ", ET_DOMAIN )
-			] );
+			$translated = $mo->entries;
 		}
 
-		/**
-		 * ajax function load translation form and send a html form back to client
-		 *
-		 * @since 1.0
-		 */
-		function load_translation_form() {
-			$lang_name = $_POST[ 'lang_name' ];
-			new PO();
+		$trans_arr = $this->get_translate_string();
 
-			/*et_generate_pot();
-			$pot->import_from_file(DEFAULT_LANGUAGE_PATH.'/engine.po',true );
-			*/
-			$translated = [];
-			$mo         = new MO();
+		$data = '';
+		$i    = 0;
 
-			$langArr = $this->get_language_list();
+		foreach ( $trans_arr as $key => $value ) {
 
-			if ( in_array( $lang_name, $langArr ) ) {
-				if ( in_array( $lang_name, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
-					$mo->import_from_file( THEME_LANGUAGE_PATH . '/' . $lang_name . '.mo' );
-				} else {
-					$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $lang_name . '.mo' );
-				}
-
-				$translated = $mo->entries;
+			if ( isset( $translated[ $key ] ) ) {
+				continue;
+			}
+			if ( $value->context != '' ) {
+				continue;
 			}
 
-			$trans_arr = $this->get_translate_string();
+			$singular = htmlentities( stripcslashes( $value->singular ), ENT_COMPAT, "UTF-8" );
+			if ( empty( $value->translations ) ) {
+				$translate_txt = '';
+				//$singular;
 
-			$data = '';
-			$i    = 0;
+			} else {
+				$translate_txt = htmlentities( stripcslashes( $value->translations[0] ), ENT_COMPAT, "UTF-8" );
+			}
 
-			foreach ( $trans_arr as $key => $value ) {
+			if ( $i == 0 ) {
+				$data .= '<div class="slide" >';
+			}
 
-				if ( isset( $translated[ $key ] ) ) {
-					continue;
-				}
-				if ( $value->context != '' ) {
-					continue;
-				}
-
-				$singular = htmlentities( stripcslashes( $value->singular ), ENT_COMPAT, "UTF-8" );
-				if ( empty( $value->translations ) ) {
-					$translate_txt = '';
-					//$singular;
-
-				} else {
-					$translate_txt = htmlentities( stripcslashes( $value->translations[ 0 ] ), ENT_COMPAT, "UTF-8" );
-				}
-
-				if ( $i == 0 ) {
-					$data .= '<div class="slide" >';
-				}
-
-				$data .= '<div class="form-item">
+			$data .= '<div class="form-item">
 					<div class="label">' . $singular . '</div>
 					<input type="hidden" value="' . $singular . '" name="singular[]">
 					<input type="hidden" value="' . $value->context . '" name="context[]">
@@ -528,29 +528,29 @@
 						placeholder="' . __( "Type the translation in your language", ET_DOMAIN ) . '" >' . $translate_txt . '</textarea>
 				</div>';
 
-				$i ++;
+			$i ++;
 
-				if ( $i == 11 ) {
-					$data .= '</div>';
-					$i    = 0;
-				}
+			if ( $i == 11 ) {
+				$data .= '</div>';
+				$i    = 0;
+			}
+		}
+
+		foreach ( $translated as $key => $value ) {
+			$singular = htmlentities( stripcslashes( $value->singular ), ENT_COMPAT, "UTF-8" );
+			if ( empty( $value->translations ) ) {
+				$translate_txt = '';
+				//$singular;
+
+			} else {
+				$translate_txt = htmlentities( stripcslashes( $value->translations[0] ), ENT_COMPAT, "UTF-8" );
 			}
 
-			foreach ( $translated as $key => $value ) {
-				$singular = htmlentities( stripcslashes( $value->singular ), ENT_COMPAT, "UTF-8" );
-				if ( empty( $value->translations ) ) {
-					$translate_txt = '';
-					//$singular;
+			if ( $i == 0 ) {
+				$data .= '<div class="slide" >';
+			}
 
-				} else {
-					$translate_txt = htmlentities( stripcslashes( $value->translations[ 0 ] ), ENT_COMPAT, "UTF-8" );
-				}
-
-				if ( $i == 0 ) {
-					$data .= '<div class="slide" >';
-				}
-
-				$data .= '
+			$data .= '
 				<div class="form-item">
 					<div class="label">' . $singular . '</div>
 					<input type="hidden" value="' . $singular . '" name="singular[]">
@@ -559,64 +559,64 @@
 					placeholder="' . __( "Type the translation in your language", ET_DOMAIN ) . '" >' . $translate_txt . '</textarea>
 				</div>';
 
-				$i ++;
+			$i ++;
 
-				if ( $i == 11 ) {
-					$data .= '</div>';
-					$i    = 0;
-				}
+			if ( $i == 11 ) {
+				$data .= '</div>';
+				$i    = 0;
 			}
-			$return = [
-				'success'  => true,
-				'data'     => $data,
-				'msg'      => __( "Loading successfully!", ET_DOMAIN ),
-				'tran_arr' => $trans_arr
-			];
-
-			wp_send_json( $return );
 		}
+		$return = [
+			'success'  => true,
+			'data'     => $data,
+			'msg'      => __( "Loading successfully!", ET_DOMAIN ),
+			'tran_arr' => $trans_arr
+		];
 
-		/**
-		 * change language : if language file not exist return false
-		 * if language file not in THEME_LANGUAGE_PATH copy it from DEFAULT_LANG to THEME_LANGUAGE_PATH
-		 *
-		 * @since 1.0
-		 */
-		function change_language() {
-			$lang = $_REQUEST[ 'lang_name' ];
+		wp_send_json( $return );
+	}
 
-			if ( ! in_array( $lang, $this->get_language_list() ) ) {
-				wp_send_json( [
-					'success' => false
-				] );
-			}
+	/**
+	 * change language : if language file not exist return false
+	 * if language file not in THEME_LANGUAGE_PATH copy it from DEFAULT_LANG to THEME_LANGUAGE_PATH
+	 *
+	 * @since 1.0
+	 */
+	function change_language() {
+		$lang = $_REQUEST['lang_name'];
 
-			if ( ! in_array( $lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
-				$mo = new MO();
-
-				$mo->set_header( 'Project-Id-Version', THEME_NAME . 'v' . ET_VERSION );
-				$mo->set_header( 'Report-Msgid-Bugs-To', ET_URL );
-				$mo->set_header( 'MO-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
-				$mo->set_header( 'MIME-Version', '1.0' );
-				$mo->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
-				$mo->set_header( 'Content-Transfer-Encoding', '8bit' );
-				$mo->set_header( 'MO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
-				$mo->set_header( 'Last-Translator', 'JOB <EMAIL@ADDRESS>' );
-				$mo->set_header( 'Language-Team', 'ENGINETHEMES.COM <enginethemes@enginethemes.com>' );
-
-				$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $lang . '.mo' );
-
-				$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $lang . '.mo' );
-			}
-
-			$this->set_site_language( $lang );
-
+		if ( ! in_array( $lang, $this->get_language_list() ) ) {
 			wp_send_json( [
-				'success' => true,
-				'data'    => [
-					'ID'        => $lang,
-					'lang_name' => $lang
-				]
+				'success' => false
 			] );
 		}
+
+		if ( ! in_array( $lang, get_available_languages( THEME_LANGUAGE_PATH ) ) ) {
+			$mo = new MO();
+
+			$mo->set_header( 'Project-Id-Version', THEME_NAME . 'v' . ET_VERSION );
+			$mo->set_header( 'Report-Msgid-Bugs-To', ET_URL );
+			$mo->set_header( 'MO-Creation-Date', gmdate( 'Y-m-d H:i:s+00:00' ) );
+			$mo->set_header( 'MIME-Version', '1.0' );
+			$mo->set_header( 'Content-Type', 'text/plain; charset=UTF-8' );
+			$mo->set_header( 'Content-Transfer-Encoding', '8bit' );
+			$mo->set_header( 'MO-Revision-Date', '2010-MO-DA HO:MI+ZONE' );
+			$mo->set_header( 'Last-Translator', 'JOB <EMAIL@ADDRESS>' );
+			$mo->set_header( 'Language-Team', 'ENGINETHEMES.COM <enginethemes@enginethemes.com>' );
+
+			$mo->import_from_file( DEFAULT_LANGUAGE_PATH . '/' . $lang . '.mo' );
+
+			$mo->export_to_file( THEME_LANGUAGE_PATH . '/' . $lang . '.mo' );
+		}
+
+		$this->set_site_language( $lang );
+
+		wp_send_json( [
+			'success' => true,
+			'data'    => [
+				'ID'        => $lang,
+				'lang_name' => $lang
+			]
+		] );
 	}
+}

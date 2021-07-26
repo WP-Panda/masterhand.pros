@@ -262,16 +262,16 @@ extract( $args );
 
 				<?php wpp_get_template_part( 'wpp/templates/profile/social-links', [ 'profile_id' => $profile_id ] ); ?>
             </div>
-            <!--soc inf + email verf -->
+
 
         </div>
 
-        <!--edit-info--modal-->
-		<?php wpp_get_template_part( 'wpp/templates/profile/tabs/edit-modal',
+		<?php
+		wpp_get_template_part( 'wpp/templates/profile/tabs/edit-modal',
 			$args ); ?>
-        <!--edit-info--modal-->
+
     </div>
-    <!--second--info-->
+
 	<?php
 	if ( wpp_fre_is_freelancer() && ! empty( $profile_id ) ) { ?>
         <div class="skills skills2 fre-profile-box">

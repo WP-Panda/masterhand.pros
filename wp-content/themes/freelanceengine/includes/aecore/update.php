@@ -1,192 +1,192 @@
 <?php
 
+/**
+ * Plugin updater for Engine Themes
+ */
+class ET_Update {
+
 	/**
-	 * Plugin updater for Engine Themes
+	 * Product version
+	 *
+	 * @var string
 	 */
-	class ET_Update{
+	public $current_version;
 
-		/**
-		 * Product version
-		 *
-		 * @var string
-		 */
-		public $current_version;
+	/**
+	 * Product update path
+	 *
+	 * @var string
+	 */
+	public $update_path;
 
-		/**
-		 * Product update path
-		 *
-		 * @var string
-		 */
-		public $update_path;
+	/**
+	 * Product info url
+	 *
+	 * @var string
+	 */
+	public $product_url;
 
-		/**
-		 * Product info url
-		 *
-		 * @var string
-		 */
-		public $product_url;
+	/**
+	 * User license key
+	 *
+	 * @var string
+	 */
+	public $license_key;
 
-		/**
-		 * User license key
-		 *
-		 * @var string
-		 */
-		public $license_key;
+	/**
+	 * Initialize a new instance of the Engine Theme Auto-Update class
+	 *
+	 * @param string $current_version
+	 * @param string $update_path
+	 * @param string $plugin_slug
+	 */
+	function __construct( $current_version, $update_path, $product_slug ) {
+		$this->current_version = $current_version;
+		$this->update_path     = $update_path;
+		$this->product_slug    = $product_slug;
+		$this->product_url     = $update_path;
+		$this->license_key     = get_option( 'et_license_key' );
 
-		/**
-		 * Initialize a new instance of the Engine Theme Auto-Update class
-		 *
-		 * @param string $current_version
-		 * @param string $update_path
-		 * @param string $plugin_slug
-		 */
-		function __construct( $current_version, $update_path, $product_slug ) {
-			$this->current_version = $current_version;
-			$this->update_path     = $update_path;
-			$this->product_slug    = $product_slug;
-			$this->product_url     = $update_path;
-			$this->license_key     = get_option( 'et_license_key' );
+		//add_filter('upgrader_clear_destination', array(&$this, 'delete_old_theme'), 10, 4 );
 
-			//add_filter('upgrader_clear_destination', array(&$this, 'delete_old_theme'), 10, 4 );
+	}
 
-		}
+	/**
+	 * Add our self-hosted autoupdate plugin to the filter transient
+	 *
+	 * @param $transient
+	 *
+	 * @return object $ transient
+	 */
+	public function check_update( $update_info ) {
+		global $wp_version;
 
-		/**
-		 * Add our self-hosted autoupdate plugin to the filter transient
-		 *
-		 * @param $transient
-		 *
-		 * @return object $ transient
-		 */
-		public function check_update( $update_info ) {
-			global $wp_version;
-
-			if ( empty( $update_info->checked ) ) {
-				return $update_info;
-			}
-
-			// get remote version
-			$remote_version = $this->get_remote_version();
-
-			// if a new version is alvaiable, add the update
-			if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
-				$obj                                          = new stdClass();
-				$obj->slug                                    = $this->product_slug;
-				$obj->new_version                             = $remote_version;
-				$obj->url                                     = $this->product_url;
-				$obj->package                                 = add_query_arg( 'key', $this->license_key, $this->update_path );
-				$update_info->response[ $this->product_slug ] = $obj;
-			}
-
+		if ( empty( $update_info->checked ) ) {
 			return $update_info;
 		}
 
-		public function delete_old_theme( $removed, $local_destination, $remote_destination, $theme ) {
-			if ( isset( $theme[ 'theme' ] ) && $theme[ 'theme' ] == 'jobengine' ) {
-			}
+		// get remote version
+		$remote_version = $this->get_remote_version();
+
+		// if a new version is alvaiable, add the update
+		if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
+			$obj                                          = new stdClass();
+			$obj->slug                                    = $this->product_slug;
+			$obj->new_version                             = $remote_version;
+			$obj->url                                     = $this->product_url;
+			$obj->package                                 = add_query_arg( 'key', $this->license_key, $this->update_path );
+			$update_info->response[ $this->product_slug ] = $obj;
 		}
 
-		/**
-		 * Return the remote version
-		 *
-		 * @return string $remote_version
-		 */
-		public function get_remote_version() {
+		return $update_info;
+	}
 
-			// send version request
-			$request = wp_remote_post( $this->update_path, [
-				'body' => [
-					'action'  => 'version',
-					'product' => $this->product_slug,
-					'key'     => $this->license_key
-				]
-			] );
-
-			// check request if it is valid
-			if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
-				return preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $request[ 'body' ] );
-				//$request['body'];
-
-			}
-
-			return false;
-		}
-
-		/**
-		 * Return the status of the plugin licensing
-		 *
-		 * @return boolean $remote_license
-		 */
-		public function getRemote_license() {
+	public function delete_old_theme( $removed, $local_destination, $remote_destination, $theme ) {
+		if ( isset( $theme['theme'] ) && $theme['theme'] == 'jobengine' ) {
 		}
 	}
 
 	/**
-	 * Handle updating themes for engine themes
+	 * Return the remote version
+	 *
+	 * @return string $remote_version
 	 */
-	class ET_Theme_Updater extends ET_Update{
-		public function __construct( $current_version, $update_path, $product_slug, $product_url = '' ) {
-			parent::__construct( $current_version, $update_path, $product_slug );
-			$this->product_url = $product_url;
+	public function get_remote_version() {
 
-			// define the alternative API for updating checking
-			add_filter( 'pre_set_site_transient_update_themes', [
-				&$this,
-				'check_update'
-			] );
+		// send version request
+		$request = wp_remote_post( $this->update_path, [
+			'body' => [
+				'action'  => 'version',
+				'product' => $this->product_slug,
+				'key'     => $this->license_key
+			]
+		] );
+
+		// check request if it is valid
+		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
+			return preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $request['body'] );
+			//$request['body'];
+
 		}
 
-		/**
-		 * Add our self-hosted autoupdate plugin to the filter transient
-		 *
-		 * @param $transient
-		 *
-		 * @return object $ transient
-		 */
-		public function check_update( $update_info ) {
-			global $wp_version;
+		return false;
+	}
 
-			if ( empty( $update_info->checked ) ) {
-				return $update_info;
-			}
+	/**
+	 * Return the status of the plugin licensing
+	 *
+	 * @return boolean $remote_license
+	 */
+	public function getRemote_license() {
+	}
+}
 
-			// get remote version
-			$remote_version = $this->get_remote_version();
+/**
+ * Handle updating themes for engine themes
+ */
+class ET_Theme_Updater extends ET_Update {
+	public function __construct( $current_version, $update_path, $product_slug, $product_url = '' ) {
+		parent::__construct( $current_version, $update_path, $product_slug );
+		$this->product_url = $product_url;
 
-			// if a new version is alvaiable, add the update
-			if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
-				$obj              = new stdClass();
-				$obj->slug        = $this->product_slug;
-				$obj->new_version = $remote_version;
-				$obj->url         = $this->product_url;
-				$obj->package     = add_query_arg( [
-					'key'  => $this->license_key,
-					'type' => 'theme'
-				], $this->update_path );
-				//$this->update_path;
-				$update_info->response[ $this->product_slug ] = (array) $obj;
-			}
+		// define the alternative API for updating checking
+		add_filter( 'pre_set_site_transient_update_themes', [
+			&$this,
+			'check_update'
+		] );
+	}
 
+	/**
+	 * Add our self-hosted autoupdate plugin to the filter transient
+	 *
+	 * @param $transient
+	 *
+	 * @return object $ transient
+	 */
+	public function check_update( $update_info ) {
+		global $wp_version;
+
+		if ( empty( $update_info->checked ) ) {
 			return $update_info;
 		}
-	}
 
-	// initialize theme update
-	add_action( 'init', 'et_check_update' );
-	function et_check_update() {
+		// get remote version
+		$remote_version = $this->get_remote_version();
 
-		/**
-		 * check theme name defined or not
-		 */
-		if ( ! defined( 'THEME_NAME' ) ) {
-			return false;
+		// if a new version is alvaiable, add the update
+		if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
+			$obj              = new stdClass();
+			$obj->slug        = $this->product_slug;
+			$obj->new_version = $remote_version;
+			$obj->url         = $this->product_url;
+			$obj->package     = add_query_arg( [
+				'key'  => $this->license_key,
+				'type' => 'theme'
+			], $this->update_path );
+			//$this->update_path;
+			$update_info->response[ $this->product_slug ] = (array) $obj;
 		}
 
-		global $et_themes_updater, $et_plugins_updater;
-
-		// install themes updater
-		$update_path = ET_UPDATE_PATH . '&product=' . THEME_NAME . '&type=theme';
-		new ET_Theme_Updater( ET_VERSION, $update_path, THEME_NAME, 'http://enginethemes.com' );
+		return $update_info;
 	}
+}
+
+// initialize theme update
+add_action( 'init', 'et_check_update' );
+function et_check_update() {
+
+	/**
+	 * check theme name defined or not
+	 */
+	if ( ! defined( 'THEME_NAME' ) ) {
+		return false;
+	}
+
+	global $et_themes_updater, $et_plugins_updater;
+
+	// install themes updater
+	$update_path = ET_UPDATE_PATH . '&product=' . THEME_NAME . '&type=theme';
+	new ET_Theme_Updater( ET_VERSION, $update_path, THEME_NAME, 'http://enginethemes.com' );
+}
 
 ?>

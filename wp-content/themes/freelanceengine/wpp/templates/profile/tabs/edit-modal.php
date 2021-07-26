@@ -100,7 +100,7 @@ $confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(C
                             </div>
 
                             <!--new start-->
-							<?php wpp_get_template_part( 'inc/select-location-profile-edit' ); ?>
+							<?php wpp_get_template_part( 'inc/select-location-profile-edit', [ 'location' => $location ] ); ?>
                             <!--new end-->
 
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field default-currency-wrap">
