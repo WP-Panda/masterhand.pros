@@ -1,10 +1,10 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) {
-    exit ; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 
-include_once('autoload.php') ;
+include_once( 'autoload.php' );
 
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -12,202 +12,212 @@ use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-use PayPal\Api\PaymentExecution;
 
 /**
  * Handle PayPal Payment API
- * 
+ *
  * @class FP_WC_PP_PayPal_Payout
  * @category Class
  */
-
 class FP_WC_PP_PayPal_Payment {
-    protected $environment          = 'sandbox';
+	protected $environment = 'sandbox';
 
-    protected $payer                =  false;
+	protected $payer = false;
 
-    protected $quantity             = 1;
+	protected $quantity = 1;
 
-    protected $receivers            = array() ;
+	protected $receivers = array();
 
-    protected $details              = null;
+	protected $details = null;
 
-    protected $currency             = 'USD';
+	protected $currency = 'USD';
 
-    protected $amount               = null;
+	protected $amount = null;
 
-    protected $transaction          = null;
+	protected $transaction = null;
 
-    protected $redirects            = null;
+	protected $redirects = null;
 
-    protected $payment              = null;
+	protected $payment = null;
 
-    protected $items                = [];
+	protected $items = [];
 
-    protected $args                 = [];
+	protected $args = [];
 
-    protected $api_credentials      = array() ;
+	protected $api_credentials = array();
 
-    public function __construct( $args = [] ) {
-        $this->args = $args;
-        $this->api_credentials    = $this->get_credentials();
-    }
+	public function __construct( $args = [] ) {
+		$this->args            = $args;
+		$this->api_credentials = $this->get_credentials();
+	}
 
-    public function preparePayment() {
-        $this->makePayer($this->args["payer"]);
+	public function preparePayment() {
+		$this->makePayer( $this->args["payer"] );
 
-        if($this->args["items"] && count($this->args["items"]) > 0) {
-            foreach ($this->args["items"] as $key => $item) {
-                $this->items[] = $this->makeItem($item);
-            }
-        } else
-            $this->items[] = $this->makeItem(["currency", $this->args["currency"]]);
+		if ( $this->args["items"] && count( $this->args["items"] ) > 0 ) {
+			foreach ( $this->args["items"] as $key => $item ) {
+				$this->items[] = $this->makeItem( $item );
+			}
+		} else {
+			$this->items[] = $this->makeItem( [ "currency", $this->args["currency"] ] );
+		}
 
-        $this->makeItemList();
-        
-        $this->makeDetails($this->args["tax"]);
+		$this->makeItemList();
 
-        $this->makeAmount($this->args["total"], $this->args["currency"]);
+		$this->makeDetails( $this->args["tax"] );
 
-        $this->makeTransaction($this->args["id"]);
+		$this->makeAmount( $this->args["total"], $this->args["currency"] );
 
-        $this->makeRedirect($this->args["returnUrl"], $this->args["canselUrl"]);
-        
-        $this->makePayment();
-    }
+		$this->makeTransaction( $this->args["id"] );
 
-    public function getPaymentDetails($payment_id = null) {
-        if( ! $payment_id && ! $this->args["payment_id"] ) return false;
+		$this->makeRedirect( $this->args["returnUrl"], $this->args["canselUrl"] );
 
-        if(!$payment_id)
-            $payment_id = $this->args["payment_id"];
+		$this->makePayment();
+	}
 
-        $this->setEnvironment( $this->getApiContext() ) ;
+	public function getPaymentDetails( $payment_id = null ) {
+		if ( ! $payment_id && ! $this->args["payment_id"] ) {
+			return false;
+		}
 
-        return Payment::get($payment_id, $this->getApiContext());
-    }
+		if ( ! $payment_id ) {
+			$payment_id = $this->args["payment_id"];
+		}
 
-    public function execution($data = []) {
-        if( ! $data['PayerID'] || ! $data["paymentId"] ) return false;
-        $token = $this->getApiContext();
-        $this->setEnvironment( $token ) ;
-        $execution = new PaymentExecution();
-        $execution->setPayerId($data['PayerID']);
-        $payment = $this->getPaymentDetails($data["paymentId"]);
-        $payment->execute($execution, $token);
+		$this->setEnvironment( $this->getApiContext() );
 
-        return $this->getPaymentDetails($data["paymentId"]);
-    }
+		return Payment::get( $payment_id, $this->getApiContext() );
+	}
 
-    public function pay() {
-        try {
-            $this->setEnvironment( $this->getApiContext() ) ;
-            $payment = $this->payment->create( $this->getApiContext() );
-        } catch (Exception $ex) {
-            wp_send_json(array(
-                'success' => false,
-                'msg' => $ex->getMessage()
-            ));
-        }
-        
-        return $payment;
-    }
+	public function execution( $data = [] ) {
+		if ( ! $data['PayerID'] || ! $data["paymentId"] ) {
+			return false;
+		}
+		$token = $this->getApiContext();
+		$this->setEnvironment( $token );
+		$execution = new PaymentExecution();
+		$execution->setPayerId( $data['PayerID'] );
+		$payment = $this->getPaymentDetails( $data["paymentId"] );
+		$payment->execute( $execution, $token );
 
-    public function makePayment() {
-        $payment = new Payment();
-        $this->payment = $payment->setIntent("sale")
-            ->setPayer($this->payer)
-            ->setRedirectUrls($this->redirects)
-            ->setTransactions(array($this->transaction));
-    }
+		return $this->getPaymentDetails( $data["paymentId"] );
+	}
 
-    public function makeRedirect($returnUrl, $canselUrl) {
-        global $wp;
-        //$baseUrl = home_url( $wp->request );
-        $redirectUrls = new RedirectUrls();
-        $this->redirects = $redirectUrls->setReturnUrl($returnUrl)
-            ->setCancelUrl($canselUrl);
-    }
+	public function pay() {
+		try {
+			$this->setEnvironment( $this->getApiContext() );
+			$payment = $this->payment->create( $this->getApiContext() );
+		} catch ( Exception $ex ) {
+			wp_send_json( array(
+				'success' => false,
+				'msg'     => $ex->getMessage()
+			) );
+		}
 
-    public function makeTransaction($id) {
-        $transaction = new Transaction();
-        $this->transaction = $transaction->setAmount($this->amount)
-            ->setItemList($this->itemList)
-            ->setDescription("Payment description")
-            ->setInvoiceNumber($id ?? uniqid());
-    }
+		return $payment;
+	}
 
-    public function makeAmount($total, $currency = "USD") {
-        $amount = new Amount();
-        return $this->amount = $amount->setCurrency($currency)
-            ->setTotal($total)
-            ->setDetails($details);
-    }
+	public function makePayment() {
+		$payment       = new Payment();
+		$this->payment = $payment->setIntent( "sale" )
+		                         ->setPayer( $this->payer )
+		                         ->setRedirectUrls( $this->redirects )
+		                         ->setTransactions( array( $this->transaction ) );
+	}
 
-    public function makeDetails($tax = 0) {
-        $details = new Details();
-        $details->setTax($tax);
-    }
+	public function makeRedirect( $returnUrl, $canselUrl ) {
+		global $wp;
+		//$baseUrl = home_url( $wp->request );
+		$redirectUrls    = new RedirectUrls();
+		$this->redirects = $redirectUrls->setReturnUrl( $returnUrl )
+		                                ->setCancelUrl( $canselUrl );
+	}
 
-    public function makeItemList() {
-        $itemList = new ItemList();
-        return $itemList->setItems($this->items);
-    }
+	public function makeTransaction( $id ) {
+		$transaction       = new Transaction();
+		$this->transaction = $transaction->setAmount( $this->amount )
+		                                 ->setItemList( $this->itemList )
+		                                 ->setDescription( "Payment description" )
+		                                 ->setInvoiceNumber( $id ?? uniqid() );
+	}
 
-    public function makePayer($method) {
-        if(isset($args["payer"]) && !empty($args["payer"]))
-            $method = $args["payer"];
-        else
-            $method = "paypal";
+	public function makeAmount( $total, $currency = "USD" ) {
+		$amount = new Amount();
 
-        $payer = new Payer();
-        $this->payer = $payer->setPaymentMethod($method);
-    }
+		return $this->amount = $amount->setCurrency( $currency )
+		                              ->setTotal( $total )
+		                              ->setDetails( $details );
+	}
 
-    public function makeItem($item) {
-        $it = new Item();
-        $it->setName($item["name"] ?? "Payment for service")
-            ->setCurrency($item["currency"] ?? $this->currency)
-            ->setQuantity($item["quantity"] ?? $this->quantity)
-            ->setSku($item["sku"] ?? uniqid())
-            ->setPrice($item["price"] ?? 0);
+	public function makeDetails( $tax = 0 ) {
+		$details = new Details();
+		$details->setTax( $tax );
+	}
 
-        return $it;
-    }
+	public function makeItemList() {
+		$itemList = new ItemList();
 
-    public function get_credentials() {
-        $data = ae_get_option('escrow_paypal_api');
-        return array(
-            'client_id'  => $data["clientID"] ,
-            'secret_key' => $data["secretKey"] ,
-                ) ;
-    }
+		return $itemList->setItems( $this->items );
+	}
 
-    public function setEnvironment( $apiContext ) {
+	public function makePayer( $method ) {
+		if ( isset( $args["payer"] ) && ! empty( $args["payer"] ) ) {
+			$method = $args["payer"];
+		} else {
+			$method = "paypal";
+		}
 
-        $apiContext->setConfig(
-            array(
-                'mode'             => $this->environment ,
-                'log.LogEnabled'   => true ,
-                'log.FileName'     => plugin_dir_path( __FILE__ ).'PayPal.txt' ,
-                'log.LogLevel'     => 'sandbox' === $this->environment ? 'DEBUG' : 'FINE' ,
-                'validation.level' => 'log' ,
-                'cache.enabled'    => true ,
-            )
-        ) ;
-    }
-    public function getApiContext() {
-        $oAuthTokenCredential = new OAuthTokenCredential( $this->api_credentials[ 'client_id' ] , $this->api_credentials[ 'secret_key' ] ) ;
+		$payer       = new Payer();
+		$this->payer = $payer->setPaymentMethod( $method );
+	}
 
-        return new ApiContext( $oAuthTokenCredential ) ;
-    }
+	public function makeItem( $item ) {
+		$it = new Item();
+		$it->setName( $item["name"] ?? "Payment for service" )
+		   ->setCurrency( $item["currency"] ?? $this->currency )
+		   ->setQuantity( $item["quantity"] ?? $this->quantity )
+		   ->setSku( $item["sku"] ?? uniqid() )
+		   ->setPrice( $item["price"] ?? 0 );
 
-    public function setPayment($method = null) {
+		return $it;
+	}
 
-    }
+	public function get_credentials() {
+		$data = ae_get_option( 'escrow_paypal_api' );
+
+		return array(
+			'client_id'  => $data["clientID"],
+			'secret_key' => $data["secretKey"],
+		);
+	}
+
+	public function setEnvironment( $apiContext ) {
+
+		$apiContext->setConfig(
+			array(
+				'mode'             => $this->environment,
+				'log.LogEnabled'   => true,
+				'log.FileName'     => plugin_dir_path( __FILE__ ) . 'PayPal.txt',
+				'log.LogLevel'     => 'sandbox' === $this->environment ? 'DEBUG' : 'FINE',
+				'validation.level' => 'log',
+				'cache.enabled'    => true,
+			)
+		);
+	}
+
+	public function getApiContext() {
+		$oAuthTokenCredential = new OAuthTokenCredential( $this->api_credentials['client_id'], $this->api_credentials['secret_key'] );
+
+		return new ApiContext( $oAuthTokenCredential );
+	}
+
+	public function setPayment( $method = null ) {
+
+	}
 
 }

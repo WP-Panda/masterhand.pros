@@ -36,10 +36,10 @@ global $current_user;
     <link rel="manifest" href="<?php echo WPP_HOME; ?>/site.webmanifest">
 	<?php
 
-		wp_head();
-		if ( function_exists( 'et_render_less_style' ) ) {
-			//et_render_less_style();
-		}
+	wp_head();
+	if ( function_exists( 'et_render_less_style' ) ) {
+		//et_render_less_style();
+	}
 
 	?>
 </head>
@@ -48,18 +48,18 @@ global $current_user;
 
 <?php global $post;
 
-	$author_id = get_query_var( 'author' );
-	$views_id  = $author_id;//intval($post->ID);
+$author_id = get_query_var( 'author' );
+$views_id  = $author_id;//intval($post->ID);
 
-	if ( is_author() ) {
-		echo '<script >' . "\n";
+if ( is_author() ) {
+	echo '<script >' . "\n";
 
-		echo '/* <![CDATA[ */' . "\n";
-		echo "jQuery.ajax({type:'GET',url:'/view.php',data:'views_id=" . $views_id . "',cache:false});" . "\n";
+	echo '/* <![CDATA[ */' . "\n";
+	echo "jQuery.ajax({type:'GET',url:'/view.php',data:'views_id=" . $views_id . "',cache:false});" . "\n";
 
-		echo '/* ]]> */' . "\n";
-		echo '</script>' . "\n";
-	} ?>
+	echo '/* ]]> */' . "\n";
+	echo '</script>' . "\n";
+} ?>
 
 <header class="fre-header-wrapper">
     <div class="fre-header-wrap" id="main_header">
@@ -74,12 +74,12 @@ global $current_user;
                                class="fre-notification notification-tablet">
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
 								<?php $notify_number = 0;
-									if ( function_exists( 'fre_user_have_notify' ) ) {
-										$notify_number = fre_user_have_notify();
-										if ( $notify_number ) {
-											echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
-										}
-									} ?>
+								if ( function_exists( 'fre_user_have_notify' ) ) {
+									$notify_number = fre_user_have_notify();
+									if ( $notify_number ) {
+										echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
+									}
+								} ?>
                             </a>
 						<?php } ?>
                         <span class="hamburger-menu">
@@ -198,12 +198,12 @@ global $current_user;
                             <a class="fre-notification dropdown-toggle" data-toggle="dropdown" href="">
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
 								<?php $notify_number = 0;
-									if ( function_exists( 'fre_user_have_notify' ) ) {
-										$notify_number = fre_user_have_notify();
-										if ( $notify_number ) {
-											echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
-										}
-									} ?>
+								if ( function_exists( 'fre_user_have_notify' ) ) {
+									$notify_number = fre_user_have_notify();
+									if ( $notify_number ) {
+										echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
+									}
+								} ?>
                             </a>
 							<?php fre_user_notification( $user_ID, 1, 5 ); ?>
                             <div class="fre-account dropdown">
@@ -245,10 +245,10 @@ global $current_user;
 </header>
 <!-- MENU DOOR / END -->
 <?php
-	global $user_ID;
-	if ( $user_ID ) {
-		echo '<script type="data/json"  id="user_id">' . json_encode( [
-				'id' => $user_ID,
-				'ID' => $user_ID
-			] ) . '</script>';
-	}
+global $user_ID;
+if ( $user_ID ) {
+	echo '<script type="data/json"  id="user_id">' . json_encode( [
+			'id' => $user_ID,
+			'ID' => $user_ID
+		] ) . '</script>';
+}

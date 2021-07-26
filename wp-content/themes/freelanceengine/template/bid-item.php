@@ -1,23 +1,23 @@
 <?php
-	/**
-	 * The template for displaying a bid info item,
-	 * this template is used to display bid info in a project details,
-	 * and called at template/list-bids.php
-	 *
-	 * @since  1.0
-	 * @author Dakachi
-	 */
-	global $wp_query, $ae_post_factory, $post, $user_ID;
+/**
+ * The template for displaying a bid info item,
+ * this template is used to display bid info in a project details,
+ * and called at template/list-bids.php
+ *
+ * @since  1.0
+ * @author Dakachi
+ */
+global $wp_query, $ae_post_factory, $post, $user_ID;
 
-	$project_object = $ae_post_factory->get( PROJECT );
-	$project        = $project_object->current_post;
+$project_object = $ae_post_factory->get( PROJECT );
+$project        = $project_object->current_post;
 
-	$post_object = $ae_post_factory->get( BID );
-	$convert     = $post_object->convert( $post );
+$post_object = $ae_post_factory->get( BID );
+$convert     = $post_object->convert( $post );
 
-	$bid_accept     = get_post_meta( $project->ID, 'accepted', true );
-	$project_status = $project->post_status;
-	$experiences    = (int) $convert->experience;
+$bid_accept     = get_post_meta( $project->ID, 'accepted', true );
+$project_status = $project->post_status;
+$experiences    = (int) $convert->experience;
 ?>
 
 <div class="row list-bidding">
@@ -33,11 +33,11 @@
                 <div class="rate-it" data-score="<?php echo $convert->rating_score; ?>"></div>
                 <div class="experience">
 					<?php
-						if ( $experiences == 1 ) {
-							printf( __( '%s Year', ET_DOMAIN ), $experiences );
-						} else {
-							printf( __( '%s Years', ET_DOMAIN ), $experiences );
-						}
+					if ( $experiences == 1 ) {
+						printf( __( '%s Year', ET_DOMAIN ), $experiences );
+					} else {
+						printf( __( '%s Years', ET_DOMAIN ), $experiences );
+					}
 					?>
                 </div>
             </div>
@@ -50,25 +50,25 @@
     </div>
     <div class="col-md-5 col-sm-5 col-xs-12">
 		<?php
-			$time = $convert->bid_time;
-			$type = $convert->type_time;
+		$time = $convert->bid_time;
+		$type = $convert->type_time;
 		?>
 
         <div class="number-price-project">
 			<?php
-				/**
-				 * user can view bid details
-				 * # when a project is complete
-				 * # when current user is project owner
-				 * # when current user is bid owner
-				 */
-				// if( in_array($project_status, array('complete','close', 'disputing') )
-				if ( ( $user_ID && $user_ID == $project->post_author ) || ( $user_ID && $user_ID == $convert->post_author ) ) { ?>
-                    <span class="number-price"><?php echo $convert->bid_budget_text; ?></span>
-                    <span class="number-day"><?php echo $convert->bid_time_text; ?></span>
-				<?php } else { ?>
-                    <span class="number-price"><?php _e( "In Process", ET_DOMAIN ); ?></span>
-				<?php } ?>
+			/**
+			 * user can view bid details
+			 * # when a project is complete
+			 * # when current user is project owner
+			 * # when current user is bid owner
+			 */
+			// if( in_array($project_status, array('complete','close', 'disputing') )
+			if ( ( $user_ID && $user_ID == $project->post_author ) || ( $user_ID && $user_ID == $convert->post_author ) ) { ?>
+                <span class="number-price"><?php echo $convert->bid_budget_text; ?></span>
+                <span class="number-day"><?php echo $convert->bid_time_text; ?></span>
+			<?php } else { ?>
+                <span class="number-price"><?php _e( "In Process", ET_DOMAIN ); ?></span>
+			<?php } ?>
 
         </div>
         <div class="action-employer-bidden">
@@ -90,9 +90,9 @@
                 <span class="ribbon"><i class="fa fa-trophy"></i></span>
 			<?php } ?>
 			<?php
-				if ( in_array( $project_status, [ 'publish' ] ) ) {
-					do_action( 'ae_bid_item_template', $convert, $project );
-				}
+			if ( in_array( $project_status, [ 'publish' ] ) ) {
+				do_action( 'ae_bid_item_template', $convert, $project );
+			}
 			?>
         </div>
 		<?php if ( $convert->project_status != 'publish' && $convert->project_author == $user_ID ) { ?>

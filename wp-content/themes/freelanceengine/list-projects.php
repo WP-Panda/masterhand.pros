@@ -1,20 +1,20 @@
 <?php
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PROJECT );
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PROJECT );
 ?>
 
     <ul class="project-list-container">
 		<?php
-			$postdata = [];
-			while ( have_posts() ) {
-				the_post();
-				$convert    = $post_object->convert( $post );
-				$postdata[] = $convert;
+		$postdata = [];
+		while ( have_posts() ) {
+			the_post();
+			$convert    = $post_object->convert( $post );
+			$postdata[] = $convert;
 
-				if ( $convert->post_status == 'publish' ) {
-					get_template_part( 'template/project', 'item' );
-				}
+			if ( $convert->post_status == 'publish' ) {
+				get_template_part( 'template/project', 'item' );
 			}
+		}
 		?>
     </ul>
     <div class="profile-no-result" style="display: none;">
@@ -29,7 +29,7 @@
     </div>
 <?php wp_reset_query(); ?>
 <?php
-	/**
-	 * render post data for js
-	 */
-	echo '<script type="data/json" class="postdata" >' . json_encode( $postdata ) . '</script>';
+/**
+ * render post data for js
+ */
+echo '<script type="data/json" class="postdata" >' . json_encode( $postdata ) . '</script>';

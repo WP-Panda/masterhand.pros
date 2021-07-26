@@ -9,12 +9,12 @@ global $user_status;
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal_t">
-                    <?php _e('My categories', ET_DOMAIN);
-                    if ($user_status !== PRO_BASIC_STATUS_FREELANCER) {
-                        $col = 5;
-                    } else {
-                        $col = 2;
-                    } ?>
+					<?php _e( 'My categories', ET_DOMAIN );
+					if ( $user_status !== PRO_BASIC_STATUS_FREELANCER ) {
+						$col = 5;
+					} else {
+						$col = 2;
+					} ?>
                 </div>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
@@ -25,12 +25,12 @@ global $user_status;
                          role="tablist"
                          aria-multiselectable="true">
                         <div class="form-detail-profile-page">
-                            <p><?php echo sprintf(__("Number of Specializations - max %s", ET_DOMAIN), $col); ?></p>
+                            <p><?php echo sprintf( __( "Number of Specializations - max %s", ET_DOMAIN ), $col ); ?></p>
                             <div class="fre-input-field">
                                 <div class="row">
                                     <div class="col-sm-4 col-xs-12">
-                                        <select class="" id="list_parentProjectCat" data-max="<?=$col?>">
-                                            <option value="0" selected><?_e('Select Category')?></option>
+                                        <select class="" id="list_parentProjectCat" data-max="<?= $col ?>">
+                                            <option value="0" selected><? _e( 'Select Category' ) ?></option>
                                         </select>
                                     </div>
                                     <div class="col-sm-4 col-xs-12">
@@ -44,12 +44,12 @@ global $user_status;
                                 </div>
                             </div>
                             <ul class="list-profile-project-category row" id="list_profProjectCat"></ul>
-                            
+
 
                             <div class="employer-info-save btn-update-profile btn-update-profile-top">
-                                <button class="btn-left fre-submit-btn save-prof-proj-cat"><?php _e('Save', ET_DOMAIN) ?></button>
+                                <button class="btn-left fre-submit-btn save-prof-proj-cat"><?php _e( 'Save', ET_DOMAIN ) ?></button>
                                 <span class="fre-cancel-btn employer-info-cancel-btn"
-                                      data-dismiss="modal"><?php _e('Cancel', ET_DOMAIN) ?></span>
+                                      data-dismiss="modal"><?php _e( 'Cancel', ET_DOMAIN ) ?></span>
                             </div>
                         </div>
                     </div>

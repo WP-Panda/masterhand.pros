@@ -22,7 +22,7 @@
     height: 200px;
 }
 
-.freelance-portfolio>a {
+.freelance-portfolio > a {
     display: block;
     width: 100%;
     height: 100%;
@@ -37,7 +37,6 @@
     border-radius: 7px;
     overflow: hidden;
 }
-
 
 .freelance-portfolio-wrap:hover .portfolio-action, .freelance-portfolio-wrap:hover:before {
     opacity: 1;
@@ -151,11 +150,13 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 .modal {
     overflow-y: auto;
     background: #333333eb;
     height: 100%;
 }
+
 .modal {
     position: fixed;
     top: 0;
@@ -168,7 +169,6 @@
     -webkit-overflow-scrolling: touch;
     outline: 0;
 }
-
 
 .modal .close {
     font-size: 18px;
@@ -187,10 +187,12 @@
     border-radius: 50%;
     z-index: 1;
 }
+
 .modal-header .close {
     margin-top: -15px;
     margin-right: -15px;
 }
+
 .close:focus, .close:hover {
     color: #000;
     text-decoration: none;
@@ -198,6 +200,7 @@
     filter: alpha(opacity=50);
     opacity: .5;
 }
+
 button.close {
     -webkit-appearance: none;
     padding: 0;
@@ -205,6 +208,7 @@ button.close {
     background: 0 0;
     border: 0;
 }
+
 .close {
     float: right;
     font-size: 21px;
@@ -217,17 +221,20 @@ button.close {
 }
 
 .modal.in .modal-dialog {
-    -webkit-transform: translate(0,0);
-    -ms-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    transform: translate(0,0);
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
 }
+
 .modal-dialog.modal-sm {
     width: 600px;
 }
+
 .modal-dialog {
     margin: 30vh auto !important;
 }
+
 .modal-dialog {
     width: 800px;
     background: #fff;
@@ -248,7 +255,7 @@ button.close {
     border: none;
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .modal-dialog {
         position: relative;
         width: auto;
@@ -274,8 +281,8 @@ button.close {
     border: 1px solid #0003;
     border-radius: 6px;
     outline: 0;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 
 .modal-header {
@@ -302,7 +309,6 @@ button.close {
     font-size: 16px;
 }
 
-
 .modal-body {
     padding: 0 40px 40px;
 }
@@ -319,17 +325,19 @@ button.close {
 .modal .fre-form-btn {
     overflow: hidden;
 }
+
 .fre-modal-form .fre-form-btn {
     margin-top: 25px;
     overflow: hidden;
 }
+
 .fre-form-btn {
     text-align: center;
 }
+
 .fre-form-btn {
     margin: 25px 0 0;
 }
-
 
 .btn-left {
     float: left;
@@ -343,6 +351,7 @@ button.close {
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
 }
+
 .modal .close:after, .modal .close:before {
     content: "";
     position: absolute;
@@ -363,6 +372,7 @@ button.close {
     -o-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
 }
+
 .modal .close:after, .modal .close:before {
     content: "";
     position: absolute;

@@ -1,28 +1,28 @@
 <?php
-	/**
-	 * The template for displaying Comments
-	 *
-	 * The area of the page that contains comments and the comment form.
-	 *
-	 * @package FreelanceEngine
-	 * @since   FreelanceEngine 1.0
-	 */
+/**
+ * The template for displaying Comments
+ *
+ * The area of the page that contains comments and the comment form.
+ *
+ * @package FreelanceEngine
+ * @since   FreelanceEngine 1.0
+ */
 
-	/*
-	 * If the current post is protected by a password and the visitor has not yet
-	 * entered the password we will return early without loading the comments.
-	 */
+/*
+ * If the current post is protected by a password and the visitor has not yet
+ * entered the password we will return early without loading the comments.
+ */
 
-	global $post;
-	if ( $post->post_type == PROJECT ) {
-		get_template_part( 'template/comment', 'project' );
+global $post;
+if ( $post->post_type == PROJECT ) {
+	get_template_part( 'template/comment', 'project' );
 
-		return;
-	}
+	return;
+}
 
-	if ( post_password_required() ) {
-		return;
-	}
+if ( post_password_required() ) {
+	return;
+}
 ?>
 
     <div id="comments" class="comments-area et-comments-area">
@@ -31,7 +31,7 @@
 
             <h3 class="title et-comments-title">
 				<?php
-					comments_number( __( '0 Comments on this article', ET_DOMAIN ), __( '1 Comment on this article', ET_DOMAIN ), __( '% Comments on this article', ET_DOMAIN ) );
+				comments_number( __( '0 Comments on this article', ET_DOMAIN ), __( '1 Comment on this article', ET_DOMAIN ), __( '% Comments on this article', ET_DOMAIN ) );
 				?>
             </h3>
 
@@ -45,11 +45,11 @@
 
             <ol class="comment-list">
 				<?php
-					wp_list_comments( [
-						'style'      => 'ul',
-						'short_ping' => true,
-						'callback'   => 'fre_comment_callback',
-					] );
+				wp_list_comments( [
+					'style'      => 'ul',
+					'short_ping' => true,
+					'callback'   => 'fre_comment_callback',
+				] );
 				?>
             </ol><!-- .comment-list -->
 
@@ -70,57 +70,57 @@
 		<?php endif; ?>
         <div class="btm-comment-form">
 			<?php
-				comment_form( [
-					'comment_field'        => ' <div class="form-item"><label for="comment">' . __( 'Your Comment', ET_DOMAIN ) . '</label><div class="input"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></div></div>',
-					'comment_notes_before' => '',
-					'comment_notes_after'  => '',
-					'id_form'              => 'commentform',
-					'id_submit'            => 'submit',
-					'title_reply'          => __( "Comment", ET_DOMAIN ),
-					'title_reply_to'       => __( 'Leave a Reply to %s', ET_DOMAIN ),
-					'cancel_reply_link'    => __( 'Cancel reply', ET_DOMAIN ),
-					'label_submit'         => __( 'Comment', ET_DOMAIN ),
-					'must_log_in'          => '<p class="must-log-in">' . __( 'You must be <a href="#" class="login login-btn">logged in</a> to post a comment.', ET_DOMAIN ) . '</p>'
-				] );
+			comment_form( [
+				'comment_field'        => ' <div class="form-item"><label for="comment">' . __( 'Your Comment', ET_DOMAIN ) . '</label><div class="input"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></div></div>',
+				'comment_notes_before' => '',
+				'comment_notes_after'  => '',
+				'id_form'              => 'commentform',
+				'id_submit'            => 'submit',
+				'title_reply'          => __( "Comment", ET_DOMAIN ),
+				'title_reply_to'       => __( 'Leave a Reply to %s', ET_DOMAIN ),
+				'cancel_reply_link'    => __( 'Cancel reply', ET_DOMAIN ),
+				'label_submit'         => __( 'Comment', ET_DOMAIN ),
+				'must_log_in'          => '<p class="must-log-in">' . __( 'You must be <a href="#" class="login login-btn">logged in</a> to post a comment.', ET_DOMAIN ) . '</p>'
+			] );
 			?>
         </div>
 
     </div><!-- #comments -->
 
 <?php
-	function fre_comment_callback( $comment, $args, $depth ) {
-		$GLOBALS[ 'comment' ] = $comment;
-		?>
-    <li class="media et-comment" id="li-comment-<?php comment_ID(); ?>">
-        <div id="comment-<?php comment_ID(); ?>">
-            <a class="pull-left avatar-comment" href="#">
-				<?php echo get_avatar( $comment->comment_author_email, 40 ); ?>
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">
-					<?php
-						comment_author();
-					?>
-                </h4>
-                <span class="time-review">
+function fre_comment_callback( $comment, $args, $depth ) {
+	$GLOBALS['comment'] = $comment;
+	?>
+<li class="media et-comment" id="li-comment-<?php comment_ID(); ?>">
+    <div id="comment-<?php comment_ID(); ?>">
+        <a class="pull-left avatar-comment" href="#">
+			<?php echo get_avatar( $comment->comment_author_email, 40 ); ?>
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">
+				<?php
+				comment_author();
+				?>
+            </h4>
+            <span class="time-review">
                 	<i class="fa fa-clock-o"></i>
                 	<time>
 						<?php echo ae_the_time( strtotime( $comment->comment_date ) ); ?>
 					</time>
                 </span>
-                <div class="comment-text">
-					<?php comment_text(); ?>
-                </div>
-				<?php
-					comment_reply_link( array_merge( $args, [
-						'reply_text' => __( 'Reply ', ET_DOMAIN ) . '<i class="fa fa-edit"></i>',
-						'depth'      => $depth,
-						'max_depth'  => $args[ 'max_depth' ]
-					] ) );
-
-					likesComment( get_comment_ID() );
-				?>
+            <div class="comment-text">
+				<?php comment_text(); ?>
             </div>
+			<?php
+			comment_reply_link( array_merge( $args, [
+				'reply_text' => __( 'Reply ', ET_DOMAIN ) . '<i class="fa fa-edit"></i>',
+				'depth'      => $depth,
+				'max_depth'  => $args['max_depth']
+			] ) );
+
+			likesComment( get_comment_ID() );
+			?>
         </div>
-		<?php
-	}
+    </div>
+	<?php
+}

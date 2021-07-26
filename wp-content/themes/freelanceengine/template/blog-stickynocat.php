@@ -1,11 +1,11 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
 ?>
 <div class="fre-blog-item">
     <div class="fre-blog-item_img" style="background:url(<?php if ( has_post_thumbnail() ) {

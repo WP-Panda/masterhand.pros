@@ -42,7 +42,7 @@ function ae_page_social_connect() {
 				if ( $social_user_roles && count( $social_user_roles ) >= 1 ) { ?>
                     <div class="fre-input-field">
                         <select name="user_role" id="user_role" class="fre-chosen-single">
-                            <option selected disabled value=""><?php _e('Choose your role',ET_DOMAIN);?></option>
+                            <option selected disabled value=""><?php _e( 'Choose your role', ET_DOMAIN ); ?></option>
 							<?php foreach ( $social_user_roles as $key => $value ) { ?>
                                 <option value="<?php echo $key ?>"><?php echo $role_default[ $value ]; ?></option>
 							<?php } ?>

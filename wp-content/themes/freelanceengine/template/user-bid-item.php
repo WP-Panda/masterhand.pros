@@ -1,28 +1,28 @@
 <?php
-	/**
-	 * The template for displaying user bid item in page-profile.php
-	 */
-	$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
-	global $wp_query, $ae_post_factory, $post;
-	//get bid data
-	$bid_object = $ae_post_factory->get( BID );
-	$bid        = $bid_object->current_post;
-	//get project data
-	$project = get_post( $bid->post_parent );
+/**
+ * The template for displaying user bid item in page-profile.php
+ */
+$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
+global $wp_query, $ae_post_factory, $post;
+//get bid data
+$bid_object = $ae_post_factory->get( BID );
+$bid        = $bid_object->current_post;
+//get project data
+$project = get_post( $bid->post_parent );
 
-	if ( ! $project || is_wp_error( $project ) ) {
-		return false;
-	}
+if ( ! $project || is_wp_error( $project ) ) {
+	return false;
+}
 
-	$project_object = $ae_post_factory->get( PROJECT );
-	$project        = $project_object->convert( $project );
-	//get all fields
-	$total_bids  = $project->total_bids ? $project->total_bids : 0;
-	$bid_average = $project->bid_average ? $project->bid_average : 0;
-	$bid_budget  = $bid->bid_budget ? $bid->bid_budget : 0;
-	$bid_time    = $bid->bid_time ? $bid->bid_time : 0;
-	$type_time   = $bid->type_time ? $bid->type_time : 0;
-	$status_text = $bid->status_text;
+$project_object = $ae_post_factory->get( PROJECT );
+$project        = $project_object->convert( $project );
+//get all fields
+$total_bids  = $project->total_bids ? $project->total_bids : 0;
+$bid_average = $project->bid_average ? $project->bid_average : 0;
+$bid_budget  = $bid->bid_budget ? $bid->bid_budget : 0;
+$bid_time    = $bid->bid_time ? $bid->bid_time : 0;
+$type_time   = $bid->type_time ? $bid->type_time : 0;
+$status_text = $bid->status_text;
 
 ?>
 <li <?php post_class( 'user-bid-item' ); ?>>
@@ -55,11 +55,11 @@
 						<?php printf( __( 'Average Bid:', ET_DOMAIN ) ) ?>
                         <span class="number-blue">
                             <?php
-	                            $avg = 0;
-	                            if ( $project->total_bids > 0 ) {
-		                            $avg = get_total_cost_bids( $project->ID ) / $project->total_bids;
-	                            }
-	                            echo fre_price_format( $avg );
+                            $avg = 0;
+                            if ( $project->total_bids > 0 ) {
+	                            $avg = get_total_cost_bids( $project->ID ) / $project->total_bids;
+                            }
+                            echo fre_price_format( $avg );
                             ?>
                         </span>
                     </li>
@@ -69,30 +69,30 @@
         <div class="col-md-4 col-sm-4 action-project">
 
 			<?php
-				if ( $bid->post_status == 'unaccept' && ae_user_role() == 'freelancer' ) {
-					?>
-                    <p class="number-blue"><?php _e( 'Processing', ET_DOMAIN ); ?></p>
-                    <p class="status-bid-project"><?php _e( 'Your bid is not accepted.', ET_DOMAIN ); ?></p>
-				<?php } elseif ( $bid->post_status == 'accept' && ae_user_role() == 'freelancer' ) {
-					?>
-                    <p class="number-blue"><?php _e( 'Processing', ET_DOMAIN ); ?></p>
-                    <p class="status-bid-project"><?php _e( 'Your bid is accepted.', ET_DOMAIN ); ?></p>
-                    <div class="status-project">
-                        <a href="<?php echo add_query_arg( [ 'workspace' => 1 ], $project->permalink ); ?>"
-                           class="btn-apply-project-item">
-							<?php _e( "Workspace", ET_DOMAIN ) ?>
-                        </a>
-                    </div>
-				<?php } elseif ( $bid->post_status == 'publish' && ae_user_role() == 'freelancer' ) {
-					?>
-                    <p class="number-blue"><?php _e( 'Active', ET_DOMAIN ); ?></p>
-                    <p class="status-bid-project"><?php echo $bid->et_expired_date; ?></p>
-                    <div class="status-project">
-                        <a href="<?php echo $project->permalink ?>" class="btn-apply-project-item">
-							<?php _e( "Cancel", ET_DOMAIN ) ?>
-                        </a>
-                    </div>
-				<?php } ?>
+			if ( $bid->post_status == 'unaccept' && ae_user_role() == 'freelancer' ) {
+				?>
+                <p class="number-blue"><?php _e( 'Processing', ET_DOMAIN ); ?></p>
+                <p class="status-bid-project"><?php _e( 'Your bid is not accepted.', ET_DOMAIN ); ?></p>
+			<?php } elseif ( $bid->post_status == 'accept' && ae_user_role() == 'freelancer' ) {
+				?>
+                <p class="number-blue"><?php _e( 'Processing', ET_DOMAIN ); ?></p>
+                <p class="status-bid-project"><?php _e( 'Your bid is accepted.', ET_DOMAIN ); ?></p>
+                <div class="status-project">
+                    <a href="<?php echo add_query_arg( [ 'workspace' => 1 ], $project->permalink ); ?>"
+                       class="btn-apply-project-item">
+						<?php _e( "Workspace", ET_DOMAIN ) ?>
+                    </a>
+                </div>
+			<?php } elseif ( $bid->post_status == 'publish' && ae_user_role() == 'freelancer' ) {
+				?>
+                <p class="number-blue"><?php _e( 'Active', ET_DOMAIN ); ?></p>
+                <p class="status-bid-project"><?php echo $bid->et_expired_date; ?></p>
+                <div class="status-project">
+                    <a href="<?php echo $project->permalink ?>" class="btn-apply-project-item">
+						<?php _e( "Cancel", ET_DOMAIN ) ?>
+                    </a>
+                </div>
+			<?php } ?>
 
         </div>
 

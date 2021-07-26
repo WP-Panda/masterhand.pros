@@ -148,7 +148,7 @@ class ET_TwitterAuth extends ET_SocialAuth {
 					}
 
 					$params = array(
-						'user_login'    => strtolower($account->screen_name),
+						'user_login'    => strtolower( $account->screen_name ),
 						'user_email'    => $account->email,
 						'display_name'  => $account->name,
 						'user_location' => $account->location,
@@ -165,7 +165,7 @@ class ET_TwitterAuth extends ET_SocialAuth {
 					$_SESSION['description']       = $account->description;
 					$_SESSION['profile_image_url'] = $account->profile_image_url;
 					$_SESSION['et_auth']           = serialize( array(
-						'user_login'    => strtolower($account->screen_name),
+						'user_login'    => strtolower( $account->screen_name ),
 						'user_email'    => $account->email,
 						'display_name'  => $account->name,
 						'user_location' => $account->location,

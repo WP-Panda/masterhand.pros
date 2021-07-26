@@ -1,5 +1,5 @@
 <?php
-	get_header();
+get_header();
 ?>
     <div class="fre-page-wrapper">
         <div class="fre-page-section">

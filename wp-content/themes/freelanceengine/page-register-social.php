@@ -1,8 +1,8 @@
 <?php
-	/**
-	 * Template name: Register With Social
-	 */
-	get_header();
+/**
+ * Template name: Register With Social
+ */
+get_header();
 ?>
     <div class="fre-page-wrapper">
         <div class="fre-page-section">

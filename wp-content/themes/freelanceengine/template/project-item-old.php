@@ -1,8 +1,8 @@
 <?php
 
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PROJECT );
-	$current     = $post_object->current_post;
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PROJECT );
+$current     = $post_object->current_post;
 ?>
 <li <?php post_class( 'project-item hvr-shadow' ); ?>>
     <div class="row">
@@ -40,20 +40,20 @@
         </div>
         <div class="col-md-2 col-sm-2 col-xs-5">
 			<?php
-				if ( $current->current_user_bid ) { ?>
-                    <span class="wrapper-btn">
+			if ( $current->current_user_bid ) { ?>
+                <span class="wrapper-btn">
                 <a href="<?php the_permalink(); ?>" class="bid-label">
                     <i class="fa fa-check"></i><?php _e( ' Bid', ET_DOMAIN ); ?>
                 </a>
             </span>
-				<?php } else {
-					?>
-                    <p class="wrapper-btn">
-                        <a href="<?php the_permalink(); ?>" class="btn-sumary btn-apply-project">
-							<?php _e( 'Apply', ET_DOMAIN ); ?>
-                        </a>
-                    </p>
-				<?php } ?>
+			<?php } else {
+				?>
+                <p class="wrapper-btn">
+                    <a href="<?php the_permalink(); ?>" class="btn-sumary btn-apply-project">
+						<?php _e( 'Apply', ET_DOMAIN ); ?>
+                    </a>
+                </p>
+			<?php } ?>
         </div>
     </div>
 </li>

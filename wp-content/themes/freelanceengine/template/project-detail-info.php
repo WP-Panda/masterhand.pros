@@ -1,76 +1,76 @@
 <?php
-	/**
-	 * The template for displaying project heading info in single project detail
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
-	global $wp_query, $ae_post_factory, $post, $user_ID;
-	$post_object = $ae_post_factory->get( PROJECT );
+/**
+ * The template for displaying project heading info in single project detail
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
+global $wp_query, $ae_post_factory, $post, $user_ID;
+$post_object = $ae_post_factory->get( PROJECT );
 
-	$convert  = $post_object->current_post;
-	$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
+$convert  = $post_object->current_post;
+$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
 ?>
 <div class="info-project-item info-project-item-tan">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-lg-8">
 			<?php
 
-				if ( empty( $convert->total_bids ) ) {
-					$convert->total_bids = 0;
-				}
+			if ( empty( $convert->total_bids ) ) {
+				$convert->total_bids = 0;
+			}
 
-				$et_expired_date = $convert->et_expired_date;
+			$et_expired_date = $convert->et_expired_date;
 			?>
             <ul class="info-item">
                 <li>
                 <span class="number-blue">
                 <?php
-	                $total_count = get_comments( [
-		                'post_id' => $post->ID,
-		                'type'    => 'comment',
-		                'count'   => true,
-		                'status'  => 'approve'
-	                ] );
-	                if ( $total_count > 0 ) {
-		                if ( $total_count == 1 ) {
-			                printf( __( '%d <span class="text-normal">Comment</span>', ET_DOMAIN ), $total_count );
-		                } else {
-			                printf( __( '%d <span class="text-normal">Comments</span>', ET_DOMAIN ), $total_count );
-		                }
+                $total_count = get_comments( [
+	                'post_id' => $post->ID,
+	                'type'    => 'comment',
+	                'count'   => true,
+	                'status'  => 'approve'
+                ] );
+                if ( $total_count > 0 ) {
+	                if ( $total_count == 1 ) {
+		                printf( __( '%d <span class="text-normal">Comment</span>', ET_DOMAIN ), $total_count );
 	                } else {
 		                printf( __( '%d <span class="text-normal">Comments</span>', ET_DOMAIN ), $total_count );
 	                }
+                } else {
+	                printf( __( '%d <span class="text-normal">Comments</span>', ET_DOMAIN ), $total_count );
+                }
                 ?></span>
                 </li>
                 <li>
                     <span class="number-blue">
                         <?php
-	                        if ( $convert->total_bids > 0 ) {
-		                        if ( $convert->total_bids == 1 ) {
-			                        printf( __( '%s <span class="text-normal">Bid</span>', ET_DOMAIN ), $convert->total_bids );
-		                        } else {
-			                        printf( __( '%s <span class="text-normal">Bids</span>', ET_DOMAIN ), $convert->total_bids );
-		                        }
+                        if ( $convert->total_bids > 0 ) {
+	                        if ( $convert->total_bids == 1 ) {
+		                        printf( __( '%s <span class="text-normal">Bid</span>', ET_DOMAIN ), $convert->total_bids );
 	                        } else {
 		                        printf( __( '%s <span class="text-normal">Bids</span>', ET_DOMAIN ), $convert->total_bids );
 	                        }
+                        } else {
+	                        printf( __( '%s <span class="text-normal">Bids</span>', ET_DOMAIN ), $convert->total_bids );
+                        }
                         ?>
                     </span>
                 </li>
                 <li>
                     <span class="number-blue">
                     <?php
-	                    $avg = 0;
-	                    if ( $convert->total_bids > 0 ) {
-		                    $avg = get_total_cost_bids( $convert->ID ) / $convert->total_bids;
-	                    }
-	                    echo fre_price_format( $avg );
+                    $avg = 0;
+                    if ( $convert->total_bids > 0 ) {
+	                    $avg = get_total_cost_bids( $convert->ID ) / $convert->total_bids;
+                    }
+                    echo fre_price_format( $avg );
                     ?>
                     </span>
                     <span class="text-normal">
-                        <?php printf( __( "Avg Bid (%s)", ET_DOMAIN ), $currency[ 'code' ] ); ?>
+                        <?php printf( __( "Avg Bid (%s)", ET_DOMAIN ), $currency['code'] ); ?>
                     </span>
                 </li>
                 <li>
@@ -80,12 +80,12 @@
                         </span>
                         <span class="text-normal">
                         <?php
-	                        if ( empty( $et_expired_date ) ) {
-		                        echo ae_the_time( get_the_time( 'U' ) );
-		                        // printf(__('%s ago',ET_DOMAIN), human_time_diff( get_the_time('U'), time() ) );
-	                        } else {
-		                        printf( __( '%s left', ET_DOMAIN ), human_time_diff( time(), strtotime( $et_expired_date ) ) );
-	                        }
+                        if ( empty( $et_expired_date ) ) {
+	                        echo ae_the_time( get_the_time( 'U' ) );
+	                        // printf(__('%s ago',ET_DOMAIN), human_time_diff( get_the_time('U'), time() ) );
+                        } else {
+	                        printf( __( '%s left', ET_DOMAIN ), human_time_diff( time(), strtotime( $et_expired_date ) ) );
+                        }
                         ?>
                         </span>
 					<?php } else {

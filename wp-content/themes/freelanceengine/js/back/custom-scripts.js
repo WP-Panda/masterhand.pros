@@ -339,7 +339,6 @@ jQuery(function ($) {
         });
 
 
-
         //////////////////////////////////////////////////////////////////////REMOVE
         $('#state').on('change', function () {
             if (!$('body').hasClass('no-bb-paginate')) {

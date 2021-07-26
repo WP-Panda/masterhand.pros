@@ -1,28 +1,29 @@
 <?php
-	global $wp_query;
+global $wp_query;
 
-	$company_category             = $wp_query->query[ 'project_category' ];
-	$category_company_selected    = '';
-	$subcategory_company_selected = '';
+$company_category             = $wp_query->query['project_category'];
+$category_company_selected    = '';
+$subcategory_company_selected = '';
 
-	if ( isset( $company_category ) && $company_category != '' ) {
-		$taxonomy_project_category    = get_term_by( 'slug', $company_category, 'project_category', ARRAY_A );
-		$subcategory_company_selected = $taxonomy_project_category[ 'slug' ];
-		if ( ! empty( $taxonomy_project_category[ 'parent' ] ) ) {
-			$taxonomy_parent_project_category = get_term_by( 'term_id', $taxonomy_project_category[ 'parent' ], 'project_category', ARRAY_A );
-			$category_company_selected        = $taxonomy_parent_project_category[ 'slug' ];
-		} else {
-			$category_company_selected    = $taxonomy_project_category[ 'slug' ];
-			$subcategory_company_selected = '';
-		}
+if ( isset( $company_category ) && $company_category != '' ) {
+	$taxonomy_project_category    = get_term_by( 'slug', $company_category, 'project_category', ARRAY_A );
+	$subcategory_company_selected = $taxonomy_project_category['slug'];
+	if ( ! empty( $taxonomy_project_category['parent'] ) ) {
+		$taxonomy_parent_project_category = get_term_by( 'term_id', $taxonomy_project_category['parent'], 'project_category', ARRAY_A );
+		$category_company_selected        = $taxonomy_parent_project_category['slug'];
+	} else {
+		$category_company_selected    = $taxonomy_project_category['slug'];
+		$subcategory_company_selected = '';
 	}
+}
 ?>
 <div class="fre-project-filter-box">
     <script type="data/json" id="search_data">
         <?php
-			$search_data = $_POST;
-			echo json_encode( $search_data );
+		$search_data = $_POST;
+		echo json_encode( $search_data );
 		?>
+
 
     </script>
     <div class="project-filter-header visible-sm visible-xs">

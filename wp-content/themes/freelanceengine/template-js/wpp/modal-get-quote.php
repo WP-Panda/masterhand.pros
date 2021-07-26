@@ -1,13 +1,13 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	global $user_ID;
+global $user_ID;
 
-	$user_data = get_userdata( $user_ID );
+$user_data = get_userdata( $user_ID );
 ?>
 
 <div class="modal fade designed-modal" id="modal_get_quote" role="dialog">

@@ -1,13 +1,13 @@
 <?php
-	/**
-	 * The template for displaying 404 pages (Not Found)
-	 *
-	 * @package    WordPress
-	 * @subpackage Freelance Engine
-	 * @since      Freelance Engine 1.0
-	 */
+/**
+ * The template for displaying 404 pages (Not Found)
+ *
+ * @package    WordPress
+ * @subpackage Freelance Engine
+ * @since      Freelance Engine 1.0
+ */
 
-	get_header(); ?>
+get_header(); ?>
 
     <section class="blog-header-container">
         <div class="container">
@@ -30,4 +30,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

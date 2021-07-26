@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
-                <?php _e( 'Are you sure you want to lock this section?', ET_DOMAIN ) ?>
+				<?php _e( 'Are you sure you want to lock this section?', ET_DOMAIN ) ?>
             </div>
             <div class="modal-body">
                 <form role="form" id="form-lock-file" class="form-lock-file fre-modal-form">

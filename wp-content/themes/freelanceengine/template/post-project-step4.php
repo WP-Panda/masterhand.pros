@@ -1,15 +1,15 @@
 <!-- Step 4 -->
 <?php
-	global $user_ID, $packs;
-	$step = 4;
+global $user_ID, $packs;
+$step = 4;
 
-	$disable_plan = ae_get_option( 'disable_plan', false );
-	if ( $disable_plan ) {
-		$step --;
-	}
-	if ( $user_ID ) {
-		$step --;
-	}
+$disable_plan = ae_get_option( 'disable_plan', false );
+if ( $disable_plan ) {
+	$step --;
+}
+if ( $user_ID ) {
+	$step --;
+}
 ?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
 
@@ -23,74 +23,74 @@
     <div class="fre-post-project-box">
         <div class="step-choose-payment">
 			<?php $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
-				$id                      = isset( $_REQUEST[ 'id' ] ) ? $_REQUEST[ 'id' ] : 0;
-				if ( $id ) {
-					$post    = get_post( $id );
-					$pack_id = $post->et_payment_package;
-					foreach ( $packs as $key => $package ) {
-						if ( $pack_id == $package->sku ) {
-							$number_of_post = $package->et_number_posts;
-							if ( $number_of_post >= 1 ) { ?>
-                                <div class="show_select_package">
-                                    <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
-                                        <a data-toggle="collapse" href="#packinfo2"
-                                           role="button"><strong><?php echo $package->post_title; ?></strong></a>
-                                    </p>
-                                </div>
-                                <div id="packinfo2" class="collapse pack-desk">
-                                    <p><?php _e( 'If you want to get more posts, you can directly move to purchase page.', ET_DOMAIN ); ?></p>
-                                    <div class="pack-left"><?php echo __( 'Your post(s) left:', ET_DOMAIN ) ?>
-                                        <span>
+			$id                          = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
+			if ( $id ) {
+				$post    = get_post( $id );
+				$pack_id = $post->et_payment_package;
+				foreach ( $packs as $key => $package ) {
+					if ( $pack_id == $package->sku ) {
+						$number_of_post = $package->et_number_posts;
+						if ( $number_of_post >= 1 ) { ?>
+                            <div class="show_select_package">
+                                <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
+                                    <a data-toggle="collapse" href="#packinfo2"
+                                       role="button"><strong><?php echo $package->post_title; ?></strong></a>
+                                </p>
+                            </div>
+                            <div id="packinfo2" class="collapse pack-desk">
+                                <p><?php _e( 'If you want to get more posts, you can directly move to purchase page.', ET_DOMAIN ); ?></p>
+                                <div class="pack-left"><?php echo __( 'Your post(s) left:', ET_DOMAIN ) ?>
+                                    <span>
                         <?php if ( isset( $orders[ $sku ] ) ) {
 	                        $order = get_post( $orders[ $sku ] );
                         }
 
-	                        if ( isset( $package_data[ $sku ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
-		                        $package_data_sku = $package_data[ $sku ];
-		                        if ( isset( $package_data_sku[ 'qty' ] ) && $package_data_sku[ 'qty' ] > 0 ) {
-			                        /**
-			                         * print text when company has job left in package
-			                         */
-			                        $number_of_post = $package_data_sku[ 'qty' ];
-		                        }
+                        if ( isset( $package_data[ $sku ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
+	                        $package_data_sku = $package_data[ $sku ];
+	                        if ( isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
+		                        /**
+		                         * print text when company has job left in package
+		                         */
+		                        $number_of_post = $package_data_sku['qty'];
 	                        }
+                        }
 
-	                        if ( ! $package->et_price ) { // if free package.
-		                        $number_of_post = (int) $number_of_post - (int) $number_free_plan_used;
-		                        if ( $number_of_post < 0 ) {
-			                        $number_of_post = 0;
-		                        }
+                        if ( ! $package->et_price ) { // if free package.
+	                        $number_of_post = (int) $number_of_post - (int) $number_free_plan_used;
+	                        if ( $number_of_post < 0 ) {
+		                        $number_of_post = 0;
 	                        }
+                        }
 
 
-	                        if ( $number_of_post > 0 ) {
-		                        if ( $number_of_post == 1 ) {
-			                        $texthidden = $number_of_post;
-		                        } else {
-			                        $texthidden = $number_of_post;
-		                        }
+                        if ( $number_of_post > 0 ) {
+	                        if ( $number_of_post == 1 ) {
+		                        $texthidden = $number_of_post;
 	                        } else {
 		                        $texthidden = $number_of_post;
 	                        }
-	                        echo $texthidden . ' post(s)'; ?></span>
-                                    </div>
+                        } else {
+	                        $texthidden = $number_of_post;
+                        }
+                        echo $texthidden . ' post(s)'; ?></span>
                                 </div>
-							<?php }
-						}
+                            </div>
+						<?php }
 					}
-				} else { ?>
-                    <div class="show_select_package">
-                        <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
+				}
+			} else { ?>
+                <div class="show_select_package">
+                    <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
 
-                        </p>
+                    </p>
+                </div>
+                <div id="packinfo3" class="collapse pack-desk">
+                    <p><?php _e( 'If you want to get more posts, you can directly move to purchase page.', ET_DOMAIN ); ?></p>
+                    <div class="pack-left"><?php echo __( 'Your post(s) left:', ET_DOMAIN ) ?>
+                        <span></span>
                     </div>
-                    <div id="packinfo3" class="collapse pack-desk">
-                        <p><?php _e( 'If you want to get more posts, you can directly move to purchase page.', ET_DOMAIN ); ?></p>
-                        <div class="pack-left"><?php echo __( 'Your post(s) left:', ET_DOMAIN ) ?>
-                            <span></span>
-                        </div>
-                    </div>
-				<?php } ?>
+                </div>
+			<?php } ?>
 			<?php if ( ! $disable_plan ) { ?>
                 <div class="show_select_options">
                     <div class="option_title"><?php _e( 'Your option(s):', ET_DOMAIN ); ?>
@@ -121,62 +121,62 @@
 
             <ul id="fre-payment-accordion" class="fre-payment-list panel-group">
 				<?php
-					$paypal = ae_get_option( 'paypal' );
-					if ( $paypal[ 'enable' ] ) { ?>
-                        <li class="panel">
-                            <div class="plan_t title-plan--paypal" data-type="paypal">
-								<?php _e( "PayPal / Credit Card via PayPal", ET_DOMAIN ); ?>
-                            </div>
-                            <a data-toggle="collapse" data-parent="#fre-payment-accordion" href="#fre-payment-paypal"
-                               class="btn-left collapsed select-payment fre-submit-btn"
-                               data-type="paypal"><?php _e( "Pay with PayPal", ET_DOMAIN ); ?></a>
-                        </li>
-					<?php } ?>
+				$paypal = ae_get_option( 'paypal' );
+				if ( $paypal['enable'] ) { ?>
+                    <li class="panel">
+                        <div class="plan_t title-plan--paypal" data-type="paypal">
+							<?php _e( "PayPal / Credit Card via PayPal", ET_DOMAIN ); ?>
+                        </div>
+                        <a data-toggle="collapse" data-parent="#fre-payment-accordion" href="#fre-payment-paypal"
+                           class="btn-left collapsed select-payment fre-submit-btn"
+                           data-type="paypal"><?php _e( "Pay with PayPal", ET_DOMAIN ); ?></a>
+                    </li>
+				<?php } ?>
 
 				<?php $cash = ae_get_option( 'cash' );
-					if ( $cash[ 'enable' ] ) { ?>
-                        <li class="panel">
-                            <div class="plan_t" data-type="cash">
-								<?php _e( "Cash", ET_DOMAIN ); ?>
-                                <span><?php _e( "Transfer money directly to our bank account.", ET_DOMAIN ); ?></span>
-                            </div>
-                            <a data-toggle="collapse" data-type="cash" data-parent="#fre-payment-accordion"
-                               href="#fre-payment-cash"
-                               class="btn-left collapsed fre-submit-btn other-payment"><?php _e( "Select", ET_DOMAIN ); ?></a>
-                            <div id="fre-payment-cash" class="panel-collapse collapse fre-payment-proccess">
-                                <div class="fre-payment-cash">
-                                    <p>
-										<?php _e( 'Amount need to be transferred:', ET_DOMAIN ); ?>
-                                        <br/>
-                                        <span class="cash_amount">...</span>
-                                    </p>
-                                    <p>
-										<?php _e( 'Transfer to bank account:', ET_DOMAIN ); ?>
-                                        <br/>
-                                        <span class="info_cash">
+				if ( $cash['enable'] ) { ?>
+                    <li class="panel">
+                        <div class="plan_t" data-type="cash">
+							<?php _e( "Cash", ET_DOMAIN ); ?>
+                            <span><?php _e( "Transfer money directly to our bank account.", ET_DOMAIN ); ?></span>
+                        </div>
+                        <a data-toggle="collapse" data-type="cash" data-parent="#fre-payment-accordion"
+                           href="#fre-payment-cash"
+                           class="btn-left collapsed fre-submit-btn other-payment"><?php _e( "Select", ET_DOMAIN ); ?></a>
+                        <div id="fre-payment-cash" class="panel-collapse collapse fre-payment-proccess">
+                            <div class="fre-payment-cash">
+                                <p>
+									<?php _e( 'Amount need to be transferred:', ET_DOMAIN ); ?>
+                                    <br/>
+                                    <span class="cash_amount">...</span>
+                                </p>
+                                <p>
+									<?php _e( 'Transfer to bank account:', ET_DOMAIN ); ?>
+                                    <br/>
+                                    <span class="info_cash">
                                     <?php
-	                                    $cash_options = ae_get_option( 'cash' );
+                                    $cash_options = ae_get_option( 'cash' );
 
                                     ?>
                                 </span>
-                                    </p>
-                                    <strong class="cash-message"><?php echo $cash_options[ 'cash_message' ]; ?></strong>
-                                </div>
-                                <a href="#" class="fre-btn select-payment"
-                                   data-type="cash"><?php _e( "Make Payment", ET_DOMAIN ); ?></a>
+                                </p>
+                                <strong class="cash-message"><?php echo $cash_options['cash_message']; ?></strong>
                             </div>
-                        </li>
-					<?php } ?>
+                            <a href="#" class="fre-btn select-payment"
+                               data-type="cash"><?php _e( "Make Payment", ET_DOMAIN ); ?></a>
+                        </div>
+                    </li>
+				<?php } ?>
 
 				<?php
-					do_action( 'after_payment_list' );
+				do_action( 'after_payment_list' );
 				?>
 
 				<?php
-					$co = ae_get_option( '2checkout' );
-					if ( $co[ 'enable' ] ) { ?>
+				$co = ae_get_option( '2checkout' );
+				if ( $co['enable'] ) { ?>
 
-						<?php /*<script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
+					<?php /*<script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
                     <script src="<?=get_template_directory_uri()?>/js/2checkout.js"></script>
 
                     <!-- JS-code for 2checkout is located in ../js/custom.js -->
@@ -213,15 +213,15 @@
                             </div>
                         </form>
                     </li> */ ?>
-                        <li class="panel">
-                            <div class="plan_t title-plan--2checkout" data-type="2checkout">
-								<?php /*_e("2Checkout", ET_DOMAIN); */ ?>
-                                <span><?php _e( "Payment via 2Checkout.", ET_DOMAIN ); ?></span>
-                            </div>
-                            <a href="#" class="btn-left collapsed btn-submit-price-plan fre-submit-btn select-payment"
-                               data-type="2checkout"><?php _e( "Pay with a card", ET_DOMAIN ); ?></a>
-                        </li>
-					<?php } ?>
+                    <li class="panel">
+                        <div class="plan_t title-plan--2checkout" data-type="2checkout">
+							<?php /*_e("2Checkout", ET_DOMAIN); */ ?>
+                            <span><?php _e( "Payment via 2Checkout.", ET_DOMAIN ); ?></span>
+                        </div>
+                        <a href="#" class="btn-left collapsed btn-submit-price-plan fre-submit-btn select-payment"
+                           data-type="2checkout"><?php _e( "Pay with a card", ET_DOMAIN ); ?></a>
+                    </li>
+				<?php } ?>
 
             </ul>
 			<?php do_action( 'after_payment_list_wrapper' ); ?>

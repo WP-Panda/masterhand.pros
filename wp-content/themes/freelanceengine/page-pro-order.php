@@ -1,29 +1,29 @@
 <?php
-	/**
-	 * Template Name: Member Pro-order Page
-	 */
-	global $user_ID;
-	$role_template = 'employer';
-	if ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) {
-		$role_template = 'freelance';
-	}
+/**
+ * Template Name: Member Pro-order Page
+ */
+global $user_ID;
+$role_template = 'employer';
+if ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) {
+	$role_template = 'freelance';
+}
 
-	$res  = сheckout_order();
-	$path = plugins_url();
+$res  = сheckout_order();
+$path = plugins_url();
 
-	$pro_status_period = get_user_pro_status_duration( $user_ID );
-	$pro_status        = get_user_pro_status( $user_ID );
+$pro_status_period = get_user_pro_status_duration( $user_ID );
+$pro_status        = get_user_pro_status( $user_ID );
 
-	$currency = ae_get_option( 'currency', [
-		'align' => 'left',
-		'code'  => 'USD',
-		'icon'  => '$'
-	] );
+$currency = ae_get_option( 'currency', [
+	'align' => 'left',
+	'code'  => 'USD',
+	'icon'  => '$'
+] );
 
-	#$urlRequest = ((int)ae_get_option('test_mode') == 1)? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
-	$urlRequest = '/order/payment/';
+#$urlRequest = ((int)ae_get_option('test_mode') == 1)? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
+$urlRequest = '/order/payment/';
 
-	get_header();
+get_header();
 ?>
 <div class="fre-page-wrapper list-profile-wrapper">
     <div class="fre-page-title hidden">
@@ -36,52 +36,52 @@
         <div class="container">
             <div class="pro-order pro-<?php echo $role_template; ?>-wrap">
                 <!-- отображение всей информации по стату -->
-				<?php $count = count( reset( $res[ 'statuses' ] ) ); ?>
+				<?php $count = count( reset( $res['statuses'] ) ); ?>
 				<?php for ( $i = 1; $i < $count; $i ++ ) { ?>
                     <div class="pro-order_status">
-                        <div class="pro-order_t"><?php echo reset( $res[ 'statuses' ] )[ $i ] ?><?php _e( ' plans', ET_DOMAIN ) ?></div>
+                        <div class="pro-order_t"><?php echo reset( $res['statuses'] )[ $i ] ?><?php _e( ' plans', ET_DOMAIN ) ?></div>
                         <ul class="nav nav-tabs hidden-sm">
-							<?php foreach ( $res[ 'statuses' ] as $value ) { ?>
-								<?php if ( array_key_exists( 'property_type', $value ) && $value[ 'property_type' ] == 2 ) {
-									$str = $value[ 'option_value' ] != 1 ? ' months' : ' month'; ?>
+							<?php foreach ( $res['statuses'] as $value ) { ?>
+								<?php if ( array_key_exists( 'property_type', $value ) && $value['property_type'] == 2 ) {
+									$str = $value['option_value'] != 1 ? ' months' : ' month'; ?>
                                     <li><a data-toggle="tab"
-                                           href="#price<?php echo end( $res[ 'statuses' ] )[ $i ]; ?>-<?php echo $value[ 'option_value' ]; ?>"><?php echo $value[ 'option_value' ] . $str; ?></a>
+                                           href="#price<?php echo end( $res['statuses'] )[ $i ]; ?>-<?php echo $value['option_value']; ?>"><?php echo $value['option_value'] . $str; ?></a>
                                     </li>
 								<?php }
 							} ?>
                         </ul>
                         <div class="row tab-content">
-							<?php foreach ( $res[ 'statuses' ] as $value ) { ?>
-								<?php if ( array_key_exists( 'property_type', $value ) && $value[ 'property_type' ] == 2 ) { ?>
-                                    <div id="price<?php echo end( $res[ 'statuses' ] )[ $i ]; ?>-<?php echo $value[ 'option_value' ]; ?>"
+							<?php foreach ( $res['statuses'] as $value ) { ?>
+								<?php if ( array_key_exists( 'property_type', $value ) && $value['property_type'] == 2 ) { ?>
+                                    <div id="price<?php echo end( $res['statuses'] )[ $i ]; ?>-<?php echo $value['option_value']; ?>"
                                          class="tab-pane fade col-sm-4 col-xs-12">
                                         <div class="fre-profile-box">
                                             <input type="hidden" class="radioStatus" name="radioStatus"
-                                                   value="<?= end( $res[ 'statuses' ] )[ $i ] ?>">
+                                                   value="<?= end( $res['statuses'] )[ $i ] ?>">
                                             <input type="hidden" class="radioTime" name="radioTime"
-                                                   value="<?php echo $value[ 'property_id' ]; ?>">
+                                                   value="<?php echo $value['property_id']; ?>">
                                             <input type="hidden" class="radioStatusprice"
-                                                   name="price_<?= end( $res[ 'statuses' ] )[ $i ] ?>_<?= $value[ 'property_id' ] ?>"
+                                                   name="price_<?= end( $res['statuses'] )[ $i ] ?>_<?= $value['property_id'] ?>"
                                                    value="<?= $value[ $i ] ?>">
-											<?php $str = $value[ 'option_value' ] != 1 ? ' months' : ' month'; ?>
+											<?php $str = $value['option_value'] != 1 ? ' months' : ' month'; ?>
 
                                             <input type="hidden" name="pro_plan_name"
-                                                   value="<?php echo reset( $res[ 'statuses' ] )[ $i ] ?> plan (<?php echo $value[ 'option_value' ] . $str; ?>)">
+                                                   value="<?php echo reset( $res['statuses'] )[ $i ] ?> plan (<?php echo $value['option_value'] . $str; ?>)">
 
-                                            <div class="pro-order_subt"><?php echo $value[ 'option_value' ] . $str; ?></div>
-                                            <div class="pro-order_price"><?php echo $value[ $i ] . ' ' . $currency[ 'icon' ]; ?></div>
+                                            <div class="pro-order_subt"><?php echo $value['option_value'] . $str; ?></div>
+                                            <div class="pro-order_price"><?php echo $value[ $i ] . ' ' . $currency['icon']; ?></div>
                                             <span>
-                                    <?php if ( $value[ 'option_value' ] == 3 ) {
+                                    <?php if ( $value['option_value'] == 3 ) {
 	                                    _e( 'Save 33%', ET_DOMAIN );
-                                    } else if ( $value[ 'option_value' ] == 6 ) {
+                                    } else if ( $value['option_value'] == 6 ) {
 	                                    _e( 'Save 66%', ET_DOMAIN );
-                                    } else if ( $value[ 'option_value' ] == 12 ) {
+                                    } else if ( $value['option_value'] == 12 ) {
 	                                    _e( 'Save 72%', ET_DOMAIN );
                                     } else {
 	                                    _e( 'Regular price', ET_DOMAIN );
                                     } ?>
                                 </span>
-											<?php if ( ( $value[ 'option_value' ] == $pro_status_period ) && ( end( $res[ 'statuses' ] )[ $i ] == $pro_status ) ) {
+											<?php if ( ( $value['option_value'] == $pro_status_period ) && ( end( $res['statuses'] )[ $i ] == $pro_status ) ) {
 												echo '<div class="fre-submit-btn btn-center active-acc">Active</div>';
 											} else { ?>
                                                 <button class="fre-submit-btn"><?php _e( 'Buy PRO account', ET_DOMAIN ) ?></button>
@@ -116,7 +116,7 @@
                         <input type="hidden" name="notify_url"
                                value="<?php bloginfo( 'stylesheet_directory' ); ?>/ipn.php">
                         <input type="hidden" name="custom" value="">
-                        <input type="hidden" name="status" value="<?= $res[ 'status' ] ?>">
+                        <input type="hidden" name="status" value="<?= $res['status'] ?>">
                         <input type="hidden" name="time" value="">
                         <input type="hidden" name="price" value="">
                         <input type="hidden" name="currency_code" value="<?= ae_currency_code() ?>">

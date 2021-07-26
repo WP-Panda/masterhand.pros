@@ -16,54 +16,51 @@ use PayPal\Validation\NumericValidator;
  * @property string percent
  * @property \PayPal\Api\Currency amount
  */
-class Cost extends PayPalModel
-{
-    /**
-     * Cost in percent. Range of 0 to 100.
-     *
-     * @param string $percent
-     * 
-     * @return $this
-     */
-    public function setPercent($percent)
-    {
-        NumericValidator::validate($percent, "Percent");
-        $percent = FormatConverter::formatToNumber($percent);
-        $this->percent = $percent;
-        return $this;
-    }
+class Cost extends PayPalModel {
+	/**
+	 * Cost in percent. Range of 0 to 100.
+	 *
+	 * @param string $percent
+	 *
+	 * @return $this
+	 */
+	public function setPercent( $percent ) {
+		NumericValidator::validate( $percent, "Percent" );
+		$percent       = FormatConverter::formatToNumber( $percent );
+		$this->percent = $percent;
 
-    /**
-     * Cost in percent. Range of 0 to 100.
-     *
-     * @return string
-     */
-    public function getPercent()
-    {
-        return $this->percent;
-    }
+		return $this;
+	}
 
-    /**
-     * The cost, as an amount. Valid range is from 0 to 1,000,000.
-     *
-     * @param \PayPal\Api\Currency $amount
-     * 
-     * @return $this
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-        return $this;
-    }
+	/**
+	 * Cost in percent. Range of 0 to 100.
+	 *
+	 * @return string
+	 */
+	public function getPercent() {
+		return $this->percent;
+	}
 
-    /**
-     * The cost, as an amount. Valid range is from 0 to 1,000,000.
-     *
-     * @return \PayPal\Api\Currency
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
+	/**
+	 * The cost, as an amount. Valid range is from 0 to 1,000,000.
+	 *
+	 * @param \PayPal\Api\Currency $amount
+	 *
+	 * @return $this
+	 */
+	public function setAmount( $amount ) {
+		$this->amount = $amount;
+
+		return $this;
+	}
+
+	/**
+	 * The cost, as an amount. Valid range is from 0 to 1,000,000.
+	 *
+	 * @return \PayPal\Api\Currency
+	 */
+	public function getAmount() {
+		return $this->amount;
+	}
 
 }

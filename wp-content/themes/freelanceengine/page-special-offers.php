@@ -1,21 +1,21 @@
 <?php
-	/**
-	 * Template Name: Special Offers
-	 */
+/**
+ * Template Name: Special Offers
+ */
 
-	if ( ! is_user_logged_in() ) {
-		wp_redirect( et_get_page_link( 'login', [ 'ae_redirect_url' => get_permalink( $post->ID ) ] ) );
-	}
+if ( ! is_user_logged_in() ) {
+	wp_redirect( et_get_page_link( 'login', [ 'ae_redirect_url' => get_permalink( $post->ID ) ] ) );
+}
 
-	define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', ET_DOMAIN ) );
+define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', ET_DOMAIN ) );
 
-	global $wp_query;
-	$loop      = new WP_Query( $wp_query->query );
-	$col_posts = $loop->found_posts;
+global $wp_query;
+$loop      = new WP_Query( $wp_query->query );
+$col_posts = $loop->found_posts;
 
-	get_header();
+get_header();
 
-	$userId = get_current_user_id();
+$userId = get_current_user_id();
 ?>
     <style>
         .section-archive-offer .offer-list-container {
@@ -59,8 +59,8 @@
                                         <div class="row">
 
 											<?php $found_posts = '<span class="found_post">' . $col_posts . '</span>';
-												$plural        = sprintf( __( '%s offers', ET_DOMAIN ), $found_posts );
-												$singular      = sprintf( __( '%s offer', ET_DOMAIN ), $found_posts ); ?>
+											$plural            = sprintf( __( '%s offers', ET_DOMAIN ), $found_posts );
+											$singular          = sprintf( __( '%s offer', ET_DOMAIN ), $found_posts ); ?>
 
                                             <div class="col-lg-4 col-lg-push-8 col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 hidden-xs">
                                                 <div id="profile_orderby" class="fre-profile-sort">
@@ -101,7 +101,7 @@
                             <div class="fre-paginations paginations-wrapper">
                                 <div class="paginations">
 									<?php
-										ae_pagination( $loop, get_query_var( 'paged' ) );
+									ae_pagination( $loop, get_query_var( 'paged' ) );
 									?>
                                 </div>
                             </div>

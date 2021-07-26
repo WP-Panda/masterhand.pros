@@ -156,7 +156,7 @@ class ET_GoogleAuth extends ET_SocialAuth {
 					$userinfor->name = $username = $emails[0];
 					$username        = $userinfor->name;
 					$params          = array(
-						'user_login' => strtolower($username),
+						'user_login' => strtolower( $username ),
 						'user_email' => isset( $userinfor->email ) ? $userinfor->email : false,
 						'et_avatar'  => $avatars
 					);

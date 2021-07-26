@@ -1,16 +1,16 @@
 <?php
-	get_header();
+get_header();
 
-	global $ae_post_factory, $current_user, $user_ID;
+global $ae_post_factory, $current_user, $user_ID;
 
-	$ae_users  = AE_Users::get_instance();
-	$user_data = $ae_users->convert( $current_user->data );
+$ae_users  = AE_Users::get_instance();
+$user_data = $ae_users->convert( $current_user->data );
 
-	$path = $_SERVER[ 'HTTPS' ] == 'on' ? 'https://' : 'http://';
-	$path .= $_SERVER[ 'HTTP_HOST' ];
+$path = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+$path .= $_SERVER['HTTP_HOST'];
 
-	$referrals = 0;
-	$referrals = get_list_referrals( 'all', $user_ID );
+$referrals = 0;
+$referrals = get_list_referrals( 'all', $user_ID );
 
 ?>
     <script src="/wp-content/plugins/endorse_skill/js/select2.full.min.js"></script>
@@ -46,10 +46,10 @@
 				<?php } ?>
 
 				<?php $linkname = '';
-					$linkurl    = $user_data->author_url;//'http://master.loc/author/alexey_marat/';
-					if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
-						ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl' ) );
-					}
+				$linkurl        = $user_data->author_url;//'http://master.loc/author/alexey_marat/';
+				if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
+					ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl' ) );
+				}
 				?>
                 <input type="hidden" id="author_url" value="<?php echo $linkurl ?>">
 				<?php if ( get_field( 'network-txt' ) ) { ?>
@@ -220,20 +220,20 @@
 							<?php _e( "No referrals", ET_DOMAIN ) ?>
 						<?php } else {
 							foreach ( $referrals as $item ) {
-								$profile_id = get_user_meta( $item[ 'user_id' ], 'user_profile_id', true ); ?>
+								$profile_id = get_user_meta( $item['user_id'], 'user_profile_id', true ); ?>
                                 <div class="page-referrals_item">
-                                    <a href="<?php echo '/author/' . $item[ 'user_login' ] ?>"><?php echo get_avatar( $item[ 'user_id' ], 70 ); ?></a>
+                                    <a href="<?php echo '/author/' . $item['user_login'] ?>"><?php echo get_avatar( $item['user_id'], 70 ); ?></a>
                                     <a class="name"
-                                       href="<?php echo '/author/' . $item[ 'user_login' ] ?>"><?php echo $item[ 'user_name' ] ?></a>
+                                       href="<?php echo '/author/' . $item['user_login'] ?>"><?php echo $item['user_name'] ?></a>
                                     <span class="status">
-                                    <?php $user_status = get_user_pro_status( $item[ 'user_id' ] );
-	                                    $visualFlag    = getValueByProperty( $user_status, 'visual_flag' );
-	                                    if ( $visualFlag ) {
-		                                    $visualFlagNumber = get_user_meta( $item[ 'user_id' ], 'visual_flag', true );
-	                                    }
-	                                    if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
-		                                    _e( 'PRO', ET_DOMAIN );
-	                                    } ?>
+                                    <?php $user_status = get_user_pro_status( $item['user_id'] );
+                                    $visualFlag        = getValueByProperty( $user_status, 'visual_flag' );
+                                    if ( $visualFlag ) {
+	                                    $visualFlagNumber = get_user_meta( $item['user_id'], 'visual_flag', true );
+                                    }
+                                    if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
+	                                    _e( 'PRO', ET_DOMAIN );
+                                    } ?>
                                     </span>
 									<?php if ( $visualFlag ) {
 										switch ( $visualFlagNumber ) {
@@ -248,7 +248,7 @@
 												break;
 										}
 									} ?>
-                                    <span class="free-rating-new">+<?php echo getActivityRatingUser( $item[ 'user_id' ] ); ?></span>
+                                    <span class="free-rating-new">+<?php echo getActivityRatingUser( $item['user_id'] ); ?></span>
                                 </div>
 							<?php } ?>
 						<?php } ?>

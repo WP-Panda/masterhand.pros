@@ -1,45 +1,45 @@
 <?php
-	/**
-	 * List profiles
-	 */
-	$query_args = [
-		'post_type'      => PROFILE,
-		'post_status'    => 'publish',
-		'posts_per_page' => 24,
-		'meta_key'       => 'rating_score',
-		'meta_query'     => [
-			[
-				'key'     => 'user_available',
-				'value'   => 'on',
-				'compare' => '='
-			]
-		],
-		'orderby'        => [
-			'meta_value_num' => 'DESC',
-			'post_date'      => 'DESC',
-		],
-	];
-	$loop       = new WP_Query( $query_args );
-	$num        = $loop->post_count;
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PROFILE );
+/**
+ * List profiles
+ */
+$query_args = [
+	'post_type'      => PROFILE,
+	'post_status'    => 'publish',
+	'posts_per_page' => 24,
+	'meta_key'       => 'rating_score',
+	'meta_query'     => [
+		[
+			'key'     => 'user_available',
+			'value'   => 'on',
+			'compare' => '='
+		]
+	],
+	'orderby'        => [
+		'meta_value_num' => 'DESC',
+		'post_date'      => 'DESC',
+	],
+];
+$loop       = new WP_Query( $query_args );
+$num        = $loop->post_count;
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PROFILE );
 ?>
 <div class="owl-carousel">
 	<?php $i = 0;
-		if ( $loop->have_posts() ) {
-		$postdata = [];
-		foreach ( $loop->posts as $key => $value ) {
-		$post                       = $value;
-		$convert                    = $post_object->convert( $post );
-		$postdata[]                 = $convert;
-		$hou_rate                   = (int) $convert->hour_rate; // from 1.8.5
-		$current_profile_categories = $convert->tax_input[ 'profile_category' ];
-		$user_status                = get_user_pro_status( $convert->post_author );
-		$visualFlag                 = getValueByProperty( $user_status, 'visual_flag' );
-		if ( $visualFlag ) {
-			$visualFlagNumber = get_user_meta( $convert->post_author, 'visual_flag', true );
-		}
-		if ( $i == 0 ) { ?>
+	if ( $loop->have_posts() ) {
+	$postdata = [];
+	foreach ( $loop->posts as $key => $value ) {
+	$post                       = $value;
+	$convert                    = $post_object->convert( $post );
+	$postdata[]                 = $convert;
+	$hou_rate                   = (int) $convert->hour_rate; // from 1.8.5
+	$current_profile_categories = $convert->tax_input['profile_category'];
+	$user_status                = get_user_pro_status( $convert->post_author );
+	$visualFlag                 = getValueByProperty( $user_status, 'visual_flag' );
+	if ( $visualFlag ) {
+		$visualFlagNumber = get_user_meta( $convert->post_author, 'visual_flag', true );
+	}
+	if ( $i == 0 ) { ?>
     <div class="fre-profiles-list-item">
 		<?php } ?>
         <div class="fre-freelancer-wrap">
@@ -100,10 +100,10 @@
 		<?php } ?>
 
 		<?php $i ++;
-			if ( $i == $num + 1 ) {
-				echo '</div>';
-			}
-			}
-			} ?>
+		if ( $i == $num + 1 ) {
+			echo '</div>';
+		}
+		}
+		} ?>
 		<?php wp_reset_query(); ?>
     </div>

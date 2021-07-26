@@ -1,13 +1,13 @@
 /**
  * backend models Options
  */
-(function(Models, Views, $, Backbone) {
+(function (Models, Views, $, Backbone) {
     /**
      * model option
      */
     Models.Options = Backbone.Model.extend({
         action: 'ae-option-sync',
-        defaults: function() {
+        defaults: function () {
             return {
                 name: "option_name",
                 value: "option_value"
@@ -24,7 +24,7 @@
             'change input.address': 'gecodeMap',
             'change select.map_style_select': 'styleChanged'
         },
-        initialize: function() {
+        initialize: function () {
 
             this.form = this.$el.parents('form');
             this.model = new Models.Options();
@@ -34,7 +34,7 @@
             this.initMap();
             this.blockUi = new Views.BlockUi();
         },
-        initMap: function() {
+        initMap: function () {
             var view = this,
                 map_id = view.$('.map').attr('id');
             if ($('#' + map_id).length > 0) {
@@ -48,7 +48,7 @@
                     mapTypeControl: false
                 });
                 var code = view.$('.map_style_select').find("option:selected").data('code');
-                view.map.setOptions({styles:code});
+                view.map.setOptions({styles: code});
 
                 var $lat = view.$('.latitude'),
                     $lng = view.$('.longitude');
@@ -61,7 +61,7 @@
                         lat: lat,
                         lng: lng,
                         draggable: true,
-                        dragend: function(e) {
+                        dragend: function (e) {
                             var location = e.latLng;
                             $lat.val(location.lat());
                             $lng.val(location.lng());
@@ -72,7 +72,7 @@
                                 latitude: location.lat(),
                                 longitude: location.lng(),
                                 address: view.$('.address').val(),
-                                style : view.$('.map_style_select').val()
+                                style: view.$('.map_style_select').val()
                             };
                             view.model.save('value', view.form.serialize());
                             view.saveModel();
@@ -81,16 +81,16 @@
                 }
             }
         },
-        styleChanged:function(e){
+        styleChanged: function (e) {
             var view = this;
             var $target = $(e.currentTarget);
             var code = $target.find("option:selected").data('code');
-            view.map.setOptions({styles:code});
+            view.map.setOptions({styles: code});
             var map_details = {
                 latitude: view.$('.latitude').val(),
-                longitude:  view.$('.longitude').val(),
+                longitude: view.$('.longitude').val(),
                 address: view.$('.address').val(),
-                style:view.$('.map_style_select').val()
+                style: view.$('.map_style_select').val()
             };
             view.model.set('value', view.form.serialize());
             view.saveModel();
@@ -98,7 +98,7 @@
         /**
          * init map gecode an address
          */
-        gecodeMap: function(event) {
+        gecodeMap: function (event) {
             var address = $(event.currentTarget).val(),
                 view = this,
                 $lat = view.$('.latitude'),
@@ -106,7 +106,7 @@
             //gmaps = new GMaps
             if (typeof(GMaps) !== 'undefined') GMaps.geocode({
                 address: address,
-                callback: function(results, status) {
+                callback: function (results, status) {
                     if (status == 'OK') {
                         var latlng = results[0].geometry.location,
                             $lat = view.$('.latitude'),
@@ -120,7 +120,7 @@
                             latitude: latlng.lat(),
                             longitude: latlng.lng(),
                             address: view.$('.address').val(),
-                            style:view.$('.map_style_select').val()
+                            style: view.$('.map_style_select').val()
                         };
                         view.model.set('value', view.form.serialize());
                         view.saveModel();
@@ -133,7 +133,7 @@
                         lat: latlng.lat(),
                         lng: latlng.lng(),
                         draggable: true,
-                        dragend: function(e) {
+                        dragend: function (e) {
                             var location = e.latLng,
                                 $lat = view.$('.latitude'),
                                 $lng = view.$('.longitude');
@@ -146,7 +146,7 @@
                                 latitude: location.lat(),
                                 longitude: location.lng(),
                                 address: view.$('.address').val(),
-                                style:view.$('.map_style_select').val()
+                                style: view.$('.map_style_select').val()
                             };
                             view.model.set('value', view.form.serialize());
                             view.saveModel();
@@ -155,15 +155,15 @@
                 }
             });
         },
-        saveModel : function() {
+        saveModel: function () {
             var view = this;
             this.model.save('', '', {
-                success: function() {
+                success: function () {
                     view.blockUi.unblock();
                     view.$('span').removeClass('selected');
                     // $target.addClass('selected');
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block(view.$el)
                 }
             });
@@ -179,7 +179,7 @@
             'click a.deactive': 'disable',
             'click a.active': 'enable'
         },
-        initialize: function() {
+        initialize: function () {
             this.model = new Models.Options();
             this.form = this.$el.parents('form');
             this.model.set('name', this.form.attr('data-name'));
@@ -188,7 +188,7 @@
         /**
          * enable option
          */
-        enable: function(e) {
+        enable: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 view = this;
@@ -206,12 +206,12 @@
                 this.model.set('value', 1);
             }
             this.model.save('', '', {
-                success: function() {
+                success: function () {
                     view.blockUi.unblock();
                     view.$('a').removeClass('selected');
                     $target.addClass('selected');
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($target)
                 }
             });
@@ -219,7 +219,7 @@
         /**
          * disable option
          */
-        disable: function(e) {
+        disable: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 view = this;
@@ -237,12 +237,12 @@
                 this.model.set('value', 0);
             }
             this.model.save('', '', {
-                success: function() {
+                success: function () {
                     view.blockUi.unblock();
                     view.$('a').removeClass('selected');
                     $target.addClass('selected');
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($target)
                 }
             });
@@ -258,7 +258,7 @@
         events: {
             'click span.image-option-item': 'change-option'
         },
-        initialize: function() {
+        initialize: function () {
             this.model = new Models.Options();
             this.form = this.$el.parents('form');
             this.model.set('name', this.form.attr('data-name'));
@@ -267,11 +267,11 @@
         /**
          * change option
          */
-        'change-option': function(e) {
+        'change-option': function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 view = this;
-            var $input =$target.find("input");
+            var $input = $target.find("input");
             $input.prop("checked", "checked");
             /**
              * try to set name of model
@@ -282,12 +282,12 @@
                 this.model.set('value', $input.val());
             }
             this.model.save('', '', {
-                success: function() {
+                success: function () {
                     view.blockUi.unblock();
                     view.$('span').removeClass('selected');
                     $target.addClass('selected');
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($target)
                 }
             });
@@ -310,26 +310,26 @@
             'click .toggle-desc': 'toogleContent'
             // 'click .switch a'				: 'switch'
         },
-        initialize: function() {
+        initialize: function () {
             var view = this;
             this.switchopt = [];
             this.imageSelectOpt = [];
 
-            this.$el.find('.image-select-option').each(function(index, element) {
+            this.$el.find('.image-select-option').each(function (index, element) {
                 var el = view.$('.image-select-option:eq(' + index + ')');
                 view.imageSelectOpt[index] = new Views.imageSelectOption({
                     el: el
                 });
             });
 
-            this.$el.find('.switch').each(function(index, element) {
+            this.$el.find('.switch').each(function (index, element) {
                 var el = view.$('.switch:eq(' + index + ')');
                 view.switchopt[index] = new Views.switchOption({
                     el: el
                 });
             });
 
-            this.$el.find('.editor').each(function() {
+            this.$el.find('.editor').each(function () {
                 if (typeof tinymce !== 'undefined') {
                     tinymce.EditorManager.execCommand('mceAddEditor', true, $(this).attr('id'));
                 }
@@ -337,15 +337,15 @@
             this.option = this.model;
             this.blockUi = new Views.BlockUi();
             this.uploaders = [];
-            cbBeforeSend = function(ele) {
+            cbBeforeSend = function (ele) {
                 button = $(ele).find('.image');
                 view.blockUi.block(button);
             },
-            cbSuccess = function() {
-                view.blockUi.unblock();
-            };
+                cbSuccess = function () {
+                    view.blockUi.unblock();
+                };
             var uploaders = [];
-            $('.upload-logo').each(function() {
+            $('.upload-logo').each(function () {
                 var upload_id = $(this).attr('data-id');
                 uploaders.push(upload_id);
             });
@@ -361,7 +361,7 @@
                         data: upload_id,
                         imgType: upload_id
                     },
-                    cbUploaded: function(up, file, res) {
+                    cbUploaded: function (up, file, res) {
                         if (res.success) {
                             $('#' + this.container).parents('.desc').find('.error').remove();
                         } else {
@@ -371,8 +371,9 @@
                     beforeSend: cbBeforeSend,
                     success: cbSuccess
                 });
-            };
-            view.$('.map-setting').each(function(index, element) {
+            }
+            ;
+            view.$('.map-setting').each(function (index, element) {
                 new Views.MapSetting({
                     el: element
                 });
@@ -382,10 +383,10 @@
             Backbone.history.start();
         },
         // text input, textarea change update option
-        textChange: function(e) {
+        textChange: function (e) {
             var $target = $(e.currentTarget),
                 form = $target.parents('form');
-            if(!form.valid()) return;
+            if (!form.valid()) return;
             view = this;
             if (form.attr('data-name') !== 'undefined' && form.attr('data-name')) {
                 view.option.set('name', form.attr('data-name'));
@@ -396,31 +397,31 @@
                 view.option.set('value', $target.val());
             }
             view.option.save('', '', {
-                success: function(result, status, jqXHR) {
+                success: function (result, status, jqXHR) {
                     view.blockUi.unblock();
                     // check status and append tick success
                     if (status.success) {
                         $target.parent().append('<span class="icon form-icon" data-icon="3"></span>');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
                     } else {
                         $target.parent().append('<span class="icon form-icon" data-icon="!"></span>');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
-                        if(typeof status.msg != 'undefined'){
+                        if (typeof status.msg != 'undefined') {
                             alert(status.msg);
                         }
                     }
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($target);
                 }
             });
         },
         // update text in editor
-        editorChange: _.debounce(function(e) {
+        editorChange: _.debounce(function (e) {
             var $target = $(e.currentTarget),
                 $container = $target.parents('.form-item'),
                 form = $target.parents('form');
@@ -434,22 +435,22 @@
                 this.option.set('value', $target.val());
             }
             this.option.save('', '', {
-                success: function(result, status, jqXHR) {
+                success: function (result, status, jqXHR) {
                     view.blockUi.unblock();
                     // check status and append tick success
                     if (status.success) {
                         $target.parent().append('<span class="icon form-icon" data-icon="3"></span>');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
                     } else {
                         $target.parent().append('<span class="icon form-icon" data-icon="!"></span>');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
                     }
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($container);
                 }
             });
@@ -457,19 +458,19 @@
         /**
          * toogle description file hidden content
          */
-        toggleDesc: function(e) {
+        toggleDesc: function (e) {
             e.preventDefault();
             $(e.currentTarget).parent().find('.cont-template-help').toggle();
         },
         /**
          * reset an option to default value
          */
-        resetOption: function(e) {
+        resetOption: function (e) {
             e.preventDefault();
             var view = this,
                 $target = $(e.currentTarget),
                 $textarea = $target.parents('.form-item').find('textarea'),
-                mail_type = $textarea.attr('name'); 
+                mail_type = $textarea.attr('name');
             var $container = $target.parents('.form-item'),
                 form = $target.parents('form');
 
@@ -480,10 +481,10 @@
                     option_name: mail_type,
                     action: 'ae-reset-option'
                 },
-                beforeSend: function(event) {
+                beforeSend: function (event) {
                     view.blockUi.block($container);
                 },
-                success: function(response) {
+                success: function (response) {
                     view.blockUi.unblock();
                     if (response && typeof response.msg !== 'undefined') {
                         $textarea.val(response.msg);
@@ -495,12 +496,12 @@
                 }
             });
         },
-        preventSubmit: function(event) {
+        preventSubmit: function (event) {
             if (event.which == 13) {
                 return false;
             }
         },
-        toogleContent: function(event) {
+        toogleContent: function (event) {
             var $target = $(event.currentTarget),
                 $form = $target.parents('form');
             $form.find('.toggle').toggle();
@@ -508,7 +509,7 @@
         /**
          * change menu view
          */
-        changeMenu: function(e) {
+        changeMenu: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget);
             this.$('.inner-content').hide();
@@ -521,7 +522,7 @@
         routes: {
             'section/:section': 'openSection'
         },
-        openSection: function(section) {
+        openSection: function (section) {
             var target = $('a[href="#section/' + section + '"]'),
                 content = $('#' + section);
             //console.log(target);
@@ -529,9 +530,9 @@
             $('.et-main-main').hide();
             target.addClass('active');
             content.show();
-            if($('.map',content).length === 1){  
+            if ($('.map', content).length === 1) {
                 new Views.MapSetting({
-                    el : $('.map-setting',content)
+                    el: $('.map-setting', content)
                 });
             }
         }
@@ -554,8 +555,8 @@
     });
     $.validator.addMethod(
         "numberIsInteger",
-        function(value, element){
-            if(value % 1 === 0){
+        function (value, element) {
+            if (value % 1 === 0) {
                 return true;
             }
             return false;
@@ -569,7 +570,7 @@
 
     $.validator.addMethod(
         "multiemails",
-        function(value, element) {
+        function (value, element) {
             if (this.optional(element)) // return true on optional element
                 return true;
             var emails = value.split(/[;,]+/); // split element by , and ;
@@ -577,7 +578,7 @@
             for (var i in emails) {
                 value = emails[i];
                 valid = valid &&
-                        jQuery.validator.methods.email.call(this, $.trim(value), element);
+                    jQuery.validator.methods.email.call(this, $.trim(value), element);
             }
             return valid;
         },

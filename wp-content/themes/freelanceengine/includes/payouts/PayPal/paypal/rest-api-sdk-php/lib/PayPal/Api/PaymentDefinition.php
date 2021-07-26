@@ -20,220 +20,211 @@ use PayPal\Common\PayPalModel;
  * @property \PayPal\Api\Currency amount
  * @property \PayPal\Api\ChargeModel[] charge_models
  */
-class PaymentDefinition extends PayPalModel
-{
-    /**
-     * Identifier of the payment_definition. 128 characters max.
-     *
-     * @param string $id
-     * 
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+class PaymentDefinition extends PayPalModel {
+	/**
+	 * Identifier of the payment_definition. 128 characters max.
+	 *
+	 * @param string $id
+	 *
+	 * @return $this
+	 */
+	public function setId( $id ) {
+		$this->id = $id;
 
-    /**
-     * Identifier of the payment_definition. 128 characters max.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+		return $this;
+	}
 
-    /**
-     * Name of the payment definition. 128 characters max.
-     *
-     * @param string $name
-     * 
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
+	/**
+	 * Identifier of the payment_definition. 128 characters max.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-    /**
-     * Name of the payment definition. 128 characters max.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	/**
+	 * Name of the payment definition. 128 characters max.
+	 *
+	 * @param string $name
+	 *
+	 * @return $this
+	 */
+	public function setName( $name ) {
+		$this->name = $name;
 
-    /**
-     * Type of the payment definition. Allowed values: `TRIAL`, `REGULAR`.
-     *
-     * @param string $type
-     * 
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Type of the payment definition. Allowed values: `TRIAL`, `REGULAR`.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
+	/**
+	 * Name of the payment definition. 128 characters max.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
 
-    /**
-     * How frequently the customer should be charged.
-     *
-     * @param string $frequency_interval
-     * 
-     * @return $this
-     */
-    public function setFrequencyInterval($frequency_interval)
-    {
-        $this->frequency_interval = $frequency_interval;
-        return $this;
-    }
+	/**
+	 * Type of the payment definition. Allowed values: `TRIAL`, `REGULAR`.
+	 *
+	 * @param string $type
+	 *
+	 * @return $this
+	 */
+	public function setType( $type ) {
+		$this->type = $type;
 
-    /**
-     * How frequently the customer should be charged.
-     *
-     * @return string
-     */
-    public function getFrequencyInterval()
-    {
-        return $this->frequency_interval;
-    }
+		return $this;
+	}
 
-    /**
-     * Frequency of the payment definition offered. Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`.
-     *
-     * @param string $frequency
-     * 
-     * @return $this
-     */
-    public function setFrequency($frequency)
-    {
-        $this->frequency = $frequency;
-        return $this;
-    }
+	/**
+	 * Type of the payment definition. Allowed values: `TRIAL`, `REGULAR`.
+	 *
+	 * @return string
+	 */
+	public function getType() {
+		return $this->type;
+	}
 
-    /**
-     * Frequency of the payment definition offered. Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`.
-     *
-     * @return string
-     */
-    public function getFrequency()
-    {
-        return $this->frequency;
-    }
+	/**
+	 * How frequently the customer should be charged.
+	 *
+	 * @param string $frequency_interval
+	 *
+	 * @return $this
+	 */
+	public function setFrequencyInterval( $frequency_interval ) {
+		$this->frequency_interval = $frequency_interval;
 
-    /**
-     * Number of cycles in this payment definition.
-     *
-     * @param string $cycles
-     * 
-     * @return $this
-     */
-    public function setCycles($cycles)
-    {
-        $this->cycles = $cycles;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Number of cycles in this payment definition.
-     *
-     * @return string
-     */
-    public function getCycles()
-    {
-        return $this->cycles;
-    }
+	/**
+	 * How frequently the customer should be charged.
+	 *
+	 * @return string
+	 */
+	public function getFrequencyInterval() {
+		return $this->frequency_interval;
+	}
 
-    /**
-     * Amount that will be charged at the end of each cycle for this payment definition.
-     *
-     * @param \PayPal\Api\Currency $amount
-     * 
-     * @return $this
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-        return $this;
-    }
+	/**
+	 * Frequency of the payment definition offered. Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`.
+	 *
+	 * @param string $frequency
+	 *
+	 * @return $this
+	 */
+	public function setFrequency( $frequency ) {
+		$this->frequency = $frequency;
 
-    /**
-     * Amount that will be charged at the end of each cycle for this payment definition.
-     *
-     * @return \PayPal\Api\Currency
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
+		return $this;
+	}
 
-    /**
-     * Array of charge_models for this payment definition.
-     *
-     * @param \PayPal\Api\ChargeModel[] $charge_models
-     * 
-     * @return $this
-     */
-    public function setChargeModels($charge_models)
-    {
-        $this->charge_models = $charge_models;
-        return $this;
-    }
+	/**
+	 * Frequency of the payment definition offered. Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`.
+	 *
+	 * @return string
+	 */
+	public function getFrequency() {
+		return $this->frequency;
+	}
 
-    /**
-     * Array of charge_models for this payment definition.
-     *
-     * @return \PayPal\Api\ChargeModel[]
-     */
-    public function getChargeModels()
-    {
-        return $this->charge_models;
-    }
+	/**
+	 * Number of cycles in this payment definition.
+	 *
+	 * @param string $cycles
+	 *
+	 * @return $this
+	 */
+	public function setCycles( $cycles ) {
+		$this->cycles = $cycles;
 
-    /**
-     * Append ChargeModels to the list.
-     *
-     * @param \PayPal\Api\ChargeModel $chargeModel
-     * @return $this
-     */
-    public function addChargeModel($chargeModel)
-    {
-        if (!$this->getChargeModels()) {
-            return $this->setChargeModels(array($chargeModel));
-        } else {
-            return $this->setChargeModels(
-                array_merge($this->getChargeModels(), array($chargeModel))
-            );
-        }
-    }
+		return $this;
+	}
 
-    /**
-     * Remove ChargeModels from the list.
-     *
-     * @param \PayPal\Api\ChargeModel $chargeModel
-     * @return $this
-     */
-    public function removeChargeModel($chargeModel)
-    {
-        return $this->setChargeModels(
-            array_diff($this->getChargeModels(), array($chargeModel))
-        );
-    }
+	/**
+	 * Number of cycles in this payment definition.
+	 *
+	 * @return string
+	 */
+	public function getCycles() {
+		return $this->cycles;
+	}
+
+	/**
+	 * Amount that will be charged at the end of each cycle for this payment definition.
+	 *
+	 * @param \PayPal\Api\Currency $amount
+	 *
+	 * @return $this
+	 */
+	public function setAmount( $amount ) {
+		$this->amount = $amount;
+
+		return $this;
+	}
+
+	/**
+	 * Amount that will be charged at the end of each cycle for this payment definition.
+	 *
+	 * @return \PayPal\Api\Currency
+	 */
+	public function getAmount() {
+		return $this->amount;
+	}
+
+	/**
+	 * Array of charge_models for this payment definition.
+	 *
+	 * @param \PayPal\Api\ChargeModel[] $charge_models
+	 *
+	 * @return $this
+	 */
+	public function setChargeModels( $charge_models ) {
+		$this->charge_models = $charge_models;
+
+		return $this;
+	}
+
+	/**
+	 * Array of charge_models for this payment definition.
+	 *
+	 * @return \PayPal\Api\ChargeModel[]
+	 */
+	public function getChargeModels() {
+		return $this->charge_models;
+	}
+
+	/**
+	 * Append ChargeModels to the list.
+	 *
+	 * @param \PayPal\Api\ChargeModel $chargeModel
+	 *
+	 * @return $this
+	 */
+	public function addChargeModel( $chargeModel ) {
+		if ( ! $this->getChargeModels() ) {
+			return $this->setChargeModels( array( $chargeModel ) );
+		} else {
+			return $this->setChargeModels(
+				array_merge( $this->getChargeModels(), array( $chargeModel ) )
+			);
+		}
+	}
+
+	/**
+	 * Remove ChargeModels from the list.
+	 *
+	 * @param \PayPal\Api\ChargeModel $chargeModel
+	 *
+	 * @return $this
+	 */
+	public function removeChargeModel( $chargeModel ) {
+		return $this->setChargeModels(
+			array_diff( $this->getChargeModels(), array( $chargeModel ) )
+		);
+	}
 
 }

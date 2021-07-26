@@ -1,19 +1,19 @@
 <?php
-	global $wp_query, $inner_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( COMPANY );
+global $wp_query, $inner_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( COMPANY );
 
-	// detect if request from category catalog page (/profile_category/.../)
-	if ( isset( $inner_query ) ) {
-		$current = $post_object->convert( $post );
-	} else {
-		$current = $post_object->current_post;
-	}
+// detect if request from category catalog page (/profile_category/.../)
+if ( isset( $inner_query ) ) {
+	$current = $post_object->convert( $post );
+} else {
+	$current = $post_object->current_post;
+}
 
-	if ( ! $current ) {
-		return;
-	}
+if ( ! $current ) {
+	return;
+}
 
-	//wpp_dump( $current );
+//wpp_dump( $current );
 ?>
 
 <li class="company-item 1 project-item">

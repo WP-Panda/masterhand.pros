@@ -1,6 +1,6 @@
 <?php
-	$video     = ae_get_option( 'header_video' );
-	$fall_back = ae_get_option( 'header_video_fallback' );
+$video     = ae_get_option( 'header_video' );
+$fall_back = ae_get_option( 'header_video_fallback' );
 ?>
     <!-- SLIDER -->
 
@@ -9,15 +9,15 @@
         <div class="bg-sub-wrapper">
             <div class="bg-color-wrapper">
 				<?php
-					if ( ! is_user_logged_in() ) {
-						get_template_part( 'head/nologin', 'demonstration' );
+				if ( ! is_user_logged_in() ) {
+					get_template_part( 'head/nologin', 'demonstration' );
+				} else {
+					if ( ae_user_role() == FREELANCER ) {
+						get_template_part( 'head/freelancer', 'demonstration' );
 					} else {
-						if ( ae_user_role() == FREELANCER ) {
-							get_template_part( 'head/freelancer', 'demonstration' );
-						} else {
-							get_template_part( 'head/employer', 'demonstration' );
-						}
+						get_template_part( 'head/employer', 'demonstration' );
 					}
+				}
 				?>
             </div>
         </div>

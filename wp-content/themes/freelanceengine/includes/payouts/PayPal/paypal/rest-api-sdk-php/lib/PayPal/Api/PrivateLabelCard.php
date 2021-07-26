@@ -17,121 +17,115 @@ use PayPal\Common\PayPalModel;
  * @property string issuer_name
  * @property string image_key
  */
-class PrivateLabelCard extends PayPalModel
-{
-    /**
-     * encrypted identifier of the private label card instrument.
-     *
-     * @param string $id
-     * 
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+class PrivateLabelCard extends PayPalModel {
+	/**
+	 * encrypted identifier of the private label card instrument.
+	 *
+	 * @param string $id
+	 *
+	 * @return $this
+	 */
+	public function setId( $id ) {
+		$this->id = $id;
 
-    /**
-     * encrypted identifier of the private label card instrument.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+		return $this;
+	}
 
-    /**
-     * last 4 digits of the card number.
-     *
-     * @param string $card_number
-     * 
-     * @return $this
-     */
-    public function setCardNumber($card_number)
-    {
-        $this->card_number = $card_number;
-        return $this;
-    }
+	/**
+	 * encrypted identifier of the private label card instrument.
+	 *
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-    /**
-     * last 4 digits of the card number.
-     *
-     * @return string
-     */
-    public function getCardNumber()
-    {
-        return $this->card_number;
-    }
+	/**
+	 * last 4 digits of the card number.
+	 *
+	 * @param string $card_number
+	 *
+	 * @return $this
+	 */
+	public function setCardNumber( $card_number ) {
+		$this->card_number = $card_number;
 
-    /**
-     * Merchants providing private label store cards have associated issuer account. This value indicates encrypted account number of the associated issuer account.
-     *
-     * @param string $issuer_id
-     * 
-     * @return $this
-     */
-    public function setIssuerId($issuer_id)
-    {
-        $this->issuer_id = $issuer_id;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Merchants providing private label store cards have associated issuer account. This value indicates encrypted account number of the associated issuer account.
-     *
-     * @return string
-     */
-    public function getIssuerId()
-    {
-        return $this->issuer_id;
-    }
+	/**
+	 * last 4 digits of the card number.
+	 *
+	 * @return string
+	 */
+	public function getCardNumber() {
+		return $this->card_number;
+	}
 
-    /**
-     * Merchants providing private label store cards have associated issuer account. This value indicates name on the issuer account.
-     *
-     * @param string $issuer_name
-     * 
-     * @return $this
-     */
-    public function setIssuerName($issuer_name)
-    {
-        $this->issuer_name = $issuer_name;
-        return $this;
-    }
+	/**
+	 * Merchants providing private label store cards have associated issuer account. This value indicates encrypted account number of the associated issuer account.
+	 *
+	 * @param string $issuer_id
+	 *
+	 * @return $this
+	 */
+	public function setIssuerId( $issuer_id ) {
+		$this->issuer_id = $issuer_id;
 
-    /**
-     * Merchants providing private label store cards have associated issuer account. This value indicates name on the issuer account.
-     *
-     * @return string
-     */
-    public function getIssuerName()
-    {
-        return $this->issuer_name;
-    }
+		return $this;
+	}
 
-    /**
-     * This value indicates URL to access PLCC program logo image
-     *
-     * @param string $image_key
-     * 
-     * @return $this
-     */
-    public function setImageKey($image_key)
-    {
-        $this->image_key = $image_key;
-        return $this;
-    }
+	/**
+	 * Merchants providing private label store cards have associated issuer account. This value indicates encrypted account number of the associated issuer account.
+	 *
+	 * @return string
+	 */
+	public function getIssuerId() {
+		return $this->issuer_id;
+	}
 
-    /**
-     * This value indicates URL to access PLCC program logo image
-     *
-     * @return string
-     */
-    public function getImageKey()
-    {
-        return $this->image_key;
-    }
+	/**
+	 * Merchants providing private label store cards have associated issuer account. This value indicates name on the issuer account.
+	 *
+	 * @param string $issuer_name
+	 *
+	 * @return $this
+	 */
+	public function setIssuerName( $issuer_name ) {
+		$this->issuer_name = $issuer_name;
+
+		return $this;
+	}
+
+	/**
+	 * Merchants providing private label store cards have associated issuer account. This value indicates name on the issuer account.
+	 *
+	 * @return string
+	 */
+	public function getIssuerName() {
+		return $this->issuer_name;
+	}
+
+	/**
+	 * This value indicates URL to access PLCC program logo image
+	 *
+	 * @param string $image_key
+	 *
+	 * @return $this
+	 */
+	public function setImageKey( $image_key ) {
+		$this->image_key = $image_key;
+
+		return $this;
+	}
+
+	/**
+	 * This value indicates URL to access PLCC program logo image
+	 *
+	 * @return string
+	 */
+	public function getImageKey() {
+		return $this->image_key;
+	}
 
 }

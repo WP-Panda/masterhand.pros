@@ -1,9 +1,9 @@
 /**
  * site overview render chart for post type
  */
-(function(Models, Views, $, Backbone) {
+(function (Models, Views, $, Backbone) {
     Views.Overview = Backbone.View.extend({
-        initialize: function(options) {
+        initialize: function (options) {
 
             this.currency = options.currency;
             this.payment = options.payment;
@@ -26,7 +26,8 @@
                     label: this.daily[i]['label'],
                     color: colors[i]
                 });
-            };
+            }
+            ;
             /**
              * init jqplot chart opitons
              */
@@ -49,7 +50,7 @@
         /**
          * render weekly overview in 2 weeks
          */
-        dailyChart: function() {
+        dailyChart: function () {
             var max = 0;
             /**
              * set daily overview title
@@ -69,10 +70,11 @@
             var data = [];
             for (var i = this.daily.length - 1; i >= 0; i--) {
                 data.push(this.daily[i]['data']);
-                _.each(this.daily[i]['data'], function(element) {
+                _.each(this.daily[i]['data'], function (element) {
                     max = Math.max(max, element[1]);
                 });
-            };
+            }
+            ;
 
             this.jqplotOpt.axes.yaxis.max = max + 5;
             this.jqplotOpt.axes.yaxis.min = 0;
@@ -84,7 +86,7 @@
         /**
          * render weekly overview in 3 months
          */
-        weeklyChart: function() {
+        weeklyChart: function () {
             var max = 0;
             /**
              * set weekly overview title
@@ -104,10 +106,11 @@
             var data = [];
             for (var i = this.weekly.length - 1; i >= 0; i--) {
                 data.push(this.weekly[i]['data']);
-                _.each(this.weekly[i]['data'], function(element) {
+                _.each(this.weekly[i]['data'], function (element) {
                     max = Math.max(max, element[1]);
                 });
-            };
+            }
+            ;
 
             this.jqplotOpt.axes.yaxis.max = max + 5;
 
@@ -117,7 +120,7 @@
         /**
          * render monthly chart
          */
-        monthlyChart: function() {
+        monthlyChart: function () {
             var max = 0;
             /**
              * set month title
@@ -137,10 +140,11 @@
             var data = [];
             for (var i = this.monthly.length - 1; i >= 0; i--) {
                 data.push(this.monthly[i]['data']);
-                _.each(this.monthly[i]['data'], function(element) {
+                _.each(this.monthly[i]['data'], function (element) {
                     max = Math.max(max, element[1]);
                 });
-            };
+            }
+            ;
 
             this.jqplotOpt.axes.yaxis.max = max + 5;
             var plot1 = $.jqplot('monthly_chart', data, this.jqplotOpt);
@@ -149,7 +153,7 @@
         /**
          * init option for jqplot chart
          */
-        jqplotOptions: function() {
+        jqplotOptions: function () {
             this.jqplotOpt = {
                 axes: {
                     xaxis: {
@@ -188,12 +192,11 @@
             }
 
 
-
         },
 
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         /**
          * render overview
          */

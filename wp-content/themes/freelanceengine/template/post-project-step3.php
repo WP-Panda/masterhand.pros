@@ -1,65 +1,65 @@
 <?php
-	global $user_ID;
-	$step         = 3;
-	$class_active = '';
-	$disable_plan = ae_get_option( 'disable_plan', false );
-	if ( $disable_plan ) {
-		$step --;
-		$class_active = 'active';
-	}
-	if ( $user_ID ) {
-		$step --;
-	}
-	$post          = '';
-	$user_currency = get_user_meta( $user_ID, 'currency', true );
-	$user_currency = $user_currency == '' ? 'USD' : $user_currency;
+global $user_ID;
+$step         = 3;
+$class_active = '';
+$disable_plan = ae_get_option( 'disable_plan', false );
+if ( $disable_plan ) {
+	$step --;
+	$class_active = 'active';
+}
+if ( $user_ID ) {
+	$step --;
+}
+$post          = '';
+$user_currency = get_user_meta( $user_ID, 'currency', true );
+$user_currency = $user_currency == '' ? 'USD' : $user_currency;
 ?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <div id="fre-post-project-2"
      class="fre-post-project-step step-wrapper hidden step-post <?php echo $class_active; ?>">
 	<?php
-		$id = isset( $_REQUEST[ 'id' ] ) ? $_REQUEST[ 'id' ] : 0;
-		if ( $id ) {
-			$post = get_post( $id );
-			if ( $post ) {
-				global $ae_post_factory;
-				$post_object  = $ae_post_factory->get( $post->post_type );
-				$post_convert = $post_object->convert( $post );
-				echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_convert ) . '</script>';
-				$selected_currency = get_post_meta( $post->ID, 'project_currency', true );
-			}
+	$id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
+	if ( $id ) {
+		$post = get_post( $id );
+		if ( $post ) {
+			global $ae_post_factory;
+			$post_object  = $ae_post_factory->get( $post->post_type );
+			$post_convert = $post_object->convert( $post );
+			echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_convert ) . '</script>';
+			$selected_currency = get_post_meta( $post->ID, 'project_currency', true );
 		}
-		if ( ! $disable_plan ) {
-			$total_package = ae_user_get_total_package( $user_ID );
-			?>
-            <div class="fre-post-project-box">
-                <div class="row step-change-package">
-                    <div class="col-sm-10 col-xs-12">
-                        <div class="package_title">
-							<?php _e( 'You are selecting the package:', ET_DOMAIN ); ?>
-                            <a data-toggle="collapse" href="#packinfo" role="button"><strong></strong></a>
-                        </div>
-                        <div id="packinfo" class="collapse pack-desk">
-                            <p>
-								<?php _e( 'The number of posts included in this package will be added to your total post after this project is posted.', ET_DOMAIN ) ?>
-                            </p>
-                            <p>
-								<?php _e( 'Number posts limit and detail of your purchased package.', ET_DOMAIN ); ?>
-                            </p>
-                            <p class="pack-left">
-								<?php printf( __( 'You have <span>%s post(s)</span> left', ET_DOMAIN ), $total_package ); ?>
-                            </p>
-                        </div>
+	}
+	if ( ! $disable_plan ) {
+		$total_package = ae_user_get_total_package( $user_ID );
+		?>
+        <div class="fre-post-project-box">
+            <div class="row step-change-package">
+                <div class="col-sm-10 col-xs-12">
+                    <div class="package_title">
+						<?php _e( 'You are selecting the package:', ET_DOMAIN ); ?>
+                        <a data-toggle="collapse" href="#packinfo" role="button"><strong></strong></a>
                     </div>
-                    <div class="col-sm-2 col-xs-12">
-                        <a class="fre-post-project-previous-btn fre-btn-previous fre-submit-btn" href="#">
-							<?php _e( 'Change package', ET_DOMAIN ); ?>
-                        </a>
+                    <div id="packinfo" class="collapse pack-desk">
+                        <p>
+							<?php _e( 'The number of posts included in this package will be added to your total post after this project is posted.', ET_DOMAIN ) ?>
+                        </p>
+                        <p>
+							<?php _e( 'Number posts limit and detail of your purchased package.', ET_DOMAIN ); ?>
+                        </p>
+                        <p class="pack-left">
+							<?php printf( __( 'You have <span>%s post(s)</span> left', ET_DOMAIN ), $total_package ); ?>
+                        </p>
                     </div>
                 </div>
+                <div class="col-sm-2 col-xs-12">
+                    <a class="fre-post-project-previous-btn fre-btn-previous fre-submit-btn" href="#">
+						<?php _e( 'Change package', ET_DOMAIN ); ?>
+                    </a>
+                </div>
             </div>
-		<?php } ?>
+        </div>
+	<?php } ?>
     <div class="fre-post-project-box">
         <form class="post" role="form">
             <div class="step-post-project" id="fre-post-project">
@@ -68,18 +68,18 @@
                         <label class="fre-field-title"><?php _e( 'What categories do your project work in?', ET_DOMAIN ); ?></label>
                     </div>
 					<?php
-						$subcategory_project_selected = $category_project_selected = null;
-						if ( ! empty( $post_convert->tax_input[ 'project_category' ] ) ) {
-							foreach ( $post_convert->tax_input[ 'project_category' ] as $key => $value ) {
-								$tax                            = $value;
-								$sub                            = get_term( $tax->term_id, 'project_category' );
-								$subcategory_project_selected[] = $sub->slug;
-								if ( $key == 0 ) {
-									$cat                       = get_term( $tax->parent, 'project_category' );
-									$category_project_selected = $cat->slug;
-								}
+					$subcategory_project_selected = $category_project_selected = null;
+					if ( ! empty( $post_convert->tax_input['project_category'] ) ) {
+						foreach ( $post_convert->tax_input['project_category'] as $key => $value ) {
+							$tax                            = $value;
+							$sub                            = get_term( $tax->term_id, 'project_category' );
+							$subcategory_project_selected[] = $sub->slug;
+							if ( $key == 0 ) {
+								$cat                       = get_term( $tax->parent, 'project_category' );
+								$category_project_selected = $cat->slug;
 							}
 						}
+					}
 					?>
                     <div class="col-md-12 col-xs-12">
                         <div class="fre-input-field">
@@ -87,16 +87,16 @@
                             <input type="hidden" name="crete_project" value="1">
                             <label for="cat" class="fre-field-title"><?php _e( 'Category', ET_DOMAIN ); ?></label>
                             <div class="select_style"><?php ae_tax_dropdown( 'project_category', [
-										'attr'            => 'data-selected_slug="' . $category_project_selected . '"',
-										'show_option_all' => __( "Select category", ET_DOMAIN ),
-										'class'           => 'required',
-										'hide_empty'      => false,
-										'hierarchical'    => false,
-										'id'              => 'cat',
-										'value'           => 'slug',
-										'parent'          => 0,
-										'name'            => 'cat',
-									] ); ?></div>
+									'attr'            => 'data-selected_slug="' . $category_project_selected . '"',
+									'show_option_all' => __( "Select category", ET_DOMAIN ),
+									'class'           => 'required',
+									'hide_empty'      => false,
+									'hierarchical'    => false,
+									'id'              => 'cat',
+									'value'           => 'slug',
+									'parent'          => 0,
+									'name'            => 'cat',
+								] ); ?></div>
                         </div>
                     </div>
                     <div class="col-md-12 col-xs-12">
@@ -148,21 +148,21 @@
                     <div class="fre-project-budgets">
                         <select name="project_currency">
 							<?php
-								foreach ( get_currency() as $key => $data ) {
-									$is_selected = '';
-									if ( ! isset( $selected_currency ) || empty( $selected_currency ) ) {
-										if ( $user_currency == $data[ 'code' ] ) {
-											$is_selected = 'selected';
-										}
-									} else {
-										if ( $selected_currency == $data[ 'code' ] ) {
-											$is_selected = 'selected';
-										}
-									} ?>
-                                    <option data-icon="<?= $data[ 'flag' ] ?>" <?= $is_selected ?>>
-										<?= $data[ 'code' ] ?>
-                                    </option>
-								<? }
+							foreach ( get_currency() as $key => $data ) {
+								$is_selected = '';
+								if ( ! isset( $selected_currency ) || empty( $selected_currency ) ) {
+									if ( $user_currency == $data['code'] ) {
+										$is_selected = 'selected';
+									}
+								} else {
+									if ( $selected_currency == $data['code'] ) {
+										$is_selected = 'selected';
+									}
+								} ?>
+                                <option data-icon="<?= $data['flag'] ?>" <?= $is_selected ?>>
+									<?= $data['code'] ?>
+                                </option>
+							<? }
 							?>
                         </select>
                         <input id="project-budget" type="number" placeholder="1"
@@ -176,33 +176,33 @@
                     <label class="fre-field-title" for="project-location"><?php _e( 'Location', ET_DOMAIN ); ?></label>
                     <div>
 						<?php
-							if ( ! empty( $post_convert->country ) ) {
-								$location[ 'country' ][ 'id' ] = $post_convert->country;
-								if ( ! empty( $post_convert->state ) ) {
-									$location[ 'state' ][ 'id' ] = $post_convert->state;
-									if ( ! empty( $post_convert->city ) ) {
-										$location[ 'city' ][ 'id' ] = $post_convert->city;
-									}
+						if ( ! empty( $post_convert->country ) ) {
+							$location['country']['id'] = $post_convert->country;
+							if ( ! empty( $post_convert->state ) ) {
+								$location['state']['id'] = $post_convert->state;
+								if ( ! empty( $post_convert->city ) ) {
+									$location['city']['id'] = $post_convert->city;
 								}
-							} else {
-								$location = getLocation( $user_ID );
 							}
-							include 'dbConfig.php';
-							$query_country = $db->query( "SELECT * FROM wp_location_countries ORDER BY name ASC" );
+						} else {
+							$location = getLocation( $user_ID );
+						}
+						include 'dbConfig.php';
+						$query_country = $db->query( "SELECT * FROM wp_location_countries ORDER BY name ASC" );
 						?>
                         <div class="fre-input-field select">
                             <select name="country" id="country"
-                                    data-selected_id="<?= ! empty( $location[ 'country' ][ 'id' ] ) ? $location[ 'country' ][ 'id' ] : '' ?>"
-                                    data_user_country_id="<?= ! empty( $location[ 'country' ][ 'id' ] ) ? $location[ 'country' ][ 'id' ] : '' ?>">
+                                    data-selected_id="<?= ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>"
+                                    data_user_country_id="<?= ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>">
                                 <option value="">Select Country</option>
 								<?php if ( $query_country->num_rows > 0 ) {
 									while ( $row = $query_country->fetch_assoc() ) {
-										if ( ! empty( $location[ 'country' ] ) && $location[ 'country' ][ 'id' ] == $row[ 'id' ] ) {
+										if ( ! empty( $location['country'] ) && $location['country']['id'] == $row['id'] ) {
 											$flag = 'selected';
 										} else {
 											$flag = '';
 										}
-										echo '<option value="' . $row[ 'id' ] . '"' . $flag . '>' . $row[ 'name' ] . '</option>';
+										echo '<option value="' . $row['id'] . '"' . $flag . '>' . $row['name'] . '</option>';
 									}
 								} else {
 									echo '<option value="">Country not available</option>';
@@ -211,13 +211,13 @@
                         </div>
                         <div class="fre-input-field select">
                             <select name="state" id="state"
-                                    data-selected_id="<?= ! empty( $location[ 'state' ][ 'id' ] ) ? $location[ 'state' ][ 'id' ] : '' ?>">
+                                    data-selected_id="<?= ! empty( $location['state']['id'] ) ? $location['state']['id'] : '' ?>">
                                 <option value="">Select country first</option>
                             </select>
                         </div>
                         <div class="fre-input-field select">
                             <select name="city" id="city"
-                                    data-selected_id="<?= ! empty( $location[ 'city' ][ 'id' ] ) ? $location[ 'city' ][ 'id' ] : '' ?>">
+                                    data-selected_id="<?= ! empty( $location['city']['id'] ) ? $location['city']['id'] : '' ?>">
                                 <option value="">Select state first</option>
                             </select>
                         </div>
@@ -235,10 +235,10 @@
                     </div>
                 </div>
 				<?php
-					// Add hook: add more field
-					echo '<ul class="fre-custom-field">';
-					do_action( 'ae_submit_post_form', PROJECT, $post );
-					echo '</ul>';
+				// Add hook: add more field
+				echo '<ul class="fre-custom-field">';
+				do_action( 'ae_submit_post_form', PROJECT, $post );
+				echo '</ul>';
 				?>
                 <div class="fre-post-project-btn">
                     <button class="fre-btn fre-post-project-next-btn fre-submit-btn"

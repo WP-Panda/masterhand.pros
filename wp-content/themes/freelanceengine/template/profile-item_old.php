@@ -1,17 +1,17 @@
 <?php
-	/**
-	 * The template for displaying profile in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PROFILE );
-	$current     = $post_object->current_post;
-	if ( ! $current ) {
-		return;
-	}
+/**
+ * The template for displaying profile in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PROFILE );
+$current     = $post_object->current_post;
+if ( ! $current ) {
+	return;
+}
 ?>
 <div <?php post_class( 'col-md-6 col-sm-12 col-xs-12 profile-item' ); ?>>
     <div class="profile-content">

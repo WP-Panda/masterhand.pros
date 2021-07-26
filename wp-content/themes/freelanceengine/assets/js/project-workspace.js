@@ -141,15 +141,29 @@
                         view.blockUi.unblock();
                         if (res.success) {
                             $('.no_file_upload').remove();
-                            if (res.attachment.post_mime_type == 'image/png') { var img = 'png';}
-                            else if (res.attachment.post_mime_type  == 'image/jpg' || res.attachment.post_mime_type == 'image/jpeg') { var img = 'jpg'; }
-                            else if (res.attachment.post_mime_type  == 'image/gif' ) { var img = 'gif'; }
-                            else if (res.attachment.post_mime_type  == 'application/pdf' ) { var img = 'pdf';}
-                            else if (res.attachment.post_mime_type  == 'application/msword' ) { var img = 'doc';}
-                            else if (res.attachment.post_mime_type  == 'application/excel' || res.attachment.post_mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') { var img = 'xls';}
-                            else { var img = '<img src="./img/files/doc.svg">'; }
+                            if (res.attachment.post_mime_type == 'image/png') {
+                                var img = 'png';
+                            }
+                            else if (res.attachment.post_mime_type == 'image/jpg' || res.attachment.post_mime_type == 'image/jpeg') {
+                                var img = 'jpg';
+                            }
+                            else if (res.attachment.post_mime_type == 'image/gif') {
+                                var img = 'gif';
+                            }
+                            else if (res.attachment.post_mime_type == 'application/pdf') {
+                                var img = 'pdf';
+                            }
+                            else if (res.attachment.post_mime_type == 'application/msword') {
+                                var img = 'doc';
+                            }
+                            else if (res.attachment.post_mime_type == 'application/excel' || res.attachment.post_mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                                var img = 'xls';
+                            }
+                            else {
+                                var img = '<img src="./img/files/doc.svg">';
+                            }
                             var template = '<li class="attachment-' + res.attachment.ID + '">' +
-                                '<i class="mime_type ' + img +'"></i>' +
+                                '<i class="mime_type ' + img + '"></i>' +
                                 '<p>' + res.attachment.post_title + '<span>' +
                                 '<a href="' + res.attachment.guid + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>' +
                                 '<a href="#" data-post-id="' + res.attachment.ID + '" data-project-id="' + res.attachment.project_id + '" data-file-name="' + res.attachment.post_title + '" class="delete-attach-file"></a>' +
@@ -329,7 +343,7 @@
                     if (result.data.isAttach == '' && result.data.isAttach == '' && result.data.template_file == "") {
                         if (result.data.changed_milestone_id != '') {
                             // view.listMessages.$el.append('<li class="milestone-item-noti">' + result.data.comment_author + ': ' + result.data.comment_content + '</li>');
-                            view.listMessages.$el.append('<li class="partner-message" id="comment-' + result.data.user_id  + '">' + template(result.data) + '</li>');
+                            view.listMessages.$el.append('<li class="partner-message" id="comment-' + result.data.user_id + '">' + template(result.data) + '</li>');
                         } else {
                             if (ae_globals.user_ID != result.data.user_id) {
                                 view.listMessages.$el.append('<li class="partner-message" id="comment-' + result.data.user_id + '">' + template(result.data) + '</li>');

@@ -2724,11 +2724,11 @@ p.text-term {
     width: 30px
 }
 
-.form-edit-skills .add-proj-cat,.wpp-form-edit-skills .add-proj-cat, .form-detail-profile-page .add-proj-cat {
+.form-edit-skills .add-proj-cat, .wpp-form-edit-skills .add-proj-cat, .form-detail-profile-page .add-proj-cat {
     min-height: 60px
 }
 
-.form-edit-skills .row > div, .wpp-form-edit-skills .row > div,.form-detail-profile-page .row > div {
+.form-edit-skills .row > div, .wpp-form-edit-skills .row > div, .form-detail-profile-page .row > div {
     padding-left: 0
 }
 
@@ -2738,7 +2738,7 @@ p.text-term {
     }
 }
 
-.form-edit-skills ul,.wpp-form-edit-skills ul .form-detail-profile-page ul {
+.form-edit-skills ul, .wpp-form-edit-skills ul .form-detail-profile-page ul {
     padding: 0;
     margin: 0
 }
@@ -2751,11 +2751,11 @@ p.text-term {
     border-color: #2c33c1
 }
 
-.wpp-form-edit-skills .select2-container,.form-edit-skills .select2-container, .form-detail-profile-page .select2-container {
+.wpp-form-edit-skills .select2-container, .form-edit-skills .select2-container, .form-detail-profile-page .select2-container {
     width: 100% !important
 }
 
-.wpp-form-edit-skills .select2-container .select2-selection--multiple, .wpp-form-edit-skills .select2-container .select2-selection--single,.form-edit-skills .select2-container .select2-selection--multiple, .form-edit-skills .select2-container .select2-selection--single, .form-detail-profile-page .select2-container .select2-selection--multiple, .form-detail-profile-page .select2-container .select2-selection--single {
+.wpp-form-edit-skills .select2-container .select2-selection--multiple, .wpp-form-edit-skills .select2-container .select2-selection--single, .form-edit-skills .select2-container .select2-selection--multiple, .form-edit-skills .select2-container .select2-selection--single, .form-detail-profile-page .select2-container .select2-selection--multiple, .form-detail-profile-page .select2-container .select2-selection--single {
     padding: 10px;
     display: block;
     line-height: 1 !important;
@@ -2773,10 +2773,12 @@ p.text-term {
     text-overflow: ellipsis;
     white-space: nowrap
 }
+
 .wpp-form-edit-skills .select2-container .select2-selection--multiple .select2-selection__arrow, .wpp-form-edit-skills .select2-container .select2-selection--single .select2-selection__arrow,
 .form-edit-skills .select2-container .select2-selection--multiple .select2-selection__arrow, .form-edit-skills .select2-container .select2-selection--single .select2-selection__arrow, .form-detail-profile-page .select2-container .select2-selection--multiple .select2-selection__arrow, .form-detail-profile-page .select2-container .select2-selection--single .select2-selection__arrow {
     display: none
 }
+
 .wpp-form-edit-skills .select2-container .select2-selection--multiple .select2-selection__rendered, .wpp-form-edit-skills .select2-container .select2-selection--single .select2-selection__rendered,
 .form-edit-skills .select2-container .select2-selection--multiple .select2-selection__rendered, .form-edit-skills .select2-container .select2-selection--single .select2-selection__rendered, .form-detail-profile-page .select2-container .select2-selection--multiple .select2-selection__rendered, .form-detail-profile-page .select2-container .select2-selection--single .select2-selection__rendered {
     line-height: 30px
@@ -13580,6 +13582,7 @@ body .fre-payment-list > li > .btn, body .fre-btn, body .fre-payment-list > li >
     color: #f42757;
     line-height: 1em
 }
+
 .modal .wpp-form-edit-skills select[multiple], .modal .wpp-form-edit-skills select[size],
 .modal .form-edit-skills select[multiple], .modal .form-edit-skills select[size] {
     width: 100%
@@ -24431,10 +24434,12 @@ div.form-detail-profile-page > .fre-input-field .select2-container {
 .fre-submit-btn-dd {
     margin-left: 15px;
 }
+
 .wpp-form-edit-skills .select2-selection__rendered,
 .form-edit-skills .select2-selection__rendered {
     height: auto !important;
 }
+
 .wpp-form-edit-skills .select2-container,
 .form-edit-skills .select2-container {
     height: auto !important;

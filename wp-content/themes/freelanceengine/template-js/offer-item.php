@@ -8,7 +8,7 @@
             <p>{{= post_content_trim}}</p>
         </div>
         <div class="">
-            <? _e('Author'); ?>:
+			<? _e( 'Author' ); ?>:
             <a href="{{= post_author_url}}" class="offer_author">
                 {{= display_name }}
             </a>

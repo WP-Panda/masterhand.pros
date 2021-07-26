@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
-                <?php _e( "Transfer Money", ET_DOMAIN ) ?>
+				<?php _e( "Transfer Money", ET_DOMAIN ) ?>
             </div>
             <div class="modal-body">
                 <form role="form" id="transfer-money-form" class="fre-modal-form">
@@ -11,7 +11,8 @@
 
                     </div>
                     <div class="fre-form-btn">
-                        <button type="submit" class="fre-submit-btn btn-left btn-submit"><?php _e( 'Transfer', ET_DOMAIN ) ?></button>
+                        <button type="submit"
+                                class="fre-submit-btn btn-left btn-submit"><?php _e( 'Transfer', ET_DOMAIN ) ?></button>
                         <span class="fre-cancel-btn" data-dismiss="modal">Cancel</span>
                     </div>
 

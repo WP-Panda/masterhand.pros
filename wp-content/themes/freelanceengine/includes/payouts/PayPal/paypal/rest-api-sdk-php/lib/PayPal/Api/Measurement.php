@@ -14,52 +14,49 @@ use PayPal\Common\PayPalModel;
  * @property string value
  * @property string unit
  */
-class Measurement extends PayPalModel
-{
-    /**
-     * Value this measurement represents.
-     *
-     * @param string $value
-     * 
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-        return $this;
-    }
+class Measurement extends PayPalModel {
+	/**
+	 * Value this measurement represents.
+	 *
+	 * @param string $value
+	 *
+	 * @return $this
+	 */
+	public function setValue( $value ) {
+		$this->value = $value;
 
-    /**
-     * Value this measurement represents.
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+		return $this;
+	}
 
-    /**
-     * Unit in which the value is represented.
-     *
-     * @param string $unit
-     * 
-     * @return $this
-     */
-    public function setUnit($unit)
-    {
-        $this->unit = $unit;
-        return $this;
-    }
+	/**
+	 * Value this measurement represents.
+	 *
+	 * @return string
+	 */
+	public function getValue() {
+		return $this->value;
+	}
 
-    /**
-     * Unit in which the value is represented.
-     *
-     * @return string
-     */
-    public function getUnit()
-    {
-        return $this->unit;
-    }
+	/**
+	 * Unit in which the value is represented.
+	 *
+	 * @param string $unit
+	 *
+	 * @return $this
+	 */
+	public function setUnit( $unit ) {
+		$this->unit = $unit;
+
+		return $this;
+	}
+
+	/**
+	 * Unit in which the value is represented.
+	 *
+	 * @return string
+	 */
+	public function getUnit() {
+		return $this->unit;
+	}
 
 }

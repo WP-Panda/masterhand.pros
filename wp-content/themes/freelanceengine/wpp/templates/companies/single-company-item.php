@@ -1,13 +1,13 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
-	extract( $args );
+extract( $args );
 ?>
 
 <li class="company-item 1 project-item">
@@ -23,13 +23,13 @@
 		<? } ?>
         <a class="project-name"><?php echo $company->title; ?></a>
         <div class="reviews-rating-summary">
-            <div class="review-rating-result" style="width: <?php echo $company->rating * 100/5; ?>%"></div>
+            <div class="review-rating-result" style="width: <?php echo $company->rating * 100 / 5; ?>%"></div>
         </div>
         <span class="company-item_rating"><?php echo $company->rating; ?></span>
         <div class="fre-location"><?php echo wpp_convert_int_too_location( $company->country, $company->state, $company->city ); ?></div>
         <div class="project-list-desc"><?php echo $company->address; ?></div>
         <div class="project-list-skill">
-            <span class="fre-label"><?php echo get_term_by('id', $company->cat, 'project_category', ARRAY_A)['name']; ?></span>
+            <span class="fre-label"><?php echo get_term_by( 'id', $company->cat, 'project_category', ARRAY_A )['name']; ?></span>
         </div>
 
         <div class="project-list-info project-list-adres">
@@ -39,7 +39,8 @@
             </span>
 			<? if ( ! empty( $company->email ) ) { ?>
                 <span class="company-item_btn" data-id="<?php echo $company->id ?>"
-                      data-name="<?php echo $company->title ?>"><input class="btn-get-quote" type="button" value="<?php _e('Get a Quote', 'wpp' ); ?>"></span>
+                      data-name="<?php echo $company->title ?>"><input class="btn-get-quote" type="button"
+                                                                       value="<?php _e( 'Get a Quote', 'wpp' ); ?>"></span>
 			<? } else { ?>
                 <span class="company-item_btn">
                     <a href="/login" class="btn-get-quote-to-login"><? _e( 'Get a Quote' ); ?></a>

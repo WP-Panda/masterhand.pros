@@ -1,38 +1,38 @@
 <?php
-	/**
-	 * Template part for employer project details
-	 * # this template is loaded in template/list-work-history.php
-	 *
-	 * @since   1.0
-	 * @package FreelanceEngine
-	 */
-	global $user_ID;
-	$author_id = get_query_var( 'author' );
-	if ( ! $author_id ) {
-		$author_id = $user_ID;
-	}
+/**
+ * Template part for employer project details
+ * # this template is loaded in template/list-work-history.php
+ *
+ * @since   1.0
+ * @package FreelanceEngine
+ */
+global $user_ID;
+$author_id = get_query_var( 'author' );
+if ( ! $author_id ) {
+	$author_id = $user_ID;
+}
 
 
-	global $wp_query, $ae_post_factory, $post;
+global $wp_query, $ae_post_factory, $post;
 
-	$post_object = $ae_post_factory->get( PROJECT );
-	$current     = $post_object->current_post;
+$post_object = $ae_post_factory->get( PROJECT );
+$current     = $post_object->current_post;
 
-	if ( ! $current ) {
-		return;
-	}
+if ( ! $current ) {
+	return;
+}
 
-	$status = [
-		'reject'    => __( "REJECTED", ET_DOMAIN ),
-		'pending'   => __( "PENDING", ET_DOMAIN ),
-		'publish'   => __( "ACTIVE", ET_DOMAIN ),
-		'close'     => __( "PROCESSING", ET_DOMAIN ),
-		'complete'  => __( "COMPLETED", ET_DOMAIN ),
-		'draft'     => __( "DRAFT", ET_DOMAIN ),
-		'archive'   => __( "ARCHIVED", ET_DOMAIN ),
-		'disputing' => __( "DISPUTED", ET_DOMAIN ),
-		'disputed'  => __( "RESOLVED", ET_DOMAIN )
-	];
+$status = [
+	'reject'    => __( "REJECTED", ET_DOMAIN ),
+	'pending'   => __( "PENDING", ET_DOMAIN ),
+	'publish'   => __( "ACTIVE", ET_DOMAIN ),
+	'close'     => __( "PROCESSING", ET_DOMAIN ),
+	'complete'  => __( "COMPLETED", ET_DOMAIN ),
+	'draft'     => __( "DRAFT", ET_DOMAIN ),
+	'archive'   => __( "ARCHIVED", ET_DOMAIN ),
+	'disputing' => __( "DISPUTED", ET_DOMAIN ),
+	'disputed'  => __( "RESOLVED", ET_DOMAIN )
+];
 
 ?>
 <li class="bid-item">
@@ -75,30 +75,30 @@
                     <div class="show-action-bids">
                         <p class="number-static-bid text-blue-light text-bid-view">
 							<?php
-								if ( $current->total_bids > 1 ) {
+							if ( $current->total_bids > 1 ) {
+								printf( __( '%s <span class="normal-text">Bids</span>', ET_DOMAIN ), $current->total_bids );
+							} else {
+								if ( $current->total_bids == 0 ) {
 									printf( __( '%s <span class="normal-text">Bids</span>', ET_DOMAIN ), $current->total_bids );
 								} else {
-									if ( $current->total_bids == 0 ) {
-										printf( __( '%s <span class="normal-text">Bids</span>', ET_DOMAIN ), $current->total_bids );
-									} else {
-										printf( __( '%s <span class="normal-text">Bid</span>', ET_DOMAIN ), $current->total_bids );
-									}
-
+									printf( __( '%s <span class="normal-text">Bid</span>', ET_DOMAIN ), $current->total_bids );
 								}
+
+							}
 							?>
                         </p>
                         <p class="number-static-bid">
 							<?php
-								if ( $post->post_views > 1 ) {
+							if ( $post->post_views > 1 ) {
+								printf( __( "%d <span class='normal-text'>Views</span>", ET_DOMAIN ), $post->post_views );
+							} else {
+								if ( $post->post_views == 0 ) {
 									printf( __( "%d <span class='normal-text'>Views</span>", ET_DOMAIN ), $post->post_views );
 								} else {
-									if ( $post->post_views == 0 ) {
-										printf( __( "%d <span class='normal-text'>Views</span>", ET_DOMAIN ), $post->post_views );
-									} else {
-										printf( __( "%d <span class='normal-text'>View</span>", ET_DOMAIN ), $post->post_views );
-									}
-
+									printf( __( "%d <span class='normal-text'>View</span>", ET_DOMAIN ), $post->post_views );
 								}
+
+							}
 							?>
                         </p>
                     </div>

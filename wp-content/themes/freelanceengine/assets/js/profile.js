@@ -205,7 +205,7 @@
                 $('.input_thumbnail_' + id_md, c_form).remove();
             });
 
-            if($('body').hasClass('page-template-page-profile')) {
+            if ($('body').hasClass('page-template-page-profile')) {
                 this.getDataProjectCategory();
                 console.log('getDataProjectCategory');
             }
@@ -468,7 +468,7 @@
                             });
 
                             if ($('#listImgPreviews li[data-id]').length <= 1) {
-                               location.href = '/profile#settings';
+                                location.href = '/profile#settings';
                             }
                         } else {
                             AE.pubsub.trigger('ae:notification', {
@@ -486,30 +486,30 @@
             subSelect: {},
             btnAdd: {},
             maxSel: 0,
-            data : {},
-            selected : []
+            data: {},
+            selected: []
         },
-        getDataProjectCategory: function(){
+        getDataProjectCategory: function () {
             this.dataProjectCategory.parentSelect = $('#list_parentProjectCat');
             this.dataProjectCategory.subSelect = $('#list_subProjectCat').select2();
             this.dataProjectCategory.maxSel = this.dataProjectCategory.parentSelect.data('max');
             this.dataProjectCategory.btnAdd = $('.add-proj-cat');
-        var self = this,
-            data = {action: 'pre_project_cat'};
+            var self = this,
+                data = {action: 'pre_project_cat'};
             $.post(AE.ajaxParams.url, data, function (response) {
 
                 self.initElmSelectProjCat(response.data);
             }).always(function () {
                 // console.log(self.dataProjectCategory);
                 var list = self.profile.attributes.tax_input.project_category;
-                if(list.length > 0){
-                    for(var ind in list){
+                if (list.length > 0) {
+                    for (var ind in list) {
                         self.addSelProjectCat(list[ind].term_id, list[ind].name);
                     }
                 }
             });
         },
-        initElmSelectProjCat: function(data){
+        initElmSelectProjCat: function (data) {
             var _self = this;
             var self = this.dataProjectCategory;
             self.data = data;
@@ -522,9 +522,9 @@
             }).on('select2:select', function (e) {
                 var obj = $(e.target);
                 var val = obj.val();
-                if(val > 0) {
+                if (val > 0) {
                     var list = self.data.children[val];
-                    if(list !== undefined){
+                    if (list !== undefined) {
                         self.subSelect.html('').select2({
                             placeholder: 'Select Subcategory',
                             closeOnSelect: true,
@@ -550,18 +550,18 @@
             self.btnAdd.on('click', function () {
                 console.log(self.selected);
                 var id = self.subSelect.val();
-                if(id > 0){
+                if (id > 0) {
                     _self.addSelProjectCat(id, self.subSelect.find('option:selected').text());
                 }
             })
         },
-        addSelProjectCat : function(value, title){
+        addSelProjectCat: function (value, title) {
             var self = this.dataProjectCategory;
             var keys = Object.keys(self.selected);
             var id = value.toString();
-            if(keys.length < self.maxSel){
+            if (keys.length < self.maxSel) {
                 var exist = self.selected.indexOf(id);
-                if(exist === -1) {
+                if (exist === -1) {
                     self.selected.push(id);
                     var item = '<li class="item-profile-project-category">' +
                         '<div class="title-prof-pro-cat">' + title + '</div>' +
@@ -574,7 +574,7 @@
                         console.log('id  ' + id);
                         console.log('exist  ' + exist);
                         console.log('hasOwnProperty  ' + self.selected.hasOwnProperty(id));
-                        if(exist !== -1) {
+                        if (exist !== -1) {
                             delete self.selected[exist];
 
                             $(this).parent().remove()
@@ -820,7 +820,7 @@
                                 msg: status.msg,
                                 notice_type: 'success',
                             });
-                           location.href = '/profile#settings';
+                            location.href = '/profile#settings';
                         } else {
                             AE.pubsub.trigger('ae:notification', {
                                 msg: status.msg,
@@ -905,7 +905,7 @@
                                 msg: status.msg,
                                 notice_type: 'success',
                             });
-                           location.href = '/profile#settings';
+                            location.href = '/profile#settings';
                         } else {
                             AE.pubsub.trigger('ae:notification', {
                                 msg: status.msg,
@@ -1106,7 +1106,7 @@
             $('#showed').val(showed)
 
             var text = $(event.currentTarget).attr('data-text');
-            $('#form-showed-review h2')[0].textContent = text+'?'
+            $('#form-showed-review h2')[0].textContent = text + '?'
         },
         saveReviewDetails: function (event) {
             event.preventDefault();
@@ -1273,8 +1273,8 @@
                                     msg: res.msg,
                                     notice_type: 'error',
                                 });
-                            } 
-                           view.blockUi.unblock();
+                            }
+                            view.blockUi.unblock();
                         }
                     });
 
@@ -1378,8 +1378,8 @@
                                         notice_type: 'error',
                                     });
                                 }
-                               
-                                
+
+
                                 view.blockUi.unblock();
                             }
                         });

@@ -1,18 +1,18 @@
 <?php
-	/**
-	 * Template Name: Reset Password Page Template
-	 *
-	 * This is the template that displays all pages by default.
-	 * Please note that this is the WordPress construct of pages and that
-	 * other 'pages' on your WordPress site will use a different template.
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * Template Name: Reset Password Page Template
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages and that
+ * other 'pages' on your WordPress site will use a different template.
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	global $post;
-	get_header();
+global $post;
+get_header();
 ?>
     <div class="fre-page-wrapper">
         <div class="fre-page-section">
@@ -24,11 +24,11 @@
                         </h1>
                         <form role="form" id="resetpass_form" class="signin_form">
                             <input type="hidden" id="user_login" name="user_login"
-                                   value="<?php if ( isset( $_GET[ 'user_login' ] ) )
-								       echo $_GET[ 'user_login' ] ?>"/>
+                                   value="<?php if ( isset( $_GET['user_login'] ) )
+								       echo $_GET['user_login'] ?>"/>
                             <input type="hidden" id="user_key" name="user_key"
-                                   value="<?php if ( isset( $_GET[ 'key' ] ) )
-								       echo $_GET[ 'key' ] ?>">
+                                   value="<?php if ( isset( $_GET['key'] ) )
+								       echo $_GET['key'] ?>">
                             <div class="fre-input-field">
                                 <input type="password" class="need_valid" name="new_password" id="new_password"
                                        placeholder="<?php _e( 'New Password', ET_DOMAIN ); ?>">
@@ -45,4 +45,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

@@ -1,18 +1,18 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
-extract($args);
+defined( 'ABSPATH' ) || exit;
+extract( $args );
 ?>
 <div class="fre-blog-item fre-blog-item-<?php echo $type; ?>">
     <div class="overlay-block">
         <div class="fre-blog-item_t center">
             <a href="<?php echo $url; ?>" title="<?php echo $ankor; ?>">
-	            <?php echo $ankor; ?>
+				<?php echo $ankor; ?>
             </a>
         </div>
         <div class="fre-blog-item_d center">

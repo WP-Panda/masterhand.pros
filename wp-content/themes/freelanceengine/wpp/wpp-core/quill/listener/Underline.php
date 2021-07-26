@@ -11,15 +11,13 @@ use nadar\quill\Line;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class Underline extends InlineListener
-{
-    /**
-     * {@inheritDoc}
-     */
-    public function process(Line $line)
-    {
-        if ($line->getAttribute('underline')) {
-            $this->updateInput($line, '<u>'.$line->getInput().'</u>');
-        }
-    }
+class Underline extends InlineListener {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function process( Line $line ) {
+		if ( $line->getAttribute( 'underline' ) ) {
+			$this->updateInput( $line, '<u>' . $line->getInput() . '</u>' );
+		}
+	}
 }

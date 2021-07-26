@@ -1,13 +1,14 @@
-(function($, Models, Collections, Views) {
-    $(document).ready(function() {
+(function ($, Models, Collections, Views) {
+    $(document).ready(function () {
         AE.Models.emproject = Backbone.Model.extend({
             action: 'ae-project-sync',
-            initialize: function() {}
+            initialize: function () {
+            }
         });
         Collections.Projects = Backbone.Collection.extend({
             model: AE.Models.emproject,
             action: 'ae-fetch-projects',
-            initialize: function(project_id) {
+            initialize: function (project_id) {
                 this.paged = 1;
             },
         });
@@ -15,10 +16,10 @@
             tagName: 'li',
             className: 'project-item',
             template: _.template($('#employer-project-item').html()),
-            onItemBeforeRender: function() {
+            onItemBeforeRender: function () {
                 // before render view
             },
-            onItemRendered: function() {
+            onItemRendered: function () {
                 // after render view
             }
         });
@@ -30,7 +31,7 @@
         AE.Views.AuthorProfile = Backbone.View.extend({
             // action: 'ae-project-sync',
             el: 'body.author',
-            initialize: function(arg) {
+            initialize: function (arg) {
                 if ($('body').find('.projectdata').length > 0) {
                     var projectdata = JSON.parse($('body').find('.projectdata').html());
                     this.collection_projects = new Collections.Projects(projectdata);
@@ -57,7 +58,7 @@
         new AE.Views.AuthorProfile();
     });
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
-(function($, Views, Models, Collections) {
+(function ($, Views, Models, Collections) {
     /*
      *
      * S I N G L E  P R O F I L E  V I E W S
@@ -71,10 +72,10 @@
             'click a.invite-open': 'openModalInvite',
             'click a.info-open': 'openModalInfo',
         },
-        initialize: function() {
+        initialize: function () {
             this.user = AE.App.user;
         },
-        openModalContact: function(event) {
+        openModalContact: function (event) {
             event.preventDefault();
             var $target = $(event.currentTarget);
             if (typeof Views.ContactModal !== "undefined") {
@@ -87,7 +88,7 @@
                 this.modalContact.openModal();
             }
         },
-        openModalInvite: function(event) {
+        openModalInvite: function (event) {
             event.preventDefault();
             var $target = $(event.currentTarget);
             if (typeof Views.InviteModal !== "undefined") {
@@ -101,7 +102,7 @@
                 this.modalInvite.openModal();
             }
         },
-        openModalInfo: function(event) {
+        openModalInfo: function (event) {
             event.preventDefault();
             var $target = $(event.currentTarget);
             if (typeof Views.ContactModal !== "undefined") {
@@ -115,40 +116,40 @@
             }
         }
     });
-   
+
     /**
      * modal invite jion a project
      */
     Views.InviteModal = AE.Views.Modal_Box.extend({
         events: {
             'submit form#submit_invite': 'sendInvite',
-            'click a.select-all' : 'selectAll',
-            'click a.remove-all' : 'removeAll'
+            'click a.select-all': 'selectAll',
+            'click a.remove-all': 'removeAll'
         },
-        initialize: function(options) {
+        initialize: function (options) {
             AE.Views.Modal_Box.prototype.initialize.call();
             this.blockUi = new AE.Views.BlockUi();
             this.options = _.extend(this, options);
         },
-        selectAll : function(event){
+        selectAll: function (event) {
             event.preventDefault();
             var form = $('form#submit_invite');
             form.find('a.select-all').hide();
             form.find('a.remove-all').show();
-            $('.invites-list input[type=checkbox]').each(function() {
+            $('.invites-list input[type=checkbox]').each(function () {
                 $(this).prop('checked', true);
             });
         },
-        removeAll : function(event){
+        removeAll: function (event) {
             event.preventDefault();
             var form = $('form#submit_invite');
             form.find('a.select-all').show();
             form.find('a.remove-all').hide();
-            $('.invites-list input[type=checkbox]').each(function() {
+            $('.invites-list input[type=checkbox]').each(function () {
                 $(this).prop('checked', false);
             });
         },
-        sendInvite: function(event) {
+        sendInvite: function (event) {
             event.preventDefault();
             var form = $(event.currentTarget),
                 $button = form.find(".btn-submit"),
@@ -162,11 +163,11 @@
                     user_id: view.user_id,
                     action: 'ae-send-invite',
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($button);
                     form.addClass('processing');
                 },
-                success: function(resp) {
+                success: function (resp) {
                     form.removeClass('processing');
                     if (resp.success) {
                         AE.pubsub.trigger('ae:notification', {

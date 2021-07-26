@@ -1,27 +1,27 @@
 <?php
-	/**
-	 * The main template file
-	 *
-	 * This is the most generic template file in a WordPress theme and one
-	 * of the two required files for a theme (the other being style.css).
-	 * It is used to display a page when nothing more specific matches a query,
-	 * e.g., it puts together the home page when no home.php file exists.
-	 *
-	 * @link       http://codex.wordpress.org/Template_Hierarchy
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link       http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	$category = get_the_category();
-	$cc       = ! empty( trim( strip_tags( $post->post_content ) ) ) ? str_replace( [
-		"\r\n",
-		"\r",
-		"\n"
-	], ' ', trim( strip_tags( $post->post_content ) ) ) : 'MasterHand';
+$category = get_the_category();
+$cc       = ! empty( trim( strip_tags( $post->post_content ) ) ) ? str_replace( [
+	"\r\n",
+	"\r",
+	"\n"
+], ' ', trim( strip_tags( $post->post_content ) ) ) : 'MasterHand';
 
-	echo "<script>
+echo "<script>
     var meta = document.createElement('meta');
     meta.name = \"description\";
     meta.content = \"$cc\";
@@ -30,9 +30,9 @@
     document.getElementsByTagName('head')[0].innerHTML+='<meta property=\"og:description\" content = \"$cc\">';
 </script>";
 
-	get_header();
-	the_post();
-	wp_enqueue_script( 'likesUsers' );
+get_header();
+the_post();
+wp_enqueue_script( 'likesUsers' );
 
 ?>
 
@@ -41,36 +41,36 @@
 
             <div id="cats-list" class="cats-list">
 				<?php $taxonomy = 'category';
-					$terms      = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0, 'parent' => 1 ] );
-					if ( $terms && ! is_wp_error( $terms ) ) :?>
-                        <div class="row">
-							<?php foreach ( $terms as $term ) {
-								$termid = $term->term_id; ?>
-                                <div class="col-sm-3 col-xs-6">
-                                    <div class="profs-cat-list_t text-center">
-                                        <a href="<?php echo get_term_link( $term->slug, $taxonomy ); ?>" title="">
-											<?php echo $term->name; ?>
-                                        </a>
-                                    </div>
+				$terms          = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0, 'parent' => 1 ] );
+				if ( $terms && ! is_wp_error( $terms ) ) :?>
+                    <div class="row">
+						<?php foreach ( $terms as $term ) {
+							$termid = $term->term_id; ?>
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="profs-cat-list_t text-center">
+                                    <a href="<?php echo get_term_link( $term->slug, $taxonomy ); ?>" title="">
+										<?php echo $term->name; ?>
+                                    </a>
                                 </div>
-							<?php } ?>
-                        </div>
-					<?php endif; ?>
+                            </div>
+						<?php } ?>
+                    </div>
+				<?php endif; ?>
             </div>
 
 			<?php blog_breadcrumbs(); ?>
 
 			<?php
-				$images = [];
-				if ( has_post_thumbnail() ) {
-					$images[] = get_the_post_thumbnail_url();
-				}
+			$images = [];
+			if ( has_post_thumbnail() ) {
+				$images[] = get_the_post_thumbnail_url();
+			}
 
-				$gallery = wpp_get_post_gallery_urls();
+			$gallery = wpp_get_post_gallery_urls();
 
-				if ( ! empty( $gallery ) ) {
-					$images = array_merge( $images, $gallery );
-				}
+			if ( ! empty( $gallery ) ) {
+				$images = array_merge( $images, $gallery );
+			}
 
 			?>
             <div class="block-posts" id="post-control">
@@ -105,9 +105,9 @@
 					<?php likesPost( get_the_ID() ) ?>
                     <div class="text-right sharing">
 						<?php
-							if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
-								ADDTOANY_SHARE_SAVE_KIT();
-							}
+						if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
+							ADDTOANY_SHARE_SAVE_KIT();
+						}
 						?>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 						'post_status'    => 'publish',
 						'posts_per_page' => 7,
 						'post__not_in'   => [ $post->ID ],
-						'cat'            => $category[ 0 ]->cat_id
+						'cat'            => $category[0]->cat_id
 					] ); ?>
                     <div class="fre-blog-list-sticky">
 						<?php while ( $query->have_posts() ) {

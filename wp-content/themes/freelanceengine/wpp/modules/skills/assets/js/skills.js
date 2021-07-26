@@ -145,13 +145,13 @@
                 if (result.success) {
                     if ($(event.currentTarget).hasClass('endorsed')) {
                         $(event.currentTarget).removeClass('endorsed');
-                        $_ind.html( $_count - 1);
+                        $_ind.html($_count - 1);
                     } else {
                         $(event.currentTarget).addClass('endorsed');
-                        $_ind.html( $_count + 1);
+                        $_ind.html($_count + 1);
                     }
 
-                   //$(event.currentTarget).parent().find('.endorse-skill').html(data.value)
+                    //$(event.currentTarget).parent().find('.endorse-skill').html(data.value)
                 } else {
                     wpp_skill.showError(result.msg)
                 }

@@ -1,111 +1,111 @@
 <?php
-	/**
-	 * The Template for displaying a user profile
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
-	add_action( 'wp_head', 'gretathemes_meta_tags_author' );
+/**
+ * The Template for displaying a user profile
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
+add_action( 'wp_head', 'gretathemes_meta_tags_author' );
 
-	global $wp_query, $ae_post_factory, $post, $user_ID;
-	$style            = "";
-	$post_object      = $ae_post_factory->get( PROFILE );
-	$author_id        = get_query_var( 'author' );
-	$author_name      = get_the_author_meta( 'display_name', $author_id );
-	$author_available = get_user_meta( $author_id, 'user_available', true );
+global $wp_query, $ae_post_factory, $post, $user_ID;
+$style            = "";
+$post_object      = $ae_post_factory->get( PROFILE );
+$author_id        = get_query_var( 'author' );
+$author_name      = get_the_author_meta( 'display_name', $author_id );
+$author_available = get_user_meta( $author_id, 'user_available', true );
 
-	// get user profile id
-	$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
-	$pro_status = get_post_meta( $profile_id, 'pro_status', true );
+// get user profile id
+$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
+$pro_status = get_post_meta( $profile_id, 'pro_status', true );
 
-	// get current user profile id
-	$profile_id_current_user = get_user_meta( $user_ID, 'user_profile_id', true );
-	$pro_status_current_user = get_post_meta( $profile_id_current_user, 'pro_status', true );
+// get current user profile id
+$profile_id_current_user = get_user_meta( $user_ID, 'user_profile_id', true );
+$pro_status_current_user = get_post_meta( $profile_id_current_user, 'pro_status', true );
 
-	$isFreelancer      = ( ae_user_role( $author_id ) == FREELANCER ) ? 1 : 0;
-	$currentFreelancer = ( ae_user_role( $user_ID ) == FREELANCER ) ? 1 : 0;
+$isFreelancer      = ( ae_user_role( $author_id ) == FREELANCER ) ? 1 : 0;
+$currentFreelancer = ( ae_user_role( $user_ID ) == FREELANCER ) ? 1 : 0;
 
-	$convert = '';
-	if ( $profile_id ) {
-		// get post profile
-		$profile = get_post( $profile_id );
+$convert = '';
+if ( $profile_id ) {
+	// get post profile
+	$profile = get_post( $profile_id );
 
-		if ( $profile && ! is_wp_error( $profile ) ) {
-			$convert = $post_object->convert( $profile );
-
-		}
+	if ( $profile && ! is_wp_error( $profile ) ) {
+		$convert = $post_object->convert( $profile );
 
 	}
 
-	// try to check and add profile up current user dont have profile
-	if ( ! $convert && ( fre_share_role() || $isFreelancer ) ) {
-		$profile_post = get_posts( [ 'post_type' => PROFILE, 'author' => $author_id ] );
+}
 
-		if ( ! empty( $profile_post ) ) {
-			$profile_post = $profile_post[ 0 ];
-			$convert      = $post_object->convert( $profile_post );
-			$profile_id   = $convert->ID;
-			update_user_meta( $author_id, 'user_profile_id', $profile_id );
-		} else {
-			$convert    = $post_object->insert( [
-				'post_status'  => 'publish',
-				'post_author'  => $author_id,
-				'post_title'   => $author_name,
-				'post_content' => ''
-			] );
-			$convert    = $post_object->convert( get_post( $convert->ID ) );
-			$profile_id = $convert->ID;
-		}
+// try to check and add profile up current user dont have profile
+if ( ! $convert && ( fre_share_role() || $isFreelancer ) ) {
+	$profile_post = get_posts( [ 'post_type' => PROFILE, 'author' => $author_id ] );
+
+	if ( ! empty( $profile_post ) ) {
+		$profile_post = $profile_post[0];
+		$convert      = $post_object->convert( $profile_post );
+		$profile_id   = $convert->ID;
+		update_user_meta( $author_id, 'user_profile_id', $profile_id );
+	} else {
+		$convert    = $post_object->insert( [
+			'post_status'  => 'publish',
+			'post_author'  => $author_id,
+			'post_title'   => $author_name,
+			'post_content' => ''
+		] );
+		$convert    = $post_object->convert( get_post( $convert->ID ) );
+		$profile_id = $convert->ID;
 	}
+}
 
-	//  count author review number
-	$count_reviews = get_count_reviews_user( $author_id );
+//  count author review number
+$count_reviews = get_count_reviews_user( $author_id );
 
-	get_header();
-	$next_post = false;
+get_header();
+$next_post = false;
 
-	if ( $convert ) {
-		$next_post = ae_get_adjacent_post( $convert->ID, false, '', true, 'skill' );
+if ( $convert ) {
+	$next_post = ae_get_adjacent_post( $convert->ID, false, '', true, 'skill' );
+}
+
+$author_status = get_user_pro_status( $author_id );
+
+$class_name = 'employer';
+if ( fre_share_role() || $isFreelancer ) {
+	$class_name = 'freelance';
+}
+
+$projects_worked = get_post_meta( $profile_id, 'total_projects_worked', true );
+$project_posted  = fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed" ', true );
+$hire_freelancer = fre_count_hire_freelancer( $author_id );
+
+$user      = get_userdata( $author_id );
+$ae_users  = AE_Users::get_instance();
+$user_data = $ae_users->convert( $user );
+$hour_rate = 0;
+
+if ( isset( $convert->hour_rate ) ) {
+	$hour_rate = (int) $convert->hour_rate;
+}
+
+$user_info = get_userdata( $author_id );
+$location  = getLocation( $author_id );
+
+$max_portfolio  = getValueByProperty( $author_status, 'max_portfolio' );
+$personal_cover = getValueByProperty( $author_status, 'personal_cover' );
+
+if ( $personal_cover ) {
+	$img_url = get_user_meta( $author_id, 'cover_url' );
+	if ( $img_url ) {
+		$style = 'style="background-image: url(' . $img_url[0] . '); background-repeat: no-repeat; background-size: 100% 100%;"';
 	}
+}
 
-	$author_status = get_user_pro_status( $author_id );
-
-	$class_name = 'employer';
-	if ( fre_share_role() || $isFreelancer ) {
-		$class_name = 'freelance';
-	}
-
-	$projects_worked = get_post_meta( $profile_id, 'total_projects_worked', true );
-	$project_posted  = fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed" ', true );
-	$hire_freelancer = fre_count_hire_freelancer( $author_id );
-
-	$user      = get_userdata( $author_id );
-	$ae_users  = AE_Users::get_instance();
-	$user_data = $ae_users->convert( $user );
-	$hour_rate = 0;
-
-	if ( isset( $convert->hour_rate ) ) {
-		$hour_rate = (int) $convert->hour_rate;
-	}
-
-	$user_info = get_userdata( $author_id );
-	$location  = getLocation( $author_id );
-
-	$max_portfolio  = getValueByProperty( $author_status, 'max_portfolio' );
-	$personal_cover = getValueByProperty( $author_status, 'personal_cover' );
-
-	if ( $personal_cover ) {
-		$img_url = get_user_meta( $author_id, 'cover_url' );
-		if ( $img_url ) {
-			$style = 'style="background-image: url(' . $img_url[ 0 ] . '); background-repeat: no-repeat; background-size: 100% 100%;"';
-		}
-	}
-
-	$visualFlag = getValueByProperty( $author_status, 'visual_flag' );
-	if ( $visualFlag ) {
-		$visualFlagNumber = get_user_meta( $author_id, 'visual_flag', true );
-	}
+$visualFlag = getValueByProperty( $author_status, 'visual_flag' );
+if ( $visualFlag ) {
+	$visualFlagNumber = get_user_meta( $author_id, 'visual_flag', true );
+}
 
 
 ?>
@@ -134,9 +134,9 @@
                                     <div class="col-sm-8 col-xs-12 freelance-name">
 										<?php echo $author_name ?>
 										<?php
-											if ( $author_status && $author_status != PRO_BASIC_STATUS_EMPLOYER && $author_status != PRO_BASIC_STATUS_FREELANCER ) {
-												echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
-											} ?>
+										if ( $author_status && $author_status != PRO_BASIC_STATUS_EMPLOYER && $author_status != PRO_BASIC_STATUS_FREELANCER ) {
+											echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
+										} ?>
 										<?php if ( $visualFlag ) {
 											switch ( $visualFlagNumber ) {
 												case 1:
@@ -154,18 +154,18 @@
                                     <div class="col-sm-4 col-xs-12 free-rating"><?php HTML_review_rating_user( $author_id ) ?></div>
                                     <div class="col-sm-12 col-xs-12 freelance-profile-country">
 										<?php
-											if ( $location && ! empty( $location[ 'country' ] ) ) {
-												$str = [];
-												foreach ( $location as $key => $item ) {
-													if ( ! empty( $item[ 'name' ] ) ) {
-														$str[] = $item[ 'name' ];
-													}
+										if ( $location && ! empty( $location['country'] ) ) {
+											$str = [];
+											foreach ( $location as $key => $item ) {
+												if ( ! empty( $item['name'] ) ) {
+													$str[] = $item['name'];
 												}
-												echo ! empty( $str ) ? implode( ' - ', $str ) : 'Error';
-											} else { ?>
-												<?php echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>'; ?>
-												<?php
 											}
+											echo ! empty( $str ) ? implode( ' - ', $str ) : 'Error';
+										} else { ?>
+											<?php echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>'; ?>
+											<?php
+										}
 										?>
                                     </div>
 									<?php if ( fre_share_role() || $isFreelancer ) { ?>
@@ -215,21 +215,21 @@
                                     </div>
                                     <div class="city">
 										<?php
-											if ( $location && ! empty( $location[ 'country' ] ) ) {
-												$str = [];
-												foreach ( $location as $key => $item ) {
-													if ( ! empty( $item[ 'name' ] ) ) {
-														$str[] = $item[ 'name' ];
-													}
+										if ( $location && ! empty( $location['country'] ) ) {
+											$str = [];
+											foreach ( $location as $key => $item ) {
+												if ( ! empty( $item['name'] ) ) {
+													$str[] = $item['name'];
 												}
-												echo ! empty( $str ) ? __( 'City:', ET_DOMAIN ) . '<span>' . $str[ 2 ] . '</span>' : '';
-											} ?>
+											}
+											echo ! empty( $str ) ? __( 'City:', ET_DOMAIN ) . '<span>' . $str[2] . '</span>' : '';
+										} ?>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-xs-12 skills">
                                     <div class="skill col-sm-12 col-xs-6">
 										<?php echo __( 'skills & endorsements', ET_DOMAIN ); ?>
-                                        <span><?php  echo countEndorseSkillsUser( $author_id ) ?></span>
+                                        <span><?php echo countEndorseSkillsUser( $author_id ) ?></span>
                                     </div>
                                     <div class="skill col-sm-12 col-xs-6">
 										<?php echo __( 'awards', ET_DOMAIN ); ?><span>0</span>
@@ -239,11 +239,11 @@
 									if ( $convert ) { ?>
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 fre-profile_category">
 											<?php echo '<span>' . __( 'Specializations:', ET_DOMAIN ) . '</span>';
-												if ( isset( $convert->tax_input[ 'project_category' ] ) && $convert->tax_input[ 'project_category' ] ) {
-													echo baskserg_profile_categories2( $convert->tax_input[ 'project_category' ] );
-												} else {
-													echo '<span>No Categories</span>';
-												}
+											if ( isset( $convert->tax_input['project_category'] ) && $convert->tax_input['project_category'] ) {
+												echo baskserg_profile_categories2( $convert->tax_input['project_category'] );
+											} else {
+												echo '<span>No Categories</span>';
+											}
 											?>
                                         </div>
 									<?php }
@@ -259,7 +259,7 @@
                                 <div class="bl_t">
 									<?php echo __( 'Skills and Endorsements:', ET_DOMAIN ); ?>
                                 </div>
-								<?/* wp_enqueue_style( 'endoSk' );
+								<? /* wp_enqueue_style( 'endoSk' );
 									if ( is_plugin_active( 'referral_code/referral_code.php' ) ) {
 										$list_referral = get_referral( $user_ID );
 										$res           = false;
@@ -284,22 +284,22 @@
 									renderSkillsInProfile( $author_id, $modeEndorse, $user_ID );*/
 								?>
                                 <ul id="list_skills_user">
-		                            <?php
+									<?php
 
-			                            $endorse_class = wpp_is_endorse_allow( $author_id) ? ' mode-endorse' : '';
+									$endorse_class = wpp_is_endorse_allow( $author_id ) ? ' mode-endorse' : '';
 
-			                            $skills = WPP_Skills_User::getInstance()->get_user_skill_list($author_id );
-			                            if ( ! empty( $skills ) ) :
-				                            foreach ( $skills as $skill ) {
+									$skills = WPP_Skills_User::getInstance()->get_user_skill_list( $author_id );
+									if ( ! empty( $skills ) ) :
+										foreach ( $skills as $skill ) {
 
-					                            $endorsed_data = wpp_is_endorse_allow( $author_id  ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id , $skill[ 'id' ] ) : '';
-					                            $endorsed      = wpp_is_endorsed( $author_id , $skill[ 'id' ] ) ? ' endorsed' : '';
+											$endorsed_data = wpp_is_endorse_allow( $author_id ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id, $skill['id'] ) : '';
+											$endorsed      = wpp_is_endorsed( $author_id, $skill['id'] ) ? ' endorsed' : '';
 
 
-					                            printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>', $endorse_class, $endorsed, $endorsed_data, $skill[ 'title' ], __( 'counts of endorsement', WPP_TEXT_DOMAIN ), $skill[ 'count' ] );
-				                            }
-			                            endif;
-		                            ?>
+											printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>', $endorse_class, $endorsed, $endorsed_data, $skill['title'], __( 'counts of endorsement', WPP_TEXT_DOMAIN ), $skill['count'] );
+										}
+									endif;
+									?>
                                 </ul>
                             </div>
                             <!-- пока нет наград - скрываем НЕ УДАЛЯТЬ!!!!!!!!!!!!
@@ -346,26 +346,26 @@
                                     <div class="freelance-about">
                                         <span class="bl_t"><?php echo __( "About me:", ET_DOMAIN ); ?></span>
 										<?php
-											global $post;
-											$post = isset( $profile );
-											if ( $post ) {
-												setup_postdata( $profile );
-												the_content();
-												wp_reset_postdata();
-											} ?>
+										global $post;
+										$post = isset( $profile );
+										if ( $post ) {
+											setup_postdata( $profile );
+											the_content();
+											wp_reset_postdata();
+										} ?>
                                     </div>
 								<?php } ?>
 
                                 <div class="hidden freelance-about hidden-contacts">
                                     <span class="bl_t"><?php echo __( "Contacts:", ET_DOMAIN ); ?></span>
-									<?php $fb     = get_post_meta( $profile_id, 'facebook', true );
-										$skype    = get_post_meta( $profile_id, 'skype', true );
-										$web      = get_post_meta( $profile_id, 'website', true );
-										$viber    = get_post_meta( $profile_id, 'viber', true );
-										$wapp     = get_post_meta( $profile_id, 'whatsapp', true );
-										$telegram = get_post_meta( $profile_id, 'telegram', true );
-										$wechat   = get_post_meta( $profile_id, 'wechat', true );
-										$ln       = get_post_meta( $profile_id, 'linkedin', true ); ?>
+									<?php $fb = get_post_meta( $profile_id, 'facebook', true );
+									$skype    = get_post_meta( $profile_id, 'skype', true );
+									$web      = get_post_meta( $profile_id, 'website', true );
+									$viber    = get_post_meta( $profile_id, 'viber', true );
+									$wapp     = get_post_meta( $profile_id, 'whatsapp', true );
+									$telegram = get_post_meta( $profile_id, 'telegram', true );
+									$wechat   = get_post_meta( $profile_id, 'wechat', true );
+									$ln       = get_post_meta( $profile_id, 'linkedin', true ); ?>
                                     <p>
 										<?php if ( $user_data->user_email ) {
 											_e( '<strong>Email:</strong>', ET_DOMAIN );
@@ -380,34 +380,34 @@
                                         <p><a href="<?php echo $fb; ?>" target="_blank"
                                               rel="nofollow"><?php echo $fb; ?></a></p>
 									<?php }
-										if ( $skype ) { ?>
-                                            <p><?php echo $skype; ?></p>
-										<?php }
-										if ( $web ) { ?>
-                                            <p><?php echo $web; ?></p>
-										<?php }
-										if ( $viber ) { ?>
-                                            <p><?php echo $viber; ?></p>
-										<?php } ?>
+									if ( $skype ) { ?>
+                                        <p><?php echo $skype; ?></p>
+									<?php }
+									if ( $web ) { ?>
+                                        <p><?php echo $web; ?></p>
+									<?php }
+									if ( $viber ) { ?>
+                                        <p><?php echo $viber; ?></p>
+									<?php } ?>
 									<?php if ( $wapp ) { ?>
                                         <p><?php echo $wapp; ?></p>
 									<?php }
-										if ( $telegram ) { ?>
-                                            <p><?php echo $telegram; ?></p>
-										<?php }
-										if ( $wechat ) { ?>
-                                            <p><?php echo $wechat; ?></p>
-										<?php }
-										if ( $ln ) { ?>
-                                            <p><a href="<?php echo $ln; ?>" target="_blank"
-                                                  rel="nofollow"><?php echo $ln; ?></a></p>
-										<?php } ?>
+									if ( $telegram ) { ?>
+                                        <p><?php echo $telegram; ?></p>
+									<?php }
+									if ( $wechat ) { ?>
+                                        <p><?php echo $wechat; ?></p>
+									<?php }
+									if ( $ln ) { ?>
+                                        <p><a href="<?php echo $ln; ?>" target="_blank"
+                                              rel="nofollow"><?php echo $ln; ?></a></p>
+									<?php } ?>
                                 </div>
 
-								<?php if ( isset( $convert->tax_input[ 'profile_category' ] ) && $convert->tax_input[ 'profile_category' ] ) { ?>
+								<?php if ( isset( $convert->tax_input['profile_category'] ) && $convert->tax_input['profile_category'] ) { ?>
                                     <div class="freelance-cat-list">
                                         <span class="bl_t"><?php echo __( "Categories:", ET_DOMAIN ); ?></span>
-										<?php echo baskserg_profile_categories3( $convert->tax_input[ 'profile_category' ] ); ?>
+										<?php echo baskserg_profile_categories3( $convert->tax_input['profile_category'] ); ?>
                                     </div>
 								<?php } ?>
                             </div>
@@ -434,23 +434,23 @@
                                             </a>
 										<?php } ?>
 										<?php
-											$show_btn = apply_filters( 'show_btn_contact', true ); // @since 1.8.5
-											if ( $show_btn ) { ?>
+										$show_btn = apply_filters( 'show_btn_contact', true ); // @since 1.8.5
+										if ( $show_btn ) { ?>
 
-                                                <a href="<?php if ( $user_ID == 0 ) {
-													echo et_get_page_link( "login" );
-												} else {
-													echo '#';
-												} ?>" class="<?php if ( $user_ID == 0 ) {
-													echo 'fre-submit-btn btn-center';
-												} else {
-													echo 'fre-submit-btn btn-center contact-me';
-												} ?>" data-user="<?php if ( $user_ID != 0 ) {
-													echo $convert->post_author;
-												} ?>">
-													<?php _e( "Send Message", ET_DOMAIN ) ?>
-                                                </a>
-											<?php } ?>
+                                            <a href="<?php if ( $user_ID == 0 ) {
+												echo et_get_page_link( "login" );
+											} else {
+												echo '#';
+											} ?>" class="<?php if ( $user_ID == 0 ) {
+												echo 'fre-submit-btn btn-center';
+											} else {
+												echo 'fre-submit-btn btn-center contact-me';
+											} ?>" data-user="<?php if ( $user_ID != 0 ) {
+												echo $convert->post_author;
+											} ?>">
+												<?php _e( "Send Message", ET_DOMAIN ) ?>
+                                            </a>
+										<?php } ?>
 										<?php if ( $author_status && $author_status != PRO_BASIC_STATUS_EMPLOYER && $author_status != PRO_BASIC_STATUS_FREELANCER ) { ?>
                                             <a href="<?php if ( $user_ID == 0 ) {
 												echo et_get_page_link( "login" );
@@ -508,25 +508,25 @@
                     <div class="tab-pane fade in active" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
                         <div class="tabs_wp">
 							<?php get_template_part( 'list', 'educations' );
-								get_template_part( 'list', 'certifications' );
-								get_template_part( 'list', 'experiences' );
+							get_template_part( 'list', 'certifications' );
+							get_template_part( 'list', 'experiences' );
+							wp_reset_query();
+							get_template_part( 'template/author', 'freelancer-historyshort' );
+							wp_reset_query();
+							if ( $max_portfolio ) {
+								get_template_part( 'list', 'portfoliosbest' );
 								wp_reset_query();
-								get_template_part( 'template/author', 'freelancer-historyshort' );
+								get_template_part( 'list', 'portfoliosclient' );
 								wp_reset_query();
-								if ( $max_portfolio ) {
-									get_template_part( 'list', 'portfoliosbest' );
-									wp_reset_query();
-									get_template_part( 'list', 'portfoliosclient' );
-									wp_reset_query();
-								} ?>
+							} ?>
                         </div>
 						<?php
-							//$max_portfolio ? get_template_part('list', 'portfolioscat') : get_template_part('list', 'portfolioscat_num_list'); //it was so wth cats
-							get_template_part( 'list', 'portfoliosall' );
+						//$max_portfolio ? get_template_part('list', 'portfolioscat') : get_template_part('list', 'portfolioscat_num_list'); //it was so wth cats
+						get_template_part( 'list', 'portfoliosall' );
 
-							wp_reset_query();
-							get_template_part( 'list', 'documents_author' );
-							wp_reset_query();
+						wp_reset_query();
+						get_template_part( 'list', 'documents_author' );
+						wp_reset_query();
 						?>
                     </div>
 				<?php } else { ?>
@@ -564,7 +564,7 @@
 									'order'            => 'DESC'
 								] );
 
-									$post_object = $ae_post_factory->get( PROJECT ); ?>
+								$post_object = $ae_post_factory->get( PROJECT ); ?>
 
                                 <div class="current-employer-project">
 									<?php if ( $employer_current_project_query->have_posts() ) {
@@ -615,6 +615,8 @@
 
 
 
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -623,7 +625,7 @@
 									<?php ae_pagination( $employer_current_project_query, get_query_var( 'paged' ) ); ?>
 
 									<?php wp_reset_postdata();
-										wp_reset_query(); ?>
+									wp_reset_query(); ?>
                                 </div>
                             </div>
 
@@ -640,7 +642,7 @@
 									'orderby'          => 'date',
 									'order'            => 'DESC'
 								] );
-									$post_object                   = $ae_post_factory->get( PROJECT ); ?>
+								$post_object                       = $ae_post_factory->get( PROJECT ); ?>
 
                                 <div class="previous-employer-project">
 									<?php if ( $employer_open_project_query->have_posts() ) {
@@ -690,6 +692,8 @@
 
 
 
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -698,7 +702,7 @@
 									<?php ae_pagination( $employer_open_project_query, get_query_var( 'paged' ) ); ?>
 
 									<?php wp_reset_postdata();
-										wp_reset_query(); ?>
+									wp_reset_query(); ?>
                                 </div>
                             </div>
 
@@ -712,7 +716,7 @@
 									'orderby'          => 'date',
 									'order'            => 'DESC'
 								] );
-									$post_object                     = $ae_post_factory->get( PROJECT ); ?>
+								$post_object                         = $ae_post_factory->get( PROJECT ); ?>
 
                                 <div class="previous-employer-project">
 									<?php if ( $employer_closed_project_query->have_posts() ) {
@@ -757,6 +761,8 @@
                                         <script type="data/json" id="previous_project_post_data">
                                         <?php echo json_encode( $postdata ); ?>
 
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -765,7 +771,7 @@
 									<?php ae_pagination( $employer_closed_project_query, get_query_var( 'paged' ) ); ?>
 
 									<?php wp_reset_postdata();
-										wp_reset_query(); ?>
+									wp_reset_query(); ?>
                                 </div>
                             </div>
                             <!--author--projects-->
@@ -775,7 +781,7 @@
 				<?php if ( $currentFreelancer ): ?>
                     <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
 						<?php get_template_part( 'template/author', 'freelancer-history' );
-							wp_reset_query(); ?>
+						wp_reset_query(); ?>
                     </div>
 				<?php endif; ?>
             </div>

@@ -1,17 +1,17 @@
 <?php
-	/**
-	 *    Template Name: Cancel Payment
-	 */
-	$session = et_read_session();
-	get_header();
+/**
+ *    Template Name: Cancel Payment
+ */
+$session = et_read_session();
+get_header();
 
-	if ( isset( $session[ 'project_id' ] ) ) {
-		$url = get_the_permalink( $session[ 'project_id' ] );
-	} else if ( isset( $_REQUEST[ 'returnUrl' ] ) ) {
-		$url = $_REQUEST[ 'returnUrl' ];
-	} else {
-		$url = home_url();
-	}
+if ( isset( $session['project_id'] ) ) {
+	$url = get_the_permalink( $session['project_id'] );
+} else if ( isset( $_REQUEST['returnUrl'] ) ) {
+	$url = $_REQUEST['returnUrl'];
+} else {
+	$url = home_url();
+}
 
 ?>
     <section class="blog-header-container">
@@ -58,5 +58,5 @@
         });
     </script>
 <?php
-	et_destroy_session();
-	get_footer();
+et_destroy_session();
+get_footer();

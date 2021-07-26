@@ -1,9 +1,9 @@
 <?php
-	/**
-	 * Template Name: Front Page Template
-	 */
-	get_header();
-	global $wp_query, $ae_post_factory, $post, $user_ID; ?>
+/**
+ * Template Name: Front Page Template
+ */
+get_header();
+global $wp_query, $ae_post_factory, $post, $user_ID; ?>
     <div class="fre-page-wrapper">
 		<?php get_template_part( 'template/main', 'block' ); ?>
 
@@ -95,36 +95,37 @@
                         </div>
                     </div>
 					<?php
-						$taxonomy = 'project_category';
-						if ( userRole( $user_ID ) == FREELANCER ) {
-							$taxslug = get_option( 'siteurl' ) . '/project_category';
-						} else {
-							$taxslug = get_option( 'siteurl' ) . '/profile_category';
-						}
-						$terms = get_terms( [ 'taxonomy'       => $taxonomy,
-						                      'posts_per_page' => 11,
-						                      'hide_empty'     => 0,
-						                      'parent'         => 0
-						] );
-						if ( $terms && ! is_wp_error( $terms ) ) :?>
-                            <div class="row">
-								<?php foreach ( $terms as $term ) {
-									$termid = $term->term_id; ?>
-                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xs-12">
-                                        <div class="profs-cat-list_t faa-parent animated-hover">
-                                            <a href="<?php echo $taxslug . '/' . $term->slug; ?>"
-                                               style="background:#fff url(<?php the_field( 'catic', $taxonomy . '_' . $termid ); ?>) 40px center no-repeat;">
-												<?php echo $term->name; ?></a>
-                                            <i class="fa fa-angle-right faa-passing"></i>
-                                        </div>
-                                    </div>
-								<?php } ?>
+					$taxonomy = 'project_category';
+					if ( userRole( $user_ID ) == FREELANCER ) {
+						$taxslug = get_option( 'siteurl' ) . '/project_category';
+					} else {
+						$taxslug = get_option( 'siteurl' ) . '/profile_category';
+					}
+					$terms = get_terms( [
+						'taxonomy'       => $taxonomy,
+						'posts_per_page' => 11,
+						'hide_empty'     => 0,
+						'parent'         => 0
+					] );
+					if ( $terms && ! is_wp_error( $terms ) ) :?>
+                        <div class="row">
+							<?php foreach ( $terms as $term ) {
+								$termid = $term->term_id; ?>
                                 <div class="col-sm-6 col-md-4 col-lg-4 col-xs-12">
-                                    <a class="all_cat"
-                                       href="<?php echo $taxslug; ?>"><?php echo _( 'See all categories' ); ?></a>
+                                    <div class="profs-cat-list_t faa-parent animated-hover">
+                                        <a href="<?php echo $taxslug . '/' . $term->slug; ?>"
+                                           style="background:#fff url(<?php the_field( 'catic', $taxonomy . '_' . $termid ); ?>) 40px center no-repeat;">
+											<?php echo $term->name; ?></a>
+                                        <i class="fa fa-angle-right faa-passing"></i>
+                                    </div>
                                 </div>
+							<?php } ?>
+                            <div class="col-sm-6 col-md-4 col-lg-4 col-xs-12">
+                                <a class="all_cat"
+                                   href="<?php echo $taxslug; ?>"><?php echo _( 'See all categories' ); ?></a>
                             </div>
-						<?php endif; ?>
+                        </div>
+					<?php endif; ?>
                 </div>
             </div>
         </div>
@@ -167,11 +168,11 @@
             <div class="container">
                 <div class="fre-blog_t">
 					<?php $cathref = get_term( 1 );
-						if ( $cathref ) { ?>
-                            <span><a href="<?php echo $cathref->slug; ?>">Know-How</a></span>
-						<?php } else { ?>
-                            <span>Know-How</span>
-						<?php } ?>
+					if ( $cathref ) { ?>
+                        <span><a href="<?php echo $cathref->slug; ?>">Know-How</a></span>
+					<?php } else { ?>
+                        <span>Know-How</span>
+					<?php } ?>
                     Wisdom of Masterhand PRO. Lifehacks, Secrets of Success and much more….
                 </div>
 				<?php get_template_part( 'home-list', 'blog' ); ?>

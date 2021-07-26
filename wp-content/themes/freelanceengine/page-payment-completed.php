@@ -1,15 +1,15 @@
 <?php
-	/**
-	 *
-	 * Template Name: Payment Completed
-	 * Created by PhpStorm.
-	 * User: User
-	 * Date: 28.02.2019
-	 * Time: 21:54
-	 *
-	 */
+/**
+ *
+ * Template Name: Payment Completed
+ * Created by PhpStorm.
+ * User: User
+ * Date: 28.02.2019
+ * Time: 21:54
+ *
+ */
 
-	get_header();
+get_header();
 ?>
     <section class="blog-header-container">
         <div class="container">

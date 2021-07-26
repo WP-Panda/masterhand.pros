@@ -1,27 +1,27 @@
 <?php
-	/**
-	 *    Template Name: Process Accept Bid
-	 */
+/**
+ *    Template Name: Process Accept Bid
+ */
 
-	$payment_type = get_query_var( 'paymentType' );
+$payment_type = get_query_var( 'paymentType' );
 
-	$session = et_read_session();
-	//processs payment
-	$payment_return = fre_process_escrow( $payment_type, $session );
+$session = et_read_session();
+//processs payment
+$payment_return = fre_process_escrow( $payment_type, $session );
 
-	$ad_id = $session[ 'ad_id' ];
+$ad_id = $session['ad_id'];
 
-	get_header();
+get_header();
 
-	global $ad, $payment_return;
+global $ad, $payment_return;
 
-	$payment_return = wp_parse_args( $payment_return, [ 'ACK' => false, 'payment_status' => '' ] );
-	extract( $payment_return );
-	if ( $session[ 'ad_id' ] ) {
-		$ad = get_post( $session[ 'ad_id' ] );
-	} else {
-		$ad = false;
-	}
+$payment_return = wp_parse_args( $payment_return, [ 'ACK' => false, 'payment_status' => '' ] );
+extract( $payment_return );
+if ( $session['ad_id'] ) {
+	$ad = get_post( $session['ad_id'] );
+} else {
+	$ad = false;
+}
 
 ?>
 
@@ -45,24 +45,24 @@
                 <div class="col-md-8 col-sm-12 col-xs-12 posts-container" id="left_content">
                     <div class="blog-content">
 						<?php
-							$permalink = get_permalink( $ad->ID );
-							if ( isset( $ACK ) && $ACK ) {
-								$permalink = add_query_arg( [ 'workspace' => 1 ], $permalink );
-								$workspace = '<a href="' . $permalink . '">' . get_the_title( $ad->ID ) . '</a>';
-								printf( __( 'You have successfully sent the money. Now you can start working on project %s .', ET_DOMAIN ), $workspace );
-								/**
-								 * template payment success
-								 */
-								// redirect to workspace
+						$permalink = get_permalink( $ad->ID );
+						if ( isset( $ACK ) && $ACK ) {
+							$permalink = add_query_arg( [ 'workspace' => 1 ], $permalink );
+							$workspace = '<a href="' . $permalink . '">' . get_the_title( $ad->ID ) . '</a>';
+							printf( __( 'You have successfully sent the money. Now you can start working on project %s .', ET_DOMAIN ), $workspace );
+							/**
+							 * template payment success
+							 */
+							// redirect to workspace
 
-							} else {
-								// redirect to project place
-								_e( 'Accept bid fail !', ET_DOMAIN );
-								// echo $payment_return['msg'];
-							}
+						} else {
+							// redirect to project place
+							_e( 'Accept bid fail !', ET_DOMAIN );
+							// echo $payment_return['msg'];
+						}
 
-							// clear session
-							et_destroy_session();
+						// clear session
+						et_destroy_session();
 
 						?>
 
@@ -95,4 +95,4 @@
     </script>
 
 <?php
-	get_footer();
+get_footer();

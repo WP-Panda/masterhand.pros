@@ -1,6 +1,6 @@
 <!-- Step 4 -->
 <?php
-	global $user_ID;
+global $user_ID;
 ?>
 <div id="fre-post-project-2 step-post" class="fre-post-project-step step-wrapper step-post ">
     <div class="fre-post-project-box">
@@ -26,71 +26,71 @@
 
             <ul id="fre-payment-accordion" class="fre-payment-list panel-group">
 				<?php
-					$paypal = ae_get_option( 'paypal' );
-					if ( $paypal[ 'enable' ] ) { ?>
-                        <li class="panel">
+				$paypal = ae_get_option( 'paypal' );
+				if ( $paypal['enable'] ) { ?>
+                    <li class="panel">
                         <span class="title-plan title-plan--paypal" data-type="paypal">
                             <?php _e( "Paypal", ET_DOMAIN ); ?>
                             <span><?php _e( "Send your payment via Paypal.", ET_DOMAIN ); ?></span>
                         </span>
-                            <a data-toggle="collapse" data-parent="#fre-payment-accordion" href="#fre-payment-paypal"
-                               class="btn collapsed select-payment"
-                               data-type="paypal"><?php _e( "Select", ET_DOMAIN ); ?></a>
-                        </li>
-					<?php } ?>
+                        <a data-toggle="collapse" data-parent="#fre-payment-accordion" href="#fre-payment-paypal"
+                           class="btn collapsed select-payment"
+                           data-type="paypal"><?php _e( "Select", ET_DOMAIN ); ?></a>
+                    </li>
+				<?php } ?>
 
 				<?php
-					$cash = ae_get_option( 'cash' );
-					if ( $cash[ 'enable' ] ) { ?>
-                        <li class="panel">
+				$cash = ae_get_option( 'cash' );
+				if ( $cash['enable'] ) { ?>
+                    <li class="panel">
                         <span class="title-plan" data-type="cash">
                             <?php _e( "Cash", ET_DOMAIN ); ?>
                             <span><?php _e( "Transfer money directly to our bank account.", ET_DOMAIN ); ?></span>
                         </span>
-                            <a data-toggle="collapse" data-type="cash" data-parent="#fre-payment-accordion"
-                               href="#fre-payment-cash"
-                               class="btn collapsed other-payment"><?php _e( "Select", ET_DOMAIN ); ?></a>
-                            <div id="fre-payment-cash" class="panel-collapse collapse fre-payment-proccess">
-                                <div class="fre-payment-cash">
-                                    <p class="title-name">
-										<?php _e( 'Amount need to be transferred:', ET_DOMAIN ); ?>
-                                        <br/>
-                                        <strong><span class="cash_amount">...</span></strong>
-                                    </p>
-                                    <p class="title-name">
-										<?php _e( 'Transfer to bank account:', ET_DOMAIN ); ?>
-                                        <br/>
-                                        <span class="info_cash">
+                        <a data-toggle="collapse" data-type="cash" data-parent="#fre-payment-accordion"
+                           href="#fre-payment-cash"
+                           class="btn collapsed other-payment"><?php _e( "Select", ET_DOMAIN ); ?></a>
+                        <div id="fre-payment-cash" class="panel-collapse collapse fre-payment-proccess">
+                            <div class="fre-payment-cash">
+                                <p class="title-name">
+									<?php _e( 'Amount need to be transferred:', ET_DOMAIN ); ?>
+                                    <br/>
+                                    <strong><span class="cash_amount">...</span></strong>
+                                </p>
+                                <p class="title-name">
+									<?php _e( 'Transfer to bank account:', ET_DOMAIN ); ?>
+                                    <br/>
+                                    <span class="info_cash">
                                         <?php
-	                                        $cash_options = ae_get_option( 'cash' );
+                                        $cash_options = ae_get_option( 'cash' );
 
                                         ?>
                                     </span>
-                                    </p>
-                                    <strong class="cash-message"><?php echo $cash_options[ 'cash_message' ]; ?></strong>
-                                </div>
-                                <a href="#" class="fre-btn select-payment"
-                                   data-type="cash"><?php _e( "Make Payment", ET_DOMAIN ); ?></a>
+                                </p>
+                                <strong class="cash-message"><?php echo $cash_options['cash_message']; ?></strong>
                             </div>
-                        </li>
-					<?php } ?>
+                            <a href="#" class="fre-btn select-payment"
+                               data-type="cash"><?php _e( "Make Payment", ET_DOMAIN ); ?></a>
+                        </div>
+                    </li>
+				<?php } ?>
 
 				<?php
-					do_action( 'after_payment_list' );
+				do_action( 'after_payment_list' );
 				?>
 
 				<?php
-					$co = ae_get_option( '2checkout' );
-					if ( $co[ 'enable' ] ) { ?>
-                        <li class="panel">
+				$co = ae_get_option( '2checkout' );
+				if ( $co['enable'] ) { ?>
+                    <li class="panel">
                             <span class="title-plan" data-type="2checkout">
                                 <?php # _e("2Checkout", ET_DOMAIN); ?>
                                 <span><?php _e( "Send your payment via 2Checkout.", ET_DOMAIN ); ?></span>
                             </span>
-                            <a href="#" class="btn collapsed btn-submit-price-plan select-payment"
-                               data-type="2checkout"><?php _e( "Select", ET_DOMAIN ); ?></a>
-                        </li>
-					<?php } ?>
+                        <a href="#" class="btn collapsed btn-submit-price-plan select-payment"
+                           data-type="2checkout"><?php _e( "Select", ET_DOMAIN ); ?></a>
+                    </li>
+				<?php } ?>
             </ul>
 			<?php do_action( 'after_payment_list_wrapper' ); ?>
         </div>

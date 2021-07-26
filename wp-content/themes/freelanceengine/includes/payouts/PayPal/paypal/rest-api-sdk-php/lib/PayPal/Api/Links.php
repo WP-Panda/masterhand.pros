@@ -7,7 +7,7 @@ use PayPal\Common\PayPalModel;
 /**
  * Class Links
  *
- * 
+ *
  *
  * @package PayPal\Api
  *
@@ -18,144 +18,137 @@ use PayPal\Common\PayPalModel;
  * @property string enctype
  * @property \PayPal\Api\HyperSchema schema
  */
-class Links extends PayPalModel
-{
-    /**
-     * Sets Href
-     *
-     * @param string $href
-     * 
-     * @return $this
-     */
-    public function setHref($href)
-    {
-        $this->href = $href;
-        return $this;
-    }
+class Links extends PayPalModel {
+	/**
+	 * Sets Href
+	 *
+	 * @param string $href
+	 *
+	 * @return $this
+	 */
+	public function setHref( $href ) {
+		$this->href = $href;
 
-    /**
-     * Gets Href
-     *
-     * @return string
-     */
-    public function getHref()
-    {
-        return $this->href;
-    }
+		return $this;
+	}
 
-    /**
-     * Sets Rel
-     *
-     * @param string $rel
-     * 
-     * @return $this
-     */
-    public function setRel($rel)
-    {
-        $this->rel = $rel;
-        return $this;
-    }
+	/**
+	 * Gets Href
+	 *
+	 * @return string
+	 */
+	public function getHref() {
+		return $this->href;
+	}
 
-    /**
-     * Gets Rel
-     *
-     * @return string
-     */
-    public function getRel()
-    {
-        return $this->rel;
-    }
+	/**
+	 * Sets Rel
+	 *
+	 * @param string $rel
+	 *
+	 * @return $this
+	 */
+	public function setRel( $rel ) {
+		$this->rel = $rel;
 
-    /**
-     * Sets TargetSchema
-     *
-     * @param \PayPal\Api\HyperSchema $targetSchema
-     * 
-     * @return $this
-     */
-    public function setTargetSchema($targetSchema)
-    {
-        $this->targetSchema = $targetSchema;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Gets TargetSchema
-     *
-     * @return \PayPal\Api\HyperSchema
-     */
-    public function getTargetSchema()
-    {
-        return $this->targetSchema;
-    }
+	/**
+	 * Gets Rel
+	 *
+	 * @return string
+	 */
+	public function getRel() {
+		return $this->rel;
+	}
 
-    /**
-     * Sets Method
-     *
-     * @param string $method
-     * 
-     * @return $this
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-        return $this;
-    }
+	/**
+	 * Sets TargetSchema
+	 *
+	 * @param \PayPal\Api\HyperSchema $targetSchema
+	 *
+	 * @return $this
+	 */
+	public function setTargetSchema( $targetSchema ) {
+		$this->targetSchema = $targetSchema;
 
-    /**
-     * Gets Method
-     *
-     * @return string
-     */
-    public function getMethod()
-    {
-        return $this->method;
-    }
+		return $this;
+	}
 
-    /**
-     * Sets Enctype
-     *
-     * @param string $enctype
-     * 
-     * @return $this
-     */
-    public function setEnctype($enctype)
-    {
-        $this->enctype = $enctype;
-        return $this;
-    }
+	/**
+	 * Gets TargetSchema
+	 *
+	 * @return \PayPal\Api\HyperSchema
+	 */
+	public function getTargetSchema() {
+		return $this->targetSchema;
+	}
 
-    /**
-     * Gets Enctype
-     *
-     * @return string
-     */
-    public function getEnctype()
-    {
-        return $this->enctype;
-    }
+	/**
+	 * Sets Method
+	 *
+	 * @param string $method
+	 *
+	 * @return $this
+	 */
+	public function setMethod( $method ) {
+		$this->method = $method;
 
-    /**
-     * Sets Schema
-     *
-     * @param \PayPal\Api\HyperSchema $schema
-     * 
-     * @return $this
-     */
-    public function setSchema($schema)
-    {
-        $this->schema = $schema;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Gets Schema
-     *
-     * @return \PayPal\Api\HyperSchema
-     */
-    public function getSchema()
-    {
-        return $this->schema;
-    }
+	/**
+	 * Gets Method
+	 *
+	 * @return string
+	 */
+	public function getMethod() {
+		return $this->method;
+	}
+
+	/**
+	 * Sets Enctype
+	 *
+	 * @param string $enctype
+	 *
+	 * @return $this
+	 */
+	public function setEnctype( $enctype ) {
+		$this->enctype = $enctype;
+
+		return $this;
+	}
+
+	/**
+	 * Gets Enctype
+	 *
+	 * @return string
+	 */
+	public function getEnctype() {
+		return $this->enctype;
+	}
+
+	/**
+	 * Sets Schema
+	 *
+	 * @param \PayPal\Api\HyperSchema $schema
+	 *
+	 * @return $this
+	 */
+	public function setSchema( $schema ) {
+		$this->schema = $schema;
+
+		return $this;
+	}
+
+	/**
+	 * Gets Schema
+	 *
+	 * @return \PayPal\Api\HyperSchema
+	 */
+	public function getSchema() {
+		return $this->schema;
+	}
 
 }

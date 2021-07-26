@@ -1,6 +1,6 @@
 <?php
-	defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
-	function test() {
+function test() {
 
-	}
+}

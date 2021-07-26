@@ -3,11 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
-                <?php _e( "Post Rejection", ET_DOMAIN ) ?>
+				<?php _e( "Post Rejection", ET_DOMAIN ) ?>
             </div>
             <div class="modal-body">
                 <form role="form" id="reject-project-form" class="reject-project-form fre-modal-form">
-                    <p><?php echo _e('Please give the employer a message to explain why you reject his/her project.', ET_DOMAIN); ?></p>
+                    <p><?php echo _e( 'Please give the employer a message to explain why you reject his/her project.', ET_DOMAIN ); ?></p>
                     <div class="fre-input-field no-margin-bottom">
                         <label class="fre-field-title"><?php _e( "Message", ET_DOMAIN ) ?></label>
                         <textarea name="reject_message" id="reject-message"></textarea>

@@ -16,99 +16,94 @@ use PayPal\Common\PayPalModel;
  * @property mixed value
  * @property string from
  */
-class Patch extends PayPalModel
-{
-    /**
-     * The operation to perform.
-     * Valid Values: ["add", "remove", "replace", "move", "copy", "test"]
-     *
-     * @param string $op
-     * 
-     * @return $this
-     */
-    public function setOp($op)
-    {
-        $this->op = $op;
-        return $this;
-    }
+class Patch extends PayPalModel {
+	/**
+	 * The operation to perform.
+	 * Valid Values: ["add", "remove", "replace", "move", "copy", "test"]
+	 *
+	 * @param string $op
+	 *
+	 * @return $this
+	 */
+	public function setOp( $op ) {
+		$this->op = $op;
 
-    /**
-     * The operation to perform.
-     *
-     * @return string
-     */
-    public function getOp()
-    {
-        return $this->op;
-    }
+		return $this;
+	}
 
-    /**
-     * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
-     *
-     * @param string $path
-     * 
-     * @return $this
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-        return $this;
-    }
+	/**
+	 * The operation to perform.
+	 *
+	 * @return string
+	 */
+	public function getOp() {
+		return $this->op;
+	}
 
-    /**
-     * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
+	/**
+	 * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
+	 *
+	 * @param string $path
+	 *
+	 * @return $this
+	 */
+	public function setPath( $path ) {
+		$this->path = $path;
 
-    /**
-     * New value to apply based on the operation.
-     *
-     * @param mixed $value
-     * 
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * New value to apply based on the operation.
-     *
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+	/**
+	 * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
+	 *
+	 * @return string
+	 */
+	public function getPath() {
+		return $this->path;
+	}
 
-    /**
-     * A string containing a JSON Pointer value that references the location in the target document to move the value from.
-     *
-     * @param string $from
-     * 
-     * @return $this
-     */
-    public function setFrom($from)
-    {
-        $this->from = $from;
-        return $this;
-    }
+	/**
+	 * New value to apply based on the operation.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return $this
+	 */
+	public function setValue( $value ) {
+		$this->value = $value;
 
-    /**
-     * A string containing a JSON Pointer value that references the location in the target document to move the value from.
-     *
-     * @return string
-     */
-    public function getFrom()
-    {
-        return $this->from;
-    }
+		return $this;
+	}
+
+	/**
+	 * New value to apply based on the operation.
+	 *
+	 * @return mixed
+	 */
+	public function getValue() {
+		return $this->value;
+	}
+
+	/**
+	 * A string containing a JSON Pointer value that references the location in the target document to move the value from.
+	 *
+	 * @param string $from
+	 *
+	 * @return $this
+	 */
+	public function setFrom( $from ) {
+		$this->from = $from;
+
+		return $this;
+	}
+
+	/**
+	 * A string containing a JSON Pointer value that references the location in the target document to move the value from.
+	 *
+	 * @return string
+	 */
+	public function getFrom() {
+		return $this->from;
+	}
 
 }

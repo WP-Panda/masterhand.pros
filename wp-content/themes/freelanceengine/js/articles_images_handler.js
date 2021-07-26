@@ -2,8 +2,8 @@ jQuery(document).ready(function ($) {
     $('.usp-input').on('change', doc.addItemPreview);
     $('.value__block .closed').on('click', doc.deleteFile);
 
-    $('.file__label').click(function(){
-        if ($('.value__block .visible').length === 3){
+    $('.file__label').click(function () {
+        if ($('.value__block .visible').length === 3) {
             $('.usp-input').prop('disabled', true);
 
             AE.pubsub.trigger('ae:notification', {
@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
     );
     */
 
-    $('.input-block__add-to-text').click(function(){
+    $('.input-block__add-to-text').click(function () {
         let parent = $(this).closest('.input-block');
         let link = $(this).attr('data-filepath');
         let filename = parent.find('.value').text();
@@ -40,10 +40,10 @@ jQuery(document).ready(function ($) {
         let $textarea = $('#user-submitted-content');
         let textareaContent = $textarea.val();
 
-        if (attachedType === 'image'){
-            textareaContent += "\r\n"+'<img src="'+link+'" width="" height="" />';
+        if (attachedType === 'image') {
+            textareaContent += "\r\n" + '<img src="' + link + '" width="" height="" />';
         } else {
-            textareaContent += "\r\n"+'<a href="'+link+'">'+filename+'</a>';
+            textareaContent += "\r\n" + '<a href="' + link + '">' + filename + '</a>';
         }
 
         $textarea.val(textareaContent);
@@ -68,7 +68,7 @@ let doc = {
         let start_img = 0;
         let files = this.files;
 
-        if ($('.value__block .visible').length === 3){
+        if ($('.value__block .visible').length === 3) {
             $('.usp-input').prop('disabled', true);
         }
 
@@ -96,34 +96,44 @@ let doc = {
             }
         }
     },
-    
+
     imgPreview: function (file, ind) {
         let reader = new FileReader();
 
         reader.addEventListener('load', function (event) {
-            setTimeout(function() {
-                $('.value__block .visible:last').find('.input-block__preview').html("<img src='"+event.target.result+"' class='input-block__preview-image'>");
+            setTimeout(function () {
+                $('.value__block .visible:last').find('.input-block__preview').html("<img src='" + event.target.result + "' class='input-block__preview-image'>");
             }, 100);
         });
 
         reader.readAsDataURL(file);
     },
-    
+
     docPreview: function (file, ind) {
         let reader = new FileReader();
         let typeIcon = '';
 
         switch (file.type) {
-            case 'application/msword': typeIcon = '/wp-content/uploads/2020/08/doc.svg'; break;
-            case 'application/pdf': typeIcon = '/wp-content/uploads/2020/08/pdf.svg'; break;
-            case 'application/vnd.ms-excel': typeIcon = '/wp-content/uploads/2020/08/xls.svg'; break;
-            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': typeIcon = '/wp-content/uploads/2020/08/docx.svg'; break;
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': typeIcon = '/wp-content/uploads/2020/08/xlsx.svg'; break;
+            case 'application/msword':
+                typeIcon = '/wp-content/uploads/2020/08/doc.svg';
+                break;
+            case 'application/pdf':
+                typeIcon = '/wp-content/uploads/2020/08/pdf.svg';
+                break;
+            case 'application/vnd.ms-excel':
+                typeIcon = '/wp-content/uploads/2020/08/xls.svg';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                typeIcon = '/wp-content/uploads/2020/08/docx.svg';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                typeIcon = '/wp-content/uploads/2020/08/xlsx.svg';
+                break;
         }
 
         reader.addEventListener('load', function (event) {
-            setTimeout(function() {
-                $('.value__block .visible:last').addClass('visible--file').find('.input-block__preview').html("<img src='"+typeIcon+"' class='input-block__preview-file'>");
+            setTimeout(function () {
+                $('.value__block .visible:last').addClass('visible--file').find('.input-block__preview').html("<img src='" + typeIcon + "' class='input-block__preview-file'>");
             }, 100);
         });
         reader.readAsDataURL(file);
@@ -154,7 +164,7 @@ let doc = {
                 data.append('files[]', file_list[i])
             }
 
-            if ($('input[name=ID]').val() !== undefined){
+            if ($('input[name=ID]').val() !== undefined) {
                 data.append('delete_file', $('input[name=ID]').val())
             } else {
                 $.each($('.value__block .visible'), function () {
@@ -184,10 +194,10 @@ let doc = {
                         $('.value__block .visible:last').find('.input-block__add-to-text').attr('data-filepath', data.filepath);
                         $('.value__block .visible:last').find('.closed').attr('data-file-id', data.file_id);
 
-                        if ($attachesInput.val() === ''){
+                        if ($attachesInput.val() === '') {
                             $attachesInput.val(data.file_id);
                         } else {
-                            $attachesInput.val( $attachesInput.val() + ',' +  data.file_id);
+                            $attachesInput.val($attachesInput.val() + ',' + data.file_id);
                         }
 
                         AE.pubsub.trigger('ae:notification', {
@@ -278,7 +288,7 @@ let doc = {
         var file = $(this).parent().prev().children('img');
         $('#modal_show_file img.show_file')[0].src = file[0].src;
 
-        if(file[0].naturalWidth < width_modal) {
+        if (file[0].naturalWidth < width_modal) {
             $('#modal_show_file .modal-dialog').width(file[0].naturalWidth)
         }
         else {

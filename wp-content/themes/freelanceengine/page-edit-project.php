@@ -1,22 +1,22 @@
 <?php
-	/**
-	 * Page Edit Project
-	 */
-	global $user_ID;
-	get_header();
-	$post           = '';
-	$current_skills = '';
-	if ( isset( $_REQUEST[ 'id' ] ) ) {
-		$post = get_post( $_REQUEST[ 'id' ] );
-		if ( $post ) {
-			global $ae_post_factory;
-			$post_object  = $ae_post_factory->get( $post->post_type );
-			$post_convert = $post_object->convert( $post );
-			echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_convert ) . '</script>';
-		}
-		//get skills
-		$current_skills = get_the_terms( $_REQUEST[ 'id' ], 'skill' );
+/**
+ * Page Edit Project
+ */
+global $user_ID;
+get_header();
+$post           = '';
+$current_skills = '';
+if ( isset( $_REQUEST['id'] ) ) {
+	$post = get_post( $_REQUEST['id'] );
+	if ( $post ) {
+		global $ae_post_factory;
+		$post_object  = $ae_post_factory->get( $post->post_type );
+		$post_convert = $post_object->convert( $post );
+		echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_convert ) . '</script>';
 	}
+	//get skills
+	$current_skills = get_the_terms( $_REQUEST['id'], 'skill' );
+}
 
 ?>
     <div class="fre-page-wrapper">
@@ -37,21 +37,21 @@
                                     <label class="fre-field-title"
                                            for="project_category"><?php _e( 'What category does your project work in?', ET_DOMAIN ); ?></label>
 									<?php
-										$cate_arr = [];
-										if ( ! empty( $post_convert->tax_input[ 'project_category' ] ) ) {
-											foreach ( $post_convert->tax_input[ 'project_category' ] as $key => $value ) {
-												$cate_arr[] = $value->term_id;
-											};
-										}
-										ae_tax_dropdown( 'project_category', [
-												'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s categories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) . '"',
-												'class'           => 'fre-chosen-multi',
-												'hide_empty'      => false,
-												'hierarchical'    => true,
-												'id'              => 'project_category',
-												'show_option_all' => false,
-												'selected'        => $cate_arr,
-											] );
+									$cate_arr = [];
+									if ( ! empty( $post_convert->tax_input['project_category'] ) ) {
+										foreach ( $post_convert->tax_input['project_category'] as $key => $value ) {
+											$cate_arr[] = $value->term_id;
+										};
+									}
+									ae_tax_dropdown( 'project_category', [
+										'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s categories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) . '"',
+										'class'           => 'fre-chosen-multi',
+										'hide_empty'      => false,
+										'hierarchical'    => true,
+										'id'              => 'project_category',
+										'show_option_all' => false,
+										'selected'        => $cate_arr,
+									] );
 									?>
                                 </div>
                                 <div class="fre-input-field">
@@ -85,14 +85,14 @@
                                     <label class="fre-field-title"
                                            for="skill"><?php _e( 'What skills do you require?', ET_DOMAIN ); ?></label>
 									<?php
-										ae_tax_dropdown( 'skill', [
-												'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s skills", ET_DOMAIN ), ae_get_option( 'fre_max_skill', 5 ) ) . '"',
-												'class'           => 'fre-chosen-multi required',
-												'hide_empty'      => false,
-												'hierarchical'    => true,
-												'id'              => 'skill',
-												'show_option_all' => false,
-											] );
+									ae_tax_dropdown( 'skill', [
+										'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s skills", ET_DOMAIN ), ae_get_option( 'fre_max_skill', 5 ) ) . '"',
+										'class'           => 'fre-chosen-multi required',
+										'hide_empty'      => false,
+										'hierarchical'    => true,
+										'id'              => 'skill',
+										'show_option_all' => false,
+									] );
 									?>
                                 </div>
                                 <div class="fre-input-field">
@@ -109,21 +109,21 @@
                                     <label class="fre-field-title"
                                            for="project-location"><?php _e( 'Location (optional)', ET_DOMAIN ); ?></label>
 									<?php
-										ae_tax_dropdown( 'country', [
-												'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" data-placeholder="' . __( "Choose country", ET_DOMAIN ) . '"',
-												'class'           => 'fre-chosen-single',
-												'hide_empty'      => false,
-												'hierarchical'    => true,
-												'id'              => 'country',
-												'show_option_all' => __( "Choose country", ET_DOMAIN ),
-											] );
+									ae_tax_dropdown( 'country', [
+										'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" data-placeholder="' . __( "Choose country", ET_DOMAIN ) . '"',
+										'class'           => 'fre-chosen-single',
+										'hide_empty'      => false,
+										'hierarchical'    => true,
+										'id'              => 'country',
+										'show_option_all' => __( "Choose country", ET_DOMAIN ),
+									] );
 									?>
                                 </div>
 								<?php
-									// Add hook: add more field
-									echo '<ul class="fre-custom-field">';
-									do_action( 'ae_submit_post_form', PROJECT, $post );
-									echo '</ul>';
+								// Add hook: add more field
+								echo '<ul class="fre-custom-field">';
+								do_action( 'ae_submit_post_form', PROJECT, $post );
+								echo '</ul>';
 								?>
                                 <div class="fre-post-project-btn">
                                     <button class="fre-btn fre-post-project-next-btn primary-bg-color"

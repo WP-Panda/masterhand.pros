@@ -1,11 +1,11 @@
 <?php
-	global $current_user;
-	$class_trans = '';
-	if ( is_page_template( 'page-home.php' ) ) {
-		$class_trans = 'class="trans-color"';
-	} else {
-		$class_trans = 'class="not-page-home"';
-	}
+global $current_user;
+$class_trans = '';
+if ( is_page_template( 'page-home.php' ) ) {
+	$class_trans = 'class="trans-color"';
+} else {
+	$class_trans = 'class="not-page-home"';
+}
 ?>
 <header id="header-wrapper" data-size="big" <?php echo $class_trans; ?>>
     <div class="top-header">
@@ -51,14 +51,14 @@
                                          data-toggle="dropdown">
                                     <span class="avatar">
                                             <?php
-	                                            $notify_number = 0;
-	                                            if ( function_exists( 'fre_user_have_notify' ) ) {
-		                                            $notify_number = fre_user_have_notify();
-		                                            if ( $notify_number ) {
-			                                            echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
-		                                            }
+                                            $notify_number = 0;
+                                            if ( function_exists( 'fre_user_have_notify' ) ) {
+	                                            $notify_number = fre_user_have_notify();
+	                                            if ( $notify_number ) {
+		                                            echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
 	                                            }
-	                                            echo get_avatar( $user_ID );
+                                            }
+                                            echo get_avatar( $user_ID );
                                             ?>
 
                                         <span><?php echo $current_user->display_name; ?></span>
@@ -78,9 +78,9 @@
                                             <a href="javascript:void(0);" class="trigger-overlay trigger-notification">
                                                 <i class="fa fa-flag"></i><?php _e( 'Notification', ET_DOMAIN ); ?>
 												<?php
-													if ( $notify_number ) {
-														echo '<span class="notify-number">(' . $notify_number . ')</span>';
-													}
+												if ( $notify_number ) {
+													echo '<span class="notify-number">(' . $notify_number . ')</span>';
+												}
 												?>
                                             </a>
                                         </li>

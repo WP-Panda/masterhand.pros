@@ -1,12 +1,12 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
-	extract( $args );
+defined( 'ABSPATH' ) || exit;
+extract( $args );
 
 
 ?>
@@ -25,7 +25,7 @@
 						echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . ' </span>';
 						echo '<div class="status_expire">Expire: ' . $user_pro_expire . '</div>';
 					}
-						wpp_get_template_part( 'wpp/templates/profile/status-label', [ 'visualFlagNumber' => $visualFlagNumber ] );
+					wpp_get_template_part( 'wpp/templates/profile/status-label', [ 'visualFlagNumber' => $visualFlagNumber ] );
 					?>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12 free-rating">
@@ -33,18 +33,18 @@
                 </div>
                 <div class="col-sm-12 col-xs-12 freelance-profile-country">
 					<?php
-						if ( $location && ! empty( $location[ 'country' ] ) ) {
-							$str = [];
-							foreach ( $location as $key => $item ) {
-								if ( ! empty( $item[ 'name' ] ) ) {
-									$str[] = $item[ 'name' ];
-								}
+					if ( $location && ! empty( $location['country'] ) ) {
+						$str = [];
+						foreach ( $location as $key => $item ) {
+							if ( ! empty( $item['name'] ) ) {
+								$str[] = $item['name'];
 							}
-							echo ! empty( $str ) ? implode( ' - ', $str ) : 'Error';
-						} else { ?>
-							<?php echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>'; ?>
-							<?php
 						}
+						echo ! empty( $str ) ? implode( ' - ', $str ) : 'Error';
+					} else { ?>
+						<?php echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>'; ?>
+						<?php
+					}
 					?>
                 </div>
 				<?php if ( fre_share_role() || ae_user_role( $user_data->ID ) == FREELANCER ) { ?>
@@ -91,14 +91,14 @@
                     <span><?php echo get_count_reviews_user( $user_ID ); ?></span>
                 </div>
                 <div class="city">
-					<?php if ( $location && ! empty( $location[ 'country' ] ) ) {
+					<?php if ( $location && ! empty( $location['country'] ) ) {
 						$str = [];
 						foreach ( $location as $key => $item ) {
-							if ( ! empty( $item[ 'name' ] ) ) {
-								$str[] = $item[ 'name' ];
+							if ( ! empty( $item['name'] ) ) {
+								$str[] = $item['name'];
 							}
 						}
-						echo ! empty( $str ) ? __( 'City:', ET_DOMAIN ) . '<span>' . $str[ 2 ] . '</span>' : '';
+						echo ! empty( $str ) ? __( 'City:', ET_DOMAIN ) . '<span>' . $str[2] . '</span>' : '';
 					} ?>
                 </div>
             </div>
@@ -115,7 +115,7 @@
 
             <div class="col-sm-3 col-md-3 col-lg-2 col-xs-12 fre-profile_refinfo">
                 <span><?php echo __( 'My referral code:', ET_DOMAIN ) ?></span>
-				<?php $url = $_SERVER[ "HTTP_HOST" ] . '/register/?code='; ?>
+				<?php $url = $_SERVER["HTTP_HOST"] . '/register/?code='; ?>
                 <div id="Text" class="copy refnumber">
                     <span><?php echo $referral_code; ?></span>
                 </div>

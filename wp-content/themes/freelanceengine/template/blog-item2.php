@@ -1,11 +1,11 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
 ?>
 <div class="col-sm-6 col-xs-12">
     <div class="fre-blog-item">

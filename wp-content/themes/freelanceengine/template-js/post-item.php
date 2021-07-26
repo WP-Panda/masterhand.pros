@@ -20,15 +20,15 @@
                 	<i class="fa fa-comments"></i> {{= comment_number }}
                 </span>
                 <h2 class="title-blog">
-	                <a href="{{= permalink }}">
-	               		{{= post_title }}
-	                </a>
+                    <a href="{{= permalink }}">
+                        {{= post_title }}
+                    </a>
                 </h2>
-				<div class="post-excerpt">
-					{{= post_excerpt }}
-				</div>
+                <div class="post-excerpt">
+                    {{= post_excerpt }}
+                </div>
                 <a href="{{= permalink }}" class="read-more">
-                    <?php _e("READ MORE",ET_DOMAIN) ?><i class="fa fa-arrow-circle-o-right"></i>
+					<?php _e( "READ MORE", ET_DOMAIN ) ?><i class="fa fa-arrow-circle-o-right"></i>
                 </a>
             </div>
         </div>

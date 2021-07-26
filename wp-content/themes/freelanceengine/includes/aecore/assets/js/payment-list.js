@@ -4,18 +4,18 @@
  * filter order by gateway
  * use Views.BlockUi add view block loading
  */
-(function(Models, Views, Collections, $, Backbone) {
+(function (Models, Views, Collections, $, Backbone) {
     Views.OrderList = Backbone.View.extend({
         events: {
             'click .load-more': 'loadMore',
             'change input.order-search': 'search',
             'change select.et-input': 'search',
-            'submit .search-box form': 'search', 
-            'click a.publish' : 'publishOrder',
-            'click a.decline' : 'declineOrder'
+            'submit .search-box form': 'search',
+            'click a.publish': 'publishOrder',
+            'click a.decline': 'declineOrder'
         },
 
-        initialize: function(options) {
+        initialize: function (options) {
 
             this.paged = 1;
             this.pages = options.pages;
@@ -25,7 +25,7 @@
         /**
          * build ajax params for ajax
          */
-        buildParams: function(reset) {
+        buildParams: function (reset) {
 
             var view = this,
                 keyword = this.$('input.order-search').val(),
@@ -40,11 +40,11 @@
                 $target = this.$('ul');
                 view.paged = 1;
             }
-            
-            if(typeof ajaxParams.data == 'undefined'){
+
+            if (typeof ajaxParams.data == 'undefined') {
                 view.paged = 2;
             }
-            ajaxParams.success = function(result) {
+            ajaxParams.success = function (result) {
                 var data = result.data;
                 view.blockUi.unblock();
                 if (result.pages < result.page) {
@@ -62,7 +62,7 @@
                 }
 
             };
-            ajaxParams.beforeSend = function() {
+            ajaxParams.beforeSend = function () {
                 view.blockUi.block($target);
             };
             /**
@@ -82,7 +82,7 @@
         /**
          * load more user event
          */
-        loadMore: function(event) {
+        loadMore: function (event) {
             var view = this,
                 $target = $(event.currentTarget);
 
@@ -94,35 +94,35 @@
         /**
          * search user
          */
-        search: function(e) {
+        search: function (e) {
             e.preventDefault();
             this.paged = 0;
             var ajaxParams = this.buildParams(true);
             $.ajax(ajaxParams);
-        }, 
+        },
         /**
          * admin publish and order
          */
-        publishOrder : function(event){
+        publishOrder: function (event) {
             event.preventDefault();
-            var $target =  $(event.currentTarget),
+            var $target = $(event.currentTarget),
                 data = {
-                    'ID' : $target.attr('data-id'),
-                    'status' : 'publish', 
-                    'action' : 'ae-sync-order'
+                    'ID': $target.attr('data-id'),
+                    'status': 'publish',
+                    'action': 'ae-sync-order'
                 };
             this.syncOrder(data, $target);
-        }, 
+        },
         /**
          * admin decline an order
          */
-        declineOrder : function(event){
+        declineOrder: function (event) {
             event.preventDefault();
-            var $target =  $(event.currentTarget),
+            var $target = $(event.currentTarget),
                 data = {
-                    'ID' : $target.attr('data-id'),
-                    'status' : 'draft', 
-                    'action' : 'ae-sync-order'
+                    'ID': $target.attr('data-id'),
+                    'status': 'draft',
+                    'action': 'ae-sync-order'
                 };
             if (confirm('Are you sure you want to decline this payment?')) {
                 this.syncOrder(data, $target);
@@ -131,19 +131,19 @@
         /**
          * js sync order
          */
-        syncOrder : function(data, $target){
-            var ajaxParams = AE.ajaxParams, 
+        syncOrder: function (data, $target) {
+            var ajaxParams = AE.ajaxParams,
                 view = this;
 
             ajaxParams.data = data;
-            ajaxParams.success = function(response) {
+            ajaxParams.success = function (response) {
                 view.blockUi.unblock();
-                if(response.success){
-                    
-                    if(data.status == 'publish') {
+                if (response.success) {
+
+                    if (data.status == 'publish') {
                         $target.parents('li').find('.content span.icon').attr('data-icon', '2').end()
-                        .find('a.error').removeClass('error color-red').addClass('color-green');
-                    }else{
+                            .find('a.error').removeClass('error color-red').addClass('color-green');
+                    } else {
                         $target.parents('li').find('.content span.icon').attr('data-icon', '*').end()
                             .find('a.error').removeClass('error color-red').addClass('color-grey').attr('title', data.status);
                     }
@@ -151,10 +151,10 @@
                         .prepend('success')*/;
                 }
             };
-            ajaxParams.beforeSend = function() {
+            ajaxParams.beforeSend = function () {
                 view.blockUi.block($target);
             };
-            
+
             $.ajax(ajaxParams);
         }
 

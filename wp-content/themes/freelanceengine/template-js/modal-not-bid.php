@@ -8,11 +8,11 @@ $profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
-				<?php if ( ! ( ae_get_option( 'invited_to_bid' ) && ! fre_check_invited( $user_ID, $post->ID ) ) ) { 
-                    _e( 'Bid project', ET_DOMAIN ); 
-                 } else { 
-                    _e( 'Project Bidding', ET_DOMAIN ); 
-                 } ?>
+				<?php if ( ! ( ae_get_option( 'invited_to_bid' ) && ! fre_check_invited( $user_ID, $post->ID ) ) ) {
+					_e( 'Bid project', ET_DOMAIN );
+				} else {
+					_e( 'Project Bidding', ET_DOMAIN );
+				} ?>
             </div>
             <div class="modal-body">
 				<?php

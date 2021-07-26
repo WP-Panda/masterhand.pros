@@ -1,26 +1,26 @@
 <?php $user_role = ae_user_role( $user_ID );
-	$postid      = $post->post_author;
-	if ( $user_role == FREELANCER ) {
-		$args2 = [
-			'post_type'  => 'project',
-			'orderby'    => 'date',
-			'order'      => 'desc',
-			'author'     => $postid,
-			'meta_key'   => 'professional_id',
-			'meta_value' => $user_ID
-		];
-	} else {
-		$args2 = [
-			'post_type'  => 'project',
-			'orderby'    => 'date',
-			'order'      => 'desc',
-			'author'     => $user_ID,
-			'meta_key'   => 'professional_id',
-			'meta_value' => $postid
-		];
-	}
-	$query2 = new WP_Query( $args2 );
-	$count  = $query2->found_posts;
+$postid          = $post->post_author;
+if ( $user_role == FREELANCER ) {
+	$args2 = [
+		'post_type'  => 'project',
+		'orderby'    => 'date',
+		'order'      => 'desc',
+		'author'     => $postid,
+		'meta_key'   => 'professional_id',
+		'meta_value' => $user_ID
+	];
+} else {
+	$args2 = [
+		'post_type'  => 'project',
+		'orderby'    => 'date',
+		'order'      => 'desc',
+		'author'     => $user_ID,
+		'meta_key'   => 'professional_id',
+		'meta_value' => $postid
+	];
+}
+$query2 = new WP_Query( $args2 );
+$count  = $query2->found_posts;
 ?>
 
 <div class="page-referrals_item">

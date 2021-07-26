@@ -1,11 +1,11 @@
-(function($, Models, Collections, Views) {
+(function ($, Models, Collections, Views) {
     /*
      *
      * S U M I T  P R O J E C T  V I E W S
      *
      */
     Views.SubmitProject = Views.SubmitPost.extend({
-        onAfterInit: function() {
+        onAfterInit: function () {
             var view = this;
             if ($('#edit_postdata').length > 0) {
                 var postdata = JSON.parse($('#edit_postdata').html());
@@ -20,8 +20,8 @@
                 model: view.model,
                 extensions: 'pdf,doc,docx,png,jpg,jpeg,gif,zip'
             });
-            if( view.$el.find('input[name="is_submit_project"]').length > 0 ){
-                view.model.set('is_submit_project', view.$el.find('input[name="is_submit_project"]') );
+            if (view.$el.find('input[name="is_submit_project"]').length > 0) {
+                view.model.set('is_submit_project', view.$el.find('input[name="is_submit_project"]'));
             }
             //new skills view
             new Views.Skill_Control({
@@ -34,40 +34,40 @@
                 inherit_select_classes: true
             });
         },
-        onLimitFree: function() {
+        onLimitFree: function () {
             AE.pubsub.trigger('ae:notification', {
                 msg: ae_globals.limit_free_msg,
                 notice_type: 'error',
             });
         },
-        onAfterShowNextStep: function(step) {
+        onAfterShowNextStep: function (step) {
             $('.step-heading').find('i.fa-caret-down').removeClass('fa-caret-right fa-caret-down').addClass('fa-caret-right');
             $('.step-' + step).find('.step-heading i.fa-caret-right').removeClass('fa-caret-right').addClass('fa-caret-down');
         },
-        onAfterSelectStep: function(step) {
+        onAfterSelectStep: function (step) {
             $('.step-heading').find('i').removeClass('fa-caret-right fa-caret-down').addClass('fa-caret-right');
             step.find('i').removeClass('fa-caret-right').addClass('fa-caret-down');
         },
         // on after Submit auth fail
-        onAfterAuthFail: function(model, res) {
+        onAfterAuthFail: function (model, res) {
             AE.pubsub.trigger('ae:notification', {
                 msg: res.msg,
                 notice_type: 'error',
             });
         },
-        onAfterPostFail: function(model, res) {
+        onAfterPostFail: function (model, res) {
             AE.pubsub.trigger('ae:notification', {
                 msg: res.msg,
                 notice_type: 'error',
             });
         },
-        onAfterSelectPlan: function($step, $li) {
+        onAfterSelectPlan: function ($step, $li) {
             var label = $li.attr('data-label');
             $step.find('.text-heading-step').html(label);
         }
     });
     Views.SubmitBibPlan = Views.SubmitPost.extend({
-        onAfterInit: function() {
+        onAfterInit: function () {
             var view = this;
             if ($('#edit_postdata').length > 0) {
                 var postdata = JSON.parse($('#edit_postdata').html());
@@ -89,28 +89,28 @@
                 inherit_select_classes: true
             });
         },
-        onLimitFree: function() {
+        onLimitFree: function () {
             AE.pubsub.trigger('ae:notification', {
                 msg: ae_globals.limit_free_msg,
                 notice_type: 'error',
             });
         },
-        onAfterShowNextStep: function(step) {
+        onAfterShowNextStep: function (step) {
             $('.step-heading').find('i.fa-caret-down').removeClass('fa-caret-right fa-caret-down').addClass('fa-caret-right');
             $('.step-' + step).find('.step-heading i.fa-caret-right').removeClass('fa-caret-right').addClass('fa-caret-down');
         },
-        onAfterSelectStep: function(step) {
+        onAfterSelectStep: function (step) {
             $('.step-heading').find('i').removeClass('fa-caret-right fa-caret-down').addClass('fa-caret-right');
             step.find('i').removeClass('fa-caret-right').addClass('fa-caret-down');
         },
         // on after Submit auth fail
-        onAfterAuthFail: function(model, res) {
+        onAfterAuthFail: function (model, res) {
             AE.pubsub.trigger('ae:notification', {
                 msg: res.msg,
                 notice_type: 'error',
             });
         },
-        onAfterPostFail: function(model, res) {
+        onAfterPostFail: function (model, res) {
             AE.pubsub.trigger('ae:notification', {
                 msg: res.msg,
                 notice_type: 'error',

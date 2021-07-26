@@ -1,23 +1,23 @@
 <?php
-	/*
-	*	Template Name: Full Width No Sidebar
-	*/
+/*
+*	Template Name: Full Width No Sidebar
+*/
 
-	/**
-	 * The template for displaying all pages
-	 *
-	 * This is the template that displays all pages by default.
-	 * Please note that this is the WordPress construct of pages and that
-	 * other 'pages' on your WordPress site will use a different template.
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * The template for displaying all pages
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages and that
+ * other 'pages' on your WordPress site will use a different template.
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	global $post;
-	get_header();
-	the_post();
+global $post;
+get_header();
+the_post();
 ?>
 
     <section class="blog-header-container">
@@ -38,13 +38,13 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="blog-content">
 					<?php
-						the_content();
-						wp_link_pages( [
-							'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
-							'after'       => '</div>',
-							'link_before' => '<span>',
-							'link_after'  => '</span>',
-						] );
+					the_content();
+					wp_link_pages( [
+						'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
+						'after'       => '</div>',
+						'link_before' => '<span>',
+						'link_after'  => '</span>',
+					] );
 					?>
                 </div><!-- end page content -->
             </div>
@@ -52,4 +52,4 @@
         <!--// block control  -->
     </div>
 <?php
-	get_footer();
+get_footer();

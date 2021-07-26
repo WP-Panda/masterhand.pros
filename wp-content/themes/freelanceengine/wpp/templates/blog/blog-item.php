@@ -1,12 +1,12 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
-	extract( $args );
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
+extract( $args );
 ?>
 <div class="fre-blog-list-item">
     <div class="fre-blog-item">

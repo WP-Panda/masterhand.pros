@@ -35,7 +35,7 @@
             }
         });
         $('.validateNumVal').validate();
-        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window', html: true, trigger: 'click' });
+        $('[data-toggle="tooltip"]').tooltip({boundary: 'window', html: true, trigger: 'click'});
         /**
          * define blog item view
          */
@@ -216,7 +216,7 @@
         var flag_first_company = true;
         ProfileItem = Views.PostItem.extend({
             tagName: tagname,
-            className: function() {
+            className: function () {
                 if (this.model.get('post_type') === 'company') {
                     return 'col-md-12 col-sm-12 col-xs-12 profile-item';
                 } else {
@@ -238,7 +238,7 @@
                     hints: raty.hint
                 });
             },
-            render:function() {
+            render: function () {
                 var template_company_title = '';
                 if (this.model.get('post_type') === 'company') {
                     if (!flag_first_company) {
@@ -258,15 +258,15 @@
                 'change .get-quote-company': 'checkedForQuoteCompany'
             },
             checkedForQuoteCompany: function (event) {
-                 console.log('checkedForQuoteCompany');
+                console.log('checkedForQuoteCompany');
                 var $elm = $(event.target);
-                if($elm.is(':checked')){
+                if ($elm.is(':checked')) {
                     this.addItemCom($elm.data('id'), $elm.data('name'));
                 } else {
                     this.removeItemCom($elm.data('id'))
                 }
 
-                if(Object.keys(this.model.collection.listQuoteCompany).length === 0){
+                if (Object.keys(this.model.collection.listQuoteCompany).length === 0) {
                     $('.btn-get-quotes').removeClass('visible');
                 } else {
                     $('.btn-get-quotes').addClass('visible');
@@ -276,7 +276,7 @@
             },
             showGetQuoteModal: function (event) {
                 var view = this;
-                 console.log('showGetQuoteModal');
+                console.log('showGetQuoteModal');
                 event.preventDefault();
                 var $elm = $(event.target).parent();
                 if (typeof view.modal_get_quote == 'undefined') {
@@ -286,7 +286,7 @@
                 view.modal_get_quote.setCompanyName($elm.data('name'));
                 view.modal_get_quote.openModal();
             },
-            animateChecked: function(target){
+            animateChecked: function (target) {
                 if ($(target).parent().hasClass('is-ajax')) {
                     var sib = $(target).siblings();
                     if (sib.hasClass('active') === true) {
@@ -397,7 +397,7 @@
         CompanyItem = Views.PostItem.extend({
             tagName: 'li',
             className: 'company-item',
-          //  template: _.template($('#ae-company-loop').html()),
+            //  template: _.template($('#ae-company-loop').html()),
             onItemBeforeRender: function () {
                 //before render item
             },
@@ -411,13 +411,13 @@
             checkedForQuoteCompany: function (event) {
                 // console.log('checkedForQuoteCompany');
                 var $elm = $(event.target);
-                if($elm.is(':checked')){
+                if ($elm.is(':checked')) {
                     this.addItemCom($elm.data('id'), $elm.data('name'));
                 } else {
                     this.removeItemCom($elm.data('id'))
                 }
 
-                if(Object.keys(this.model.collection.listQuoteCompany).length === 0){
+                if (Object.keys(this.model.collection.listQuoteCompany).length === 0) {
                     $('.btn-get-quotes').removeClass('visible');
                 } else {
                     $('.btn-get-quotes').addClass('visible');
@@ -437,7 +437,7 @@
                 view.modal_get_quote.setCompanyName($elm.data('name'));
                 view.modal_get_quote.openModal();
             },
-            animateChecked: function(target){
+            animateChecked: function (target) {
                 if ($(target).parent().hasClass('is-ajax')) {
                     var sib = $(target).siblings();
                     if (sib.hasClass('active') === true) {

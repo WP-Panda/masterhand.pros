@@ -1,11 +1,11 @@
 <?php
-	global $current_user;
-	$class_trans = '';
-	if ( is_page_template( 'page-home.php' ) ) {
-		$class_trans = 'class="trans-color standard-menu"';
-	} else {
-		$class_trans = 'class="not-page-home standard-menu"';
-	}
+global $current_user;
+$class_trans = '';
+if ( is_page_template( 'page-home.php' ) ) {
+	$class_trans = 'class="trans-color standard-menu"';
+} else {
+	$class_trans = 'class="not-page-home standard-menu"';
+}
 ?>
 <header id="header-wrapper" data-size="big" <?php echo $class_trans; ?>>
     <div class="top-header">
@@ -24,27 +24,27 @@
                 <div class="col-md-9 col-xs-9">
                     <div class="row">
 						<?php
-							$args = [
-								'theme_location'  => 'et_header_standard',
-								'menu'            => '',
-								'container'       => 'nav',
-								'container_class' => 'col-md-9 col-xs-8',
-								'container_id'    => 'standardmenu',
-								'menu_class'      => '',
-								'menu_id'         => '',
-								'echo'            => true,
-								'before'          => '',
-								'after'           => '',
-								'link_before'     => '',
-								'link_after'      => '',
-								'items_wrap'      => '<ul>%3$s<li>
+						$args = [
+							'theme_location'  => 'et_header_standard',
+							'menu'            => '',
+							'container'       => 'nav',
+							'container_class' => 'col-md-9 col-xs-8',
+							'container_id'    => 'standardmenu',
+							'menu_class'      => '',
+							'menu_id'         => '',
+							'echo'            => true,
+							'before'          => '',
+							'after'           => '',
+							'link_before'     => '',
+							'link_after'      => '',
+							'items_wrap'      => '<ul>%3$s<li>
                                                 <a href="javascript:void(0);" class="trigger-overlay trigger-search">
                                                     <i class="fa fa-search"></i>
                                                 </a>
                                             </li></ul>'
-							];
+						];
 
-							wp_nav_menu( $args );
+						wp_nav_menu( $args );
 						?>
                         <div class="login-form-header-wrapper col-md-3 col-xs-4">
 							<?php if ( ! is_user_logged_in() ) { ?>
@@ -62,14 +62,14 @@
                                              data-toggle="dropdown">
                                         <span class="avatar">
                                                 <?php
-	                                                $notify_number = 0;
-	                                                if ( function_exists( 'fre_user_have_notify' ) ) {
-		                                                $notify_number = fre_user_have_notify();
-		                                                if ( $notify_number ) {
-			                                                echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
-		                                                }
+                                                $notify_number = 0;
+                                                if ( function_exists( 'fre_user_have_notify' ) ) {
+	                                                $notify_number = fre_user_have_notify();
+	                                                if ( $notify_number ) {
+		                                                echo '<span class="trigger-overlay trigger-notification-2 circle-new">' . $notify_number . '</span>';
 	                                                }
-	                                                echo get_avatar( $user_ID ); ?>
+                                                }
+                                                echo get_avatar( $user_ID ); ?>
                                             <span><?php echo $current_user->display_name; ?></span>
                                             </span>
                                             <span class="caret"></span>
@@ -90,9 +90,9 @@
                                                    class="trigger-overlay trigger-notification">
                                                     <i class="fa fa-flag"></i><?php _e( 'Notification', ET_DOMAIN ); ?>
 													<?php
-														if ( $notify_number ) {
-															echo '<span class="notify-number">(' . $notify_number . ')</span>';
-														}
+													if ( $notify_number ) {
+														echo '<span class="notify-number">(' . $notify_number . ')</span>';
+													}
 													?>
                                                 </a>
                                             </li>

@@ -1,15 +1,15 @@
 <?php
-	/**
-	 * Template Name: Page Blog
-	 *
-	 * This is the template that displays all recent posts
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * Template Name: Page Blog
+ *
+ * This is the template that displays all recent posts
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	get_header();
+get_header();
 ?>
 
     <section class="blog-header-container">
@@ -33,11 +33,11 @@
         <div class="row block-posts" id="post-control">
             <div class="col-md-8 col-sm-12 col-xs-12 posts-container" id="posts_control">
 				<?php
-					if ( have_posts() ) {
-						get_template_part( 'list', 'posts' );
-					} else {
-						echo '<h2>' . __( 'There is no posts yet', ET_DOMAIN ) . '</h2>';
-					}
+				if ( have_posts() ) {
+					get_template_part( 'list', 'posts' );
+				} else {
+					echo '<h2>' . __( 'There is no posts yet', ET_DOMAIN ) . '</h2>';
+				}
 				?>
             </div><!-- LEFT CONTENT -->
             <div class="col-md-4 col-sm-12 col-xs-12 blog-sidebar" id="right_content">
@@ -47,5 +47,5 @@
         <!--// block control  -->
     </div>
 <?php
-	wp_reset_query();
-	get_footer();
+wp_reset_query();
+get_footer();

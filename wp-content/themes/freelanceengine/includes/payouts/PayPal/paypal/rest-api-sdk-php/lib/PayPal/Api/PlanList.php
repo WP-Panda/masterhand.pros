@@ -16,158 +16,153 @@ use PayPal\Common\PayPalModel;
  * @property string total_pages
  * @property \PayPal\Api\Links[] links
  */
-class PlanList extends PayPalModel
-{
-    /**
-     * Array of billing plans.
-     *
-     * @param \PayPal\Api\Plan[] $plans
-     * 
-     * @return $this
-     */
-    public function setPlans($plans)
-    {
-        $this->plans = $plans;
-        return $this;
-    }
+class PlanList extends PayPalModel {
+	/**
+	 * Array of billing plans.
+	 *
+	 * @param \PayPal\Api\Plan[] $plans
+	 *
+	 * @return $this
+	 */
+	public function setPlans( $plans ) {
+		$this->plans = $plans;
 
-    /**
-     * Array of billing plans.
-     *
-     * @return \PayPal\Api\Plan[]
-     */
-    public function getPlans()
-    {
-        return $this->plans;
-    }
+		return $this;
+	}
 
-    /**
-     * Append Plans to the list.
-     *
-     * @param \PayPal\Api\Plan $plan
-     * @return $this
-     */
-    public function addPlan($plan)
-    {
-        if (!$this->getPlans()) {
-            return $this->setPlans(array($plan));
-        } else {
-            return $this->setPlans(
-                array_merge($this->getPlans(), array($plan))
-            );
-        }
-    }
+	/**
+	 * Array of billing plans.
+	 *
+	 * @return \PayPal\Api\Plan[]
+	 */
+	public function getPlans() {
+		return $this->plans;
+	}
 
-    /**
-     * Remove Plans from the list.
-     *
-     * @param \PayPal\Api\Plan $plan
-     * @return $this
-     */
-    public function removePlan($plan)
-    {
-        return $this->setPlans(
-            array_diff($this->getPlans(), array($plan))
-        );
-    }
+	/**
+	 * Append Plans to the list.
+	 *
+	 * @param \PayPal\Api\Plan $plan
+	 *
+	 * @return $this
+	 */
+	public function addPlan( $plan ) {
+		if ( ! $this->getPlans() ) {
+			return $this->setPlans( array( $plan ) );
+		} else {
+			return $this->setPlans(
+				array_merge( $this->getPlans(), array( $plan ) )
+			);
+		}
+	}
 
-    /**
-     * Total number of items.
-     *
-     * @param string $total_items
-     * 
-     * @return $this
-     */
-    public function setTotalItems($total_items)
-    {
-        $this->total_items = $total_items;
-        return $this;
-    }
+	/**
+	 * Remove Plans from the list.
+	 *
+	 * @param \PayPal\Api\Plan $plan
+	 *
+	 * @return $this
+	 */
+	public function removePlan( $plan ) {
+		return $this->setPlans(
+			array_diff( $this->getPlans(), array( $plan ) )
+		);
+	}
 
-    /**
-     * Total number of items.
-     *
-     * @return string
-     */
-    public function getTotalItems()
-    {
-        return $this->total_items;
-    }
+	/**
+	 * Total number of items.
+	 *
+	 * @param string $total_items
+	 *
+	 * @return $this
+	 */
+	public function setTotalItems( $total_items ) {
+		$this->total_items = $total_items;
 
-    /**
-     * Total number of pages.
-     *
-     * @param string $total_pages
-     * 
-     * @return $this
-     */
-    public function setTotalPages($total_pages)
-    {
-        $this->total_pages = $total_pages;
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Total number of pages.
-     *
-     * @return string
-     */
-    public function getTotalPages()
-    {
-        return $this->total_pages;
-    }
+	/**
+	 * Total number of items.
+	 *
+	 * @return string
+	 */
+	public function getTotalItems() {
+		return $this->total_items;
+	}
 
-    /**
-     * Sets Links
-     *
-     * @param \PayPal\Api\Links[] $links
-     * 
-     * @return $this
-     */
-    public function setLinks($links)
-    {
-        $this->links = $links;
-        return $this;
-    }
+	/**
+	 * Total number of pages.
+	 *
+	 * @param string $total_pages
+	 *
+	 * @return $this
+	 */
+	public function setTotalPages( $total_pages ) {
+		$this->total_pages = $total_pages;
 
-    /**
-     * Gets Links
-     *
-     * @return \PayPal\Api\Links[]
-     */
-    public function getLinks()
-    {
-        return $this->links;
-    }
+		return $this;
+	}
 
-    /**
-     * Append Links to the list.
-     *
-     * @param \PayPal\Api\Links $links
-     * @return $this
-     */
-    public function addLink($links)
-    {
-        if (!$this->getLinks()) {
-            return $this->setLinks(array($links));
-        } else {
-            return $this->setLinks(
-                array_merge($this->getLinks(), array($links))
-            );
-        }
-    }
+	/**
+	 * Total number of pages.
+	 *
+	 * @return string
+	 */
+	public function getTotalPages() {
+		return $this->total_pages;
+	}
 
-    /**
-     * Remove Links from the list.
-     *
-     * @param \PayPal\Api\Links $links
-     * @return $this
-     */
-    public function removeLink($links)
-    {
-        return $this->setLinks(
-            array_diff($this->getLinks(), array($links))
-        );
-    }
+	/**
+	 * Sets Links
+	 *
+	 * @param \PayPal\Api\Links[] $links
+	 *
+	 * @return $this
+	 */
+	public function setLinks( $links ) {
+		$this->links = $links;
+
+		return $this;
+	}
+
+	/**
+	 * Gets Links
+	 *
+	 * @return \PayPal\Api\Links[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * Append Links to the list.
+	 *
+	 * @param \PayPal\Api\Links $links
+	 *
+	 * @return $this
+	 */
+	public function addLink( $links ) {
+		if ( ! $this->getLinks() ) {
+			return $this->setLinks( array( $links ) );
+		} else {
+			return $this->setLinks(
+				array_merge( $this->getLinks(), array( $links ) )
+			);
+		}
+	}
+
+	/**
+	 * Remove Links from the list.
+	 *
+	 * @param \PayPal\Api\Links $links
+	 *
+	 * @return $this
+	 */
+	public function removeLink( $links ) {
+		return $this->setLinks(
+			array_diff( $this->getLinks(), array( $links ) )
+		);
+	}
 
 }

@@ -1,23 +1,23 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
-	extract( $args );
+defined( 'ABSPATH' ) || exit;
+extract( $args );
 ?>
 <div class="fre-blog fre-blog-fst_bl">
 	<?php
-		$_posts = get_posts( [
-			'post_type'      => 'post',
-			'post_status'    => 'publish',
-			'posts_per_page' => 9,
-			'offset'         => 5,
-			'post__not_in'   => [ $post->ID ],
-			'cat'            => $category[ 0 ]->term_id
-		] );
+	$_posts = get_posts( [
+		'post_type'      => 'post',
+		'post_status'    => 'publish',
+		'posts_per_page' => 9,
+		'offset'         => 5,
+		'post__not_in'   => [ $post->ID ],
+		'cat'            => $category[0]->term_id
+	] );
 
 
 	?>

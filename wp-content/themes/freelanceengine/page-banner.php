@@ -1,9 +1,9 @@
 <?php
-	$template = 'banner1';
+$template = 'banner1';
 
-	get_banner( $template );
+get_banner( $template );
 
-	$path = $_SERVER[ 'REQUEST_SCHEME' ] . '://' . $_SERVER[ 'SERVER_NAME' ];
+$path = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
 ?>
 
 <button class="generate" onclick="generate('<?php echo $template ?>')">generate</button>

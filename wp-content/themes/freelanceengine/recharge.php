@@ -1,7 +1,7 @@
 <?php
 
-	global $user_ID;
-	get_header();
+global $user_ID;
+get_header();
 ?>
     <div class="blog-header-container">
         <div class="container">
@@ -94,4 +94,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

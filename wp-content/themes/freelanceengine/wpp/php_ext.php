@@ -1,142 +1,144 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
 
-	/**
-	 * Преобразование массива сериализованного
-	 * @param $string
-	 *
-	 * @return mixed
-	 */
-	function mb_unserialize($string)
-	{
-		$recovered = preg_replace_callback(
-			'!(?<=^|;)s:(\d+)(?=:"(.*?)";(?:}|a:|s:|b:|d:|i:|o:|N;))!s',
-			function($match) {
-				return 's:' . mb_strlen($match[2], '8bit');
-			},
-			$string
-		);
+/**
+ * Преобразование массива сериализованного
+ *
+ * @param $string
+ *
+ * @return mixed
+ */
+function mb_unserialize( $string ) {
+	$recovered = preg_replace_callback(
+		'!(?<=^|;)s:(\d+)(?=:"(.*?)";(?:}|a:|s:|b:|d:|i:|o:|N;))!s',
+		function ( $match ) {
+			return 's:' . mb_strlen( $match[2], '8bit' );
+		},
+		$string
+	);
 
-		return unserialize($recovered);
+	return unserialize( $recovered );
+}
+
+
+/**
+ * @param        $file_path
+ * @param array $file_encodings
+ * @param string $col_delimiter
+ * @param string $row_delimiter
+ *
+ * @return array|bool
+ */
+function wpp_str_getcsv(
+	$file_path, $file_encodings = [
+	'cp1251',
+	'UTF-8'
+], $col_delimiter = '', $row_delimiter = ""
+) {
+
+	if ( ! file_exists( $file_path ) ) {
+		return false;
 	}
 
+	$cont = trim( file_get_contents( $file_path ) );
 
-	/**
-	 * @param        $file_path
-	 * @param array  $file_encodings
-	 * @param string $col_delimiter
-	 * @param string $row_delimiter
-	 *
-	 * @return array|bool
-	 */
-	function wpp_str_getcsv(
-		$file_path, $file_encodings = [
-		'cp1251',
-		'UTF-8'
-	], $col_delimiter = '', $row_delimiter = ""
-	) {
+	$encoded_cont = mb_convert_encoding( $cont, 'UTF-8', mb_detect_encoding( $cont, $file_encodings ) );
 
-		if ( ! file_exists( $file_path ) ) {
-			return false;
+	unset( $cont );
+
+	// определим разделитель
+	if ( ! $row_delimiter ) {
+		$row_delimiter = "\r\n";
+		if ( false === strpos( $encoded_cont, "\r\n" ) ) {
+			$row_delimiter = "\n";
 		}
+	}
 
-		$cont = trim( file_get_contents( $file_path ) );
+	$lines = explode( $row_delimiter, trim( $encoded_cont ) );
+	$lines = array_filter( $lines );
+	$lines = array_map( 'trim', $lines );
 
-		$encoded_cont = mb_convert_encoding( $cont, 'UTF-8', mb_detect_encoding( $cont, $file_encodings ) );
+	// авто-определим разделитель из двух возможных: ';' или ','.
+	// для расчета берем не больше 30 строк
+	if ( ! $col_delimiter ) {
+		$lines10 = array_slice( $lines, 0, 30 );
 
-		unset( $cont );
+		// если в строке нет одного из разделителей, то значит другой точно он...
+		foreach ( $lines10 as $line ) {
+			if ( ! strpos( $line, ',' ) ) {
+				$col_delimiter = ';';
+			}
+			if ( ! strpos( $line, ';' ) ) {
+				$col_delimiter = ',';
+			}
 
-		// определим разделитель
-		if ( ! $row_delimiter ) {
-			$row_delimiter = "\r\n";
-			if ( false === strpos( $encoded_cont, "\r\n" ) ) {
-				$row_delimiter = "\n";
+			if ( $col_delimiter ) {
+				break;
 			}
 		}
 
-		$lines = explode( $row_delimiter, trim( $encoded_cont ) );
-		$lines = array_filter( $lines );
-		$lines = array_map( 'trim', $lines );
-
-		// авто-определим разделитель из двух возможных: ';' или ','.
-		// для расчета берем не больше 30 строк
+		// если первый способ не дал результатов, то погружаемся в задачу и считаем кол разделителей в каждой строке.
+		// где больше одинаковых количеств найденного разделителя, тот и разделитель...
 		if ( ! $col_delimiter ) {
-			$lines10 = array_slice( $lines, 0, 30 );
-
-			// если в строке нет одного из разделителей, то значит другой точно он...
+			$delim_counts = [ ';' => [], ',' => [] ];
 			foreach ( $lines10 as $line ) {
-				if ( ! strpos( $line, ',' ) ) {
-					$col_delimiter = ';';
-				}
-				if ( ! strpos( $line, ';' ) ) {
-					$col_delimiter = ',';
-				}
-
-				if ( $col_delimiter ) {
-					break;
-				}
+				$delim_counts[','][] = substr_count( $line, ',' );
+				$delim_counts[';'][] = substr_count( $line, ';' );
 			}
 
-			// если первый способ не дал результатов, то погружаемся в задачу и считаем кол разделителей в каждой строке.
-			// где больше одинаковых количеств найденного разделителя, тот и разделитель...
-			if ( ! $col_delimiter ) {
-				$delim_counts = [ ';' => [], ',' => [] ];
-				foreach ( $lines10 as $line ) {
-					$delim_counts[ ',' ][] = substr_count( $line, ',' );
-					$delim_counts[ ';' ][] = substr_count( $line, ';' );
-				}
+			$delim_counts = array_map( 'array_filter', $delim_counts ); // уберем нули
 
-				$delim_counts = array_map( 'array_filter', $delim_counts ); // уберем нули
+			// кол-во одинаковых значений массива - это потенциальный разделитель
+			$delim_counts = array_map( 'array_count_values', $delim_counts );
 
-				// кол-во одинаковых значений массива - это потенциальный разделитель
-				$delim_counts = array_map( 'array_count_values', $delim_counts );
+			$delim_counts = array_map( 'max', $delim_counts ); // берем только макс. значения вхождений
 
-				$delim_counts = array_map( 'max', $delim_counts ); // берем только макс. значения вхождений
-
-				if ( $delim_counts[ ';' ] === $delim_counts[ ',' ] ) {
-					return [ 'Не удалось определить разделитель колонок.' ];
-				}
-
-				$col_delimiter = array_search( max( $delim_counts ), $delim_counts );
+			if ( $delim_counts[';'] === $delim_counts[','] ) {
+				return [ 'Не удалось определить разделитель колонок.' ];
 			}
 
+			$col_delimiter = array_search( max( $delim_counts ), $delim_counts );
 		}
 
-		$data = [];
-		foreach ( $lines as $key => $line ) {
-			$data[] = str_getcsv( $line, $col_delimiter ); // linedata
-			unset( $lines[ $key ] );
+	}
+
+	$data = [];
+	foreach ( $lines as $key => $line ) {
+		$data[] = str_getcsv( $line, $col_delimiter ); // linedata
+		unset( $lines[ $key ] );
+	}
+
+	return $data;
+}
+
+
+add_filter( 'manage_pages_columns', 'page_column_views' );
+add_action( 'manage_pages_custom_column', 'page_custom_column_views', 5, 2 );
+function page_column_views( $defaults ) {
+	$defaults['page-layout'] = __( 'Template' );
+
+	return $defaults;
+}
+
+function page_custom_column_views( $column_name, $id ) {
+	if ( $column_name === 'page-layout' ) {
+		$set_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
+		if ( $set_template == 'default' ) {
+			echo 'Default';
 		}
-
-		return $data;
-	}
-
-
-	add_filter( 'manage_pages_columns', 'page_column_views' );
-	add_action( 'manage_pages_custom_column', 'page_custom_column_views', 5, 2 );
-	function page_column_views( $defaults )
-	{
-		$defaults['page-layout'] = __('Template');
-		return $defaults;
-	}
-	function page_custom_column_views( $column_name, $id )
-	{
-		if ( $column_name === 'page-layout' ) {
-			$set_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
-			if ( $set_template == 'default' ) {
-				echo 'Default';
+		$templates = get_page_templates();
+		ksort( $templates );
+		foreach ( array_keys( $templates ) as $template ) :
+			if ( $set_template == $templates[ $template ] ) {
+				echo $template;
 			}
-			$templates = get_page_templates();
-			ksort( $templates );
-			foreach ( array_keys( $templates ) as $template ) :
-				if ( $set_template == $templates[$template] ) echo $template;
-			endforeach;
-		}
+		endforeach;
 	}
+}

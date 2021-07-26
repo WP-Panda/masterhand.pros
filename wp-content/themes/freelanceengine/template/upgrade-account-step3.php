@@ -1,31 +1,31 @@
 <?php
-	global $user_ID;
-	$step = 3;
+global $user_ID;
+$step = 3;
 
-	$disable_plan = ae_get_option( 'disable_plan', false );
-	if ( $disable_plan ) {
-		$step --;
+$disable_plan = ae_get_option( 'disable_plan', false );
+if ( $disable_plan ) {
+	$step --;
+}
+if ( $user_ID ) {
+	$step --;
+}
+$post = '';
+if ( isset( $_REQUEST['id'] ) ) {
+	$post = get_post( $_REQUEST['id'] );
+	if ( $post ) {
+		global $ae_post_factory;
+		$post_object = $ae_post_factory->get( $post->post_type );
+		echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_object->convert( $post ) ) . '</script>';
 	}
-	if ( $user_ID ) {
-		$step --;
-	}
-	$post = '';
-	if ( isset( $_REQUEST[ 'id' ] ) ) {
-		$post = get_post( $_REQUEST[ 'id' ] );
-		if ( $post ) {
-			global $ae_post_factory;
-			$post_object = $ae_post_factory->get( $post->post_type );
-			echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_object->convert( $post ) ) . '</script>';
-		}
-	}
+}
 ?>
 <div class="step-wrapper step-post" id="step-post">
     <a href="#" class="step-heading active">
         <span class="number-step"><?php if ( $step > 1 ) {
-				echo $step;
-			} else {
-				echo '<i class="fa fa-rocket"></i>';
-			} ?></span>
+		        echo $step;
+	        } else {
+		        echo '<i class="fa fa-rocket"></i>';
+	        } ?></span>
         <span class="text-heading-step"><?php _e( "Enter your project details", ET_DOMAIN ); ?></span>
         <i class="fa fa-caret-right"></i>
     </a>

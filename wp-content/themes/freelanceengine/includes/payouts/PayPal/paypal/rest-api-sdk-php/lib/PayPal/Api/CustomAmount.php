@@ -14,52 +14,49 @@ use PayPal\Common\PayPalModel;
  * @property string label
  * @property \PayPal\Api\Currency amount
  */
-class CustomAmount extends PayPalModel
-{
-    /**
-     * The custom amount label. Maximum length is 25 characters.
-     *
-     * @param string $label
-     * 
-     * @return $this
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
-    }
+class CustomAmount extends PayPalModel {
+	/**
+	 * The custom amount label. Maximum length is 25 characters.
+	 *
+	 * @param string $label
+	 *
+	 * @return $this
+	 */
+	public function setLabel( $label ) {
+		$this->label = $label;
 
-    /**
-     * The custom amount label. Maximum length is 25 characters.
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
+		return $this;
+	}
 
-    /**
-     * The custom amount value. Valid range is from -999999.99 to 999999.99.
-     *
-     * @param \PayPal\Api\Currency $amount
-     * 
-     * @return $this
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-        return $this;
-    }
+	/**
+	 * The custom amount label. Maximum length is 25 characters.
+	 *
+	 * @return string
+	 */
+	public function getLabel() {
+		return $this->label;
+	}
 
-    /**
-     * The custom amount value. Valid range is from -999999.99 to 999999.99.
-     *
-     * @return \PayPal\Api\Currency
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
+	/**
+	 * The custom amount value. Valid range is from -999999.99 to 999999.99.
+	 *
+	 * @param \PayPal\Api\Currency $amount
+	 *
+	 * @return $this
+	 */
+	public function setAmount( $amount ) {
+		$this->amount = $amount;
+
+		return $this;
+	}
+
+	/**
+	 * The custom amount value. Valid range is from -999999.99 to 999999.99.
+	 *
+	 * @return \PayPal\Api\Currency
+	 */
+	public function getAmount() {
+		return $this->amount;
+	}
 
 }

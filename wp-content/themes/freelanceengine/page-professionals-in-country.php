@@ -1,27 +1,27 @@
 <?php
-	/**
-	 * Template Name: Page professionals in country
-	 * The main template file
-	 *
-	 * This is the most generic template file in a WordPress theme and one
-	 * of the two required files for a theme (the other being style.css).
-	 * It is used to display a page when nothing more specific matches a query,
-	 * e.g., it puts together the home page when no home.php file exists.
-	 *
-	 * @link       http://codex.wordpress.org/Template_Hierarchy
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * Template Name: Page professionals in country
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link       http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	get_header();
+get_header();
 
-	if ( get_field( 'country-for-page' ) ) {
-		$getc = get_field( 'country-for-page' );
-	} else {
-		$getc = '';
-	}
+if ( get_field( 'country-for-page' ) ) {
+	$getc = get_field( 'country-for-page' );
+} else {
+	$getc = '';
+}
 ?>
 
 <?php if ( ( get_field( 'btitle' ) ) || ( get_field( 'btext' ) ) ) { ?>
@@ -43,120 +43,120 @@
         <div class="container">
             <h2 class="title_start t1"><?php the_title(); ?></h2>
 			<?php include 'dbConfig.php';
-				// заменить это
-				$querynew = $db->query( "SELECT `country_id` FROM `_countries` WHERE `title_en` = '$getc' " );
-				$rowCount = $querynew->num_rows;
-				if ( $rowCount > 0 ) {
-					$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-					while ( $row = $querynew->fetch_assoc() ) {
-						$cid        = $row[ 'country_id' ];
-						$query_args = [
-							'post_type'      => PROFILE,
-							'post_status'    => 'publish',
-							'posts_per_page' => 8,
-							'paged'          => $paged,
-							'meta_query'     => [
-								[
-									'key'     => 'country',
-									'value'   => $cid,
-									'compare' => '='
-								]
+			// заменить это
+			$querynew = $db->query( "SELECT `country_id` FROM `_countries` WHERE `title_en` = '$getc' " );
+			$rowCount = $querynew->num_rows;
+			if ( $rowCount > 0 ) {
+				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+				while ( $row = $querynew->fetch_assoc() ) {
+					$cid        = $row['country_id'];
+					$query_args = [
+						'post_type'      => PROFILE,
+						'post_status'    => 'publish',
+						'posts_per_page' => 8,
+						'paged'          => $paged,
+						'meta_query'     => [
+							[
+								'key'     => 'country',
+								'value'   => $cid,
+								'compare' => '='
 							]
-						];
-					}
-				} else {
-					echo '<div>' . __( 'There is no professionals yet', ET_DOMAIN ) . '</div>';
+						]
+					];
 				}
-				// заменить это end
-				// на это
-				//        global $wpdb;
-				//        $cid = $wpdb->get_var("SELECT `id` FROM `wp_location_countries` WHERE `name` = '$getc' ");
-				//        if (!empty($cid)) {
-				//            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-				//            $query_args = array(
-				//                'post_type' => PROFILE,
-				//                'post_status' => 'publish',
-				//                'posts_per_page' => 8,
-				//                'paged' => $paged,
-				//                'meta_query' => array(
-				//                    array(
-				//                        'key' => 'country',
-				//                        'value' => $cid,
-				//                        'compare' => '='
-				//                    )
-				//                )
-				//            ) ;
-				//        }  else {
-				//            echo '<div>'.__( 'There is no professionals yet', ET_DOMAIN ).'</div>';
-				//        }
-				// на это end
+			} else {
+				echo '<div>' . __( 'There is no professionals yet', ET_DOMAIN ) . '</div>';
+			}
+			// заменить это end
+			// на это
+			//        global $wpdb;
+			//        $cid = $wpdb->get_var("SELECT `id` FROM `wp_location_countries` WHERE `name` = '$getc' ");
+			//        if (!empty($cid)) {
+			//            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+			//            $query_args = array(
+			//                'post_type' => PROFILE,
+			//                'post_status' => 'publish',
+			//                'posts_per_page' => 8,
+			//                'paged' => $paged,
+			//                'meta_query' => array(
+			//                    array(
+			//                        'key' => 'country',
+			//                        'value' => $cid,
+			//                        'compare' => '='
+			//                    )
+			//                )
+			//            ) ;
+			//        }  else {
+			//            echo '<div>'.__( 'There is no professionals yet', ET_DOMAIN ).'</div>';
+			//        }
+			// на это end
 			?>
 
 			<?
-				if ( $getc != '' ) {
-					$loop = new WP_Query( $query_args );
-					global $ae_post_factory, $post;
-					$post_object = $ae_post_factory->get( PROFILE );
-					?>
+			if ( $getc != '' ) {
+				$loop = new WP_Query( $query_args );
+				global $ae_post_factory, $post;
+				$post_object = $ae_post_factory->get( PROFILE );
+				?>
 
 
-                    <div class="row">
-						<?php
-							if ( $loop->have_posts() ) {
-								$postdata = [];
+                <div class="row">
+					<?php
+					if ( $loop->have_posts() ) {
+						$postdata = [];
 
-								foreach ( $loop->posts as $key => $value ) {
-									$post       = $value;
-									$convert    = $post_object->convert( $post );
-									$postdata[] = $convert;
-									$hou_rate   = (int) $convert->hour_rate; // from 1.8.5
-									?>
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="fre-freelancer-wrap">
-                                            <a class="free-avatar"
-                                               href="<?php echo get_author_posts_url( $convert->post_author ); ?>">
-												<?php echo $convert->et_avatar; ?>
-                                            </a>
-                                            <h6>
-                                                <a href="<?php echo get_author_posts_url( $convert->post_author ); ?>"><?php the_author_meta( 'display_name', $convert->post_author ); ?></a>
-                                            </h6>
-                                            <p class="secondary-color"><?php echo $convert->et_professional_title; ?></p>
-                                            <div class="free-rating rate-it"
-                                                 data-score="<?php echo $convert->rating_score; ?>"></div>
-											<?php if ( $hou_rate > 0 ) { ?>
-                                                <div class="free-hourly-rate">
-													<?php printf( __( '%s/hr', ET_DOMAIN ), "<span>" . fre_price_format( $convert->hour_rate ) . "</span>" ); ?>
-                                                </div>
-											<?php } ?>
-                                            <div class="free-experience">
-                                                <span><?php echo $convert->experience; ?></span>
-                                                <span><?php echo $convert->project_worked; ?></span>
-                                            </div>
-                                            <div class="free-skill">
-												<?php
-													if ( isset( $convert->tax_input[ 'skill' ] ) && $convert->tax_input[ 'skill' ] ) {
-														$skills = $convert->tax_input[ 'skill' ];
-														for ( $i = 0; $i <= 2; $i ++ ) {
-															if ( isset( $skills[ $i ] ) ) {
-																echo '<span class="fre-label"><a href="' . get_post_type_archive_link( PROFILE ) . '?skill_profile=' . $skills[ $i ]->slug . '">' . $skills[ $i ]->name . '</a></span>';
-															}
-														}
-													}
-												?>
-                                            </div>
+						foreach ( $loop->posts as $key => $value ) {
+							$post       = $value;
+							$convert    = $post_object->convert( $post );
+							$postdata[] = $convert;
+							$hou_rate   = (int) $convert->hour_rate; // from 1.8.5
+							?>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="fre-freelancer-wrap">
+                                    <a class="free-avatar"
+                                       href="<?php echo get_author_posts_url( $convert->post_author ); ?>">
+										<?php echo $convert->et_avatar; ?>
+                                    </a>
+                                    <h6>
+                                        <a href="<?php echo get_author_posts_url( $convert->post_author ); ?>"><?php the_author_meta( 'display_name', $convert->post_author ); ?></a>
+                                    </h6>
+                                    <p class="secondary-color"><?php echo $convert->et_professional_title; ?></p>
+                                    <div class="free-rating rate-it"
+                                         data-score="<?php echo $convert->rating_score; ?>"></div>
+									<?php if ( $hou_rate > 0 ) { ?>
+                                        <div class="free-hourly-rate">
+											<?php printf( __( '%s/hr', ET_DOMAIN ), "<span>" . fre_price_format( $convert->hour_rate ) . "</span>" ); ?>
                                         </div>
+									<?php } ?>
+                                    <div class="free-experience">
+                                        <span><?php echo $convert->experience; ?></span>
+                                        <span><?php echo $convert->project_worked; ?></span>
                                     </div>
+                                    <div class="free-skill">
+										<?php
+										if ( isset( $convert->tax_input['skill'] ) && $convert->tax_input['skill'] ) {
+											$skills = $convert->tax_input['skill'];
+											for ( $i = 0; $i <= 2; $i ++ ) {
+												if ( isset( $skills[ $i ] ) ) {
+													echo '<span class="fre-label"><a href="' . get_post_type_archive_link( PROFILE ) . '?skill_profile=' . $skills[ $i ]->slug . '">' . $skills[ $i ]->name . '</a></span>';
+												}
+											}
+										}
+										?>
+                                    </div>
+                                </div>
+                            </div>
 
-								<?php }
-							} else {
-								echo '<div class="col-sm-12"><br>' . __( 'There is no professionals yet', ET_DOMAIN ) . '</div>';
-							} ?>
-                    </div>
+						<?php }
+					} else {
+						echo '<div class="col-sm-12"><br>' . __( 'There is no professionals yet', ET_DOMAIN ) . '</div>';
+					} ?>
+                </div>
 
-					<?php echo '<div class="fre-paginations paginations-wrapper">';
-					ae_pagination( $loop, get_query_var( 'paged' ) );
-					echo '</div>';
-				}
+				<?php echo '<div class="fre-paginations paginations-wrapper">';
+				ae_pagination( $loop, get_query_var( 'paged' ) );
+				echo '</div>';
+			}
 			?>
 
         </div>
@@ -166,74 +166,74 @@
         <div class="container">
             <div class="row">
 				<?php
-					if ( $getc != '' ) {
+				if ( $getc != '' ) {
 
-						$args = [
-							'taxonomy'   => 'skill',
-							'hide_empty' => 1,
-						];
-						global $md_array;
-						$terms = get_terms( $args );
-						//перебираем все категории способностей
-						foreach ( $terms as $term ) {
+					$args = [
+						'taxonomy'   => 'skill',
+						'hide_empty' => 1,
+					];
+					global $md_array;
+					$terms = get_terms( $args );
+					//перебираем все категории способностей
+					foreach ( $terms as $term ) {
 
-							$tid = $term->term_id;
+						$tid = $term->term_id;
 
-							//ищем посты если есть в категории и данной стране
-							$query_args2 = [
-								'post_type'   => PROFILE,
-								'post_status' => 'publish',
-								'tax_query'   => [
-									[
-										'taxonomy' => 'skill',
-										'field'    => 'id',
-										'terms'    => $tid
-									]
-								],
-								'meta_query'  => [
-									[
-										'key'     => 'country',
-										'value'   => $cid,
-										'compare' => '='
-									]
+						//ищем посты если есть в категории и данной стране
+						$query_args2 = [
+							'post_type'   => PROFILE,
+							'post_status' => 'publish',
+							'tax_query'   => [
+								[
+									'taxonomy' => 'skill',
+									'field'    => 'id',
+									'terms'    => $tid
 								]
+							],
+							'meta_query'  => [
+								[
+									'key'     => 'country',
+									'value'   => $cid,
+									'compare' => '='
+								]
+							]
+						];
+
+
+						$query3 = new WP_Query( $query_args2 );
+						//если количество постов из категории больше 0 то добавляем в массив
+						$tcount = $query3->found_posts;
+						if ( $tcount > 0 ) {
+							$md_array[] = [
+								'id'    => $tcount,
+								'count' => $term->term_id
 							];
 
-
-							$query3 = new WP_Query( $query_args2 );
-							//если количество постов из категории больше 0 то добавляем в массив
-							$tcount = $query3->found_posts;
-							if ( $tcount > 0 ) {
-								$md_array[] = [
-									'id'    => $tcount,
-									'count' => $term->term_id
-								];
-
-							}
 						}
+					}
 
-						if ( $md_array != '' ) { ?>
-                            <span class="col-sm-12 col-xs-12 title_start t2">Top skills in <?php echo $getc; ?></span>
-							<?php
-							//сортируем массив по количеству статей в найденых категорий - от наибольших к меньшим
-							arsort( $md_array );
-							//обрезаем массив чтоб выводить не более 16 категорий
-							$output = array_slice( $md_array, 0, 16 );
-							//выводим на екран названия категорий
-							foreach ( $output as $key ) {
-								foreach ( $key as $key2 => $val ) {
+					if ( $md_array != '' ) { ?>
+                        <span class="col-sm-12 col-xs-12 title_start t2">Top skills in <?php echo $getc; ?></span>
+						<?php
+						//сортируем массив по количеству статей в найденых категорий - от наибольших к меньшим
+						arsort( $md_array );
+						//обрезаем массив чтоб выводить не более 16 категорий
+						$output = array_slice( $md_array, 0, 16 );
+						//выводим на екран названия категорий
+						foreach ( $output as $key ) {
+							foreach ( $key as $key2 => $val ) {
 
-									if ( $key2 == 'count' ) {
-										$t = get_term( $val, 'skill' );
-										echo '<div class="col-sm-3 col-xs-6"><a href="' . get_post_type_archive_link( PROFILE ) . '?skill_profile=' . $t->slug . '&country=' . $cid . '">' . $t->name . '</a></div>';
-
-									}
+								if ( $key2 == 'count' ) {
+									$t = get_term( $val, 'skill' );
+									echo '<div class="col-sm-3 col-xs-6"><a href="' . get_post_type_archive_link( PROFILE ) . '?skill_profile=' . $t->slug . '&country=' . $cid . '">' . $t->name . '</a></div>';
 
 								}
+
 							}
 						}
+					}
 
-					} ?>
+				} ?>
             </div>
         </div>
     </section>
@@ -244,64 +244,64 @@
             <div class="row">
 
 				<?php
-					if ( $getc != '' ) {
-						global $md_array3;
-						$querynew3 = $db->query( "SELECT `region_id` FROM `_regions` WHERE `country_id` = '$cid' " );
-						$rowCount2 = $querynew3->num_rows;
-						if ( $rowCount2 > 0 ) {
+				if ( $getc != '' ) {
+					global $md_array3;
+					$querynew3 = $db->query( "SELECT `region_id` FROM `_regions` WHERE `country_id` = '$cid' " );
+					$rowCount2 = $querynew3->num_rows;
+					if ( $rowCount2 > 0 ) {
 
-							while ( $row = $querynew3->fetch_assoc() ) {
-								$stid        = $row[ 'region_id' ];
-								$query_args3 = [
-									'post_type'   => PROFILE,
-									'post_status' => 'publish',
-									'meta_query'  => [
-										'relation' => 'AND',
-										[
-											'key'     => 'country',
-											'value'   => $cid,
-											'compare' => '='
-										],
-										[
-											'key'     => 'state',
-											'value'   => $stid,
-											'compare' => '='
-										]
+						while ( $row = $querynew3->fetch_assoc() ) {
+							$stid        = $row['region_id'];
+							$query_args3 = [
+								'post_type'   => PROFILE,
+								'post_status' => 'publish',
+								'meta_query'  => [
+									'relation' => 'AND',
+									[
+										'key'     => 'country',
+										'value'   => $cid,
+										'compare' => '='
+									],
+									[
+										'key'     => 'state',
+										'value'   => $stid,
+										'compare' => '='
 									]
+								]
+							];
+
+							$query4  = new WP_Query( $query_args3 );
+							$tcount2 = $query4->found_posts;
+							if ( $tcount2 > 0 ) {
+								$md_array3[] = [
+									'id'    => $tcount2,
+									'count' => $stid
 								];
-
-								$query4  = new WP_Query( $query_args3 );
-								$tcount2 = $query4->found_posts;
-								if ( $tcount2 > 0 ) {
-									$md_array3[] = [
-										'id'    => $tcount2,
-										'count' => $stid
-									];
-								}
 							}
 						}
+					}
 
 
-						if ( $md_array3 ) { ?>
-                            <span class="col-sm-12 col-xs-12 title_start t2">Browse <?php echo $getc; ?> professionals by state </span>
-							<?php
-							arsort( $md_array3 );
-							$output2 = array_slice( $md_array3, 0, 16 );
-							foreach ( $output2 as $key ) {
-								foreach ( $key as $key2 => $val ) {
+					if ( $md_array3 ) { ?>
+                        <span class="col-sm-12 col-xs-12 title_start t2">Browse <?php echo $getc; ?> professionals by state </span>
+						<?php
+						arsort( $md_array3 );
+						$output2 = array_slice( $md_array3, 0, 16 );
+						foreach ( $output2 as $key ) {
+							foreach ( $key as $key2 => $val ) {
 
-									$querynew  = $db->query( "SELECT `title_en` FROM `_regions` WHERE `region_id` = '$val' " );
-									$rowStates = $querynew->num_rows;
-									if ( $rowStates > 0 ) {
-										while ( $row = $querynew->fetch_assoc() ) {
-											echo '<div class="col-sm-3 col-xs-6"><a href="' . get_post_type_archive_link( PROFILE ) . '?country=' . $cid . '&state=' . $val . '">' . $row[ 'title_en' ] . '</a></div>';
-										}
+								$querynew  = $db->query( "SELECT `title_en` FROM `_regions` WHERE `region_id` = '$val' " );
+								$rowStates = $querynew->num_rows;
+								if ( $rowStates > 0 ) {
+									while ( $row = $querynew->fetch_assoc() ) {
+										echo '<div class="col-sm-3 col-xs-6"><a href="' . get_post_type_archive_link( PROFILE ) . '?country=' . $cid . '&state=' . $val . '">' . $row['title_en'] . '</a></div>';
 									}
-
 								}
+
 							}
 						}
-					} ?>
+					}
+				} ?>
             </div>
         </div>
     </section>
@@ -569,4 +569,4 @@
         </div>
     </section>
 <?php
-	get_footer();
+get_footer();

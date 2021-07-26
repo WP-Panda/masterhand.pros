@@ -1,15 +1,15 @@
 <?php
-	/**
-	 * Template part for freelancer bid history
-	 * # this template is loaded in template/bid-history.php
-	 *
-	 * @since   1.0
-	 * @package FreelanceEngine
-	 */
-	global $wp_query, $ae_post_factory;
-	$author_id = get_query_var( 'author' );
+/**
+ * Template part for freelancer bid history
+ * # this template is loaded in template/bid-history.php
+ *
+ * @since   1.0
+ * @package FreelanceEngine
+ */
+global $wp_query, $ae_post_factory;
+$author_id = get_query_var( 'author' );
 
-	$post_object = $ae_post_factory->get( BID );
+$post_object = $ae_post_factory->get( BID );
 
 ?>
     <div class="inner">
@@ -29,28 +29,28 @@
     </div>
     <ul class="list-history-profile">
 		<?php
-			$postdata = [];
-			if ( have_posts() ):
-				while ( have_posts() ) {
-					the_post();
-					$convert    = $post_object->convert( $post, 'thumbnail' );
-					$postdata[] = $convert;
-					get_template_part( 'template/bid-history', 'item' );
-				}
-			else:
-				echo '<span class="profile-no-results">';
-				_e( 'There are no activities yet.', ET_DOMAIN );
-				echo '</span>';
-			endif;
+		$postdata = [];
+		if ( have_posts() ):
+			while ( have_posts() ) {
+				the_post();
+				$convert    = $post_object->convert( $post, 'thumbnail' );
+				$postdata[] = $convert;
+				get_template_part( 'template/bid-history', 'item' );
+			}
+		else:
+			echo '<span class="profile-no-results">';
+			_e( 'There are no activities yet.', ET_DOMAIN );
+			echo '</span>';
+		endif;
 		?>
     </ul>
 <?php
-	/* render post data for js */
-	echo '<script type="data/json" class="postdata" >' . json_encode( $postdata ) . '</script>';
+/* render post data for js */
+echo '<script type="data/json" class="postdata" >' . json_encode( $postdata ) . '</script>';
 ?>
     <!-- pagination -->
 <?php
-	$wp_query->query = array_merge( $wp_query->query );
-	echo '<div class="paginations-wrapper">';
-	ae_pagination( $wp_query, get_query_var( 'paged' ), 'page' );
-	echo '</div>';
+$wp_query->query = array_merge( $wp_query->query );
+echo '<div class="paginations-wrapper">';
+ae_pagination( $wp_query, get_query_var( 'paged' ), 'page' );
+echo '</div>';

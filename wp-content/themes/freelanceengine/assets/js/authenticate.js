@@ -1,4 +1,4 @@
-(function($, Models, Collections, Views) {
+(function ($, Models, Collections, Views) {
     Views.Auth = Backbone.View.extend({
         events: {
             // user register
@@ -13,7 +13,7 @@
         /**
          * init view setup Block Ui and Model User
          */
-        initialize: function() {
+        initialize: function () {
             this.user = AE.App.user;
             this.blockUi = new Views.BlockUi();
             this.initValidator();
@@ -22,34 +22,33 @@
                 roleInput = $("form.signup_form_submit input#role"),
                 hire_text = $('.hire-text').val(),
                 work_text = $('.work-text').val(),
-            view = this;
+                view = this;
             if ($('.sign-up-switch').length > 0 && clickCheckbox) {
-                if($('#signup_form_submit, .signup_form_submit').find('span.user-role').hasClass('hire'))
-                {
+                if ($('#signup_form_submit, .signup_form_submit').find('span.user-role').hasClass('hire')) {
                     $('form.signup_form_submit  .sign-up-switch').parents('.user-type').find('small').css({
-                        "left" :  -5 + "px"
+                        "left": -5 + "px"
                     })
                 }
-                clickCheckbox.onchange = function(event) {
+                clickCheckbox.onchange = function (event) {
                     var _this = $(event.currentTarget);
                     var _switch = _this.parents('.user-type');
                     if (clickCheckbox.checked) {
                         roleInput.val("freelancer");
                         $('form.signup_form_submit .user-type span.text').text(work_text).removeClass('hire').addClass('work');
                         _switch.find('small').css({
-                            "left" :  (_switch.find('.switchery').width() - _switch.find('small').width() + 5) + "px"
+                            "left": (_switch.find('.switchery').width() - _switch.find('small').width() + 5) + "px"
                         });
                     } else {
                         roleInput.val("employer");
                         $('form.signup_form_submit .user-type span.text').text(hire_text).removeClass('work').addClass('hire');
                         _switch.find('small').css({
-                            "left" :  -5 + "px"
+                            "left": -5 + "px"
                         })
                     }
                 };
             }
             // Event checkbox
-            $(".login-remember").click(function(event) {
+            $(".login-remember").click(function (event) {
                 if ($(this).find('#remember').is(':checked')) {
                     $("input#remember").val(1);
                 } else {
@@ -61,7 +60,7 @@
          * init form validator rules
          * can override this function by using prototype
          */
-        initValidator: function() {
+        initValidator: function () {
             // login rule
             this.login_validator = $("form.signin_form_submit").validate({
                 rules: {
@@ -74,7 +73,7 @@
                     user_login: "required",
                     user_pass: "required"
                 },
-                highlight: function(element, errorClass, validClass) {
+                highlight: function (element, errorClass, validClass) {
                     var required_id = $(element).attr('id');
                     var $container = $(element).closest('div');
                     if (!$container.hasClass('error')) {
@@ -82,33 +81,33 @@
                     }
                 },
             });
-          
-           
+
+
             this.register_new_validator = $("form#signup_form").validate({
-                    rules: {
-                        // company_name: "required",
-                        // first_name: "required",
-                        // last_name: "required",
-                        user_login: "required",
-                        user_pass: "required",
-                        remember: "required",
-                        user_email: {
-                            required: true,
-                            email: true
-                        },
-                        repeat_pass: {
-                            required: true,
-                            equalTo: "#user_pass"
-                        }
+                rules: {
+                    // company_name: "required",
+                    // first_name: "required",
+                    // last_name: "required",
+                    user_login: "required",
+                    user_pass: "required",
+                    remember: "required",
+                    user_email: {
+                        required: true,
+                        email: true
                     },
-                    highlight: function(element, errorClass, validClass) {
-                        var required_id = $(element).attr('id');
-                        var $container = $(element).closest('div');
-                        if (!$container.hasClass('error')) {
-                            $container.addClass('error').removeClass(validClass);
-                        }
-                    },
-                });
+                    repeat_pass: {
+                        required: true,
+                        equalTo: "#user_pass"
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    var required_id = $(element).attr('id');
+                    var $container = $(element).closest('div');
+                    if (!$container.hasClass('error')) {
+                        $container.addClass('error').removeClass(validClass);
+                    }
+                },
+            });
             /**
              * register rule
              */
@@ -119,7 +118,7 @@
                         last_name: "required",
                         user_login: "required",
                         user_pass: "required",
-                        agreement : "required",
+                        agreement: "required",
                         user_email: {
                             required: true,
                             email: true
@@ -158,7 +157,7 @@
                         email: true
                     },
                 },
-                highlight: function(element, errorClass, validClass) {
+                highlight: function (element, errorClass, validClass) {
                     var required_id = $(element).attr('id');
                     var $container = $(element).closest('div');
                     if (!$container.hasClass('error')) {
@@ -167,7 +166,7 @@
                 }
             });
         },
-        doRegisterNew: function(event) {
+        doRegisterNew: function (event) {
             event.preventDefault();
             event.stopPropagation();
             this.removeError();
@@ -181,7 +180,7 @@
             /**
              * scan all fields in form and set the value to model user
              */
-            form.find('input, textarea, select').each(function() {
+            form.find('input, textarea, select').each(function () {
                 if ($(this).attr('name') == 'type_prof') {
                     view.user.set($(this).attr('name'), $('input[name=type_prof]:checked').val());
                 } else {
@@ -194,11 +193,11 @@
             if (this.register_new_validator.form() && !form.hasClass("processing")) {
                 this.user.set('do', 'register');
                 this.user.request('create', {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(button);
                         form.addClass('processing');
                     },
-                    success: function(user, status, jqXHR) {
+                    success: function (user, status, jqXHR) {
                         var data = status.data;
                         form.removeClass('processing');
 
@@ -209,7 +208,7 @@
                                 msg: status.msg,
                                 notice_type: 'success'
                             });
-                            if( data.redirect_url == '') {
+                            if (data.redirect_url == '') {
                                 window.location.href = ae_globals.homeURL;
                             } else {
                                 window.location.href = data.redirect_url;
@@ -217,12 +216,12 @@
                         } else {
                             view.showError(form, status.msg);
                             view.blockUi.unblock();
-                            if(typeof grecaptcha != 'undefined'){
-	                        	grecaptcha.reset();
-	                        }
-                                $('body,html').animate({
-                                    scrollTop: top
-                                }, 3000);
+                            if (typeof grecaptcha != 'undefined') {
+                                grecaptcha.reset();
+                            }
+                            $('body,html').animate({
+                                scrollTop: top
+                            }, 3000);
 
                         }
                     }
@@ -232,7 +231,7 @@
         /**
          * user sign-up catch event when user submit form signup
          */
-        doRegister: function(event) {
+        doRegister: function (event) {
             event.preventDefault();
             event.stopPropagation();
             /**
@@ -245,18 +244,18 @@
             /**
              * scan all fields in form and set the value to model user
              */
-            form.find('input, textarea, select').each(function() {
+            form.find('input, textarea, select').each(function () {
                 view.user.set($(this).attr('name'), $(this).val());
             })
             // check form validate and process sign-up
             if (this.register_validator.form() && !form.hasClass("processing")) {
                 this.user.set('do', 'register');
                 this.user.request('create', {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(button);
                         form.addClass('processing');
                     },
-                    success: function(user, status, jqXHR) {
+                    success: function (user, status, jqXHR) {
                         view.blockUi.unblock();
                         form.removeClass('processing');
                         // trigger event process authentication
@@ -271,14 +270,14 @@
                                 msg: status.msg,
                                 notice_type: 'error'
                             });
-                               
+
 
                         }
                     }
                 });
             }
         },
-        doLoginNew: function(event){
+        doLoginNew: function (event) {
             event.preventDefault();
             event.stopPropagation();
             this.removeError();
@@ -292,18 +291,18 @@
             /**
              * scan all fields in form and set the value to model user
              */
-            form.find('input, textarea, select').each(function() {
+            form.find('input, textarea, select').each(function () {
                 view.user.set($(this).attr('name'), $(this).val());
             })
             // check form validate and process sign-in
             if (this.login_new_validator.form() && !form.hasClass("processing")) {
                 this.user.set('do', 'login');
                 this.user.request('read', {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(button);
                         form.addClass('processing');
                     },
-                    success: function(user, status, jqXHR) {
+                    success: function (user, status, jqXHR) {
                         var data = status.data;
                         form.removeClass('processing');
                         // trigger event process authentication
@@ -314,7 +313,7 @@
                                 notice_type: 'success'
                             });
 
-                            if( data.redirect_url == '' || data.redirect_url ==  ae_globals.homeURL ) {
+                            if (data.redirect_url == '' || data.redirect_url == ae_globals.homeURL) {
                                 //window.location.href = ae_globals.homeURL; ==> some cases can nto clear cache after reload.
                                 window.location.reload(true);
                             } else {
@@ -331,7 +330,7 @@
         /**
          * user login,catch event when user submit login form
          */
-        doLogin: function(event) {
+        doLogin: function (event) {
             event.preventDefault();
             event.stopPropagation();
             /**
@@ -344,18 +343,18 @@
             /**
              * scan all fields in form and set the value to model user
              */
-            form.find('input, textarea, select').each(function() {
+            form.find('input, textarea, select').each(function () {
                 view.user.set($(this).attr('name'), $(this).val());
             })
             // check form validate and process sign-in
             if (this.login_validator.form() && !form.hasClass("processing")) {
                 this.user.set('do', 'login');
                 this.user.request('read', {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(button);
                         form.addClass('processing');
                     },
-                    success: function(user, status, jqXHR) {
+                    success: function (user, status, jqXHR) {
                         view.blockUi.unblock();
                         form.removeClass('processing');
                         // trigger event process authentication
@@ -378,7 +377,7 @@
         /**
          * user forgot password
          */
-        doSendPassword: function(event) {
+        doSendPassword: function (event) {
             event.preventDefault();
             event.stopPropagation();
             this.removeError();
@@ -394,11 +393,11 @@
                 this.user.set('user_login', email);
                 this.user.set('do', 'forgot');
                 this.user.request('read', {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(button);
                         form.addClass('processing');
                     },
-                    success: function(user, status, jqXHR) {
+                    success: function (user, status, jqXHR) {
                         var data = status.data;
                         form.removeClass('processing');
                         if (status.success) {
@@ -430,16 +429,16 @@
         /**
          * Remove HTML error
          */
-        removeError: function(){
+        removeError: function () {
             $('.fre-validate-error').remove();
         },
         /**
          * Append HTML error
          */
-        showError: function(form, msg){
-            var template= '<ul class="fre-validate-error">'+
-                            '<li>'+msg+'</li>'+
-                        '</ul>';
+        showError: function (form, msg) {
+            var template = '<ul class="fre-validate-error">' +
+                '<li>' + msg + '</li>' +
+                '</ul>';
             form.prepend(template);
         }
     });

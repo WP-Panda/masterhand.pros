@@ -1,21 +1,21 @@
 <?php
-	/**
-	 * The template for displaying user porfolio in profile details, edit profiles
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PORTFOLIO );
-	$current     = $post_object->current_post;
-	$author_id   = get_query_var( 'author' );
-	if ( ! $current ) {
-		return;
-	}
-	$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
+/**
+ * The template for displaying user porfolio in profile details, edit profiles
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PORTFOLIO );
+$current     = $post_object->current_post;
+$author_id   = get_query_var( 'author' );
+if ( ! $current ) {
+	return;
+}
+$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
 
-	$is_edit = get_query_var( 'is_edit' );
+$is_edit = get_query_var( 'is_edit' );
 ?>
 
 <li class="col-sm-4 col-sx-12">

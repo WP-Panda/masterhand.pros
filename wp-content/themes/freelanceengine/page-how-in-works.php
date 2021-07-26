@@ -1,36 +1,36 @@
 <?php
-	/**
-	 * Template Name: Page How in Works
-	 * The main template file
-	 *
-	 * This is the most generic template file in a WordPress theme and one
-	 * of the two required files for a theme (the other being style.css).
-	 * It is used to display a page when nothing more specific matches a query,
-	 * e.g., it puts together the home page when no home.php file exists.
-	 *
-	 * @link       http://codex.wordpress.org/Template_Hierarchy
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
-	get_header();
-	global $post;
-	$pid      = get_the_ID();
-	$slug     = get_post_field( 'post_name', get_post() );
-	$parid    = wp_get_post_parent_id( $pid );
-	$children = get_pages( [ 'child_of' => $pid ] );
-	if ( $parid == 0 ) {
-		$search = $pid;
-	} else {
-		$search = $parid;
-	}
-	$pages = get_posts( [
-		'post_type'   => 'page',
-		'post_status' => 'publish',
-		'order'       => 'ASC',
-		'post_parent' => $search
-	] );
+/**
+ * Template Name: Page How in Works
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link       http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
+get_header();
+global $post;
+$pid      = get_the_ID();
+$slug     = get_post_field( 'post_name', get_post() );
+$parid    = wp_get_post_parent_id( $pid );
+$children = get_pages( [ 'child_of' => $pid ] );
+if ( $parid == 0 ) {
+	$search = $pid;
+} else {
+	$search = $parid;
+}
+$pages = get_posts( [
+	'post_type'   => 'page',
+	'post_status' => 'publish',
+	'order'       => 'ASC',
+	'post_parent' => $search
+] );
 ?>
     <div class="fre-page-wrapper">
         <div class="how_bl">
@@ -113,17 +113,17 @@
 						<?php } ?>
                         <div class="questions-list">
 							<?php $q = 0;
-								while ( have_rows( 'question-list' ) ): the_row(); ?>
-                                    <div class="questions-list_item">
-                                        <div class="questions-list_t" data-toggle="collapse"
-                                             data-target="#bl-<?php echo $n2; ?>-q-<?php echo $q; ?>">
-											<?php the_sub_field( 'question-header' ); ?><i class="fa-angle-down fa"></i>
-                                        </div>
-                                        <div id="bl-<?php echo $n2; ?>-q-<?php echo $q; ?>" class="collapse">
-											<?php the_sub_field( 'question-text' ); ?>
-                                        </div>
+							while ( have_rows( 'question-list' ) ): the_row(); ?>
+                                <div class="questions-list_item">
+                                    <div class="questions-list_t" data-toggle="collapse"
+                                         data-target="#bl-<?php echo $n2; ?>-q-<?php echo $q; ?>">
+										<?php the_sub_field( 'question-header' ); ?><i class="fa-angle-down fa"></i>
                                     </div>
-									<?php $q ++; endwhile; ?>
+                                    <div id="bl-<?php echo $n2; ?>-q-<?php echo $q; ?>" class="collapse">
+										<?php the_sub_field( 'question-text' ); ?>
+                                    </div>
+                                </div>
+								<?php $q ++; endwhile; ?>
                         </div>
                     </div>
                 </div>

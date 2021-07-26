@@ -2,7 +2,8 @@
 global $post, $user_ID;
 ?>
 <!-- MODAL FINISH PROJECT-->
-<div class="modal fade designed-modal" id="modal_review" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade designed-modal" id="modal_review" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-center">
             <div class="modal-header">
@@ -12,7 +13,7 @@ global $post, $user_ID;
             <div class="modal-body">
                 <form role="form" id="review_form" class="review-form fre-modal-form">
                     <input type="hidden" name="is_reply" value="false">
-                    <input type="hidden" name="project_id" value="<?=$post->ID?>">
+                    <input type="hidden" name="project_id" value="<?= $post->ID ?>">
                     <input type="hidden" name="action" value="rwRating"/>
 					<?php if ( $post->post_author == $user_ID ) {  // employer finish project form ?>
                         <input type="hidden" name="from_is" value="employer"/>
@@ -26,7 +27,8 @@ global $post, $user_ID;
                         </p>
 					<?php } ?>
                     <div class="fre-input-field">
-                        <label class="fre-field-title" for="comment-content"><?php _e( 'Your Rating', ET_DOMAIN ); ?></label>
+                        <label class="fre-field-title"
+                               for="comment-content"><?php _e( 'Your Rating', ET_DOMAIN ); ?></label>
 
                         <input class="val_review_rating" type="hidden" name="vote" value="">
                         <div class="review-select-vote">
@@ -41,25 +43,26 @@ global $post, $user_ID;
                     <div class="fre-input-field">
                         <label class="fre-field-title"
                                for="comment-content"><?php _e( 'Your Review', ET_DOMAIN ); ?></label>
-                        <textarea id="comment-content" name="comment" placeholder="<?php _e( 'Leave a review...', ET_DOMAIN ); ?>"></textarea>
+                        <textarea id="comment-content" name="comment"
+                                  placeholder="<?php _e( 'Leave a review...', ET_DOMAIN ); ?>"></textarea>
                     </div>
 
                     <div class="modal-endors">
-                    <?php $bid_id_accepted = get_post_meta($post->ID, 'accepted', true);
-                    if(get_post_meta($bid_id_accepted, 'fre_bid_order')) {
-                        if (ae_user_role($user_ID) == FREELANCER) {
-                           //renderSkillsInProject($post->post_author, $user_ID);
-                        } else {
-                            $bid_author = get_post_field('post_author', $bid_id_accepted);
-                            //renderSkillsInProject($bid_author, $user_ID);
-                        }
-                    } ?> 
-                  
-                        <?php if (ae_user_role($user_ID) == FREELANCER) { ?>
-                         <p class="hide notify-form"><?php _e( "Please give endorsement to the Client’s skills", ET_DOMAIN );?></p>
-                       <?php } else { ?>
-                         <p class="hide notify-form"><?php _e( "Please give endorsement to the Professional’s skills", ET_DOMAIN );?></p>
-                       <?php } ?>     
+						<?php $bid_id_accepted = get_post_meta( $post->ID, 'accepted', true );
+						if ( get_post_meta( $bid_id_accepted, 'fre_bid_order' ) ) {
+							if ( ae_user_role( $user_ID ) == FREELANCER ) {
+								//renderSkillsInProject($post->post_author, $user_ID);
+							} else {
+								$bid_author = get_post_field( 'post_author', $bid_id_accepted );
+								//renderSkillsInProject($bid_author, $user_ID);
+							}
+						} ?>
+
+						<?php if ( ae_user_role( $user_ID ) == FREELANCER ) { ?>
+                            <p class="hide notify-form"><?php _e( "Please give endorsement to the Client’s skills", ET_DOMAIN ); ?></p>
+						<?php } else { ?>
+                            <p class="hide notify-form"><?php _e( "Please give endorsement to the Professional’s skills", ET_DOMAIN ); ?></p>
+						<?php } ?>
                     </div>
                     <div class="fre-form-btn">
                         <button type="submit" class="fre-submit-btn btn-left btn-submit">
@@ -76,5 +79,5 @@ global $post, $user_ID;
 <!-- MODAL FINISH PROJECT-->
 
 <?
-wp_enqueue_script('', '/wp-content/plugins/reviews_rating/js/reviews.js', [], false, true);
+wp_enqueue_script( '', '/wp-content/plugins/reviews_rating/js/reviews.js', [], false, true );
 ?>

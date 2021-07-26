@@ -1,22 +1,22 @@
 <?php
-	/**
-	 * Template Name: Business Promotion with KNOW-HOW
-	 * The main template file
-	 *
-	 * This is the most generic template file in a WordPress theme and one
-	 * of the two required files for a theme (the other being style.css).
-	 * It is used to display a page when nothing more specific matches a query,
-	 * e.g., it puts together the home page when no home.php file exists.
-	 *
-	 * @link       http://codex.wordpress.org/Template_Hierarchy
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * Template Name: Business Promotion with KNOW-HOW
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link       http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	get_header();
-	$page_setting = wpp_pages_settins( 'page_know_how' );
+get_header();
+$page_setting = wpp_pages_settins( 'page_know_how' );
 ?>
 
     <div class="fre-page-wrapper page-benefits page-pro-benefits">
@@ -108,11 +108,11 @@
 													'parent'     => 1,
 													'hide_empty' => false
 												] );
-													if ( ! empty( $categoryes ) ) {
-														foreach ( $categoryes as $cat ) {
-															printf( '<option value="%s">%s</option>', $cat->term_id, $cat->name );
-														}
+												if ( ! empty( $categoryes ) ) {
+													foreach ( $categoryes as $cat ) {
+														printf( '<option value="%s">%s</option>', $cat->term_id, $cat->name );
 													}
+												}
 												?>
                                             </select>
                                         </div>
@@ -153,38 +153,38 @@
                         <div class="row">
 
 							<?php
-								if ( is_user_logged_in() ) {
-									global $current_user;
-									if ( ! is_object( $current_user ) ) {
-										$current_user = wp_get_current_user();
-									}
+							if ( is_user_logged_in() ) {
+								global $current_user;
+								if ( ! is_object( $current_user ) ) {
+									$current_user = wp_get_current_user();
 								}
+							}
 
-								$args = [
-									'show_posts'  => 3,
-									'page'        => 1,
-									'post_type'   => 'post',
-									'author_name' => $current_user->user_login
-								];
+							$args = [
+								'show_posts'  => 3,
+								'page'        => 1,
+								'post_type'   => 'post',
+								'author_name' => $current_user->user_login
+							];
 
-								$author_posts = get_posts( $args );
+							$author_posts = get_posts( $args );
 
-								foreach ( $author_posts as $post ) :
-									setup_postdata( $post ); ?>
+							foreach ( $author_posts as $post ) :
+								setup_postdata( $post ); ?>
 
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="<?php the_permalink(); ?>" class="link-social" title="">
-											<?php the_title(); ?>
-                                        </a>
-                                    </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <a href="<?php the_permalink(); ?>" class="link-social" title="">
+										<?php the_title(); ?>
+                                    </a>
+                                </div>
 
-                                    <div class="col-md-6 col-xs-12">
-										<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
-											ADDTOANY_SHARE_SAVE_KIT();
-										} ?>
-                                    </div>
+                                <div class="col-md-6 col-xs-12">
+									<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
+										ADDTOANY_SHARE_SAVE_KIT();
+									} ?>
+                                </div>
 
-								<?php endforeach;
+							<?php endforeach;
 							?>
 
                         </div>
@@ -198,4 +198,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

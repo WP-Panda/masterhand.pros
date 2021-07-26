@@ -14,52 +14,49 @@ use PayPal\Common\PayPalModel;
  * @property string name
  * @property string value
  */
-class NameValuePair extends PayPalModel
-{
-    /**
-     * Key for the name value pair.  The value name types should be correlated 
-     *
-     * @param string $name
-     * 
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
+class NameValuePair extends PayPalModel {
+	/**
+	 * Key for the name value pair.  The value name types should be correlated
+	 *
+	 * @param string $name
+	 *
+	 * @return $this
+	 */
+	public function setName( $name ) {
+		$this->name = $name;
 
-    /**
-     * Key for the name value pair.  The value name types should be correlated 
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+		return $this;
+	}
 
-    /**
-     * Value for the name value pair.
-     *
-     * @param string $value
-     * 
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-        return $this;
-    }
+	/**
+	 * Key for the name value pair.  The value name types should be correlated
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
 
-    /**
-     * Value for the name value pair.
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+	/**
+	 * Value for the name value pair.
+	 *
+	 * @param string $value
+	 *
+	 * @return $this
+	 */
+	public function setValue( $value ) {
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Value for the name value pair.
+	 *
+	 * @return string
+	 */
+	public function getValue() {
+		return $this->value;
+	}
 
 }

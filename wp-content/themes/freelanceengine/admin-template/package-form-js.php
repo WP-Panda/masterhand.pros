@@ -38,14 +38,14 @@
             <div class="form-item">
                 <div class="label"><?php _e( "Project type", ET_DOMAIN ); ?></div>
 				<?php ae_tax_dropdown( 'project_type', [
-						'class'           => 'chosen-single tax-item',
-						'hide_empty'      => false,
-						'hierarchical'    => true,
-						'id'              => 'project_type',
-						'show_option_all' => __( "Select project type", ET_DOMAIN ),
-						'value'           => 'id',
-						'name'            => 'project_type'
-					] ); ?>
+					'class'           => 'chosen-single tax-item',
+					'hide_empty'      => false,
+					'hierarchical'    => true,
+					'id'              => 'project_type',
+					'show_option_all' => __( "Select project type", ET_DOMAIN ),
+					'value'           => 'id',
+					'name'            => 'project_type'
+				] ); ?>
             </div>
             <div class="form-item">
                 <div class="label"><?php _e( "Short description about this package", ET_DOMAIN ); ?></div>

@@ -1,8 +1,8 @@
-.tab-pane{
+.tab-pane {
     margin-right: 20px;
 }
 
-.blockLoader{
+.blockLoader {
     display: none;
     width: 100%;
     height: 100%;
@@ -14,6 +14,7 @@
     background-color: #222;
     opacity: 0.4
 }
+
 .showLoad {
     z-index: 999999999;
     position: absolute;
@@ -30,7 +31,8 @@
     -webkit-animation: circler 2s linear infinite;
     animation: circler 2s linear infinite;
 }
-.pagination_referrals li{
+
+.pagination_referrals li {
     cursor: pointer;
 }
 

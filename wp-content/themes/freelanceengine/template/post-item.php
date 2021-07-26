@@ -1,11 +1,11 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
 ?>
 <div class="blog-wrapper post-item">
     <div class="row">
@@ -31,21 +31,21 @@
                 </span>
                 <h2 class="title-blog"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h2>
 				<?php
-					if ( is_single() ) {
-						the_content();
-						wp_link_pages( [
-							'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
-							'after'       => '</div>',
-							'link_before' => '<span>',
-							'link_after'  => '</span>',
-						] );
-					} else {
-						the_excerpt();
-						?>
-                        <a href="<?php the_permalink(); ?>" class="read-more">
-							<?php _e( "READ MORE", ET_DOMAIN ) ?><i class="fa fa-arrow-circle-o-right"></i>
-                        </a>
-					<?php } ?>
+				if ( is_single() ) {
+					the_content();
+					wp_link_pages( [
+						'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
+						'after'       => '</div>',
+						'link_before' => '<span>',
+						'link_after'  => '</span>',
+					] );
+				} else {
+					the_excerpt();
+					?>
+                    <a href="<?php the_permalink(); ?>" class="read-more">
+						<?php _e( "READ MORE", ET_DOMAIN ) ?><i class="fa fa-arrow-circle-o-right"></i>
+                    </a>
+				<?php } ?>
             </div>
         </div>
     </div>

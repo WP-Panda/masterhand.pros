@@ -1,14 +1,14 @@
 /**
  * render option view to control option settings, badge settings
  */
-(function(Models, Views, Collections, $, Backbone) {
-    
+(function (Models, Views, Collections, $, Backbone) {
+
     /**
      * model option
      */
     Models.Badges = Backbone.Model.extend({
         action: 'ae-badge-sync',
-        defaults: function() {
+        defaults: function () {
             return {
                 name: "option_name",
                 value: "option_value"
@@ -23,12 +23,12 @@
         events: {
             //'submit #form_new_tax' : 'onCreateCategory'
         },
-        initialize: function() {
+        initialize: function () {
             var view = this;
             view.categories = new Collections.Categories();
             // 
             view.categoriesView = [];
-            this.$('ul.list-tax li ').each(function() {
+            this.$('ul.list-tax li ').each(function () {
                 var element = $(this),
                     id = element.attr('data-id'),
                     icon = element.attr('data-icon'),
@@ -63,7 +63,7 @@
                 }),
                 disableEscape: true
             });
-            newView.bind('onCreateSuccess', function(model, abc) {
+            newView.bind('onCreateSuccess', function (model, abc) {
                 // create new view
                 //console.log(model);
                 var itemView = new Views.CategoryListItem({
@@ -74,7 +74,7 @@
             });
         },
         /* init sortable */
-        initSortable: function() {
+        initSortable: function () {
             this.$('ul.tax-sortable').nestedSortable({
                 handle: '.sort-handle',
                 listType: 'ul',
@@ -86,7 +86,7 @@
             })
         },
         /* update categories positions */
-        updateCategoriesOrder: function(event, ui) {
+        updateCategoriesOrder: function (event, ui) {
             var order = $(this).nestedSortable('serialize'),
                 tax = $(this).attr('data-tax');
             var params = {
@@ -100,15 +100,19 @@
                         tax: tax,
                     }
                 },
-                beforeSend: function() {},
-                success: function(resp, model) {},
-                complete: function() {}
+                beforeSend: function () {
+                },
+                success: function (resp, model) {
+                },
+                complete: function () {
+                }
             };
             $.ajax(params);
         },
-        onCreateSuccess: function(model, view) {},
+        onCreateSuccess: function (model, view) {
+        },
         /* create new category */
-        onCreateCategory: function(event) {
+        onCreateCategory: function (event) {
             event.preventDefault();
             var form = $(event.currentTarget),
                 name = form.find('input[type=text]').val(),
@@ -127,10 +131,10 @@
                 return false;
             }
             model.save(model.attributes, {
-                beforeSend: function() {
+                beforeSend: function () {
                     $(form).find('input[type=text]').val('');
                 },
-                success: function(model, resp) {
+                success: function (model, resp) {
                     var el = $('#' + model.get('tax') + '_item_template');
                     var newCat = new Views.CategoryListItem({
                         model: model
@@ -162,18 +166,18 @@
             // user select an icon
             'click .icon-item ': 'selectIcon',
             // input a custom color
-            'keypress .input-color' : 'inputColor', 
+            'keypress .input-color': 'inputColor',
             // input a custom icon class
-            'keypress .input-icon' : 'inputIcon'
+            'keypress .input-icon': 'inputIcon'
         },
-        initialize: function() {
+        initialize: function () {
             this.bind('onChangeColor', this.onChangeColor);
             this.bind('onChangeIcon', this.onChangeIcon);
             if (this.template == null) {
                 this.template = _.template($('#' + this.model.get('tax') + '_item_form').html());
             }
         },
-        onOpenColorPanel: function(event) {
+        onOpenColorPanel: function (event) {
             event.stopPropagation();
             $('.color-panel').fadeOut();
             // create panel
@@ -181,7 +185,7 @@
             if (!view.$el.hasClass('colored')) {
                 view.$el.addClass('colored').find('.color-panel').first().fadeIn();
                 // cai gi day troi >.<
-                view.$el.find('.color-item').click(function(event) {
+                view.$el.find('.color-item').click(function (event) {
                     var val = $(event.currentTarget).attr('data');
                     view.$el.find('input.tax-name').eq(0).css('color', val);
                     view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
@@ -191,8 +195,8 @@
                 // omg :((
                 view.$el.find('.color-picker').ColorPicker({
                     color: '#0000ff',
-                    onSubmit: function(hsb, hex, rgb, el) {
-                        view.$el.find('.color-picker').val('#'+hex);
+                    onSubmit: function (hsb, hex, rgb, el) {
+                        view.$el.find('.color-picker').val('#' + hex);
                         var val = view.$el.find('.color-picker').val();
                         view.$el.find('input.tax-name').eq(0).css('color', val);
                         view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
@@ -210,63 +214,64 @@
                         view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
                         view.trigger('onChangeColor', val);
                         view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
-                        $(colpkr).fadeOut(500); 
+                        $(colpkr).fadeOut(500);
                         return false;
                     },
-                    onChange: function(hsb, hex, rgb) {
+                    onChange: function (hsb, hex, rgb) {
                         view.$el.find('.color-picker').val('#' + hex);
                         //$this.css('color' , '#'+hex );
                         view.$el.find('.color-picker').css('background', '#' + hex);
                         // $this.ColorPickerHide();
                     },
-                    onBeforeShow: function() {
+                    onBeforeShow: function () {
                         view.$el.find('.color-picker').ColorPickerSetColor(this.value);
                     }
                 });
             }
-            else{
+            else {
                 view.$el.removeClass('colored').find('.color-panel').fadeOut();
             }
         },
         /**
          * admin enter a custom color  for category
-        */
-        inputColor : function(event){
+         */
+        inputColor: function (event) {
             // event.preventDefault();
-            if(event.keyCode === 13) {
+            if (event.keyCode === 13) {
                 var val = $(event.currentTarget).val(),
                     view = this;
-                    view.$el.find('input.tax-name').eq(0).css('color', val);
-                    view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
-                    view.trigger('onChangeColor', val);
-                    view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
-                    $('.colorpicker').fadeOut();
+                view.$el.find('input.tax-name').eq(0).css('color', val);
+                view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
+                view.trigger('onChangeColor', val);
+                view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
+                $('.colorpicker').fadeOut();
             }
-        }, 
-        onOpenIconsPanel: function(event) {
+        },
+        onOpenIconsPanel: function (event) {
             // hide all panel first
             //$(".color-panel").fadeOut();          
             event.stopPropagation();
 
-            if($('.icon-list').length > 0 ) {
+            if ($('.icon-list').length > 0) {
                 var icons = JSON.parse($('.icon-list').html());
-            }else {
+            } else {
                 var icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star', 'fa-map-marker'];
             }
             // create panel
             var view = this,
                 panel = $('<div class="color-panel icon-panel">');
-                /*icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star', 'fa-map-marker'];*/
+            /*icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star', 'fa-map-marker'];*/
             /**
-             * add icon panel 
-            */
+             * add icon panel
+             */
             if (!view.$el.hasClass('colored')) {
                 for (var i = icons.length - 1; i >= 0; i--) {
                     var element = $('<div class="icon-item color-item" data="' + icons[i] + '">').append('<i class="fa ' + icons[i] + '"></i>');
                     panel.append(element);
-                };
-                panel.append(   '<div class="custom-icon"><lable>Get more icons at <a target="_blank" href="http://fontawesome.io/icons/" >Font Awesome</a>'+
-                                '</lable><input class="input-icon" placeholder="e.g: fa-coffee" /> </div>');
+                }
+                ;
+                panel.append('<div class="custom-icon"><lable>Get more icons at <a target="_blank" href="http://fontawesome.io/icons/" >Font Awesome</a>' +
+                    '</lable><input class="input-icon" placeholder="e.g: fa-coffee" /> </div>');
                 view.$el.addClass('colored').append(panel);
             } else {
                 view.$el.removeClass('colored').find('.color-panel').fadeOut();
@@ -274,13 +279,13 @@
         },
         /**
          * admin select an icon for category
-        */
-        selectIcon: function(event) {
+         */
+        selectIcon: function (event) {
             var val = $(event.currentTarget).attr('data'),
                 view = this,
                 icon = view.$el.find('div.icon i'),
                 panel = $(event.currentTarget).parents('.icon-panel');
-            
+
             panel.fadeOut('normal');
             view.$el.removeClass('colored');
             icon.attr('class', '');
@@ -290,10 +295,10 @@
         },
         /**
          * admin enter a custom icon class for category
-        */
-        inputIcon : function(event){
+         */
+        inputIcon: function (event) {
             // event.preventDefault();
-            if(event.keyCode === 13) {
+            if (event.keyCode === 13) {
                 var val = $(event.currentTarget).val(),
                     view = this,
                     icon = view.$el.find('div.icon i'),
@@ -305,22 +310,22 @@
                 // console.log(val);
                 view.trigger('onChangeIcon', val, panel);
             }
-        }, 
+        },
 
-        onChangeIcon: function(val, panel) {
+        onChangeIcon: function (val, panel) {
             // console.log(this.model);
             this.model.set('icon', val);
         },
-        onChangeColor: function(val) {
+        onChangeColor: function (val) {
             this.model.set('color', val);
         },
-        onChangeName: function(event) {
+        onChangeName: function (event) {
             event.stopPropagation();
             this.model.set('name', $(event.currentTarget).val());
         },
-        onKeyupInput: function(event) {
+        onKeyupInput: function (event) {
             if (event.which == 27 && !this.options.disableEscape) {
-                this.$el.fadeOut('normal', function() {
+                this.$el.fadeOut('normal', function () {
                     $(this).remove()
                 });
             }
@@ -328,7 +333,7 @@
                 this.$('button[type=submit]').trigger('click');
             }
         },
-        onCreate: function(event) {
+        onCreate: function (event) {
             event.stopPropagation();
             var view = this,
                 tax = view.$('input[type=text][name=name]').attr('data-tax'),
@@ -340,10 +345,10 @@
             this.model.set('name', value);
             this.model.set('tax', tax);
             this.model.save(this.model.attributes, {
-                beforeSend: function() {
+                beforeSend: function () {
                     view.clearForm();
                 },
-                success: function(model, resp) {
+                success: function (model, resp) {
                     if (resp.success) {
                         view.trigger('onCreateSuccess', view.model, view);
                         view.model = new Models.Category({
@@ -356,10 +361,10 @@
                 }
             })
         },
-        clearForm: function() {
+        clearForm: function () {
             this.$('input[type=text]').val('').blur();
         },
-        render: function() {
+        render: function () {
             this.$el.html(this.template());
             if (this.model.get('color') != 0) {
                 this.$el.addClass('color-' + this.model.get('color'));
@@ -378,16 +383,16 @@
             'click .act-open-form': 'onOpenSubForm',
             'click .cursor': 'onOpenColorPanel',
             'click .icon.trigger': 'onOpenIconsPanel',
-            'click .act-del': 'onDelete', 
+            'click .act-del': 'onDelete',
             // user select an icon
-            'click .icon-item ': 'selectIcon', 
+            'click .icon-item ': 'selectIcon',
             // input a custom color
-            'keypress .input-color' : 'inputColor',
+            'keypress .input-color': 'inputColor',
             // input a custom icon class
-            'keypress .input-icon' : 'inputIcon'
+            'keypress .input-icon': 'inputIcon'
         },
         template: null,
-        initialize: function() {
+        initialize: function () {
             this.bind('onChangeColor', this.onChangeColor);
             this.bind('onChangeIcon', this.onChangeIcon);
             this.blockUi = new Views.BlockUi();
@@ -395,23 +400,24 @@
                 this.template = _.template($('#' + this.model.get('tax') + '_item_template').html());
             }
         },
-        onChangeTermName: function(event) {
+        onChangeTermName: function (event) {
             event.stopPropagation();
             var element = $(event.currentTarget);
             var view = this;
             this.model.save({
                 name: element.val()
             }, {
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block(view.$el)
                 },
-                success: function() {},
-                complete: function() {
+                success: function () {
+                },
+                complete: function () {
                     view.blockUi.unblock();
                 }
             });
         },
-        onOpenSubForm: function(event) {
+        onOpenSubForm: function (event) {
             event.stopPropagation();
             event.preventDefault();
             // check the level
@@ -430,8 +436,8 @@
                 tax: this.model.get('tax')
             });
             var newView = new Views.NewCategoryItem({
-                model: newModel
-            }),
+                    model: newModel
+                }),
                 list = null,
                 html = $('#' + this.model.get('tax') + '_item_form').html();
             if (view.$el.children('ul').length > 0) {
@@ -442,7 +448,7 @@
             // create small view
             list.append(newView.render().$el);
             // handle of term has been created
-            newView.bind('onCreateSuccess', function(model) {
+            newView.bind('onCreateSuccess', function (model) {
                 var itemView = new Views.CategoryListItem({
                     model: model
                 });
@@ -450,14 +456,14 @@
                 list.append(itemView.render().$el.hide().fadeIn());
             })
         },
-        onOpenColorPanel: function(event) {
+        onOpenColorPanel: function (event) {
             event.stopPropagation();
             // create panel
             var view = this;
             $('.color-panel').fadeOut();
             if (!view.$el.hasClass('colored')) {
                 view.$el.addClass('colored').find('.color-panel').first().fadeIn();
-                view.$el.find('.color-item').click(function(event) {
+                view.$el.find('.color-item').click(function (event) {
                     var val = $(event.currentTarget).attr('data');
                     view.$el.find('input.tax-name').first().css('color', val);
                     view.$el.find('.cursor > span.flag').first().css('background-color', val);
@@ -466,8 +472,8 @@
                 });
                 view.$el.find('.color-picker').first().ColorPicker({
                     color: '#0000ff',
-                    onSubmit: function(hsb, hex, rgb, el) {
-                        view.$el.find('.color-picker').val('#'+hex);
+                    onSubmit: function (hsb, hex, rgb, el) {
+                        view.$el.find('.color-picker').val('#' + hex);
                         var val = view.$el.find('.color-picker').val();
                         view.$el.find('input.tax-name').first().css('color', val);
                         view.$el.find('.cursor > span.flag').first().css('background-color', val);
@@ -485,52 +491,52 @@
                         view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
                         view.trigger('onChangeColor', val);
                         view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
-                        $(colpkr).fadeOut(500); 
+                        $(colpkr).fadeOut(500);
                         return false;
                     },
-                    onChange: function(hsb, hex, rgb) {
+                    onChange: function (hsb, hex, rgb) {
                         view.$el.find('.color-picker').val('#' + hex);
                         //$this.css('color' , '#'+hex );
                         view.$el.find('.color-picker').css('background', '#' + hex);
                         // $this.ColorPickerHide();
                     },
-                    onBeforeShow: function() {
+                    onBeforeShow: function () {
                         view.$el.find('.color-picker').ColorPickerSetColor(this.value);
                     }
                 });
             }
-            else{
+            else {
                 view.$el.removeClass('colored').find('.color-panel').fadeOut();
             }
         },
         /**
          * admin enter a custom color  for category
-        */
-        inputColor : function(event){
+         */
+        inputColor: function (event) {
             // event.preventDefault();
-            if(event.keyCode === 13) {
+            if (event.keyCode === 13) {
                 var val = $(event.currentTarget).val(),
                     view = this;
-                    view.$el.find('input.tax-name').eq(0).css('color', val);
-                    view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
-                    view.trigger('onChangeColor', val);
-                    view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
-                    $('.colorpicker').fadeOut();
+                view.$el.find('input.tax-name').eq(0).css('color', val);
+                view.$el.find('.cursor > span.flag').eq(0).css('background-color', val);
+                view.trigger('onChangeColor', val);
+                view.$el.parent().removeClass('colored').find('.color-panel').fadeOut();
+                $('.colorpicker').fadeOut();
             }
-        }, 
-        onOpenIconsPanel: function(event) {
+        },
+        onOpenIconsPanel: function (event) {
             event.stopPropagation();
             // dynamic add category icon
-            if($('.icon-list').length > 0 ) {
+            if ($('.icon-list').length > 0) {
                 var icons = JSON.parse($('.icon-list').html());
-            }else {
+            } else {
                 var icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star', 'fa-map-marker'];
             }
 
             // create panel
             var view = this,
                 panel = $('<div class="color-panel icon-panel">');
-                // icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star'];
+            // icons = ['fa-camera', 'fa-taxi', 'fa-beer', 'fa-anchor', 'fa-cutlery', 'fa-exclamation-triangle', 'fa-road', 'fa-wheelchair', 'fa-car', 'fa-truck', 'fa-graduation-cap', 'fa-briefcase', 'fa-coffee', 'fa-book', 'fa-plane', 'fa-tachometer', 'fa-gamepad', 'fa-building', 'fa-shopping-cart', 'fa-video-camera', 'fa-tree', 'fa-rocket', 'fa-glass', 'fa-star'];
             if (!view.$el.hasClass('colored')) {
                 for (var i = icons.length - 1; i >= 0; i--) {
                     var element = $('<div class="icon-item color-item" data="' + icons[i] + '">').append('<i class="fa ' + icons[i] + '"></i>');
@@ -547,10 +553,11 @@
                     //     view.trigger('onChangeIcon', val, panel);
                     // });
                     panel.append(element);
-                };
+                }
+                ;
 
-                panel.append(   '<div class="custom-icon"><lable>Get more icons at <a target="_blank" href="http://fontawesome.io/icons/" >Font Awesome</a>'+
-                                '</lable><input class="input-icon" placeholder="e.g: fa-coffee" /> </div>');
+                panel.append('<div class="custom-icon"><lable>Get more icons at <a target="_blank" href="http://fontawesome.io/icons/" >Font Awesome</a>' +
+                    '</lable><input class="input-icon" placeholder="e.g: fa-coffee" /> </div>');
 
                 view.$el.addClass('colored').append(panel);
             } else {
@@ -560,13 +567,13 @@
 
         /**
          * admin select an icon for category
-        */
-        selectIcon: function(event) {
+         */
+        selectIcon: function (event) {
             var val = $(event.currentTarget).attr('data'),
                 view = this,
                 icon = view.$el.find('div.icon i').eq(0),
                 panel = $(event.currentTarget).parents('.icon-panel');
-            
+
             panel.remove();
             view.$el.removeClass('colored');
             icon.attr('class', '');
@@ -576,10 +583,10 @@
         },
         /**
          * admin enter a custom icon class for category
-        */
-        inputIcon : function(event){
+         */
+        inputIcon: function (event) {
             // event.preventDefault();
-            if(event.keyCode === 13) {
+            if (event.keyCode === 13) {
                 var val = $(event.currentTarget).val(),
                     view = this,
                     icon = view.$el.find('div.icon i'),
@@ -591,9 +598,9 @@
                 // console.log(val);
                 view.trigger('onChangeIcon', val, panel);
             }
-        }, 
+        },
 
-        onChangeIcon: function(val, panel) {
+        onChangeIcon: function (val, panel) {
             this.model.set('icon', val);
             if (typeof this.model.attributes.id == 'undefined') return false;
             var tempModel = new Models.Category({
@@ -607,20 +614,21 @@
             tempModel.save({
                 icon: val
             }, {
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block(view.$el)
                 },
-                success: function(model, resp) {
-                    if (resp.success) {} else {
+                success: function (model, resp) {
+                    if (resp.success) {
+                    } else {
                         alert(resp.msg);
                     }
                 },
-                complete: function() {
+                complete: function () {
                     view.blockUi.unblock();
                 }
             })
         },
-        onChangeColor: function(val) {
+        onChangeColor: function (val) {
             this.model.set('color', val);
             if (typeof this.model.attributes.id == 'undefined') return false;
             var tempModel = new Models.Category({
@@ -634,43 +642,44 @@
             tempModel.save({
                 color: val
             }, {
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block(view.$el)
                 },
-                success: function(model, resp) {
-                    if (resp.success) {} else {
+                success: function (model, resp) {
+                    if (resp.success) {
+                    } else {
                         alert(resp.msg);
                     }
                 },
-                complete: function() {
+                complete: function () {
                     view.blockUi.unblock();
                 }
             })
         },
-        onDelete: function(event) {
+        onDelete: function (event) {
             event.stopPropagation();
             event.preventDefault();
             var element = $(event.currentTarget);
             var view = this;
             this.model.deleteItem({
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block(view.$el)
                 },
-                success: function(resp, model) {
+                success: function (resp, model) {
                     if (resp.success) {
-                        view.$el.fadeOut('normal', function() {
+                        view.$el.fadeOut('normal', function () {
                             $(this).remove();
                         })
                     } else {
                         alert(resp.msg);
                     }
                 },
-                complete: function() {
+                complete: function () {
                     view.blockUi.unblock();
                 }
             });
         },
-        render: function() {
+        render: function () {
             var html = this.template(this.model.attributes);
             var colorClass = 'color-' + this.model.get('color');
             this.$el.html(html).addClass(this.className).addClass(colorClass).attr('data-id', this.model.get('term_id')).attr('id', 'tax_' + this.model.get('term_id'));
@@ -681,21 +690,22 @@
         model: Models.Category
     });
     Models.Category = Backbone.Model.extend({
-        initialize: function() {},
-        parse: function(resp) {
+        initialize: function () {
+        },
+        parse: function (resp) {
             if (resp.data.term) {
                 var result = resp.data.term;
                 result.id = result.term_id;
                 return result;
             } else return {};
         },
-        deleteItem: function(options) {
+        deleteItem: function (options) {
             this.sync('delete', this, options);
         },
-        setColor: function(newColor, options) {
+        setColor: function (newColor, options) {
             this.sync('changeColor', this, options);
         },
-        sync: function(method, model, options) {
+        sync: function (method, model, options) {
             // build all params
             var params = {
                 url: ae_globals.ajaxURL,
@@ -704,25 +714,31 @@
                     action: 'et_' + model.get('tax') + '_sync',
                     method: method
                 },
-                beforeSend: function() {},
-                success: function(resp, model) {},
-                complete: function() {}
+                beforeSend: function () {
+                },
+                success: function (resp, model) {
+                },
+                complete: function () {
+                }
             };
             // build data
             var data = model.attributes;
             if (options.fields) {
                 var data = {};
-                _.each(options.fields, function(field) {
+                _.each(options.fields, function (field) {
                     data[field] = model.get(fields);
                 });
             }
             params.data.content = data;
             // build callback
-            var beforeSend = options.beforeSend || function() {};
-            var success = options.success || function(resp, model) {};
-            var complete = options.complete || function() {};
+            var beforeSend = options.beforeSend || function () {
+            };
+            var success = options.success || function (resp, model) {
+            };
+            var complete = options.complete || function () {
+            };
             params.beforeSend = beforeSend;
-            params.success = function(resp) {
+            params.success = function (resp) {
                 success(resp, model);
             };
             params.complete = complete;
@@ -736,19 +752,19 @@
     Views.Backend_Button = Backbone.View.extend({
         el: '.backend-button-wrapper',
         events: {
-            'click .backend-action-button' : 'onclickButton'
+            'click .backend-action-button': 'onclickButton'
         },
-        initialize: function() {
+        initialize: function () {
             var view = this;
             view.actions = view.$el.find('.backend-action-button').attr('data-action');
             view.blockUi = new AE.Views.BlockUi();
         },
-        onclickButton: function(){
-           //call a function when click to this button
+        onclickButton: function () {
+            //call a function when click to this button
         }
-        
+
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         //var categories = new Views.CategoryList();
         var options = new Models.Options();
         $('form').validate();
@@ -785,8 +801,8 @@
                 el: $('.user-container')
             });
         }
-        if ( $('.backend-action-button').length > 0){
-           new Views.Backend_Button();
+        if ($('.backend-action-button').length > 0) {
+            new Views.Backend_Button();
         }
         /**
          * init color picker

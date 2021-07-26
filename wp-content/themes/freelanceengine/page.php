@@ -1,73 +1,73 @@
 <?php
-	/**
-	 * The template for displaying all pages
-	 *
-	 * This is the template that displays all pages by default.
-	 * Please note that this is the WordPress construct of pages and that
-	 * other 'pages' on your WordPress site will use a different template.
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * The template for displaying all pages
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages and that
+ * other 'pages' on your WordPress site will use a different template.
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	global $post;
-	$session = et_read_session();
-	get_header();
-	if ( isset( $session[ 'project_id' ] ) ) {
-		et_destroy_session( 'project_id' );
-	}
-	if ( isset( $_REQUEST[ 'project_id' ] ) ) {
-		// save Session
-		et_write_session( 'project_id', $_REQUEST[ 'project_id' ] );
-	}
+global $post;
+$session = et_read_session();
+get_header();
+if ( isset( $session['project_id'] ) ) {
+	et_destroy_session( 'project_id' );
+}
+if ( isset( $_REQUEST['project_id'] ) ) {
+	// save Session
+	et_write_session( 'project_id', $_REQUEST['project_id'] );
+}
 
-	the_post();
+the_post();
 ?>
 
     <div class="container page-container">
         <!-- block control  -->
         <div class="row block-posts block-page">
 			<?php
-				if ( is_social_connect_page() ) {
-					the_content();
-					wp_link_pages( [
-						'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
-						'after'       => '</div>',
-						'link_before' => '<span>',
-						'link_after'  => '</span>',
-					] );
-				} else { ?>
-                    <div class="col-sm-3 col-xs-12 page-sidebar" id="right_content">
-						<?php get_sidebar( 'page' ); ?>
-                        <!-- <button class="visible-xs blog-sidebar_more"><?php echo __( 'More information', ET_DOMAIN ); ?><i class="fa fa-angle-down animated-hover fa-falling"></i></button>-->
-                    </div><!-- RIGHT CONTENT -->
-                    <div class="col-sm-9 col-xs-12 posts-container" id="left_content">
-                        <div class="fre-profile-box blog-content">
-                            <h1 class="text-center"><?php the_title(); ?></h1>
-							<?php
-								the_content();
-								wp_link_pages( [
-									'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
-									'after'       => '</div>',
-									'link_before' => '<span>',
-									'link_after'  => '</span>',
-								] );
-							?>
+			if ( is_social_connect_page() ) {
+				the_content();
+				wp_link_pages( [
+					'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
+					'after'       => '</div>',
+					'link_before' => '<span>',
+					'link_after'  => '</span>',
+				] );
+			} else { ?>
+                <div class="col-sm-3 col-xs-12 page-sidebar" id="right_content">
+					<?php get_sidebar( 'page' ); ?>
+                    <!-- <button class="visible-xs blog-sidebar_more"><?php echo __( 'More information', ET_DOMAIN ); ?><i class="fa fa-angle-down animated-hover fa-falling"></i></button>-->
+                </div><!-- RIGHT CONTENT -->
+                <div class="col-sm-9 col-xs-12 posts-container" id="left_content">
+                    <div class="fre-profile-box blog-content">
+                        <h1 class="text-center"><?php the_title(); ?></h1>
+						<?php
+						the_content();
+						wp_link_pages( [
+							'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', ET_DOMAIN ) . '</span>',
+							'after'       => '</div>',
+							'link_before' => '<span>',
+							'link_after'  => '</span>',
+						] );
+						?>
 
-                            <div class="clearfix"></div>
-                        </div><!-- end page content -->
-                    </div><!-- LEFT CONTENT -->
-                    <div class="page-sidebar visible-xs col-xs-12">
-						<?php if ( is_user_logged_in() ) { ?>
-                            <a class="center-btn fre-submit-btn"
-                               href="<?php echo bloginfo( 'url' ) . '/contact-us/'; ?>">Contact us</a>
-						<?php } else { ?>
-                            <a class="center-btn fre-submit-btn" href="<?php echo bloginfo( 'url' ) . '/login/'; ?>">Contact
-                                us</a>
-						<?php } ?>
-                    </div>
-				<?php } ?>
+                        <div class="clearfix"></div>
+                    </div><!-- end page content -->
+                </div><!-- LEFT CONTENT -->
+                <div class="page-sidebar visible-xs col-xs-12">
+					<?php if ( is_user_logged_in() ) { ?>
+                        <a class="center-btn fre-submit-btn"
+                           href="<?php echo bloginfo( 'url' ) . '/contact-us/'; ?>">Contact us</a>
+					<?php } else { ?>
+                        <a class="center-btn fre-submit-btn" href="<?php echo bloginfo( 'url' ) . '/login/'; ?>">Contact
+                            us</a>
+					<?php } ?>
+                </div>
+			<?php } ?>
         </div>
         <!--// block control  -->
     </div>
@@ -123,4 +123,4 @@
     </script>
 
 <?php
-	get_footer();
+get_footer();

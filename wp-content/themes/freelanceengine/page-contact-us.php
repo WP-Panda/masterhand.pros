@@ -1,15 +1,15 @@
 <?php
-	/**
-	 * Template Name: Page Contact Us
-	 */
-	global $user_ID;
-	if ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) {
-		$role = 'professional';
-	} else if ( fre_share_role() || ae_user_role( $user_ID ) == EMPLOYER ) {
-		$role = 'client';
-	}
-	$username = get_the_author_meta( 'display_name', $user_ID );
-	get_header();
+/**
+ * Template Name: Page Contact Us
+ */
+global $user_ID;
+if ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) {
+	$role = 'professional';
+} else if ( fre_share_role() || ae_user_role( $user_ID ) == EMPLOYER ) {
+	$role = 'client';
+}
+$username = get_the_author_meta( 'display_name', $user_ID );
+get_header();
 ?>
     <div class="notification success-bg <?php if ( is_user_logged_in() ) {
 		echo 'having-adminbar';

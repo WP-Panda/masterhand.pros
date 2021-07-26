@@ -1,26 +1,26 @@
 <?php
-	/**
-	 * The main template file
-	 *
-	 * This is the most generic template file in a WordPress theme and one
-	 * of the two required files for a theme (the other being style.css).
-	 * It is used to display a page when nothing more specific matches a query,
-	 * e.g., it puts together the home page when no home.php file exists.
-	 *
-	 * @link       http://codex.wordpress.org/Template_Hierarchy
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.0
-	 */
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link       http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.0
+ */
 
-	global $wp_query, $ae_post_factory, $post, $user_ID;
+global $wp_query, $ae_post_factory, $post, $user_ID;
 
-	$wp_query->query[ 'post_status' ] = 'publish';
-	$wp_query->query[ 'post_' ]       = PROJECT;
-	$loop                             = new WP_Query( $wp_query->query );
+$wp_query->query['post_status'] = 'publish';
+$wp_query->query['post_']       = PROJECT;
+$loop                           = new WP_Query( $wp_query->query );
 
-	get_header();
+get_header();
 ?>
     <div class="fre-page-wrapper section-archive-project">
         <div class="fre-page-title">
@@ -40,11 +40,11 @@
                                 <div class="fre-project-result-sort">
                                     <div class="row">
 										<?php
-											$query_post  = $loop->found_posts;
-											$found_posts = '<span class="found_post">' . $query_post . '</span>';
-											$plural      = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
-											$singular    = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts );
-											$not_found   = sprintf( __( 'There are no projects posted on this site!', ET_DOMAIN ), $found_posts );
+										$query_post  = $loop->found_posts;
+										$found_posts = '<span class="found_post">' . $query_post . '</span>';
+										$plural      = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
+										$singular    = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts );
+										$not_found   = sprintf( __( 'There are no projects posted on this site!', ET_DOMAIN ), $found_posts );
 										?>
                                         <div class="col-lg-4 col-lg-push-8 col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 hidden-xs">
 											<?php if ( $query_post >= 1 ) { ?>
@@ -99,10 +99,10 @@
                             </div>
                         </div>
 						<?php
-							//						$loop->query = array_merge( $loop->query, array( 'is_archive_project' => is_post_type_archive( PROJECT ) ) );
-							echo '<div class="fre-paginations paginations-wrapper">';
-							ae_pagination( $loop, get_query_var( 'paged' ) );
-							echo '</div>';
+						//						$loop->query = array_merge( $loop->query, array( 'is_archive_project' => is_post_type_archive( PROJECT ) ) );
+						echo '<div class="fre-paginations paginations-wrapper">';
+						ae_pagination( $loop, get_query_var( 'paged' ) );
+						echo '</div>';
 						?>
                     </div>
                 </div>
@@ -110,4 +110,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

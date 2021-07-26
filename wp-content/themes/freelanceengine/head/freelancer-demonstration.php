@@ -15,8 +15,9 @@
         <h1><?php fre_profile_demonstration( true ); ?></h1>
         <!-- <h1>Need a job?<br>Tell us your story</h1> -->
         <p>
-            <a href="<?php echo et_get_page_link( [ 'page_type'  => 'profile',
-			                                        'post_title' => __( "Create a Profile", ET_DOMAIN )
+            <a href="<?php echo et_get_page_link( [
+				'page_type'  => 'profile',
+				'post_title' => __( "Create a Profile", ET_DOMAIN )
 			] ); ?>" class="btn-sumary btn-sub-create box-shadow-button-orange">
 				<?php _e( "Review your Profile", ET_DOMAIN ); ?>
             </a>

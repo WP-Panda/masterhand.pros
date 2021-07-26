@@ -1,20 +1,20 @@
 <?php
-	$step         = 2;
-	$disable_plan = ae_get_option( 'disable_plan', false );
-	if ( $disable_plan ) {
-		$step --;
-	}
+$step         = 2;
+$disable_plan = ae_get_option( 'disable_plan', false );
+if ( $disable_plan ) {
+	$step --;
+}
 ?>
 <div class="step-wrapper step-auth" id="step-auth">
     <a href="#" class="step-heading active">
         <span class="number-step"><?php echo $step; ?></span>
         <span class="text-heading-step">
             <?php
-	            if ( fre_check_register() ) {
-		            _e( "Login or Register", ET_DOMAIN );
-	            } else {
-		            _e( "Login to your account", ET_DOMAIN );
-	            }
+            if ( fre_check_register() ) {
+	            _e( "Login or Register", ET_DOMAIN );
+            } else {
+	            _e( "Login to your account", ET_DOMAIN );
+            }
             ?>
         </span>
         <i class="fa fa-caret-right"></i>
@@ -30,41 +30,41 @@
                 <form role="form" id="signup_form_submit" class="signup_form_submit">
                     <input type="hidden" name="role" id="role" value="employer"/>
 					<?php
-						$disable_name = apply_filters( 'free_register_disable_name', '' );
-						if ( ! $disable_name ) {
-							?>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="control-label title-plan"
-                                               for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?>
-                                            <span><?php _e( "Enter first name", ET_DOMAIN ) ?></span></label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control text-field" id="first_name"
-                                               name="first_name"
-                                               placeholder="<?php _e( "Enter first name", ET_DOMAIN ) ?>">
-                                    </div>
+					$disable_name = apply_filters( 'free_register_disable_name', '' );
+					if ( ! $disable_name ) {
+						?>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label title-plan"
+                                           for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?>
+                                        <span><?php _e( "Enter first name", ET_DOMAIN ) ?></span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control text-field" id="first_name"
+                                           name="first_name"
+                                           placeholder="<?php _e( "Enter first name", ET_DOMAIN ) ?>">
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="control-label title-plan"
-                                               for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?>
-                                            <span><?php _e( "Enter last name", ET_DOMAIN ) ?></span></label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control text-field" id="last_name"
-                                               name="last_name"
-                                               placeholder="<?php _e( "Enter last name", ET_DOMAIN ) ?>">
-                                    </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label title-plan"
+                                           for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?>
+                                        <span><?php _e( "Enter last name", ET_DOMAIN ) ?></span></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control text-field" id="last_name"
+                                           name="last_name"
+                                           placeholder="<?php _e( "Enter last name", ET_DOMAIN ) ?>">
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-							<?php
-						}
+                        </div>
+                        <div class="clearfix"></div>
+						<?php
+					}
 					?>
                     <div class="form-group">
                         <div class="row">
@@ -148,28 +148,28 @@
                             <div class="row">
                                 <div class="col-md-offset-4 col-md-8" style="margin-top:10px;">
 									<?php
-										/**
-										 * tos agreement
-										 */
-										$tos = et_get_page_link( 'tos', [], false );
-										if ( $tos ) {
-											$url_tos = '<a href="' . et_get_page_link( 'tos' ) . '" rel="noopener noreferrer" target="_Blank">' . __( 'Term of Use and Privacy policy', ET_DOMAIN ) . '</a>';
-											?>
-                                            <p class="text-policy">
-												<?php printf( __( 'By creating an account, you agree to our %s', ET_DOMAIN ), $url_tos ); ?>
-                                            </p>
-											<?php
-										}
+									/**
+									 * tos agreement
+									 */
+									$tos = et_get_page_link( 'tos', [], false );
+									if ( $tos ) {
+										$url_tos = '<a href="' . et_get_page_link( 'tos' ) . '" rel="noopener noreferrer" target="_Blank">' . __( 'Term of Use and Privacy policy', ET_DOMAIN ) . '</a>';
+										?>
+                                        <p class="text-policy">
+											<?php printf( __( 'By creating an account, you agree to our %s', ET_DOMAIN ), $url_tos ); ?>
+                                        </p>
+										<?php
+									}
 									?>
                                 </div>
                             </div>
 						<?php } ?>
                         <div class="row">
 							<?php
-								if ( function_exists( 'ae_render_social_button' ) ) {
-									$before_string = __( "You can also sign in by:", ET_DOMAIN );
-									ae_render_social_button( [], [], $before_string );
-								}
+							if ( function_exists( 'ae_render_social_button' ) ) {
+								$before_string = __( "You can also sign in by:", ET_DOMAIN );
+								ae_render_social_button( [], [], $before_string );
+							}
 							?>
                         </div>
                     </div>
@@ -223,10 +223,10 @@
                         </div>
                         <div class="row">
 							<?php
-								if ( fre_check_register() && function_exists( 'ae_render_social_button' ) ) {
-									$before_string = __( "You can also sign in by:", ET_DOMAIN );
-									ae_render_social_button( [], [], $before_string );
-								}
+							if ( fre_check_register() && function_exists( 'ae_render_social_button' ) ) {
+								$before_string = __( "You can also sign in by:", ET_DOMAIN );
+								ae_render_social_button( [], [], $before_string );
+							}
 							?>
                         </div>
                     </div>

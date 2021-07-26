@@ -1,43 +1,43 @@
 /**
  * site overview render chart for post type
  */
-(function(Views, $, Backbone) {
+(function (Views, $, Backbone) {
     Views.Wizard = Backbone.View.extend({
         el: '#wizard-sample',
-        events:{
-            'click button#install_sample_data' : 'installSampleData',
-            'click button#delete_sample_data'  : 'deleteSampleData'                
+        events: {
+            'click button#install_sample_data': 'installSampleData',
+            'click button#delete_sample_data': 'deleteSampleData'
         },
-        initialize: function() {
+        initialize: function () {
             this.blockUi = new Views.BlockUi();
         },
         //install sample data
-        installSampleData: function(event){
+        installSampleData: function (event) {
             event.preventDefault();
             var button = $(event.currentTarget),
                 view = this;
 
-            if ( button.hasClass('disabled') ) return false;
-            
-            $.ajax ({
-                url  : ae_globals.ajaxURL,
-                type : 'post',
-                data : { 
-                    action  : 'et-insert-sample-data'
+            if (button.hasClass('disabled')) return false;
+
+            $.ajax({
+                url: ae_globals.ajaxURL,
+                type: 'post',
+                data: {
+                    action: 'et-insert-sample-data'
                 },
-                beforeSend: function(){
+                beforeSend: function () {
                     view.blockUi.block(button);
                     button.addClass('disabled');
                 },
-                success : function(response){
+                success: function (response) {
                     view.blockUi.unblock();
                     button.removeClass('disabled');
-                    if( response.success  ) {
+                    if (response.success) {
                         $(event.currentTarget).after(
                             $('<button>').text(ae_wizard.delete_sample_data).attr({
-                                'id'    : 'delete_sample_data',
-                                'type'  : 'button',
-                                'class' : 'primary-button'
+                                'id': 'delete_sample_data',
+                                'type': 'button',
+                                'class': 'primary-button'
                             })
                         );
                         $(event.currentTarget).remove();
@@ -49,36 +49,36 @@
                         alert(ae_wizard.insert_fail);
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown){
+                error: function (jqXHR, textStatus, errorThrown) {
                     // window.location.reload(true);
                 }
             });
         },
         //uninstall sample data
-        deleteSampleData: function(event){
+        deleteSampleData: function (event) {
             event.preventDefault();
             var button = $(event.currentTarget),
                 view = this;
-            if ( button.hasClass('disabled') ) return false;
-            
-            $.ajax ({
-                url  : ae_globals.ajaxURL,
-                type : 'post',
-                data : { 
-                    action  : 'et-delete-sample-data'
+            if (button.hasClass('disabled')) return false;
+
+            $.ajax({
+                url: ae_globals.ajaxURL,
+                type: 'post',
+                data: {
+                    action: 'et-delete-sample-data'
                 },
-                beforeSend: function(){
+                beforeSend: function () {
                     view.blockUi.block(button);
                     button.addClass('disabled');
                 },
-                success : function(response){
+                success: function (response) {
                     view.blockUi.unblock();
                     button.removeClass('disabled');
                     $(event.currentTarget).after(
                         $('<button>').text(ae_wizard.insert_sample_data).attr({
-                            'id'    : 'install_sample_data',
-                            'type'  : 'button',
-                            'class' : 'primary-button'
+                            'id': 'install_sample_data',
+                            'type': 'button',
+                            'class': 'primary-button'
                         })
                     );
                     $(event.currentTarget).remove();
@@ -89,7 +89,7 @@
         },
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         /**
          * render wizard
          */

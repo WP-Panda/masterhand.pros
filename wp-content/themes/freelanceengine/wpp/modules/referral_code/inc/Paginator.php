@@ -1,6 +1,6 @@
 <?php
-class Paginator
-{
+
+class Paginator {
 	const NUM_PLACEHOLDER = '(:num)';
 	protected $totalItems;
 	protected $numPages;
@@ -12,146 +12,153 @@ class Paginator
 	protected $nextText = 'Next';
 	protected $isWrapUlOff = false;
 	protected $customCSSClass = '';
+
 	/**
 	 * @param int $totalItems The total number of items.
 	 * @param int $itemsPerPage The number of items per page.
 	 * @param int $currentPage The current page number.
 	 * @param string $urlPattern A URL for each page, with (:num) as a placeholder for the page number. Ex. '/foo/page/(:num)'
 	 */
-	public function __construct($totalItems, $itemsPerPage, $currentPage, $urlPattern = '')
-	{
-		$this->totalItems = $totalItems;
+	public function __construct( $totalItems, $itemsPerPage, $currentPage, $urlPattern = '' ) {
+		$this->totalItems   = $totalItems;
 		$this->itemsPerPage = $itemsPerPage;
-		$this->currentPage = $currentPage;
-		$this->urlPattern = $urlPattern;
+		$this->currentPage  = $currentPage;
+		$this->urlPattern   = $urlPattern;
 		$this->updateNumPages();
 	}
-	protected function updateNumPages()
-	{
-		$this->numPages = ($this->itemsPerPage == 0 ? 0 : (int) ceil($this->totalItems/$this->itemsPerPage));
+
+	protected function updateNumPages() {
+		$this->numPages = ( $this->itemsPerPage == 0 ? 0 : (int) ceil( $this->totalItems / $this->itemsPerPage ) );
 	}
+
 	/**
 	 * @param int $maxPagesToShow
+	 *
 	 * @throws \InvalidArgumentException if $maxPagesToShow is less than 3.
 	 */
-	public function setMaxPagesToShow($maxPagesToShow)
-	{
-		if ($maxPagesToShow < 3) {
-			throw new \InvalidArgumentException('maxPagesToShow cannot be less than 3.');
+	public function setMaxPagesToShow( $maxPagesToShow ) {
+		if ( $maxPagesToShow < 3 ) {
+			throw new \InvalidArgumentException( 'maxPagesToShow cannot be less than 3.' );
 		}
 		$this->maxPagesToShow = $maxPagesToShow;
 	}
+
 	/**
 	 * @return int
 	 */
-	public function getMaxPagesToShow()
-	{
+	public function getMaxPagesToShow() {
 		return $this->maxPagesToShow;
 	}
+
 	/**
 	 * @param int $currentPage
 	 */
-	public function setCurrentPage($currentPage)
-	{
+	public function setCurrentPage( $currentPage ) {
 		$this->currentPage = $currentPage;
 	}
+
 	/**
 	 * @return int
 	 */
-	public function getCurrentPage()
-	{
+	public function getCurrentPage() {
 		return $this->currentPage;
 	}
+
 	/**
 	 * @param int $itemsPerPage
 	 */
-	public function setItemsPerPage($itemsPerPage)
-	{
+	public function setItemsPerPage( $itemsPerPage ) {
 		$this->itemsPerPage = $itemsPerPage;
 		$this->updateNumPages();
 	}
+
 	/**
 	 * @return int
 	 */
-	public function getItemsPerPage()
-	{
+	public function getItemsPerPage() {
 		return $this->itemsPerPage;
 	}
+
 	/**
 	 * @param int $totalItems
 	 */
-	public function setTotalItems($totalItems)
-	{
+	public function setTotalItems( $totalItems ) {
 		$this->totalItems = $totalItems;
 		$this->updateNumPages();
 	}
+
 	/**
 	 * @return int
 	 */
-	public function getTotalItems()
-	{
+	public function getTotalItems() {
 		return $this->totalItems;
 	}
+
 	/**
 	 * @return int
 	 */
-	public function getNumPages()
-	{
+	public function getNumPages() {
 		return $this->numPages;
 	}
+
 	/**
 	 * @param string $urlPattern
 	 */
-	public function setUrlPattern($urlPattern)
-	{
+	public function setUrlPattern( $urlPattern ) {
 		$this->urlPattern = $urlPattern;
 	}
+
 	/**
 	 * @return string
 	 */
-	public function getUrlPattern()
-	{
+	public function getUrlPattern() {
 		return $this->urlPattern;
 	}
+
 	/**
 	 * @param int $pageNum
+	 *
 	 * @return string
 	 */
-	public function getPageUrl($pageNum)
-	{
-		return str_replace(self::NUM_PLACEHOLDER, $pageNum, $this->urlPattern);
+	public function getPageUrl( $pageNum ) {
+		return str_replace( self::NUM_PLACEHOLDER, $pageNum, $this->urlPattern );
 	}
-	public function getNextPage()
-	{
-		if ($this->currentPage < $this->numPages) {
+
+	public function getNextPage() {
+		if ( $this->currentPage < $this->numPages ) {
 			return $this->currentPage + 1;
 		}
+
 		return null;
 	}
-	public function getPrevPage()
-	{
-		if ($this->currentPage > 1) {
+
+	public function getPrevPage() {
+		if ( $this->currentPage > 1 ) {
 			return $this->currentPage - 1;
 		}
+
 		return null;
 	}
-	public function getNextUrl()
-	{
-		if (!$this->getNextPage()) {
+
+	public function getNextUrl() {
+		if ( ! $this->getNextPage() ) {
 			return null;
 		}
-		return $this->getPageUrl($this->getNextPage());
+
+		return $this->getPageUrl( $this->getNextPage() );
 	}
+
 	/**
 	 * @return string|null
 	 */
-	public function getPrevUrl()
-	{
-		if (!$this->getPrevPage()) {
+	public function getPrevUrl() {
+		if ( ! $this->getPrevPage() ) {
 			return null;
 		}
-		return $this->getPageUrl($this->getPrevPage());
+
+		return $this->getPageUrl( $this->getPrevPage() );
 	}
+
 	/**
 	 * Get an array of paginated page data.
 	 *
@@ -168,137 +175,149 @@ class Paginator
 	 *
 	 * @return array
 	 */
-	public function getPages()
-	{
+	public function getPages() {
 		$pages = array();
-		if ($this->numPages <= 1) {
+		if ( $this->numPages <= 1 ) {
 			return array();
 		}
-		if ($this->numPages <= $this->maxPagesToShow) {
-			for ($i = 1; $i <= $this->numPages; $i++) {
-				$pages[] = $this->createPage($i, $i == $this->currentPage);
+		if ( $this->numPages <= $this->maxPagesToShow ) {
+			for ( $i = 1; $i <= $this->numPages; $i ++ ) {
+				$pages[] = $this->createPage( $i, $i == $this->currentPage );
 			}
 		} else {
 			// Determine the sliding range, centered around the current page.
-			$numAdjacents = (int) floor(($this->maxPagesToShow - 3) / 2);
-			if ($this->currentPage + $numAdjacents > $this->numPages) {
+			$numAdjacents = (int) floor( ( $this->maxPagesToShow - 3 ) / 2 );
+			if ( $this->currentPage + $numAdjacents > $this->numPages ) {
 				$slidingStart = $this->numPages - $this->maxPagesToShow + 2;
 			} else {
 				$slidingStart = $this->currentPage - $numAdjacents;
 			}
-			if ($slidingStart < 2) $slidingStart = 2;
+			if ( $slidingStart < 2 ) {
+				$slidingStart = 2;
+			}
 			$slidingEnd = $slidingStart + $this->maxPagesToShow - 3;
-			if ($slidingEnd >= $this->numPages) $slidingEnd = $this->numPages - 1;
+			if ( $slidingEnd >= $this->numPages ) {
+				$slidingEnd = $this->numPages - 1;
+			}
 			// Build the list of pages.
-			$pages[] = $this->createPage(1, $this->currentPage == 1);
-			if ($slidingStart > 2) {
+			$pages[] = $this->createPage( 1, $this->currentPage == 1 );
+			if ( $slidingStart > 2 ) {
 				$pages[] = $this->createPageEllipsis();
 			}
-			for ($i = $slidingStart; $i <= $slidingEnd; $i++) {
-				$pages[] = $this->createPage($i, $i == $this->currentPage);
+			for ( $i = $slidingStart; $i <= $slidingEnd; $i ++ ) {
+				$pages[] = $this->createPage( $i, $i == $this->currentPage );
 			}
-			if ($slidingEnd < $this->numPages - 1) {
+			if ( $slidingEnd < $this->numPages - 1 ) {
 				$pages[] = $this->createPageEllipsis();
 			}
-			$pages[] = $this->createPage($this->numPages, $this->currentPage == $this->numPages);
+			$pages[] = $this->createPage( $this->numPages, $this->currentPage == $this->numPages );
 		}
+
 		return $pages;
 	}
+
 	/**
 	 * Create a page data structure.
 	 *
 	 * @param int $pageNum
 	 * @param bool $isCurrent
+	 *
 	 * @return Array
 	 */
-	protected function createPage($pageNum, $isCurrent = false)
-	{
+	protected function createPage( $pageNum, $isCurrent = false ) {
 		return array(
-			'num' => $pageNum,
-			'url' => $this->getPageUrl($pageNum),
+			'num'       => $pageNum,
+			'url'       => $this->getPageUrl( $pageNum ),
 			'isCurrent' => $isCurrent,
 		);
 	}
+
 	/**
 	 * @return array
 	 */
-	protected function createPageEllipsis()
-	{
+	protected function createPageEllipsis() {
 		return array(
-			'num' => '...',
-			'url' => null,
+			'num'       => '...',
+			'url'       => null,
 			'isCurrent' => false,
 		);
 	}
+
 	/**
 	 * Render an HTML pagination control.
 	 *
 	 * @return string
 	 */
-	public function toHtml()
-	{
-		if ($this->numPages <= 1) {
+	public function toHtml() {
+		if ( $this->numPages <= 1 ) {
 			return '';
 		}
 		$html = $this->isWrapUlOff ? '' : '<ul class="d-flex flex-wrap pagination ' . $this->customCSSClass . '">';
-		if ($this->getPrevUrl()) {
-			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars($this->getPrevUrl()) . '">&laquo; '. $this->previousText .'</span></li>';
+		if ( $this->getPrevUrl() ) {
+			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getPrevUrl() ) . '">&laquo; ' . $this->previousText . '</span></li>';
 		}
-		foreach ($this->getPages() as $page) {
-			if ($page['url']) {
-				$html .= '<li' . ($page['isCurrent'] ? ' class="page-item active"' : '') . '><span class="page-link" onclick="' . htmlspecialchars($page['url']) . '">' . htmlspecialchars($page['num']) . '</span></li>';
+		foreach ( $this->getPages() as $page ) {
+			if ( $page['url'] ) {
+				$html .= '<li' . ( $page['isCurrent'] ? ' class="page-item active"' : '' ) . '><span class="page-link" onclick="' . htmlspecialchars( $page['url'] ) . '">' . htmlspecialchars( $page['num'] ) . '</span></li>';
 			} else {
-				$html .= '<li class="disabled"><span>' . htmlspecialchars($page['num']) . '</span></li>';
+				$html .= '<li class="disabled"><span>' . htmlspecialchars( $page['num'] ) . '</span></li>';
 			}
 		}
-		if ($this->getNextUrl()) {
-			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars($this->getNextUrl()) . '">'. $this->nextText .' &raquo;</span></li>';
+		if ( $this->getNextUrl() ) {
+			$html .= '<li class="page-item"><span class="page-link" onclick="' . htmlspecialchars( $this->getNextUrl() ) . '">' . $this->nextText . ' &raquo;</span></li>';
 		}
 		$html .= $this->isWrapUlOff ? '' : '</ul>';
+
 		return $html;
 	}
-	public function __toString()
-	{
+
+	public function __toString() {
 		return $this->toHtml();
 	}
-	public function getCurrentPageFirstItem()
-	{
-		$first = ($this->currentPage - 1) * $this->itemsPerPage + 1;
-		if ($first > $this->totalItems) {
+
+	public function getCurrentPageFirstItem() {
+		$first = ( $this->currentPage - 1 ) * $this->itemsPerPage + 1;
+		if ( $first > $this->totalItems ) {
 			return null;
 		}
+
 		return $first;
 	}
-	public function getCurrentPageLastItem()
-	{
+
+	public function getCurrentPageLastItem() {
 		$first = $this->getCurrentPageFirstItem();
-		if ($first === null) {
+		if ( $first === null ) {
 			return null;
 		}
 		$last = $first + $this->itemsPerPage - 1;
-		if ($last > $this->totalItems) {
+		if ( $last > $this->totalItems ) {
 			return $this->totalItems;
 		}
+
 		return $last;
 	}
-	public function setPreviousText($text)
-	{
+
+	public function setPreviousText( $text ) {
 		$this->previousText = $text;
+
 		return $this;
 	}
-	public function setNextText($text)
-	{
+
+	public function setNextText( $text ) {
 		$this->nextText = $text;
+
 		return $this;
 	}
-	public function unsetWrapUl()
-	{
+
+	public function unsetWrapUl() {
 		$this->isWrapUlOff = true;
+
 		return $this;
 	}
-	public function setWrapCSSClass($customCSSClass = '')
-	{
-		$this->customCSSClass = strval($customCSSClass);
+
+	public function setWrapCSSClass( $customCSSClass = '' ) {
+		$this->customCSSClass = strval( $customCSSClass );
+
 		return $this;
 	}
 }

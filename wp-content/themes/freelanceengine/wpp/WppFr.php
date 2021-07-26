@@ -1,50 +1,50 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: WP_Panda
+ * Date: 15.06.2021
+ * Time: 18:50
+ */
+
+namespace WppMain;
+
+define( 'WPP_TEXT_DOMAIN', 'wpp' );
+
+class WppFr {
+
 	/**
-	 * Created by PhpStorm.
-	 * User: WP_Panda
-	 * Date: 15.06.2021
-	 * Time: 18:50
+	 * Пользователь
+	 *
+	 * @var int
 	 */
+	public $user;
 
-	namespace WppMain;
+	/**
+	 * База данных
+	 *
+	 * @var object
+	 */
+	public $db;
 
-	define( 'WPP_TEXT_DOMAIN', 'wpp' );
+	/**
+	 * Префикс базы данных
+	 *
+	 * @var string
+	 */
+	public $prefix;
 
-	class WppFr{
+	/**
+	 * WPP_Skills constructor.
+	 */
+	public function __construct() {
+		global $wpdb;
 
-		/**
-		 * Пользователь
-		 *
-		 * @var int
-		 */
-		public $user;
-
-		/**
-		 * База данных
-		 *
-		 * @var object
-		 */
-		public $db;
-
-		/**
-		 * Префикс базы данных
-		 *
-		 * @var string
-		 */
-		public $prefix;
-
-		/**
-		 * WPP_Skills constructor.
-		 */
-		public function __construct() {
-			global $wpdb;
-
-			$this->db     = $wpdb;
-			$this->prefix = $this->db->prefix;
-			$this->user = get_current_user_id();
-
-		}
+		$this->db     = $wpdb;
+		$this->prefix = $this->db->prefix;
+		$this->user   = get_current_user_id();
 
 	}
 
-	$GLOBALS['wpp_en'] = new WppFr();
+}
+
+$GLOBALS['wpp_en'] = new WppFr();

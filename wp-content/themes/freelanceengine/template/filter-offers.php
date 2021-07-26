@@ -1,13 +1,14 @@
 <?php
-	global $wp_query;
+global $wp_query;
 
 ?>
 <div class="fre-project-filter-box">
     <script type="data/json" id="search_data">
         <?php
-			$search_data = $_POST;
-			echo json_encode( $search_data );
+		$search_data = $_POST;
+		echo json_encode( $search_data );
 		?>
+
 
 
     </script>

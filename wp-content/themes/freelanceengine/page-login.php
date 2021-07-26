@@ -1,34 +1,34 @@
 <?php
-	/**
-	 * Template Name: Login Page
-	 */
+/**
+ * Template Name: Login Page
+ */
 
-	/**
-	 * The template for displaying all pages
-	 *
-	 * This is the template that displays all pages by default.
-	 * Please note that this is the WordPress construct of pages and that
-	 * other 'pages' on your WordPress site will use a different template.
-	 *
-	 * @package    WordPress
-	 * @subpackage FreelanceEngine
-	 * @since      FreelanceEngine 1.8
-	 */
+/**
+ * The template for displaying all pages
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages and that
+ * other 'pages' on your WordPress site will use a different template.
+ *
+ * @package    WordPress
+ * @subpackage FreelanceEngine
+ * @since      FreelanceEngine 1.8
+ */
 
-	global $post;
-	if ( is_user_logged_in() ) {
-		wp_redirect( home_url() );
-		exit;
-	}
-	get_header();
-	// the_post();
-	// Redirect after login success
-	$re_url = '';
-	if ( isset( $_GET[ 'ae_redirect_url' ] ) ) {
-		$re_url = $_GET[ 'ae_redirect_url' ];
-	} else {
-		$re_url = home_url();
-	}
+global $post;
+if ( is_user_logged_in() ) {
+	wp_redirect( home_url() );
+	exit;
+}
+get_header();
+// the_post();
+// Redirect after login success
+$re_url = '';
+if ( isset( $_GET['ae_redirect_url'] ) ) {
+	$re_url = $_GET['ae_redirect_url'];
+} else {
+	$re_url = home_url();
+}
 ?>
 
     <div class="fre-page-wrapper">
@@ -60,10 +60,10 @@
                         </form>
                         <div class="fre-login-social">
 							<?php
-								if ( fre_check_register() && function_exists( 'ae_render_social_button' ) ) {
-									$before_string = __( "You can use your social account to log in", ET_DOMAIN );
-									ae_render_social_button( [], [], $before_string );
-								}
+							if ( fre_check_register() && function_exists( 'ae_render_social_button' ) ) {
+								$before_string = __( "You can use your social account to log in", ET_DOMAIN );
+								ae_render_social_button( [], [], $before_string );
+							}
 							?>
                         </div>
 						<?php if ( fre_check_register() ) { ?>
@@ -84,4 +84,4 @@
         </div>
     </div>
 <?php
-	get_footer();
+get_footer();

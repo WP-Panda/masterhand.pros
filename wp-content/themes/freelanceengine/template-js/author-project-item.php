@@ -6,8 +6,8 @@
             <div class="clearfix"></div>
         </div>
         <ul class="info-history">
-            <li> <span> 11 mins ago </span></li>
-            <li> <span> 100 </span>$ </li>
+            <li><span> 11 mins ago </span></li>
+            <li><span> 100 </span>$</li>
         </ul>
     </li>
 </script>

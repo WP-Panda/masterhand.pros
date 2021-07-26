@@ -5,8 +5,8 @@
 <form class="tab-content" onsubmit="return false" method="POST">
     <table class="table table-hover skill-table">
         <thead class="font-weight-bold">
-            <td>{$lang.name}</td>
-            <td colspan="2">{$lang.value}</td>
+        <td>{$lang.name}</td>
+        <td colspan="2">{$lang.value}</td>
         </thead>
         <tbody id="list_config">
         <tr class="text-center">

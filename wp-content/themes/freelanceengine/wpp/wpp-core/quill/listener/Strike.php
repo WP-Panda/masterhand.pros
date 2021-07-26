@@ -11,15 +11,13 @@ use nadar\quill\Line;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class Strike extends InlineListener
-{
-    /**
-     * {@inheritDoc}
-     */
-    public function process(Line $line)
-    {
-        if ($line->getAttribute('strike')) {
-            $this->updateInput($line, '<del>'.$line->getInput().'</del>');
-        }
-    }
+class Strike extends InlineListener {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function process( Line $line ) {
+		if ( $line->getAttribute( 'strike' ) ) {
+			$this->updateInput( $line, '<del>' . $line->getInput() . '</del>' );
+		}
+	}
 }

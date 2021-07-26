@@ -1,8 +1,8 @@
 <?php
 
-	global $wp_query, $ae_post_factory, $post;
-	$post_object = $ae_post_factory->get( PROJECT );
-	$current     = $post_object->current_post;
+global $wp_query, $ae_post_factory, $post;
+$post_object = $ae_post_factory->get( PROJECT );
+$current     = $post_object->current_post;
 ?>
 <li <?php post_class( 'project-item pending' ); ?>>
     <div class="row">

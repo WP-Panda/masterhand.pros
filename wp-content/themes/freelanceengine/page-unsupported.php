@@ -1,7 +1,7 @@
 <?php
-	/**
-	 * Template Name: Unsupported Browsers
-	 */
+/**
+ * Template Name: Unsupported Browsers
+ */
 ?>
 <!DOCTYPE html>
 <!--[if IE 6]>
@@ -22,9 +22,9 @@
 </head>
 <body <?php body_class( 'browser-unsupported' ) ?>>
 <?php
-	the_post();
-	$img     = TEMPLATEURL . '/img/warning.png';
-	$content = <<<HTML
+the_post();
+$img     = TEMPLATEURL . '/img/warning.png';
+$content = <<<HTML
 	<img src="{$img}" alt="warning">
 		<h1>Whoa!</h1>
 		<p>You're using an ancient browser. It has known security flaws <br/> and may not display all features of this and other websites.<br/>
@@ -38,12 +38,12 @@
 		<div>
 HTML;
 
-	$post_content = '';
-	if ( $post_content != '' ) {
-		the_content();
-	} else {
-		echo $content;
-	}
+$post_content = '';
+if ( $post_content != '' ) {
+	the_content();
+} else {
+	echo $content;
+}
 ?>
 </body>
 </html>

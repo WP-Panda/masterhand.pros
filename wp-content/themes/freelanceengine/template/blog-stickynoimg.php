@@ -1,11 +1,11 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
 ?>
 <div class="fre-blog-item">
     <div class="fre-blog-item_t"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>

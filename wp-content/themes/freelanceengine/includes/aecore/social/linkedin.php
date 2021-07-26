@@ -161,7 +161,7 @@ class ET_LinkedInAuth extends ET_SocialAuth {
 					$data_user->formattedName = str_replace( ' ', '', sanitize_user( $data_user->formattedName ) );
 					$username                 = $data_user->formattedName;
 					$params                   = array(
-						'user_login' => strtolower($username),
+						'user_login' => strtolower( $username ),
 						'user_email' => isset( $data_user->emailAddress ) ? $data_user->emailAddress : false,
 						'et_avatar'  => $avatars
 					);

@@ -49,8 +49,8 @@
                 'click .delete-attach-file': 'deletedAttachFile',
                 'click .lock-file-upload-btn': 'lockFile',
             },
-            initialize : function(){
-            	 var view = this;
+            initialize: function () {
+                var view = this;
             },
             deletedAttachFile: function (event) {
                 var view = this;
@@ -107,10 +107,10 @@
                             id: bidId,
                             event: 'edit_bid',
                         },
-                        beforeSend: function() {
+                        beforeSend: function () {
                             blockUi.block(bidForm);
                         },
-                        success: function(response){
+                        success: function (response) {
                             // fill modal with bid data
                             bidForm.html(response);
 
@@ -186,7 +186,7 @@
             lockFile: function (event) {
                 event.preventDefault();
                 var $target = event.target,
-                 	view = this;
+                    view = this;
                 if ($target.getAttribute('data-action') == 'lock') {
                     if (typeof view.modal_lock_file == 'undefined') {
                         view.modal_lock_file = new Views.Modal_Lock_File();
@@ -471,7 +471,7 @@
                     view.modal_review = new AE.Views.Modal_Review();
                 }
 
-                if ( ($target.className).indexOf('project-employer__reply') > -1 ){
+                if (($target.className).indexOf('project-employer__reply') > -1) {
                     $('#review_form').find('input[name="vote"]').closest('.fre-input-field').remove();
                     is_reply_input.val(true);
                 } else {
@@ -511,7 +511,7 @@
             selectTypeAccepting: function (event) {
                 event.preventDefault();
                 var $target = $(event.currentTarget);
-                if($('#acceptance_project').length){
+                if ($('#acceptance_project').length) {
                     $('#select-type-accept-bid form .fre-normal-btn').attr('id', $target.attr('id'));
                     $('#select-type-accept-bid').modal();
 
@@ -519,7 +519,7 @@
                     let bidType = $target.attr('data-bid-type');
                     console.log(bidType);
                     let $acceptBidBtn = $('#select-type-accept-bid').find('.btn-accept-bid');
-                    if (bidType != 'final'){
+                    if (bidType != 'final') {
                         $acceptBidBtn.hide();
                     } else {
                         $acceptBidBtn.show();
@@ -529,7 +529,7 @@
                 }
             },
 
-            selectTypeFinalBid: function(event) {
+            selectTypeFinalBid: function (event) {
                 event.preventDefault();
                 var $target = $(event.currentTarget);
                 let bidId = $target.attr('data-bid-id');
@@ -556,8 +556,8 @@
 
                             $target.html('Request Sent');
                             $target.css({
-                                'background':     '#20b620',
-                                'border-color':   '#20b620',
+                                'background': '#20b620',
+                                'border-color': '#20b620',
                                 'pointer-events': 'none',
                             });
                         } else {
@@ -890,7 +890,7 @@
                 $('#showed').val(showed)
 
                 var text = $(event.currentTarget).attr('data-text');
-                $('#form-showed-review h2')[0].textContent = text+'?'
+                $('#form-showed-review h2')[0].textContent = text + '?'
             },
             saveReviewDetails: function (event) {
                 event.preventDefault();
@@ -1018,7 +1018,7 @@
                                 view.blockUi.unblock();
                             }
                         },
-                        error: function (jqXHR, exception){
+                        error: function (jqXHR, exception) {
                             console.log(jqXHR.responseText);
                         }
                     });

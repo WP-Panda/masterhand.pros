@@ -1,24 +1,24 @@
 <!-- Step 1 -->
 <?php
-	$pack_id  = isset( $_GET[ 'pack_id' ] ) ? $_GET[ 'pack_id' ] : 0;
-	$selected = 0;
-	global $packs, $user_ID;
-	//$ae_pack = $ae_post_factory->get('pack');
-	//$packs = $ae_pack->fetch('pack');
-	//
-	$package_data = AE_Package::get_package_data( $user_ID );
-	//
-	$orders = AE_Payment::get_current_order( $user_ID );
+$pack_id  = isset( $_GET['pack_id'] ) ? $_GET['pack_id'] : 0;
+$selected = 0;
+global $packs, $user_ID;
+//$ae_pack = $ae_post_factory->get('pack');
+//$packs = $ae_pack->fetch('pack');
+//
+$package_data = AE_Package::get_package_data( $user_ID );
+//
+$orders = AE_Payment::get_current_order( $user_ID );
 
-	$number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
-	//
-	//$pro_func=array();
-	//foreach ($packs as $key => $package) {
-	//    if (array_search($package->sku, $option_for_project) !== false) {
-	//        unset($packs[$key]);
-	//        $pro_func[]=$package;
-	//    }
-	//}
+$number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
+//
+//$pro_func=array();
+//foreach ($packs as $key => $package) {
+//    if (array_search($package->sku, $option_for_project) !== false) {
+//        unset($packs[$key]);
+//        $pro_func[]=$package;
+//    }
+//}
 ?>
 
 <div id="fre-post-project-1" class="fre-post-project-step step-plan active">
@@ -41,11 +41,11 @@
 
 					if ( isset( $package_data[ $sku ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
 						$package_data_sku = $package_data[ $sku ];
-						if ( isset( $package_data_sku[ 'qty' ] ) && $package_data_sku[ 'qty' ] > 0 ) {
+						if ( isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
 							/**
 							 * print text when company has job left in package
 							 */
-							$number_of_post = $package_data_sku[ 'qty' ];
+							$number_of_post = $package_data_sku['qty'];
 						}
 					}
 
@@ -103,7 +103,7 @@
 
 					if ( isset( $package_data[ $sku ] ) ) {
 						$package_data_sku = $package_data[ $sku ];
-						if ( $package->et_price > 0 && isset( $package_data_sku[ 'qty' ] ) && $package_data_sku[ 'qty' ] > 0 ) {
+						if ( $package->et_price > 0 && isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
 							$order = get_post( $orders[ $sku ] );
 							if ( $order && ! is_wp_error( $order ) && $order->post_status != 'draft' ) {
 								// auto select package is available to post.
@@ -133,7 +133,7 @@
                         <div class="fre-submit-btn chose-plan">
                             <input id="package-<?php echo $package->ID ?>" name="post-package"
                                    type="radio" <?php echo $disabled;
-								echo ( $checked ) ? "checked='checked'" : ''; ?>>
+							echo ( $checked ) ? "checked='checked'" : ''; ?>>
 							<?php _e( 'Choose a plan', ET_DOMAIN ); ?>
                         </div>
                     </div>

@@ -1,56 +1,56 @@
 <?php
 // if edit bid event
-if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
-    include ($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
+if ( isset( $_REQUEST['event'] ) && $_REQUEST['event'] == 'edit_bid' ) {
+	include( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' );
 
-    $is_edit_bid = true;
+	$is_edit_bid = true;
 
-    $bid_id = (int) $_REQUEST['id'];
-    $bid_data = (array) get_post($bid_id);
+	$bid_id   = (int) $_REQUEST['id'];
+	$bid_data = (array) get_post( $bid_id );
 
-    foreach (get_post_meta($bid_id) as $key => $value){
-        $bid_data[$key] = $value[0];
-    }
+	foreach ( get_post_meta( $bid_id ) as $key => $value ) {
+		$bid_data[ $key ] = $value[0];
+	}
 
-    $user_ID = $bid_data->post_author;
+	$user_ID = $bid_data->post_author;
 } else {
-    $is_edit_bid = false;
-    wp_reset_query();
-    global $user_ID, $post;
-    $payer_of_commission = ae_get_option('payer_of_commission');
-    $commission_type = ae_get_option('commission_type');
-    $currency = ae_get_option('currency', array('align' => 'left', 'code' => 'USD', 'icon' => '$'));
-    $commission = ae_get_option('commission', 0);
-?>
+	$is_edit_bid = false;
+	wp_reset_query();
+	global $user_ID, $post;
+	$payer_of_commission = ae_get_option( 'payer_of_commission' );
+	$commission_type     = ae_get_option( 'commission_type' );
+	$currency            = ae_get_option( 'currency', array( 'align' => 'left', 'code' => 'USD', 'icon' => '$' ) );
+	$commission          = ae_get_option( 'commission', 0 );
+	?>
 
-<div class="modal fade" id="modal_bid_forbidden">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h4 class="modal-title text-center"><?php _e('Bids limit per day have been reached. Please upgrade your account to PRO for unlimited bids.', ET_DOMAIN); ?></h4>
+    <div class="modal fade" id="modal_bid_forbidden">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title text-center"><?php _e( 'Bids limit per day have been reached. Please upgrade your account to PRO for unlimited bids.', ET_DOMAIN ); ?></h4>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- MODAL BIG -->
-<div class="modal fade" id="modal_bid">
+    <!-- MODAL BIG -->
+    <div class="modal fade" id="modal_bid">
 
 <? }
 
-    if ($is_edit_bid){
-        $currency_data = fre_currency_data($bid_data['post_parent']);
-    } else {
-        $currency_data = fre_currency_data();
-    }
+if ( $is_edit_bid ) {
+	$currency_data = fre_currency_data( $bid_data['post_parent'] );
+} else {
+	$currency_data = fre_currency_data();
+}
 
-    $currency_flag = $currency_data['flag'];
-    $currency_code = $currency_data['code']; ?>
+$currency_flag = $currency_data['flag'];
+$currency_code = $currency_data['code']; ?>
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -65,32 +65,37 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
                     <div class="fre-input-field step-post-project">
 
                         <div class="bid-type__wrap">
-                            <label class="bid-type__btn <?=!$is_edit_bid || ($is_edit_bid && $bid_data['bid_type'] == 'not_final') ? 'bid-type__btn--selected' : ''?>">
-                                <?php _e( 'Preliminary quote', ET_DOMAIN ); ?>
-                                <input type="radio" name="bid_type" value="not_final" <?=!$is_edit_bid || ($is_edit_bid && $bid_data['bid_type'] == 'not_final') ? 'checked' : ''?>>
+                            <label class="bid-type__btn <?= ! $is_edit_bid || ( $is_edit_bid && $bid_data['bid_type'] == 'not_final' ) ? 'bid-type__btn--selected' : '' ?>">
+								<?php _e( 'Preliminary quote', ET_DOMAIN ); ?>
+                                <input type="radio" name="bid_type"
+                                       value="not_final" <?= ! $is_edit_bid || ( $is_edit_bid && $bid_data['bid_type'] == 'not_final' ) ? 'checked' : '' ?>>
                             </label>
 
                             <span class="bid-type__or">or</span>
 
-                            <label class="bid-type__btn <?=$is_edit_bid && $bid_data['bid_type'] == 'final' ? 'bid-type__btn--selected' : ''?>">
-                                <?php _e( 'Final bid', ET_DOMAIN ); ?>
-                                <input type="radio" name="bid_type" value="final" <?=$is_edit_bid && $bid_data['bid_type'] == 'final' ? 'checked' : ''?>>
+                            <label class="bid-type__btn <?= $is_edit_bid && $bid_data['bid_type'] == 'final' ? 'bid-type__btn--selected' : '' ?>">
+								<?php _e( 'Final bid', ET_DOMAIN ); ?>
+                                <input type="radio" name="bid_type"
+                                       value="final" <?= $is_edit_bid && $bid_data['bid_type'] == 'final' ? 'checked' : '' ?>>
                             </label>
                         </div>
 
                         <label class="fre-field-title" for="bid_budget"><?php _e( 'Your Bid', ET_DOMAIN ); ?></label>
                         <div class="fre-project-budget">
                             <div class="bid-currency__wrap">
-                                <?php if ($currency_flag != ''){ ?>
-                                    <img class="bid-currency__flag" src="<?=$currency_flag?>">
-                                <? } ?>
+								<?php if ( $currency_flag != '' ) { ?>
+                                    <img class="bid-currency__flag" src="<?= $currency_flag ?>">
+								<? } ?>
 
-                                <p class="bid-currency__code"><?=$currency_code?></p>
+                                <p class="bid-currency__code"><?= $currency_code ?></p>
                             </div>
 
                             <input id="bid_budget" required type="number" placeholder="1"
-                               value="<?=$is_edit_bid ? $bid_data['bid_budget'] : ''?>"
-                               class="input-item text-field is_number numberVal" pattern="-?(\d+|\d+.\d+|.\d+)([eE][-+]?\d+)?" onkeydown="if (event.keyCode == 16 || event.keyCode == 69 || event.keyCode == 189) return false" name="bid_budget" min="1">
+                                   value="<?= $is_edit_bid ? $bid_data['bid_budget'] : '' ?>"
+                                   class="input-item text-field is_number numberVal"
+                                   pattern="-?(\d+|\d+.\d+|.\d+)([eE][-+]?\d+)?"
+                                   onkeydown="if (event.keyCode == 16 || event.keyCode == 69 || event.keyCode == 189) return false"
+                                   name="bid_budget" min="1">
                             <!--span><?php echo fre_currency_sign( false ); ?></span-->
                         </div>
 
@@ -111,17 +116,20 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
                         <div class="row">
                             <div class="col-md-9 col-sm-8 col-xs-6 quantity">
                                 <input id="bid_time" required type="number" placeholder="1"
-                                   value="<?=$is_edit_bid ? $bid_data['bid_time'] : ''?>"
-                                   class="input-item text-field is_number numberVal" pattern="-?(\d+|\d+.\d+|.\d+)([eE][-+]?\d+)?" onkeydown="if (event.keyCode == 16 || event.keyCode == 69 || event.keyCode == 189) return false" name="bid_time" min="1">
+                                       value="<?= $is_edit_bid ? $bid_data['bid_time'] : '' ?>"
+                                       class="input-item text-field is_number numberVal"
+                                       pattern="-?(\d+|\d+.\d+|.\d+)([eE][-+]?\d+)?"
+                                       onkeydown="if (event.keyCode == 16 || event.keyCode == 69 || event.keyCode == 189) return false"
+                                       name="bid_time" min="1">
                             </div>
                             <div class="col-md-3 col-sm-4 col-xs-6 no-padding-left quantity">
                                 <select class="fre-chosen-single" name="type_time">
-                                    <option value="day" <?=$is_edit_bid && $bid_data['type_time'] == 'day' ? 'selected' : ''?>>
-                                        <?php _e( 'days', ET_DOMAIN ); ?>
+                                    <option value="day" <?= $is_edit_bid && $bid_data['type_time'] == 'day' ? 'selected' : '' ?>>
+										<?php _e( 'days', ET_DOMAIN ); ?>
                                     </option>
 
-                                    <option value="week" <?=$is_edit_bid && $bid_data['type_time'] == 'week' ? 'selected' : ''?>>
-                                        <?php _e( 'week', ET_DOMAIN ); ?>
+                                    <option value="week" <?= $is_edit_bid && $bid_data['type_time'] == 'week' ? 'selected' : '' ?>>
+										<?php _e( 'week', ET_DOMAIN ); ?>
                                     </option>
                                 </select>
                             </div>
@@ -130,35 +138,38 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
 
                     <div class="fre-input-field">
                         <label class="fre-field-title" for="post_content"><?php _e( 'Add Notes', ET_DOMAIN ); ?></label>
-                        <textarea id="bid_content" name="bid_content"><?=$is_edit_bid ? $bid_data['post_content'] : ''?></textarea>
+                        <textarea id="bid_content"
+                                  name="bid_content"><?= $is_edit_bid ? $bid_data['post_content'] : '' ?></textarea>
                     </div>
 
-                    <? $statusUser = get_user_pro_status($user_ID);
-                    if($statusUser && $statusUser != PRO_BASIC_STATUS_FREELANCER){ ?>
-                    <div class="fre-input-field">
-                        <label class="fre-field-title" for="bid_background_color"><?_e('Background color');?>:</label>
-                        <input id="bid_background_color" type="text" name="bid_background_color"
-                           value="<?=$is_edit_bid ? $bid_data['bid_background_color'] : ''?>"
-                           class=""
-                           onclick="setJsColorPicker(this)" readonly/>
-                        <script>
-                            var isPickerNotSetup = true;
-                            function setJsColorPicker(el){
-                                if(isPickerNotSetup) {
-                                    var picker = new jscolor(el);
-                                    picker.show();
-                                    isPickerNotSetup = false;
+					<? $statusUser = get_user_pro_status( $user_ID );
+					if ( $statusUser && $statusUser != PRO_BASIC_STATUS_FREELANCER ) { ?>
+                        <div class="fre-input-field">
+                            <label class="fre-field-title" for="bid_background_color"><? _e( 'Background color' ); ?>
+                                :</label>
+                            <input id="bid_background_color" type="text" name="bid_background_color"
+                                   value="<?= $is_edit_bid ? $bid_data['bid_background_color'] : '' ?>"
+                                   class=""
+                                   onclick="setJsColorPicker(this)" readonly/>
+                            <script>
+                                var isPickerNotSetup = true;
+
+                                function setJsColorPicker(el) {
+                                    if (isPickerNotSetup) {
+                                        var picker = new jscolor(el);
+                                        picker.show();
+                                        isPickerNotSetup = false;
+                                    }
                                 }
-                            }
-                        </script>
-                    </div>
-                    <? } ?>
+                            </script>
+                        </div>
+					<? } ?>
 
-                    <?
-                    $max_bid = getValueByProperty($statusUser, 'show_max_bid');
-                    if($max_bid){ ?>
+					<?
+					$max_bid = getValueByProperty( $statusUser, 'show_max_bid' );
+					if ( $max_bid ) { ?>
                         <div class="fre-input-field box_upload_img">
-                            <label class="fre-field-title"><? _e('Work examples'); ?></label>
+                            <label class="fre-field-title"><? _e( 'Work examples' ); ?></label>
                             <ul id="listImgPreviews" class="portfolio-thumbs-list row image">
                             </ul>
                             <div class="upfiles-container">
@@ -168,15 +179,16 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
                                 </div>
                             </div>
                             <p class="fre-allow-upload">
-                                <? _e('(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)'); ?>
+								<? _e( '(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)' ); ?>
                             </p>
                         </div>
                         <style>
-                            .upfiles-container{
+                            .upfiles-container {
                                 position: relative;
                                 height: 50px;
                             }
-                            .fre-upload-file{
+
+                            .fre-upload-file {
                                 position: absolute;
                                 top: 0px;
                                 left: 0px;
@@ -184,8 +196,9 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
                                 height: 44px;
                                 overflow: hidden;
                             }
-                            #upfiles{
-                                cursor:pointer;
+
+                            #upfiles {
+                                cursor: pointer;
                                 display: block;
                                 font-size: 999px;
                                 opacity: 0;
@@ -195,36 +208,38 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
                                 width: 100%;
                                 height: 100%;
                             }
-                            .fre-allow-upload{
+
+                            .fre-allow-upload {
                                 text-align: center;
                             }
-                            .delete-file{
+
+                            .delete-file {
                                 cursor: pointer;
                             }
                         </style>
-                        <?php
-                    } ?>
+						<?php
+					} ?>
 
-                    <? if ($is_edit_bid){ ?>
-                        <input type="hidden" name="post_parent" value="<?=$bid_data['post_parent']?>"/>
-                        <input type="hidden" name="bid_id" value="<?=$bid_id?>">
-                    <? } else { ?>
-                        <input type="hidden" name="post_parent" value="<?the_ID()?>"/>
-                    <? } ?>
+					<? if ( $is_edit_bid ) { ?>
+                        <input type="hidden" name="post_parent" value="<?= $bid_data['post_parent'] ?>"/>
+                        <input type="hidden" name="bid_id" value="<?= $bid_id ?>">
+					<? } else { ?>
+                        <input type="hidden" name="post_parent" value="<? the_ID() ?>"/>
+					<? } ?>
 
-                    <input type="hidden" name="method" value="<?=$is_edit_bid ? 'update' :  'create'?>"/>
+                    <input type="hidden" name="method" value="<?= $is_edit_bid ? 'update' : 'create' ?>"/>
                     <input type="hidden" name="action" value="ae-sync-bid"/>
 
 					<?php do_action( 'after_bid_form' ); ?>
                     <div class="fre-form-btn">
                         <button type="submit" class="fre-submit-btn btn-left btn-submit">
-                        <?php if (!$is_edit_bid){
-							 _e( 'Submit', ET_DOMAIN );
-                         } else {
-                             _e( 'Update', ET_DOMAIN );
-                         } ?>
+							<?php if ( ! $is_edit_bid ) {
+								_e( 'Submit', ET_DOMAIN );
+							} else {
+								_e( 'Update', ET_DOMAIN );
+							} ?>
                         </button>
-                        <span class="fre-cancel-btn" data-dismiss="modal"><?php _e('Cancel',ET_DOMAIN);?></span>
+                        <span class="fre-cancel-btn" data-dismiss="modal"><?php _e( 'Cancel', ET_DOMAIN ); ?></span>
                     </div>
 
                 </form>
@@ -232,8 +247,8 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 
-<? if (!$is_edit_bid){ ?>
-</div><!-- /.modal -->
+<? if ( ! $is_edit_bid ) { ?>
+    </div><!-- /.modal -->
 
 
     <div id="itemPreviewTemplate" style="display: none;">
@@ -248,8 +263,8 @@ if (isset($_REQUEST['event']) && $_REQUEST['event'] == 'edit_bid'){
             </div>
         </li>
     </div>
-    <?
-    wp_enqueue_script('jscolor', '/wp-content/themes/freelanceengine/js/jscolor.min.js', [], false, true);
-    wp_enqueue_script('ad-freelancer', '/wp-content/themes/freelanceengine/js/ad-freelancer.js', [], false, true);
+	<?
+	wp_enqueue_script( 'jscolor', '/wp-content/themes/freelanceengine/js/jscolor.min.js', [], false, true );
+	wp_enqueue_script( 'ad-freelancer', '/wp-content/themes/freelanceengine/js/ad-freelancer.js', [], false, true );
 }
 ?>

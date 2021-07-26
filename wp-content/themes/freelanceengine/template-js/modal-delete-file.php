@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
-                <?php _e( 'Are your sure you want to delete this item?', ET_DOMAIN ) ?>
+				<?php _e( 'Are your sure you want to delete this item?', ET_DOMAIN ) ?>
             </div>
             <div class="modal-body">
                 <form role="form" id="form-delete-file" class="form-delete-file fre-modal-form">

@@ -6,13 +6,13 @@
  * @author Dakachi
  */
 
-(function(Models, Views, $, Backbone) {
+(function (Models, Views, $, Backbone) {
     /**
      * Model language
      */
     Models.Language = Backbone.Model.extend({
         // action : 'ae-language-sync',
-        initialize: function() {
+        initialize: function () {
 
         }
     });
@@ -40,7 +40,7 @@
             'change textarea': 'markLanguageChange'
         },
 
-        initialize: function() {
+        initialize: function () {
             // new Model Language to handle language change
             this.language = new Models.Language();
             // new blockui to block element when call ajax
@@ -50,12 +50,12 @@
         /*
          * open form the add new language
          */
-        onAdd: function(e) {
+        onAdd: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 $container = $target.parent();
 
-            $target.fadeOut(300, function() {
+            $target.fadeOut(300, function () {
                 $container.find('.input-new-lang').fadeIn(300).focus();
             });
         },
@@ -63,7 +63,7 @@
         /**
          * add new language, fire an ajax request to server and create new language file
          */
-        add: function(e) {
+        add: function (e) {
             var $target = $(e.currentTarget),
                 $containter = $target.parent(),
                 view = this;
@@ -71,16 +71,16 @@
             view.language.action = 'ae-language-sync';
             if (e.which == 13) { // save the new lang
                 view.language.save('lang_name', $target.val(), {
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block($containter); // block the input field
                     },
-                    success: function(result, res, xhr) {
+                    success: function (result, res, xhr) {
                         view.blockUi.unblock();
                         // update view translation
 
                         if (res.success) {
                             //$container.find('.active').removeClass('active');
-                            view.$('ul.list-language').prepend('<li><a class="actives" href="et-change-language" rel="'+res.data.lang_name+'">' + res.data.lang_name + '</a></li>');
+                            view.$('ul.list-language').prepend('<li><a class="actives" href="et-change-language" rel="' + res.data.lang_name + '">' + res.data.lang_name + '</a></li>');
                             view.$('#base-language').append('<option value="' + res.data.lang_name + '">' + res.data.lang_name + '</option>');
                             // hide the form
                             view.$('li.new-language button').show();
@@ -95,7 +95,7 @@
             }
 
             if (e.which == 27) { // escape, cancel the new lang form
-                view.$('li.new-language input').val('').fadeOut(300, function() {
+                view.$('li.new-language input').val('').fadeOut(300, function () {
                     view.$('li.new-language button').fadeIn(300);
                 });
             }
@@ -105,7 +105,7 @@
         /**
          * ajax request to change site language and refesh site to view the change
          */
-        changeLanguage: function(e) {
+        changeLanguage: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 name = $target.attr('rel'),
@@ -114,10 +114,10 @@
             view.language.action = 'ae-language-change';
 
             view.language.save('lang_name', name, {
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($target);
                 },
-                success: function(result, response, xhr) {
+                success: function (result, response, xhr) {
                     view.blockUi.unblock();
                     if (response.success) {
                         window.location.reload();
@@ -129,7 +129,7 @@
         /**
          * trigger ajax to request string to translate
          */
-        loadTranslate: function(e) {
+        loadTranslate: function (e) {
             var $target = $(e.currentTarget),
                 $form = this.$('div#translate-form'),
                 lang_name = $target.val(),
@@ -147,10 +147,10 @@
                     lang_name: lang_name,
                     action: 'et-load-translation-form'
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     view.blockUi.block($form);
                 },
-                success: function(reponse) {
+                success: function (reponse) {
                     // update view translation
                     view.blockUi.unblock();
                     if (reponse.success) {
@@ -166,7 +166,7 @@
         /**
          * mark textarea has changed
          */
-        markLanguageChange: function(e) {
+        markLanguageChange: function (e) {
             e.preventDefault();
             var $target = $(e.currentTarget),
                 $container = $target.parent();
@@ -182,7 +182,7 @@
         /**
          * save translation string
          */
-        saveTranslation: function(event) {
+        saveTranslation: function (event) {
             event.preventDefault();
             var button = this.$('#save-language'),
                 form = this.$('#translate-form'),
@@ -192,7 +192,7 @@
             /**
              * find changed field and add it to data
              */
-            form.find('.changed').each(function() {
+            form.find('.changed').each(function () {
                 data = data + $(this).attr('name') + '=' + encodeURIComponent($(this).val()) + '&';
             });
             /**
@@ -204,24 +204,24 @@
                 data:
                 // append action to data string
                 data + 'action=et-save-language&lang_name=' + lang_name,
-                beforeSend: function() {
+                beforeSend: function () {
                     this.isSaveingLanguage = true;
                     view.blockUi.block(button);
                 },
-                success: function(response) {
+                success: function (response) {
                     view.blockUi.unblock();
                     // update view
                     if (response.success) {
                         view.$('.changed').removeClass('changed');
                         button.parents('.btn-language').append('<span class="icon form-icon" data-icon="3"></span>');
                         // $target.parent().append('<span class="icon form-icon" data-icon="3"></span>');
-                        view.timeout = setTimeout(function() {
+                        view.timeout = setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
                     } else {
                         button.parents('.btn-language').append('<span class="icon form-icon" data-icon="!"></span>');
                         // $target.parent().append('<span class="icon form-icon" data-icon="3"></span>');
-                        view.timeout = setTimeout(function() {
+                        view.timeout = setTimeout(function () {
                             view.$('.form-icon').remove();
                         }, 2000);
                     }

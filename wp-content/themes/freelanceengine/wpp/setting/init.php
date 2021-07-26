@@ -1,14 +1,14 @@
 <?php
-	/**
-	 * @package masterhand.pros
-	 * @author  WP_Panda
-	 * @version 1.0.0
-	 */
+/**
+ * @package masterhand.pros
+ * @author  WP_Panda
+ * @version 1.0.0
+ */
 
-	defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
-	$array = ['constantes', 'theme_class', 'route', 'metaboxes' ];
+$array = [ 'constantes', 'theme_class', 'route', 'metaboxes' ];
 
-	foreach ( $array as $file ) :
-		require_once $file . '.php';
-	endforeach;
+foreach ( $array as $file ) :
+	require_once $file . '.php';
+endforeach;

@@ -175,7 +175,7 @@ class ET_FaceAuth extends ET_SocialAuth {
 				$data['name'] = str_replace( ' ', '', sanitize_user( $data['name'] ) );
 				$username     = $data['name'];
 				$params       = array(
-					'user_login'    => strtolower($username), // some special case this still uppercase
+					'user_login'    => strtolower( $username ), // some special case this still uppercase
 					'user_email'    => isset( $data['email'] ) ? $data['email'] : false,
 					'description'   => isset( $data['bio'] ) ? $data['bio'] : false,
 					'user_location' => isset( $data['location'] ) ? $data['location']['name'] : false,

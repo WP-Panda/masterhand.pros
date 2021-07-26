@@ -37,7 +37,7 @@
 <!--        if (page.length !== 0) {-->
 <!--            var phone_code = document.getElementsByName('ihs-country-code')-->
 <!--            var phone = document.getElementById('user_phone')-->
-<!--            phone_code[0].value = '<?//=$user_phone_code?>'
+<!--            phone_code[0].value = '<? //=$user_phone_code?>'
 //            phone_code[0].className += ' ihs_country_code'
 //            phone_code[0].parentElement.style.width = "9rem"
 //            phone.style.width = "calc(100% - 9rem)"

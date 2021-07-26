@@ -10,8 +10,9 @@
                 <span class="position-profile">{{= et_professional_title }}</span>
             </li>
             <li class="link-profile">
-                <a href="{{= author_link }}" class="btn btn-view-profile" title="<?php _e("View Profile", ET_DOMAIN); ?>">
-                <span><?php _e("View Profile", ET_DOMAIN); ?></span>
+                <a href="{{= author_link }}" class="btn btn-view-profile"
+                   title="<?php _e( "View Profile", ET_DOMAIN ); ?>">
+                    <span><?php _e( "View Profile", ET_DOMAIN ); ?></span>
                 </a>
             </li>
         </ul>
@@ -27,7 +28,7 @@
             </li>
             <li class="list-skill-profile">
                 <ul>
-                {{= skill_list }}
+                    {{= skill_list }}
                 </ul>
             </li>
         </ul>

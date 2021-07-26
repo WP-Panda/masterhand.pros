@@ -1,13 +1,13 @@
 <?php
-	/**
-	 * Template Name: FAQ-help
-	 *
-	 * @package    WordPress
-	 * @subpackage Twenty_Fourteen
-	 * @since      Twenty Fourteen 1.0
-	 */
+/**
+ * Template Name: FAQ-help
+ *
+ * @package    WordPress
+ * @subpackage Twenty_Fourteen
+ * @since      Twenty Fourteen 1.0
+ */
 
-	get_header();
+get_header();
 ?>
     <div class="fre-page-wrapper">
 
@@ -33,94 +33,95 @@
         <div class="help-post hidden-xs">
             <div class="container">
 				<?php
-					$top_faq_title = get_field( 'top_faq_title' );
-					if ( $top_faq_title ) { ?>
-                        <div class="help-post__block_title"><?php echo $top_faq_title; ?></div>
-					<?php } ?>
+				$top_faq_title = get_field( 'top_faq_title' );
+				if ( $top_faq_title ) { ?>
+                    <div class="help-post__block_title"><?php echo $top_faq_title; ?></div>
+				<?php } ?>
 				<?php
-					$featured_posts = get_field( 'top_faq_list' );
-					if ( $featured_posts ): ?>
-                        <div class="help-post__row">
-							<?php
-								$k = 1;
-								foreach ( $featured_posts as $post ):
-
-									// Setup this post for WP functions (variable must be named $post).
-									setup_postdata( $post ); ?>
-                                    <div class="help-post__item">
-                                        <div class="help-post__image">
-											<?php if ( has_post_thumbnail() ) { ?>
-                                                <img src="<?php the_post_thumbnail_url(); ?>"
-                                                     alt="post-<?php echo $k ?>">
-											<?php } else { ?>
-                                                <img src="<?php echo get_template_directory_uri() . '/img/noimg.png' ?>"
-                                                     alt="no_img">
-											<?php } ?>
-                                        </div>
-                                        <a class="help-post__title"
-                                           href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-										<?php if ( has_excerpt() ) { ?>
-                                            <div class="help-post__excerpt">
-												<?php echo get_the_excerpt(); ?>
-                                            </div>
-										<?php } ?>
-                                    </div>
-
-									<?php $k ++; endforeach; ?>
-                        </div>
+				$featured_posts = get_field( 'top_faq_list' );
+				if ( $featured_posts ): ?>
+                    <div class="help-post__row">
 						<?php
-						// Reset the global post object so that the rest of the page works correctly.
-						wp_reset_postdata(); ?>
-					<?php endif; ?>
+						$k = 1;
+						foreach ( $featured_posts as $post ):
+
+							// Setup this post for WP functions (variable must be named $post).
+							setup_postdata( $post ); ?>
+                            <div class="help-post__item">
+                                <div class="help-post__image">
+									<?php if ( has_post_thumbnail() ) { ?>
+                                        <img src="<?php the_post_thumbnail_url(); ?>"
+                                             alt="post-<?php echo $k ?>">
+									<?php } else { ?>
+                                        <img src="<?php echo get_template_directory_uri() . '/img/noimg.png' ?>"
+                                             alt="no_img">
+									<?php } ?>
+                                </div>
+                                <a class="help-post__title"
+                                   href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+								<?php if ( has_excerpt() ) { ?>
+                                    <div class="help-post__excerpt">
+										<?php echo get_the_excerpt(); ?>
+                                    </div>
+								<?php } ?>
+                            </div>
+
+							<?php $k ++; endforeach; ?>
+                    </div>
+					<?php
+					// Reset the global post object so that the rest of the page works correctly.
+					wp_reset_postdata(); ?>
+				<?php endif; ?>
             </div>
         </div>
         <div class="help-catalog">
             <div class="container">
 				<?php
-					$rows = get_field( 'tabs_item' );
-					if ( $rows ){ ?>
+				$rows = get_field( 'tabs_item' );
+				if ( $rows ){ ?>
                 <div class="help-tabs">
                     <ul class="help-tab__headers" id="Tabs" role="tablist">
 						<?php
-							$i = 0;
-							foreach ( $rows as $row ) { ?>
-								<?php if ( $i == 0 ) { ?>
-                                    <li class="nav-item help-tab__header_item active">
-								<?php } else { ?>
-                                    <li class="nav-item help-tab__header_item">
-								<?php }
-							$i ++ ?>
-                                <a class="nav-link help-tab__header_link" data-toggle="tab"
-                                   href="#tab-<?php echo $row[ 'tab_id' ] ?>" role="tab">
-									<?php echo $row[ 'tab_header' ]; ?>
-                                </a>
-                                </li>
-							<?php } ?>
+						$i = 0;
+						foreach ( $rows as $row ) { ?>
+							<?php if ( $i == 0 ) { ?>
+                                <li class="nav-item help-tab__header_item active">
+							<?php } else { ?>
+                                <li class="nav-item help-tab__header_item">
+							<?php }
+						$i ++ ?>
+                            <a class="nav-link help-tab__header_link" data-toggle="tab"
+                               href="#tab-<?php echo $row['tab_id'] ?>" role="tab">
+								<?php echo $row['tab_header']; ?>
+                            </a>
+                            </li>
+						<?php } ?>
                     </ul>
                 </div>
                 <div class="tab-content help-tab__content">
 					<?php
-						$j = 0;
-						foreach ( $rows
+					$j = 0;
+					foreach ( $rows
 
-						as $row ) { ?>
+					as $row ) { ?>
 				<?php if ( $j == 0 ){ ?>
-                    <div id="tab-<?php echo $row[ 'tab_id' ] ?>" class="tab-pane help-tab__pane fade active in">
+                    <div id="tab-<?php echo $row['tab_id'] ?>" class="tab-pane help-tab__pane fade active in">
 						<?php } else { ?>
-                        <div id="tab-<?php echo $row[ 'tab_id' ] ?>" class="tab-pane help-tab__pane fade">
+                        <div id="tab-<?php echo $row['tab_id'] ?>" class="tab-pane help-tab__pane fade">
 							<?php }
-								$j ++ ?>
+							$j ++ ?>
 							<?php
-								$category_list = $row[ 'category_list' ];
-								$taxonomy      = esc_html( $category_list->taxonomy );
-								$terms_id      = $category_list->term_id;
-								$terms         = get_terms( [ 'taxonomy'   => $taxonomy,
-								                              'hide_empty' => 0,
-								                              'parent'     => $terms_id
-								] );
-								$colc          = count( $terms );
-								$coln          = round( ( count( $terms ) ) / 3 );
-								$i             = 0;
+							$category_list = $row['category_list'];
+							$taxonomy      = esc_html( $category_list->taxonomy );
+							$terms_id      = $category_list->term_id;
+							$terms         = get_terms( [
+								'taxonomy'   => $taxonomy,
+								'hide_empty' => 0,
+								'parent'     => $terms_id
+							] );
+							$colc          = count( $terms );
+							$coln          = round( ( count( $terms ) ) / 3 );
+							$i             = 0;
 							?>
 
 
@@ -158,29 +159,29 @@
                                             <!--                                            <div class="profs-cat_sublist">-->
                                             <ul class="help-tab__catalog_list">
 												<?php
-													//loop through query
-													if ( $partnersList->have_posts() ) {
-														while ( $partnersList->have_posts() ) {
-															$partnersList->the_post();
-															?>
-                                                            <li class="help-tab__catalog_item">
-                                                                <a class="help-tab__catalog_list"
-                                                                   href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                                            </li>
+												//loop through query
+												if ( $partnersList->have_posts() ) {
+													while ( $partnersList->have_posts() ) {
+														$partnersList->the_post();
+														?>
+                                                        <li class="help-tab__catalog_item">
+                                                            <a class="help-tab__catalog_list"
+                                                               href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                                        </li>
 
-															<?php
-														}
+														<?php
 													}
+												}
 
-													wp_reset_postdata();
+												wp_reset_postdata();
 
 												?>
                                             </ul>
                                         </div>
                                     </div>
 								<?php }
-									$i ++;
-									$colc --; ?>
+								$i ++;
+								$colc --; ?>
 
                             </div>
                         </div>

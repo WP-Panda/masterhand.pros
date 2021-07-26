@@ -1,10 +1,10 @@
 <?php
-	$template = 'poster3';
+$template = 'poster3';
 
-	ob_start();
-	get_poster( $template );
-	$body = ob_get_clean();
-	echo $body;
+ob_start();
+get_poster( $template );
+$body = ob_get_clean();
+echo $body;
 
 ?>
 

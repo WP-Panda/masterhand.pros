@@ -1,19 +1,19 @@
 <?php
- 
+
 /**
  * Set up environment for my plugin's tests suite.
  */
- 
+
 /**
  * The path to the WordPress tests checkout.
  */
 define( 'WP_TESTS_DIR', '../../../../wordpress-developer/tests/phpunit/' );
- 
+
 /**
  * The path to the main file of the plugin to test.
  */
-define( 'TEST_PLUGIN_FILE', str_replace('tests', '', dirname( __FILE__ ) ) );
- 
+define( 'TEST_PLUGIN_FILE', str_replace( 'tests', '', dirname( __FILE__ ) ) );
+
 /**
  * The WordPress tests functions.
  *
@@ -21,7 +21,7 @@ define( 'TEST_PLUGIN_FILE', str_replace('tests', '', dirname( __FILE__ ) ) );
  * to load the plugin, using tests_add_filter().
  */
 require_once WP_TESTS_DIR . 'includes/functions.php';
- 
+
 /**
  * Manually load the plugin main file.
  *
@@ -33,9 +33,10 @@ require_once WP_TESTS_DIR . 'includes/functions.php';
  */
 function _manually_load_plugin() {
 
-    // require TEST_PLUGIN_FILE . '/marketengine.php';
- 	require TEST_PLUGIN_FILE .'appengine.php';
+	// require TEST_PLUGIN_FILE . '/marketengine.php';
+	require TEST_PLUGIN_FILE . 'appengine.php';
 }
+
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 /**

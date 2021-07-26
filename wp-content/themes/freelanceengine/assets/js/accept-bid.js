@@ -1,19 +1,19 @@
-(function($, Views, Models, Collections) {
-    $(document).ready(function() {
+(function ($, Views, Models, Collections) {
+    $(document).ready(function () {
         Views.Modal_Transfer_Money = Views.Modal_Box.extend({
             el: '#modal_transfer_money',
-            template : _.template($('#transfer_money_info_template').html()),
+            template: _.template($('#transfer_money_info_template').html()),
             events: {
-                'submit form#transfer-money-form' : 'transfer_money'
+                'submit form#transfer-money-form': 'transfer_money'
             },
-            initialize: function(){
+            initialize: function () {
                 this.blockUi = new Views.BlockUi();
             },
-            setProject: function(id) {
+            setProject: function (id) {
                 this.project_id = id;
                 this.getInformation();
             },
-            getInformation: function(){
+            getInformation: function () {
                 var view = this;
                 $.ajax({
                     url: ae_globals.ajaxURL,
@@ -22,18 +22,18 @@
                         project_id: view.project_id,
                         action: 'transfer_money_info'
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(view.$el);
                     },
-                    success: function(res) {
-                        if(res.data.success){
+                    success: function (res) {
+                        if (res.data.success) {
                             view.$el.find('.fre-transfer-money-info').html(view.template(res.data));
                         }
                         view.blockUi.unblock();
                     }
                 });
             },
-            transfer_money: function(event){
+            transfer_money: function (event) {
                 event.preventDefault();
                 var view = this,
                     $target = $(event.currentTarget);
@@ -44,10 +44,10 @@
                         project_id: view.project_id,
                         action: 'transfer_money'
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block($target);
                     },
-                    success: function(res) {
+                    success: function (res) {
                         if (res.success) {
                             AE.pubsub.trigger('ae:notification', {
                                 msg: res.msg,
@@ -75,17 +75,17 @@
             /**
              * init view setup Block Ui and Model User
              */
-            initialize: function() {
+            initialize: function () {
                 // init block ui
                 this.blockUi = new Views.BlockUi();
             },
             // setup a bid id to modal accept bid
-            setBidId: function(id) {
+            setBidId: function (id) {
                 this.bid_id = id;
                 this.getPaymentInfo();
             },
             // load payment info and display
-            getPaymentInfo: function() {
+            getPaymentInfo: function () {
                 var view = this;
 
                 $.ajax({
@@ -95,38 +95,38 @@
                         bid_id: view.bid_id,
                         action: 'ae-accept-bid-info',
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block(view.$el);
                     },
-                    success: function(res) {
+                    success: function (res) {
                         view.blockUi.unblock();
                         if (res.success) {
                             res.data['accept_bid'] = 1;
-                            if(typeof fre_credit_globals != 'undefined' && fre_credit_globals.is_credit_escrow == 1){
+                            if (typeof fre_credit_globals != 'undefined' && fre_credit_globals.is_credit_escrow == 1) {
                                 // add more data
                                 res.data['available_balance'] = fre_credit_globals.balance_format;
-                                if(parseFloat(res.data.data_not_format.total) <= parseFloat(fre_credit_globals.balance_number_format)){
+                                if (parseFloat(res.data.data_not_format.total) <= parseFloat(fre_credit_globals.balance_number_format)) {
                                     res.data['accept_bid'] = 1;
-                                }else{
+                                } else {
                                     res.data['accept_bid'] = 0;
                                 }
                             }
                             view.$el.find('.escrow-info').html(view.template(res.data));
 
-                            if(typeof fre_credit_globals != 'undefined' && fre_credit_globals.is_credit_escrow == 1){
+                            if (typeof fre_credit_globals != 'undefined' && fre_credit_globals.is_credit_escrow == 1) {
                                 // check balance
-                                if(parseFloat(res.data.data_not_format.total) <= parseFloat(fre_credit_globals.balance_number_format)){
+                                if (parseFloat(res.data.data_not_format.total) <= parseFloat(fre_credit_globals.balance_number_format)) {
                                     view.$el.find('.notice_credit').html(fre_credit_globals.text_acceptance_bid.success);
-                                }else{
+                                } else {
                                     var project_data = JSON.parse($('body').find('#project_data').html());
                                     //var url_deposit = fre_credit_globals.url_deposit + '?project_id=' + project_data.ID; @since  1.8.6.2
                                     var url_deposit = fre_credit_globals.url_deposit + '?bid_id=' + view.bid_id;
 
                                     view.$el.find('.escrow-info').find('.btn-buy-credit').attr('href', url_deposit);
-                                    view.$el.find('.notice_credit').html('<span class="error">'+fre_credit_globals.text_acceptance_bid.fail+'</span>');
+                                    view.$el.find('.notice_credit').html('<span class="error">' + fre_credit_globals.text_acceptance_bid.fail + '</span>');
                                 }
                             }
-                        }else{
+                        } else {
                             console.log(res);
                             AE.pubsub.trigger('ae:notification', {
                                 msg: res.msg,
@@ -137,7 +137,7 @@
                 });
             },
             // submit accept bid an pay
-            submit: function(event) {
+            submit: function (event) {
                 event.preventDefault();
                 var $target = $(event.currentTarget),
                     view = this;
@@ -150,16 +150,16 @@
                         action: 'ae-escrow-bid',
                         data: data
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         view.blockUi.block($target);
                     },
-                    success: function(res) {
+                    success: function (res) {
                         if (res.redirect_url) {
                             window.location.href = res.redirect_url;
-                        }else{
+                        } else {
                             AE.pubsub.trigger('ae:notification', {
-                                msg : res.msg,
-                                notice_type : 'error'
+                                msg: res.msg,
+                                notice_type: 'error'
                             })
                             view.blockUi.unblock();
                         }

@@ -1,11 +1,11 @@
 <?php
-	/**
-	 * The template for displaying post details in a loop
-	 *
-	 * @since    1.0
-	 * @package  FreelanceEngine
-	 * @category Template
-	 */
+/**
+ * The template for displaying post details in a loop
+ *
+ * @since    1.0
+ * @package  FreelanceEngine
+ * @category Template
+ */
 ?>
 <div class="fre-blog-item">
     <div class="fre-blog-item_img" style="background:url(<?php if ( has_post_thumbnail() ) {
@@ -15,7 +15,7 @@
 	} ?>) top center no-repeat;">
         <a href="<?php the_permalink(); ?>"></a>
         <div class="fre-blog-item_cat"><?php $category = get_the_category();
-				echo $category[ 0 ]->cat_name; ?></div>
+			echo $category[0]->cat_name; ?></div>
     </div>
     <div class="fre-blog-item_wp">
         <div class="fre-blog-item_t"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
