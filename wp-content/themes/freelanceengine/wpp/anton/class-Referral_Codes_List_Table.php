@@ -3,6 +3,7 @@
 class Referral_Codes_List_Table extends WP_List_Table {
 
 	function __construct() {
+
 		parent::__construct( [
 			'singular' => 'referral code',
 			'plural'   => 'referral codes',
@@ -18,46 +19,62 @@ class Referral_Codes_List_Table extends WP_List_Table {
 		$this->prepare_items();
 
 		add_action( 'wp_print_scripts', [ __CLASS__, '_list_table_css' ] );
-		add_action( 'admin_enqueue_scripts', function () {
-			wp_enqueue_script( 'my-wp-admin', get_template_directory_uri() . '/js/wp-admin.js' );
-		}, 99 );
+
+		#не используем анонимнные функции
+		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'assets' ], 99 );
+
 	}
+
+
+	function assets() {
+	    #my-wp-admin   - не айс имя, префикс my он, ну такое((((
+		wp_enqueue_script( 'an-wp-admin', get_template_directory_uri() . '/js/wp-admin.js' );
+    }
 
 	// создает элементы таблицы
 	function prepare_items() {
+
 		global $wpdb;
+
+		#у таблиц не всегда будет преффикс wp_  - н легко меняется, соответственно имена таблиц надо
+        # записывать с префиксом в виде переменной
+        $user_table = $wpdb->prefix . 'users';
+        $referal_table = $wpdb->prefix . 'referral_code';
 
 		// пагинация
 		$per_page = get_user_meta( get_current_user_id(), get_current_screen()->get_option( 'per_page', 'option' ), true ) ?: 20;
 
 		$user_search_key = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
 
-		if ( $user_search_key != '' ) {
+		if ( $user_search_key !== '' ) {
+
 			$result_all1 = $wpdb->get_var( "SELECT COUNT(u.user_login)
-				FROM wp_referral_code as rc
-				INNER JOIN wp_users as u ON rc.user_ID = u.ID
-				LEFT JOIN wp_users as uref ON rc.user_id_referral = u.ID
-				WHERE u.user_login = '" . $user_search_key . "'"
+				FROM $referal_table as rc
+				INNER JOIN $user_table as u ON rc.user_ID = u.ID
+				LEFT JOIN $user_table as uref ON rc.user_id_referral = u.ID
+				WHERE u.user_login = $user_search_key"
 			);
 
 			$result_all2 = $wpdb->get_var( "SELECT COUNT(u.user_login)
-				FROM wp_referral_code as rc
-				INNER JOIN wp_users as u ON rc.user_ID = u.ID
-				LEFT JOIN wp_users as uref ON rc.user_id_referral = u.ID
-				WHERE rc.referral_code = '" . $user_search_key . "'"
+				FROM $referal_table as rc
+				INNER JOIN $user_table as u ON rc.user_ID = u.ID
+				LEFT JOIN $user_table as uref ON rc.user_id_referral = u.ID
+				WHERE rc.referral_code = $user_search_key"
 			);
 
 			$result_all = $result_all1 + $result_all2;
 
 		} else {
+
 			$result_all = $wpdb->get_var( "SELECT COUNT(u.user_login)
 				FROM wp_referral_code as rc
-				INNER JOIN wp_users as u ON rc.user_ID = u.ID
-				LEFT JOIN wp_users as uref ON rc.user_id_referral = u.ID
+				INNER JOIN $user_table as u ON rc.user_ID = u.ID
+				LEFT JOIN $user_table as uref ON rc.user_id_referral = u.ID
 				ORDER BY u.user_login"
 			);
 		}
 
+		#тут не понгятно для чего так
 		$total_items = $result_all;
 
 		$this->set_pagination_args( [
@@ -80,38 +97,41 @@ class Referral_Codes_List_Table extends WP_List_Table {
 		}
 
 		if ( $user_search_key != '' ) {
+
 			$result1 = $wpdb->get_results( "SELECT u.ID, u.user_login, rc.referral_code,
 		  	IF (uref.user_login IS NOT NULL, uref.user_login, '-') as referrer
-		  	FROM wp_referral_code as rc
-		  	INNER JOIN wp_users as u ON rc.user_ID = u.ID
-		  	LEFT JOIN wp_users as uref ON rc.user_id_referral = uref.ID
+		  	FROM $referal_table as rc
+		  	INNER JOIN $user_table as u ON rc.user_ID = u.ID
+		  	LEFT JOIN $user_table as uref ON rc.user_id_referral = uref.ID
 				WHERE u.user_login = '" . $user_search_key . "'
 		 		" . $order_by . " LIMIT " . ( $cur_page - 1 ) * $per_page . ", $per_page"
 				, ARRAY_A );
 
 			$result2 = $wpdb->get_results( "SELECT u.ID, u.user_login, rc.referral_code,
 		  	IF (uref.user_login IS NOT NULL, uref.user_login, '-') as referrer
-		  	FROM wp_referral_code as rc
-		  	INNER JOIN wp_users as u ON rc.user_ID = u.ID
-		  	LEFT JOIN wp_users as uref ON rc.user_id_referral = uref.ID
+		  	FROM $referal_table as rc
+		  	INNER JOIN $user_table as u ON rc.user_ID = u.ID
+		  	LEFT JOIN $user_table as uref ON rc.user_id_referral = uref.ID
 				WHERE rc.referral_code = '" . $user_search_key . "'
 		 		" . $order_by . " LIMIT " . ( $cur_page - 1 ) * $per_page . ", $per_page"
 				, ARRAY_A );
 
 			$result = $result1 + $result2;
+
 		} else {
 			$result = $wpdb->get_results( "SELECT u.ID, u.user_login, rc.referral_code,
 		  IF (uref.user_login IS NOT NULL, uref.user_login, '-') as referrer
-		  FROM wp_referral_code as rc
-		  INNER JOIN wp_users as u ON rc.user_ID = u.ID
-		  LEFT JOIN wp_users as uref ON rc.user_id_referral = uref.ID
+		  FROM $referal_table as rc
+		  INNER JOIN $user_table as u ON rc.user_ID = u.ID
+		  LEFT JOIN $user_table as uref ON rc.user_id_referral = uref.ID
 		  " . $order_by . " LIMIT " . ( $cur_page - 1 ) * $per_page . ", $per_page"
 				, ARRAY_A );
+
 		}
 
 		$referrer_counts = $wpdb->get_results( "SELECT COUNT(rc.user_id_referral) as ucount,
 		  rc.user_id_referral as user_id_referral
-		  FROM wp_referral_code as rc INNER JOIN wp_users as u ON rc.user_ID = u.ID WHERE rc.user_id_referral > 0
+		  FROM $referal_table as rc INNER JOIN $user_table as u ON rc.user_ID = u.ID WHERE rc.user_id_referral > 0
 			GROUP BY rc.user_id_referral"
 			, ARRAY_A );
 
@@ -162,23 +182,26 @@ class Referral_Codes_List_Table extends WP_List_Table {
 	}
 
 	function get_columns() {
+
 		return [
 			'user_login'     => 'Имя пользователя',
 			'referral_code'  => 'Код реферала',
 			'referrer'       => 'Реферер',
 			'referral_count' => 'Кол-во рефералов',
 		];
+
 	}
 
 	function get_sortable_columns() {
+
 		return [
 			'user_login'    => [ 'user_login', 'desc' ],
 			'referral_code' => [ 'referral_code', 'desc' ],
 		];
+
 	}
 
-	function extra_tablenav( $which ) {
-	}
+	function extra_tablenav( $which ) {}
 
 	function column_default( $item, $colname ) {
 
@@ -219,7 +242,6 @@ class Referral_Codes_List_Table extends WP_List_Table {
 	}
 
 	// вывод каждой ячейки таблицы...
-
 	protected function get_bulk_actions() {
 		return [];
 	}
