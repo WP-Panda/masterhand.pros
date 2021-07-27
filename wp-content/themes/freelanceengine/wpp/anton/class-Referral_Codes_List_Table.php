@@ -26,7 +26,7 @@ class Referral_Codes_List_Table extends WP_List_Table {
 	}
 
 
-	function assets() {
+	static function assets() {
 	    #my-wp-admin   - не айс имя, префикс my он, ну такое((((
 		wp_enqueue_script( 'an-wp-admin', get_template_directory_uri() . '/js/wp-admin.js' );
     }
