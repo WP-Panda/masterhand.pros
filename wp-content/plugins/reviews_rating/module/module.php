@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
 
 define( 'RW_RT_MODULE_TPL_PATH', REVIEW_RATING_DIR . 'module/tpl/' );
 
-require_once TEMPLATEPATH . '/vendor/autoload.php';
+require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 require_once(REVIEW_RATING_DIR . 'classes/AutoloadReviews.php');
 AutoloadReviews::init();
 

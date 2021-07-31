@@ -73,7 +73,7 @@
 
 	;
 
-	require_once TEMPLATEPATH . '/vendor/autoload.php';
+	require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 	require_once __DIR__ . '/classes/AutoloadReviews.php';
 	AutoloadReviews::init();
 

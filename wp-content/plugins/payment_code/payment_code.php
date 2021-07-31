@@ -22,7 +22,7 @@
 	}
 
 	function paymentCode_load() {
-		require_once TEMPLATEPATH . '/vendor/autoload.php';
+		require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 		AutoloadVendor::init( __DIR__ . '/class' );
 
 		if ( ! \PaymentCode\Activate::getInstance()->tbIsExists() ) {

@@ -20,7 +20,7 @@ add_action( 'init', 'activity_rating_load', 0 );
 add_action( 'admin_menu', 'add_menu_activity_rating', 1 );
 
 function activity_rating_load() {
-	require_once TEMPLATEPATH . '/vendor/autoload.php';
+	require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 	require_once 'classes/AutoloadActivityRating.php';
 	AutoloadActivityRating::init();
 

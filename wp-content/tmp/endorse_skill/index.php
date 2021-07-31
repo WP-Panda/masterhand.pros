@@ -18,7 +18,7 @@
 	add_action( 'admin_menu', 'add_menu_endorse_skill', 0 );
 
 	function endorse_skill_load() {
-		require_once TEMPLATEPATH . '/vendor/autoload.php';
+		require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 		require_once __DIR__ . '/classes/AutoloadEndorseSkill.php';
 		AutoloadEndorseSkill::init();
 
