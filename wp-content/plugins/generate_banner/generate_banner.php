@@ -26,7 +26,7 @@
 
 	add_action( 'plugins_loaded', 'generate_banner_load', 0 );
 	function generate_banner_load() {
-		require_once ABSPATH . 'vendor/autoload.php';
+		require_once TEMPLATEPATH . '/vendor/autoload.php';
 		add_action( 'wp_ajax_save_banner', 'save_banner' );
 
 		add_filter( 'template_include', 'page_banner_template_include', 1 );

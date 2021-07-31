@@ -23,7 +23,7 @@
 
 
 	function likes_users_load() {
-		require_once ABSPATH . 'vendor/autoload.php';
+		require_once TEMPLATEPATH . '/vendor/autoload.php';
 		require_once __DIR__ . '/classes/AutoloadLikesUsers.php';
 
 		add_action( 'wp_ajax_handLike', 'ajaxHandLikeUser' );

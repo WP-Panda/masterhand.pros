@@ -73,7 +73,7 @@
 
 	;
 
-	require_once ABSPATH . 'vendor/autoload.php';
+	require_once TEMPLATEPATH . '/vendor/autoload.php';
 	require_once __DIR__ . '/classes/AutoloadReviews.php';
 	AutoloadReviews::init();
 

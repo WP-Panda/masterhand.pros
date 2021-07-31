@@ -207,7 +207,6 @@ function profile_category_template_include( $template ) {
 	return $template;
 }
 
-;
 
 class Fre_ProfileAction extends AE_PostAction {
 	function __construct( $post_type = 'fre_profile' ) {
@@ -867,30 +866,46 @@ class Fre_ProfileAction extends AE_PostAction {
 	 * @package FreelanceEngine
 	 */
 	function sync_post() {
+
 		global $ae_post_factory, $user_ID, $current_user;
-		$request   = $_REQUEST;
-		$ae_users  = new AE_Users();
-		$user_data = $ae_users->convert( $current_user );
-		$profile   = $ae_post_factory->get( $this->post_type );
-		if ( ! AE_Users::is_activate( $user_ID ) ) {
-			wp_send_json( [
-				'success' => false,
-				'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
-			] );
-		}
+		$request    = $_REQUEST;
+		$ae_users   = new AE_Users();
+		$user_data  = $ae_users->convert( $current_user );
+		$profile    = $ae_post_factory->get( $this->post_type );
+		$profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
+
+		/**
+		 * @todo  ТУТ НАДО БУДЕТ ЗАМЕНИТЬ НА wp_send_json error пото запретить ответы
+		 *
+		 *
+		 */
+		/**        if ( ! AE_Users::is_activate( $user_ID ) ) {
+		 * wp_send_json( [
+		 * 'success' => false,
+		 * 'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
+		 * ] );
+		 * }
+		 */
+
 		// set status for profile
 		if ( ! isset( $request['post_status'] ) ) {
 			$request['post_status'] = 'publish';
 		}
+
 		// version 1.8.2 set display name when update profile
-		if ( isset( $request['display_name'] ) and ! empty( $request['display_name'] ) ) {
+		if ( ! empty( $request['display_name'] ) ) {
 			wp_update_user( [ 'ID' => $user_ID, 'display_name' => $request['display_name'] ] );
 		}
-		if ( isset( $request['work_experience'] ) && ! empty( $request['work_experience'] ) && is_array( $request['work_experience'] ) ) {
-			$profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
+
+		if ( ! empty( $request['work_experience'] ) && is_array( $request['work_experience'] ) ) {
+
+
 			$experience = $request['work_experience'];
+
 			if ( ! empty( $experience['title'] ) && ! empty( $experience['subtitle'] ) ) {
+
 				if ( ! empty( $experience['id'] ) ) {
+
 					$meta_id = $experience['id'];
 					unset( $experience['id'] );
 					global $wpdb;
@@ -906,29 +921,35 @@ class Fre_ProfileAction extends AE_PostAction {
 				}
 			}
 		}
-		if ( isset( $request['certification'] ) && ! empty( $request['certification'] ) && is_array( $request['certification'] ) ) {
-			$profile_id    = get_user_meta( $user_ID, 'user_profile_id', true );
+
+		if ( ! empty( $request['certification'] ) && is_array( $request['certification'] ) ) {
+
 			$certification = $request['certification'];
 			if ( ! empty( $certification['title'] ) && ! empty( $certification['subtitle'] ) ) {
 				if ( ! empty( $certification['id'] ) ) {
+
 					$meta_id = $certification['id'];
 					unset( $certification['id'] );
+
 					global $wpdb;
 					$update = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => serialize( $certification ) ], [ 'meta_id' => $meta_id ] );
+
 				} else {
 					$update = add_post_meta( $profile_id, 'certification', serialize( $certification ) );
 				}
-				if ( $update === false ) {
+				if ( false === $update ) {
 					wp_send_json( [
 						'success' => false,
 						'msg'     => __( "Edit fail.", ET_DOMAIN )
 					] );
 				}
 			}
+
 		}
-		if ( isset( $request['education'] ) && ! empty( $request['education'] ) && is_array( $request['education'] ) ) {
-			$profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
-			$education  = $request['education'];
+
+		if ( ! empty( $request['education'] ) && is_array( $request['education'] ) ) {
+
+			$education = $request['education'];
 			if ( ! empty( $education['title'] ) && ! empty( $education['subtitle'] ) ) {
 				if ( ! empty( $education['id'] ) ) {
 					$meta_id = $education['id'];
@@ -945,21 +966,24 @@ class Fre_ProfileAction extends AE_PostAction {
 					] );
 				}
 			}
+
 		}
+
 		// set profile title
 		$request['post_title'] = ! empty( $request['display_name'] ) ? $request['display_name'] : $user_data->display_name;
-		if ( $request['method'] == 'create' ) {
-			$profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
-			if ( $profile_id ) {
-				$profile_post = get_post( $profile_id );
-				if ( $profile_post && $profile_post->post_status != 'draft' ) {
-					wp_send_json( [
-						'success' => false,
-						'msg'     => __( "You only can have on profile.", ET_DOMAIN )
-					] );
-				}
+		if ( 'create' === $request['method'] ) {
+
+
+			$profile_post = get_post( $profile_id );
+			if ( $profile_post && $profile_post->post_status != 'draft' ) {
+				wp_send_json( [
+					'success' => false,
+					'msg'     => __( "You only can have on profile.", ET_DOMAIN )
+				] );
 			}
+
 		}
+
 		$email_skill = 0;
 		if ( isset( $request['email_skill'] ) ) {
 
@@ -973,7 +997,7 @@ class Fre_ProfileAction extends AE_PostAction {
 			} else {
 				$email_skill = 0;
 			}
-			$profile_id = get_user_meta( $user_ID, 'user_profile_id', true );
+
 			update_post_meta( $profile_id, 'email_skill', $email_skill );
 		}
 
@@ -982,7 +1006,8 @@ class Fre_ProfileAction extends AE_PostAction {
 		update_post_meta( $profile_id, 'installmentPlan', $installmentPlan );
 
 		//new start
-		if ( $request['method'] == 'update' ) {
+		if ( 'update' === $request['method'] ) {
+
 			if ( isset( $request['country'] ) ) {
 				$user_country = get_user_meta( $user_ID, 'country', true );
 				if ( $request['country'] != $user_country ) {
@@ -991,8 +1016,7 @@ class Fre_ProfileAction extends AE_PostAction {
 				}
 			}
 
-		}
-		if ( $request['method'] == 'update' ) {
+
 			if ( isset( $request['state'] ) ) {
 				$user_state = get_user_meta( $user_ID, 'state', true );
 				if ( $request['state'] != $user_state ) {
@@ -1000,8 +1024,7 @@ class Fre_ProfileAction extends AE_PostAction {
 					update_user_meta( $user_ID, 'state', $request['state'] );
 				}
 			}
-		}
-		if ( $request['method'] == 'update' ) {
+
 			if ( isset( $request['city'] ) ) {
 				$user_city = get_user_meta( $user_ID, 'city', true );
 				if ( $request['city'] != $user_city ) {
@@ -1009,14 +1032,12 @@ class Fre_ProfileAction extends AE_PostAction {
 					update_user_meta( $user_ID, 'city', $request['city'] );
 				}
 			}
-		}
-		if ( $request['method'] == 'update' ) {
+
 			$pro_status = get_post_meta( $profile_id, 'pro_status', true );
 			if ( empty( $pro_status ) ) {
 				update_post_meta( $profile_id, 'pro_status', 1 );
 			}
-		}
-		if ( $request['method'] == 'update' ) {
+
 			if ( isset( $request['visual_flag'] ) ) {
 				$visual_flag = get_user_meta( $user_ID, 'visual_flag', true );
 				if ( $request['visual_flag'] == 0 ) {
@@ -1025,19 +1046,41 @@ class Fre_ProfileAction extends AE_PostAction {
 					update_user_meta( $user_ID, 'visual_flag', $request['visual_flag'] );
 				}
 			}
+
 		}
 
-		if ( $request['user_paypal'] ) {
-			if ( ! filter_var( $request['user_paypal'], FILTER_VALIDATE_EMAIL ) ) {
-				wp_send_json( [
-					'success' => false,
-					'msg'     => __( "This paypal account must be in an email format", ET_DOMAIN )
-				] );
-			}
+		if ( ! empty( $request['user_paypal'] ) && ! filter_var( $request['user_paypal'], FILTER_VALIDATE_EMAIL ) ) {
+
+			wp_send_json( [
+				'success' => false,
+				'msg'     => __( "This paypal account must be in an email format", ET_DOMAIN )
+			] );
+
 		}
 		//new end
 
 		do_action( 'activityRating_oneFieldProfile' );
+
+
+		#Сохранение социальных сетей
+		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
+
+		if ( ! empty( $soc_data ) ) :
+
+			foreach ( $soc_data as $one_field ) {
+
+				if ( ! empty( $_REQUEST[ $one_field['id'] ] ) ) {
+					update_post_meta( $profile_id, $one_field['id'], sanitize_text_field( $one_field['id'] ) );
+					update_user_meta( $user_ID, $one_field['id'], sanitize_text_field( $one_field['id'] ) );
+				} else {
+					delete_post_meta( $profile_id, $one_field['id'] );
+					delete_user_meta( $user_ID, $one_field['id'] );
+				}
+
+			}
+
+		endif;
+
 
 		// sync profile
 		$result = $profile->sync( $request );
@@ -1096,8 +1139,10 @@ class Fre_ProfileAction extends AE_PostAction {
 					'data'    => $result,
 					'msg'     => __( "Your profile has been created successfully.", ET_DOMAIN )
 				];
+
 				wp_send_json( $response );
 				//action update profile
+
 			} else if ( $request['method'] == 'update' ) {
 				if ( $request['user_email'] ) {
 					global $current_user;
@@ -1143,8 +1188,10 @@ class Fre_ProfileAction extends AE_PostAction {
 					'data'    => $result,
 					'msg'     => __( "Your profile has been updated successfully.", ET_DOMAIN )
 				];
+
 				wp_send_json( $response );
 			}
+
 		} else {
 			wp_send_json( [
 				'success' => false,

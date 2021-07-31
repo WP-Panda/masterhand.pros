@@ -130,8 +130,8 @@ class AE_Mailing extends AE_Base {
 		$content = str_ireplace( '[user_email]', $user->user_email, $content );
 
 		// new email
-		$new_email = get_user_meta( $user_id, 'user_new_email' );
-		$content   = str_ireplace( '[user_new_email]', $new_email[0], $content );
+		$new_email = get_user_meta( $user_id, 'user_new_email', true );
+		$content   = str_ireplace( '[user_new_email]', $new_email, $content );
 
 		/**
 		 * member display name
@@ -145,12 +145,6 @@ class AE_Mailing extends AE_Base {
 		$author_link = '<a style="color:#2C33C1" href="' . get_author_posts_url( $user_id ) . '" >' . __( "Author's Posts", ET_DOMAIN ) . '</a>';
 		$content     = str_ireplace( '[author_link]', $author_link, $content );
 
-		//        $confirm_link = add_query_arg(array(
-		//            'act' => 'confirm',
-		//            'key' => md5($user->user_email)
-		//        ), home_url());
-		//
-		//        $confirm_link = '<a style="color:#2C33C1" href="' . $confirm_link . '" >' . __("Confirm link", ET_DOMAIN) . '</a>';
 
 		$hash         = get_user_meta( $user_id, 'key_confirm' );
 		$confirm_link = '<a style="color:#2C33C1" href="' . add_query_arg( [

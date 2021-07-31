@@ -25,7 +25,7 @@
 
 	add_action( 'plugins_loaded', 'generate_poster_load', 0 );
 	function generate_poster_load() {
-		require_once ABSPATH . 'vendor/autoload.php';
+		require_once TEMPLATEPATH . '/vendor/autoload.php';
 		add_action( 'wp_ajax_generate_poster', 'generate_poster' );
 		add_action( 'wp_ajax_delete_cache_poster', 'delete_cache_poster' );
 	}

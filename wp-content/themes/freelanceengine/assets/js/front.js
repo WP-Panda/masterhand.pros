@@ -182,6 +182,7 @@
             itemView: User_BidItem,
             itemClass: 'user-bid-item'
         });
+
         /**
          * Model profile
          */

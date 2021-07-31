@@ -116,6 +116,7 @@ $confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(C
 									foreach ( get_currency() as $key => $data ) {
 										$is_selected  = '';
 										$user_country = get_user_country();
+										wpp_dump( $user_country );
 										$user_country = $user_country['name'];
 
 										if ( empty( $selected_currency ) ) {
@@ -172,60 +173,34 @@ $confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(C
                                            name="user_paypal" id="user_paypal"
                                            placeholder="<?php _e( 'Your paypal login', ET_DOMAIN ) ?>">
                                 </div>
-							<?php } ?>
+							<?php }
 
 
-							<?php
-							$default = [
-								[
-									'id'          => 'whatsapp',
-									'label'       => __( 'WhatsApp', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->whatsapp ?? '',
-									'placeholder' => __( 'WhatsApp', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'telegram',
-									'label'       => __( 'Telegram', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->telegram ?? '',
-									'placeholder' => __( 'Telegram', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'linkedin',
-									'label'       => __( 'LinkedIn', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->linkedin ?? '',
-									'placeholder' => __( 'LinkedIn', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'viber',
-									'label'       => __( 'Viber', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->viber ?? '',
-									'placeholder' => __( 'Viber', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'facebook',
-									'label'       => __( 'Facebook', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->facebook ?? '',
-									'placeholder' => __( 'Facebook', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'skype',
-									'label'       => __( 'Skype', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->skype ?? '',
-									'placeholder' => __( 'Skype', WPP_TEXT_DOMAIN ),
-								],
-								[
-									'id'          => 'wechat',
-									'label'       => __( 'WeChat', WPP_TEXT_DOMAIN ),
-									'value'       => $user_data->wechat ?? '',
-									'placeholder' => __( 'WeChat', WPP_TEXT_DOMAIN ),
-								],
-							];
+							/**
+							 * Вывод полей социальные сети
+							 */
+							$soc_data = apply_filters( 'wpp_social_fields_array', [] );
+							$default  = [];
 
-							$data = new WPP_Form_Constructor( $default );
-							$data->parse_data();
-							?>
-							<?php do_action( 'ae_edit_post_form', PROFILE, $profile ); ?>
-							<?php if ( $visualFlag ) { ?>
+							if ( ! empty( $soc_data ) ) :
+								foreach ( $soc_data as $one_field ) {
+									$default[] = [
+										'id'          => $one_field['id'],
+										'label'       => $one_field['label'],
+										'value'       => $user_data->{$one_field['id']} ?? '',
+										'placeholder' => $one_field['placeholder']
+									];
+								}
+							endif;
+
+
+							if ( ! empty( $default ) ) :
+								$data = new WPP_Form_Constructor( $default );
+								$data->parse_data();
+							endif;
+
+							do_action( 'ae_edit_post_form', PROFILE, $profile );
+							if ( $visualFlag ) { ?>
                                 <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12 fre-input-field">
                                     <label class="fre-field-title"><?php _e( 'Choose your level', ET_DOMAIN ); ?></label>
                                     <div class="fre-radio-container">

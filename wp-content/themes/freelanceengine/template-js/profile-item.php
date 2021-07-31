@@ -1,12 +1,13 @@
+<?php $_current_id = $current->ID ?? 'none'; ?>
 <script type="text/template" id="ae-profile-loop">
 	<?php if ( is_tax() ) { ?>
-    <div <?php post_class( 'fre-profiles-list-item cl-' . $current->ID ); ?> >
+    <div <?php post_class( 'fre-profiles-list-item cl-' . $_current_id ); ?> >
         <div class="profile-content fre-freelancer-wrap">
             <div class="row">
                 <div class="col-sm-8 col-xs-12">
                     <div class="fre-info">
 						<?php } else { ?>
-                        <div <?php post_class( 'fre-profiles-list-item cl-' . $current->ID ); ?> >
+                        <div <?php post_class( 'fre-profiles-list-item cl-' . $_current_id ); ?> >
                             <div class="profile-content fre-freelancer-wrap">
 								<?php } ?>
                                 <a class="free-avatar" href="{{= author_link }}">{{= et_avatar}}</a>

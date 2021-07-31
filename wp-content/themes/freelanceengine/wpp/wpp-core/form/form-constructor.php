@@ -22,6 +22,7 @@ class WPP_Form_Constructor {
 
 			extract( $data );
 
+
 			if ( empty( $id ) ) {
 				continue;
 			}

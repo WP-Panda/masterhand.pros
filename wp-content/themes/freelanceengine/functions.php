@@ -2933,7 +2933,13 @@ function pro_paid_func() {
 						if ( $name === 'create_project_for_all' ) {
 							continue;
 						}
-						$expire_time  = strtotime( get_post_meta( $et_order_product_id, 'et_' . $name )[0] );
+
+						$th = get_post_meta( $et_order_product_id, 'et_' . $name, true );
+						wpp_dump( 'ffffffffffffffffffff' );
+						wpp_dump( 'ffffffffffffffffffff' );
+						wpp_dump( 'ffffffffffffffffffff' );
+						wpp_dump( $th );
+						$expire_time  = strtotime( get_post_meta( $et_order_product_id, 'et_' . $name ) );
 						$timestamps[] = $expire_time;
 					}
 					$maxTimestamp = max( $timestamps ); // this MAX timestamp value

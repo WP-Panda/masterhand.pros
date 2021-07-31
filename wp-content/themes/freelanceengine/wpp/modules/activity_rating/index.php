@@ -20,7 +20,7 @@ add_action( 'init', 'activity_rating_load', 0 );
 add_action( 'admin_menu', 'add_menu_activity_rating', 1 );
 
 function activity_rating_load() {
-	require_once ABSPATH . 'vendor/autoload.php';
+	require_once TEMPLATEPATH . '/vendor/autoload.php';
 	require_once 'classes/AutoloadActivityRating.php';
 	AutoloadActivityRating::init();
 
