@@ -24,3 +24,4 @@ require_once 'helpers-tax.php';
 require_once 'herpers-post-actions.php';
 require_once 'helpers-page.php';
 require_once 'helpers-ext-video.php';
+require_once 'conditional-tags.php';

@@ -10,7 +10,13 @@ defined( 'ABSPATH' ) || exit;
 
 <div id="cats-list" class="cats-list">
 	<?php
-	$terms = get_terms( [ 'taxonomy' => 'category', 'hide_empty' => 0, 'parent' => 1 ] );
+	$terms = get_terms(
+		[
+			'taxonomy'   => 'category',
+			'hide_empty' => 0,
+			'parent'     => 1
+		]
+	);
 	if ( $terms && ! is_wp_error( $terms ) ) : ?>
         <div class="row">
 			<?php foreach ( $terms as $term ) : ?>

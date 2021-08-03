@@ -9,8 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 extract( $args );
 
-if ( ! empty( $author ) ) :
-	?>
+if ( ! empty( $author ) ) : ?>
 
     <div class="row blog-wrapper">
         <div class="col-sm-2 col-xs-3 avatar-author">

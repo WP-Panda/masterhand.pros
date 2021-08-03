@@ -11,10 +11,8 @@ define( 'WPP_CORE', true );
 
 require_once 'helpers/init.php';
 require_once 'for-template.php';
-require_once 'wpp-conditional-tags.php';
-require_once 'wpp-conditional-tags.php';
-require_once 'Wpp_Fr_Assets.php';
-require_once 'Bfi_Thumb.php';
+require_once 'classes/Wpp_Fr_Assets.php';
+require_once 'classes/Bfi_Thumb.php';
 require_once 'extention/init.php';
 require_once 'form/init.php';
 

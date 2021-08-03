@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 
-use ArtisansWeb\Optimizer;
+//use ArtisansWeb\Optimizer;
 
 if ( ! function_exists( 'wpp_fr_image_placeholder' ) ) :
 
