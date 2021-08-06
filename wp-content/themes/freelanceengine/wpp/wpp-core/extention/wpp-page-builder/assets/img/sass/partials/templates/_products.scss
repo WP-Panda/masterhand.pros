@@ -1,0 +1,70 @@
+.services-list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  & > li {
+    text-align: center;
+    max-width: 290px;
+    width: 100%;
+    display: inline-block;
+    margin: 75px 18px 40px 18px;
+    .icon {
+      height: 104px;
+      width: 104px;
+      line-height: 104px;
+      margin: auto;
+      img {
+        max-height: 104px;
+      }
+    }
+    .title {
+      color: black;
+      font-size: 18px;
+      a {
+        color: black;
+      }
+    }
+    .text {
+      font-size: 14px;
+      ul {
+        list-style-type: none !important;
+        min-height: 230px;
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+}
+
+.striped-list {
+  list-style: none;
+  padding: 0;
+  margin: 55px 0;
+  .container {
+    max-width: 1000px;
+  }
+  & > li {
+    padding: 15px 0;
+    .title {
+      font-size: 17px;
+    }
+    .text {
+      p {
+        margin: 0;
+      }
+    }
+
+    .text,.image {
+
+    }
+    &:nth-child(odd) {
+      background-color: $WhiteSmoke;
+    }
+
+    .more-link {
+      font-size: 12px;
+      margin-top: 20px;
+      padding: 8px 12px;
+      min-width: 126px;
+    }
+  }
+}

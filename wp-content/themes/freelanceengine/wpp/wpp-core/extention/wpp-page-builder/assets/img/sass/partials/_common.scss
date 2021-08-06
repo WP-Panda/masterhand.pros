@@ -1,0 +1,315 @@
+/* =COMMON.
+--------------------------------------------------------------
+*/
+
+body {
+  font-family: $font-family;
+  color: $Eclipse;
+}
+
+img, iframe {
+  max-width: 100%;
+}
+
+a {
+  color: $Cobalt;
+  &:hover, &:focus {
+    color: darken($Cobalt, 10%);
+    text-decoration: none;
+  }
+}
+
+ul {
+  li {
+    ul {
+      list-style-type: disc;
+    }
+  }
+}
+
+p {
+  margin: 0 0 17px;
+}
+
+q {
+  font-style: italic;
+}
+
+cite {
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.4;
+}
+
+.container-fluid {
+  &.limited {
+    max-width: 1300px;
+  }
+}
+
+.img-thumbnail {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+sup, span {
+  &.required {
+    color: $NightRider;
+    font-size: 16px;
+    top: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+  &.has-error {
+    .form-control {
+      border-color: $Red;
+
+      &::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+      }
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+      }
+    }
+    &::after {
+      background: $Red;
+      color: white;
+      font-family: 'FontAwesome';
+      font-size: 20px;
+      content: "\f12a";
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      bottom: 1px;
+      height: 48px;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+      transition: all .5s;
+    }
+  }
+  &.has-success {
+    &::after {
+      background: green;
+      color: white;
+      font-family: 'FontAwesome';
+      font-size: 20px;
+      content: "\f00c";
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      bottom: 1px;
+      height: 48px;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+      transition: all .5s;
+    }
+  }
+}
+
+.help-block {
+  position: absolute;
+  pointer-events: none;
+  bottom: 15px;
+  left: 12px;
+  font-size: 12px;
+  margin: 0;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  ul {
+    margin: 0;
+  }
+}
+
+.form-control {
+  background: #f7f7f7;
+  border: 1px solid #c4c4c4;
+  border-radius: 0;
+  box-shadow: none;
+  color: #787878;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  &:not(textarea) {
+    height: 50px;
+  }
+}
+
+select {
+  &.form-control {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    background-image: url("data:image/svg+xml,\
+      <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='30px'\
+           height='30px' viewBox='0 0 1200 1000' fill='rgb(120,120,120)'>\
+        <path d='M961.714 461.714l-424 423.429c-14.286 14.286-37.143 14.286-51.429 0l-424-423.429c-14.286-14.286-14.286-37.714 0-52l94.857-94.286c14.286-14.286 37.143-14.286 51.429 0l303.429 303.429 303.429-303.429c14.286-14.286 37.143-14.286 51.429 0l94.857 94.286c14.286 14.286 14.286 37.714 0 52z'/>\
+      </svg>");
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  height: 200px;
+}
+
+input, button {
+  &[type="submit"] {
+    background: $NightRider;
+    border: 0;
+    color: $WhiteSmoke;
+    font-size: 16px;
+    padding: 12px;
+    height: 50px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    &:hover, &:focus {
+      background: $Silver;
+      color: $Grey;
+    }
+  }
+}
+
+.page-header {
+  margin: 0 0 15px;
+  padding-bottom: 15px;
+  .page-title {
+    margin: 0;
+    font-size: 35px;
+    color: $Eclipse;
+  }
+  &.no-border {
+    border-bottom: none;
+  }
+}
+
+/* =Transitions.
+--------------------------------------------------------------
+*/
+
+a, .btn, input[type="submit"], button[type="submit"] {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+/* =Buttons.
+--------------------------------------------------------------
+*/
+
+.btn-lightgreen {
+  background-color: $Atlantis;
+  border: 1px solid $Atlantis;
+  color: white;
+  &:hover, &:focus {
+    color: white;
+    border-color: darken($Atlantis, 5%);
+    background-color: darken($Atlantis, 5%);
+  }
+}
+
+/* =PAGINATION.
+--------------------------------------------------------------
+*/
+
+.custom-pagination {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 9px;
+    a {
+      display: block;
+      text-align: center;
+      &.prev {
+        i {
+          margin-right: 5px;
+        }
+      }
+      &.next {
+        i {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  &.modern {
+    li {
+      margin: 0;
+      a {
+        background-color: $Snow;
+        border: 1px solid $WhiteSmoke;
+        width: 27px;
+        height: 27px;
+        line-height: 25px;
+        font-size: 14px;
+        color: $Comet;
+        i {
+          margin: 0;
+          font-size: 18px;
+          vertical-align: middle;
+        }
+      }
+      &.current > a, & > a:hover, & > a:focus {
+        color: $Cobalt;
+      }
+    }
+  }
+}
+
+/* =Colors classes.
+--------------------------------------------------------------
+*/
+
+.gold, .golden-title {
+  color: $BrandyPunch;
+  font-weight: bold !important;
+}
+
+.blue {
+  color: $HavelockBlue;
+  font-weight: bold !important;
+}
+
+.text-blue {
+  color: $Cobalt;
+}
+
+.golden-title {
+  font-size: 25px;
+  margin: 0 !important;
+}

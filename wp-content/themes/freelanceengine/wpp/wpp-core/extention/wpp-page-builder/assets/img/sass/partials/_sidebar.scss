@@ -1,0 +1,88 @@
+.sidebar {
+  .aside-wrap {
+    border: 1px solid $Gainsboro;
+    padding: 20px 12px;
+    font-size: 17px;
+    &.colored {
+      background-color: $AliceBlue;
+      .form-control {
+
+      }
+    }
+
+    .form-group {
+      margin-bottom: 0;
+      &.has-error {
+        &::after {
+          height: 38px;
+          width: 34px;
+          font-size: 14px;
+          line-height: 38px;
+        }
+      }
+      &.has-success {
+        &::after {
+          height: 38px;
+          width: 34px;
+          font-size: 14px;
+          line-height: 38px;
+        }
+      }
+    }
+  }
+
+  .widget {
+    .widget-title {
+      font-size: 24px;
+      margin-bottom: 25px;
+      margin-top: 15px;
+      font-weight: bold;
+      color: black;
+    }
+
+    p {
+      line-height: 27px;
+    }
+  }
+
+  .form-control {
+    height: 40px;
+    margin-top: 11px;
+    font-weight: normal;
+    background-color: transparent;
+  }
+
+  select {
+    &.form-control {
+      background-image: url("data:image/svg+xml,\
+      <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20px'\
+           height='20px' viewBox='0 0 1200 1000' fill='rgb(120,120,120)'>\
+        <path d='M961.714 461.714l-424 423.429c-14.286 14.286-37.143 14.286-51.429 0l-424-423.429c-14.286-14.286-14.286-37.714 0-52l94.857-94.286c14.286-14.286 37.143-14.286 51.429 0l303.429 303.429 303.429-303.429c14.286-14.286 37.143-14.286 51.429 0l94.857 94.286c14.286 14.286 14.286 37.714 0 52z'/>\
+      </svg>");
+
+    }
+  }
+
+  .reg-form {
+    color: $Cobalt;
+
+    .form-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    label {
+      font-size: 16px;
+      display: block;
+    }
+  }
+
+  input[type="submit"], button[type="submit"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 40px;
+    padding: 6px 12px;
+    margin-top: 15px;
+  }
+}

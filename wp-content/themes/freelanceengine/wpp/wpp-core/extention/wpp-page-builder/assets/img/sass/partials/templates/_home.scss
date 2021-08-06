@@ -1,0 +1,60 @@
+.post-list {
+  list-style: none;
+  padding: 0;
+  & > li {
+    border-bottom: 1px solid $Gainsboro;
+    padding-bottom: 50px;
+    margin-bottom: 23px;
+  }
+
+}
+
+.post {
+  .post-header {
+    margin-bottom: 25px;
+    .post-title {
+      margin: 0 0 15px !important;
+    }
+  }
+  .post-meta {
+    font-size: 17px;
+    line-height: 27px;
+    margin-bottom: 21px;
+    color: $Eclipse;
+    .post-meta-list {
+      list-style: none;
+      padding: 0;
+      &::before, &::after {
+        display: table;
+        content: '';
+      }
+      &::after {
+        clear: both;
+      }
+      li {
+        float: left;
+        & + li {
+          &::before {
+            content: '|';
+            padding: 0 19px;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .post-thumbnail {
+    max-width: 570px;
+
+  }
+
+  .post-content {
+
+  }
+
+  .more-link {
+    font-size: 14px !important;
+    padding: 8px 12px !important;
+  }
+}

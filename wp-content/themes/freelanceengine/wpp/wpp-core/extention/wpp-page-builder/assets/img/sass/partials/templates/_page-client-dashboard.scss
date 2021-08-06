@@ -1,0 +1,49 @@
+body {
+  &.page-template-template-client-dashboard {
+    .main {
+      padding-bottom: 0;
+    }
+    .content-area {
+      p {
+        font-size: 18px;
+        color: black;
+        font-weight: 500;
+      }
+
+      h3 {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 25px;
+        margin-top: 0;
+      }
+
+      .btn {
+        min-width: 146px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 3px;
+        padding: 8px 12px;
+      }
+
+      .wrap-link {
+        margin-bottom: 58px;
+      }
+    }
+  }
+
+  .tutorials {
+    margin: 0 0 50px;
+    p {
+      font-size: 18px;
+      color: black;
+      line-height: 20px;
+      margin-top: 18px;
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+}

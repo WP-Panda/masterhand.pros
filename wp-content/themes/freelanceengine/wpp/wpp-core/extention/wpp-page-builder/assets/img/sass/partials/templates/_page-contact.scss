@@ -1,0 +1,33 @@
+.contact-map {
+  border: 1px solid #e7e5e8;
+  padding: 5px;
+}
+
+.service-omega {
+  margin-top: 20px;
+  border: 1px solid $Gainsboro;
+}
+
+.top-service-omega {
+  background: $Cobalt;
+  min-height: 50px;
+  padding: 0 28px;
+
+  img {
+    float: left;
+    margin-top: 12px;
+    margin-right: 7px;
+  }
+
+  p {
+    font-size: 17px;
+    color: #ffffff;
+    float: left;
+    margin-top: 12px;
+
+  }
+}
+
+.info-service-omega {
+  padding: 15px 28px 0 28px;
+}

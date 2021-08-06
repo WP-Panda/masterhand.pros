@@ -1,0 +1,39 @@
+/* =Fonts.
+--------------------------------------------------------------
+*/
+
+$brandonText-font-family: 'BrandonText';
+$brandonText-font-path: '../fonts/brandonText';
+
+@font-face {
+  font-family: #{$brandonText-font-family};
+  src: url('#{$brandonText-font-path}/regular/BrandonText-Regular.eot'); /* IE9 Compat Modes */
+  src: url('#{$brandonText-font-path}/regular/BrandonText-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$brandonText-font-path}/regular/BrandonText-Regular.woff') format('woff'), /* Modern Browsers */
+  url('#{$brandonText-font-path}/regular/BrandonText-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('#{$brandonText-font-path}/regular/BrandonText-Regular.svg#BrandonText-Regular') format('svg'); /* Legacy iOS */
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: #{$brandonText-font-family};
+  src: url('#{$brandonText-font-path}/medium/BrandonText-Medium.eot'); /* IE9 Compat Modes */
+  src: url('#{$brandonText-font-path}/medium/BrandonText-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$brandonText-font-path}/medium/BrandonText-Medium.woff') format('woff'), /* Modern Browsers */
+  url('#{$brandonText-font-path}/medium/BrandonText-Medium.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('#{$brandonText-font-path}/medium/BrandonText-Medium.svg#BrandonText-Medium') format('svg'); /* Legacy iOS */
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: #{$brandonText-font-family};
+  src: url('#{$brandonText-font-path}/bold/BrandonText-Bold.eot'); /* IE9 Compat Modes */
+  src: url('#{$brandonText-font-path}/bold/BrandonText-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$brandonText-font-path}/bold/BrandonText-Bold.woff') format('woff'), /* Modern Browsers */
+  url('#{$brandonText-font-path}/bold/BrandonText-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('#{$brandonText-font-path}/bold/BrandonText-Bold.svg#BrandonText-Bold') format('svg'); /* Legacy iOS */
+  font-style: normal;
+  font-weight: 700;
+}

@@ -1,0 +1,153 @@
+/* =Header.
+--------------------------------------------------------------
+*/
+
+.header {
+  padding: 28px 0 10px;
+  -webkit-box-shadow: 0 3px 6px $Gainsboro;
+  -moz-box-shadow: 0 3px 6px $Gainsboro;
+  box-shadow: 0 3px 6px $Gainsboro;
+  .logo {
+    margin-top: 12px;
+  }
+
+  .top-right-links {
+    font-size: 20px;
+    font-weight: 500;
+    .btn {
+      color: white;
+      font-size: 18.5px;
+      padding: 11px 12px;
+      border-radius: 3px;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .navbar {
+    margin-top: 17px;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    & > .container-fluid {
+      padding: 0;
+    }
+    .navbar-toggle {
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      float: left;
+      padding: 0;
+      .navbar-toggle-title {
+        float: left;
+        margin-right: 5px;
+        display: block;
+        color: $Eclipse;
+      }
+      .icon-burger {
+        float: left;
+        display: block;
+        margin-top: 4px;
+        .icon-bar {
+          background-color: $Eclipse;
+          width: 18px;
+        }
+      }
+      &:hover, &:focus {
+        background-color: transparent;
+      }
+    }
+    .navbar-collapse {
+      border: none;
+    }
+    .navbar-nav {
+      & > li {
+        position: relative;
+        padding-bottom: 20px;
+        & + li {
+          margin-left: 38px;
+        }
+        a {
+          background-color: transparent;
+          color: black;
+          font-size: 17px;
+          padding: 0;
+          font-weight: 500;
+          &:hover, &:focus {
+            background-color: transparent;
+          }
+        }
+      }
+      li {
+        .nav-arrow {
+          display: none;
+          font-size: 0.8em;
+          margin: 0 0 0 0.4em;
+          &::before {
+            content: '\25BA';
+          }
+        }
+        ul {
+          list-style: none;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0;
+          width: 225px;
+          opacity: 0;
+          visibility: hidden;
+          box-shadow: 2px -2px 3px #e4e4e4;
+          padding: 0;
+          position: absolute;
+          background-color: white;
+          z-index: 1;
+          top: 100%;
+          -webkit-transition: opacity 0.3s, visibility 0.3s;
+          -moz-transition: opacity 0.3s, visibility 0.3s;
+          -ms-transition: opacity 0.3s, visibility 0.3s;
+          -o-transition: opacity 0.3s, visibility 0.3s;
+          transition: opacity 0.3s, visibility 0.3s;
+          li {
+            position: relative;
+            a {
+              padding: 12px 10px;
+              display: block;
+              &:hover, &:focus {
+                text-decoration: none;
+              }
+            }
+            ul {
+              background-color: white;
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              position: absolute;
+              left: 100%;
+              top: 0;
+            }
+            & + li {
+              border-top: 1px solid #f4f4f4;
+            }
+
+          }
+        }
+        &:hover {
+          & > a {
+            opacity: .6;
+          }
+          & > ul {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+        &.active, &.current-menu-item, &.current-menu-parent, &.current-menu-ancestor, &.current-page-parent, &.current-page-item, &.current-page-ancestor {
+          & > a {
+            opacity: .6;
+          }
+        }
+      }
+    }
+  }
+}

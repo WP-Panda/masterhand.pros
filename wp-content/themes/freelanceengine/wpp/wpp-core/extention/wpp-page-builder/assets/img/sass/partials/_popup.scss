@@ -1,0 +1,81 @@
+/* POPUPS.
+--------------------------------------------------------------
+*/
+
+#sign-popup {
+
+}
+
+.popup {
+  max-width: 600px;
+  display: none;
+  .popup-title, p, label {
+    color: $Cobalt;
+  }
+  label {
+    display: block;
+    & > .form-control {
+      margin-top: 10px;
+    }
+  }
+
+  p, label {
+    font-size: 16px;
+  }
+
+  .popup-title {
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+    &.has-error {
+      &::after {
+        height: 38px;
+        width: 34px;
+        font-size: 14px;
+        line-height: 38px;
+      }
+    }
+    &.has-success {
+      &::after {
+        height: 38px;
+        width: 34px;
+        font-size: 14px;
+        line-height: 38px;
+      }
+    }
+    .help-block {
+      bottom: 12px;
+    }
+  }
+
+  .form-control {
+    line-height: 40px;
+    padding: 5px 10px;
+    font-size: 14px;
+    &:not(textarea) {
+      height: 40px;
+    }
+  }
+
+  select {
+    &.form-control {
+      line-height: 30px;
+    }
+  }
+  input,button {
+    &[type="submit"] {
+      height: 40px;
+      background: $Red;
+      line-height: 10px;
+      margin-top: 25px;
+      border-radius: 5px;
+      &:hover,&:focus {
+        background-color: $NightRider;
+        color: white;
+      }
+    }
+  }
+}
