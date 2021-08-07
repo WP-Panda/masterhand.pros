@@ -593,7 +593,7 @@ class Fre_BidAction extends AE_PostAction {
 				'success' => false,
 				'msg'     => __( "Your account is pending. You have to activate your account to continue this step.", ET_DOMAIN )
 			] );
-		};
+		}
 
 		$method = isset( $_REQUEST['method'] ) ? $_REQUEST['method'] : '';
 
@@ -638,6 +638,8 @@ class Fre_BidAction extends AE_PostAction {
 
 		// sync bid
 		$bid    = $ae_post_factory->get( BID );
+
+		//Добавляет бид
 		$result = $bid->sync( $post_data );
 
 
@@ -991,6 +993,7 @@ class Fre_BidAction extends AE_PostAction {
 		}
 
 		return $args;
+
 	}
 
 	/*

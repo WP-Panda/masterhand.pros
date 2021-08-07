@@ -17,6 +17,8 @@
 $category = get_the_category();
 get_header();
 wp_enqueue_script( 'likesUsers' );
+
+
 ?>
 
     <div class="fre-page-wrapper">

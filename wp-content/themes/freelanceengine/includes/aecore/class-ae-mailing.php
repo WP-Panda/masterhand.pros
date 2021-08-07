@@ -146,10 +146,10 @@ class AE_Mailing extends AE_Base {
 		$content     = str_ireplace( '[author_link]', $author_link, $content );
 
 
-		$hash         = get_user_meta( $user_id, 'key_confirm' );
+		$hash         = get_user_meta( $user_id, 'key_confirm',true );
 		$confirm_link = '<a style="color:#2C33C1" href="' . add_query_arg( [
 				'act' => 'confirm',
-				'key' => $hash[0]
+				'key' => $hash
 			], home_url() ) . '" >' . __( "Confirm link", ET_DOMAIN ) . '</a>';
 
 		/**

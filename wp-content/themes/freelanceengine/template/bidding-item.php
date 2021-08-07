@@ -40,8 +40,9 @@ $conversation_data = ae_private_message_created_a_conversation( [
 	'author'     => $post->post_author
 ] );
 
-$conversation_id     = $conversation_data['conversation_id'];
-$conversation_status = get_post_meta( $conversation_data['conversation_id'], 'conversation_status', true );
+
+$conversation_id     = $conversation_data['conversation_id'] ?? 0;
+$conversation_status = get_post_meta( $conversation_id, 'conversation_status', true );
 
 $conversation_exists = $conversation_data['success'] === false ? true : false;
 if ( $user_role != 'employer' && $post->post_author != get_current_user_id() ) {

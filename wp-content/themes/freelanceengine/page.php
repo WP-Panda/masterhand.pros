@@ -23,6 +23,7 @@ if ( isset( $_REQUEST['project_id'] ) ) {
 }
 
 the_post();
+
 ?>
 
     <div class="container page-container">

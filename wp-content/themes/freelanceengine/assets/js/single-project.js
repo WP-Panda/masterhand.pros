@@ -1076,7 +1076,6 @@
                             view.blockUi.block(button);
                         },
                         success: function (res) {
-                            console.log(res);
                             view.blockUi.unblock();
 
                             if (res.success) {
