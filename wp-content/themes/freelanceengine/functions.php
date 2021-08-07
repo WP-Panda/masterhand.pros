@@ -2935,11 +2935,8 @@ function pro_paid_func() {
 						}
 
 						$th = get_post_meta( $et_order_product_id, 'et_' . $name, true );
-						wpp_dump( 'ffffffffffffffffffff' );
-						wpp_dump( 'ffffffffffffffffffff' );
-						wpp_dump( 'ffffffffffffffffffff' );
-						wpp_dump( $th );
-						$expire_time  = strtotime( get_post_meta( $et_order_product_id, 'et_' . $name ) );
+
+						$expire_time  = strtotime( $th );
 						$timestamps[] = $expire_time;
 					}
 					$maxTimestamp = max( $timestamps ); // this MAX timestamp value

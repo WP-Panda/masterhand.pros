@@ -20,6 +20,10 @@ $post_object = $ae_post_factory->get( PROFILE );
 $usered_data = new Wpp_En_User();
 $data        = $usered_data->get_user_data();
 
+//wpp_dump($data);
+
+wpp_dump(get_user_meta(get_current_user_id()));
+
 
 $profile_id = $data->profile_id ?? '';
 
@@ -114,6 +118,7 @@ $sponsor_name    = get_sponsor( $user_ID );
 
 
 $data_args = [
+	'wpp_data'                  => $data,
 	'user_data'                 => $user_data,
 	'display_name'              => $display_name,
 	'user_status'               => $user_status,
@@ -138,7 +143,8 @@ $data_args = [
 	'is_company'                => $is_company,
 	'about'                     => $about,
 	'visualFlag'                => $visualFlag,
-	'personal_cover'            => ''
+	'personal_cover'            => '',
+	'experience'                => $experience
 ];
 
 ?>

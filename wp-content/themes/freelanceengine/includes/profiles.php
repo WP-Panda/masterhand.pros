@@ -879,13 +879,13 @@ class Fre_ProfileAction extends AE_PostAction {
 		 *
 		 *
 		 */
-		/**        if ( ! AE_Users::is_activate( $user_ID ) ) {
-		 * wp_send_json( [
-		 * 'success' => false,
-		 * 'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
-		 * ] );
-		 * }
-		 */
+		if ( ! AE_Users::is_activate( $user_ID ) ) {
+			wp_send_json( [
+				'success' => false,
+				'msg'     => __( "Your account is pending. You have to activate your account to create profile.", ET_DOMAIN )
+			] );
+		}
+
 
 		// set status for profile
 		if ( ! isset( $request['post_status'] ) ) {
@@ -895,6 +895,24 @@ class Fre_ProfileAction extends AE_PostAction {
 		// version 1.8.2 set display name when update profile
 		if ( ! empty( $request['display_name'] ) ) {
 			wp_update_user( [ 'ID' => $user_ID, 'display_name' => $request['display_name'] ] );
+		}
+
+		#social Fields
+		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
+
+
+		wpp_d_log($request );
+		foreach ( $soc_data as $one_field ) {
+
+			if ( ! empty( $request[ $one_field['id'] ] ) ) {
+
+				update_user_meta( $user_ID, $one_field['id'], esc_attr( $request[ $one_field['id'] ] ) );
+				wpp_d_log('get_user_meta($user_ID, $one_field[id],true )');
+				wpp_d_log(get_user_meta($user_ID, $one_field['id'],true ));
+			} else {
+				delete_user_meta( $user_ID, $one_field['id'] );
+			}
+
 		}
 
 		if ( ! empty( $request['work_experience'] ) && is_array( $request['work_experience'] ) ) {
@@ -1063,7 +1081,7 @@ class Fre_ProfileAction extends AE_PostAction {
 
 
 		#Сохранение социальных сетей
-		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
+/*		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
 
 		if ( ! empty( $soc_data ) ) :
 
@@ -1080,7 +1098,7 @@ class Fre_ProfileAction extends AE_PostAction {
 			}
 
 		endif;
-
+*/
 
 		// sync profile
 		$result = $profile->sync( $request );
@@ -1376,27 +1394,40 @@ class Fre_PortfolioAction extends AE_PostAction {
 	 * @package FreelanceEngine
 	 */
 	function sync_post() {
+
 		global $ae_post_factory, $user_ID, $current_user, $post;
-		// echo 1; exit;
+
+		wp_send_json_error(['ssssssssss']);
+
 		$request   = $_REQUEST;
 		$ae_users  = new AE_Users();
 		$user_data = $ae_users->convert( $current_user );
 		$portfolio = $ae_post_factory->get( $this->post_type );
+
+
+
 		// set status for profile
 		if ( ! isset( $request['post_status'] ) ) {
 			$request['post_status'] = 'publish';
 		}
+
 		// set default post content
 		//$request['post_content'] = '';
 		if ( ! empty( $request['ID'] ) && $request['method'] == 'create' ) {
 			$request['method'] = 'update';
 		}
+
 		if ( empty( $request['post_thumbnail'] ) && $request['method'] != 'remove' ) {
 			wp_send_json( [
 				'success' => false,
 				'msg'     => __( 'Please upload images in your portfolio', ET_DOMAIN )
 			] );
 		}
+
+
+
+
+
 		// sync place
 		$result = $portfolio->sync( $request );
 		if ( ! is_wp_error( $result ) ) {

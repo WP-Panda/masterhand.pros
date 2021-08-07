@@ -24,10 +24,12 @@ $bid_query = new WP_Query( [
 	'posts_per_page' => - 1,
 	//		'paged' => get_query_var('paged') ?: 1
 ] );
-//var_dump($bid_query);
+//wpp_dump($bid_query);
 remove_filter( 'posts_join', 'fre_join_status_user_bid' );
 remove_filter( 'posts_orderby', 'fre_order_by_bid_status' );
 $bid_data = [];
+
+/*wpp_dump( get_user_meta( get_current_user_id(), 'register_status', true ) );*/
 
 ?>
 

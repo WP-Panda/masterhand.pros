@@ -84,7 +84,7 @@ class Wpp_En_User {
 
 	public function get_user_data() {
 
-		$data = $this->data;
+		$data = apply_filters( 'wpp_user_data_fields', $this->data );
 		$out  = [];
 
 		foreach ( $data as $one ) {

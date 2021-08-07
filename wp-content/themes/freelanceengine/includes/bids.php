@@ -259,7 +259,7 @@ class Fre_BidAction extends AE_PostAction {
 
 		if ( isset( $_REQUEST['query'] ) ) {
 			$query = $_REQUEST['query'];
-			if ( isset( $query['post_parent'] ) && $query['post_parent'] != '' ) {
+			if ( ! empty( $query['post_parent'] ) ) {
 				$query_args['post_parent'] = $query['post_parent'];
 			}
 

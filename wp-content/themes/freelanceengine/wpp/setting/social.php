@@ -15,37 +15,37 @@ function wpp_enj_social_field_array() {
 
 	$social = [
 		[
-			'id'          => 'whatsapp',
+			'id'          => '_whatsapp',
 			'label'       => __( 'WhatsApp', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'WhatsApp', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'telegram',
+			'id'          => '_telegram',
 			'label'       => __( 'Telegram', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'Telegram', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'linkedin',
+			'id'          => '_linkedin',
 			'label'       => __( 'LinkedIn', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'LinkedIn', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'viber',
+			'id'          => '_viber',
 			'label'       => __( 'Viber', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'Viber', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'facebook',
+			'id'          => '_facebook',
 			'label'       => __( 'Facebook', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'Facebook', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'skype',
+			'id'          => '_skype',
 			'label'       => __( 'Skype', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'Skype', WPP_TEXT_DOMAIN ),
 		],
 		[
-			'id'          => 'wechat',
+			'id'          => '_wechat',
 			'label'       => __( 'WeChat', WPP_TEXT_DOMAIN ),
 			'placeholder' => __( 'WeChat', WPP_TEXT_DOMAIN ),
 		],
@@ -56,3 +56,16 @@ function wpp_enj_social_field_array() {
 }
 
 add_filter( 'wpp_social_fields_array', 'wpp_enj_social_field_array' );
+
+function fields_for_user_profile( $args ) {
+
+	$social = wpp_enj_social_field_array();
+
+	foreach ( $social as $one ) {
+		$args[] = $one['id'];
+	}
+
+	return $args;
+}
+
+add_filter( 'wpp_user_data_fields', 'fields_for_user_profile' );

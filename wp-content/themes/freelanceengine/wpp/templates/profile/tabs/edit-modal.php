@@ -7,9 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 extract( $args );
-$class           = fre_share_role() || wpp_fre_is_freelancer() ? 6 : 10;
-$confirmed_email = ! empty( $user_confirm_email ) ? sprintf( ' <span>%s</span>', __( '(Confirmed email address)', WPP_TEXT_DOMAIN ) ) : '';
-$confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(Confirmed by sms)', WPP_TEXT_DOMAIN ) ) : '';
+$args['class']           = fre_share_role() || wpp_fre_is_freelancer() ? 6 : 10;
+$args['confirmed_email'] = ! empty( $user_confirm_email ) ? sprintf( ' <span>%s</span>', __( '(Confirmed email address)', WPP_TEXT_DOMAIN ) ) : '';
+$args['confirmed_phone'] = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(Confirmed by sms)', WPP_TEXT_DOMAIN ) ) : '';
+
 ?>
 <div class="modal fade" id="editprofile" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -21,185 +22,25 @@ $confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(C
             <div class="modal-body">
                 <div class="profile-employer-info-edit cnt-profile-hide" id="ctn-edit-profile">
                     <div class="fre-employer-info-form" id="accordion" role="tablist" aria-multiselectable="true">
+
                         <form id="profile_form" class="row form-detail-profile-page" method="post" novalidate>
 
-                            <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 employer-info-avatar avatar-profile-page">
-                                <span class="employer-avatar img-avatar image"><?php echo get_avatar( $user_ID, 125 ) ?></span>
-                                <a href="#" id="user_avatar_browse_button">
-									<?php _e( 'Change Photo', WPP_TEXT_DOMAIN ) ?>
-                                </a>
-                            </div>
 
 							<?php
-							$default = [
-								[
-									'id'          => 'post_content',
-									'label'       => __( 'About me', WPP_TEXT_DOMAIN ),
-									'value'       => $about ?? '',
-									'placeholder' => __( 'About me', WPP_TEXT_DOMAIN ),
-									'wrap_class'  => sprintf( 'col-md-%1$s col-lg-%1$s col-sm-12 col-xs-12 fre-input-field', $class ),
-									'type'        => 'editor'
-								]
-							];
 
-							if ( fre_share_role() || wpp_fre_is_freelancer() ) :
-								$default[] = [
-									'id'          => 'hour_rate',
-									'label'       => __( 'Rate', WPP_TEXT_DOMAIN ),
-									'value'       => $hour_rate ?? '',
-									'placeholder' => __( 'Your rate', WPP_TEXT_DOMAIN ),
-									'wrap_class'  => 'col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field fre-hourly-field',
-									'label_class' => 'fre-field-title ratelbl',
-									'type'        => 'number',
-									'conditional' => [
-										'compare' => 'or',
-										'for'     => [
-											'role',
-											'freelancer'
-										]
-									]
-								];
-							endif;
-
-							$default[] = [
-								'id'         => 'clear_1',
-								'type'       => 'clear',
-								'wrap_class' => 'clearfix'
-							];
-
-							$default[] = [
-								'id'          => 'display_name',
-								'label'       => __( 'Name', WPP_TEXT_DOMAIN ),
-								'value'       => $display_name ?? '',
-								'placeholder' => __( 'Your name', WPP_TEXT_DOMAIN ),
-							];
-
-							$default[] = [
-								'id'          => 'user_email',
-								'label'       => __( 'Email', WPP_TEXT_DOMAIN ) . $confirmed_email,
-								'value'       => $user_data->user_email ?? '',
-								'placeholder' => __( 'Your email', WPP_TEXT_DOMAIN ),
-							];
+							wpp_get_template_part( 'wpp/templates/profile/form/avatar', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/top-section', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/phone', $args );
+							wpp_get_template_part( 'inc/select-location-profile-edit', [ 'location' => $location ] );
+							wpp_get_template_part( 'wpp/templates/profile/form/currency', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/experience', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/pass', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/pay-pall', $args );
+							wpp_get_template_part( 'wpp/templates/profile/form/social', $args );
 
 
-							$data = new WPP_Form_Constructor( $default );
-							$data->parse_data();
-							?>
+							//do_action( 'ae_edit_post_form', PROFILE, $profile );
 
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field">
-                                <label class="fre-field-title"><?php _e( 'Phone', ET_DOMAIN ); ?>
-                                    <span><?php if ( $user_phone ) {
-											_e( '(Confirmed by sms)', ET_DOMAIN );
-										} ?></span></label>
-                                <a href="#modal_change_phone" data-toggle="modal"
-                                   data-dismiss="modal" class="change-phone"
-                                   data-ctn_edit="ctn-edit-account" id="btn_edit">
-									<?php echo ! empty( $user_phone_code . $user_phone ) ? $user_phone_code . $user_phone : _e( 'Edit phone', ET_DOMAIN ); ?>
-                                </a>
-                            </div>
-
-                            <!--new start-->
-							<?php wpp_get_template_part( 'inc/select-location-profile-edit', [ 'location' => $location ] ); ?>
-                            <!--new end-->
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field default-currency-wrap">
-
-                                <label class="fre-field-title">
-									<?php _e( 'Currency', ET_DOMAIN ); ?>
-                                </label>
-
-                                <select name="project_currency">
-
-									<?php $selected_currency = get_user_meta( $user_ID, 'currency', true );
-
-									foreach ( get_currency() as $key => $data ) {
-										$is_selected  = '';
-										$user_country = get_user_country();
-										wpp_dump( $user_country );
-										$user_country = $user_country['name'];
-
-										if ( empty( $selected_currency ) ) {
-											if ( $user_country == $data['country'] ) {
-												$is_selected = 'selected';
-											}
-										} else {
-											if ( $selected_currency == $data['code'] ) {
-												$is_selected = 'selected';
-											}
-										} ?>
-                                        <option data-icon="<?php echo $data['flag'] ?>" <?php echo $is_selected ?>>
-											<?php echo $data['code'] ?>
-                                        </option>
-									<?php } ?>
-
-                                </select>
-                            </div>
-
-							<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) { ?>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field fre-experience-field">
-                                    <label class="fre-field-title"><?php _e( 'Years experience', ET_DOMAIN ); ?></label>
-                                    <input type="number" value="<?php echo $experience; ?>"
-                                           name="et_experience" id="et_experience" min="0"
-                                           placeholder="<?php _e( 'Total', ET_DOMAIN ) ?>">
-                                </div>
-							<?php } ?>
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field">
-                                <label class="fre-field-title"><?php _e( 'Password', ET_DOMAIN ); ?></label>
-                                <a href="#" class="change-password">
-									<?php _e( '******', ET_DOMAIN ); ?>
-                                </a>
-
-								<?php if ( function_exists( 'fre_credit_add_request_secure_code' ) ) {
-									$fre_credit_secure_code = ae_get_option( 'fre_credit_secure_code' );
-									if ( ! empty( $fre_credit_secure_code ) ) {
-										?>
-                                        <ul class="fre-secure-code">
-                                            <li>
-                                                <span><?php _e( "Secure code", ET_DOMAIN ) ?></span>
-                                            </li>
-											<?php do_action( 'fre-profile-after-list-setting' ); ?>
-                                        </ul>
-									<?php }
-								} ?>
-                            </div>
-
-							<?php if ( use_paypal_to_escrow() ) { ?>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 fre-input-field">
-                                    <label class="fre-field-title"><?php _e( 'Paypal account', ET_DOMAIN ) ?></label>
-                                    <input type="text"
-                                           value="<?php echo $user_data->paypal ?>"
-                                           name="user_paypal" id="user_paypal"
-                                           placeholder="<?php _e( 'Your paypal login', ET_DOMAIN ) ?>">
-                                </div>
-							<?php }
-
-
-							/**
-							 * Вывод полей социальные сети
-							 */
-							$soc_data = apply_filters( 'wpp_social_fields_array', [] );
-							$default  = [];
-
-							if ( ! empty( $soc_data ) ) :
-								foreach ( $soc_data as $one_field ) {
-									$default[] = [
-										'id'          => $one_field['id'],
-										'label'       => $one_field['label'],
-										'value'       => $user_data->{$one_field['id']} ?? '',
-										'placeholder' => $one_field['placeholder']
-									];
-								}
-							endif;
-
-
-							if ( ! empty( $default ) ) :
-								$data = new WPP_Form_Constructor( $default );
-								$data->parse_data();
-							endif;
-
-							do_action( 'ae_edit_post_form', PROFILE, $profile );
 							if ( $visualFlag ) { ?>
                                 <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12 fre-input-field">
                                     <label class="fre-field-title"><?php _e( 'Choose your level', ET_DOMAIN ); ?></label>
@@ -311,9 +152,9 @@ $confirmed_phone = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(C
                         </form>
                     </div>
                 </div>
-                <!--edit--form-->
+
             </div>
         </div>
-        <!-- /.modal-content -->
+
     </div>
 </div>
