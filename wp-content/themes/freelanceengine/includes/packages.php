@@ -30,9 +30,6 @@ function de_init_package() {
 		'rewrite'            => true,
 
 		'capability_type' => 'post',
-		// 'capabilities' => array(
-		//     'manage_options'
-		// ) ,
 		'has_archive'     => 'packs',
 		'hierarchical'    => false,
 		'menu_position'   => null,
@@ -157,64 +154,3 @@ function fre_user_package_info( $user_ID ) {
     </div>
 
 <?php }
-
-/*add_action( 'ae_buy_plan_process_payment', 'fre_setup_plan_payment', 10, 2 );
-function fre_setup_plan_payment( $payment_return, $data ) {
-	global $user_ID, $ae_post_factory;
-	extract( $data );
-	if ( ! $payment_return['ACK'] ) {
-		return false;
-	}
-	$order_pay = $data['order']->get_order_data();
-
-	if ( isset( $payment_return['payment_status'] ) ) {
-		$packs = AE_Package::get_instance();
-		$sku   = $order_pay['payment_package'];
-		$pack  = $packs->get_pack( $sku, 'pack' );
-		if ( $payment_return['payment_status'] == 'Completed' ) {
-			if ( isset( $pack->et_number_posts ) && (int) $pack->et_number_posts > 0 ) {
-				if ( $payment_return['payment'] == 'cash' ) {
-					update_package_number_pending( $user_ID, (int) $pack->et_number_posts );
-				} else {
-					update_package_number( $user_ID, (int) $pack->et_number_posts );
-					$payment_return['bid_msg'] = sprintf( __( "You've successfully purchased %d plan.", ET_DOMAIN ), $pack->et_number_posts );
-				}
-
-				return $payment_return;
-			}
-		} else if ( $payment_return['payment_status'] == 'Pending' ) {
-			if ( isset( $pack->et_number_posts ) && (int) $pack->et_number_posts > 0 ) {
-				update_package_number_pending( $user_ID, (int) $pack->et_number_posts );
-			}
-		}
-	}
-
-	return $payment_return;
-}
-
-
-function update_package_number( $user_ID, $credit_number ) {
-	$user_credit = get_user_package_number( $user_ID );
-	$user_credit += $credit_number;
-	if ( $user_credit < 0 ) {
-		$user_credit = 0;
-	}
-	update_user_meta( $user_ID, 'credit_number', $user_credit );
-}
-
-function get_user_package_number( $user_ID ) {
-	return (int) get_user_meta( $user_ID, 'credit_number', true );
-}
-
-function update_package_number_pending( $user_ID, $credit_number ) {
-	$user_credit = get_user_package_number_pending( $user_ID );
-	$user_credit += $credit_number;
-	if ( $user_credit < 0 ) {
-		$user_credit = 0;
-	}
-	update_user_meta( $user_ID, 'credit_number_pending', $user_credit );
-}
-
-function get_user_package_number_pending( $user_ID ) {
-	return (int) get_user_meta( $user_ID, 'credit_number_pending', true );
-}*/

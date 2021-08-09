@@ -637,7 +637,7 @@ class Fre_BidAction extends AE_PostAction {
 		}
 
 		// sync bid
-		$bid    = $ae_post_factory->get( BID );
+		$bid = $ae_post_factory->get( BID );
 
 		//Добавляет бид
 		$result = $bid->sync( $post_data );

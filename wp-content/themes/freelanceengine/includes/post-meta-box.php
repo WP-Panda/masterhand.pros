@@ -294,10 +294,6 @@ class AE_PostMeta extends AE_Base {
 		if ( isset( $request['et_expired_date'] ) ) {
 			update_post_meta( $request['ID'], 'et_expired_date', $request['et_expired_date'] );
 		}
-		// update place location
-		// update_post_meta($request['ID'], 'et_full_location', $request['et_full_location']);
-		// update_post_meta($request['ID'], 'et_location_lat', $request['et_location_lat']);
-		// update_post_meta($request['ID'], 'et_location_lng', $request['et_location_lng']);
 		if ( isset( $request['et_payment_package'] ) ) {
 			// update payment package
 			update_post_meta( $request['ID'], 'et_payment_package', $request['et_payment_package'] );

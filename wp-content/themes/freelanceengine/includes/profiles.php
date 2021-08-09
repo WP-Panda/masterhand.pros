@@ -1080,25 +1080,6 @@ class Fre_ProfileAction extends AE_PostAction {
 		do_action( 'activityRating_oneFieldProfile' );
 
 
-		#Сохранение социальных сетей
-/*		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
-
-		if ( ! empty( $soc_data ) ) :
-
-			foreach ( $soc_data as $one_field ) {
-
-				if ( ! empty( $_REQUEST[ $one_field['id'] ] ) ) {
-					update_post_meta( $profile_id, $one_field['id'], sanitize_text_field( $one_field['id'] ) );
-					update_user_meta( $user_ID, $one_field['id'], sanitize_text_field( $one_field['id'] ) );
-				} else {
-					delete_post_meta( $profile_id, $one_field['id'] );
-					delete_user_meta( $user_ID, $one_field['id'] );
-				}
-
-			}
-
-		endif;
-*/
 
 		// sync profile
 		$result = $profile->sync( $request );

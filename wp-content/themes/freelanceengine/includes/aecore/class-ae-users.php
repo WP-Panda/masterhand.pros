@@ -14,6 +14,7 @@
  * @since   1.0
  */
 class AE_Users {
+
 	static $instance;
 	public $current_user;
 
@@ -37,9 +38,7 @@ class AE_Users {
 			'hour_rate',
 			'facebook',
 			'twitter',
-			//            new start
 			'register_status',
-			//            new end
 			'banned',
 		];
 
@@ -89,28 +88,29 @@ class AE_Users {
 	 * @author ThaiNT
 	 */
 	public static function confirm( $key ) {
+
 		global $de_confirm;
-		$user    = get_users( [
+
+		$user = get_users( [
 			'meta_key'   => 'key_confirm',
 			'meta_value' => $key
 		] );
+
 		$user_id = $user['0']->ID;
 
 		// new start
-		$register_status = get_user_meta( $user_id, 'register_status' );
-		if ( $register_status[0] == 'unconfirmnew' ) {
-			$new_email = get_user_meta( $user_id, 'user_new_email' );
+		$register_status = get_user_meta( $user_id, 'register_status', true );
+
+		if ( 'unconfirmnew' === $register_status ) {
+
+			$new_email = get_user_meta( $user_id, 'user_new_email', true );
+
 			wp_update_user( [
 				'ID'         => $user_id,
-				'user_email' => $new_email[0]
+				'user_email' => $new_email
 			] );
-		}
 
-		// не удалять
-		//        // user had activated
-		//        if (self::is_activate($user[0]->ID)) {
-		//            return false;
-		//        }
+		}
 
 		$de_confirm = update_user_meta( $user_id, 'register_status', 'confirm' );
 
@@ -126,12 +126,12 @@ class AE_Users {
 		endif;
 
 
-		$de_confirm = delete_user_meta( $user_id, 'user_new_email', '' );
-		$de_confirm = delete_user_meta( $user_id, 'key_confirm', '' );
+		$de_confirm = delete_user_meta( $user_id, 'user_new_email' );
+		$de_confirm .= delete_user_meta( $user_id, 'key_confirm' );
 		// new end
 
 		//sign on user after active
-		if ( $de_confirm ) {
+		if ( ! empty( $de_confirm ) ) {
 			wp_clear_auth_cookie();
 			wp_set_current_user( $user_id );
 			wp_set_auth_cookie( $user_id );
@@ -161,9 +161,10 @@ class AE_Users {
 	 * @since  1.0
 	 * @author Dakachi
 	 */
-
 	public static function is_activate( $user_id ) {
-		return ( ae_get_option( 'user_confirm' ) && get_user_meta( $user_id, 'register_status', true ) == "unconfirm" ) ? false : true;
+		$register_status = get_user_meta( $user_id, 'register_status', true );
+
+		return ( ae_get_option( 'user_confirm' ) && 'unconfirm' === $register_status ) ? false : true;
 	}
 
 	/**
@@ -185,26 +186,31 @@ class AE_Users {
 	 */
 	public function get_avatar( $id_or_email, $size, $default = '' ) {
 
-		if ( $id_or_email ) {
+		if ( ! empty( $id_or_email ) ) {
+
 			$user = get_userdata( $id_or_email );
+
 			/**
 			 * get avatar by user upload
 			 */
 			$img = get_user_meta( $user->ID, 'et_avatar_url', true );
-			if ( $img == '' ) {
 
+			if ( empty( $img ) ) {
 				$img = $this->update_avatar( $user->ID );
-			}
-			if ( $img != '' ) {
+			} else {
 				return $img;
 			}
+
+
 			/**
 			 * get default avatar from admin settings
 			 */
 			$default_avatar = ae_get_option( 'default_avatar', '' );
+
 			if ( $default_avatar ) {
 				return $default_avatar['thumbnail'][0];
 			}
+
 			/**
 			 * get user avatar from gravatar by email
 			 */
@@ -222,15 +228,15 @@ class AE_Users {
 				}
 			}
 
-			$out = "$host/avatar/";
-			$out .= $email_hash;
-			$out .= '?s=' . $size;
-			$out .= '&amp;d=' . urlencode( $default );
+			$out = "{$host}/avatar/{$email_hash}?s={$size}&amp;d=";
+			$out .= urlencode( $default );
 
 			$rating = get_option( 'avatar_rating' );
+
 			if ( ! empty( $rating ) ) {
 				$out .= "&amp;r={$rating}";
 			}
+
 			$default = $out;
 		}
 
@@ -249,8 +255,10 @@ class AE_Users {
 	 * @author   Daikachi
 	 */
 	function update_avatar( $user_id ) {
+
 		$avatar = get_user_meta( $user_id, 'et_avatar', true );
-		if ( $avatar != '' ) {
+
+		if ( ! empty( $avatar ) ) {
 			$img = wp_get_attachment_image_src( $avatar, 'thumbnail' );
 			$img = $img[0];
 
@@ -270,7 +278,6 @@ class AE_Users {
 
 	public function insert_social_user( $user_data ) {
 
-		//the insert function could not have the ID
 		if ( isset( $user_data['ID'] ) ) {
 			unset( $user_data['ID'] );
 		}
@@ -1213,6 +1220,7 @@ class AE_Users {
 				'user_login' => $user_login
 			] );
 		}
+
 		do_action( 'ae_user_forgot', $user_data->ID, $key );
 
 		return [

@@ -8,9 +8,6 @@
 if ( ! class_exists( 'AE_Base' ) ) {
 	class AE_Base {
 
-		// protected $filter_scripts = 'et_admin_enqueue_script';
-		// protected $filter_style = 'et_admin_enqueue_style';
-
 		const AJAX_PREFIX = 'wp_ajax_';
 		const AJAX_NOPRIV_PREFIX = 'wp_ajax_nopriv_';
 
