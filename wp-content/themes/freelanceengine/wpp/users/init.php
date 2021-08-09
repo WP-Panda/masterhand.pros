@@ -10,7 +10,8 @@ defined( 'ABSPATH' ) || exit;
 $array = [
 	'Wpp_En_User',
 	'user_helpers',
-	'profile-meta'
+	'profile-meta',
+	'backend/init'
 ];
 
 foreach ( $array as $file ) :

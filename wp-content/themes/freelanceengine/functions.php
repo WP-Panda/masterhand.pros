@@ -412,12 +412,14 @@ class ET_FreelanceEngine extends AE_Base {
 			wp_redirect( $re_url );
 			exit();
 		}
+
 		// prevent user enter single profile
 		if ( is_singular( PROFILE ) ) {
 			global $post;
 			wp_redirect( get_author_posts_url( $post->post_author ) );
 			exit;
 		}
+
 		// prevent freelancer post project
 		if ( is_page_template( 'page-submit-project.php' ) ) {
 			if ( ! fre_share_role() && ae_user_role() == FREELANCER ) {
@@ -425,6 +427,7 @@ class ET_FreelanceEngine extends AE_Base {
 				exit;
 			}
 		}
+
 		/**
 		 * prevent user try to view a bid details
 		 * # when user enter a link to bid redirect to home url
@@ -1218,32 +1221,35 @@ function et_setup_theme() {
  * add custom status to wordpress post status
  */
 function fre_append_post_status_list() {
+
 	if ( ! isset( $_REQUEST['post'] ) ) {
 		return;
 	}
-	$post      = get_post( $_REQUEST['post'] );
-	$complete  = '';
-	$closed    = '';
-	$disputing = '';
-	$disputed  = '';
-	$label     = '';
-	if ( $post && ( $post->post_type == BID || $post->post_type == PROJECT ) ) {
-		if ( $post->post_status == 'complete' ) {
-			$complete = " selected='selected'";
-			$label    = '<span id="post-status-display">' . __( "Completed", ET_DOMAIN ) . '</span>';
-		}
-		if ( $post->post_status == 'close' ) {
-			$closed = " selected='selected'";
-			$label  = '<span id="post-status-display">' . __( "Close", ET_DOMAIN ) . '</span>';
-		}
-		if ( $post->post_status == 'disputing' ) {
-			$disputing = " selected='selected'";
-			$label     = '<span id="post-status-display">' . __( "Disputing", ET_DOMAIN ) . '</span>';
-		}
-		if ( $post->post_status == 'disputed' ) {
-			$disputed = " selected='selected'";
-			$label    = '<span id="post-status-display">' . __( "Disputed", ET_DOMAIN ) . '</span>';
-		}
+	$post = get_post( $_REQUEST['post'] );
+
+	$complete = $closed = $disputing = $disputed = $label = '';
+
+	if ( $post && ( BID === $post->post_type || PROJECT === $post->post_type ) ) {
+
+		switch ( $post->post_status ) :
+			case 'complete' :
+				$complete = ' selected="selected"';
+				$label    = '<span id="post-status-display">' . __( "Completed", ET_DOMAIN ) . '</span>';
+				break;
+			case 'close' :
+				$closed = ' selected="selected"';
+				$label  = '<span id="post-status-display">' . __( "Close", ET_DOMAIN ) . '</span>';
+				break;
+			case 'disputing' :
+				$disputing = ' selected="selected"';
+				$label     = '<span id="post-status-display">' . __( "Disputing", ET_DOMAIN ) . '</span>';
+				break;
+			case 'disputed' :
+				$disputed = ' selected="selected"';
+				$label    = '<span id="post-status-display">' . __( "Disputed", ET_DOMAIN ) . '</span>';
+				break;
+		endswitch;
+
 		?>
         <script>
             jQuery(document).ready(function ($) {
@@ -1252,8 +1258,7 @@ function fre_append_post_status_list() {
 					echo $closed; ?>>Close</option><option value='disputing' <?php
 					echo $disputing; ?>>Disputing</option><option value='disputed' <?php
 					echo $disputed; ?>>Disputed</option>");
-                $(".misc-pub-section label").append('<?php
-					echo $label; ?>');
+                $(".misc-pub-section label").append('<?php echo $label; ?>');
             });
         </script>
 		<?php
@@ -1271,7 +1276,6 @@ add_action( 'admin_footer-post.php', 'fre_append_post_status_list' );
 if ( ! function_exists( 'fre_comment_reply_link' ) ) {
 	function fre_comment_reply_link( $string, $args, $comment ) {
 		if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
-			$string = '';
 			$string = $args['before'];
 			$string .= sprintf( '<a rel="nofollow" href="#" data-toggle="modal" class="comment-reply-login login-btn">%s</a>', $args['login_text'] );
 			$string .= $args['after'];
@@ -1281,6 +1285,7 @@ if ( ! function_exists( 'fre_comment_reply_link' ) ) {
 	}
 }
 add_filter( 'comment_reply_link', 'fre_comment_reply_link', 10, 3 );
+
 /**
  * WP Link query only post, page, project, profile
  *
@@ -1347,276 +1352,6 @@ function set_frontpage_theme() {
 }
 
 add_action( 'wp_before_admin_bar_render', 'set_frontpage_theme' );
-// update database for old version
-function fre_update_db() {
-	global $post, $wpdb;
-	// updated_bids -> ThanhTu
-	$check_fre_updated_bids = ae_get_option( 'fre_updated_bids', false );
-	if ( ! $check_fre_updated_bids ) {
-		$credits_bid = (int) ae_get_option( 'ae_credit_number', 1 );
-		$list_packs  = get_posts( [ 'post_type' => 'bid_plan' ] );
-		foreach ( $list_packs as $key => $pack ) {
-			$bid_old = get_post_meta( $pack->ID, 'et_number_posts', true );
-			$bid_new = round( $bid_old / $credits_bid );
-			update_post_meta( $pack->ID, 'et_number_posts', $bid_new, $bid_old );
-		}
-		$arg_user   = [
-			'meta_key' => 'credit_number',
-			'number'   => - 1
-		];
-		$list_users = get_users( $arg_user );
-		foreach ( $list_users as $key => $user ) {
-			$number_bid_old = get_user_meta( $user->ID, 'credit_number', true );
-			$number_bid_new = round( $number_bid_old / $credits_bid );
-			$meta_id        = $wpdb->get_var( $wpdb->prepare( "SELECT umeta_id FROM {$wpdb->usermeta} WHERE meta_key = 'credit_number' AND user_id = %s", $user->ID ) );
-			$result         = $wpdb->update( $wpdb->usermeta, [
-				'meta_value' => $number_bid_new
-			], [
-				'umeta_id' => $meta_id
-			] );
-		}
-		ae_update_option( 'fre_updated_bids', 1 );
-	}
-	// updated bids plans -> ThanhTu
-	$check_fre_updated_bid_accept = ae_get_option( 'fre_updated_bid_accept', false );
-	if ( ! $check_fre_updated_bid_accept ) {
-		// List projects have post_status = Close
-		$query_project = "SELECT pm.post_id
-                        FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm
-                        ON p.ID = pm.post_id
-                        WHERE p.post_type = 'project'
-                            AND p.post_status = 'close'
-                            AND pm.meta_key = 'accepted'
-                            AND pm.meta_value <> '' ";
-		$projects      = $wpdb->get_col( $query_project );
-		// List bid had Unacceptable
-		if ( ! empty( $projects ) ) {
-			$sql_bid_unaccept = "SELECT p.ID
-                        FROM {$wpdb->posts} p
-                        WHERE p.post_type = 'bid'
-                            AND p.post_status = 'publish'
-                            AND p.post_parent IN (" . implode( ',', $projects ) . ")
-                         ORDER BY p.ID DESC";
-			$listBids         = $wpdb->get_col( $sql_bid_unaccept );
-			// update post_status 'publish' to 'unaccept'
-			if ( ! empty( $listBids ) ) {
-				foreach ( $listBids as $key => $value ) {
-					$result = $wpdb->update( $wpdb->posts, [ 'post_status' => 'unaccept' ], [ 'ID' => $value ] );
-				}
-			}
-		}
-		ae_update_option( 'fre_updated_bid_accept', 1 );
-	}
-	// update db from 1.8.2
-	$update_check_182 = ae_get_option( 'update_db_for_182', false );
-	if ( ! ( $update_check_182 ) ) {
-		//Update new status for bid -> Quoc
-		$projects_postquery = new WP_Query( [
-			'post_type'        => PROJECT,
-			'post_status'      => [
-				'draft',
-				'pending',
-				'publish',
-				'close',
-				'archive',
-				'complete',
-				'reject',
-				'disputed',
-				'disputing',
-				'trash'
-			],
-			'suppress_filters' => true,
-			'posts_per_page'   => - 1
-		] );
-		if ( $projects_postquery->have_posts() ) {
-			while ( $projects_postquery->have_posts() ) {
-				$projects_postquery->the_post();
-				$project_status = $post->post_status;
-				$project_title  = $post->post_title;
-				$bid_accepted   = get_post_meta( $post->ID, 'accepted', true );
-				$child_args     = [
-					'post_parent' => $post->ID,
-					'post_type'   => BID,
-					'numberposts' => - 1,
-					'post_status' => 'any'
-				];
-				$children       = get_children( $child_args );
-				if ( $project_status == 'archive' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						wp_update_post( [
-							'ID'          => $child->ID,
-							'post_title'  => $project_title,
-							'post_status' => 'archive'
-						] );
-					}
-				} else if ( $project_status == 'trash' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						wp_update_post( [
-							'ID'          => $child->ID,
-							'post_title'  => $project_title,
-							'post_status' => 'hide'
-						] );
-					}
-				} else if ( $project_status == 'disputing' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						$args_data = [
-							'ID'         => $child->ID,
-							'post_title' => $project_title
-						];
-						if ( $child->ID == $bid_accepted ) {
-							$args_data['post_status'] = 'disputing';
-						} else {
-							$args_data['post_status'] = 'hide';
-						}
-						wp_update_post( $args_data );
-					}
-				} else if ( $project_status == 'disputed' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						$args_data = [
-							'ID'         => $child->ID,
-							'post_title' => $project_title
-						];
-						if ( $child->ID == $bid_accepted ) {
-							$args_data['post_status'] = 'disputed';
-						} else {
-							$args_data['post_status'] = 'hide';
-						}
-						wp_update_post( $args_data );
-					}
-				} else if ( $project_status == 'complete' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						$args_data = [
-							'ID'         => $child->ID,
-							'post_title' => $project_title,
-						];
-						if ( $child->ID == $bid_accepted ) {
-							$args_data['post_status'] = 'complete';
-						} else {
-							$args_data['post_status'] = 'hide';
-						}
-						wp_update_post( $args_data );
-					}
-				} else if ( $project_status == 'publish' && ! empty( $children ) ) {
-					foreach ( $children as $child ) {
-						wp_update_post( [
-							'ID'         => $child->ID,
-							'post_title' => $project_title,
-						] );
-					}
-				}
-			}
-		}
-		//Get all bid accepted -> Quoc
-		$accepted_bids = $wpdb->get_results( "SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key = 'accepted' AND meta_value != ''" );
-		if ( ! empty( $accepted_bids ) ) {
-			foreach ( $accepted_bids as $key => $value ) {
-				$post_name          = $wpdb->get_var( "SELECT post_name FROM $wpdb->posts WHERE id = $value->post_id" );
-				$post_name_accepted = 'bid-on-project-' . $post_name . '-was-accepted';
-				$date_accepted      = $wpdb->get_var( "SELECT post_date FROM $wpdb->posts WHERE post_name = '" . $post_name_accepted . "'" );
-				$bid_time           = get_post_meta( $value->meta_value, 'bid_time', true );
-				$bit_type_time      = get_post_meta( $value->meta_value, 'type_time', true );
-				$date               = new DateTime( $date_accepted );
-				if ( $bit_type_time == 'day' ) {
-					$date->modify( '+' . $bid_time . ' days' );
-				} else if ( $bit_type_time == 'week' ) {
-					$date->modify( '+' . $bid_time . ' weeks' );
-				}
-				$deadline_time = $date->format( 'Y-m-d g:i:s' );
-				update_post_meta( $value->post_id, 'project_deadline', $deadline_time );
-			}
-		}
-		//Update project worked freelancer -> SyDao
-		$list_profile = get_posts( [
-			'post_type'      => 'fre_profile',
-			'post_status'    => 'publish',
-			'posts_per_page' => - 1,
-		] );
-		if ( ! empty( $list_profile ) ) {
-			foreach ( $list_profile as $p ) {
-				$profile_id           = $p->ID;
-				$works                = get_posts( [
-					'post_status'    => [ 'complete' ],
-					'post_type'      => BID,
-					'author'         => $p->post_author,
-					'posts_per_page' => - 1,
-				] );
-				$total_project_worked = count( $works );
-				update_post_meta( $profile_id, 'total_projects_worked', $total_project_worked );
-			}
-		}
-		ae_update_option( 'update_db_for_182', 1 );
-	}
-}
-
-add_action( 'wp_loaded', 'fre_update_db' );
-function notice_for_update_db() {
-	//check theme new active or update
-	?>
-    <style type="text/css">
-        .et-updated {
-            background-color: lightYellow;
-            border: 1px solid #E6DB55;
-            border-radius: 3px;
-            webkit-border-radius: 3px;
-            moz-border-radius: 3px;
-            margin: 20px 15px 0 0;
-            padding: 0 10px;
-            position: relative;
-        }
-    </style>
-	<?php
-	$update_db_for_182        = ae_get_option( 'update_db_for_182' );
-	$notice_update_db_for_182 = get_option( 'notice_update_db_for_182' );
-	if ( ( $update_db_for_182 ) && ! $notice_update_db_for_182 ) {
-		?>
-        <div id="notice_update_db_for_182" class="et-updated">
-            <p>
-				<?php
-				$msg = sprintf( __( "Your database is automatically updated. <a href='%s' target='_blank'>Click here</a> for more details.  <a href='%s' style='text-decoration: none'  class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></a>", ET_DOMAIN ), 'https://www.enginethemes.com/update-freelanceengine-1-8-2/', add_query_arg( 'notice_update_db_for_182', '1' ) );
-				echo $msg;
-				?>
-            </p>
-        </div>
-		<?php
-	}
-}
-
-add_action( 'admin_notices', 'notice_for_update_db' );
-add_action( 'show_user_profile', 'add_extra_social_links' );
-add_action( 'edit_user_profile', 'add_extra_social_links' );
-function add_extra_social_links( $user ) {
-	?>
-    <h3>Адрес</h3>
-    <input type="text" name="country" value="<?php echo esc_attr( get_the_author_meta( 'country', $user->ID ) ); ?>"
-           class="regular-text"/>
-    <input type="text" name="state" value="<?php echo esc_attr( get_the_author_meta( 'state', $user->ID ) ); ?>"
-           class="regular-text"/>
-    <input type="text" name="city" value="<?php echo esc_attr( get_the_author_meta( 'city', $user->ID ) ); ?>"
-           class="regular-text"/>
-	<?php
-}
-
-add_action( 'user_register', 'my_user_registration' );
-function my_user_registration( $user_id ) {
-	// for company
-	$is_type_company = ( ! empty( $_REQUEST['type_prof'] ) && $_REQUEST['type_prof'] == COMPANY ) ? true : false;
-	$company_name    = $_REQUEST['company_name'];
-	if ( $is_type_company ) {
-		add_user_meta( $user_id, 'is_company', 1 );
-		if ( ! empty( $company_name ) ) {
-			wp_update_user( [ 'ID' => $user_id, 'display_name' => $company_name ] );
-		}
-	}
-	// for company
-	update_user_meta( $user_id, 'country', $_POST['country'] );
-	update_user_meta( $user_id, 'state', $_POST['state'] );
-	update_user_meta( $user_id, 'city', $_POST['city'] );
-	//new start for register email
-	$user = new WP_User( $user_id );
-	update_user_meta( $user_id, 'register_status', 'unconfirm' );
-	update_user_meta( $user_id, 'key_confirm', md5( $user->user_email ) );
-	//new end
-}
 
 /**
  * ============== The custom functional
@@ -1964,15 +1699,6 @@ function onMailError( $wp_error ) {
 	echo json_encode( [ 'msg' => $wp_error->errors['wp_mail_failed'] ] );
 }
 
-function print_filters_for( $hook = '' ) {
-	global $wp_filter;
-	if ( empty( $hook ) || ! isset( $wp_filter[ $hook ] ) ) {
-		return;
-	}
-	print '<pre>';
-	print_r( $wp_filter[ $hook ] );
-	print '</pre>';
-}
 
 // Get User Location Profile Page
 function getLocation( $id = 0, $location_id = [ 'country' => '', 'state' => '', 'city' => '' ] ) {
@@ -2610,6 +2336,7 @@ function blog_breadcrumbs() {
 	}
 } // end of dimox_breadcrumbs()
 add_action( 'widgets_init', 'register_my_widgets' );
+
 function register_my_widgets() {
 	register_sidebar( [
 		'name'          => sprintf( __( 'Social links in footer' ) ),
@@ -3453,67 +3180,7 @@ function faq_permalink( $permalink, $post ) {
 	return str_replace( '%faqcat%', $term_slug, $permalink );
 }
 
-/*FrontG*/
-/*
-Колонка комментариев на странице пользователей в админке
-v 1.0
-*/
-add_filter( 'manage_users_columns', 'add_users_comm_column', 4 );
-add_filter( 'manage_users_custom_column', 'fill_users_comm_column', 5, 3 );
-add_filter( 'manage_users_sortable_columns', 'add_users_comm_sortable_column' );
-add_action( 'pre_user_query', 'add_users_comm_sort_query' );
-# создаем новую колонку
-function add_users_comm_column( $columns ) {
-	$columns['activated']     = 'Activation';
-	$columns['register_date'] = 'Registration date'; // добавляет дату реги
-	//unset( $columns['posts'] ); // удаляет колонку посты
-	return $columns;
-}
 
-# заполняем колонку данными
-function fill_users_comm_column( $out, $column_name, $user_id ) {
-	$userdata           = get_userdata( $user_id );
-	$user_confirm_email = get_user_meta( $user_id, 'register_status', true );
-	if ( 'activated' === $column_name ) {
-		if ( ( ! empty( $user_confirm_email ) && $user_confirm_email !== 'confirm' ) || ( empty( $user_confirm_email ) ) ) {
-			$out = 'Unactivated';
-		} else {
-			$out = 'Activated';
-		}
-	} elseif ( 'register_date' === $column_name ) {
-		$out = mysql2date( 'j M Y', $userdata->user_registered );
-	}
-
-	return $out;
-}
-
-# добавляем возможность сортировать колонку
-function add_users_comm_sortable_column( $sortable_columns ) {
-	$sortable_columns['register_date'] = 'register_date';
-	$sortable_columns['activated']     = 'activated';
-
-	return $sortable_columns;
-}
-
-# сортировка колонки
-function add_users_comm_sort_query( $user_query ) {
-	global $wpdb, $current_screen;
-	$vars = $user_query->query_vars;
-	if ( 'register_date' === $vars['orderby'] ) {
-		$user_query->query_orderby = ' ORDER BY user_registered ' . $vars['order'];
-	}
-}
-
-function prefix_sort_by_expiration_date( $query ) {
-	global $wpdb, $current_screen;
-	$vars = $query->query_vars;
-	if ( 'activated' == $query->get( 'orderby' ) ) {
-		$query->set( 'orderby', [ 'meta_value', 'user_registered' => 'ASC' ] );
-		$query->set( 'meta_key', 'register_status' );
-	}
-}
-
-add_action( 'pre_get_users', 'prefix_sort_by_expiration_date' );
 function add_recaptcha() {
 	echo '<script src="https://www.google.com/recaptcha/api.js" async defer ></script>';
 }
@@ -3528,16 +3195,3 @@ function dequeue_jquery_migrate( $scripts ) {
 }
 
 add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );
-
-
-function debuuuuuug( $query ) {
-
-	if ( is_array( $query->query['post_status'] ) && in_array( 'fuf', $query->query['post_status'] ) ) {
-		do_action( 'qm/debug', $query->post_count );
-		do_action( 'qm/debug', $query );
-	}
-
-	return $query;
-}
-
-// add_action('pre_get_posts', 'debuuuuuug', 100000000000000000);

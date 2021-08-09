@@ -1,7 +1,9 @@
 <?php
-require_once( str_replace( '//', '/', dirname( __FILE__ ) . '/' ) . '../../../wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' );
+
 global $wpdb;
 $message = false;
+
 if ( ! empty( $_POST['g-recaptcha-response'] ) ) {
 	$secret         = '6LdPT2sUAAAAAHKHRm9X8VgPeNGjlqc-EfGAJyf5';
 	$verifyResponse = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response'] );
@@ -65,6 +67,3 @@ if ( $message == 'success' ) {
 	$response = [ 'response' => 'error', 'error_type' => 'user_error', 'text' => 'captcha error' ];
 	echo json_encode( $response );
 }
-
-
-?>
