@@ -30,13 +30,15 @@ Class Wpp_Module_Base {
 			'position'   => 100
 		] );
 
+		/*add_action( "load-{$this->_args}", 'referral_codes_table_page_load' );*/
+
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ] );
 	}
 
 
 	public function add_menu_page() {
 
-		add_menu_page(
+		$args = add_menu_page(
 			$this->_args['page_title'],
 			$this->_args['menu_title'],
 			$this->_args['capability'],
@@ -45,6 +47,8 @@ Class Wpp_Module_Base {
 			$this->_args['icon_url'],
 			$this->_args['position']
 		);
+
+		add_action( "load-{$args}", 'referral_codes_table_page_load' );
 
 	}
 }

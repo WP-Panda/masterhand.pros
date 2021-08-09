@@ -18,7 +18,7 @@ the_post();
 ?>
 
     <div class="container page-container">
-        <!-- block control  -->
+
         <div class="row block-posts block-page">
 			<?php
 			if ( is_social_connect_page() ) {
@@ -34,7 +34,7 @@ the_post();
 					<?php get_sidebar( 'page' ); ?>
                     <button class="visible-xs blog-sidebar_more"><?php echo __( 'More information', ET_DOMAIN ); ?>
                         <i class="fa fa-angle-down animated-hover fa-falling"></i></button>
-                </div><!-- RIGHT CONTENT -->
+                </div>
                 <div class="col-sm-9 col-xs-12 posts-container" id="left_content">
                     <div class="blog-content">
                         <h1><?php the_title(); ?></h1>
@@ -49,11 +49,11 @@ the_post();
 						?>
 
                         <div class="clearfix"></div>
-                    </div><!-- end page content -->
-                </div><!-- LEFT CONTENT -->
+                    </div>
+                </div>
 			<?php } ?>
         </div>
-        <!--// block control  -->
+
     </div>
 <?php
 get_footer();

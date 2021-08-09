@@ -8,11 +8,11 @@ class Wpp_Referal extends Wpp_Module_Base {
 	function __construct() {
 
 		$args = [
-			'page_title' => __( 'Refereeral coder', 'wpp' ),
-			'menu_title' => __( 'Refeeeerral coder', 'wpp' ),
+			'page_title' => __( 'Referals', 'wpp' ),
+			'menu_title' => __( 'Referals', 'wpp' ),
 			'capability' => 'manage_options',
-			'menu_slug'  => 'referral_code',
-			'function'   => 'show_referral_code',
+			'menu_slug'  => 'referral-codes',
+			'function'   => 'referral_codes_table_page',
 			'icon_url'   => get_stylesheet_directory_uri() . '/wpp/modules/asset/image/gear.png',
 			'position'   => 100
 		];
@@ -331,7 +331,7 @@ function get_count_referrals( $user_id = null ) {
 	return $wpp_en->db->get_var( $sql );
 }
 
-function getPagination( $currentPage = 1 ) {
+/*function getPagination( $currentPage = 1 ) {
 	$total_referrals = get_count_referrals();
 	$currentPage     = (int) $currentPage;
 	$urlPattern      = 'javascript:mod.getData(\'(:num)\')';
@@ -340,4 +340,4 @@ function getPagination( $currentPage = 1 ) {
 	$paginator = new Paginator( $total_referrals, PAGE_STEP, (int) $currentPage, $urlPattern );
 
 	return $paginator->toHtml();
-}
+}*/

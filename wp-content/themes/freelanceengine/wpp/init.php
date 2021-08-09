@@ -37,6 +37,7 @@ $array = [
 	'db',
 	'anton/init',
 	'modules/Wpp_Module_Base',
+	'modules/extention/init',
 	'modules/companies/init',
 	'error-api',
 	'helpers',
