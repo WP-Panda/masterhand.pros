@@ -23,6 +23,7 @@ if ( ! defined( 'WPP_THEME_DIR' ) ) {
 	define( 'WPP_THEME_DIR', get_template_directory() );
 }
 
+
 $array = [
 	//'s',
 	'WppFr',
