@@ -181,7 +181,13 @@ function _a2a_position_in_content( $options, $option_box = false ) {
 
 function _a2a_selected_attr( $value, $option_name, $options ) {
 	if ( ! empty( $options[ $option_name  ] ) && $value === $options[ $option_name  ] ) {
-		echo ' selected="selected"';
+		echo ' selected';
+	}
+}
+
+function _a2a_disabled_attr() {
+	if ( ! current_user_can( 'unfiltered_html' ) ) {
+		echo ' disabled';
 	}
 }
 
@@ -346,9 +352,9 @@ function A2A_SHARE_SAVE_options_page() {
 			$new_options['button'] = ( isset( $_POST['A2A_SHARE_SAVE_button'] ) ) ? $_POST['A2A_SHARE_SAVE_button'] : '';
 			$new_options['button_custom'] = ( isset( $_POST['A2A_SHARE_SAVE_button_custom'] ) ) ? $_POST['A2A_SHARE_SAVE_button_custom'] : '';
 			$new_options['button_show_count'] = ( isset( $_POST['A2A_SHARE_SAVE_button_show_count'] ) && $_POST['A2A_SHARE_SAVE_button_show_count'] == '1' ) ? '1' : '-1';
-			$new_options['header'] = ( isset( $_POST['A2A_SHARE_SAVE_header'] ) ) ? $_POST['A2A_SHARE_SAVE_header'] : '';
-			$new_options['additional_js_variables'] = ( isset( $_POST['A2A_SHARE_SAVE_additional_js_variables'] ) ) ? trim( $_POST['A2A_SHARE_SAVE_additional_js_variables'] ) : '';
-			$new_options['additional_css'] = ( isset( $_POST['A2A_SHARE_SAVE_additional_css'] ) ) ? trim( $_POST['A2A_SHARE_SAVE_additional_css'] ) : '';
+			$new_options['header'] = ( isset( $_POST['A2A_SHARE_SAVE_header'] ) && current_user_can( 'unfiltered_html' ) ) ? $_POST['A2A_SHARE_SAVE_header'] : '';
+			$new_options['additional_js_variables'] = ( isset( $_POST['A2A_SHARE_SAVE_additional_js_variables'] ) && current_user_can( 'unfiltered_html' ) ) ? trim( $_POST['A2A_SHARE_SAVE_additional_js_variables'] ) : '';
+			$new_options['additional_css'] = ( isset( $_POST['A2A_SHARE_SAVE_additional_css'] ) && current_user_can( 'unfiltered_html' ) ) ? trim( $_POST['A2A_SHARE_SAVE_additional_css'] ) : '';
 			$new_options['custom_icons'] = ( isset( $_POST['A2A_SHARE_SAVE_custom_icons'] ) && $_POST['A2A_SHARE_SAVE_custom_icons'] == 'url' ) ? 'url' : '-1';
 			$new_options['custom_icons_url'] = ( isset( $_POST['A2A_SHARE_SAVE_custom_icons_url'] ) ) ? trailingslashit( $_POST['A2A_SHARE_SAVE_custom_icons_url'] ) : '';
 			$new_options['custom_icons_type'] = ( isset( $_POST['A2A_SHARE_SAVE_custom_icons_type'] ) ) ? $_POST['A2A_SHARE_SAVE_custom_icons_type'] : 'png';
@@ -566,7 +572,7 @@ function A2A_SHARE_SAVE_options_page() {
 			<th scope="row"><?php _e('Sharing Header', 'add-to-any'); ?></th>
 			<td><fieldset id="addtoany_extra_section_sharing_header" class="addtoany_extra_section<?php if ( ! empty( $options['header'] ) ) echo ' addtoany_show_extra'; ?>" role="region">
 				<label>
-					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( $options['header'] ); ?>" />
+					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( $options['header'] ); ?>"<?php _a2a_disabled_attr(); ?>>
 				</label>
 			</fieldset></td>
 			</tr>
@@ -666,7 +672,7 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php _e("Advanced users should explore AddToAny's <a href=\"https://www.addtoany.com/buttons/customize/wordpress\" target=\"_blank\">additional options</a>.", 'add-to-any'); ?></p>
 				</label>
 				<p>
-					<textarea name="A2A_SHARE_SAVE_additional_js_variables" id="A2A_SHARE_SAVE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="6" cols="50"><?php if ( isset( $options['additional_js_variables'] ) ) echo esc_textarea( $options['additional_js_variables'] ); ?></textarea>
+					<textarea name="A2A_SHARE_SAVE_additional_js_variables" id="A2A_SHARE_SAVE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="6" cols="50"<?php _a2a_disabled_attr(); ?>><?php if ( isset( $options['additional_js_variables'] ) ) echo esc_textarea( $options['additional_js_variables'] ); ?></textarea>
 				</p>
 			</fieldset></td>
 			</tr>
@@ -678,7 +684,7 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php _e("Advanced users should explore AddToAny's <a href=\"https://www.addtoany.com/buttons/customize/wordpress\" target=\"_blank\">additional options</a>.", 'add-to-any'); ?></p>
 				</label>
 				<p>
-					<textarea name="A2A_SHARE_SAVE_additional_css" id="A2A_SHARE_SAVE_additional_css" class="code" style="width: 98%; font-size: 12px;" rows="6" cols="50"><?php if ( isset( $options['additional_css'] ) ) echo esc_textarea( $options['additional_css'] ); ?></textarea>
+					<textarea name="A2A_SHARE_SAVE_additional_css" id="A2A_SHARE_SAVE_additional_css" class="code" style="width: 98%; font-size: 12px;" rows="6" cols="50"<?php _a2a_disabled_attr(); ?>><?php if ( isset( $options['additional_css'] ) ) echo esc_textarea( $options['additional_css'] ); ?></textarea>
 				</p>
 			</fieldset></td>
 			</tr>
@@ -1307,6 +1313,8 @@ function addtoany_admin_scripts( $current_admin_page ) {
 	
 	// If current screen is the default tab and WordPress >= 4.9
 	if ( empty( $_GET['action'] ) && function_exists( 'wp_enqueue_code_editor' ) ) {
+		$readyOnly = current_user_can( 'unfiltered_html' ) ? false : 'nocursor';
+
 		// Additional JavaScript editor.
 		// Enqueue code editor and settings for manipulating JavaScript.
 		$settings = wp_enqueue_code_editor( array(
@@ -1317,7 +1325,10 @@ function addtoany_admin_scripts( $current_admin_page ) {
 				'undef' => false,
 				'unused' => false,
 			),
-			'codemirror' => array( 'lineNumbers' => false ),
+			'codemirror' => array(
+				'lineNumbers' => false,
+				'readOnly' => $readyOnly,
+			),
 		) );
 		
 		// If user hasn't disabled CodeMirror.
@@ -1334,7 +1345,10 @@ function addtoany_admin_scripts( $current_admin_page ) {
 			// Enqueue code editor and settings for manipulating CSS.
 			$settings = wp_enqueue_code_editor( array(
 				'type' => 'text/css',
-				'codemirror' => array( 'lineNumbers' => false ),
+				'codemirror' => array(
+					'lineNumbers' => false,
+					'readOnly' => $readyOnly,
+				),
 			) );
 			
 			wp_add_inline_script(
