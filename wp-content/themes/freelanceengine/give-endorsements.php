@@ -205,41 +205,8 @@ $sponsor_name    = get_sponsor( $user_ID );
 					} else {
 						_e( 'No SafePay Deals yet', ET_DOMAIN );
 					}
-					$metas = get_sponsor_id( $user_ID );
-					if ( $metas != '' ) { ?>
-
-                        <div class="fre-page-title">
-                            <h2 class="page_t"><?php _e( 'REFERER', ET_DOMAIN ) ?></h2>
-                        </div>
-
-                        <div class="table-header">
-                            <div class="row">
-                                <div class="col-sm-9 col-xs-7"><?php _e( 'Name', ET_DOMAIN ) ?></div>
-                                <div class="col-sm-3 col-xs-5 text-center"><?php _e( 'Status', ET_DOMAIN ) ?></div>
-                            </div>
-                        </div>
-
-                        <div class="page-referrals_list page-reffers-list fre-profile-box">
-                            <div class="page-referrals_item" data-id="<?php echo $metas ?>">
-                                <div class="row">
-                                    <div class="col-sm-9 col-xs-7">
-                                        <a class="hidden-xs"
-                                           href="<?php echo get_author_posts_url( $metas ) ?>"><?php echo get_avatar( $metas, 70 ); ?></a>
-                                        <a class="name"
-                                           href="<?php echo get_author_posts_url( $metas ) ?>"><?php echo get_the_author_meta( 'display_name', $metas ) ?></a>
-										<?php $user_status = get_user_pro_status( $metas );
-										if ( userHaveProStatus( $metas ) ) {
-											echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
-										} ?>
-                                        <span class="rating-new">+<?php echo getActivityRatingUser( $metas ) ?></span>
-                                    </div>
-                                    <!--<div class="col-sm-3 col-xs-5 text-center endors <? /*= checkEndorseSkills( $user_ID, $metas ) */ ?>">
-											<? /*= checkEndorseSkills( $user_ID, $metas ) */ ?>
-                                        </div>-->
-                                </div>
-                            </div>
-                        </div>
-					<?php } ?>
+					wpp_get_template_part( 'template/wpp/referer-list', [ 'user_ID' => $user_ID ] )
+					?>
                 </div>
             </div>
         </div>
@@ -250,7 +217,6 @@ $sponsor_name    = get_sponsor( $user_ID );
 <?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) { ?>
     <script type="data/json" id="current_profile">
         <?php echo json_encode( $profile ) ?>
-
     </script>
 <?php }
 if ( ! empty( $current_skills ) ) { ?>
