@@ -6,11 +6,11 @@ if ( ! is_user_logged_in() ) {
 }
 
 $user_role = ae_user_role( $user_ID );
-if ( $user_role != FREELANCER ) {
+if ( $user_role !== FREELANCER ) {
 	wp_redirect( home_url( '/' ) );
 }
 
-define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', ET_DOMAIN ) );
+define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', WPP_TEXT_DOMAIN ) );
 
 if ( ! defined( 'FRE_ADVERT' ) ) {
 	define( 'FRE_ADVERT', 'advert' );
@@ -23,7 +23,7 @@ get_header();
         <div class="fre-page-title">
             <div class="container">
                 <h1>
-					<?php _e( 'My Special Offers', ET_DOMAIN ) ?>
+					<?php _e( 'My Special Offers', WPP_TEXT_DOMAIN ) ?>
                 </h1>
             </div>
         </div>
@@ -34,7 +34,7 @@ get_header();
 				<?php if ( get_user_pro_status( $user_ID ) != PRO_BASIC_STATUS_FREELANCER ) { ?>
                     <div class="btn-wrap">
                         <a class="fre-submit-btn btn-right"
-                           href="<?php echo et_get_page_link( "create-advert" ) ?>"><?php _e( 'Add new', ET_DOMAIN ); ?></a>
+                           href="<?php echo et_get_page_link( "create-advert" ) ?>"><?php _e( 'Add new', WPP_TEXT_DOMAIN ); ?></a>
                     </div>
 				<?php } else { ?>
                     <p>Activate Account Pro for Create Ad</p>
@@ -92,11 +92,11 @@ get_header();
                                         <a class="fre-submit-btn btn-left"
                                            href="<?= get_permalink(); ?>?post_edit"><?php _e( 'Edit' ); ?></a>
                                         <a class="advert-action archive cancel-btn"
-                                           data-id="<?= $post->ID; ?>"><?= __( 'Archive', ET_DOMAIN ); ?></a>
+                                           data-id="<?= $post->ID; ?>"><?= __( 'Archive', WPP_TEXT_DOMAIN ); ?></a>
 										<?
 									}
 									// else if ( $status == 'archive' ) {
-									//												echo '<a class="advert-action" data-action="remove" data-id="' . $post->ID . '">' . __( 'Remove', ET_DOMAIN) . '</a>';
+									//												echo '<a class="advert-action" data-action="remove" data-id="' . $post->ID . '">' . __( 'Remove', WPP_TEXT_DOMAIN) . '</a>';
 									//											}
 									?>
                                 </div>

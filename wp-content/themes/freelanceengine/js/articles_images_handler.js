@@ -13,25 +13,6 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    /*
-    $('.input-block').hover(
-        function(){
-            $(this).find('.value').css('background', '#0a0a0ab0');
-
-            if ($(this).find('.input-block__preview-file').length > 0) {
-                $(this).find('.input-block__preview-file').css('z-index', '0');
-            }
-        },
-        function(){
-            $(this).find('.value').css('background', '#f4f4f4b5');
-
-            if ($(this).find('.input-block__preview-file').length > 0) {
-                $(this).find('.input-block__preview-file').css('z-index', '1');
-            }
-        }
-    );
-    */
-
     $('.input-block__add-to-text').click(function () {
         let parent = $(this).closest('.input-block');
         let link = $(this).attr('data-filepath');

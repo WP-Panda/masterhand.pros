@@ -37,31 +37,31 @@ if ( isset( $_GET['ae_redirect_url'] ) ) {
                 <div class="fre-authen-wrapper">
                     <div class="fre-authen-login">
                         <h1>
-							<?php _e( 'Log into Your Account', ET_DOMAIN ) ?>
+							<?php _e( 'Log into Your Account', WPP_TEXT_DOMAIN ) ?>
                         </h1>
                         <form role="form" id="signin_form" class="">
                             <input type="hidden" value="<?php echo $re_url ?>" name="ae_redirect_url"/>
                             <div class="fre-input-field">
-                                <label><?php _e( 'Username or Email', ET_DOMAIN ) ?></label>
+                                <label><?php _e( 'Username or Email', WPP_TEXT_DOMAIN ) ?></label>
                                 <input type="text" name="user_login" class="need_valid"
-                                       placeholder="<?php _e( 'Username or Email', ET_DOMAIN ) ?>">
+                                       placeholder="<?php _e( 'Username or Email', WPP_TEXT_DOMAIN ) ?>">
                             </div>
                             <div class="fre-input-field">
-                                <label><?php _e( 'Password', ET_DOMAIN ) ?></label>
+                                <label><?php _e( 'Password', WPP_TEXT_DOMAIN ) ?></label>
                                 <input type="password" name="user_pass" class="need_valid"
-                                       placeholder="<?php _e( 'Password', ET_DOMAIN ) ?>">
+                                       placeholder="<?php _e( 'Password', WPP_TEXT_DOMAIN ) ?>">
                             </div>
                             <div class="checkline login-remember">
                                 <input id="remember" name="remember" type="checkbox">
-                                <span><?php _e( 'Remember me', ET_DOMAIN ) ?></span>
+                                <span><?php _e( 'Remember me', WPP_TEXT_DOMAIN ) ?></span>
                             </div>
 							<?php //ae_gg_recaptcha( $container = 'fre-input-field' );?>
-                            <button class="fre-submit-btn btn-submit"><?php _e( 'Log In', ET_DOMAIN ) ?></button>
+                            <button class="fre-submit-btn btn-submit"><?php _e( 'Log In', WPP_TEXT_DOMAIN ) ?></button>
                         </form>
                         <div class="fre-login-social">
 							<?php
 							if ( fre_check_register() && function_exists( 'ae_render_social_button' ) ) {
-								$before_string = __( "You can use your social account to log in", ET_DOMAIN );
+								$before_string = __( "You can use your social account to log in", WPP_TEXT_DOMAIN );
 								ae_render_social_button( [], [], $before_string );
 							}
 							?>
@@ -69,13 +69,13 @@ if ( isset( $_GET['ae_redirect_url'] ) ) {
 						<?php if ( fre_check_register() ) { ?>
                             <div class="not-yet-register">
                                 <a href="<?php echo bloginfo( 'url' ) ?>/register/" class="">
-									<?php _e( 'Register here', ET_DOMAIN ) ?>
+									<?php _e( 'Register here', WPP_TEXT_DOMAIN ) ?>
                                 </a>
                             </div>
 						<?php } ?>
                         <div class="forgot-password">
                             <a href="<?php echo bloginfo( 'url' ) ?>/forgot-password/" class="">
-								<?php _e( 'Forgot password?', ET_DOMAIN ) ?>
+								<?php _e( 'Forgot password?', WPP_TEXT_DOMAIN ) ?>
                             </a>
                         </div>
                     </div>

@@ -5,6 +5,7 @@
 if ( ! is_user_logged_in() ) {
 	wp_redirect( et_get_page_link( 'login', [ 'ae_redirect_url' => get_permalink( $post->ID ) ] ) );
 }
+
 get_header();
 global $wpdb, $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
 $user_role = ae_user_role( $user_ID );

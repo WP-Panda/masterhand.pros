@@ -1,14 +1,17 @@
 (function ($, Models, Collections, Views) {
     $(document).ready(function () {
+
         $('.hamburger-menu').on('click', function (event) {
             event.preventDefault();
             $('.fre-header-wrapper').removeClass('notify-active').toggleClass('active');
             $(this).find('.hamburger').toggleClass('is-active');
 
         });
+
         $(document).on('click', 'body', function () {
             $('.hamburger').removeClass('is-active');
         })
+
         $('.notification-tablet').on('click', function (event) {
             event.preventDefault();
             $('.fre-header-wrapper').removeClass('active').toggleClass('notify-active');
@@ -72,6 +75,7 @@
                 e.stopPropagation();
             }
         });
+
         $('.fre-account-wrap').on('shown.bs.dropdown', function () {
             var data = JSON.parse($(this).find('.postdata').html()),
                 IDs = [];
@@ -96,9 +100,11 @@
                 }
             });
         });
+
         $('.fre-account-wrap').on('hidden.bs.dropdown', function (e) {
             $(this).find('ul.list_notify li').removeClass('fre-notify-new');
         });
+
         // Form Search
         $('.fre-search-dropdown li').on("click", function () {
             var action = $(this).find('a').data('action'),
@@ -154,6 +160,7 @@
         }
         var template_undo = _.template($('#ae-notify-undo-template').html()),
             blockUi = new Views.BlockUi();
+
         // Remove Notify
         $('.list_notify').on('click', 'a.notify-remove', function (event) {
             event.preventDefault();
@@ -182,6 +189,7 @@
                 }
             })
         });
+
         // Undo Notify
         $('.list_notify').on('click', '.fre-notify-archive span', function (event) {
             event.preventDefault();

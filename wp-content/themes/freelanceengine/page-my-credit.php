@@ -7,12 +7,13 @@
  * Template Name: My Credit
  */
 
-global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
-$user_role = ae_user_role( $current_user->ID );
-
 if ( ! is_user_logged_in() ) {
 	wp_redirect( et_get_page_link( 'login' ) . '?ae_redirect_url=' . urlencode( et_get_page_link( 'my-credit' ) ) );
 }
+
+global $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
+$user_role = ae_user_role( $current_user->ID );
+
 
 if ( ! ae_get_option( 'user_credit_system' ) ) {
 	wp_redirect( get_site_url() );

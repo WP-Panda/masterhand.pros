@@ -1082,7 +1082,7 @@
                                 // AE.pubsub.trigger('ae:after:bid', res);
 
                                 // image for bid
-                                advert.uploadFiles(res.post_id, res.msg);
+                               // advert.uploadFiles(res.post_id, res.msg);
 
                                 AE.pubsub.trigger('ae:notification', {
                                     msg: res.msg,

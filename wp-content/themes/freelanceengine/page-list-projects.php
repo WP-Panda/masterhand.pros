@@ -42,8 +42,8 @@ get_header();
                                             <div class="fre-project-sort">
                                                 <select class="fre-chosen-single sort-order" id="project_orderby"
                                                         name="orderby">
-                                                    <option value="date"><?php _e( 'Newest Projects first', ET_DOMAIN ); ?></option>
-                                                    <option value="et_budget"><?php _e( 'Budget Projects first', ET_DOMAIN ); ?></option>
+                                                    <option value="date"><?php _e( 'Newest Projects first', WPP_TEXT_DOMAIN ); ?></option>
+                                                    <option value="et_budget"><?php _e( 'Budget Projects first', WPP_TEXT_DOMAIN ); ?></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -52,8 +52,8 @@ get_header();
                                                 <p>
 													<?php
 													$found_posts = '<span class="found_post">' . $wp_query->found_posts . '</span>';
-													$plural      = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
-													$singular    = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts );
+													$plural      = sprintf( __( '%s projects found', WPP_TEXT_DOMAIN ), $found_posts );
+													$singular    = sprintf( __( '%s project found', WPP_TEXT_DOMAIN ), $found_posts );
 													?>
                                                     <span class="plural <?php if ( $wp_query->found_posts <= 1 ) {
 														echo 'hide';

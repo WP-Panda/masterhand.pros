@@ -1,4 +1,7 @@
 jQuery(function ($) {
+    /**
+     * ТУТ ВНИМАТЕЛЬНО ПОСМОТРЕТЬ
+     */
     $(document).ready(function () {
         $(document).on('click', '.confrim_paypal_account', function ($) {
             var data = {
@@ -16,4 +19,5 @@ jQuery(function ($) {
             });
         });
     })
+
 });

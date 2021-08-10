@@ -25,7 +25,6 @@ if ( isset( $_REQUEST['project_id'] ) ) {
 the_post();
 
 ?>
-
     <div class="container page-container">
         <!-- block control  -->
         <div class="row block-posts block-page">

@@ -29,6 +29,7 @@ if ( $message == 'success' ) {
 			'error_type' => 'user_error',
 			'text'       => 'email or answer is empty or not correct'
 		];
+
 		echo json_encode( $response );
 
 	} else {

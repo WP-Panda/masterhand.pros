@@ -27,8 +27,8 @@ get_header();
                         <h2 class="number-project">
 							<?php
 							$found_posts = '<span class="found_post">' . $wp_query->found_posts . '</span>';
-							$plural      = sprintf( __( '%s Testimonials for you', ET_DOMAIN ), $found_posts );
-							$singular    = sprintf( __( '%s testimonial for you', ET_DOMAIN ), $found_posts );
+							$plural      = sprintf( __( '%s Testimonials for you', WPP_TEXT_DOMAIN ), $found_posts );
+							$singular    = sprintf( __( '%s testimonial for you', WPP_TEXT_DOMAIN ), $found_posts );
 							?>
                             <span class="plural <?php if ( $wp_query->found_posts <= 1 ) {
 								echo 'hide';

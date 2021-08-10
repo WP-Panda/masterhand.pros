@@ -19,7 +19,7 @@ get_header(); ?>
     <div class="fre-page-wrapper section-archive-profile">
         <div class="fre-page-title">
             <div class="container">
-                <h1><?php _e( 'Available Profiles', ET_DOMAIN ); ?></h1>
+                <h1><?php _e( 'Available Profiles', WPP_TEXT_DOMAIN ); ?></h1>
                 <br/>
                 <a href="<?php echo bloginfo( 'url' ); ?>/professionals-by-category/">PROFESSIONALS BY CATEGORY</a>
             </div>
@@ -37,9 +37,9 @@ get_header(); ?>
                                         <div class="col-sm-4 col-sm-push-8">
                                             <div class="fre-profile-sort">
                                                 <select class="fre-chosen-single sort-order" name="orderby">
-                                                    <option value="newest"><?php _e( 'Newest Profiles', ET_DOMAIN ); ?></option>
-                                                    <option value="hour_rate"><?php _e( 'Highest Hourly Rate', ET_DOMAIN ); ?></option>
-                                                    <option value="rating"><?php _e( 'Highest Rating', ET_DOMAIN ); ?></option>
+                                                    <option value="newest"><?php _e( 'Newest Profiles', WPP_TEXT_DOMAIN ); ?></option>
+                                                    <option value="hour_rate"><?php _e( 'Highest Hourly Rate', WPP_TEXT_DOMAIN ); ?></option>
+                                                    <option value="rating"><?php _e( 'Highest Rating', WPP_TEXT_DOMAIN ); ?></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -48,8 +48,8 @@ get_header(); ?>
                                                 <p>
 													<?php
 													$found_posts = '<span class="found_post">' . $wp_query->found_posts . '</span>';
-													$plural      = sprintf( __( '%s profiles available', ET_DOMAIN ), $found_posts );
-													$singular    = sprintf( __( '%s profile available', ET_DOMAIN ), $found_posts );
+													$plural      = sprintf( __( '%s profiles available', WPP_TEXT_DOMAIN ), $found_posts );
+													$singular    = sprintf( __( '%s profile available', WPP_TEXT_DOMAIN ), $found_posts );
 													?>
                                                     <span class="plural <?php if ( $wp_query->found_posts <= 1 ) {
 														echo 'hide';

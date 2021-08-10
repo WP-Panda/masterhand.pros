@@ -1,4 +1,4 @@
-$(function () {
+jQuery(function ($) {
     if ($(".two-checkout__form").length > 0) {
         // pull in the public encryption key for our environment
         TCO.loadPubKey('0DF368D1-A868-4647-AC3C-0437F694CB76');
