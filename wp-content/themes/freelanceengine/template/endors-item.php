@@ -1,6 +1,6 @@
-<?php $user_role = ae_user_role( $user_ID );
-$postid          = $post->post_author;
-if ( $user_role == FREELANCER ) {
+<?php
+$postid = $post->post_author;
+if ( wpp_fre_is_freelancer() ) {
 	$args2 = [
 		'post_type'  => 'project',
 		'orderby'    => 'date',
@@ -36,8 +36,8 @@ $count  = $query2->found_posts;
         <div class="col-sm-3 col-xs-2 safe-deals">
 			<?php echo $count; ?>
         </div>
-        <div class="col-sm-3 col-xs-5 text-center endors <?php //echo  checkEndorseSkills( $user_ID, $postid ); ?>">
-			<?php //echo  checkEndorseSkills( $user_ID, $postid ); ?>
+        <div class="col-sm-3 col-xs-5 text-center endors <?php echo ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $postid ) ) ? 'Endorsed' : 'Not Endorsed'; ?>">
+			<?php echo ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $postid ) ) ? 'Endorsed' : 'Not Endorsed'; ?>
         </div>
         <div class="col-sm-12 col-xs-12 fre-project_lnk">
 			<?php while ( $query2->have_posts() ) {

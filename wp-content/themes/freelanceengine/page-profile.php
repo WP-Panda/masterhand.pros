@@ -23,7 +23,7 @@ $data        = $usered_data->get_user_data();
 
 //wpp_dump($data);
 
-wpp_dump( get_user_meta( get_current_user_id() ) );
+//wpp_dump( get_user_meta( get_current_user_id() ) );
 
 
 $profile_id = $data->profile_id ?? '';

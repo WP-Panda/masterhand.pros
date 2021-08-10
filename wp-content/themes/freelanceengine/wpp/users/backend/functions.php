@@ -73,7 +73,7 @@ add_action( 'edit_user_profile', 'add_extra_social_links' );
 function add_extra_social_links( $user ) {
 
 	$array = [ 'country', 'state', 'city' ];
-	printf( '<h3>Адрес</h3>', __( 'Address', WPP_TEXT_DOMAIN ) );
+	printf( '<h3>%s</h3>', __( 'Address', WPP_TEXT_DOMAIN ) );
 	foreach ( $array as $key ) :
 		printf( '<input type="text" name="%s" value="%s" class="regular-text"/>', $key, esc_attr( get_the_author_meta( $key, $user->ID ) ) );
 	endforeach;

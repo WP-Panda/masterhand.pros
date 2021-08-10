@@ -96,7 +96,7 @@ class WPP_Skills_User extends WPP_Skills {
 	 */
 	public function get_likes_count_for_user_skill( $skill_id, $user_id = null ) {
 		$user_id = $user_id ?? $this->user;
-		$count   = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
+		$count   = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `liker_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
 
 		return $count;
 	}
@@ -106,6 +106,21 @@ class WPP_Skills_User extends WPP_Skills {
 		$skills = get_user_meta( $user_id, self::$meta_key, true );
 
 		return ! empty( $skills ) ? count( $skills ) : 0;
+	}
+
+	/**
+	 * Соличество оценок скилов юзером юзера, можно использовать для проверки,
+	 * оценивался юзер или нет
+	 *
+	 * @param $user_target
+	 * @param null $user_id
+	 *
+	 * @return null|string
+	 */
+	public function is_emdorsment($user_target, $user_id = null ) {
+		$user_id = $user_id ?? $this->user;
+		$count   = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `likes_id` = '%s' AND `liker_id` = '%s'", $this->lk_tbl, $user_target, $user_id ) );
+		return $count;
 	}
 
 }

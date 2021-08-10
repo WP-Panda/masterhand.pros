@@ -134,7 +134,6 @@ $sponsor_name    = get_sponsor( $user_ID );
                 </h1>
             </div>
         </div>
-
         <div class="fre-page-section">
             <div class="profile-endorsements">
                 <div class="container">
@@ -178,22 +177,19 @@ $sponsor_name    = get_sponsor( $user_ID );
                         </div>
 
                         <div class="fre-profile-box page-referrals_list">
-							<?php $prof_ids = implode( ',', $professionals ); ?>
-							<?php $query = new WP_Query( [
+							<?php $prof_ids = implode( ',', $professionals );
+							$query          = new WP_Query( [
 								'post_type'      => 'fre_profile',
 								'author'         => $prof_ids,
 								'posts_per_page' => 1,
 								'orderby'        => 'date',
 								'order'          => 'desc'
-							] ); ?>
-
-							<?php while ( $query->have_posts() ) {
+							] );
+							while ( $query->have_posts() ) {
 								$query->the_post();
 								get_template_part( 'template/endors', 'item' );
-							} ?>
-
-
-							<?php if ( $query->max_num_pages > 1 ) { ?>
+							}
+							if ( $query->max_num_pages > 1 ) { ?>
                                 <script>
                                     var ajaxurl = '<?php echo site_url() ?>/wp-admin/admin-ajax.php';
                                     var true_posts = '<?php echo serialize( $query->query_vars ); ?>';
@@ -206,11 +202,10 @@ $sponsor_name    = get_sponsor( $user_ID );
 							<?php } ?>
                         </div>
 						<?php wp_reset_query();
-					} else { ?>
-						<?php _e( 'No SafePay Deals yet', ET_DOMAIN ) ?>
-					<?php } ?>
-
-					<?php $metas = get_sponsor_id( $user_ID );
+					} else {
+						_e( 'No SafePay Deals yet', ET_DOMAIN );
+					}
+					$metas = get_sponsor_id( $user_ID );
 					if ( $metas != '' ) { ?>
 
                         <div class="fre-page-title">
@@ -255,21 +250,12 @@ $sponsor_name    = get_sponsor( $user_ID );
 <?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) { ?>
     <script type="data/json" id="current_profile">
         <?php echo json_encode( $profile ) ?>
-    
-
-
 
     </script>
 <?php }
 if ( ! empty( $current_skills ) ) { ?>
     <script type="data/json" id="current_skills">
         <?php echo json_encode( $current_skills ) ?>
-
-
-        
-
-
-
     </script>
 <?php }
 get_footer();

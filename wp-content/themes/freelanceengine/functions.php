@@ -1371,6 +1371,7 @@ function baskserg_profile_categories( $data ) {
 	return $cp_categories;
 }
 
+
 function baskserg_profile_categories2( $data ) {
 	$cp_categories = null;
 	$coldata       = count( $data );
@@ -1391,6 +1392,7 @@ function baskserg_profile_categories2( $data ) {
 	return $cp_categories;
 }
 
+
 function baskserg_profile_categories3( $data ) {
 	$cp_categories = null;
 	foreach ( $data as $item ) {
@@ -1402,6 +1404,7 @@ function baskserg_profile_categories3( $data ) {
 	return $cp_categories;
 }
 
+
 function baskserg_profile_categories4( $data ) {
 	$cp_categories = null;
 	foreach ( $data as $item ) {
@@ -1411,6 +1414,7 @@ function baskserg_profile_categories4( $data ) {
 
 	return $cp_categories;
 }
+
 
 add_action( 'wp_ajax_pre_project_cat', 'dataPrepareProjectCategory' );
 add_action( 'wp_ajax_prof_proj_cat', 'saveProjectCategory_inProfile' );
@@ -1446,7 +1450,7 @@ function saveProjectCategory_inProfile() {
 	$result['msg']     = __( 'Something went wrong!' );
 	$selected          = $_POST['selected'];
 	if ( ! empty( $selected ) && ! empty( $profileId ) ) {
-		$result['$profileId'] = $profileId;
+		$result['profileId'] = $profileId;
 		$result['selected']   = $_POST['selected'];
 		$ids                  = [];
 		foreach ( $selected as $item ) {

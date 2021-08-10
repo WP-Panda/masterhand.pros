@@ -17,7 +17,6 @@ function check_register() {
 		$valid[] = true;
 	}
 
-
 	if ( ! empty( $_POST['referral-code'] ) ) {
 
 		if ( false === get_user_by_referral_code( $_POST['referral_code'] ) ) {

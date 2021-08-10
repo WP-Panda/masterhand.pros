@@ -141,17 +141,4 @@ class Wpp_En_User {
 	public function get_profile_id() {
 		return $this->get_user_meta( 'user_profile_id' );
 	}
-
-	/*
-					public function get_country_code() {
-						return $this->get_user_meta( 'ihs-country-code' );
-					}
-
-					public function get_user_phone() {
-						return $this->get_user_meta( 'user_phone' );
-					}*/
-
-
 }
-
-//$GLOBALS[ 'wpp_ae_user' ] = new Wpp_En_User();

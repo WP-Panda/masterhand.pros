@@ -17,8 +17,8 @@ extract( $args );
 				<?php _e( 'Add skills', WPP_TEXT_DOMAIN ); ?>
             </a>
             <div class="bl_t">
-				<?php echo __( 'Skills and Endorsements:', WPP_TEXT_DOMAIN ); ?>
-				<?php if ( ! $is_company ) { ?>
+				<?php echo __( 'Skills and Endorsements:', WPP_TEXT_DOMAIN );
+				if ( ! $is_company ) { ?>
                     <div class="skill-list__placeholder"> <?php echo __( 'You can put here your personal skills, related keywords . For example Polite, Demanding, Recognize Brilliance, Pay Promptly etc.', WPP_TEXT_DOMAIN ); ?>
                     </div>
 				<?php } else { ?>
