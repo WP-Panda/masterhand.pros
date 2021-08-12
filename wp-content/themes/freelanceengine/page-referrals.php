@@ -6,7 +6,7 @@ global $ae_post_factory, $current_user, $user_ID;
 $ae_users  = AE_Users::get_instance();
 $user_data = $ae_users->convert( $current_user->data );
 
-$path = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+$path = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
 $path .= $_SERVER['HTTP_HOST'];
 
 $referrals = 0;
@@ -46,7 +46,11 @@ $referrals = get_list_referrals( 'all', $user_ID );
 				<?php } ?>
 
 				<?php $linkname = '';
-				$linkurl        = $user_data->author_url;//'http://master.loc/author/alexey_marat/';
+                if (isset($user_data->author_url)) {
+                    $linkurl = $user_data->author_url;//'http://master.loc/author/alexey_marat/';
+                } else {
+                    $linkurl = '';
+                }
 				if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) {
 					ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl' ) );
 				}
@@ -136,7 +140,7 @@ $referrals = get_list_referrals( 'all', $user_ID );
                             </li>
 						<?php } ?>
                     </ol>
-                    <script src="/wp-content/plugins/generate_banner/js/main.js"></script>
+                    <script src="/wp-content/plugins/banner_generator/js/main.js"></script>
                     <div class="modal fade" id="modal_banner" style="background:rgba(0,0,0,.45);">
                         <div class="modal-dialog" style="max-width: 1200px;">
                             <div class="modal-content">
