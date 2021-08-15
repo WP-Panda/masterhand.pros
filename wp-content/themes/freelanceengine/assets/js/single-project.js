@@ -2,6 +2,8 @@
 
     $(document).ready(function () {
 
+
+
         var resized = "0";
         var didResize;
         AE.Views.SingleProject = Backbone.View.extend({
@@ -1059,9 +1061,12 @@
                     },
                 });
             },
+
             submitBidProject: function (event) {
                 event.preventDefault();
                 this.initValidator();
+
+
 
                 var view = this,
                     $target = $(event.currentTarget),
@@ -1093,6 +1098,7 @@
                                 }, 3000);
                                 view.closeModal();
                             } else {
+
                                 AE.pubsub.trigger('ae:notification', {
                                     msg: res.msg,
                                     notice_type: 'error'
@@ -1749,4 +1755,4 @@
         }
     });
 
-})(jQuery, AE.Views, AE.Models, AE.Collections);
+})(jQuery, AE.Views, AE.Models, AE.Collections,AE.pubsub);

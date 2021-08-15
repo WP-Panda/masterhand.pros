@@ -326,7 +326,7 @@ function fre_escrow_bid() {
 	}
 }
 
-add_action( 'wp_ajax_ae-escrow-bid', 'fre_escrow_bid' );
+add_action( 'wp_ajax_ae-escrow-bid', 'ae-escrow-bid' );
 
 /**
  * dispute process execute payment and send money to freelancer

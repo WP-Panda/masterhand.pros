@@ -66,9 +66,10 @@ class FP_WC_PP_PayPal_Payment {
 	}
 
 	public function preparePayment() {
-		$this->makePayer( $this->args["payer"] );
 
-		if ( $this->args["items"] && count( $this->args["items"] ) > 0 ) {
+		$this->makePayer( $this->args["payer"] ?? 0 );
+
+		if ( ! empty( $this->args["items"] ) && count( $this->args["items"] ) > 0 ) {
 			foreach ( $this->args["items"] as $key => $item ) {
 				$this->items[] = $this->makeItem( $item );
 			}
@@ -77,9 +78,9 @@ class FP_WC_PP_PayPal_Payment {
 		}
 
 		$this->makeItemList();
-
-		$this->makeDetails( $this->args["tax"] );
-
+		if ( ! empty( $this->args["tax"] ) ) {
+			$this->makeDetails( $this->args["tax"] );
+		}
 		$this->makeAmount( $this->args["total"], $this->args["currency"] );
 
 		$this->makeTransaction( $this->args["id"] );
@@ -123,7 +124,8 @@ class FP_WC_PP_PayPal_Payment {
 	}
 
 	public function makeAmount( $total, $currency = "USD" ) {
-		$amount = new Amount();
+		$amount  = new Amount();
+		$details = new Details();
 
 		return $this->amount = $amount->setCurrency( $currency )
 		                              ->setTotal( $total )
@@ -133,7 +135,7 @@ class FP_WC_PP_PayPal_Payment {
 	public function makeTransaction( $id ) {
 		$transaction       = new Transaction();
 		$this->transaction = $transaction->setAmount( $this->amount )
-		                                 ->setItemList( $this->itemList )
+		                                 ->setItemList( $this->makeItemList() )
 		                                 ->setDescription( "Payment description" )
 		                                 ->setInvoiceNumber( $id ?? uniqid() );
 	}
@@ -203,9 +205,12 @@ class FP_WC_PP_PayPal_Payment {
 	}
 
 	public function pay() {
+		wpp_d_log('$this->getApiContext()');
+		wpp_d_log($this->getApiContext());
 		try {
 			$this->setEnvironment( $this->getApiContext() );
 			$payment = $this->payment->create( $this->getApiContext() );
+
 		} catch ( Exception $ex ) {
 			wp_send_json( array(
 				'success' => false,

@@ -382,6 +382,7 @@
                             notice_type: 'success'
                         });
                     } else {
+
                         AE.pubsub.trigger('ae:notification', {
                             msg: res.msg,
                             notice_type: 'error'

@@ -161,7 +161,8 @@ function fre_escrow_bid() {
 	$post_id  = get_post_field( 'post_parent', $bid_id );
 	$post_url = get_permalink( $post_id );
 
-	$escrow_data = array(
+
+	$escrow_data = [
 		'total'               => $total,
 		'currency'            => $currency,
 		'bid_budget'          => $bid_budget,
@@ -169,11 +170,19 @@ function fre_escrow_bid() {
 		'payer_of_commission' => $payer_of_commission,
 		'bid_author'          => $bid->post_author,
 		'bid_id'              => $bid_id
-	);
+	];
+
+
+	wpp_d_log( '$escrow_data' );
+	wpp_d_log( $escrow_data );
 
 	do_action( 'ae_escrow_payment_gateway', $escrow_data );
 	//  when using escrow, employer must setup an paypal account
 	$paypal_account = get_user_meta( $user_ID, 'paypal', true );
+
+	wpp_d_log( '$paypal_account' );
+	wpp_d_log( $paypal_account );
+
 	if ( ! $paypal_account ) {
 		wp_send_json( array(
 			'success' => false,
@@ -193,6 +202,9 @@ function fre_escrow_bid() {
 
 	// get from setting
 	$feesPayer = $ppadaptive_settings['paypal_fee'];
+
+
+
 
 	/**
 	 * paypal adaptive order data
@@ -256,9 +268,18 @@ function fre_escrow_bid() {
 			'returnUrl'   => $post_url
 		) )
 	] );
+
+
 	$payment->preparePayment();
+	wpp_d_log( '001');
+
 	$response    = $payment->pay();
+
+	wpp_d_log( 'r002');
 	$approvalUrl = $response->getApprovalLink();
+
+	wpp_d_log( '$response');
+	wpp_d_log( $response);
 
 	// create order
 	$order_post = array(
