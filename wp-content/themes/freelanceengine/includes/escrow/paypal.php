@@ -173,15 +173,13 @@ function fre_escrow_bid() {
 	];
 
 
-	wpp_d_log( '$escrow_data' );
-	wpp_d_log( $escrow_data );
+
 
 	do_action( 'ae_escrow_payment_gateway', $escrow_data );
 	//  when using escrow, employer must setup an paypal account
 	$paypal_account = get_user_meta( $user_ID, 'paypal', true );
 
-	wpp_d_log( '$paypal_account' );
-	wpp_d_log( $paypal_account );
+
 
 	if ( ! $paypal_account ) {
 		wp_send_json( array(
@@ -271,15 +269,12 @@ function fre_escrow_bid() {
 
 
 	$payment->preparePayment();
-	wpp_d_log( '001');
 
 	$response    = $payment->pay();
 
-	wpp_d_log( 'r002');
 	$approvalUrl = $response->getApprovalLink();
 
-	wpp_d_log( '$response');
-	wpp_d_log( $response);
+
 
 	// create order
 	$order_post = array(

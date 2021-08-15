@@ -901,14 +901,13 @@ class Fre_ProfileAction extends AE_PostAction {
 		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
 
 
-		wpp_d_log($request );
+
 		foreach ( $soc_data as $one_field ) {
 
 			if ( ! empty( $request[ $one_field['id'] ] ) ) {
 
 				update_user_meta( $user_ID, $one_field['id'], esc_attr( $request[ $one_field['id'] ] ) );
-				wpp_d_log('get_user_meta($user_ID, $one_field[id],true )');
-				wpp_d_log(get_user_meta($user_ID, $one_field['id'],true ));
+
 			} else {
 				delete_user_meta( $user_ID, $one_field['id'] );
 			}

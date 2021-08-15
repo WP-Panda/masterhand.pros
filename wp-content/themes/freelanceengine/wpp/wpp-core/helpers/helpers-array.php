@@ -103,7 +103,6 @@ endif;
  */
 function wpp_fr_array_combinate( $arrays, $N = - 1, $count = false, $weight = false ) {
 
-	#wpp_d_log($arrays);
 	/*
 		Делает примерно то, о чём написано, например, здесь:
 		http://www.sql.ru/Forum/actualthread.aspx?tid=725312

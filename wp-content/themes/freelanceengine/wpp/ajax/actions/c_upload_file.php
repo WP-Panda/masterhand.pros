@@ -82,9 +82,7 @@ function wpp_c_upload_file() {
 				$one_row['id'] = 10000001;
 			}
 			$insert = $wpdb->insert( $table_name, $one_row );
-			if ( empty( $insert ) ) {
-				//wpp_d_log( $one_row );
-			}
+
 			$new ++;
 		} else {
 			//обновление компании в списке

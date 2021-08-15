@@ -38,8 +38,6 @@ if ( ! function_exists( 'wpp_fr_custom_tax_posts_array' ) ) :
 
 				$variant = get_post_meta( $post->ID, 'ex_page_' . $term->term_id, true );
 
-				#wpp_d_log('ffffffffffffffff ' .   $post->ID .  '   ex_page_' . $term->term_id  . ' = ' . $variant );
-
 				/*					if ( empty( $all ) ) :
 										$variant = get_post_meta( $post->ID, 'on_var', true );
 
