@@ -67,10 +67,16 @@ class FP_WC_PP_PayPal_Payment {
 
 	public function preparePayment() {
 
+		wpp_d_log('$this->args');
+		wpp_d_log($this->args);
+		wpp_d_log('$_POST');
+		wpp_d_log($_POST);
+
 		$this->makePayer( $this->args["payer"] ?? 0 );
 
 		if ( ! empty( $this->args["items"] ) && count( $this->args["items"] ) > 0 ) {
 			foreach ( $this->args["items"] as $key => $item ) {
+
 				$this->items[] = $this->makeItem( $item );
 			}
 		} else {
@@ -103,11 +109,16 @@ class FP_WC_PP_PayPal_Payment {
 
 	public function makeItem( $item ) {
 		$it = new Item();
+
+
+		wpp_d_log('$item');
+		wpp_d_log($item);
+
 		$it->setName( $item["name"] ?? "Payment for service" )
-		   ->setCurrency( $item["currency"] ?? $this->currency )
-		   ->setQuantity( $item["quantity"] ?? $this->quantity )
+		   ->setCurrency( $item["currency"] ?? $this->args['currency'] )
+		   ->setQuantity( $item["quantity"] ?? 1 )
 		   ->setSku( $item["sku"] ?? uniqid() )
-		   ->setPrice( $item["price"] ?? 0 );
+		   ->setPrice( $item["price"] ?? $this->args['total'] );
 
 		return $it;
 	}
@@ -205,8 +216,8 @@ class FP_WC_PP_PayPal_Payment {
 	}
 
 	public function pay() {
-		wpp_d_log('$this->getApiContext()');
-		wpp_d_log($this->getApiContext());
+		//wpp_d_log('$this->getApiContext()');
+		//wpp_d_log($this->getApiContext());
 		try {
 			$this->setEnvironment( $this->getApiContext() );
 			$payment = $this->payment->create( $this->getApiContext() );
@@ -214,7 +225,9 @@ class FP_WC_PP_PayPal_Payment {
 		} catch ( Exception $ex ) {
 			wp_send_json( array(
 				'success' => false,
-				'msg'     => $ex->getMessage()
+				'msg'     => $ex->getMessage(),
+				'Code'    => $ex->getCode(),
+				'getData' => $ex->getData()
 			) );
 		}
 

@@ -403,8 +403,13 @@
                 $target.find('textarea, input, select').each(function () {
                     message.set($(this).attr('name'), $(this).val());
                 });
-                // message.set('fileID' , this.filecontroller.fileIDs);
-                this.filecontroller.fileIDs = [];
+         //   *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
+              /*  if (typeof this.filecontroller.fileIDs !== 'undefined' || this.filecontroller.fileIDs !== null) {
+                    message.set('fileID', this.filecontroller.fileIDs);
+                    this.filecontroller.fileIDs = [];
+
+                }*/
+
                 message.save('', '', {
                     beforeSend: function () {
                         view.blockUi.block($target);

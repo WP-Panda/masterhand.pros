@@ -6512,3 +6512,259 @@
 
 ================================================================================================================================
 
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 2, , 
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 323, Connection: keep-alive, Date: Sun, 15 Aug 2021 15:17:49 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: a8b12491569ce, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"a8b12491569ce","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"intent","location":"body","issue":"Required field missing"},{"field":"payer","location":"body","issue":"Required field missing"}]}
+[15-08-2021 15:17:49] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 2, , 
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 323, Connection: keep-alive, Date: Sun, 15 Aug 2021 15:18:30 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: b49b8e666aa4a, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"b49b8e666aa4a","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"intent","location":"body","issue":"Required field missing"},{"field":"payer","location":"body","issue":"Required field missing"}]}
+[15-08-2021 15:18:31] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+*********************************************************************************************************************************************************************
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"6119311934273","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 15:22:01 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 1f152f63b6fea, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"1f152f63b6fea","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 15:22:01] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+curl -v -X POST https://api-m.sandbox.paypal.com/v1/payments/payment \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer Access-Token" \
+-d '{
+  "intent": "sale",
+  "payer": {
+    "payment_method": "paypal"
+  },
+  "transactions": [
+    {
+      "amount": {
+        "total": "30.11",
+        "currency": "USD",
+        "details": {
+          "subtotal": "30.00",
+          "tax": "0.07",
+          "shipping": "0.03",
+          "handling_fee": "1.00",
+          "shipping_discount": "-1.00",
+          "insurance": "0.01"
+        }
+      },
+      "description": "The payment transaction description.",
+      "custom": "EBAY_EMS_90048630024435",
+      "invoice_number": "48787589673",
+      "payment_options": {
+        "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
+      },
+      "soft_descriptor": "ECHI5786786",
+      "item_list": {
+        "items": [
+          {
+            "name": "hat",
+            "description": "Brown hat.",
+            "quantity": "5",
+            "price": "3",
+            "tax": "0.01",
+            "sku": "1",
+            "currency": "USD"
+          },
+          {
+            "name": "handbag",
+            "description": "Black handbag.",
+            "quantity": "1",
+            "price": "15",
+            "tax": "0.02",
+            "sku": "product34",
+            "currency": "USD"
+          }
+        ],
+        "shipping_address": {
+          "recipient_name": "Brian Robinson",
+          "line1": "4th Floor",
+          "line2": "Unit #34",
+          "city": "San Jose",
+          "country_code": "US",
+          "postal_code": "95131",
+          "phone": "011862212345678",
+          "state": "CA"
+        }
+      }
+    }
+  ],
+  "note_to_payer": "Contact us for any questions on your order.",
+  "redirect_urls": {
+    "return_url": "https://example.com/return",
+    "cancel_url": "https://example.com/cancel"
+  }
+}'
+
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"61193a6c313db","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:01:48 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: e7a922fc55258, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"e7a922fc55258","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:01:48] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"61193d082b463","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:12:56 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 879be262ada67, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"879be262ada67","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:12:56] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:14:41] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"61193d71ca5f4","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 319, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:14:41 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 6c4ef8651ae4, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"6c4ef8651ae4","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:14:42] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"61193ed01e831","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:20:32 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 9485e2c1b54e4, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"9485e2c1b54e4","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:20:32] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"611940344e15e","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:26:28 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: c0a101cb21459, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"c0a101cb21459","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:26:28] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 557, , 
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"USD","quantity":1,"sku":"6119408e4a76b","price":"0"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 320, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:27:58 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 64cb0b0c4e870, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","message":"Invalid request - see details","debug_id":"64cb0b0c4e870","information_link":"https://developer.paypal.com/docs/api/payments/#errors","details":[{"field":"transactions","location":"body","issue":"Item currency codes should be same as the transaction currency code in all buckets"}]}
+[15-08-2021 16:27:58] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:38:13] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 532, , 
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"AUD","sku":"611942f5b3b60"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 400
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 359, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:38:13 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: cbf806f0cc828, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 400 when accessing https://api.sandbox.paypal.com/v1/payments/payment. {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].item_list.items[0].price","issue":"Required field missing"},{"field":"transactions[0].item_list.items[0].quantity","issue":"Required field missing"}],"message":"Invalid request - see details","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"cbf806f0cc828"}
+[15-08-2021 16:38:14] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[15-08-2021 16:39:57] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment
+[15-08-2021 16:39:58] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 559, , 
+[15-08-2021 16:39:58] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"intent":"sale","payer":{"payment_method":"paypal"},"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"transactions":[{"amount":{"currency":"AUD","total":"105","details":{}},"item_list":{"items":[{"name":"Payment for service","currency":"AUD","quantity":1,"sku":"6119435ddf8c8","price":"105"}]},"description":"Payment description","invoice_number":"16686"}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:39:58] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 201
+[15-08-2021 16:39:58] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 842, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:39:58 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: aa71c19c02ea1, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:39:58] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"id":"PAYID-MEMUGXQ69J78034E1259481G","intent":"sale","state":"created","payer":{"payment_method":"paypal"},"transactions":[{"amount":{"total":"105.00","currency":"AUD","details":{}},"description":"Payment description","invoice_number":"16686","item_list":{"items":[{"name":"Payment for service","sku":"6119435ddf8c8","price":"105.00","currency":"AUD","quantity":1}]},"related_resources":[]}],"create_time":"2021-08-15T16:39:57Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"self","method":"GET"},{"href":"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8VA84473E4465963E","rel":"approval_url","method":"REDIRECT"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G/execute","rel":"execute","method":"POST"}]}
+
+================================================================================================================================
+
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : INFO: GET https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: GET /v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, , 
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : DEBUG: No Request Payload
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 200
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 1699, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:41:13 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 4f1c1845b1b8b, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:41:13] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"id":"PAYID-MEMUGXQ69J78034E1259481G","intent":"sale","state":"created","cart":"8VA84473E4465963E","payer":{"payment_method":"paypal","status":"VERIFIED","payer_info":{"email":"clientn@masterhand.pro","first_name":"Client","last_name":"N","payer_id":"WKC7GU6NTD9QL","shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"},"country_code":"US"}},"transactions":[{"amount":{"total":"105.00","currency":"AUD"},"payee":{"merchant_id":"7ZUKRQYXW99KA","email":"sandbox-shop@masterhand.pro"},"description":"Payment description","invoice_number":"16686","item_list":{"items":[{"name":"Payment for service","sku":"6119435ddf8c8","price":"105.00","currency":"AUD","quantity":1}],"shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"}},"related_resources":[]}],"redirect_urls":{"return_url":"https://masterhand.pros/process-payment/?paymentType=paypaladaptive&bidEscrow=16686&paymentId=PAYID-MEMUGXQ69J78034E1259481G","cancel_url":"https://masterhand.pros/cancel-payment/?paymentType=paypaladaptive&returnUrl=https://masterhand.pros/project/title-3/"},"create_time":"2021-08-15T16:39:57Z","update_time":"2021-08-15T16:41:13Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G/execute","rel":"execute","method":"POST"},{"href":"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8VA84473E4465963E","rel":"approval_url","method":"REDIRECT"}]}
+
+================================================================================================================================
+
+[15-08-2021 16:41:14] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G/execute
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G/execute HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 28, , 
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"payer_id":"WKC7GU6NTD9QL"}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 200
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 2235, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:41:15 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: 6719ffdd70a0c, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"id":"PAYID-MEMUGXQ69J78034E1259481G","intent":"sale","state":"approved","cart":"8VA84473E4465963E","payer":{"payment_method":"paypal","status":"VERIFIED","payer_info":{"email":"clientn@masterhand.pro","first_name":"Client","last_name":"N","payer_id":"WKC7GU6NTD9QL","shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"},"country_code":"US"}},"transactions":[{"amount":{"total":"105.00","currency":"AUD","details":{"subtotal":"105.00","shipping":"0.00","insurance":"0.00","handling_fee":"0.00","shipping_discount":"0.00","discount":"0.00"}},"payee":{"merchant_id":"7ZUKRQYXW99KA","email":"sandbox-shop@masterhand.pro"},"description":"Payment description","invoice_number":"16686","item_list":{"items":[{"name":"Payment for service","sku":"6119435ddf8c8","price":"105.00","currency":"AUD","tax":"0.00","quantity":1}],"shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"}},"related_resources":[{"sale":{"id":"3CH220242A028980U","state":"completed","amount":{"total":"105.00","currency":"AUD","details":{"subtotal":"105.00","shipping":"0.00","insurance":"0.00","handling_fee":"0.00","shipping_discount":"0.00","discount":"0.00"}},"payment_mode":"INSTANT_TRANSFER","protection_eligibility":"ELIGIBLE","protection_eligibility_type":"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE","transaction_fee":{"value":"3.35","currency":"AUD"},"parent_payment":"PAYID-MEMUGXQ69J78034E1259481G","create_time":"2021-08-15T16:41:14Z","update_time":"2021-08-15T16:41:14Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3CH220242A028980U","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3CH220242A028980U/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"parent_payment","method":"GET"}]}}]}],"failed_transactions":[],"create_time":"2021-08-15T16:39:57Z","update_time":"2021-08-15T16:41:14Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"self","method":"GET"}]}
+
+================================================================================================================================
+
+[15-08-2021 16:41:15] PayPal\Core\PayPalHttpConnection : INFO: GET https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G
+[15-08-2021 16:41:16] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: GET /v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, , 
+[15-08-2021 16:41:16] PayPal\Core\PayPalHttpConnection : DEBUG: No Request Payload
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:41:16] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 200
+[15-08-2021 16:41:16] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json;charset=UTF-8, Content-Length: 2231, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:41:15 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: db47f79bd5547, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:41:16] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"id":"PAYID-MEMUGXQ69J78034E1259481G","intent":"sale","state":"approved","cart":"8VA84473E4465963E","payer":{"payment_method":"paypal","status":"VERIFIED","payer_info":{"email":"clientn@masterhand.pro","first_name":"Client","last_name":"N","payer_id":"WKC7GU6NTD9QL","shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"},"phone":"4086384050","country_code":"US"}},"transactions":[{"amount":{"total":"105.00","currency":"AUD","details":{"subtotal":"105.00","shipping":"0.00","insurance":"0.00","handling_fee":"0.00","shipping_discount":"0.00","discount":"0.00"}},"payee":{"merchant_id":"7ZUKRQYXW99KA","email":"sandbox-shop@masterhand.pro"},"description":"Payment description","invoice_number":"16686","item_list":{"items":[{"name":"Payment for service","sku":"6119435ddf8c8","price":"105.00","currency":"AUD","tax":"0.00","quantity":1}],"shipping_address":{"recipient_name":"Client N","line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US"}},"related_resources":[{"sale":{"id":"3CH220242A028980U","state":"completed","amount":{"total":"105.00","currency":"AUD","details":{"subtotal":"105.00","shipping":"0.00","insurance":"0.00","handling_fee":"0.00","shipping_discount":"0.00","discount":"0.00"}},"payment_mode":"INSTANT_TRANSFER","protection_eligibility":"ELIGIBLE","protection_eligibility_type":"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE","transaction_fee":{"value":"3.35","currency":"AUD"},"parent_payment":"PAYID-MEMUGXQ69J78034E1259481G","create_time":"2021-08-15T16:41:14Z","update_time":"2021-08-15T16:41:14Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3CH220242A028980U","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3CH220242A028980U/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"parent_payment","method":"GET"}]}}]}],"create_time":"2021-08-15T16:39:58Z","update_time":"2021-08-15T16:41:14Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MEMUGXQ69J78034E1259481G","rel":"self","method":"GET"}]}
+
+================================================================================================================================
+
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/payments/payouts?
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/payments/payouts? HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, Content-Length: 254, , 
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: {"sender_batch_header":{"sender_batch_id":"61194783e9d47","email_subject":"You have a payment"},"items":[{"recipient_type":"EMAIL","receiver":"proa@masterhand.pro","note":"","sender_item_id":"611947841803e","amount":{"value":"100.00","currency":"AUD"}}]}
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 201
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json, Content-Length: 315, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:57:40 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: d39ef1ef6be76, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:57:40] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"batch_header":{"payout_batch_id":"HEL4APS83CW82","batch_status":"PENDING","sender_batch_header":{"sender_batch_id":"61194783e9d47","email_subject":"You have a payment"}},"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payouts/HEL4APS83CW82","rel":"self","method":"GET","encType":"application/json"}]}
+
+================================================================================================================================
+
+[15-08-2021 16:57:41] PayPal\Core\PayPalHttpConnection : INFO: GET https://api.sandbox.paypal.com/v1/payments/payouts/HEL4APS83CW82
+[15-08-2021 16:57:42] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: GET /v1/payments/payouts/HEL4APS83CW82 HTTP/1.1, Host: api.sandbox.paypal.com, Accept: */*, Content-Type: application/json, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.2.10; bit=32; os=Windows_NT_10.0; machine=i586; crypto-lib-ver=1.1.0i; curl=7.59.0), Authorization: Bearer A21AAJaM8mQsUf3YCtVHYdPgKTH-ezS4SqZAAf06fv_D88OAWVvsyguU_97t7bw15921kSJ__anCGAytozwu6OStcOhtTdD9A, , 
+[15-08-2021 16:57:42] PayPal\Core\PayPalHttpConnection : DEBUG: No Request Payload
+--------------------------------------------------------------------------------------------------------------------------------
+
+[15-08-2021 16:57:42] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 200
+[15-08-2021 16:57:42] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Content-Type: application/json, Content-Length: 981, Connection: keep-alive, Date: Sun, 15 Aug 2021 16:57:41 GMT, Application_id: APP-80W284485P519543T, Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Caller_acct_num: 7ZUKRQYXW99KA, Paypal-Debug-Id: d48b23d88718f, Strict-Transport-Security: max-age=31536000; includeSubDomains, 
+[15-08-2021 16:57:42] PayPal\Core\PayPalHttpConnection : DEBUG: Response Data 	: {"batch_header":{"payout_batch_id":"HEL4APS83CW82","batch_status":"PROCESSING","time_created":"2021-08-15T16:57:40Z","sender_batch_header":{"sender_batch_id":"61194783e9d47","email_subject":"You have a payment"},"funding_source":"BALANCE","amount":{"currency":"AUD","value":"100.00"},"fees":{"currency":"AUD","value":"2.00"}},"items":[{"payout_item_id":"R8SYTW2BN3C66","transaction_status":"PENDING","payout_item_fee":{"currency":"AUD","value":"2.00"},"payout_batch_id":"HEL4APS83CW82","payout_item":{"recipient_type":"EMAIL","amount":{"currency":"AUD","value":"100.00"},"receiver":"proa@masterhand.pro","sender_item_id":"611947841803e","recipient_wallet":"PAYPAL"},"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payouts-item/R8SYTW2BN3C66","rel":"item","method":"GET","encType":"application/json"}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payouts/HEL4APS83CW82?page_size=1000&page=1","rel":"self","method":"GET","encType":"application/json"}]}
+
+================================================================================================================================
+

@@ -27,6 +27,7 @@
     <p class="accept-bid-budget">
         <span><?php _e( 'Bid budget', ET_DOMAIN ); ?></span>
         <span>{{= budget }}</span>
+
     </p>
 
     <# if(commission){ #>
