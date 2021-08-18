@@ -15,6 +15,7 @@ require_once 'classes/Wpp_Fr_Assets.php';
 require_once 'classes/Bfi_Thumb.php';
 
 require_once 'form/init.php';
+require_once 'media/init.php';
 
 require_once 'quill/Listener.php';
 require_once 'quill/BlockListener.php';

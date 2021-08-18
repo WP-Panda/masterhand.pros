@@ -14,10 +14,9 @@ if ( $user_ID ) {
 	$step --;
 }
 $post = '';
-//$current_skills = '';
-//$disable_plan=true;
-//var_dump($disable_plan);
+
 $package_data = AE_Package::get_package_data( $user_ID );
+
 ?>
 <div id="fre-post-project-2" class="fre-post-project-step step-wrapper step-post <?php echo $class_active; ?>">
 	<?php
@@ -129,3 +128,6 @@ $package_data = AE_Package::get_package_data( $user_ID );
         </form>
     </div>
 </div>
+
+
+http://twitter.com/share?url=https://masterhand.pros/user/prodd/&via=trucsweb&image=https://masterhand.pro/wp-content/plugins/generate_banner/cache/248/banner2_1629142945.png&text=ProoDD

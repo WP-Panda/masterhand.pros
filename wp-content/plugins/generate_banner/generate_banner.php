@@ -135,26 +135,32 @@
 
 		$data = base64_decode( $img );
 
-		$path_inc = $_SERVER[ 'DOCUMENT_ROOT' ] . '/wp-content/plugins/' . basename( __DIR__ );
-		if ( ! file_exists( $path_inc . '/cache' ) ) {
-			mkdir( $path_inc . '/cache' );
+
+		$sub_dir             = $user_ID .'/banners/';
+		$path_basedir = ABSPATH  . 'media/';
+		$path_baseurl = get_home_url() . '/media';
+		$path_subdir = '/' . $sub_dir;
+		$path_url    = $path_baseurl . $path_subdir;
+		$path_path  = $path_basedir . $path_subdir;
+
+
+		if ( ! file_exists( $path_path ) ) {
+			mkdir( $path_path );
 		}
-		if ( ! file_exists( $path_inc . '/cache/' . $user_ID ) ) {
-			mkdir( $path_inc . '/cache/' . $user_ID );
-		}
-		foreach ( glob( $path_inc . '/cache/' . $user_ID . '/' . $template . '_*' ) as $docFile ) {
+
+		/*foreach ( glob( $path_inc . '/cache/' . $user_ID . '/' . $template . '_*' ) as $docFile ) {
 			unlink( $docFile );
-		}
+		}*/
 		$rand      = time();
-		$name_file = $template . '_' . $rand . '.png';
-		$file      = $path_inc . '/cache/' . $user_ID . '/' . $name_file;
+		$name_file = $template. '.png';
+		$file      = $path_path  . $name_file;
 
 		$success = file_put_contents( $file, $data );
 
 		if ( ! $success ) {
 			echo 'error';
 		} else {
-			echo $user_ID . '/' . $name_file;
+			echo $path_url. $name_file;
 		}
 		exit;
 	}

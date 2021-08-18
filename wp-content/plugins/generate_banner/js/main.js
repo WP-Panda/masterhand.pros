@@ -301,7 +301,7 @@
                 }).done((function (e) {
                     if (document.body.classList.remove("processing"), "error" == e) alert("Error! No save image"); else {
                         var t = document.getElementsByClassName("img_show");
-                        t[0].src = "/wp-content/plugins/generate_banner/cache/" + e, document.getElementsByClassName("str_link")[0].textContent = t[0].src, document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aUrl = t[0].src, document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aTitle = "Banner", jQuery("#modal_banner").modal("show")
+                        t[0].src =  e, document.getElementsByClassName("str_link")[0].textContent = t[0].src, /*document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aUrl = t[0].src, document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aTitle = "Banner", */jQuery("#modal_banner").modal("show")
                     }
                 }))
             }))
