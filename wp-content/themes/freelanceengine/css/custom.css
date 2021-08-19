@@ -5464,3 +5464,60 @@ input.input-wpp::placeholder {
     color: #878787 !important;
     font-weight: 400
 }
+
+/**
+WPP SHARE
+ */
+.wpp-sharing, .wpp-share-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+    margin: .5rem 0;
+}
+
+.wpp-share-btn {
+    border-radius: .2rem;
+    margin: 0 .5rem;
+    padding: .8rem;
+    width: 36px;
+    height: 36px;
+    z-index: 9999999;
+    cursor: pointer;
+}
+
+.wpp-facebook-btn {
+    background-color: #3b5998;
+}
+
+.wpp-facebook-btn:hover {
+    background-color: #2d4373;
+}
+
+.wpp-linkedin-btn {
+    background-color: #0077b5;
+}
+
+.wpp-linkedin-btn:hover {
+    background-color: #046293;
+}
+
+.wpp-emailn-btn {
+    background-color: #777;
+}
+
+.wpp-emailn-btn:hover {
+    background-color: #5e5e5e;
+}
+
+.wpp-twitter-btn {
+    background-color: #55acee;
+}
+
+.wpp-twitter-btn:hover {
+    background-color: #2795e9;
+}
+
+
+

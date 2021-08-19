@@ -322,7 +322,7 @@ class Fre_MessageAction extends AE_Base {
 	 * @category void
 	 * @author   Tambh
 	 */
-	public function fre_update_project_meta( $project, $val = 1 ) {
+	public static function fre_update_project_meta( $project, $val = 1 ) {
 		global $user_ID;
 		if ( $user_ID == $project->post_author ) {
 			update_post_meta( $project->ID, 'fre_freelancer_new_msg', $val );

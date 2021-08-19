@@ -508,6 +508,11 @@ function fre_upload_file() {
 		$project_id = $_POST['project_id'];
 		$author_id  = $_POST['author_id'];
 
+		//remove_filter( 'upload_dir', 'wpp_user_upload_dir' );
+		//add_filter( 'upload_dir', 'wpp_user_project_upload' );
+		//} else {
+
+
 		$lock_status = get_post_meta( $project_id, 'lock_file', true );
 
 		if ( $imgType == 'file' && $lock_status == 'lock' ) {
@@ -597,6 +602,10 @@ function fre_upload_file() {
 				$res['msg'] = __( 'Uploaded file not found', ET_DOMAIN );
 			}
 		}
+
+		//remove_filter( 'upload_dir', 'wpp_user_project_upload' );
+		//add_filter( 'upload_dir', 'wpp_user_upload_dir' );
+
 	}
 
 	// send json to client

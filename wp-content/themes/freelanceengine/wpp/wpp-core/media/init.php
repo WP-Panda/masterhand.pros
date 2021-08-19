@@ -8,4 +8,3 @@
 defined( 'ABSPATH' ) || exit;
 
 require_once 'user-media.php';
-wpp_d_log(wp_upload_dir());

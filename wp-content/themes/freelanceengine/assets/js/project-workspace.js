@@ -404,11 +404,11 @@
                     message.set($(this).attr('name'), $(this).val());
                 });
          //   *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
-              /*  if (typeof this.filecontroller.fileIDs !== 'undefined' || this.filecontroller.fileIDs !== null) {
+                if (typeof this.filecontroller.fileIDs !== 'undefined' || this.filecontroller.fileIDs !== null) {
                     message.set('fileID', this.filecontroller.fileIDs);
                     this.filecontroller.fileIDs = [];
 
-                }*/
+                }
 
                 message.save('', '', {
                     beforeSend: function () {

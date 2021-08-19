@@ -72,9 +72,9 @@ function wpp_updated_mode_date() {
 add_action( 'customize_save', 'wpp_updated_mode_date' );
 
 
-add_action( 'save_post', 'sitemaps' );
-add_action( 'wp_delete_post', 'sitemaps' );
-add_action( 'wp_publish_post', 'sitemaps' );
+//add_action( 'save_post', 'sitemaps' );
+//add_action( 'wp_delete_post', 'sitemaps' );
+//add_action( 'wp_publish_post', 'sitemaps' );
 
 
 function sitemaps() {

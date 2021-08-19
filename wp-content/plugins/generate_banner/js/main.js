@@ -1,3 +1,30 @@
+function updateURLParameter(url, param, paramVal){
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+    if (additionalURL) {
+        tempArray = additionalURL.split("&");
+        for (var i=0; i<tempArray.length; i++){
+            if(tempArray[i].split('=')[0] != param){
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            } else {
+                var old = tempArray[i].split('=')[1];
+            }
+        }
+    }
+
+    if( typeof old !== 'undefined') {
+        var rows_txt = temp + "" + param + "=" + old + paramVal;
+    } else {
+        var rows_txt = temp;
+    }
+
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
 !function (e) {
     var t = {};
 
@@ -301,7 +328,13 @@
                 }).done((function (e) {
                     if (document.body.classList.remove("processing"), "error" == e) alert("Error! No save image"); else {
                         var t = document.getElementsByClassName("img_show");
-                        t[0].src =  e, document.getElementsByClassName("str_link")[0].textContent = t[0].src, /*document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aUrl = t[0].src, document.querySelectorAll(".sharing .addtoany_list")[0].dataset.a2aTitle = "Banner", */jQuery("#modal_banner").modal("show")
+                        t[0].src =  e.data.img;
+                        jQuery('.banner_form').find('.wpp-share-btn').each(function () {
+                            var _url = jQuery(this).attr('href');
+                            jQuery(this).attr('href', updateURLParameter( _url, "u", "?b=" + e.data.number ));
+                            jQuery(this).attr('href', updateURLParameter( _url, "url", "?b=" + e.data.number ));
+                        });
+                        jQuery("#modal_banner").modal("show");
                     }
                 }))
             }))
