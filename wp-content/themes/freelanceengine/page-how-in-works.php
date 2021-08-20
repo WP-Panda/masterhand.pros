@@ -131,7 +131,7 @@ $pages = get_posts( [
 
             <div class="container">
                 <div class="service-text">
-					<?php echo $content; ?>
+					<?php echo $content??''; ?>
                 </div>
 				<?php if ( ( $slug == 'how-it-works' ) || ( $slug == 'client' ) || ( $slug == 'clients' ) ) {
 					get_template_part( 'template/get', 'started' );

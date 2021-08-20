@@ -137,7 +137,7 @@ $referrals = get_list_referrals( 'all', $user_ID );
                             </li>
 						<?php } ?>
                     </ol>
-                    <script src="/wp-content/plugins/generate_banner/js/main.js"></script>
+                    <script src="/wp-content/plugins/generate_banner/js/main.js?5"></script>
                     <?php $user_page = get_home_url() . '/user/' . $user_data->user_nicename; ?>
                     <div class="modal fade" id="modal_banner" style="background:rgba(0,0,0,.45);">
                         <div class="modal-dialog" style="max-width: 1200px;">

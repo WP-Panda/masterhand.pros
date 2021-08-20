@@ -47,18 +47,4 @@ function wpp_user_project_upload( $path ) {
 	return $path;
 }
 
-
-//function up_sid() {
-
-	//if ( is_singular('project') ) {
-		//add_filter( 'upload_dir', 'wpp_user_project_upload' );
-	//} else {
-		add_filter( 'upload_dir', 'wpp_user_upload_dir' );
-	//}
-//}
-
-
-//add_action( 'init', 'up_sid' );
-
-
-
+add_filter( 'upload_dir', 'wpp_user_upload_dir' );
