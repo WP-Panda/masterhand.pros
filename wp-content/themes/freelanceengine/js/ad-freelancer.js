@@ -24,9 +24,6 @@ jQuery(function ($) {
 
         createAdv: function () {
 
-            //console.log(this);
-            //return false;
-
             if (this.post_title.value == '' || document.querySelector('#post_content').value == '') {
                 AE.pubsub.trigger('ae:notification', {
                     msg: 'All fields are required',
