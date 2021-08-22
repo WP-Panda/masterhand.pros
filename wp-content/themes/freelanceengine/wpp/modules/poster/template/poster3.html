@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 ,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{$path_inc}/style_poster3.css">
+</head>
+
+<body>
+<div class="fre-page-wrapper">
+    <div class="poster">
+        <div class="poster_author">
+            <div class="poster_img">
+                <div class="img" style="background:url({$avatar_url}) center no-repeat"></div>
+            </div>
+            <div class="poster_name">{$display_name}</div>
+        </div>
+
+        <div class="poster_right">
+            <div class="poster_main-t"><span>MASTER</span>HAND <span class="yellow">PRO</span></div>
+            <div class="poster_hire"> HIRE REAL LOCAL <span>MASTER HAND</span></div>
+            <div class="poster_t">About me</div>
+            <div class="poster_txt-about">{$about}</div>
+        </div>
+
+
+        <div class="poster_txt-more">
+            <span class="poster_txt-more-inner">Save up to 70% on hiring perfect<br> local professional on the website,<br> it is Super Fast and Easy.</span>
+        </div>
+
+        <div class="poster_info">
+            <div class="poster_register">
+                <div class="poster_register_t">HOW TO<br> REGISTER<br> ON THE SITE</div>
+                <img src="{$path_inc}/assets/img/numbers3.png">
+                <ul>
+                    <li>Go to<br/> www.masterhand.pro</li>
+                    <li>Sign up with reference<br/> code {$refer_code}</li>
+                    <li>Post your task and<br/> receive bids</li>
+                </ul>
+            </div>
+
+            <div class="poster_right">
+                <div class="poster_t">SPECIALIZATION</div>
+                <div class="poster_txt">
+                    <ul class="poster_category">
+                        {foreach $category as $item}
+                        <li>{$item}</li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="poster_exp">
+                    <div class="poster_t">WORK<br> EXPERIENCE</div>
+                    <div class="poster_txt">{$experience} years</div>
+                </div>
+            </div>
+
+            <div class="poster_skills">
+                <div class="poster_t">Skills</div>
+                <ul>
+                    {foreach $skills as $item}
+                    <li>{$item}</li>
+                    {/foreach}
+                </ul>
+            </div>
+
+            <div class="poster_bottom">
+                <div class="bottom_invite">
+                    <ul class="poster_invite">
+                        <li style="background:url({$path_inc}/assets/img/invite3-1.png) center left no-repeat;">Post
+                            your task
+                        </li>
+                        <li style="background:url({$path_inc}/assets/img/invite3-2.png) center left no-repeat;">Invite
+                            me
+                        </li>
+                        <li style="background:url({$path_inc}/assets/img/invite3-3.png) center left no-repeat;">Get
+                            qualified proposal with bid<br/> price within minutes
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom-code">
+                    <div class="no-pad2">
+                        <div class="poster_web">
+                            <div>masterhand.pro</div>
+                        </div>
+                        <div class="poster_code-t">Reference code:</div>
+                        <div class="poster_code">{$refer_code}</div>
+                    </div>
+                    <div class="poster_scheme">
+                        <img src="{$qr_code}" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
