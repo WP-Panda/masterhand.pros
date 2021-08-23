@@ -121,22 +121,25 @@ if ( ( is_page_template( 'page-edit-project.php' ) ) || ( is_page_template( 'pag
 	$tip5   = str_replace( '"', '\"', get_field( 'tip5', $homeid ) ); ?>
 
     <script>
+        jQuery(function ($) {
 
-		<?php if ($tip1) { ?>
-        $('.create_project_for_all .tip').text("<?php echo $tip1;?>");
-		<?php } ?>
-		<?php if ($tip2) { ?>
-        $('.priority_in_list_project .tip').text("<?php echo $tip2;?>");
-		<?php } ?>
-		<?php if ($tip3) { ?>
-        $('.highlight_project .tip').text("<?php echo $tip3;?>");
-		<?php } ?>
-		<?php if ($tip4) { ?>
-        $('.urgent_project .tip').text("<?php echo $tip4;?>");
-		<?php } ?>
-		<?php if ($tip5) { ?>
-        $('.hidden_project .tip').text("<?php echo $tip5;?>");
-		<?php } ?>
+
+			<?php if ($tip1) { ?>
+            $('.create_project_for_all .tip').text("<?php echo $tip1;?>");
+			<?php } ?>
+			<?php if ($tip2) { ?>
+            $('.priority_in_list_project .tip').text("<?php echo $tip2;?>");
+			<?php } ?>
+			<?php if ($tip3) { ?>
+            $('.highlight_project .tip').text("<?php echo $tip3;?>");
+			<?php } ?>
+			<?php if ($tip4) { ?>
+            $('.urgent_project .tip').text("<?php echo $tip4;?>");
+			<?php } ?>
+			<?php if ($tip5) { ?>
+            $('.hidden_project .tip').text("<?php echo $tip5;?>");
+			<?php } ?>
+        })
     </script>
 <?php }
 

@@ -1,6 +1,7 @@
 <?php
 $step         = 2;
 $disable_plan = ae_get_option( 'disable_plan', false );
+
 if ( $disable_plan ) {
 	$step --;
 }

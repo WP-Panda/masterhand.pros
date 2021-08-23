@@ -1,15 +1,19 @@
 <!-- Step 4 -->
 <?php
 global $user_ID, $packs;
+
 $step = 4;
 
 $disable_plan = ae_get_option( 'disable_plan', false );
+
 if ( $disable_plan ) {
 	$step --;
 }
+
 if ( $user_ID ) {
 	$step --;
 }
+
 ?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
 
@@ -228,4 +232,3 @@ if ( $user_ID ) {
         </div>
     </div>
 </div>
-<!-- Step 4 / End -->

@@ -69,17 +69,18 @@ $package_data = AE_Package::get_package_data( $user_ID );
 					if ( $id ) {
 						$post    = get_post( $id );
 						$pack_id = $post->et_payment_package;
+
 						foreach ( $packs as $key => $package ) {
-							if ( $pack_id == $package->sku ) {
+							if ( ! empty( $package->sku ) && $pack_id === $package->sku ) {
 								$number_of_post = $package->et_number_posts;
 								if ( $number_of_post >= 1 ) {
 									// get package current order
-									if ( isset( $orders[ $sku ] ) ) {
-										$order = get_post( $orders[ $sku ] );
+									//if ( ! empty( $orders[ $sku ] ) ) {
+									if ( ! empty( $orders[ 'sku' ] ) ) {
+										$order = get_post( $orders['sku' ] );
 									}
-
-									if ( isset( $package_data[ $sku ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
-										$package_data_sku = $package_data[ $sku ];
+									if ( empty( $package_data[ 'sku' ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
+										$package_data_sku = $package_data[ 'sku' ];
 										if ( isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
 											/**
 											 * print text when company has job left in package

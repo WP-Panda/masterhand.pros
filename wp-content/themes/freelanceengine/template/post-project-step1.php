@@ -35,6 +35,7 @@ $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 				$order          = false;
 				if ( $number_of_post >= 1 ) {
 					// get package current order
+
 					if ( isset( $orders[ $sku ] ) ) {
 						$order = get_post( $orders[ $sku ] );
 					}
@@ -50,6 +51,7 @@ $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 					}
 
 					if ( ! $package->et_price ) { // if free package.
+
 						//number_free_plan_used == number posted free
 						$number_of_post = (int) $number_of_post - (int) $number_free_plan_used;
 

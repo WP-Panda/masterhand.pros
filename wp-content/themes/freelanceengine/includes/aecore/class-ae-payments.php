@@ -543,7 +543,7 @@ abstract class AE_Payment extends AE_Base {
 
 		// remember to check isset or empty here
 		$adID         = isset( $data['ID'] ) ? $data['ID'] : '';
-		$isPro        = $data['isPro'];
+		$isPro        = $data['isPro'] ?? false;
 		$author       = isset( $data['author'] ) ? $data['author'] : $user_ID;
 		$packageID    = isset( $data['packageID'] ) ? $data['packageID'] : '';
 		$paymentType  = isset( $data['paymentType'] ) ? $data['paymentType'] : '';

@@ -1581,8 +1581,8 @@ _.templateSettings = {
                 },
                 success: function () {
                     var max_files = that.maxFileUpload;
-                    if ($('#image-list').find('li.image-item').size() > 0) {
-                        j = $('#image-list').find('li.image-item').size();
+                    if ($('#image-list .image-item').length > 0) {
+                        j = $('#image-list .image-item').length;
                     }
                     if (j == max_files) {
                         that.blockUi.unblock();
