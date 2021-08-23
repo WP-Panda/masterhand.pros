@@ -478,7 +478,9 @@ jQuery(function ($) {
 
         if ($('body').hasClass('page-template-page-options-project')) {
             var postdata = $.parseJSON($('script#opt_on')[0].innerHTML);
+            console.info(postdata);
             $.each(postdata, function (key1, item1) {
+                console.info(key1,item1);
                 var arr = $("#pro_functions input[type='checkbox']")
                 $.each(arr, function (key, item) {
                     if (item.id == item1.name) {

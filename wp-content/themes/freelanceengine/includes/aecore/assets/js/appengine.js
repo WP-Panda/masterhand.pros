@@ -2159,9 +2159,13 @@ _.templateSettings = {
                 itemID = this.model.id,
                 view = this;
             if (typeof packageType == 'undefined') {
-                packageType = $(".fre-post-package li").attr("data-package-type");
-                // custom to checkout without the first step - step select package.
-                // remember use only 1 element <li> on the ul.fre-post-package
+                if($('.fre-post-package li').length) {
+                    packageType = $(".fre-post-package li").attr("data-package-type");
+                    // custom to checkout without the first step - step select package.
+                    // remember use only 1 element <li> on the ul.fre-post-package
+                } else {
+                    packageType = $(".wpp-pack-type").attr("data-package-type");
+                }
             }
             if (typeof packageID == 'undefined') {
                 packageID = 'no_pack';

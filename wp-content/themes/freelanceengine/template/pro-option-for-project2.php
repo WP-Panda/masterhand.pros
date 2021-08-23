@@ -32,6 +32,7 @@ if ( $id ) {
 				];
 			}
 		}
+		//wpp_dump( get_post_meta( $_REQUEST['id']));
 		echo '<script type="data/json" id="opt_on">' . json_encode( $opt ) . '</script>';
 	}
 }

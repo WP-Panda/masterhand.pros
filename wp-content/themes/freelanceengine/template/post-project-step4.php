@@ -34,8 +34,10 @@ if ( $user_ID ) {
 				foreach ( $packs as $key => $package ) {
 					if ( $pack_id == $package->sku ) {
 						$number_of_post = $package->et_number_posts;
+
 						if ( $number_of_post >= 1 ) { ?>
-                            <div class="show_select_package">
+                            <div class="show_select_package wpp-pack-type"
+                                 data-package-type="<?php echo $package->post_type; ?>">
                                 <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
                                     <a data-toggle="collapse" href="#packinfo2"
                                        role="button"><strong><?php echo $package->post_title; ?></strong></a>
