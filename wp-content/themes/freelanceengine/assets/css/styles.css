@@ -11710,7 +11710,7 @@ body .fre-payment-list > li > .btn, body .fre-btn, body .fre-payment-list > li >
 }
 
 .fre-post-project-step.active {
-    display: block
+    display: block!important;
 }
 
 .step-post-package h1 {

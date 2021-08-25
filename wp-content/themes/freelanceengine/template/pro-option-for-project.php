@@ -35,6 +35,7 @@ if ( $id ) {
 		echo '<script type="data/json" id="opt_on">' . json_encode( $opt ) . '</script>';
 	}
 }
+
 ?>
 <div id="pro_functions">
     <input type='hidden' name='days_active_project' data-max_days=<?php echo $max_days; ?>>

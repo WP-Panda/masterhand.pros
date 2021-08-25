@@ -12,6 +12,7 @@ $current     = $post_object->current_post;
 if ( ! $current ) {
 	return;
 }
+
 ?>
 <div <?php post_class( 'col-md-6 col-sm-12 col-xs-12 profile-item' ); ?>>
     <div class="profile-content">

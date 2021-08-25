@@ -12,6 +12,7 @@ $project_status  = $convert->post_status;
 $profile_id      = get_user_meta( $post->post_author, 'user_profile_id', true );
 
 $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
+
 ?>
 <input type="hidden" id="project_id" name="<?php echo $post->ID; ?>" value="<?php echo $post->ID; ?>"/>
 <div class="col-md-12">

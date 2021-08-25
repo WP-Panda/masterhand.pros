@@ -26,9 +26,7 @@
 	// list portfolio
 	if ( have_posts() ):
 		get_template_part( 'list', 'work-history' );
-	else :
 	endif;
-	//wp_reset_postdata();
 	wp_reset_query();
 	?>
 </div>

@@ -149,4 +149,4 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
             </div>
         </div>
     </div>
-</div> <!-- end .info-project-item !! -->
+</div>

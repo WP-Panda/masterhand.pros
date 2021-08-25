@@ -129,7 +129,6 @@ if ( is_tax() ) { ?>
                      style="background:url(<?php the_post_thumbnail_url(); ?>) center no-repeat;"></div>
             </div>
 		<?php }
-		#wp_reset_query();
 		$wp_query->reset_postdata();
 		?>
         <a class="fre-submit-btn fre-view-profile"

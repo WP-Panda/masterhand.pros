@@ -168,6 +168,7 @@ class AE_PostMeta extends AE_Base {
 
 		$place_obj = $ae_post_factory->get( $this->post_type );
 		$ad        = (array) $place_obj->convert( $post );
+
 		?>
         <table class="form-table ad-info">
             <input type="hidden" name="_et_nonce" value="<?php echo wp_create_nonce( $this->nonce ) ?>">

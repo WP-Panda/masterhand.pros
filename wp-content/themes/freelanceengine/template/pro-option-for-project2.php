@@ -8,9 +8,13 @@ if ( $id ) {
 		$post_convert = $post_object->convert( $post );
 		echo '<script type="data/json"  id="edit_postdata">' . json_encode( $post_convert ) . '</script>';
 
-		$data_ex = get_post_meta( $id, 'et_expired_date' );
+		$data_ex = get_post_meta( $id, 'et_expired_date', true );
 
-		$max_days = ( mktime( 0, 0, 0, date( 'm', strtotime( $data_ex[0] ) ), date( 'd', strtotime( $data_ex[0] ) ), date( 'Y', strtotime( $data_ex[0] ) ) ) - mktime( 0, 0, 0, date( "m" ), date( "d" ), date( "Y" ) ) ) / 86400;
+		//if ( ! empty( $data_ex ) ) :
+			$max_days = ( mktime( 0, 0, 0, date( 'm', strtotime( $data_ex ) ), date( 'd', strtotime( $data_ex ) ), date( 'Y', strtotime( $data_ex ) ) ) - mktime( 0, 0, 0, date( "m" ), date( "d" ), date( "Y" ) ) ) / 86400;
+		//else :
+			//$max_days = 0;
+		//endif;
 
 		$ae_pack  = $ae_post_factory->get( 'pack' );
 		$packs    = $ae_pack->fetch( 'pack' );
@@ -49,7 +53,7 @@ if ( $id ) {
                 <input id="<?php echo $item['sku'] ?>"
                        name="<?php echo $item['sku'] ?>" type="checkbox"
                        value="1">
-                <label for="<?php echo $item['sku'] ?>"><?= getNameByProperty( $item['sku'] ); ?></label>
+                <label for="<?php echo $item['sku'] ?>"><?php echo getNameByProperty( $item['sku'] ); ?></label>
                 <div class="<?php echo $item['sku'] ?> tooltip_wp">
                     <i>?</i>
                     <div class="tip"></div>
@@ -57,8 +61,8 @@ if ( $id ) {
             </div>
 
             <input type="hidden" id="price_<?php echo $item['sku'] ?>"
-                   name="<?= $item['price'] ?>" value="<?= $item['price'] ?>"
-                   data-price_option="<?= $item['price'] ?>">
+                   name="<?php echo $item['price'] ?>" value="<?php echo $item['price'] ?>"
+                   data-price_option="<?php echo $item['price'] ?>">
         </div>
 	<?php } ?>
     <input type="hidden" id="options_name" value="">

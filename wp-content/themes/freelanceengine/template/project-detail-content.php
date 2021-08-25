@@ -62,9 +62,11 @@ $convert     = $project = $post_object->current_post;
 					}
 					echo '</ul>';
 				}
+
 				if ( function_exists( 'et_render_custom_field' ) ) {
 					et_render_custom_field( $project );
 				}
+
 				do_action( 'after_sidebar_single_project', $project );
 				?>
             </div>

@@ -3,10 +3,12 @@ global $user_ID;
 $step         = 3;
 $class_active = '';
 $disable_plan = ae_get_option( 'disable_plan', false );
+
 if ( $disable_plan ) {
 	$step --;
 	$class_active = 'active';
 }
+
 if ( $user_ID ) {
 	$step --;
 }

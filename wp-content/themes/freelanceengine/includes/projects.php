@@ -1652,12 +1652,12 @@ class Fre_ProjectAction extends AE_PostAction {
 
 					if ( empty( get_post_meta( $post->ID, 'update_options' ) ) ) {
 						// force update expired date if job is change from draft or archive to publish
-
 						$expired_date = date( 'Y-m-d H:i:s', strtotime( "+{$duration} days" ) );
 						update_post_meta( $post->ID, 'et_expired_date', $expired_date );
 					} else {
 						delete_post_meta( $post->ID, 'update_options' );
 					}
+
 				} else {
 
 					// update expired date when the expired date less then current time

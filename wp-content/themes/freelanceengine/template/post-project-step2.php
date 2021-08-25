@@ -5,6 +5,7 @@ $disable_plan = ae_get_option( 'disable_plan', false );
 if ( $disable_plan ) {
 	$step --;
 }
+
 ?>
 <div class="step-wrapper step-auth" id="step-auth">
     <a href="#" class="step-heading active">

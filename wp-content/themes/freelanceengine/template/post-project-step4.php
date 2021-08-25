@@ -127,6 +127,7 @@ if ( $user_ID ) {
 
             <ul id="fre-payment-accordion" class="fre-payment-list panel-group">
 				<?php
+
 				$paypal = ae_get_option( 'paypal' );
 				if ( $paypal['enable'] ) { ?>
                     <li class="panel">

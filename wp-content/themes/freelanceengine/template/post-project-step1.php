@@ -11,14 +11,6 @@ $package_data = AE_Package::get_package_data( $user_ID );
 $orders = AE_Payment::get_current_order( $user_ID );
 
 $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
-//
-//$pro_func=array();
-//foreach ($packs as $key => $package) {
-//    if (array_search($package->sku, $option_for_project) !== false) {
-//        unset($packs[$key]);
-//        $pro_func[]=$package;
-//    }
-//}
 ?>
 
 <div id="fre-post-project-1" class="fre-post-project-step step-plan active">

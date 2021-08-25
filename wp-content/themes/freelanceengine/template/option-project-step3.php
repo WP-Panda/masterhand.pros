@@ -129,6 +129,3 @@ $package_data = AE_Package::get_package_data( $user_ID );
         </form>
     </div>
 </div>
-
-
-http://twitter.com/share?url=https://masterhand.pros/user/prodd/&via=trucsweb&image=https://masterhand.pro/wp-content/plugins/generate_banner/cache/248/banner2_1629142945.png&text=ProoDD
