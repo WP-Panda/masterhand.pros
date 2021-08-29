@@ -10,11 +10,7 @@ if ( $id ) {
 
 		$data_ex = get_post_meta( $id, 'et_expired_date', true );
 
-		//if ( ! empty( $data_ex ) ) :
-			$max_days = ( mktime( 0, 0, 0, date( 'm', strtotime( $data_ex ) ), date( 'd', strtotime( $data_ex ) ), date( 'Y', strtotime( $data_ex ) ) ) - mktime( 0, 0, 0, date( "m" ), date( "d" ), date( "Y" ) ) ) / 86400;
-		//else :
-			//$max_days = 0;
-		//endif;
+		$max_days = $data_ex ? ( mktime( 0, 0, 0, date( 'm', strtotime( $data_ex ) ), date( 'd', strtotime( $data_ex ) ), date( 'Y', strtotime( $data_ex ) ) ) - mktime( 0, 0, 0, date( "m" ), date( "d" ), date( "Y" ) ) ) / 86400 : WPP_FREE_PROJECT_DAY;
 
 		$ae_pack  = $ae_post_factory->get( 'pack' );
 		$packs    = $ae_pack->fetch( 'pack' );
@@ -36,17 +32,21 @@ if ( $id ) {
 				];
 			}
 		}
-		//wpp_dump( get_post_meta( $_REQUEST['id']));
+
 		echo '<script type="data/json" id="opt_on">' . json_encode( $opt ) . '</script>';
 	}
+} else {
+	$max_days = WPP_FREE_PROJECT_DAY;
 }
+
+
 ?>
 <div id="pro_functions">
     <input type='hidden' name='days_active_project' data-max_days=<?php echo $max_days; ?>>
 	<?php
 	global $pro_em_functions;
-
 	foreach ( $pro_em_functions as $item ) {
+
 		?>
         <div class="fre-input-field">
             <div class="checkline">

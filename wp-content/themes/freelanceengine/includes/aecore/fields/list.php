@@ -94,9 +94,9 @@ class AE_list {
         <!-- edit item form template -->
 		<?php load_template( $this->form_js_template ); ?>
         <!-- json data for pack view -->
-        <script type="application/json" id="ae_list_<?php echo $this->params['name']; ?>">
+        <script id="ae_list_<?php echo $this->params['name']; ?>">
+            <?php echo  json_encode( $this->data ); ?></script>
 
-        </script>
         <!-- js template for item view -->
         <script type="text/template" id="ae-template-<?php echo $this->params['name']; ?>">
 			<?php load_template( $this->js_template ); ?>

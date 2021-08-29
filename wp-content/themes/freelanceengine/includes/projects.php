@@ -915,14 +915,20 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 	}
 
+	/**
+	 * Заблокированные файлы
+	 */
 	function fre_get_lock_file_status() {
+
 		global $post, $user_ID;
+
 		if ( ! AE_Users::is_activate( $user_ID ) ) {
 			wp_send_json( [
 				'success' => false,
 				'msg'     => __( "Your account is pending. You have to activate your account to continue this step.", ET_DOMAIN )
 			] );
-		};
+		}
+
 		$request    = $_REQUEST;
 		$project_id = $request['project_id'];
 		if ( $project_id ) {
@@ -934,15 +940,17 @@ class Fre_ProjectAction extends AE_PostAction {
 	}
 
 	/**
+	 * Обновление добавление удавление проекта
 	 * ajax callback sync post details
 	 * - update
 	 * - insert
 	 * - delete
 	 */
+
 	function post_sync() {
-		$request = $_REQUEST;
 
 		global $ae_post_factory, $user_ID;
+		$request = $_REQUEST;
 
 		if ( ! AE_Users::is_activate( $user_ID ) ) {
 			wp_send_json( [
@@ -957,7 +965,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			if ( ! $can_post_free ) {
 				$response['success'] = false;
 				$response['msg']     = __( 'You have reached the maximum number of Free posts. Please select another plan', ET_DOMAIN );
-
 				// send response to client
 				wp_send_json( $response );
 			}
@@ -972,10 +979,9 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 		// unset package data when edit place if user can edit others post
-		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] != 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
+		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
 		}
-
 		if ( isset( $request['archive'] ) ) {
 			$request['post_status'] = 'archive';
 		}
@@ -988,7 +994,6 @@ class Fre_ProjectAction extends AE_PostAction {
 		if ( isset( $request['disputed'] ) ) {
 			$request['post_status'] = 'disputed';
 		}
-
 		if ( isset( $request['project_type'] ) ) {
 			unset( $request['project_type'] );
 		}
@@ -1061,15 +1066,34 @@ class Fre_ProjectAction extends AE_PostAction {
 			/**
 			 * check payment package and check free or use package to send redirect link
 			 */
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( '--------***************************************************************************' );
+			wpp_d_log( $request );
 
-			//            $package = !empty($request['et_payment_package']) ? $request['et_payment_package'] : "B1";
+			$package = ! empty( $request['et_payment_package'] ) ? $request['et_payment_package'] : "B1";
 
-			if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
-				//            if (isset($package) && empty($options)) {
+			wpp_d_log($package);
+			wpp_d_log($options);
+
+			//if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
+			if ( isset( $package ) && empty( $options ) ) {
 
 				// check seller use package or not
-				$check = AE_Package::package_or_free( $request['et_payment_package'], $result );
-				//                $check = AE_Package::package_or_free($package, $result);
+				//$check = AE_Package::package_or_free( $request['et_payment_package'], $result );
+				$check = AE_Package::package_or_free( $package, $result );
+
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( '$CHECK' );
+				wpp_d_log( $check );
 
 				// check use package or free to return url
 				if ( $check['success'] ) {
@@ -1090,6 +1114,7 @@ class Fre_ProjectAction extends AE_PostAction {
 					wp_send_json( $response );
 				}
 			}
+
 			if ( $this->disable_plan && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
@@ -1102,6 +1127,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				];
 				wp_send_json( $response );
 			}
+
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
@@ -1116,6 +1142,7 @@ class Fre_ProjectAction extends AE_PostAction {
 					}
 				}
 			}
+
 			if ( $request['method'] == 'create' ) {
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
@@ -1545,6 +1572,8 @@ class Fre_ProjectAction extends AE_PostAction {
 			$package      = $ae_post_factory->get( 'pack' );
 			$disable_plan = ae_get_option( 'disable_plan', false );
 			$plan         = $package->get( $data['et_payment_package'] );
+
+
 			if ( ! $disable_plan && ! $plan ) {
 				return new WP_Error( 'invalid_plan', __( "You have selected an invalid plan.", ET_DOMAIN ) );
 			}

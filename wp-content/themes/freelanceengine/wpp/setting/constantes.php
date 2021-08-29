@@ -57,3 +57,12 @@ if ( ! defined( 'ET_CSS_PATH' ) ) {
 if ( ! defined( 'USE_SOCIAL' ) ) {
 	define( 'USE_SOCIAL', 1 );
 }
+
+
+/**
+ * WPP CONSTANTS
+ */
+// Количество дней для обычных проектов
+if ( ! defined( 'WPP_FREE_PROJECT_DAY' ) ) :
+	define( 'WPP_FREE_PROJECT_DAY', 14 );
+endif;

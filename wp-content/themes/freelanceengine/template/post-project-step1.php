@@ -12,7 +12,6 @@ $orders = AE_Payment::get_current_order( $user_ID );
 
 $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 ?>
-
 <div id="fre-post-project-1" class="fre-post-project-step step-plan active">
     <div class="page-post-project-subt">
 		<?php _e( 'Choose your most appropriate package', ET_DOMAIN ) ?>

@@ -39,7 +39,6 @@ $user_country   = isset( $user_localtion['country']['name'] );
 							];
 						}
 					}
-
 					#это опции
 					ksort( $pro_em_functions );
 

@@ -3,6 +3,7 @@
 global $user_ID;
 ?>
 <div id="fre-post-project-2 step-post" class="fre-post-project-step step-wrapper step-post">
+
     <div class="fre-post-project-box">
         <div class="step-change-package show_select_package">
             <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?> <strong></strong></p>
