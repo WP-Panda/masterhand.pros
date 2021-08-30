@@ -947,11 +947,39 @@ class Fre_ProjectAction extends AE_PostAction {
 	 * - delete
 	 */
 
+
+	/**
+	 * Шаги при выбранном плане
+	 * [30-Aug-2021 10:21:44 UTC] START
+	 * [30-Aug-2021 10:21:44 UTC] Step_1
+	 * [30-Aug-2021 10:21:44 UTC] Step_2
+	 * [30-Aug-2021 10:21:44 UTC] Step_3
+	 * [30-Aug-2021 10:21:45 UTC] Step_4
+	 * [30-Aug-2021 10:21:45 UTC] Step_5
+	 * [30-Aug-2021 10:21:45 UTC] Step_7
+	 * [30-Aug-2021 10:21:45 UTC] Step_10
+	 * [30-Aug-2021 10:21:45 UTC] Step_14
+	 */
+	/**
+     * Шаги без планов
+	 * [30-Aug-2021 10:27:10 UTC] START
+	 * [30-Aug-2021 10:27:10 UTC] Step_1
+	 * [30-Aug-2021 10:27:10 UTC] Step_2
+	 * [30-Aug-2021 10:27:10 UTC] Step_3
+	 * [30-Aug-2021 10:27:11 UTC] Step_4
+	 * [30-Aug-2021 10:27:11 UTC] Step_5
+	 * [30-Aug-2021 10:27:11 UTC] Step_7
+	 * [30-Aug-2021 10:27:11 UTC] Step_10
+	 * [30-Aug-2021 10:27:11 UTC] Step_11
+	 * [30-Aug-2021 10:27:11 UTC] Step_12
+	 * */
+
 	function post_sync() {
 
 		global $ae_post_factory, $user_ID;
 		$request = $_REQUEST;
-wpp_d_log('START');
+//wpp_d_log('START');
+		wpp_d_log( 'START' );
 		if ( ! AE_Users::is_activate( $user_ID ) ) {
 			wp_send_json( [
 				'success' => false,
@@ -969,7 +997,8 @@ wpp_d_log('START');
 				wp_send_json( $response );
 			}
 		}
-		wpp_d_log('Step_1');
+		//wpp_d_log('Step_1');
+		wpp_d_log( 'Step_1' );
 		// prevent freelancer submit project
 		if ( ! fre_share_role() && ae_user_role() == FREELANCER ) {
 			wp_send_json( [
@@ -977,7 +1006,8 @@ wpp_d_log('START');
 				'msg'     => __( "You need an employer account to post a project.", ET_DOMAIN )
 			] );
 		}
-		wpp_d_log('Step_2');
+		//wpp_d_log('Step_2');
+		wpp_d_log( 'Step_2' );
 		// unset package data when edit place if user can edit others post
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
@@ -1006,7 +1036,8 @@ wpp_d_log('START');
 		//new2
 		$options     = [];
 		$user_status = get_user_pro_status( $result->post_author );
-		wpp_d_log('Step_3');
+		wpp_d_log( 'Step_3' );
+		//	wpp_d_log('Step_3');
 		global $option_for_project;
 		foreach ( $option_for_project as $item ) {
 			if ( isset( $result->$item ) ) {
@@ -1026,7 +1057,8 @@ wpp_d_log('START');
 				delete_post_meta( $result->ID, 'et_' . $item );
 			}
 		}
-		wpp_d_log('Step_4');
+		wpp_d_log( 'Step_4' );
+		//wpp_d_log('Step_4');
 		if ( ! is_wp_error( $result ) ) {
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
@@ -1066,11 +1098,12 @@ wpp_d_log('START');
 			/**
 			 * check payment package and check free or use package to send redirect link
 			 */
-			wpp_d_log('Step_5');
+			//wpp_d_log('Step_5');
+			wpp_d_log( 'Step_5' );
 
 			//if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
 			if ( isset( $package ) && empty( $options ) ) {
-				wpp_d_log('Step_6');
+				wpp_d_log( 'Step_6' );
 				// check seller use package or not
 				//$check = AE_Package::package_or_free( $request['et_payment_package'], $result );
 				$check = AE_Package::package_or_free( $package, $result );
@@ -1103,7 +1136,9 @@ wpp_d_log('START');
 					wp_send_json( $response );
 				}
 			}
-			wpp_d_log('Step_7');
+
+			//wpp_d_log('Step_7');
+			wpp_d_log( 'Step_7' );
 			if ( $this->disable_plan && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
@@ -1114,7 +1149,7 @@ wpp_d_log('START');
 					],
 					'msg'     => __( "Submit project successful.", ET_DOMAIN )
 				];
-				wpp_d_log('Step_8');
+				wpp_d_log( 'Step_8' );
 				wp_send_json( $response );
 
 			}
@@ -1132,19 +1167,20 @@ wpp_d_log('START');
 						wp_delete_post( $bid->ID );
 					}
 				}
-				wpp_d_log('Step_9');
+				wpp_d_log( 'Step_9' );
 			}
 
 			if ( $request['method'] == 'create' ) {
-				wpp_d_log('Step_10');
+				//wpp_d_log('Step_10');
+				wpp_d_log( 'Step_10' );
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
 
 			/*
 		 * check disable plan and submit place to view details
 		 */
-			if ( $this->disable_plan &&  $request['method'] == 'create' ) {
-				wpp_d_log('Step_11');
+			if ( $this->disable_plan && $request['method'] == 'create' ) {
+				wpp_d_log( 'Step_11' );
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1162,19 +1198,20 @@ wpp_d_log('START');
 					$post        = get_post( $result->ID );
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
-					wpp_d_log('Step_12');
+					wpp_d_log( 'Step_12' );
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
-					wpp_d_log('Step_13');
+					wpp_d_log( 'Step_13' );
 				}
 				// send response
 				wp_send_json( $response );
 			}
 
-			wpp_d_log('Step_14');
+			//wpp_d_log('Step_14');
+			wpp_d_log( 'Step_14' );
 			// send json data to client
 			wp_send_json( [
 				'success' => true,
@@ -1182,7 +1219,7 @@ wpp_d_log('START');
 				'msg'     => __( "Update project successful", ET_DOMAIN )
 			] );
 		} else {
-			wpp_d_log('Step_15');
+			wpp_d_log( 'Step_15' );
 			// update false
 			wp_send_json( [
 				'success' => false,
