@@ -951,7 +951,7 @@ class Fre_ProjectAction extends AE_PostAction {
 
 		global $ae_post_factory, $user_ID;
 		$request = $_REQUEST;
-
+wpp_d_log('START');
 		if ( ! AE_Users::is_activate( $user_ID ) ) {
 			wp_send_json( [
 				'success' => false,
@@ -969,7 +969,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				wp_send_json( $response );
 			}
 		}
-
+		wpp_d_log('Step_1');
 		// prevent freelancer submit project
 		if ( ! fre_share_role() && ae_user_role() == FREELANCER ) {
 			wp_send_json( [
@@ -977,7 +977,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				'msg'     => __( "You need an employer account to post a project.", ET_DOMAIN )
 			] );
 		}
-
+		wpp_d_log('Step_2');
 		// unset package data when edit place if user can edit others post
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
@@ -1006,7 +1006,7 @@ class Fre_ProjectAction extends AE_PostAction {
 		//new2
 		$options     = [];
 		$user_status = get_user_pro_status( $result->post_author );
-
+		wpp_d_log('Step_3');
 		global $option_for_project;
 		foreach ( $option_for_project as $item ) {
 			if ( isset( $result->$item ) ) {
@@ -1026,7 +1026,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				delete_post_meta( $result->ID, 'et_' . $item );
 			}
 		}
-
+		wpp_d_log('Step_4');
 		if ( ! is_wp_error( $result ) ) {
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
@@ -1066,22 +1066,11 @@ class Fre_ProjectAction extends AE_PostAction {
 			/**
 			 * check payment package and check free or use package to send redirect link
 			 */
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( '--------***************************************************************************' );
-			wpp_d_log( $request );
-
-			$package = ! empty( $request['et_payment_package'] ) ? $request['et_payment_package'] : "B1";
-
-			wpp_d_log($package);
-			wpp_d_log($options);
+			wpp_d_log('Step_5');
 
 			//if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
 			if ( isset( $package ) && empty( $options ) ) {
-
+				wpp_d_log('Step_6');
 				// check seller use package or not
 				//$check = AE_Package::package_or_free( $request['et_payment_package'], $result );
 				$check = AE_Package::package_or_free( $package, $result );
@@ -1114,7 +1103,7 @@ class Fre_ProjectAction extends AE_PostAction {
 					wp_send_json( $response );
 				}
 			}
-
+			wpp_d_log('Step_7');
 			if ( $this->disable_plan && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
@@ -1125,7 +1114,9 @@ class Fre_ProjectAction extends AE_PostAction {
 					],
 					'msg'     => __( "Submit project successful.", ET_DOMAIN )
 				];
+				wpp_d_log('Step_8');
 				wp_send_json( $response );
+
 			}
 
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
@@ -1141,17 +1132,19 @@ class Fre_ProjectAction extends AE_PostAction {
 						wp_delete_post( $bid->ID );
 					}
 				}
+				wpp_d_log('Step_9');
 			}
 
 			if ( $request['method'] == 'create' ) {
+				wpp_d_log('Step_10');
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
 
 			/*
 		 * check disable plan and submit place to view details
 		 */
-			if ( $this->disable_plan && $request['method'] == 'create' ) {
-
+			if ( $this->disable_plan &&  $request['method'] == 'create' ) {
+				wpp_d_log('Step_11');
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1169,15 +1162,19 @@ class Fre_ProjectAction extends AE_PostAction {
 					$post        = get_post( $result->ID );
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
+					wpp_d_log('Step_12');
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
+					wpp_d_log('Step_13');
 				}
 				// send response
 				wp_send_json( $response );
 			}
+
+			wpp_d_log('Step_14');
 			// send json data to client
 			wp_send_json( [
 				'success' => true,
@@ -1185,7 +1182,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				'msg'     => __( "Update project successful", ET_DOMAIN )
 			] );
 		} else {
-
+			wpp_d_log('Step_15');
 			// update false
 			wp_send_json( [
 				'success' => false,
