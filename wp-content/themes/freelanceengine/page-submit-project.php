@@ -6,8 +6,6 @@ global $user_ID;
 get_header();
 $user_localtion = getLocation( $user_ID );
 $user_country   = isset( $user_localtion['country']['name'] );
-
-
 ?>
     <div class="fre-page-wrapper step-post-package">
         <div class="fre-page-title">
@@ -42,13 +40,10 @@ $user_country   = isset( $user_localtion['country']['name'] );
 					#это опции
 					ksort( $pro_em_functions );
 
-
 					echo '<script type="data/json" id="pro_em_functions">' . json_encode( $pro_em_functions ) . '</script>';
-
 
 					// check disable payment plan or not
 					$disable_plan = ae_get_option( 'disable_plan', false );
-
 
 					if ( empty( $disable_plan ) ) {
 						// template/post-place-step1.php
@@ -58,10 +53,10 @@ $user_country   = isset( $user_localtion['country']['name'] );
 					// template/post-place-step3.php
 					get_template_part( 'template/post-project', 'step3' );
 
-					if ( empty( $disable_plan ) ) {
+					//if ( empty( $disable_plan ) ) {
 						// template/post-place-step4.php
 						get_template_part( 'template/post-project', 'step4' );
-					}
+					//}
 					?>
                 </div>
             </div>

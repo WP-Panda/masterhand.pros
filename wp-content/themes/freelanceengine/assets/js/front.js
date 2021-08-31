@@ -2107,8 +2107,10 @@
                 if (select == 'step-auth') {
                     if (this.finishStep.length < 1) return;
                 }
+
                 // step post
-                if (select == 'step-post') {
+               if (select == 'step-post') {
+               // if (select == 'step-post') {
                     if ($('#step-auth').length > 0 && this.finishStep.length < 2) return;
                     if ($('#step-auth').length == 0 && this.finishStep.length < 1) return;
                 }

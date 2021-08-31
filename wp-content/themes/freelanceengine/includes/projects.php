@@ -961,7 +961,7 @@ class Fre_ProjectAction extends AE_PostAction {
 	 * [30-Aug-2021 10:21:45 UTC] Step_14
 	 */
 	/**
-     * Шаги без планов
+	 * Шаги без планов
 	 * [30-Aug-2021 10:27:10 UTC] START
 	 * [30-Aug-2021 10:27:10 UTC] Step_1
 	 * [30-Aug-2021 10:27:10 UTC] Step_2
@@ -974,20 +974,48 @@ class Fre_ProjectAction extends AE_PostAction {
 	 * [30-Aug-2021 10:27:11 UTC] Step_12
 	 * */
 
+
+	/**
+	 * id: 16808
+	 * permalink: "https://masterhand.pros/project/xxxxxxx/"
+	 * post_status: "publish"
+	 * tax_input: {project_category: ["9959"], project_type: []}
+	 */
+
+	/**
+	 *
+	 *
+	 *
+	 * et_featured: 0
+	 * et_package_type: "pack"
+	 * et_payment_package: "B1"
+	 * id: 16809
+	 * is_free: "1"
+	 *
+	 * permalink: "https://masterhand.pros/?post_type=project&p=16809"
+	 * post_status: "draft"
+	 *
+	 *
+	 *
+	 * project_type: 4
+	 *
+	 * tax_input: {project_category: ["9960", "9961"], project_type: 4}
+	 */
+
 	function post_sync() {
 
 		global $ae_post_factory, $user_ID;
 		$request = $_REQUEST;
-//wpp_d_log('START');
-		wpp_d_log( 'START' );
+
+		# ссли юзер не активирован
 		if ( ! AE_Users::is_activate( $user_ID ) ) {
 			wp_send_json( [
 				'success' => false,
 				'msg'     => __( "Your account is pending. You have to activate your account to continue this step.", ET_DOMAIN )
 			] );
-		};
+		}
 
-		// check number free package ussed
+		# проверка лимита записей
 		if ( isset( $request['et_payment_package'] ) ) {
 			$can_post_free = AE_Package::can_post_free( $request['et_payment_package'] );
 			if ( ! $can_post_free ) {
@@ -997,68 +1025,83 @@ class Fre_ProjectAction extends AE_PostAction {
 				wp_send_json( $response );
 			}
 		}
-		//wpp_d_log('Step_1');
-		wpp_d_log( 'Step_1' );
-		// prevent freelancer submit project
-		if ( ! fre_share_role() && ae_user_role() == FREELANCER ) {
+
+		# если юзер не заказчик
+		if ( ! fre_share_role() && wpp_fre_is_freelancer() ) {
 			wp_send_json( [
 				'success' => false,
 				'msg'     => __( "You need an employer account to post a project.", ET_DOMAIN )
 			] );
 		}
-		//wpp_d_log('Step_2');
-		wpp_d_log( 'Step_2' );
+
 		// unset package data when edit place if user can edit others post
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
 		}
+
 		if ( isset( $request['archive'] ) ) {
 			$request['post_status'] = 'archive';
 		}
+
 		if ( isset( $request['publish'] ) ) {
 			$request['post_status'] = 'publish';
 		}
+
 		if ( isset( $request['delete'] ) ) {
 			$request['post_status'] = 'trash';
 		}
+
 		if ( isset( $request['disputed'] ) ) {
 			$request['post_status'] = 'disputed';
 		}
+
 		if ( isset( $request['project_type'] ) ) {
 			unset( $request['project_type'] );
 		}
 
 		$place = $ae_post_factory->get( $this->post_type );
 
+
+		///$package = ! empty( $request['et_payment_package'] ) ? $request['et_payment_package'] : "B1";
+
 		// sync place
 		$result = $place->sync( $request );
+		/*		wpp_d_log('$result');
+				wpp_d_log('$result');
+				wpp_d_log('$result');
+				wpp_d_log('$result');
+				wpp_d_log('$result'); */
+		wpp_d_log( $result );
 
 		//new2
 		$options     = [];
 		$user_status = get_user_pro_status( $result->post_author );
-		wpp_d_log( 'Step_3' );
-		//	wpp_d_log('Step_3');
+
 		global $option_for_project;
 		foreach ( $option_for_project as $item ) {
 			if ( isset( $result->$item ) ) {
 				if ( is_array( $result->$item ) ) {
+
 					update_post_meta( $result->ID, 'update_options', 1 );
 					update_post_meta( $result->ID, $item, 1 );
 					update_post_meta( $result->ID, 'et_' . $item, date( "Y-m-d H:i:s", strtotime( "+" . $result->$item[0] . " day" ) ) );
-					if ( $result->$item[0] != 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
+
+					if ( $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
 					}
 				} else {
-					delete_post_meta( $result->ID, $item );
-					delete_post_meta( $result->ID, 'et_' . $item );
+					/**
+					 *
+					 */
+					/*delete_post_meta( $result->ID, $item );
+					delete_post_meta( $result->ID, 'et_' . $item );*/
 				}
 			} else {
-				delete_post_meta( $result->ID, $item );
-				delete_post_meta( $result->ID, 'et_' . $item );
+				/*delete_post_meta( $result->ID, $item );
+				delete_post_meta( $result->ID, 'et_' . $item );*/
 			}
 		}
-		wpp_d_log( 'Step_4' );
-		//wpp_d_log('Step_4');
+
 		if ( ! is_wp_error( $result ) ) {
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
@@ -1098,8 +1141,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			/**
 			 * check payment package and check free or use package to send redirect link
 			 */
-			//wpp_d_log('Step_5');
-			wpp_d_log( 'Step_5' );
+
 
 			//if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
 			if ( isset( $package ) && empty( $options ) ) {
@@ -1137,8 +1179,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				}
 			}
 
-			//wpp_d_log('Step_7');
-			wpp_d_log( 'Step_7' );
+
 			if ( $this->disable_plan && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
@@ -1171,14 +1212,14 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 
 			if ( $request['method'] == 'create' ) {
-				//wpp_d_log('Step_10');
-				wpp_d_log( 'Step_10' );
+
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
 
 			/*
 		 * check disable plan and submit place to view details
 		 */
+			/*
 			if ( $this->disable_plan && $request['method'] == 'create' ) {
 				wpp_d_log( 'Step_11' );
 				// disable plan, free to post place
@@ -1199,6 +1240,7 @@ class Fre_ProjectAction extends AE_PostAction {
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
 					wpp_d_log( 'Step_12' );
+			//Выход тут без плана
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
@@ -1209,7 +1251,7 @@ class Fre_ProjectAction extends AE_PostAction {
 				// send response
 				wp_send_json( $response );
 			}
-
+*/
 			//wpp_d_log('Step_14');
 			wpp_d_log( 'Step_14' );
 			// send json data to client

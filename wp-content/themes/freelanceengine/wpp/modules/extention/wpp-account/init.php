@@ -9,7 +9,7 @@
 	require_once 'functions/template-actions.php';
 	require_once  'functions/user-functions.php';
 
-	add_filter( 'rwmb_meta_boxes', function( $meta_boxes ) {
+	add_filter( 'wpp_mb_meta_boxes', function( $meta_boxes ) {
 		$meta_boxes[] = [
 			'title'  => 'Default Fields',
 			'id'     => 'default-fields',

@@ -12,11 +12,8 @@ if ( $disable_plan ) {
 
 if ( $user_ID ) {
 	$step --;
-}
-
-?>
+} ?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
-
 
     <div class="fre-post-project-box">
         <div class="step-edit-project">
@@ -27,10 +24,15 @@ if ( $user_ID ) {
     <div class="fre-post-project-box">
         <div class="step-choose-payment">
 			<?php $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
+
 			$id                          = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 			if ( $id ) {
 				$post    = get_post( $id );
 				$pack_id = $post->et_payment_package;
+				if ( empty( $pack_id ) ) {
+					$pack_id = 'B1';
+				}
+				wpp_dump($pack_id);
 				foreach ( $packs as $key => $package ) {
 					if ( $pack_id == $package->sku ) {
 						$number_of_post = $package->et_number_posts;
@@ -234,4 +236,5 @@ if ( $user_ID ) {
 			<?php do_action( 'after_payment_list_wrapper' ); ?>
         </div>
     </div>
+
 </div>

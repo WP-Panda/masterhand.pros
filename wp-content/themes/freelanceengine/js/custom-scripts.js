@@ -480,7 +480,7 @@ jQuery(function ($) {
             var postdata = $.parseJSON($('script#opt_on')[0].innerHTML);
             console.info(postdata);
             $.each(postdata, function (key1, item1) {
-                console.info(key1,item1);
+                console.info(key1, item1);
                 var arr = $("#pro_functions input[type='checkbox']")
                 $.each(arr, function (key, item) {
                     if (item.id == item1.name) {
@@ -698,14 +698,14 @@ jQuery(function ($) {
         }
 
         $(".fre-post-project-next-btn").click(function () {
-            var arr = $("#pro_functions input[type='checkbox']:checked")
-            var options_name = '',
+            var arr = $("#pro_functions input[type='checkbox']:checked"),
+                options_name = '',
                 options_days = '',
                 str = [],
                 price = 0,
                 price_options = 0;
-            $("#options_name").val(options_name);
-            $("#options_days").val(options_days);
+            $("#options_name,#options_days").val(options_name);
+
 
             $.each(arr, function (key, item) {
                 if (!item.disabled) {
@@ -728,6 +728,8 @@ jQuery(function ($) {
                     }
                 }
             });
+
+            console.log('Wpp')
             //str.push('Total: $' + price_options);
 
             $("#options_name").val(options_name);
@@ -1021,6 +1023,7 @@ jQuery(function ($) {
             .removeClass('complete');
         $('#fre-post-project-2').removeClass('active');
     });
+
     /*open subcats in profs cats*/
     $('.page-template-page-projects .profs-cat-list_t.faa-parent').click(function () {
         $(this).toggleClass('active');

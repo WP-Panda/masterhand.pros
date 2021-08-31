@@ -7,7 +7,7 @@ header('Expires: 0');
 
 ini_set('display_errors', 1);
 
-define( 'RW_RT_MODULE_TPL_PATH', REVIEW_RATING_DIR . 'module/tpl/' );
+define( 'WPPMB_RT_MODULE_TPL_PATH', REVIEW_RATING_DIR . 'module/tpl/' );
 
 require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 require_once(REVIEW_RATING_DIR . 'classes/AutoloadReviews.php');
@@ -19,12 +19,12 @@ $module->setLangPath('module/lang');
 
 $langMsg = $module->getLang('ALL');
 
-$tplCache = RW_RT_MODULE_TPL_PATH . 'cache';
+$tplCache = WPPMB_RT_MODULE_TPL_PATH . 'cache';
 if(!file_exists($tplCache)){
 	mkdir($tplCache, 0755, true);
 }
 
-$fenom = Fenom::factory(RW_RT_MODULE_TPL_PATH, RW_RT_MODULE_TPL_PATH.'cache');
+$fenom = Fenom::factory(WPPMB_RT_MODULE_TPL_PATH, WPPMB_RT_MODULE_TPL_PATH.'cache');
 $fenom->setOptions(Fenom::AUTO_RELOAD);
 //$fenom->setOptions(Fenom::DISABLE_CACHE);// - откл. кэширование
 

@@ -12,6 +12,7 @@ if ( $disable_plan ) {
 if ( $user_ID ) {
 	$step --;
 }
+
 $post          = '';
 $user_currency = get_user_meta( $user_ID, 'currency', true );
 $user_currency = $user_currency == '' ? 'USD' : $user_currency;
@@ -65,6 +66,7 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
 	<?php } ?>
     <div class="fre-post-project-box">
         <form class="post" role="form">
+            <input id="package-27" name="post-package" type="radio" checked="checked">
             <div class="step-post-project" id="fre-post-project">
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
@@ -107,11 +109,11 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
                             <label for="sub" class="fre-field-title"><?php _e( 'Subcategory', ET_DOMAIN ); ?></label>
                             <div class="select_style">
                                 <select name="project_category" id="sub"
-                                        data-selected_slug="<?= $subcategory_project_selected !== null ? implode( ',', $subcategory_project_selected ) : '' ?>"
+                                        data-selected_slug="<?php echo $subcategory_project_selected !== null ? implode( ',', $subcategory_project_selected ) : '' ?>"
                                         class="required fre-chosen-category"
                                         data-chosen-width="100%" data-chosen-disable-search="" multiple
-                                        data-limit="<?= ae_get_option( 'max_cat', 5 ) ?>"
-                                        data-placeholder="<?= sprintf( __( "Choose maximum %s subcategories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) ?>">
+                                        data-limit="<?php echo ae_get_option( 'max_cat', 5 ) ?>"
+                                        data-placeholder="<?php echo sprintf( __( "Choose maximum %s subcategories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) ?>">
                                     <option value="">Select category first</option>
                                 </select>
                             </div>
@@ -162,10 +164,10 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
 										$is_selected = 'selected';
 									}
 								} ?>
-                                <option data-icon="<?= $data['flag'] ?>" <?= $is_selected ?>>
-									<?= $data['code'] ?>
+                                <option data-icon="<?php echo $data['flag'] ?>" <?php echo $is_selected ?>>
+									<?php echo $data['code'] ?>
                                 </option>
-							<? }
+							<?php }
 							?>
                         </select>
                         <input id="project-budget" type="number" placeholder="1"
@@ -195,8 +197,8 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
 						?>
                         <div class="fre-input-field select">
                             <select name="country" id="country"
-                                    data-selected_id="<?= ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>"
-                                    data_user_country_id="<?= ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>">
+                                    data-selected_id="<?php echo ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>"
+                                    data_user_country_id="<?php echo ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>">
                                 <option value="">Select Country</option>
 								<?php if ( $query_country->num_rows > 0 ) {
 									while ( $row = $query_country->fetch_assoc() ) {
@@ -214,13 +216,13 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
                         </div>
                         <div class="fre-input-field select">
                             <select name="state" id="state"
-                                    data-selected_id="<?= ! empty( $location['state']['id'] ) ? $location['state']['id'] : '' ?>">
+                                    data-selected_id="<?php echo ! empty( $location['state']['id'] ) ? $location['state']['id'] : '' ?>">
                                 <option value="">Select country first</option>
                             </select>
                         </div>
                         <div class="fre-input-field select">
                             <select name="city" id="city"
-                                    data-selected_id="<?= ! empty( $location['city']['id'] ) ? $location['city']['id'] : '' ?>">
+                                    data-selected_id="<?php echo ! empty( $location['city']['id'] ) ? $location['city']['id'] : '' ?>">
                                 <option value="">Select state first</option>
                             </select>
                         </div>
@@ -230,10 +232,10 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
                 <div class="fre-input-field">
                     <div class="checkline">
                         <input id="request_quote_company" name="request_quote_company" type="checkbox" value="1">
-                        <label for="request_quote_company"><? _e( 'Request a Quote from businesses in the town on my behalf', ET_DOMAIN ) ?></label>
+                        <label for="request_quote_company"><?php _e( 'Request a Quote from businesses in the town on my behalf', ET_DOMAIN ) ?></label>
                         <div class="tooltip_wp">
                             <i>?</i>
-                            <div class="tip"><? _e( 'Check if you want to receive more offers\quotes', ET_DOMAIN ) ?></div>
+                            <div class="tip"><?php _e( 'Check if you want to receive more offers\quotes', ET_DOMAIN ) ?></div>
                         </div>
                     </div>
                 </div>
@@ -244,7 +246,8 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
 				echo '</ul>';
 				?>
                 <div class="fre-post-project-btn">
-                    <button class="fre-btn fre-post-project-next-btn fre-submit-btn"
+                    <button
+                            class="fre-btn fre-post-project-next-btn fre-submit-btn"
                             type="submit"><?php _e( "Submit Project", ET_DOMAIN ); ?></button>
                 </div>
             </div>
