@@ -51,7 +51,7 @@ function change_opengraph_image_url( $url ) {
 }
 
 
-function change_opengraph_page_url( $url){
+function change_opengraph_page_url( $url ) {
 	if ( is_archive( 'author' ) && ! empty( $_GET['b'] ) ) {
 		$url    = get_home_url();
 		$num    = $_GET['b'];
@@ -65,4 +65,4 @@ function change_opengraph_page_url( $url){
 	}
 }
 
-add_filter( 'wpseo_opengraph_url' , 'change_opengraph_page_url' );
+add_filter( 'wpseo_opengraph_url', 'change_opengraph_page_url' );

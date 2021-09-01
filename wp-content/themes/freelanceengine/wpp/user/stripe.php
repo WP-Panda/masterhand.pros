@@ -45,7 +45,7 @@ class AE_Escrow_Stripe extends AE_Base {
 	 * @author Tambh
 	 */
 	public function init() {
-		require_once dirname(__FILE__) . '/init.php';
+		require_once dirname( __FILE__ ) . '/init.php';
 		$stripe_api            = ae_get_option( 'escrow_stripe_api' );
 		$this->client_id       = isset( $stripe_api['client_id'] ) ? $stripe_api['client_id'] : 'ca_6haoa1xY6ECo3GG6MU1zo9yeuF6DviYz';
 		$this->client_secret   = isset( $stripe_api['client_secret'] ) ? $stripe_api['client_secret'] : 'sk_test_Q1YPkPqgUbUloB0ZC9eE8KhL';
@@ -130,7 +130,7 @@ class AE_Escrow_Stripe extends AE_Base {
 	public function ae_stripe_connect() {
 		global $user_ID;
 		if ( isset( $_GET['code'] ) ) {
-			$code               = $_GET['code'];
+			$code = $_GET['code'];
 
 			// $token_request_body = array(
 			// 	'client_secret' => $this->client_secret,
@@ -147,35 +147,34 @@ class AE_Escrow_Stripe extends AE_Base {
 			 * above code commentted from version 1.3.1 by danng
 			 * @reason: fix bug can not connect stripe account.
 			 * method wp_remote_post return 403 permission.
-			*/
+			 */
 
 
 			$token_request_body = array(
-				'grant_type' => 'authorization_code',
-				'client_id' => $this->client_id,
-				'code' => $code,
+				'grant_type'    => 'authorization_code',
+				'client_id'     => $this->client_id,
+				'code'          => $code,
 				'client_secret' => $this->client_secret,
 			);
 
 			$req = curl_init( $this->token_uri );
-			curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($req, CURLOPT_POST, true );
-			curl_setopt($req, CURLOPT_POSTFIELDS, http_build_query($token_request_body));
+			curl_setopt( $req, CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $req, CURLOPT_POST, true );
+			curl_setopt( $req, CURLOPT_POSTFIELDS, http_build_query( $token_request_body ) );
 
 			// TODO: Additional error handling
-			$respCode = curl_getinfo($req, CURLINFO_HTTP_CODE);
-			$resp = json_decode(curl_exec($req), true);
-			curl_close($req);
+			$respCode = curl_getinfo( $req, CURLINFO_HTTP_CODE );
+			$resp     = json_decode( curl_exec( $req ), true );
+			curl_close( $req );
 
-			if( isset( $resp['stripe_user_id'] ) ){
+			if ( isset( $resp['stripe_user_id'] ) ) {
 				$stripe_user_id = $resp['stripe_user_id'];
 				$this->ae_update_stripe_user_id( $user_ID, $stripe_user_id );
 				ae_stripe_escrow_notification();
-			} else  if( isset( $resp['error'] ) ){
+			} else if ( isset( $resp['error'] ) ) {
 				$msg = $resp['error_description'];
-				ae_stripe_escrow_notification($msg);
+				ae_stripe_escrow_notification( $msg );
 			}
-
 
 
 		} else if ( isset( $_GET['error'] ) ) { // Error
@@ -277,25 +276,27 @@ class AE_Escrow_Stripe extends AE_Base {
 		wp_send_json( $response );
 
 	}
-	function debug($code = '', $client_secret = 'sk_live_RcDkTgbZFkqR2aUIAMebmHi',$client_id = 'ca_Bc3KLnmJEuvUYNo9ki03gcyAHLdOb1Eg'){
-        $code  = 'ac_BlT1qoKcROYmO8Kal1SpUq5MhCrYNGzD';
-        $token_request_body = array(
-            'client_secret' => $client_secret,
-            'grant_type'    => 'authorization_code',
-            'client_id'     => $client_id,
-            'code'          => $code
-        );
-        var_dump($token_request_body);
-        $a              = wp_remote_post( $this->token_uri, array(
-            'body'        => $token_request_body,
-            'httpversion' => '1.1'
-        ) );
-        echo '<pre>';
-        var_dump($a);
-        $resp           = json_decode( $a['body'] );
-        //var_dump($resp);
-        echo '</pre>';
-    }
+
+	function debug( $code = '', $client_secret = 'sk_live_RcDkTgbZFkqR2aUIAMebmHi', $client_id = 'ca_Bc3KLnmJEuvUYNo9ki03gcyAHLdOb1Eg' ) {
+		$code               = 'ac_BlT1qoKcROYmO8Kal1SpUq5MhCrYNGzD';
+		$token_request_body = array(
+			'client_secret' => $client_secret,
+			'grant_type'    => 'authorization_code',
+			'client_id'     => $client_id,
+			'code'          => $code
+		);
+		var_dump( $token_request_body );
+		$a = wp_remote_post( $this->token_uri, array(
+			'body'        => $token_request_body,
+			'httpversion' => '1.1'
+		) );
+		echo '<pre>';
+		var_dump( $a );
+		$resp = json_decode( $a['body'] );
+		//var_dump($resp);
+		echo '</pre>';
+	}
+
 	/**
 	 * Include all template were used for stripe escrow
 	 *
@@ -520,7 +521,7 @@ class AE_Escrow_Stripe extends AE_Base {
 			"destination" => $transfer_obj['destination']
 		);
 
-		$transfer     = new WP_Error( 'broke_default', __( 'Has something wrong', ET_DOMAIN ) );
+		$transfer = new WP_Error( 'broke_default', __( 'Has something wrong', ET_DOMAIN ) );
 		try {
 			$transfer = \Stripe\Transfer::create( $transfer_obj );
 		} catch ( Stripe\Error\Base $e ) {
@@ -907,25 +908,25 @@ class AE_Escrow_Stripe extends AE_Base {
 				}
 			}
 
-			if ($receiver){
-                $amount = $receiver == 'freelancer' ? $arbitrate_data['freelancer_value'] : $arbitrate_data['client_value'];
+			if ( $receiver ) {
+				$amount = $receiver == 'freelancer' ? $arbitrate_data['freelancer_value'] : $arbitrate_data['client_value'];
 
-                // if split type is percents - convert value into number
-                if ($arbitrate_data['split_type'] == 'percent'){
-                    $amount = $bid_budget * $amount / 100;
-                }
-            } else {
-                $amount = $bid_budget;
-            }
+				// if split type is percents - convert value into number
+				if ( $arbitrate_data['split_type'] == 'percent' ) {
+					$amount = $bid_budget * $amount / 100;
+				}
+			} else {
+				$amount = $bid_budget;
+			}
 
-            // convert dollars into cents
+			// convert dollars into cents
 			$amount         = (float) $amount * 100;
-            $commission_fee = (float) $commission_fee * 100;
+			$commission_fee = (float) $commission_fee * 100;
 
-            // if reciever is client - substract comission from amount
-            if ($receiver == 'client'){
-                $amount = $amount - $commission_fee;
-            }
+			// if reciever is client - substract comission from amount
+			if ( $receiver == 'client' ) {
+				$amount = $amount - $commission_fee;
+			}
 
 			$transfer_obj = array(
 				"amount"               => $amount, // amount in cents
@@ -934,7 +935,7 @@ class AE_Escrow_Stripe extends AE_Base {
 				"statement_descriptor" => "Freelance escrow"
 			);
 
-			$transfer     = $this->ae_stripe_transfer( $transfer_obj );
+			$transfer = $this->ae_stripe_transfer( $transfer_obj );
 			if ( ! is_wp_error( $transfer ) ) {
 				$order = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
 				if ( $order ) {
