@@ -37,23 +37,29 @@ define( 'EMPLOYER', 'employer' );
 define( 'FREELANCER', 'freelancer' );
 define( 'PRICE', 'price' );
 define( 'CURRENCY', 'currency' );
+
 // define( 'ALLOW_UNFILTERED_UPLOADS', true );
 if ( ! defined( 'THEME_CONTENT_DIR ' ) ) {
 	define( 'THEME_CONTENT_DIR', WP_CONTENT_DIR . '/et-content' . '/' . $theme_name );
 }
+
 if ( ! defined( 'THEME_CONTENT_URL' ) ) {
 	define( 'THEME_CONTENT_URL', content_url() . '/et-content' . '/' . $theme_name );
 }
+
 // theme language path
 if ( ! defined( 'THEME_LANGUAGE_PATH' ) ) {
 	define( 'THEME_LANGUAGE_PATH', THEME_CONTENT_DIR . '/lang/' );
 }
+
 if ( ! defined( 'ET_LANGUAGE_PATH' ) ) {
 	define( 'ET_LANGUAGE_PATH', THEME_CONTENT_DIR . '/lang' );
 }
+
 if ( ! defined( 'ET_CSS_PATH' ) ) {
 	define( 'ET_CSS_PATH', THEME_CONTENT_DIR . '/css' );
 }
+
 if ( ! defined( 'USE_SOCIAL' ) ) {
 	define( 'USE_SOCIAL', 1 );
 }
