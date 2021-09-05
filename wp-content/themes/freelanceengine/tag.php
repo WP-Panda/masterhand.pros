@@ -16,6 +16,7 @@
 get_header();
 
 ?>
+
     <section class="blog-header-container">
         <div class="container">
             <!-- blog header -->
@@ -52,3 +53,4 @@ get_header();
     </div>
 <?php
 get_footer();
+?>
