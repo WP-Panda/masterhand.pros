@@ -1,3 +1,5 @@
+stylebot  отключил
+Мердж в основную ветку - проба
 rebase222
 pp
 rebase
