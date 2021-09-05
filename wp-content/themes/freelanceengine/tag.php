@@ -14,6 +14,7 @@
  * @since      FreelanceEngine 1.0
  */
 get_header();
+
 ?>
 
     <section class="blog-header-container">
