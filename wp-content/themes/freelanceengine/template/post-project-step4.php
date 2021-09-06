@@ -1,18 +1,21 @@
-<!-- Step 4 -->
 <?php
 global $user_ID, $packs;
 
 $step = 4;
 
+wpp_dump($step);
 $disable_plan = ae_get_option( 'disable_plan', false );
 
 if ( $disable_plan ) {
 	$step --;
 }
-
+wpp_dump($step);
 if ( $user_ID ) {
 	$step --;
-} ?>
+}
+wpp_dump($step);
+
+?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
 
     <div class="fre-post-project-box">
@@ -21,18 +24,19 @@ if ( $user_ID ) {
             <div><a class="go-edit-project btn-center" href=""><?php _e( 'Edit', ET_DOMAIN ); ?></a></div>
         </div>
     </div>
+
     <div class="fre-post-project-box">
         <div class="step-choose-payment">
 			<?php $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 
-			$id                          = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
+			$id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 			if ( $id ) {
 				$post    = get_post( $id );
 				$pack_id = $post->et_payment_package;
 				if ( empty( $pack_id ) ) {
 					$pack_id = 'B1';
 				}
-				wpp_dump($pack_id);
+				wpp_dump( $pack_id );
 				foreach ( $packs as $key => $package ) {
 					if ( $pack_id == $package->sku ) {
 						$number_of_post = $package->et_number_posts;
@@ -99,7 +103,7 @@ if ( $user_ID ) {
                     </div>
                 </div>
 			<?php } ?>
-			<?php if ( ! $disable_plan ) { ?>
+			<?php /*if ( ! $disable_plan ) { */?>
                 <div class="show_select_options">
                     <div class="option_title"><?php _e( 'Your option(s):', ET_DOMAIN ); ?>
                         <p><strong></strong></p>
@@ -109,7 +113,7 @@ if ( $user_ID ) {
                     </div>
                     <p class="option_description"></p>
                 </div>
-			<?php } ?>
+			<?php /*} */?>
             <!-- fix by figma -->
         </div>
     </div>

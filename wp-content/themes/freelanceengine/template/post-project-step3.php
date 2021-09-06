@@ -66,7 +66,6 @@ $user_currency = $user_currency == '' ? 'USD' : $user_currency;
 	<?php } ?>
     <div class="fre-post-project-box">
         <form class="post" role="form">
-            <input id="package-27" name="post-package" type="radio" checked="checked">
             <div class="step-post-project" id="fre-post-project">
                 <div class="row">
                     <div class="col-md-12 col-xs-12">

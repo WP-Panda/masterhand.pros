@@ -165,6 +165,9 @@ class AE_Posts {
 	public function insert( $args ) {
 		global $current_user, $user_ID;
 
+		wpp_d_log( __LINE__ );
+		wpp_d_log( $args );
+
 		// check user submit post too fast
 		if ( ! current_user_can( 'edit_others_posts' ) ) {
 			$post = get_posts( [
@@ -197,21 +200,27 @@ class AE_Posts {
 		$disable_plan = ae_get_option( 'disable_plan', false );
 
 		/*if admin disable plan set status to pending or publish*/
-		if ( $disable_plan ) {
-			// Change Status Publish places that posted by Admin
-			if ( is_super_admin() ) {
-				// Publish post
-				$args['post_status'] = 'publish';
-			} else {
-				// disable plan
-				if ( $pending ) {
-					// pending post
-					$args['post_status'] = 'pending';
-				} else {
-					// disable pending post
-					$args['post_status'] = 'publish';
-				}
-			}
+		/**
+		 * if ( $disable_plan ) {
+		 * // Change Status Publish places that posted by Admin
+		 * if ( is_super_admin() ) {
+		 * // Publish post
+		 * $args['post_status'] = 'publish';
+		 * } else {
+		 * // disable plan
+		 * if ( $pending ) {
+		 * // pending post
+		 * $args['post_status'] = 'pending';
+		 * } else {
+		 * // disable pending post
+		 * $args['post_status'] = 'publish';
+		 * }
+		 * }
+		 * }
+		 */
+
+		if ( empty( $args['priority_in_list_project'] ) && empty( $args['highlight_project'] ) && empty( $args['urgent_project'] ) && empty( $args['hidden_project'] ) ) {
+			$args['post_status'] = 'publish';
 		}
 
 		if ( ! isset( $args['post_status'] ) ) {

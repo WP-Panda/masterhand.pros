@@ -44,6 +44,7 @@ $array = [
 	'helpers',
 	'ajax/init',
 	'setting/init',
+	'projects/init',
 	'modules/skills/init',
 	'modules/activity_rating/index',
 	'modules/referral_code/referral_code',

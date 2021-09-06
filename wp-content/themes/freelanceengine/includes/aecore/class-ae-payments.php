@@ -394,7 +394,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title']   = 'check fix number';
 				$plan_info['et_price']     = 0;
 				$plan_info['post_content'] = 'buy credit';
-				$plan_info['post_type']    = $_POST['packageType'];//'fre_credit_plan - fre_credit_fix;
+				$plan_info['post_type']    = $_POST['packageType']??'';//'fre_credit_plan - fre_credit_fix;
 				$plan_info                 = apply_filters( 'fre_order_infor', $plan_info );
 				break;
 
@@ -406,7 +406,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title']   = $_POST['planName'];
 				$plan_info['et_price']     = $_POST['price'];
 				$plan_info['post_content'] = $_POST['status'] . '_' . $_POST['time'];
-				$plan_info['post_type']    = $_POST['packageType'];
+				$plan_info['post_type']    = $_POST['packageType']??'';
 				$plan_info                 = apply_filters( 'fre_order_infor', $plan_info );
 				break;
 
@@ -419,7 +419,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title'] = $_POST['planName'];
 				$plan_info['et_price']   = $_POST['price'];
 				#$plan_info['post_content'] = $_POST['status'].'_'.$_POST['time'];
-				$plan_info['post_type'] = $_POST['packageType'];
+				$plan_info['post_type'] = $_POST['packageType']??'';
 				$plan_info              = apply_filters( 'fre_order_infor', $plan_info );
 
 				break;
