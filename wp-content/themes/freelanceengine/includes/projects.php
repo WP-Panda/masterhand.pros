@@ -947,64 +947,10 @@ class Fre_ProjectAction extends AE_PostAction {
 	 * - delete
 	 */
 
-
-	/**
-	 * Шаги при выбранном плане
-	 * [30-Aug-2021 10:21:44 UTC] START
-	 * [30-Aug-2021 10:21:44 UTC] Step_1
-	 * [30-Aug-2021 10:21:44 UTC] Step_2
-	 * [30-Aug-2021 10:21:44 UTC] Step_3
-	 * [30-Aug-2021 10:21:45 UTC] Step_4
-	 * [30-Aug-2021 10:21:45 UTC] Step_5
-	 * [30-Aug-2021 10:21:45 UTC] Step_7
-	 * [30-Aug-2021 10:21:45 UTC] Step_10
-	 * [30-Aug-2021 10:21:45 UTC] Step_14
-	 */
-	/**
-	 * Шаги без планов
-	 * [30-Aug-2021 10:27:10 UTC] START
-	 * [30-Aug-2021 10:27:10 UTC] Step_1
-	 * [30-Aug-2021 10:27:10 UTC] Step_2
-	 * [30-Aug-2021 10:27:10 UTC] Step_3
-	 * [30-Aug-2021 10:27:11 UTC] Step_4
-	 * [30-Aug-2021 10:27:11 UTC] Step_5
-	 * [30-Aug-2021 10:27:11 UTC] Step_7
-	 * [30-Aug-2021 10:27:11 UTC] Step_10
-	 * [30-Aug-2021 10:27:11 UTC] Step_11
-	 * [30-Aug-2021 10:27:11 UTC] Step_12
-	 * */
-
-
-	/**
-	 * id: 16808
-	 * permalink: "https://masterhand.pros/project/xxxxxxx/"
-	 * post_status: "publish"
-	 * tax_input: {project_category: ["9959"], project_type: []}
-	 */
-
-	/**
-	 *
-	 *
-	 *
-	 * et_featured: 0
-	 * et_package_type: "pack"
-	 * et_payment_package: "B1"
-	 * id: 16809
-	 * is_free: "1"
-	 *
-	 * permalink: "https://masterhand.pros/?post_type=project&p=16809"
-	 * post_status: "draft"
-	 *
-	 *
-	 *
-	 * project_type: 4
-	 *
-	 * tax_input: {project_category: ["9960", "9961"], project_type: 4}
-	 */
-
 	function post_sync() {
 
 		global $ae_post_factory, $user_ID, $option_for_project;
+
 		$request = $_REQUEST;
 
 		# ссли юзер не активирован
@@ -1035,6 +981,7 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 		// unset package data when edit place if user can edit others post
+        //отмена установки данных пакета при редактировании места, если пользователь может редактировать другие сообщения
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
 		}
@@ -1060,14 +1007,8 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 
-		/**
-		 * Тут небольшой костыль, надо будет поправить
-		 */
-		wpp_d_log('$request');
-		wpp_d_log($request);
-
-
-
+		wpp_d_log( '$request_1' );
+		wpp_d_log( $request );
 		$place = $ae_post_factory->get( $this->post_type );
 
 		// sync place
@@ -1079,6 +1020,7 @@ class Fre_ProjectAction extends AE_PostAction {
 
 
 		foreach ( $option_for_project as $item ) {
+
 			if ( isset( $result->$item ) ) {
 				if ( is_array( $result->$item ) ) {
 
@@ -1103,6 +1045,8 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 		if ( ! is_wp_error( $result ) ) {
+
+
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
 			if ( $post_status == 'archive' ) {
@@ -1123,8 +1067,12 @@ class Fre_ProjectAction extends AE_PostAction {
 				}
 			}
 
+			/**
+			 * Этого не понимаю, но вроде таких данных паока не ходило
+			 */
 			// update place carousels
 			if ( isset( $request['et_carousels'] ) ) {
+				wpp_d_log( '$request_44' );
 				// loop request carousel id
 				foreach ( $request['et_carousels'] as $key => $value ) {
 					$att = get_post( $value );
@@ -1140,12 +1088,10 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 
 			/**
-			 * check payment package and check free or use package to send redirect link
+			 * Если включены павкеты но нет опций
 			 */
-
-			//if ( isset( $request['et_payment_package'] ) && empty( $options ) ) {
 			if ( isset( $package ) && empty( $options ) ) {
-
+				wpp_d_log( '$request_55' );
 				$check = AE_Package::package_or_free( $package, $result );
 
 
@@ -1169,8 +1115,10 @@ class Fre_ProjectAction extends AE_PostAction {
 				}
 			}
 
-
-			if ( $this->disable_plan && $request['method'] == 'update' && isset( $request['renew'] ) ) {
+			/**
+			 * Это выключаю солвсем, но тут если опции выключены и надо обновить опции
+			 */
+			if ( /*$this->disable_plan &&*/ !empty($request['851r2r2r02fffffff']) && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1185,6 +1133,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
+			    wpp_d_log('1134');
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
 					'post_type'   => BID,
@@ -1199,19 +1148,18 @@ class Fre_ProjectAction extends AE_PostAction {
 				}
 			}
 
+			/**
+			 * Тут фикс для тотал бидс
+			 */
 			if ( $request['method'] == 'create' ) {
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
-
-			/*
-		 * check disable plan and submit place to view details
-		 */
 
 			/**
 			 * Если опции пустые, то выходим тут.
 			 */
 			if ( empty( $options ) && $request['method'] == 'create' ) {
-				wpp_d_log( 'Step_11' );
+				wpp_d_log( '$request_88' );
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1229,26 +1177,27 @@ class Fre_ProjectAction extends AE_PostAction {
 					$post        = get_post( $result->ID );
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
-					wpp_d_log( 'Step_12' );
+					wpp_d_log( '$request_991' );
 					//Выход тут без плана
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
-					wpp_d_log( 'Step_13' );
+					wpp_d_log( '$request_100' );
 				}
 				// send response
 				wp_send_json( $response );
 			}
 
-
+			wpp_d_log( '$request_110' );
 			wp_send_json( [
 				'success' => true,
 				'data'    => $result,
 				'msg'     => __( "Update project successful", ET_DOMAIN )
 			] );
 		} else {
+
 			// update false
 			wp_send_json( [
 				'success' => false,
