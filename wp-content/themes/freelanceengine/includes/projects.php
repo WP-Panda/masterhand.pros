@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Registers a new post type Project
  *
@@ -182,21 +181,15 @@ function fre_register_project() {
 		'highlight_project',
 		'deadline',
 		'total_bids',
-
 		'request_quote_company',
-
 		// tb cong tong so bid
 		'bid_average',
-
 		// accepted bid id
 		'accepted',
-
 		// project_deadline
 		'project_deadline',
-
 		// payment data
 		'et_payment_package',
-
 		// count post view, this field should not be updated by author
 		'post_views'
 	];
@@ -240,8 +233,6 @@ function project_category_template_include( $template ) {
 	return $template;
 }
 
-;
-
 /**
  * register post type project.
  */
@@ -263,10 +254,8 @@ class Fre_ProjectAction extends AE_PostAction {
 		 * # update post views
 		 */
 		$this->add_action( 'template_redirect', 'update_post_views' );
-
 		$this->add_filter( 'ae_pre_update_project', 'add_project_type' );
 		$this->add_filter( 'ae_pre_insert_project', 'add_project_type' );
-
 		$this->add_action( 'delete_post', 'fre_after_delete_project', 12, 1 );
 
 		/**
@@ -278,12 +267,9 @@ class Fre_ProjectAction extends AE_PostAction {
 		 * add action publish ad, update ad order and related ad in a package
 		 */
 		$this->add_action( 'ae_publish_post', 'publish_post_action' );
-
 		$this->add_action( 'ae_after_update_order', 'mail_after_update_order', 10, 3 );
 		$this->add_action( 'ae_after_change_status_publish', 'mail_after_change_status' );
-
 		$this->add_action( 'ae_after_process_payment_by_admin', 'mail_after_process_payment_by_admin' );
-
 		$this->add_action( 'ae_process_payment_action', 'mail_after_payment_free', 10, 3 );
 		$this->add_filter( 'ae_reject_post_message', 'replace_mail_reject_post', 10, 2 );
 	}
@@ -1007,8 +993,8 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 
-		wpp_d_log( '$request_1' );
-		wpp_d_log( $request );
+		//wpp_d_log( '$request_1' );
+		//wpp_d_log( $request );
 		$place = $ae_post_factory->get( $this->post_type );
 
 		// sync place
@@ -1072,7 +1058,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			 */
 			// update place carousels
 			if ( isset( $request['et_carousels'] ) ) {
-				wpp_d_log( '$request_44' );
+				//wpp_d_log( '$request_44' );
 				// loop request carousel id
 				foreach ( $request['et_carousels'] as $key => $value ) {
 					$att = get_post( $value );
@@ -1091,7 +1077,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Если включены павкеты но нет опций
 			 */
 			if ( isset( $package ) && empty( $options ) ) {
-				wpp_d_log( '$request_55' );
+				//wpp_d_log( '$request_55' );
 				$check = AE_Package::package_or_free( $package, $result );
 
 
@@ -1133,7 +1119,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
-			    wpp_d_log('1134');
+			    //wpp_d_log('1134');
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
 					'post_type'   => BID,
@@ -1159,7 +1145,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Если опции пустые, то выходим тут.
 			 */
 			if ( empty( $options ) && $request['method'] == 'create' ) {
-				wpp_d_log( '$request_88' );
+				//wpp_d_log( '$request_88' );
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1177,20 +1163,20 @@ class Fre_ProjectAction extends AE_PostAction {
 					$post        = get_post( $result->ID );
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
-					wpp_d_log( '$request_991' );
+					//wpp_d_log( '$request_991' );
 					//Выход тут без плана
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
-					wpp_d_log( '$request_100' );
+					//wpp_d_log( '$request_100' );
 				}
 				// send response
 				wp_send_json( $response );
 			}
 
-			wpp_d_log( '$request_110' );
+			//wpp_d_log( '$request_110' );
 			wp_send_json( [
 				'success' => true,
 				'data'    => $result,

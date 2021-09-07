@@ -1229,6 +1229,8 @@ function et_get_mobile_footer( $name = null ) {
 if ( ! function_exists( 'et_get_page_link' ) ) {
 	function et_get_page_link( $pages, $params = [], $create = true ) {
 
+	    //wpp_d_log($pages);
+
 		$page_args = [
 			'post_title'   => '',
 			'post_content' => __( 'Please fill out the form below ', ET_DOMAIN ),
@@ -1237,7 +1239,6 @@ if ( ! function_exists( 'et_get_page_link' ) ) {
 		];
 
 		if ( is_array( $pages ) ) {
-
 			// page data is array (using this for insert page content purpose)
 			$page_type = $pages['page_type'];
 			$page_args = wp_parse_args( $pages, $page_args );

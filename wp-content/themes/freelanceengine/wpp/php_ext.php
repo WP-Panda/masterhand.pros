@@ -119,8 +119,8 @@ function wpp_str_getcsv(
 }
 
 
-add_filter( 'manage_pages_columns', 'page_column_views' );
-add_action( 'manage_pages_custom_column', 'page_custom_column_views', 5, 2 );
+//add_filter( 'manage_pages_columns', 'page_column_views' );
+//add_action( 'manage_pages_custom_column', 'page_custom_column_views', 5, 2 );
 function page_column_views( $defaults ) {
 	$defaults['page-layout'] = __( 'Template' );
 

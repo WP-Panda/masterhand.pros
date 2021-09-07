@@ -6,6 +6,7 @@ global $user_ID;
 get_header();
 ?>
     <div class="fre-page-wrapper step-post-package edit-options">
+
         <div class="fre-page-title">
             <div class="container">
                 <h1><?php the_title(); ?></h1>
@@ -44,9 +45,9 @@ get_header();
 
 					get_template_part( 'template/option-project', 'step3' );
 
-					if ( ! $disable_plan ) {
+				//	if ( ! $disable_plan ) {
 						get_template_part( 'template/post-project', 'step4' );
-					}
+				//	}
 					?>
                 </div>
             </div>

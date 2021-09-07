@@ -165,8 +165,8 @@ class AE_Posts {
 	public function insert( $args ) {
 		global $current_user, $user_ID;
 
-		wpp_d_log( __LINE__ );
-		wpp_d_log( $args );
+		/*wpp_d_log( __LINE__ );
+		wpp_d_log( $args );*/
 
 		// check user submit post too fast
 		if ( ! current_user_can( 'edit_others_posts' ) ) {
@@ -435,12 +435,16 @@ class AE_Posts {
 					continue;
 				}
 
+				if ( ! empty( $args[ $meta ] ) && $args[ $meta ] === 'on' ) {
+					continue;
+				}
+
 				if ( isset( $args[ $meta ] ) ) {
 					if ( ! is_array( $args[ $meta ] ) ) {
 						$args[ $meta ] = esc_attr( $args[ $meta ] );
 					}
-					wpp_d_log('$args[ $meta ]');
-					wpp_d_log($args[ $meta ]);
+					/*	wpp_d_log('$args[ $meta ]');
+						wpp_d_log($args[ $meta ]);*/
 					update_post_meta( $result, $meta, $args[ $meta ] );
 				}
 			}
@@ -466,8 +470,6 @@ class AE_Posts {
 	public function update( $args ) {
 		global $user_ID;
 
-		// $args = wp_parse_args($args);
-		// strip tags
 		foreach ( $args as $key => $value ) {
 			if ( ( in_array( $key, $this->meta ) || in_array( $key, $this->convert ) ) && is_string( $args[ $key ] ) && $key != 'post_content' ) {
 				$args[ $key ] = strip_tags( $args[ $key ] );
@@ -476,9 +478,6 @@ class AE_Posts {
 
 		// unset post date
 		if ( isset( $args['post_date'] ) ) {
-
-			wpp_d_log('post_date');
-			wpp_d_log($args['post_date']);
 			unset( $args['post_date'] );
 		}
 
@@ -519,14 +518,14 @@ class AE_Posts {
 			$disable_plan = ae_get_option( 'disable_plan', false );
 
 			//if ( $disable_plan ) {
-				// disable plan
-				if ( $pending ) {
-					// pending post
-					$args['post_status'] = 'pending';
-				} else {
-					// disable pending post
-					$args['post_status'] = 'publish';
-				}
+			// disable plan
+			if ( $pending ) {
+				// pending post
+				$args['post_status'] = 'pending';
+			} else {
+				// disable pending post
+				$args['post_status'] = 'publish';
+			}
 			//}
 
 			/*if admin disable plan set status to pending or publish*/
@@ -542,21 +541,21 @@ class AE_Posts {
 
 		// catch event reject post
 		if ( isset( $args['post_status'] ) && $args['post_status'] == 'reject' && isset( $args['reject_message'] ) ) {
-		wpp_d_log('2222222');
+			/*wpp_d_log('2222222');*/
 			do_action( 'ae_reject_post', $args );
 		}
 
 		// catch event publish post
 		if ( isset( $args['publish'] ) ) {
-			wpp_d_log('publish');
+			//wpp_d_log('publish');
 			do_action( 'fre_publish_post', $args );
 		}
 		if ( isset( $args['archive'] ) ) {
-			wpp_d_log('archive');
+			//wpp_d_log('archive');
 			do_action( 'fre_archive_post', $args );
 		}
 		if ( isset( $args['delete'] ) ) {
-			wpp_d_log('delete');
+			//wpp_d_log('delete');
 			do_action( 'fre_delete_post', $args );
 		}
 		/**
@@ -564,7 +563,10 @@ class AE_Posts {
 		 */
 
 		if ( $result != false && ! is_wp_error( $result ) ) {
-			wpp_d_log('444444');
+
+			wpp_d_log( $args );
+			wpp_d_log( $result );
+
 			$this->update_custom_field( $result, $args );
 
 			$post = get_post( $result );
@@ -581,7 +583,7 @@ class AE_Posts {
 
 			// make an action so develop can modify it
 			do_action( 'ae_update_' . $this->post_type, $result, $args );
-			wpp_d_log('555555');
+			//wpp_d_log('555555');
 			$result = $this->convert( $post );
 		}
 
