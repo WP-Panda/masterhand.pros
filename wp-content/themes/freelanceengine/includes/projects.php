@@ -967,7 +967,7 @@ class Fre_ProjectAction extends AE_PostAction {
 		}
 
 		// unset package data when edit place if user can edit others post
-        //отмена установки данных пакета при редактировании места, если пользователь может редактировать другие сообщения
+		//отмена установки данных пакета при редактировании места, если пользователь может редактировать другие сообщения
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
 		}
@@ -1010,6 +1010,12 @@ class Fre_ProjectAction extends AE_PostAction {
 			if ( isset( $result->$item ) ) {
 				if ( is_array( $result->$item ) ) {
 
+					if ( $result->$item[0] === 'on' ) {
+						wpp_d_log( $result->$item[0] );
+						wpp_d_log( 'et_' . $item );
+						wpp_d_log( get_post_meta( $result->ID, 'et_' . $item, true ) );
+					}
+
 					update_post_meta( $result->ID, 'update_options', 1 );
 					update_post_meta( $result->ID, $item, 1 );
 					update_post_meta( $result->ID, 'et_' . $item, date( "Y-m-d H:i:s", strtotime( "+" . $result->$item[0] . " day" ) ) );
@@ -1017,6 +1023,9 @@ class Fre_ProjectAction extends AE_PostAction {
 					if ( $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
 					}
+
+					//}
+
 				} else {
 					/**
 					 *
@@ -1104,7 +1113,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			/**
 			 * Это выключаю солвсем, но тут если опции выключены и надо обновить опции
 			 */
-			if ( /*$this->disable_plan &&*/ !empty($request['851r2r2r02fffffff']) && $request['method'] == 'update' && isset( $request['renew'] ) ) {
+			if ( /*$this->disable_plan &&*/ ! empty( $request['851r2r2r02fffffff'] ) && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1119,7 +1128,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
-			    //wpp_d_log('1134');
+				//wpp_d_log('1134');
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
 					'post_type'   => BID,

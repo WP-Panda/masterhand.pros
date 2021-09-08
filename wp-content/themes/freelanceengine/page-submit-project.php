@@ -7,7 +7,7 @@ get_header();
 
 $user_localtion = getLocation( $user_ID );
 $user_country   = isset( $user_localtion['country']['name'] );
-$disable_plan   = ae_get_option( 'disable_plan', false );// check disable payment plan or not
+//$disable_plan   = ae_get_option( 'disable_plan', false );// check disable payment plan or not
 premium_options_json();
 ?>
     <div class="fre-page-wrapper step-post-package">
@@ -19,9 +19,10 @@ premium_options_json();
                 <div class="page-post-project-wrap" id="post-place">
 
 					<?php
-					if ( empty( $disable_plan ) ) {
-						wpp_get_template_part( 'template/post-project-step1' );
-					}
+
+					//if ( empty( $disable_plan ) ) {
+					//	wpp_get_template_part( 'template/post-project-step1' );
+					//}
 
 					wpp_get_template_part( 'template/post-project-step3' );
 

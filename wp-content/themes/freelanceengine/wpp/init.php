@@ -33,6 +33,7 @@ $array = [
 	'helpers/init',
 	'users/init',
 	'fixes',
+	'templates/init',
 	'deprecated',
 	'php_ext',
 	'db',

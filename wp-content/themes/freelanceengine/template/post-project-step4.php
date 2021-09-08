@@ -1,21 +1,3 @@
-<?php
-global $user_ID, $packs;
-
-$step = 4;
-
-wpp_dump($step);
-$disable_plan = ae_get_option( 'disable_plan', false );
-
-if ( $disable_plan ) {
-	$step --;
-}
-wpp_dump($step);
-if ( $user_ID ) {
-	$step --;
-}
-wpp_dump($step);
-
-?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
 
     <div class="fre-post-project-box">
@@ -47,7 +29,23 @@ wpp_dump($step);
                                 <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
                                     <a data-toggle="collapse" href="#packinfo2"
                                        role="button"><strong><?php echo $package->post_title; ?></strong></a>
-                                </p>
+                                </p><?php
+	                            global $user_ID, $packs;
+
+	                            $step = 4;
+
+	                            $disable_plan = ae_get_option( 'disable_plan', false );
+
+	                            if ( $disable_plan ) {
+		                            $step --;
+	                            }
+	                            if ( $user_ID ) {
+		                            $step --;
+	                            }
+
+
+	                            ?>
+
                             </div>
                             <div id="packinfo2" class="collapse pack-desk">
                                 <p><?php _e( 'If you want to get more posts, you can directly move to purchase page.', ET_DOMAIN ); ?></p>
