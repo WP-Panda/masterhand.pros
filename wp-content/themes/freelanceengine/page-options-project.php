@@ -3,6 +3,11 @@
  * Template Name: Page Post Project
  */
 global $user_ID;
+$project = ! empty( $_GET['id'] ) ? get_post( $_GET['id'] ) : false;
+if ( empty( $user_ID ) || empty( $project ) || ( ! empty( $project ) && (int) $project->post_author !== (int) $user_ID ) ) {
+	wp_safe_redirect( home_url(), 301 );
+}
+
 get_header();
 ?>
     <div class="fre-page-wrapper step-post-package edit-options">
@@ -41,14 +46,15 @@ get_header();
 					echo '<script type="data/json" id="pro_em_functions">' . json_encode( $pro_em_functions ) . '</script>';
 
 					// check disable payment plan or not
-					$disable_plan = ae_get_option( 'disable_plan', false );
+					//$disable_plan = ae_get_option( 'disable_plan', false );
 
 					get_template_part( 'template/option-project', 'step3' );
 
-				//	if ( ! $disable_plan ) {
-						get_template_part( 'template/post-project', 'step4' );
-				//	}
+					//	if ( ! $disable_plan ) {
+					get_template_part( 'template/post-project', 'step4' );
+					//	}
 					?>
+
                 </div>
             </div>
         </div>

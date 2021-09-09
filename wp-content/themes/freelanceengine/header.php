@@ -46,6 +46,22 @@ global $current_user, $user_ID, $post;
             -moz-border-radius: 50%;
             border-radius: 50%;
         }
+
+        .fre-btn.fre-post-project-next-btn.fre-submit-btn.wpp-submit {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .fre-btn.fre-cancel-btn.wpp-clear-options {
+            color: #fff!important;
+            background-color: #878787 !important;
+            border-color: #878787 !important;
+        }
+
+        .fre-btn.fre-cancel-btn.wpp-clear-options:hover {
+            background-color: #fff!important;
+            color: #878787 !important;
+        }
     </style>
 </head>
 <body <?php body_class(); ?>>

@@ -122,9 +122,14 @@ $package_data = AE_Package::get_package_data( $user_ID );
 				echo '</ul>';
 				?>
                 <div class="fre-post-project-btn">
-                    <button class="fre-btn fre-post-project-next-btn fre-submit-btn"
-                            type="submit"><?php _e( "Save Project", ET_DOMAIN ); ?></button>
+                    <button class="fre-btn fre-post-project-next-btn fre-submit-btn wpp-submit"  type="submit">
+                        <?php _e( "Save Project", ET_DOMAIN ); ?>
+                    </button>
+                    <span class="fre-btn fre-cancel-btn wpp-clear-options ">
+                        <?php _e( 'Cancel', WPP_TEXT_DOMAIN ); ?>
+                    </span>
                 </div>
+
             </div>
         </form>
     </div>

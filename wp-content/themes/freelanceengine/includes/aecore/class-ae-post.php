@@ -435,7 +435,9 @@ class AE_Posts {
 					continue;
 				}
 
-				if ( ! empty( $args[ $meta ] ) && $args[ $meta ] === 'on' ) {
+
+				if ( ! empty( $args[ $meta ][0] ) && $args[ $meta ][0] === 'on' ) {
+					wpp_d_log($args[ $meta ][0]);
 					continue;
 				}
 

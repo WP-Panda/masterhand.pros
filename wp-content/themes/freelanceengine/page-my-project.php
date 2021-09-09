@@ -5,12 +5,20 @@
 if ( ! is_user_logged_in() ) {
 	wp_redirect( et_get_page_link( 'login', [ 'ae_redirect_url' => get_permalink( $post->ID ) ] ) );
 }
-
 get_header();
 global $wpdb, $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
+
 $user_role = ae_user_role( $user_ID );
+
 define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', ET_DOMAIN ) );
-$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
+
+$currency = ae_get_option( 'currency',
+	[
+		'align' => 'left',
+		'code'  => 'USD',
+		'icon'  => '$'
+	]
+);
 
 ?>
     <div class="fre-page-wrapper">
@@ -22,21 +30,23 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
         <div class="fre-page-section">
             <div class="container">
                 <div class="my-work-employer-wrap">
-					<?php if ( fre_share_role() || $user_role == FREELANCER ) {
+					<?php if ( wpp_fre_is_freelancer() ) {
 						fre_show_credit( FREELANCER );
-					}/* else {
-						fre_user_package_info( $user_ID );
-					} */ ?>
+					} ?>
                     <ul class="fre-tabs nav-tabs-my-work">
-                        <li class="active"><a data-toggle="tab"
-                                              href="#current-project-tab"><span><?php _e( 'Current Projects', ET_DOMAIN ); ?></span></a>
+                        <li class="active">
+                            <a data-toggle="tab" href="#current-project-tab">
+                                <span><?php _e( 'Current Projects', ET_DOMAIN ); ?></span>
+                            </a>
                         </li>
-                        <li class="next"><a data-toggle="tab"
-                                            href="#previous-project-tab"><span><?php _e( 'Previous Projects', ET_DOMAIN ); ?></span></a>
+                        <li class="next">
+                            <a data-toggle="tab" href="#previous-project-tab">
+                                <span><?php _e( 'Previous Projects', ET_DOMAIN ); ?></span>
+                            </a>
                         </li>
                     </ul>
                     <div class="fre-tab-content">
-						<?php if ( fre_share_role() || $user_role == FREELANCER ) { ?>
+						<?php if ( wpp_fre_is_freelancer() ) { ?>
                             <div id="current-project-tab" class="freelancer-current-project-tab fre-panel-tab active">
                                 <div class="fre-work-project-box">
                                     <div class="work-project-filter">
@@ -412,6 +422,29 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
                                                         </div>
                                                         <div class="fre-table-col project-status-col"><?php echo $convert->project_status_view; ?></div>
 														<?php
+														/* switch ($project_status) :
+															 case 'close' :
+																 $array = [
+																	  'func' => '',
+																	 'data' =>
+																 ];
+																 break;
+															 case 'disputing' :
+																 break;
+															 case 'publish' :
+																 $class = ' project-action-two"';
+																 break;
+															 case 'pending' :
+																 break;
+															 case 'draft' :
+																 $class = ' project-action-two"';
+																 break;
+															 case 'reject' :
+																 break;
+															 case 'archive' :
+																 $class = ' project-action-two"';
+																 break;
+														 endswitch;*/
 														if ( $project_status == 'close' ) {
 															echo '<div class="fre-table-col project-action-col">';
 															echo '<a href="' . add_query_arg( [ 'workspace' => 1 ], $convert->permalink ) . '" target="_blank">' . __( 'Workspace', ET_DOMAIN ) . '</a>';
@@ -526,52 +559,49 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
                                             </div>
                                             <div class="fre-previous-table-rows" style="display: table-row-group;">
 												<?php
-												if ( $employer_previous_project_query->have_posts() ) {
+												if ( $employer_previous_project_query->have_posts() ) :
 													$postdata = [];
-												while ( $employer_previous_project_query->have_posts() ) {
+												while ( $employer_previous_project_query->have_posts() ) :
 													$employer_previous_project_query->the_post();
 													$convert    = $post_object->convert( $post, 'thumbnail' );
 													$postdata[] = $convert;
 													?>
                                                     <div class="fre-table-row">
                                                         <div class="fre-table-col project-title-col">
-                                                            <a class="secondary-color"
-                                                               href="<?php echo $convert->permalink; ?>">
+                                                            <a class="secondary-color" href="<?php echo $convert->permalink; ?>">
 																<?php echo $convert->post_title; ?>
                                                             </a>
                                                         </div>
-                                                        <div class="fre-table-col project-start-col"><?php echo $convert->post_date; ?></div>
-                                                        <div class="fre-table-col project-bid-col">
-                                                            <span><?php _e( 'Bid won:', ET_DOMAIN ); ?></span><b><?php echo $convert->bid_budget_text; ?></b><span><?php echo $convert->bid_won_date; ?></span>
+                                                        <div class="fre-table-col project-start-col">
+                                                            <?php echo $convert->post_date; ?>
                                                         </div>
-                                                        <div class="fre-table-col project-status-col"><?php echo $convert->project_status_view; ?></div>
+                                                        <div class="fre-table-col project-bid-col">
+                                                            <span><?php _e( 'Bid won:', ET_DOMAIN ); ?></span>
+                                                            <b><?php echo $convert->bid_budget_text; ?></b>
+                                                            <span><?php echo $convert->bid_won_date; ?></span>
+                                                        </div>
+                                                        <div class="fre-table-col project-status-col">
+															<?php echo $convert->project_status_view; ?>
+                                                        </div>
                                                         <div class="fre-table-col project-review-col">
 															<?php if ( isset( $convert->win_disputed ) && $convert->win_disputed != '' ) {
-																if ( $convert->win_disputed == EMPLOYER ) {
-																	echo '<i>';
-																	_e( 'Won dispute', ET_DOMAIN );
-																	echo '</i>';
-																} else {
-																	echo '<i>';
-																	_e( 'Lost dispute', ET_DOMAIN );
-																	echo '</i>';
-																}
+																$text = $convert->win_disputed == EMPLOYER ? __( 'Won dispute', ET_DOMAIN ) : __( 'Lost dispute', ET_DOMAIN );
+																printf( '<i>%s</i>', $text );
 															} else {
 																$vote = \ReviewsRating\Reviews::getInstance()->getReviewDoc( $convert->ID ); ?>
                                                                 <span class="rate-it"
                                                                       data-score="<?php echo $vote['vote']; ?>"></span>
-																<?php if ( isset( $convert->project_comment ) && ! empty( $convert->project_comment ) ) { ?>
+																<?php if ( ! empty( $convert->project_comment ) ) { ?>
                                                                     <p><?php echo $convert->project_comment; ?></p>
 																<?php }
 															} ?>
                                                         </div>
                                                     </div>
-												<?php } ?>
-                                                    <script type="data/json"
-                                                            id="previous_project_post_data"><?php echo json_encode( $postdata ); ?></script>
-												<?php } else {
+												<?php endwhile; ?>
+                                                    <script type="data/json" id="previous_project_post_data"><?php echo json_encode( $postdata ); ?></script>
+												<?php else :
 													$no_result_previous = NO_RESULT;
-												}
+												endif;
 												?>
                                             </div>
                                         </div>

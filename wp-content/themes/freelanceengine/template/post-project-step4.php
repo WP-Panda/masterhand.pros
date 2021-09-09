@@ -1,3 +1,8 @@
+<?php
+global $user_ID, $packs;
+
+$step = 4;
+?>
 <div id="fre-post-project-3 step-payment" class="fre-post-project-step step-wrapper step-payment">
 
     <div class="fre-post-project-box">
@@ -11,14 +16,10 @@
         <div class="step-choose-payment">
 			<?php $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
 
-			$id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
+/**			$id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 			if ( $id ) {
 				$post    = get_post( $id );
 				$pack_id = $post->et_payment_package;
-				if ( empty( $pack_id ) ) {
-					$pack_id = 'B1';
-				}
-				wpp_dump( $pack_id );
 				foreach ( $packs as $key => $package ) {
 					if ( $pack_id == $package->sku ) {
 						$number_of_post = $package->et_number_posts;
@@ -29,22 +30,7 @@
                                 <p class="package_title"><?php _e( 'Your package:', ET_DOMAIN ); ?>
                                     <a data-toggle="collapse" href="#packinfo2"
                                        role="button"><strong><?php echo $package->post_title; ?></strong></a>
-                                </p><?php
-	                            global $user_ID, $packs;
-
-	                            $step = 4;
-
-	                            $disable_plan = ae_get_option( 'disable_plan', false );
-
-	                            if ( $disable_plan ) {
-		                            $step --;
-	                            }
-	                            if ( $user_ID ) {
-		                            $step --;
-	                            }
-
-
-	                            ?>
+                                </p>
 
                             </div>
                             <div id="packinfo2" class="collapse pack-desk">
@@ -61,7 +47,7 @@
 		                        /**
 		                         * print text when company has job left in package
 		                         */
-		                        $number_of_post = $package_data_sku['qty'];
+/**		                        $number_of_post = $package_data_sku['qty'];
 	                        }
                         }
 
@@ -100,19 +86,20 @@
                         <span></span>
                     </div>
                 </div>
-			<?php } ?>
-			<?php /*if ( ! $disable_plan ) { */?>
-                <div class="show_select_options">
-                    <div class="option_title"><?php _e( 'Your option(s):', ET_DOMAIN ); ?>
-                        <p><strong></strong></p>
-                        <div class="total">
-                            Total: <span></span>
-                        </div>
+			<?php }
+*/ ?>
+			<?php /*if ( ! $disable_plan ) { */ ?>
+            <div class="show_select_options">
+                <div class="option_title"><?php _e( 'Your option(s):', ET_DOMAIN ); ?>
+                    <p><strong></strong></p>
+                    <div class="total">
+                        Total: <span></span>
                     </div>
-                    <p class="option_description"></p>
                 </div>
-			<?php /*} */?>
-            <!-- fix by figma -->
+                <p class="option_description"></p>
+            </div>
+			<?php /*} */ ?>
+
         </div>
     </div>
     <div class="fre-post-project-box">
@@ -187,43 +174,6 @@
 				$co = ae_get_option( '2checkout' );
 				if ( $co['enable'] ) { ?>
 
-					<?php /*<script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
-                    <script src="<?=get_template_directory_uri()?>/js/2checkout.js"></script>
-
-                    <!-- JS-code for 2checkout is located in ../js/custom.js -->
-                    <li class="panel">
-                        <form class="modal-form form__block two-checkout__form" action="<?=get_template_directory_uri()?>/libs/2checkout/payment.php" method="POST">
-                            <h3>Card information</h3>
-
-                            <input type="hidden" class="two-checkout__token" name="token">
-
-                            <div class="input-block" data-children-count="1">
-                                <label for="two-ch_name_card">Name on card</label>
-                                <input type="text" class="form-control two-checkout__card-holder" name="cardHolder" id="two-ch_name_card" placeholder="Name on card">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 col-xs-12 input-block" data-children-count="1">
-                                    <label for="two-ch_stripe_number">Card number</label>
-                                    <input type="text" class="form-control two-checkout__card-number" id="two-ch_stripe_number" placeholder="****  ****  ****  ****">
-                                </div>
-
-                                <div class="col-md-3 col-xs-6 input-block" data-children-count="1">
-                                    <label for="two-ch_expiration">Expiration</label>
-                                    <input type="text" class="form-control two-checkout__expire" id="two-ch_expiration" placeholder="MM / YY">
-                                </div>
-
-                                <div class="col-md-3 col-xs-6 input-block" data-children-count="1">
-                                    <label for="two-ch_cvc">CVV/CVC Code</label>
-                                    <input type="text" class="form-control two-checkout__cvv" size="3" id="two-ch_cvc" placeholder="CVC">
-                                </div>
-                            </div>
-
-                            <div class="submit__button">
-                                <button class="btn-left fre-submit-btn">Make Payment</button>
-                            </div>
-                        </form>
-                    </li> */ ?>
                     <li class="panel">
                         <div class="plan_t title-plan--2checkout" data-type="2checkout">
 							<?php /*_e("2Checkout", ET_DOMAIN); */ ?>

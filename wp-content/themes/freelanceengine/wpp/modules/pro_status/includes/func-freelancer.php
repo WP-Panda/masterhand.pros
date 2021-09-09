@@ -53,7 +53,6 @@ function set_function_for_add_pro_status( $query_my ) {
 			//            $query_my["create_pro_project"] = 0;
 		}
 	} elseif ( $query_my /*&& $query_my[ 'post_' ] == PROFILE*/ && ( $role_template == 'employer' || $role_template == 'gost' ) ) {
-		//unset( $query_my[ 'post_' ] );
 		$query_my["priority_in_list_freelancer"] = 1;
 	}
 
@@ -339,6 +338,7 @@ function getIdStatusByPublicProperty( $property_nickname ) {
 }
 
 function optionsProject( $project ) {
+
 	$option_for_project['highlight_project'] = empty( $project->highlight_project ) ? '' : 'style="background-color:rgba(251, 243, 65, 0.31)"';
 	$option_for_project['urgent_project']    = empty( $project->urgent_project ) ? '' : ' - ' . translate( 'Urgent Project', ET_DOMAIN );
 
