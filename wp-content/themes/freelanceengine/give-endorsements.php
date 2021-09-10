@@ -205,6 +205,7 @@ $sponsor_name    = get_sponsor( $user_ID );
 					} else {
 						_e( 'No SafePay Deals yet', ET_DOMAIN );
 					}
+					echo
 					wpp_get_template_part( 'template/wpp/referer-list', [ 'user_ID' => $user_ID ] )
 					?>
                 </div>

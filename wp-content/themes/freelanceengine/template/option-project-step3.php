@@ -17,6 +17,7 @@ $post = '';
 
 $package_data = AE_Package::get_package_data( $user_ID );
 
+
 ?>
 <div id="fre-post-project-2" class="fre-post-project-step step-wrapper step-post <?php echo $class_active; ?>">
 	<?php
@@ -129,6 +130,8 @@ $package_data = AE_Package::get_package_data( $user_ID );
                         <?php _e( 'Cancel', WPP_TEXT_DOMAIN ); ?>
                     </span>
                 </div>
+                <input type="checkbox" name="options_update" value="draft" checked>
+                <input type="text" name="post_status" value="draft">
 
             </div>
         </form>

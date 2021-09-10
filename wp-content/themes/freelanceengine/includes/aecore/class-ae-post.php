@@ -437,7 +437,6 @@ class AE_Posts {
 
 
 				if ( ! empty( $args[ $meta ][0] ) && $args[ $meta ][0] === 'on' ) {
-					wpp_d_log($args[ $meta ][0]);
 					continue;
 				}
 
@@ -519,14 +518,19 @@ class AE_Posts {
 			$pending      = apply_filters( 'use_pending', $pending, $this->post_type );
 			$disable_plan = ae_get_option( 'disable_plan', false );
 
-			//if ( $disable_plan ) {
-			// disable plan
-			if ( $pending ) {
-				// pending post
-				$args['post_status'] = 'pending';
-			} else {
-				// disable pending post
-				$args['post_status'] = 'publish';
+
+			if ( ! empty( $args['options_update'] ) ) {
+
+			}
+			if ( empty( $args['options_update'] ) ) {
+				// disable plan
+				if ( $pending ) {
+					// pending post
+					$args['post_status'] = 'pending';
+				} else {
+					// disable pending post
+					$args['post_status'] = 'publish';
+				}
 			}
 			//}
 
@@ -566,8 +570,7 @@ class AE_Posts {
 
 		if ( $result != false && ! is_wp_error( $result ) ) {
 
-			wpp_d_log( $args );
-			wpp_d_log( $result );
+
 
 			$this->update_custom_field( $result, $args );
 

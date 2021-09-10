@@ -998,8 +998,9 @@ class Fre_ProjectAction extends AE_PostAction {
 			//wpp_d_log('06');
 		}
 
+		if(!empty($request['post_status'])) {
 
-		//wpp_d_log( '$request_1' );
+		}
 		//wpp_d_log( $request );
 		$place = $ae_post_factory->get( $this->post_type );
 
@@ -1012,18 +1013,14 @@ class Fre_ProjectAction extends AE_PostAction {
 
 
 		foreach ( $option_for_project as $item ) {
-			wpp_d_log('07');
+
 			if ( isset( $result->$item ) ) {
-				wpp_d_log('08');
+
 				if ( is_array( $result->$item ) ) {
 
-					wpp_d_log('09');
 
 					if ( $result->$item[0] === 'on' ){
-						wpp_d_log('10');
-						wpp_d_log( $result->$item[0] );
-						wpp_d_log( 'et_' . $item );
-						wpp_d_log( get_post_meta( $result->ID, 'et_' . $item, true ) );
+
 					}
 
 					if ( $result->$item[0] !== 'on' ) {
@@ -1034,13 +1031,13 @@ class Fre_ProjectAction extends AE_PostAction {
 
 					if ( $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
-						wpp_d_log('11');
+
 					}
 
 					//}
 
 				} else {
-				wpp_d_log('12');
+
 					/**
 					 *
 					 */
@@ -1056,7 +1053,7 @@ class Fre_ProjectAction extends AE_PostAction {
 
 		if ( ! is_wp_error( $result ) ) {
 
-			wpp_d_log('14');
+
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
 			if ( $post_status == 'archive' ) {
@@ -1214,14 +1211,14 @@ class Fre_ProjectAction extends AE_PostAction {
 				wp_send_json( $response );
 			}
 
-			wpp_d_log('29');
+
 			wp_send_json( [
 				'success' => true,
 				'data'    => $result,
 				'msg'     => __( "Update project successful", ET_DOMAIN )
 			] );
 		} else {
-			wpp_d_log('30');
+
 			// update false
 			wp_send_json( [
 				'success' => false,
