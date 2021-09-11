@@ -10,9 +10,14 @@
 get_header();
 global $wp_query, $ae_post_factory, $post, $user_ID;
 $post_object = $ae_post_factory->get( PROJECT );
+wpp_dump($post_object);
 $convert     = $post_object->convert( $post );
+wpp_dump($convert);
 if ( have_posts() ) {
-	the_post(); ?>
+	the_post();
+	global $post;
+	wpp_dump( get_post_meta( $post->ID ) );
+	?>
 
     <div class="fre-page-wrapper">
         <div class="container">

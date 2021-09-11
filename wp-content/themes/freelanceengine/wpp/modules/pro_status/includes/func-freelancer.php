@@ -13,13 +13,7 @@ function getBasicStatus( $user_role ) {
 define( 'PRO_BASIC_STATUS_FREELANCER', (int) getBasicStatus( 'freelance' ) );
 define( 'PRO_BASIC_STATUS_EMPLOYER', (int) getBasicStatus( 'employer' ) );
 
-$option_for_project = [
-	'create_project_for_all',
-	'priority_in_list_project',
-	'highlight_project',
-	'urgent_project',
-	'hidden_project',
-];
+$option_for_project = wpp_additional_options();
 
 $min_rating_for_free_show = 2.5;
 // Для установления параметров для первичной фильтрации
@@ -335,18 +329,6 @@ function getIdStatusByPublicProperty( $property_nickname ) {
 	}
 
 	return $value;
-}
-
-function optionsProject( $project ) {
-
-	$option_for_project['highlight_project'] = empty( $project->highlight_project ) ? '' : 'style="background-color:rgba(251, 243, 65, 0.31)"';
-	$option_for_project['urgent_project']    = empty( $project->urgent_project ) ? '' : ' - ' . translate( 'Urgent Project', ET_DOMAIN );
-
-	$option_for_project['create_project_for_all']   = ! empty( $project->create_project_for_all ) ? '' : ' - ' . translate( 'for PRO', ET_DOMAIN );
-	$option_for_project['priority_in_list_project'] = empty( $project->priority_in_list_project ) ? '' : ' - ' . translate( 'TOP', ET_DOMAIN );
-	$option_for_project['hidden_project']           = empty( $project->hidden_project ) ? '' : ' - ' . translate( 'HIDDEN', ET_DOMAIN );
-
-	return $option_for_project;
 }
 
 function get_name_pro_status( $status_id ) {

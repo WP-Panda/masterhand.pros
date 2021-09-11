@@ -100,6 +100,13 @@ abstract class AE_Payment extends AE_Base {
 	function process_payment( $payment_return, $data ) {
 		global $user_ID, $ae_post_factory;
 
+
+		wpp_d_log( 'PAYMENT_START' );
+		wpp_d_log( $data );
+		wpp_d_log( 'pay_return' );
+		wpp_d_log( $payment_return );
+
+
 		// process user order after pay
 		do_action( 'ae_select_process_payment', $payment_return, $data );
 		$this->member_payment_process( $payment_return, $data );
@@ -209,6 +216,10 @@ abstract class AE_Payment extends AE_Base {
 
 			// paid
 			update_post_meta( $ad_id, 'et_paid', 1 );
+
+			// Действия при прошедшей оплсте
+			do_action( 'wpp_payment_option_success', $data, $payment_return );
+
 		} else {
 
 			/**
@@ -394,7 +405,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title']   = 'check fix number';
 				$plan_info['et_price']     = 0;
 				$plan_info['post_content'] = 'buy credit';
-				$plan_info['post_type']    = $_POST['packageType']??'';//'fre_credit_plan - fre_credit_fix;
+				$plan_info['post_type']    = $_POST['packageType'] ?? '';//'fre_credit_plan - fre_credit_fix;
 				$plan_info                 = apply_filters( 'fre_order_infor', $plan_info );
 				break;
 
@@ -406,7 +417,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title']   = $_POST['planName'];
 				$plan_info['et_price']     = $_POST['price'];
 				$plan_info['post_content'] = $_POST['status'] . '_' . $_POST['time'];
-				$plan_info['post_type']    = $_POST['packageType']??'';
+				$plan_info['post_type']    = $_POST['packageType'] ?? '';
 				$plan_info                 = apply_filters( 'fre_order_infor', $plan_info );
 				break;
 
@@ -419,7 +430,7 @@ abstract class AE_Payment extends AE_Base {
 				$plan_info['post_title'] = $_POST['planName'];
 				$plan_info['et_price']   = $_POST['price'];
 				#$plan_info['post_content'] = $_POST['status'].'_'.$_POST['time'];
-				$plan_info['post_type'] = $_POST['packageType']??'';
+				$plan_info['post_type'] = $_POST['packageType'] ?? '';
 				$plan_info              = apply_filters( 'fre_order_infor', $plan_info );
 
 				break;

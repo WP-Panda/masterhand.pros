@@ -202,10 +202,10 @@ $data_args = [
                             </div>
                         </div>
 					<?php }
-					wpp_get_template_part( 'wpp/templates/profile/tabs/tabs-head', $data_args );
-					wpp_get_template_part( 'wpp/templates/profile/tabs/rating', $data_args );
-					wpp_get_template_part( 'wpp/templates/profile/tabs/review', $data_args );
-					wpp_get_template_part( 'wpp/templates/profile/tabs/setting', $data_args );
+                        wpp_get_template_part( 'wpp/templates/profile/tabs/tabs-head', $data_args );
+                        wpp_get_template_part( 'wpp/templates/profile/tabs/rating', $data_args );
+                        wpp_get_template_part( 'wpp/templates/profile/tabs/review', $data_args );
+                        wpp_get_template_part( 'wpp/templates/profile/tabs/setting', $data_args );
 					?>
                 </div>
 

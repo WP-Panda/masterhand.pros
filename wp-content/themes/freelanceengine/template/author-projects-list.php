@@ -301,12 +301,7 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
                                 </div>
                             </div>
 						<?php } ?>
-                            <script type="data/json" id="previous_project_post_data">
-                                    <?php echo json_encode( $postdata ); ?>
-
-
-                            
-                            </script>
+                            <script type="data/json" id="previous_project_post_data"> <?php echo json_encode( $postdata ); ?></script>
 						<?php } else {
 							$no_result_previous = NO_RESULT;
 						}

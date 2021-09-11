@@ -8,10 +8,10 @@ if ( empty( $user_ID ) || empty( $project ) || ( ! empty( $project ) && (int) $p
 	wp_safe_redirect( home_url(), 301 );
 }
 
-wp_update_post( array(
+/*wp_update_post( array(
 	'ID'          => $_GET['id'],
 	'post_status' => 'draft'
-) );
+) );*/
 
 get_header();
 ?>

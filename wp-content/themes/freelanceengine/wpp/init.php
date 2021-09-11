@@ -27,6 +27,7 @@ if ( ! defined( 'WPP_THEME_DIR' ) ) {
 $array = [
 	//'s',
 	'WppFr',
+	'projects',
 	'WppFr_Assets',
 	'ajax_check', #пока тут - потом убрать
 	'wpp-core/init',

@@ -200,6 +200,7 @@ function fre_register_project() {
 add_action( 'init', 'fre_register_project', 1 );
 
 add_filter( 'template_include', 'project_category_template_include', 1 );
+
 function project_category_template_include( $template ) {
 	if ( strpos( $_SERVER['REQUEST_URI'], '/project_category' ) !== false ) {
 
@@ -998,7 +999,7 @@ class Fre_ProjectAction extends AE_PostAction {
 			//wpp_d_log('06');
 		}
 
-		if(!empty($request['post_status'])) {
+		if ( ! empty( $request['post_status'] ) ) {
 
 		}
 		//wpp_d_log( $request );
@@ -1014,27 +1015,20 @@ class Fre_ProjectAction extends AE_PostAction {
 
 		foreach ( $option_for_project as $item ) {
 
-			if ( isset( $result->$item ) ) {
+			if ( isset( $result->{$item} ) ) {
 
-				if ( is_array( $result->$item ) ) {
-
-
-					if ( $result->$item[0] === 'on' ){
-
-					}
+				if ( is_array( $result->{$item} ) ) {
 
 					if ( $result->$item[0] !== 'on' ) {
 						update_post_meta( $result->ID, 'update_options', 1 );
 						update_post_meta( $result->ID, $item, 1 );
-						update_post_meta( $result->ID, 'et_' . $item, date( "Y-m-d H:i:s", strtotime( "+" . $result->$item[0] . " day" ) ) );
+						wpp_update_additional_option( $result->ID, $item, date( "Y-m-d H:i:s", strtotime( "+" . $result->$item[0] . " day" ) ), $type = 'pay' );
+
 					}
 
 					if ( $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
-
 					}
-
-					//}
 
 				} else {
 
@@ -1057,7 +1051,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			$post_status = isset( $request['post_status'] ) ? $request['post_status'] : '';
 			//update bid status
 			if ( $post_status == 'archive' ) {
-				//wpp_d_log('15');
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
 					'post_type'   => BID,
@@ -1066,7 +1059,6 @@ class Fre_ProjectAction extends AE_PostAction {
 				] );
 
 				if ( ! empty( $bids_post ) ) {
-					//wpp_d_log('16');
 					foreach ( $bids_post as $bid ) {
 						wp_update_post( [
 							'ID'          => $bid->ID,
@@ -1081,12 +1073,9 @@ class Fre_ProjectAction extends AE_PostAction {
 			 */
 			// update place carousels
 			if ( isset( $request['et_carousels'] ) ) {
-				//wpp_d_log('17');
-				//wpp_d_log( '$request_44' );
 				// loop request carousel id
 				foreach ( $request['et_carousels'] as $key => $value ) {
 					$att = get_post( $value );
-					//wpp_d_log('18');
 					// just admin and the owner can add carousel
 					if ( current_user_can( 'manage_options' ) || $att->post_author == $user_ID ) {
 						wp_update_post( [
@@ -1101,24 +1090,19 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Если включены павкеты но нет опций
 			 */
 			if ( isset( $package ) && empty( $options ) ) {
-				//wpp_d_log( '$request_55' );
-			//	wpp_d_log('19');
 				$check = AE_Package::package_or_free( $package, $result );
-
 
 				// check use package or free to return url
 				if ( $check['success'] ) {
 					$result->redirect_url = $check['url'];
-				//	wpp_d_log('20');
 				}
 
 				$result->response = $check;
 
 				// check seller have reached limit free plan
 				$check = AE_Package::limit_free_plan( $request['et_payment_package'] );
-				//                $check = AE_Package::limit_free_plan($package);
+
 				if ( $check['success'] ) {
-					//wpp_d_log('21');
 					// false user have reached maximum free plan
 					$response['success'] = false;
 					$response['msg']     = $check['msg'];
@@ -1169,7 +1153,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Тут фикс для тотал бидс
 			 */
 			if ( $request['method'] == 'create' ) {
-				//wpp_d_log('24');
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
 
@@ -1177,7 +1160,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Если опции пустые, то выходим тут.
 			 */
 			if ( empty( $options ) && $request['method'] == 'create' ) {
-				//wpp_d_log('25');
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1190,23 +1172,18 @@ class Fre_ProjectAction extends AE_PostAction {
 
 				// Send to freelancers when a new project which related to his profile category is posted.
 				if ( $result->post_status == 'publish' ) {
-				//	wpp_d_log('26');
 					global $ae_post_factory;
 					$project_obj = $ae_post_factory->get( 'project' );
 					$post        = get_post( $result->ID );
 					$convert     = $project_obj->convert( $post );
 					$this->mail->new_project_of_category( $convert );
-					//wpp_d_log( '$request_991' );
 					//Выход тут без плана
 				}
 				// send mail have a new post on site when enable option "Free a submit listing"
 				if ( $result->post_status == 'pending' ) {
-					//wpp_d_log('27');
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
-					//wpp_d_log( '$request_100' );
 				}
-				//wpp_d_log('28');
 				// send response
 				wp_send_json( $response );
 			}

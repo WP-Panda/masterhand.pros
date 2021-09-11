@@ -1,9 +1,5 @@
 <?php
-
-// if(!defined('ET_DOMAIN')) {
-//  wp_die('API NOT SUPPORT');
-//}
-
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class AE posts, control all action with post data
@@ -121,7 +117,6 @@ class AE_Posts {
 
 		extract( $request );
 
-		//unset($request['method']);
 
 		switch ( $method ) {
 			case 'create':
@@ -444,8 +439,7 @@ class AE_Posts {
 					if ( ! is_array( $args[ $meta ] ) ) {
 						$args[ $meta ] = esc_attr( $args[ $meta ] );
 					}
-					/*	wpp_d_log('$args[ $meta ]');
-						wpp_d_log($args[ $meta ]);*/
+
 					update_post_meta( $result, $meta, $args[ $meta ] );
 				}
 			}
@@ -569,7 +563,6 @@ class AE_Posts {
 		 */
 
 		if ( $result != false && ! is_wp_error( $result ) ) {
-
 
 
 			$this->update_custom_field( $result, $args );
