@@ -47,7 +47,6 @@ class WPP_MB_Loader {
 
 		// Default URL.
 		$url = plugins_url( '', $path . '/' . basename( $path ) . '.php' );
-		//wpp_dump($url);
 
 		// Included into themes.
 		if (

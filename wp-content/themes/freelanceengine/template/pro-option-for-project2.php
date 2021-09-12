@@ -1,4 +1,5 @@
 <?php
+
 $id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 if ( $id ) {
 	$post = get_post( $id );
@@ -24,8 +25,10 @@ if ( $id ) {
 		echo '<script type="data/json" id="pro_func">' . json_encode( $pro_func ) . '</script>';
 
 		$opt = [];
+
 		foreach ( $option_for_project as $value ) {
-			if ( $post_convert->$value == 1 ) {
+			$pay = get_post_meta( $_REQUEST['id'], "_{$value}", true );
+			if ( $post_convert->{$value} == 1 && 'paid' === $pay ) {
 				$opt[] = [
 					'name'    => $value,
 					'et_date' => date( 'd-m-Y', strtotime( get_post_meta( $_REQUEST['id'], 'et_' . $value )[0] ) )

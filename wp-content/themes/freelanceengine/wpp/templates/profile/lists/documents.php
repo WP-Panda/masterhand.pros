@@ -145,9 +145,7 @@ if ( ! empty( $document_list ) ) {
 			<?php
 
 			foreach ( $documents_id as $item ) {
-				//_dump( $item );
 				$doc_data = get_post( $item );
-				//wpp_dump( $doc_data );
 				$document = [
 					'id'    => $item,
 					'url'   => wp_get_attachment_url( $item ),

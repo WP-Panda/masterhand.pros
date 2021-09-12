@@ -105,9 +105,6 @@ class Wpp_Pf_Endpoints {
 	 */
 	public static function change_template( $template ) {
 
-
-		#wpp_dump( get_query_var('account'));
-
 		$point = self::get_current_endpoint();
 
 		if ( empty( $point ) ) {
@@ -157,7 +154,6 @@ class Wpp_Pf_Endpoints {
 		$args = self::endpoint_settings();
 
 		do_action( 'qm/debug', $args );
-		//wpp_dump($args);
 
 		foreach ( $args as $key => $value ) {
 			if ( isset( $wp->query_vars[ $key ] ) ) {

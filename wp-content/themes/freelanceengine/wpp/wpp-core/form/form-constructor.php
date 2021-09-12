@@ -19,7 +19,6 @@ class WPP_Form_Constructor {
 		foreach ( $this->setting_args as $one_field ) :
 
 			$data = wp_parse_args( $one_field, $this->get_default() );
-			//wpp_dump($data);
 			extract( $data );
 
 

@@ -160,9 +160,6 @@ class AE_Posts {
 	public function insert( $args ) {
 		global $current_user, $user_ID;
 
-		/*wpp_d_log( __LINE__ );
-		wpp_d_log( $args );*/
-
 		// check user submit post too fast
 		if ( ! current_user_can( 'edit_others_posts' ) ) {
 			$post = get_posts( [
@@ -541,21 +538,17 @@ class AE_Posts {
 
 		// catch event reject post
 		if ( isset( $args['post_status'] ) && $args['post_status'] == 'reject' && isset( $args['reject_message'] ) ) {
-			/*wpp_d_log('2222222');*/
 			do_action( 'ae_reject_post', $args );
 		}
 
 		// catch event publish post
 		if ( isset( $args['publish'] ) ) {
-			//wpp_d_log('publish');
 			do_action( 'fre_publish_post', $args );
 		}
 		if ( isset( $args['archive'] ) ) {
-			//wpp_d_log('archive');
 			do_action( 'fre_archive_post', $args );
 		}
 		if ( isset( $args['delete'] ) ) {
-			//wpp_d_log('delete');
 			do_action( 'fre_delete_post', $args );
 		}
 		/**
@@ -581,7 +574,6 @@ class AE_Posts {
 
 			// make an action so develop can modify it
 			do_action( 'ae_update_' . $this->post_type, $result, $args );
-			//wpp_d_log('555555');
 			$result = $this->convert( $post );
 		}
 
@@ -673,6 +665,9 @@ class AE_Posts {
 				$result[ $key ] = vsprintf( $localize['text'], $a );
 			}
 		}
+
+
+
 
 		unset( $result['post_password'] );
 		$result['id']                 = $post['ID'];

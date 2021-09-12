@@ -12,8 +12,6 @@ if ( isset( $inner_query ) ) {
 if ( ! $current ) {
 	return;
 }
-
-//wpp_dump( $current );
 ?>
 
 <li class="company-item 1 project-item">

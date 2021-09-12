@@ -119,7 +119,6 @@ function wpp_fr_array_combinate( $arrays, $N = - 1, $count = false, $weight = fa
 		// Функция запущена в первый раз и запущена "снаружи", а не из самой себя.
 
 		$arrays = array_values( $arrays );
-		#wpp_dump($arrays);
 		$count  = count( $arrays );
 		$weight = array_fill( - 1, $count + 1, 1 );
 		$Q      = 1;

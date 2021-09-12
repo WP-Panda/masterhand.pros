@@ -130,8 +130,6 @@ $package_data = AE_Package::get_package_data( $user_ID );
                         <?php _e( 'Cancel', WPP_TEXT_DOMAIN ); ?>
                     </span>
                 </div>
-                <input type="checkbox" name="options_update" value="draft" checked>
-                <input type="text" name="post_status" value="draft">
 
             </div>
         </form>

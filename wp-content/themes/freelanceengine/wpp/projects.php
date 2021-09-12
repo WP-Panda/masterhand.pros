@@ -117,3 +117,28 @@ function wpp_change_pay_status_for_option( $data, $payment_return ) {
 }
 
 add_action( 'wpp_payment_option_success', 'wpp_change_pay_status_for_option', 10, 2 );
+
+
+function unset_pay_options( $data ) {
+
+	if ( is_page_template( 'page-options-project.php' ) ||  wp_doing_ajax() ) {
+
+		return $data;
+	}
+
+	$options = wpp_additional_options();
+
+	foreach ( $options as $option ) {
+
+		if ( ! empty( $data->{$option} ) ) {
+			$pay = get_post_meta( $data->id, "_{$option}", true );
+			if ( empty( $pay ) || 'paid' !== $pay ) {
+				unset( $data->{$option} );
+			}
+		}
+	}
+
+	return $data;
+}
+
+add_filter( 'ae_convert_project', 'unset_pay_options' );

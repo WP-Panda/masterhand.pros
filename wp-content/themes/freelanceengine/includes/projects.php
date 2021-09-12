@@ -971,38 +971,31 @@ class Fre_ProjectAction extends AE_PostAction {
 		//отмена установки данных пакета при редактировании места, если пользователь может редактировать другие сообщения
 		if ( ( ! isset( $request['is_submit_project'] ) || $request['is_submit_project'] !== 1 ) && isset( $request['ID'] ) && ! isset( $request['renew'] ) ) {
 			unset( $request['et_payment_package'] );
-			//wpp_d_log('01');
 		}
 
 		if ( isset( $request['archive'] ) ) {
 			$request['post_status'] = 'archive';
-			//wpp_d_log('02');
 		}
 
 		if ( isset( $request['publish'] ) ) {
 			$request['post_status'] = 'publish';
-			//wpp_d_log('03');
 		}
 
 		if ( isset( $request['delete'] ) ) {
 			$request['post_status'] = 'trash';
-			//wpp_d_log('04');
 		}
 
 		if ( isset( $request['disputed'] ) ) {
 			$request['post_status'] = 'disputed';
-			//wpp_d_log('05');
 		}
 
 		if ( isset( $request['project_type'] ) ) {
 			unset( $request['project_type'] );
-			//wpp_d_log('06');
 		}
 
 		if ( ! empty( $request['post_status'] ) ) {
 
 		}
-		//wpp_d_log( $request );
 		$place = $ae_post_factory->get( $this->post_type );
 
 		// sync place
@@ -1039,7 +1032,6 @@ class Fre_ProjectAction extends AE_PostAction {
 					delete_post_meta( $result->ID, 'et_' . $item );*/
 				}
 			} else {
-				//wpp_d_log('13');
 				/*delete_post_meta( $result->ID, $item );
 				delete_post_meta( $result->ID, 'et_' . $item );*/
 			}
@@ -1117,7 +1109,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			 */
 			if ( /*$this->disable_plan &&*/ ! empty( $request['851r2r2r02fffffff'] ) && $request['method'] == 'update' && isset( $request['renew'] ) ) {
 				// disable plan, free to post place
-				//wpp_d_log('22');
 				$response = [
 					'success' => true,
 					'data'    => [
@@ -1134,7 +1125,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			 * Тут при обновлении
 			 */
 			if ( $request['method'] == 'update' && isset( $request['renew'] ) ) {
-				//wpp_d_log('23');
 				$bids_post = get_children( [
 					'post_parent' => $request['ID'],
 					'post_type'   => BID,

@@ -38,6 +38,9 @@ abstract class AE_Payment extends AE_Base {
 	 * @author Dakachi
 	 */
 	function init_ajax() {
+
+	//	;
+
 		foreach ( $this->no_priv_ajax as $key => $value ) {
 			$function = str_replace( 'et-', '', $value );
 			$function = str_replace( '-', '_', $function ); //setup_payment here
@@ -52,6 +55,7 @@ abstract class AE_Payment extends AE_Base {
 
 		// catch action ae_save_option to update payment api settings
 		$this->add_action( 'ae_save_option', 'update_payment_settings', 10, 2 );
+
 
 		// process payment
 		$this->add_action( 'ae_process_payment_action', 'process_payment', 10, 2 );
@@ -69,6 +73,8 @@ abstract class AE_Payment extends AE_Base {
 	 * @author Dakachi
 	 */
 	public function update_payment_settings( $name, $value ) {
+
+		//remove_filter( 'ae_convert_project', 'unset_pay_options' );
 
 		// update paypal api settings
 		if ( $name == 'paypal' ) {
@@ -99,13 +105,6 @@ abstract class AE_Payment extends AE_Base {
 	 */
 	function process_payment( $payment_return, $data ) {
 		global $user_ID, $ae_post_factory;
-
-
-		wpp_d_log( 'PAYMENT_START' );
-		wpp_d_log( $data );
-		wpp_d_log( 'pay_return' );
-		wpp_d_log( $payment_return );
-
 
 		// process user order after pay
 		do_action( 'ae_select_process_payment', $payment_return, $data );
@@ -265,6 +264,8 @@ abstract class AE_Payment extends AE_Base {
 		if ( $payment_type == 'usePackage' ) {
 			return false;
 		}
+
+		//remove_filter( 'ae_convert_project', 'unset_pay_options' );
 
 		$order_pay = $data['order']->get_order_data();
 

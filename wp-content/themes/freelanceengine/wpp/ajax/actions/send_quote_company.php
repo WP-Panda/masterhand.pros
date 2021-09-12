@@ -56,10 +56,8 @@ function wpp_send_quote_company() {
 		// обновление данных компании для статистики
 		foreach ( $company_ids as $one_company_id ) {
 			$sql = sprintf( "SELECT `email_count`,`users_mailer` FROM %s WHERE `id` = %s", $table_name, $one_company_id );
-			//wpp_dump($sql);
 			$results = $wpdb->get_results( $sql, ARRAY_A );
 
-			//wpp_dump($results);
 			$count  = empty( (int) $results[0]['email_count'] ) ? 1 : (int) $results[0]['email_count'] + 1;
 			$mailer = empty( $results[0]['users_mailer'] ) ? $user_ID : explode( ',', $results[0]['users_mailer'] );
 
