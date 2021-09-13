@@ -15,13 +15,20 @@ global $current_user, $user_ID, $post;
 <head>
 	<?php wp_head(); ?>
     <style>
+        .fre-submit-btn:hover[disabled="disabled"], .fre-submit-btn[disabled="disabled"], .fre-submit-btn:disabled, .fre-submit-btn:disabled:hover {
+            opacity: 0.5 !important;
+            background-color: #2c33c1 !important;
+            color: #fff !important;
+            cursor: not-allowed;
+        }
+
         .fre-notification .avatar {
             border-radius: 50%;
         }
 
         .fre-notification i {
-            font-size: 15px!important;
-            padding: 5px!important;
+            font-size: 15px !important;
+            padding: 5px !important;
             background: #dcdcdc;
             border-radius: 50%;
             color: #2c33c1;
@@ -34,11 +41,11 @@ global $current_user, $user_ID, $post;
             display: block;
             position: absolute;
             background: #f32727;
-            top: -8px!important;
-            right: -8px!important;
-            width: 23px!important;
-            height: 23px!important;
-            font-size: 15px!important;
+            top: -8px !important;
+            right: -8px !important;
+            width: 23px !important;
+            height: 23px !important;
+            font-size: 15px !important;
             line-height: 23px;
             text-align: center;
             color: #fff;
@@ -53,13 +60,13 @@ global $current_user, $user_ID, $post;
         }
 
         .fre-btn.fre-cancel-btn.wpp-clear-options {
-            color: #fff!important;
+            color: #fff !important;
             background-color: #878787 !important;
             border-color: #878787 !important;
         }
 
         .fre-btn.fre-cancel-btn.wpp-clear-options:hover {
-            background-color: #fff!important;
+            background-color: #fff !important;
             color: #878787 !important;
         }
     </style>
@@ -93,7 +100,6 @@ if ( is_author() ) { ?>
                             <a onclick="document.location.href='<?php echo et_get_page_link( 'list-notification' ); ?>'"
                                class="fre-notification notification-tablet">
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
-	                            <?php echo get_avatar( $user_ID ); ?>
 								<?php
 								if ( function_exists( 'fre_user_have_notify' ) ) {
 									$notify_number = fre_user_have_notify();
@@ -105,9 +111,10 @@ if ( is_author() ) { ?>
 						<?php } ?>
 
                         <span class="hamburger-menu">
-                                <div class="hamburger hamburger--elastic" tabindex="0"
-                                     aria-label="<?php _e( 'Menu', WPP_TEXT_DOMAIN ) ?>" role="button"
-                                     aria-controls="navigation">
+                             <?php echo get_avatar( $user_ID ); ?>
+                            <div class="hamburger hamburger--elastic" tabindex="0"
+                                 aria-label="<?php _e( 'Menu', WPP_TEXT_DOMAIN ) ?>" role="button"
+                                 aria-controls="navigation">
                                     <div class="hamburger-box">
                                         <div class="hamburger-inner"></div>
                                     </div>
@@ -140,3 +147,47 @@ if ( $user_ID ) {
 			'ID' => $user_ID
 		] ) . '</script>';
 }
+?>
+<script>
+    jQuery(function ($) {
+
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+        }
+
+        $form = $('#fre-post-project-2').find('form');
+
+        setTimeout(function () {
+            $flag = getQueryVariable($form.serialize())
+        }, 1000);
+
+        $(document).on('change', '.page-template-page-options-project [type="checkbox"]', function () {
+            if ($(this).attr('checked') === 'checked') {
+                $(this).parents('.fre-input-field').find('[type="number"]').attr('disabled', 'disabled')
+                $(this).parents('.fre-input-field').find('[type="hidden"]').attr('disabled', 'disabled')
+            } else {
+                $(this).parents('.fre-input-field').find('[type="number"]').removeAttr('disabled')
+                $(this).parents('.fre-input-field').find('[type="hidden"]').removeAttr('disabled')
+            }
+        })
+        $(document).on('change', '.page-template-page-options-project [type="checkbox"],.page-template-page-options-project [type="text"],.page-template-page-options-project [type="number"]', function () {
+            var $flag_2 = $form.serialize();
+            console.log($flag_2);
+            console.log($flag);
+            if ($flag_2 === $flag) {
+                console.log('===');
+                $('.wpp-submit').attr('disabled', 'disabled');
+            } else {
+                console.log('!===');
+                $('.wpp-submit').removeAttr('disabled');
+            }
+        });
+    })
+</script>
