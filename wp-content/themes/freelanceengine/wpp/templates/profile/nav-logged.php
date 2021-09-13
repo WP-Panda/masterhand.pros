@@ -11,7 +11,6 @@ extract($args);
 <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 fre-account-wrap dropdown">
     <a class="fre-notification dropdown-toggle" data-toggle="dropdown" href="">
         <i class="fa fa-bell-o" aria-hidden="true"></i>
-	    <?php echo get_avatar( $user_ID ); ?>
 		<?php $notify_number = 0;
 		if ( function_exists( 'fre_user_have_notify' ) ) {
 			$notify_number = fre_user_have_notify();
@@ -24,6 +23,7 @@ extract($args);
     <div class="fre-account dropdown">
         <div class="fre-account-info dropdown-toggle" data-toggle="dropdown">
                                 <span class="hamburger-menu">
+                                     <?php echo get_avatar( $user_ID ); ?>
                                     <div class="hamburger hamburger--elastic" tabindex="0" aria-label="Menu"
                                          role="button"
                                          aria-controls="navigation">

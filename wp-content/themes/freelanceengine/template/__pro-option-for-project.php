@@ -1,5 +1,5 @@
 <?php
-
+//remove_filter( 'ae_convert_project', 'unset_pay_options' );
 $id = isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 if ( $id ) {
 	$post = get_post( $id );
@@ -25,10 +25,8 @@ if ( $id ) {
 		echo '<script type="data/json" id="pro_func">' . json_encode( $pro_func ) . '</script>';
 
 		$opt = [];
-
 		foreach ( $option_for_project as $value ) {
 			$pay = get_post_meta( $_REQUEST['id'], "_{$value}", true );
-
 			if ( $post_convert->{$value} == 1 && 'paid' === $pay ) {
 				$opt[] = [
 					'name'    => $value,
@@ -36,28 +34,33 @@ if ( $id ) {
 				];
 			}
 		}
-
 		echo '<script type="data/json" id="opt_on">' . json_encode( $opt ) . '</script>';
 	}
 } else {
 	$max_days = WPP_FREE_PROJECT_DAY;
 }
 
-
 ?>
 <div id="pro_functions">
-    <input type='hidden' name='days_active_project' data-max_days=<?php echo $max_days; ?>>
+    <input type='hidden' name='days_active_project' data-max_days="<?php echo $max_days; ?>">
 	<?php
-	global $pro_em_functions;
-	foreach ( $pro_em_functions as $item ) {
 
+	global $pro_em_functions;
+
+	foreach ( $pro_em_functions as $item ) {
 		?>
         <div class="fre-input-field">
             <div class="checkline">
                 <input id="<?php echo $item['sku'] ?>"
                        name="<?php echo $item['sku'] ?>" type="checkbox"
-                       value="1">
-                <label for="<?php echo $item['sku'] ?>"><?php echo getNameByProperty( $item['sku'] ); ?></label>
+					<?php if ( $item['sku'] === 'create_project_for_all' ) {
+						echo 'value="' . WPP_FREE_PROJECT_DAY . '" checked="checked"';
+					} else {
+						echo 'value="1"';
+					} ?>>
+                <label for="<?php echo $item['sku'] ?>" <?php if ( $item['sku'] == 'create_project_for_all' ) {
+					echo 'class="active"';
+				} ?>><?php echo getNameByProperty( $item['sku'] ); ?></label>
                 <div class="<?php echo $item['sku'] ?> tooltip_wp">
                     <i>?</i>
                     <div class="tip"></div>

@@ -488,7 +488,8 @@ jQuery(function ($) {
                         var str = "<div><span><b>No change! Option active until " + item1.et_date + "</b></span></div>";
                         $(this).parent().after(str)
                         $(this).val('on')
-                        $(this).attr('disabled', 'disabled')
+                       // $(this)
+                        $(this).parents('.fre-input-field').find('input').attr('disabled', 'disabled')
                         $(this).parent().addClass('active')
                         key1++
                     }

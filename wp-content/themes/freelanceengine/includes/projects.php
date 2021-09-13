@@ -1002,7 +1002,7 @@ class Fre_ProjectAction extends AE_PostAction {
 		$result = $place->sync( $request );
 
 		//new2
-		$options     = [];
+		$options     = $free_options = [];
 		$user_status = get_user_pro_status( $result->post_author );
 
 
@@ -1019,8 +1019,13 @@ class Fre_ProjectAction extends AE_PostAction {
 
 					}
 
-					if ( $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
+					wpp_d_log( $result->$item[0] );
+					wpp_d_log( $item );
+					if ( (int)$result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
+						// тут временный фикс для бесплатных опций
+					} else if ( 1 === (int)$result->$item[0] || 'create_project_for_all' === $item ) {
+						$free_options[] = $item;
 					}
 
 				} else {
@@ -1037,6 +1042,9 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 		}
 
+		wpp_d_log( 'OPTIONS' );
+		wpp_d_log( $options );
+		wpp_d_log( $free_options );
 		if ( ! is_wp_error( $result ) ) {
 
 
@@ -1146,10 +1154,11 @@ class Fre_ProjectAction extends AE_PostAction {
 				update_post_meta( $result->ID, 'total_bids', 0 );
 			}
 
+
 			/**
 			 * Если опции пустые, то выходим тут.
 			 */
-			if ( empty( $options ) && $request['method'] == 'create' ) {
+			if ( empty( $options ) && ( 'create' === $request['method'] || 'update' === $request['method'] ) ) {
 				// disable plan, free to post place
 				$response = [
 					'success' => true,
@@ -1174,6 +1183,19 @@ class Fre_ProjectAction extends AE_PostAction {
 					$ae_mailing = AE_Mailing::get_instance();
 					$ae_mailing->new_post_alert( $result->ID );
 				}
+
+				#Вешается статус оплачено для бесплатных опций
+				if ( ! empty( $free_options ) ) {
+					foreach ( $free_options as $one_free ) {
+						update_post_meta( $result->ID, "_{$one_free}", 'paid' );
+					}
+
+					wp_update_post( [
+						'ID'          => $result->ID,
+						'post_status' => 'publish'
+					] );
+				}
+
 				// send response
 				wp_send_json( $response );
 			}

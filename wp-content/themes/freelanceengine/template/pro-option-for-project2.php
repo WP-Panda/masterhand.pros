@@ -28,6 +28,7 @@ if ( $id ) {
 
 		foreach ( $option_for_project as $value ) {
 			$pay = get_post_meta( $_REQUEST['id'], "_{$value}", true );
+
 			if ( $post_convert->{$value} == 1 && 'paid' === $pay ) {
 				$opt[] = [
 					'name'    => $value,

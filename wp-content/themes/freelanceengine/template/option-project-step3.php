@@ -77,11 +77,11 @@ $package_data = AE_Package::get_package_data( $user_ID );
 								if ( $number_of_post >= 1 ) {
 									// get package current order
 									//if ( ! empty( $orders[ $sku ] ) ) {
-									if ( ! empty( $orders[ 'sku' ] ) ) {
-										$order = get_post( $orders['sku' ] );
+									if ( ! empty( $orders['sku'] ) ) {
+										$order = get_post( $orders['sku'] );
 									}
-									if ( empty( $package_data[ 'sku' ] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
-										$package_data_sku = $package_data[ 'sku' ];
+									if ( empty( $package_data['sku'] ) && isset( $order->post_status ) && $order->post_status != 'draft' ) {
+										$package_data_sku = $package_data['sku'];
 										if ( isset( $package_data_sku['qty'] ) && $package_data_sku['qty'] > 0 ) {
 											/**
 											 * print text when company has job left in package
@@ -123,12 +123,13 @@ $package_data = AE_Package::get_package_data( $user_ID );
 				echo '</ul>';
 				?>
                 <div class="fre-post-project-btn">
-                    <button class="fre-btn fre-post-project-next-btn fre-submit-btn wpp-submit"  type="submit">
-                        <?php _e( "Save Project", ET_DOMAIN ); ?>
+                    <button class="fre-btn fre-post-project-next-btn fre-submit-btn wpp-submit" type="submit" disabled>
+						<?php _e( "Save Project", ET_DOMAIN ); ?>
                     </button>
-                    <span class="fre-btn fre-cancel-btn wpp-clear-options ">
-                        <?php _e( 'Cancel', WPP_TEXT_DOMAIN ); ?>
-                    </span>
+                    <a href="<?php echo get_home_url(); ?>/my-project/"
+                       class="fre-btn fre-cancel-btn wpp-clear-options ">
+						<?php _e( 'Cancel', WPP_TEXT_DOMAIN ); ?>
+                    </a>
                 </div>
 
             </div>

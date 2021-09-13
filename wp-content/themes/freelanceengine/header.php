@@ -22,11 +22,34 @@ global $current_user, $user_ID, $post;
             cursor: not-allowed;
         }
 
-        .fre-notification .avatar {
-            border-radius: 50%;
+
+        .hamburger-menu .avatar {
+            border-radius: 50% !important;
+            width: 60px !important;
+            left: 50% !important;
+            height: 60px !important;
+            top: -10px !important;
+            border: 2px solid #2430c6 !important;
+            z-index: 1 !important;
         }
 
-        .fre-notification i {
+        .hamburger-box {
+            height: 20px !important;
+            display: inline-block !important;
+            position: absolute !important;
+            top: 35px !important;
+            z-index: 55 !important;
+            background-color: #fff !important;
+            padding: 5px !important;
+            width: 24px !important;
+        }
+
+        .hamburger-inner {
+            left: 50% !important;
+            margin-left: -10px !important;
+        }
+
+       /* .fre-notification i {
             font-size: 15px !important;
             padding: 5px !important;
             background: #dcdcdc;
@@ -35,9 +58,9 @@ global $current_user, $user_ID, $post;
             position: absolute;
             left: 23px;
             top: -9px;
-        }
+        }*/
 
-        .fre-notification span {
+        /*.hamburger-menu span {
             display: block;
             position: absolute;
             background: #f32727;
@@ -53,7 +76,7 @@ global $current_user, $user_ID, $post;
             -moz-border-radius: 50%;
             border-radius: 50%;
         }
-
+*/
         .fre-btn.fre-post-project-next-btn.fre-submit-btn.wpp-submit {
             float: left;
             margin-right: 20px;
@@ -151,37 +174,16 @@ if ( $user_ID ) {
 <script>
     jQuery(function ($) {
 
-        function getQueryVariable(variable) {
-            var query = window.location.search.substring(1);
-            var vars = query.split('&');
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split('=');
-                if (decodeURIComponent(pair[0]) == variable) {
-                    return decodeURIComponent(pair[1]);
-                }
-            }
-        }
 
-        $form = $('#fre-post-project-2').find('form');
 
         setTimeout(function () {
-            $flag = getQueryVariable($form.serialize())
+             $_num = $('.page-template-page-options-project [type="checkbox"]:checked').length;
         }, 1000);
 
-        $(document).on('change', '.page-template-page-options-project [type="checkbox"]', function () {
-            if ($(this).attr('checked') === 'checked') {
-                $(this).parents('.fre-input-field').find('[type="number"]').attr('disabled', 'disabled')
-                $(this).parents('.fre-input-field').find('[type="hidden"]').attr('disabled', 'disabled')
-            } else {
-                $(this).parents('.fre-input-field').find('[type="number"]').removeAttr('disabled')
-                $(this).parents('.fre-input-field').find('[type="hidden"]').removeAttr('disabled')
-            }
-        })
+
         $(document).on('change', '.page-template-page-options-project [type="checkbox"],.page-template-page-options-project [type="text"],.page-template-page-options-project [type="number"]', function () {
-            var $flag_2 = $form.serialize();
-            console.log($flag_2);
-            console.log($flag);
-            if ($flag_2 === $flag) {
+            var $_num_2 = $('.page-template-page-options-project [type="checkbox"]:checked').length;
+            if ($_num_2 === $_num) {
                 console.log('===');
                 $('.wpp-submit').attr('disabled', 'disabled');
             } else {
