@@ -13,7 +13,7 @@
  */
 global $wp_query, $ae_post_factory, $post, $current_user, $wpp_fr;
 
-$ae_users    = AE_Users::get_instance();
+$ae_users = AE_Users::get_instance();
 
 $user_data   = $ae_users->convert( $current_user->data );
 $user_role   = ae_user_role( $wpp_fr->user );
@@ -143,6 +143,28 @@ $data_args = [
 	'experience'                => $experience
 ];
 
+
+$referal = get_referral( $user_ID );
+
+
+$referal = wp_list_pluck($referal, 'user_id');
+$referal[] = get_sponsor_id( $user_ID );
+$key = array_search($user_ID,$referal);
+if( isset($key)) {
+    unset($referal[$key]);
+}
+wpp_dump($referal);
+
+$employer_previous_project_query = new WP_Query( [
+	'post_status'      => [ 'complete', 'disputed' ],
+	'is_author'        => true,
+	'post_type'        => PROJECT,
+	'author'           => $user_ID,
+	'suppress_filters' => true,
+	'orderby'          => 'date',
+	'order'            => 'DESC'
+] );
+
 ?>
 
     <div class="fre-page-wrapper list-profile-wrapper" <?php echo $style ?? ''; ?>>
@@ -197,10 +219,10 @@ $data_args = [
                             </div>
                         </div>
 					<?php }
-                        wpp_get_template_part( 'wpp/templates/profile/tabs/tabs-head', $data_args );
-                        wpp_get_template_part( 'wpp/templates/profile/tabs/rating', $data_args );
-                        wpp_get_template_part( 'wpp/templates/profile/tabs/review', $data_args );
-                        wpp_get_template_part( 'wpp/templates/profile/tabs/setting', $data_args );
+					wpp_get_template_part( 'wpp/templates/profile/tabs/tabs-head', $data_args );
+					wpp_get_template_part( 'wpp/templates/profile/tabs/rating', $data_args );
+					wpp_get_template_part( 'wpp/templates/profile/tabs/review', $data_args );
+					wpp_get_template_part( 'wpp/templates/profile/tabs/setting', $data_args );
 					?>
                 </div>
 

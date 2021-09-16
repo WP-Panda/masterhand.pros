@@ -16,7 +16,6 @@
 global $wp_query, $ae_post_factory, $post;
 $post_object = $ae_post_factory->get( PROJECT );
 get_header();
-
 ?>
     <div class="fre-page-wrapper">
         <div class="fre-page-title">

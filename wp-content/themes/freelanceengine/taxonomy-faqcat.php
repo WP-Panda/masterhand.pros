@@ -11,7 +11,6 @@
  * @since      FreelanceEngine 1.0
  */
 
-
 $taxonomy_list = get_queried_object();
 $taxonomy      = $taxonomy_list->taxonomy;
 $terms_id      = $taxonomy_list->term_id;
@@ -36,15 +35,12 @@ if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
 	$previous = $_SERVER['HTTP_REFERER'];
 }
 
-
 $term        = get_term( $terms_id, $taxonomy );
 $termParents = ( $term->parent == 0 ) ? $term : get_term( $term->parent, $taxonomy );
 $terms2      = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0, 'parent' => $termParents->term_id ] );
-
 get_header();
 
 ?>
-
     <div class="container page-container">
         <!-- block control  -->
         <div class="row block-posts block-page">

@@ -6,6 +6,7 @@
  * @package  FreelanceEngine
  * @category Template
  */
+defined( 'ABSPATH' ) || exit;
 global $wp_query, $ae_post_factory, $post;
 $post_object = $ae_post_factory->get( 'testimonial' );
 $current     = $post_object->current_post;

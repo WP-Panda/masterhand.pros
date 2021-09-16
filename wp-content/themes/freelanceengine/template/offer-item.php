@@ -1,9 +1,9 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 global $wp_query, $ae_post_factory, $post;
 $post_object = $ae_post_factory->get( ADVERT );
 $current     = $post_object->current_post;
 ?>
-
 <li class="offer-item">
     <div class="project-content fre-freelancer-wrap">
         <a class="secondary-color"

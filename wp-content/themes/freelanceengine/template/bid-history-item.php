@@ -6,6 +6,7 @@
  * @since   1.0
  * @package FreelanceEngine
  */
+defined( 'ABSPATH' ) || exit;
 $author_id = get_query_var( 'author' );
 if ( is_page_template( 'page-profile.php' ) ) {
 	global $user_ID;

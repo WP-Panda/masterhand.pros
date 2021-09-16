@@ -1,5 +1,5 @@
-<!-- Step 1 -->
 <?php
+defined('ABSPATH') || exit;
 global $user_ID, $ae_post_factory;
 $ae_pack = $ae_post_factory->get( 'pack' );
 $packs   = $ae_pack->fetch( 'pack' );

@@ -3,7 +3,7 @@
  * the template for displaying the freelancer work (bid success a project)
  * # this template is loaded in template/bid-history-list.php
  */
-
+defined('ABSPATH') || exit;
 global $rwProject, $user_ID;
 
 $convert               = $project = $post_object->convert( $post );
@@ -11,8 +11,6 @@ $bid_accepted          = $convert->accepted;
 $review_for_freelancer = review_rating_init()->getReviewDoc( $bid_accepted );
 $review_for_employer   = review_rating_init()->getReviewDoc( $post->ID );
 $reply_to_review       = review_rating_init()->getReviewReply( $post->ID );
-
-var_dump( $review_for_freelancer, $review_for_employer, $reply_to_review );
 
 $review_created = strtotime( $review_for_freelancer['created'] );
 $reply_deadline = strtotime( '+20 day', $review_created );

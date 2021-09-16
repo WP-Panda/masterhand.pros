@@ -8,6 +8,6 @@
 if ( is_active_sidebar( 'sidebar-blog' ) ) : ?>
     <div class="primary-sidebar widget-area" role="complementary">
 		<?php dynamic_sidebar( 'sidebar-blog' ); ?>
-    </div><!-- #primary-sidebar -->
+    </div>
 <?php endif;
 

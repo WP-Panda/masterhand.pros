@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) || exit; ?>
 <div class="main_bl" style="background: url(<?php if ( get_theme_mod( "background_banner" ) ) {
 	echo get_theme_mod( "background_banner" );
 } else {

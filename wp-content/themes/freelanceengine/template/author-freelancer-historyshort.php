@@ -6,8 +6,7 @@
  * @since   v1.0
  * @package EngineTheme
  */
-?>
-<?php
+defined( 'ABSPATH' ) || exit;
 global $user_bids, $wp_query;
 $author_id = get_query_var( 'author' );
 $is_author = is_author();

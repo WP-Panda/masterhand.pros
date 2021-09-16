@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 global $user_ID, $ae_post_factory, $packs;
 $step         = 3;
 $class_active = '';

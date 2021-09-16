@@ -54,10 +54,6 @@ get_header();
     <div class="container page-container">
         <!-- block control  -->
         <div class="row block-posts block-page">
-			<?php
-
-
-			?>
             <div class="col-sm-4 col-md-3 col-xs-12 hidden-xs page-sidebar" id="right_content">
                 <div class="primary-sidebar help-sidebar widget-area" role="complementary">
                     <div class="fre-profile-box">
@@ -82,13 +78,10 @@ get_header();
                                                         <a href="<?php the_permalink() ?>"
                                                            class="help-sub__link"><?php the_title(); ?></a>
                                                     </li>
-
 													<?php
 												}
 											}
-
 											wp_reset_postdata();
-
 											?>
                                         </ul>
 									<?php } ?>
@@ -108,9 +101,6 @@ get_header();
                 </div><!-- end page content -->
             </div><!-- LEFT CONTENT -->
         </div>
-        <!--// block control  -->
     </div>
-
 <?php
 get_footer();
-?>

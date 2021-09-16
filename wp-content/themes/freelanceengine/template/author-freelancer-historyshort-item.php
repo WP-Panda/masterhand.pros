@@ -6,6 +6,7 @@
  * @since   1.0
  * @package FreelanceEngine
  */
+defined( 'ABSPATH' ) || exit;
 $author_id = get_query_var( 'author' );
 global $wp_query, $ae_post_factory, $post;
 

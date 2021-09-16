@@ -6,7 +6,7 @@
  * @since   v1.0
  * @package EngineTheme
  */
-
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <div class="profile-history bid-history">

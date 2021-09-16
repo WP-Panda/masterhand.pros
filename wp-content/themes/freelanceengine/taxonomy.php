@@ -16,7 +16,6 @@
 global $wp_query, $ae_post_factory, $post, $queried_object;
 $queried_object = $wp_query->queried_object;
 $taxonomy       = $queried_object->taxonomy;
-
 get_header();
 /**
  * get current tax support object type

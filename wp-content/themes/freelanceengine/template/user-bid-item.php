@@ -2,8 +2,9 @@
 /**
  * The template for displaying user bid item in page-profile.php
  */
-$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
+defined( 'ABSPATH' ) || exit;
 global $wp_query, $ae_post_factory, $post;
+$currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
 //get bid data
 $bid_object = $ae_post_factory->get( BID );
 $bid        = $bid_object->current_post;

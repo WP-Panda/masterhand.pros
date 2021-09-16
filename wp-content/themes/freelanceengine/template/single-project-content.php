@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 global $wp_query, $ae_post_factory, $post, $user_ID;
 $post_object = $ae_post_factory->get( PROJECT );
 $convert     = $project = $post_object->current_post;

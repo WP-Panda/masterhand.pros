@@ -2,6 +2,7 @@
 /**
  * this template for payment fail, you can overide this template by child theme
  */
+defined( 'ABSPATH' ) || exit;
 global $ad;
 ?>
     <div class="redirect-content">

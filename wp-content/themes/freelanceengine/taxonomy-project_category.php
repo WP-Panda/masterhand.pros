@@ -16,7 +16,6 @@
 global $wp_query, $ae_post_factory, $post;
 $post_object = $ae_post_factory->get( PROJECT );
 get_header();
-
 ?>
     <div class="fre-page-wrapper">
         <div class="fre-page-title">
@@ -52,9 +51,10 @@ get_header();
                                         <div class="col-lg-8 col-lg-pull-4 col-md-6 col-md-pull-6 col-sm-6 col-sm-pull-6 col-xs-12">
                                             <div class="fre-project-result">
 
-												<?php $found_posts = '<span class="found_post">' . $wp_query->found_posts . '</span>';
-												$plural            = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
-												$singular          = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts ); ?>
+												<?php
+												$found_posts = '<span class="found_post">' . $wp_query->found_posts . '</span>';
+												$plural      = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
+												$singular    = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts ); ?>
 
                                                 <span class="plural <?php if ( $wp_query->found_posts <= 1 ) {
 													echo 'hide';

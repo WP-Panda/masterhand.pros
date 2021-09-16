@@ -14,6 +14,28 @@ $convert     = $post_object->convert( $post );
 if ( have_posts() ) {
 	the_post();
 	global $post;
+
+
+	$bid_query = new WP_Query( [
+		'post_type'      => 'bid',
+		'post_parent'    => $post->ID,
+		'post_status'    => 'any',
+		'posts_per_page' => - 1,
+		//'paged' => get_query_var('paged') ?: 1
+	] );
+
+	if ( $bid_query->have_posts() ) {
+		$post_object = $ae_post_factory->get( BID );
+
+		while ( $bid_query->have_posts() ) {
+			$bid_query->the_post();
+
+			wpp_dump( $post->post_title );
+			wpp_dump( $post->post_status );
+		}
+	} else {
+	}
+	wp_reset_query();
 	?>
 
     <div class="fre-page-wrapper">

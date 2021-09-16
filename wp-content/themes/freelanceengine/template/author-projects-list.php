@@ -1,5 +1,6 @@
 <?php //global $wpdb, $wp_query, $ae_post_factory, $post, $current_user, $user_ID;
 //$user_role = ae_user_role($user_ID);
+defined('ABSPATH') || exit;
 define( 'NO_RESULT', __( '<span class="project-no-results">There are no activities yet.</span>', ET_DOMAIN ) );
 $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'icon' => '$' ] );
 ?>
@@ -301,7 +302,8 @@ $currency = ae_get_option( 'currency', [ 'align' => 'left', 'code' => 'USD', 'ic
                                 </div>
                             </div>
 						<?php } ?>
-                            <script type="data/json" id="previous_project_post_data"> <?php echo json_encode( $postdata ); ?></script>
+                            <script type="data/json"
+                                    id="previous_project_post_data"> <?php echo json_encode( $postdata ); ?></script>
 						<?php } else {
 							$no_result_previous = NO_RESULT;
 						}

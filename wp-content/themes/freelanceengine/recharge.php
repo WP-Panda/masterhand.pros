@@ -1,5 +1,4 @@
 <?php
-
 global $user_ID;
 get_header();
 ?>

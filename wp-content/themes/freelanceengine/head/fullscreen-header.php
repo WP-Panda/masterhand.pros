@@ -1,11 +1,6 @@
 <?php
 global $current_user;
-$class_trans = '';
-if ( is_page_template( 'page-home.php' ) ) {
-	$class_trans = 'class="trans-color"';
-} else {
-	$class_trans = 'class="not-page-home"';
-}
+$class_trans = is_page_template( 'page-home.php' ) ? 'class="trans-color"' : 'class="not-page-home"';
 ?>
 <header id="header-wrapper" data-size="big" <?php echo $class_trans; ?>>
     <div class="top-header">

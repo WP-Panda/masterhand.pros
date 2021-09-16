@@ -2,6 +2,7 @@
 /**
  * this template for payment success, you can overide this template by child theme
  */
+defined( 'ABSPATH' ) || exit;
 global $ad, $payment_return;
 extract( $payment_return );
 $payment_type = get_query_var( 'paymentType' );

@@ -13,22 +13,15 @@
  * @subpackage FreelanceEngine
  * @since      FreelanceEngine 1.0
  */
-
 $category = get_the_category();
 get_header();
 wp_enqueue_script( 'likesUsers' );
-
-
 ?>
-
     <div class="fre-page-wrapper">
         <div class="container">
-
 			<?php
 			wpp_get_template_part( 'wpp/templates/blog/blog-company-list' );
-
 			blog_breadcrumbs();
-
 			if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
                 <article>
                     <div class="block-posts" id="post-control">
@@ -74,7 +67,5 @@ wp_enqueue_script( 'likesUsers' );
 			] );
 			?>
         </div>
-
     </div>
-
 <?php get_footer();

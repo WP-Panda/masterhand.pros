@@ -5,6 +5,7 @@
  * @since  1.0
  * @author Dakachi
  */
+defined('ABSPATH') || exit;
 global $post;
 // $featured = get_post_meta( $post->ID, 'et_featured', true);
 if ( current_user_can( 'manage_options' ) ) {
@@ -25,8 +26,8 @@ if ( current_user_can( 'manage_options' ) ) {
                     </span>
 			<?php endif;
 		}
-	} else { ?>
-		<?php if ( $post->post_status == 'disputing' ) { ?>
+	} else {
+	    if ( $post->post_status == 'disputing' ) { ?>
             <a class="btn-excecute-project btn-arbitrate-project"
                href="#"><?php _e( "Arbitrate", ET_DOMAIN ); ?></a>
 		<?php } else { ?>

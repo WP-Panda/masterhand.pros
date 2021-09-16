@@ -3,12 +3,10 @@
  * Template part for user reviews history block
  * # This template is loaded in page-profile.php , author.php
  */
+defined('ABSPATH') || exit;
 global $user_data, $user_ID, $ae_post_factory;
 
 $reviewsUser = (int) $user_data->ID;
-//var_dump($user_ID);
-//var_dump($user_data);
-
 $objReviews = review_rating_init();
 //$objReviews->setLimitOffset(1);
 $onlyPublish  = ( $reviewsUser == $user_ID ) ? 0 : 1;
@@ -86,7 +84,7 @@ foreach ( $list_reviews as $key => $review ) {
 		<?php
 		if ( ! empty( $list_reviews ) ) {
 			?>
-            <ul class="list-work-history-profile author-project-list" data-user-id="<?= $reviewsUser; ?>"><?
+            <ul class="list-work-history-profile author-project-list" data-user-id="<?php echo $reviewsUser; ?>"><?
 			$vars['list_reviews'] = $list_reviews;
 			$vars['user_ID']      = $user_ID;
 			ReviewsRating\TplRender::getInstance()->display( 'reviewsProfile.tpl', $vars );
@@ -97,9 +95,9 @@ foreach ( $list_reviews as $key => $review ) {
 			?>
             <div class="fre-profile-box">
                 <div class="profile-no-results"
-                     style="padding: 0"><? _e( 'There are no activities yet.', ET_DOMAIN ); ?></div>
+                     style="padding: 0"><?php _e( 'There are no activities yet.', ET_DOMAIN ); ?></div>
             </div>
-		<? } ?>
-		<?= $page_links; ?>
+		<?php } ?>
+		<?php echo $page_links; ?>
     </div>
 </div>

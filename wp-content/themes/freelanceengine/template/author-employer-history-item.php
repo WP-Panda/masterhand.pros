@@ -6,14 +6,11 @@
  * @since   1.0
  * @package FreelanceEngine
  */
-global $user_ID;
-$author_id = get_query_var( 'author' );
-
-global $wp_query, $ae_post_factory, $post;
-
+defined('ABSPATH') || exit;
+global $user_ID, $wp_query, $ae_post_factory, $post;
+$author_id   = get_query_var( 'author' );
 $post_object = $ae_post_factory->get( PROJECT );
 $current     = $post_object->current_post;
-
 if ( ! $current ) {
 	return;
 }

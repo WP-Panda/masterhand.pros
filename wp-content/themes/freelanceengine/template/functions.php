@@ -1,5 +1,5 @@
 <?php
-
+defined( 'ABSPATH' ) || exit;
 if ( is_admin() ) {
 	/** Absolute path to the WordPress directory. */
 	if ( ! defined( 'ABSPATH' ) ) {

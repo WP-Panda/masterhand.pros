@@ -17,6 +17,7 @@
 global $wp_query, $ae_post_factory, $post, $user_ID;
 
 if ( ! empty( $wp_query->query_vars['project_category'] ) ) {
+
 	$term_category = $wp_query->query_vars['project_category'];
 
 	$term_category_id = get_term_by( 'slug', $term_category, 'project_category' );

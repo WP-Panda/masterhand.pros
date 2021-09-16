@@ -1,5 +1,5 @@
-<!-- Step 2 -->
 <?php
+defined( 'ABSPATH' ) || exit;
 global $user_ID;
 ?>
 <div id="fre-post-project-2 step-post" class="fre-post-project-step step-wrapper step-post">

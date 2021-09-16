@@ -6,6 +6,7 @@
  * @since   1.0
  * @package FreelanceEngine
  */
+defined('ABSPATH') || exit;
 global $wp_query;
 
 ?>
@@ -23,7 +24,11 @@ global $wp_query;
 		<?php
 		$is_author = is_author();
 		$author_id = get_query_var( 'author' );
-		$stat      = [ 'publish', 'complete', 'close' ];
+		$stat      = [
+			'publish',
+			'complete',
+			'close'
+		];
 
 		$query_args = [
 			'is_author'   => true,

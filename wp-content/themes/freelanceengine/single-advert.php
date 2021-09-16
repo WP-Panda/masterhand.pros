@@ -1,6 +1,5 @@
 <?php
 global $post, $user_ID, $authordata, $wpdb;
-
 get_header();
 ?>
     <div class="fre-page-wrapper">
