@@ -177,12 +177,12 @@ if ( $user_ID ) {
 
 
         setTimeout(function () {
-             $_num = $('.page-template-page-options-project [type="checkbox"]:checked').length;
+             $_num = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
         }, 1000);
 
 
-        $(document).on('change', '.page-template-page-options-project [type="checkbox"],.page-template-page-options-project [type="text"],.page-template-page-options-project [type="number"]', function () {
-            var $_num_2 = $('.page-template-page-options-project [type="checkbox"]:checked').length;
+        $(document).on('change', '.page-template-page-options-project #pro_functions [type="checkbox"],.page-template-page-options-project #pro_functions [type="text"],.page-template-page-options-project #pro_functions [type="number"]', function () {
+            var $_num_2 = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
             if ($_num_2 === $_num) {
                 console.log('===');
                 $('.wpp-submit').attr('disabled', 'disabled');
