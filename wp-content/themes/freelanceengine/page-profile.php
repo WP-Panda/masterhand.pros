@@ -143,28 +143,6 @@ $data_args = [
 	'experience'                => $experience
 ];
 
-
-$referal = get_referral( $user_ID );
-
-
-$referal = wp_list_pluck($referal, 'user_id');
-$referal[] = get_sponsor_id( $user_ID );
-$key = array_search($user_ID,$referal);
-if( isset($key)) {
-    unset($referal[$key]);
-}
-wpp_dump($referal);
-
-$employer_previous_project_query = new WP_Query( [
-	'post_status'      => [ 'complete', 'disputed' ],
-	'is_author'        => true,
-	'post_type'        => PROJECT,
-	'author'           => $user_ID,
-	'suppress_filters' => true,
-	'orderby'          => 'date',
-	'order'            => 'DESC'
-] );
-
 ?>
 
     <div class="fre-page-wrapper list-profile-wrapper" <?php echo $style ?? ''; ?>>

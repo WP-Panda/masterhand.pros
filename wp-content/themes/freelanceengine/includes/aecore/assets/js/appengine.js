@@ -2173,7 +2173,7 @@ _.templateSettings = {
             if (typeof itemID == 'undefined') {
                 itemID = $("#itemCheckoutID").val();
             }
-            console.log(paymentType);
+           // console.log(paymentType);
             if (typeof paymentType == 'undefined') {
                 paymentType = 'stripe';
             }
