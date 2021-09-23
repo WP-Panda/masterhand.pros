@@ -22,15 +22,15 @@ function wpp_is_endorse_allow( $user_ID ) {
 	}
 
 	#Запрет самолайка
-	if ( $user_ID === get_current_user_id() ) {
+	/*if ( $user_ID === get_current_user_id() ) {
 		return false;
-	}
+	}*/
 
 	#Получение рефералов
-	$referral = get_referral( $user_ID );
+	$refferal = get_referral( $user_ID );
 
-	if ( ! empty( $referal ) ) {
-		$refferal = wp_list_pluck( $referral, 'user_id' );
+	if ( ! empty( $refferal ) ) {
+		$refferal = wp_list_pluck( $refferal, 'user_id' );
 	} else {
 		$refferal = [];
 	}
@@ -47,59 +47,70 @@ function wpp_is_endorse_allow( $user_ID ) {
 		unset( $refferal[ $key ] );
 	}
 
-	#Выполненные проекты для заказчика
-	$project_query = new WP_Query( [
-		'post_status' => [ 'complete' ],
-		'post_type'   => PROJECT,
-		'author'      => $current_user,
-		'nopaging'    => true
-	] );
+	if ( ! wpp_fre_is_freelancer() ) {
 
-wpp_dump($referral);
-return false;
-	foreach ( $project_query as $one_pr ) {
-
-		$employer_ = new WP_Query( [
-			'post_type'   => 'bid',
-			'post_parent' => $one_pr->ID,
-			'post_status' => [ 'accept' ],
-			'nopaging'    => true
-		] );
-
-		while ( $employer_->have_posts() ) {
-			foreach ( $employer_ as $one_em ) {
-				$referal[] = $one_em->post_author;
-			}
-		}
-	}
-
-
-	#Выполненные проекты для специалиста
-	$bids_query = new WP_Query( [
-		'post_status' => [ 'accept' ],
-		'post_type'   => 'bid',
-		'author'      => $current_user,
-		'nopaging'    => true
-	] );
-
-
-	foreach ( $bids_query as $one_bid ) {
-
-		$bids = new WP_Query( [
-			'post_type'   => PROJECT,
-			'post_parent' => $one_bid->ID,
+		#Выполненные проекты для заказчика
+		$project_query = new WP_Query( [
 			'post_status' => [ 'complete' ],
+			'post_type'   => PROJECT,
+			'author'      => $current_user,
 			'nopaging'    => true
 		] );
 
-		foreach ( $bids as $one_bid ) {
-			$refferal[] = $one_bid->post_author;
-		}
-	}
 
+		foreach ( $project_query as $one_pr ) {
+
+			$employer_ = new WP_Query( [
+				'post_type'   => 'bid',
+				'post_parent' => $one_pr->ID,
+				'post_status' => [ 'accept' ],
+				'nopaging'    => true
+			] );
+
+
+			foreach ( $employer_ as $one_em ) {
+				if ( ! empty( $one_em->post_author ) ) {
+					$referal[] = $one_em->post_author;
+				}
+			}
+
+		}
+
+	} else {
+
+		#Выполненные проекты для специалиста
+		$bids_query = new WP_Query( [
+			'post_status' => [ 'accept' ],
+			'post_type'   => 'bid',
+			'author'      => $current_user,
+			'nopaging'    => true
+		] );
+
+		if ( $bids_query->have_posts() ) :
+			while ( $bids_query->have_posts() ) :
+				$bids_query->the_post();
+
+
+				$bids = new WP_Query( [
+					'post_type'   => PROJECT,
+					'post_parent' => $bids_query->post->ID,
+					'post_status' => [ 'complete' ],
+					'nopaging'    => true
+				] );
+
+				foreach ( $bids as $one_bid ) {
+					if ( ! empty( $one_bid->post_author ) ) {
+						$refferal[] = $one_bid->post_author;
+					}
+				}
+
+			endwhile;
+		endif;
+
+	}
 
 	array_unique( $refferal );
-
+	//wpp_dump( $refferal );
 	$in_allow = array_search( $current_user, $refferal );
 
 	if ( empty( $in_allow ) ) {
