@@ -31,10 +31,11 @@ extract( $args );
 
             <ul id="list_skills_user">
 				<?php
-
+		
 				$endorse_class = wpp_is_endorse_allow( $user_ID ) ? ' mode-endorse' : '';
 
 				$skills = WPP_Skills_User::getInstance()->get_user_skill_list();
+
 				if ( ! empty( $skills ) ) :
 					foreach ( $skills as $skill ) {
 

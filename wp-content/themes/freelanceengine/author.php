@@ -285,7 +285,6 @@ if ( $visualFlag ) {
 								?>
                                 <ul id="list_skills_user">
 									<?php
-
 									$endorse_class = wpp_is_endorse_allow( $author_id ) ? ' mode-endorse' : '';
 
 									$skills = WPP_Skills_User::getInstance()->get_user_skill_list( $author_id );

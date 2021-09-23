@@ -1019,8 +1019,6 @@ class Fre_ProjectAction extends AE_PostAction {
 
 					}
 
-					wpp_d_log( $result->$item[0] );
-					wpp_d_log( $item );
 					if ( (int)$result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
 						// тут временный фикс для бесплатных опций
@@ -1042,9 +1040,6 @@ class Fre_ProjectAction extends AE_PostAction {
 			}
 		}
 
-		wpp_d_log( 'OPTIONS' );
-		wpp_d_log( $options );
-		wpp_d_log( $free_options );
 		if ( ! is_wp_error( $result ) ) {
 
 

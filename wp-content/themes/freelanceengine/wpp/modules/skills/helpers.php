@@ -22,12 +22,12 @@ function wpp_is_endorse_allow( $user_ID ) {
 	}
 
 	#Запрет самолайка
-	/*if ( $user_ID === get_current_user_id() ) {
+	if ( $user_ID === get_current_user_id() ) {
 		return false;
-	}*/
+	}
 
 	#Получение рефералов
-	$refferal = get_referral( $user_ID );
+	$refferal = get_referral( $current_user );
 
 	if ( ! empty( $refferal ) ) {
 		$refferal = wp_list_pluck( $refferal, 'user_id' );
@@ -36,7 +36,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 	}
 
 	#Получение спонсоров
-	$sponsor = get_sponsor_id( $user_ID );
+	$sponsor = get_sponsor_id( $current_user );
 	if ( ! empty( $sponsor ) ) {
 		$referral[] = $sponsor;
 	}
@@ -46,6 +46,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 	if ( isset( $key ) ) {
 		unset( $refferal[ $key ] );
 	}
+
 
 	if ( ! wpp_fre_is_freelancer() ) {
 
@@ -57,26 +58,27 @@ function wpp_is_endorse_allow( $user_ID ) {
 			'nopaging'    => true
 		] );
 
+		if ( $project_query->have_posts() ) :
+			while ( $project_query->have_posts() ) :
+				$project_query->the_post();
 
-		foreach ( $project_query as $one_pr ) {
+				$employer_ = new WP_Query( [
+					'post_type'   => 'bid',
+					'post_parent' => $project_query->post->ID,
+					'post_status' => [ 'accept' ],
+					'nopaging'    => true,
+					'post_author' => $user_ID
+				] );
 
-			$employer_ = new WP_Query( [
-				'post_type'   => 'bid',
-				'post_parent' => $one_pr->ID,
-				'post_status' => [ 'accept' ],
-				'nopaging'    => true
-			] );
-
-
-			foreach ( $employer_ as $one_em ) {
-				if ( ! empty( $one_em->post_author ) ) {
-					$referal[] = $one_em->post_author;
+				if ( ! empty( $employer_->found_posts ) ) {
+					$refferal[] = $user_ID;
 				}
-			}
 
-		}
+			endwhile;
+		endif;
 
 	} else {
+
 
 		#Выполненные проекты для специалиста
 		$bids_query = new WP_Query( [
@@ -89,30 +91,14 @@ function wpp_is_endorse_allow( $user_ID ) {
 		if ( $bids_query->have_posts() ) :
 			while ( $bids_query->have_posts() ) :
 				$bids_query->the_post();
-
-
-				$bids = new WP_Query( [
-					'post_type'   => PROJECT,
-					'post_parent' => $bids_query->post->ID,
-					'post_status' => [ 'complete' ],
-					'nopaging'    => true
-				] );
-
-				foreach ( $bids as $one_bid ) {
-					if ( ! empty( $one_bid->post_author ) ) {
-						$refferal[] = $one_bid->post_author;
-					}
-				}
-
+				$post_b     = get_post( $bids_query->post->post_parent );
+				$refferal[] = $post_b->post_author;
 			endwhile;
 		endif;
 
 	}
 
-	array_unique( $refferal );
-	//wpp_dump( $refferal );
-	$in_allow = array_search( $current_user, $refferal );
-
+	$in_allow = array_search( $user_ID, $refferal );
 	if ( empty( $in_allow ) ) {
 		return false;
 	}

@@ -30,8 +30,6 @@ if ( have_posts() ) {
 		while ( $bid_query->have_posts() ) {
 			$bid_query->the_post();
 
-			wpp_dump( $post->post_title );
-			wpp_dump( $post->post_status );
 		}
 	} else {
 	}
