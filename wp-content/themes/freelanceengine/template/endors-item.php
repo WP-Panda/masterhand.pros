@@ -31,7 +31,7 @@ $count  = $query2->found_posts;
 			<?php if ( userHaveProStatus( $postid ) ) {
 				echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
 			} ?>
-            <span class="rating-new">+<?php getActivityRatingUser( $postid ) ?></span>
+            <span class="rating-new">+<?php echo getActivityRatingUser( $postid ) ?></span>
         </div>
         <div class="col-sm-3 col-xs-2 safe-deals">
 			<?php echo $count; ?>

@@ -21,6 +21,7 @@ class Wpp_Referal extends Wpp_Module_Base {
 	}
 
 	function gernerate_user_id() {
+
 		$current = $this->max_referal_code();
 
 		return empty( $current ) ? 1111 : (int) $current + 1;
@@ -34,10 +35,12 @@ class Wpp_Referal extends Wpp_Module_Base {
 	function max_referal_code() {
 		global $wpp_en;
 
-		$query = sprintf( "SELECT max(cast(meta_value as unsigned)) FROM %s WHERE meta_key='%s'", $wpp_en->prefix . 'usermeta', '_user_ids' );
+		$query = sprintf( "SELECT max(cast(referral_code as unsigned)) FROM %s", TABLE_REFERRAL );
 
 		$_ID = $wpp_en->db->get_var( $query );
 
+		wpp_d_log($query);
+		wpp_d_log($_ID);
 		return $_ID ?? false;
 
 	}
@@ -312,7 +315,8 @@ function get_list_referrals( $page = 1, $user = null ) {
 function set_referral_code_by_old_user( $user_id ) {
 	global $wpp_en;
 	if ( ! empty( $user_id ) ) {
-		$code   = (int) time() + $user_id;
+		$code_u = new Wpp_Referal();
+		$code   = $code_u->gernerate_user_id();
 		$insert = $wpp_en->db->insert( TABLE_REFERRAL, [
 			'user_id'          => $user_id,
 			'referral_code'    => $code,

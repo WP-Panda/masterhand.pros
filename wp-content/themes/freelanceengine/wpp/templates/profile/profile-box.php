@@ -7,8 +7,6 @@
 
 defined( 'ABSPATH' ) || exit;
 extract( $args );
-
-
 ?>
 
 <div class="fre-profile-box">
