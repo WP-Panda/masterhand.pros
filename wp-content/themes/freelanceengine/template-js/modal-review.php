@@ -49,16 +49,22 @@ global $post, $user_ID;
 
                     <div class="modal-endors">
 						<?php $bid_id_accepted = get_post_meta( $post->ID, 'accepted', true );
+
 						if ( get_post_meta( $bid_id_accepted, 'fre_bid_order' ) ) {
-							if ( ae_user_role( $user_ID ) == FREELANCER ) {
+							if ( ae_user_role( $user_ID ) === FREELANCER ) {
 								//renderSkillsInProject($post->post_author, $user_ID);
+								$author_id_S = $post->post_author;
 							} else {
 								$bid_author = get_post_field( 'post_author', $bid_id_accepted );
 								//renderSkillsInProject($bid_author, $user_ID);
+								$author_id_S = $bid_author;
 							}
-						} ?>
+						}
 
-						<?php if ( ae_user_role( $user_ID ) == FREELANCER ) { ?>
+						wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id_S ] );
+						?>
+
+						<?php if ( ae_user_role( $user_ID ) === FREELANCER ) { ?>
                             <p class="hide notify-form"><?php _e( "Please give endorsement to the Client’s skills", ET_DOMAIN ); ?></p>
 						<?php } else { ?>
                             <p class="hide notify-form"><?php _e( "Please give endorsement to the Professional’s skills", ET_DOMAIN ); ?></p>

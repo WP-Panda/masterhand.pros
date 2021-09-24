@@ -283,31 +283,7 @@ if ( $visualFlag ) {
 									}
 									renderSkillsInProfile( $author_id, $modeEndorse, $user_ID );*/
 								?>
-                                <ul id="list_skills_user">
-									<?php
-									/**
-									 * Для ускорения вынес из цикла
-									 */
-									$allow         = wpp_is_endorse_allow( $author_id );
-									$endorse_class = ! empty( $allow ) ? ' mode-endorse' : '';
-
-									$skills = WPP_Skills_User::getInstance()->get_user_skill_list( $author_id );
-									if ( ! empty( $skills ) ) :
-										foreach ( $skills as $skill ) {
-											$endorsed_data = ! empty( $allow ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id, $skill['id'] ) : '';
-											$endorsed      = wpp_is_endorsed( $author_id, $skill['id'] ) ? ' endorsed' : '';
-											printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>',
-                                                $endorse_class,
-                                                $endorsed,
-                                                $endorsed_data,
-                                                $skill['title'],
-                                                __( 'counts of endorsement', WPP_TEXT_DOMAIN ),
-                                                $skill['count']
-                                            );
-										}
-									endif;
-									?>
-                                </ul>
+                                <?php 	wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id ] );?>
                             </div>
                             <!-- пока нет наград - скрываем НЕ УДАЛЯТЬ!!!!!!!!!!!!
                         <div class="col-sm-6 col-xs-12 award-list">
