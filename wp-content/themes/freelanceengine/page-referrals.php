@@ -236,7 +236,7 @@ $path .= $_SERVER['HTTP_HOST'];
                     </div>
 				<?php } ?>
 
-              <?php wpp_get_template_part('wpp/templates/profile/refferal-list'); ?>
+				<?php wpp_get_template_part( 'wpp/templates/profile/refferal-list' ); ?>
             </div>
         </div>
     </div>
