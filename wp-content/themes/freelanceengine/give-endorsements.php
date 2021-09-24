@@ -182,7 +182,6 @@ $sponsor_name    = get_sponsor( $user_ID );
 							<?php
 
 
-
 							//  $prof_ids = implode( ',', $professionals );
 							$query = new WP_Query( [
 								'post_type'        => PROFILE,
@@ -213,7 +212,7 @@ $sponsor_name    = get_sponsor( $user_ID );
 					} else {
 						_e( 'No SafePay Deals yet', ET_DOMAIN );
 					}
-					echo
+					wpp_get_template_part( 'wpp/templates/profile/refferal-list', [ 'not_load' => true ] );
 					wpp_get_template_part( 'template/wpp/referer-list', [ 'user_ID' => $user_ID ] )
 					?>
                 </div>
@@ -228,11 +227,13 @@ $sponsor_name    = get_sponsor( $user_ID );
         <?php echo json_encode( $profile ) ?>
 
 
+
     </script>
 <?php }
 if ( ! empty( $current_skills ) ) { ?>
     <script type="data/json" id="current_skills">
         <?php echo json_encode( $current_skills ) ?>
+
 
 
     </script>
