@@ -26,6 +26,7 @@ if ( ! defined( 'WPP_THEME_DIR' ) ) {
 
 $array = [
 	//'s',
+	'todo',
 	'WppFr',
 	'projects',
 	'WppFr_Assets',

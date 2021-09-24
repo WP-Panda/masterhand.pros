@@ -51,27 +51,6 @@
 		return $template;
 	}
 
-	;
-
-
-	function give_endorsements_template_include( $template ) {
-		if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/give-endorsements' ) !== false ) {
-			add_filter( 'wp_title', function() {
-				return __( 'Give Endorsements' ) . ' | ';
-			}, 1 );
-			status_header( 200 );
-
-			$new_template = locate_template( [ 'give-endorsements.php' ] );
-			if ( ! empty( $new_template ) ) {
-				return $new_template;
-
-			}
-		}
-
-		return $template;
-	}
-
-	;
 
 	require_once get_template_directory() .  '/wpp/vendor/autoload.php';
 	require_once __DIR__ . '/classes/AutoloadReviews.php';

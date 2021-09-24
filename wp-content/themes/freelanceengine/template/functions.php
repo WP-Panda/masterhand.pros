@@ -1429,7 +1429,7 @@ add_filter( 'wp_link_query_args', 'fre_wp_link_query_args' );
 function posts_groupby_profile( $groupby, $query ) {
 	global $wpdb;
 	$query_vars = ( isset( $query->query_vars['post_type'] ) ) ? $query->query_vars : '';
-	if ( isset( $query_vars['post_type'] ) && $query_vars['post_type'] == 'fre_profile' ) {
+	if ( isset( $query_vars['post_type'] ) && $query_vars['post_type'] === 'fre_profile' ) {
 		$groupby = "{$wpdb->posts}.post_author";
 	}
 

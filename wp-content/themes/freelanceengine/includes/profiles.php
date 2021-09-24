@@ -223,7 +223,10 @@ class Fre_ProfileAction extends AE_PostAction {
 		 */
 		$this->add_ajax( 'ae-profile-sync', 'sync_post' );
 		//        $this->add_ajax('ae-sync-user', 'sync');
-		$this->add_action( 'pre_get_posts', 'pre_get_profile' );
+
+
+
+
 		/**
 		 * hook convert a profile to add custom meta data
 		 *
@@ -805,55 +808,7 @@ class Fre_ProfileAction extends AE_PostAction {
 		return apply_filters( 'fre_profile_query_args', $query_args, $query );
 	}
 
-	/**
-	 * filter pre get profile
-	 *
-	 * @param $query
-	 *
-	 * @return
-	 * @package FreelanceEngine
-	 */
-	function pre_get_profile( $query ) {
-		if ( ! wp_doing_ajax() && is_admin() ) {
-			return $query;
-		}
-		if ( isset( $query->query['post_type'] ) && $query->query['post_type'] === PROFILE ) {
-			if ( isset( $_REQUEST['query']['hour_rate'] ) && ! empty( $_REQUEST['query']['hour_rate'] ) ) {
-				$hour_rate                       = $_REQUEST['query']['hour_rate'];
-				$hour_rate                       = explode( ",", $hour_rate );
-				$query->query_vars['meta_query'] = [
-					[
-						'key'     => 'hour_rate',
-						'value'   => [ (int) $hour_rate[0], (int) $hour_rate[1] ],
-						'type'    => 'numeric',
-						'compare' => 'BETWEEN'
-					]
-				];
-			} else {
-				// Query Hour_rate default
-				$query->query_vars['meta_query'][] = [
-					'key' => 'hour_rate'
-				];
-			}
 
-			if ( ! current_user_can( 'manage_options' ) ) {
-				/*
-			 * fre/emp/visitor only see profile is available for hire.
-			 */
-				$query->query_vars['meta_query'][] = [
-					'key'     => 'user_available',
-					'value'   => 'on',
-					'compare' => '='
-				];
-			}
-		}
-		// Search default
-		if ( $query->is_search() && is_search() && ! is_admin() ) {
-			$query->set( 'post_type', [ 'post', 'page' ] );
-		} // end if
-
-		return $query;
-	}
 
 	function render_template_js_company() {
 		get_template_part( 'template-js/company', 'title' );
@@ -899,7 +854,6 @@ class Fre_ProfileAction extends AE_PostAction {
 
 		#social Fields
 		$soc_data = apply_filters( 'wpp_social_fields_array', [] );
-
 
 
 		foreach ( $soc_data as $one_field ) {
@@ -1077,7 +1031,6 @@ class Fre_ProfileAction extends AE_PostAction {
 		//new end
 
 		do_action( 'activityRating_oneFieldProfile' );
-
 
 
 		// sync profile
@@ -1377,13 +1330,12 @@ class Fre_PortfolioAction extends AE_PostAction {
 
 		global $ae_post_factory, $user_ID, $current_user, $post;
 
-		wp_send_json_error(['ssssssssss']);
+		wp_send_json_error( [ 'ssssssssss' ] );
 
 		$request   = $_REQUEST;
 		$ae_users  = new AE_Users();
 		$user_data = $ae_users->convert( $current_user );
 		$portfolio = $ae_post_factory->get( $this->post_type );
-
 
 
 		// set status for profile
@@ -1403,9 +1355,6 @@ class Fre_PortfolioAction extends AE_PostAction {
 				'msg'     => __( 'Please upload images in your portfolio', ET_DOMAIN )
 			] );
 		}
-
-
-
 
 
 		// sync place

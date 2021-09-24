@@ -38,7 +38,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 	#Получение спонсоров
 	$sponsor = get_sponsor_id( $current_user );
 	if ( ! empty( $sponsor ) ) {
-		$referral[] = $sponsor;
+		$refferal[] = $sponsor;
 	}
 
 	#Удаление самого себя
@@ -46,7 +46,6 @@ function wpp_is_endorse_allow( $user_ID ) {
 	if ( isset( $key ) ) {
 		unset( $refferal[ $key ] );
 	}
-
 
 	if ( ! wpp_fre_is_freelancer() ) {
 
@@ -65,10 +64,16 @@ function wpp_is_endorse_allow( $user_ID ) {
 				$employer_ = new WP_Query( [
 					'post_type'   => 'bid',
 					'post_parent' => $project_query->post->ID,
-					'post_status' => [ 'accept' ],
+					'post_status' => [ 'accept', 'complete' ],
 					'nopaging'    => true,
 					'post_author' => $user_ID
 				] );
+				if ( $employer_->have_posts() ) :
+					while ( $employer_->have_posts() ) :
+						$employer_->the_post();
+					endwhile;
+				endif;
+
 
 				if ( ! empty( $employer_->found_posts ) ) {
 					$refferal[] = $user_ID;
@@ -82,12 +87,13 @@ function wpp_is_endorse_allow( $user_ID ) {
 
 		#Выполненные проекты для специалиста
 		$bids_query = new WP_Query( [
-			'post_status' => [ 'accept' ],
+			'post_status' => [ 'accept', 'complete' ],
 			'post_type'   => 'bid',
 			'author'      => $current_user,
 			'nopaging'    => true
 		] );
 
+	//	wpp_dump( $bids_query->found_posts );
 		if ( $bids_query->have_posts() ) :
 			while ( $bids_query->have_posts() ) :
 				$bids_query->the_post();
@@ -97,8 +103,9 @@ function wpp_is_endorse_allow( $user_ID ) {
 		endif;
 
 	}
-
+	$refferal = array_unique($refferal);
 	$in_allow = array_search( $user_ID, $refferal );
+	//wpp_dump($refferal);
 	if ( empty( $in_allow ) ) {
 		return false;
 	}

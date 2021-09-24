@@ -31,15 +31,18 @@ extract( $args );
 
             <ul id="list_skills_user">
 				<?php
-		
-				$endorse_class = wpp_is_endorse_allow( $user_ID ) ? ' mode-endorse' : '';
+				/**
+				 * Для ускорения вынес из цикла
+				 */
+				$allow         = wpp_is_endorse_allow( $user_ID );
+				$endorse_class = ! empty( $allow ) ? ' mode-endorse' : '';
 
 				$skills = WPP_Skills_User::getInstance()->get_user_skill_list();
 
 				if ( ! empty( $skills ) ) :
 					foreach ( $skills as $skill ) {
 
-						$endorsed_data = wpp_is_endorse_allow( $user_ID ) ? sprintf( ' data-uid="%s" data-skill="%s"', $user_ID, $skill['id'] ) : '';
+						$endorsed_data = ! empty( $allow ) ? sprintf( ' data-uid="%s" data-skill="%s"', $user_ID, $skill['id'] ) : '';
 						$endorsed      = wpp_is_endorsed( $user_ID, $skill['id'] ) ? ' endorsed' : '';
 
 

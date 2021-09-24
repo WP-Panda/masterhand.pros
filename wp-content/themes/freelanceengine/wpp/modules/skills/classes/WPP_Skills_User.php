@@ -59,6 +59,7 @@ class WPP_Skills_User extends WPP_Skills {
 			foreach ( $skills_list as $skill ) {
 
 				$skill_data = WPP_Skills_Actions::getInstance()->get_skill( $skill, 'id' );
+				//wpp_dump($skill_data);
 
 				$list[ $skill_data->id ] = [
 					'title' => $skill_data->title,
@@ -99,8 +100,12 @@ class WPP_Skills_User extends WPP_Skills {
 		$user_id = $user_id ?? $this->user;
 		if ( is_page_template( 'page-profile.php' ) ) {
 			$count = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
+		} else if(is_author()) {
+			$author = get_queried_object();
+			$count = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $author->ID ) );
 		} else {
 			$count = $this->db->get_var( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `liker_id` = '%s'", $this->lk_tbl, $skill_id, $user_id ) );
+
 		}
 
 		return $count;

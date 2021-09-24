@@ -22,7 +22,6 @@ global $current_user, $user_ID, $post;
             cursor: not-allowed;
         }
 
-
         .hamburger-menu .avatar {
             border-radius: 50% !important;
             width: 60px !important;
@@ -49,16 +48,16 @@ global $current_user, $user_ID, $post;
             margin-left: -10px !important;
         }
 
-       /* .fre-notification i {
-            font-size: 15px !important;
-            padding: 5px !important;
-            background: #dcdcdc;
-            border-radius: 50%;
-            color: #2c33c1;
-            position: absolute;
-            left: 23px;
-            top: -9px;
-        }*/
+        /* .fre-notification i {
+			 font-size: 15px !important;
+			 padding: 5px !important;
+			 background: #dcdcdc;
+			 border-radius: 50%;
+			 color: #2c33c1;
+			 position: absolute;
+			 left: 23px;
+			 top: -9px;
+		 }*/
 
         /*.hamburger-menu span {
             display: block;
@@ -111,6 +110,11 @@ if ( is_author() ) { ?>
                     <a class="col-lg-12 col-md-3 col-sm-4 col-xs-7 logo-head" href="/">
 						<?php fre_logo( 'site_logo' ) ?>
                         <span>Low-Cost Service Deals</span>
+						<?php if ( function_exists( 'is_wpp_panda' ) ) :
+							if ( is_wpp_panda() ) {
+								echo( $user_ID );
+							}
+						endif; ?>
                     </a>
 
                     <div class="col-xs-5 col-sm-8 col-md-9 hidden-lg fre-hamburger dropdown">
@@ -175,9 +179,8 @@ if ( $user_ID ) {
     jQuery(function ($) {
 
 
-
         setTimeout(function () {
-             $_num = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
+            $_num = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
         }, 1000);
 
 

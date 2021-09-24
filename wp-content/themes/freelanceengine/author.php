@@ -285,17 +285,25 @@ if ( $visualFlag ) {
 								?>
                                 <ul id="list_skills_user">
 									<?php
-									$endorse_class = wpp_is_endorse_allow( $author_id ) ? ' mode-endorse' : '';
+									/**
+									 * Для ускорения вынес из цикла
+									 */
+									$allow         = wpp_is_endorse_allow( $author_id );
+									$endorse_class = ! empty( $allow ) ? ' mode-endorse' : '';
 
 									$skills = WPP_Skills_User::getInstance()->get_user_skill_list( $author_id );
 									if ( ! empty( $skills ) ) :
 										foreach ( $skills as $skill ) {
-
-											$endorsed_data = wpp_is_endorse_allow( $author_id ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id, $skill['id'] ) : '';
+											$endorsed_data = ! empty( $allow ) ? sprintf( ' data-uid="%s" data-skill="%s"', $author_id, $skill['id'] ) : '';
 											$endorsed      = wpp_is_endorsed( $author_id, $skill['id'] ) ? ' endorsed' : '';
-
-
-											printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>', $endorse_class, $endorsed, $endorsed_data, $skill['title'], __( 'counts of endorsement', WPP_TEXT_DOMAIN ), $skill['count'] );
+											printf( '<li class="item-list-skills"><span class="item-endorse-skill%s%s"%s>%s</span><span class="endorse-skill" title="%s">%s</span></li>',
+                                                $endorse_class,
+                                                $endorsed,
+                                                $endorsed_data,
+                                                $skill['title'],
+                                                __( 'counts of endorsement', WPP_TEXT_DOMAIN ),
+                                                $skill['count']
+                                            );
 										}
 									endif;
 									?>
@@ -617,6 +625,11 @@ if ( $visualFlag ) {
 
 
 
+
+
+
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -695,6 +708,11 @@ if ( $visualFlag ) {
 
 
 
+
+
+
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -761,6 +779,11 @@ if ( $visualFlag ) {
 									<?php } ?>
                                         <script type="data/json" id="previous_project_post_data">
                                         <?php echo json_encode( $postdata ); ?>
+
+
+
+
+
 
 
 
