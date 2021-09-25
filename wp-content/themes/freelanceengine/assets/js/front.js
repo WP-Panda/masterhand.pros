@@ -806,16 +806,16 @@
          * *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
          */
 //        if ($('#ae-bid-loop').length > 0) {
- //           /* bid item in single project*/
- //           SingleBidItem = Views.PostItem.extend({
- //               tagName: 'div',
- //               className: 'row list-bidding ',
- //               template: _.template($('#ae-bid-loop').html()),
+        //           /* bid item in single project*/
+        //           SingleBidItem = Views.PostItem.extend({
+        //               tagName: 'div',
+        //               className: 'row list-bidding ',
+        //               template: _.template($('#ae-bid-loop').html()),
 //                onItemBeforeRender: function () {
- //                   //before render item
+        //                   //before render item
 //                },
- //               onItemRendered: function () {
- //                   //after render view
+        //               onItemRendered: function () {
+        //                   //after render view
 //                    var view = this;
 //                    view.$('.rate-it').raty({
 //                        readOnly: true,
@@ -2109,8 +2109,8 @@
                 }
 
                 // step post
-               if (select == 'step-post') {
-               // if (select == 'step-post') {
+                if (select == 'step-post') {
+                    // if (select == 'step-post') {
                     if ($('#step-auth').length > 0 && this.finishStep.length < 2) return;
                     if ($('#step-auth').length == 0 && this.finishStep.length < 1) return;
                 }

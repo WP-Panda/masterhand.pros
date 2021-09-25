@@ -624,10 +624,6 @@ class Fre_ProjectAction extends AE_PostAction {
 					$query_args['order']   = 'DESC';
 					break;
 				default:
-					// add_filter('posts_orderby', array(
-					//     'ET_FreelanceEngine',
-					//     'order_by_post_pending'
-					// ) , 2, 12);
 					break;
 			}
 		}
@@ -1019,10 +1015,10 @@ class Fre_ProjectAction extends AE_PostAction {
 
 					}
 
-					if ( (int)$result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
+					if ( (int) $result->$item[0] !== 1 && is_numeric( getValueByProperty( $user_status, $item ) ) ) {
 						$options[ $item ] = 1;
 						// тут временный фикс для бесплатных опций
-					} else if ( 1 === (int)$result->$item[0] || 'create_project_for_all' === $item ) {
+					} else if ( 1 === (int) $result->$item[0] || 'create_project_for_all' === $item ) {
 						$free_options[] = $item;
 					}
 

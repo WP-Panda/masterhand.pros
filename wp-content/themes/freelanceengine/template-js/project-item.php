@@ -4,8 +4,7 @@
 
         <a href="{{= permalink }}" class="project-name" title="{{= post_title }}">{{= post_title }}
             <!--new2-->
-            {{= str_create_project_for_all }} {{= str_priority_in_list_project }} {{= str_urgent_project }} {{=
-            str_hidden_project }}
+            {{= str_create_project_for_all }} {{= str_priority_in_list_project }} {{= str_urgent_project }} {{= str_hidden_project }}
             <!--new2-->
         </a>
 

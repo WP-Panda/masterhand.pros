@@ -667,8 +667,6 @@ class AE_Posts {
 		}
 
 
-
-
 		unset( $result['post_password'] );
 		$result['id']                 = $post['ID'];
 		$result['permalink']          = get_permalink( $result['ID'] );
@@ -1028,6 +1026,7 @@ class AE_PostAction extends AE_Base {
 	 * fetch data
 	 */
 	function fetch_post() {
+
 		global $ae_post_factory, $wpdb;
 		$post = $ae_post_factory->get( $this->post_type );
 
@@ -1037,11 +1036,12 @@ class AE_PostAction extends AE_Base {
 		$thumb = isset( $_REQUEST['thumbnail'] ) ? $_REQUEST['thumbnail'] : 'thumbnail';
 
 		$query_args  = [
-			'paged'       => $page,
+			'paged'       => $page ?? 1,
 			'thumbnail'   => $thumb,
 			'post_status' => 'publish',
 			'post_type'   => $this->post_type
 		];
+
 		$query_args2 = [
 			'posts_per_page' => - 1,
 			'post_status'    => 'publish',
@@ -1052,6 +1052,7 @@ class AE_PostAction extends AE_Base {
 		if ( isset( $query['showposts'] ) && $query['showposts'] ) {
 			$query_args['showposts'] = $query['showposts'];
 		}
+
 		if ( isset( $query['posts_per_page'] ) && $query['posts_per_page'] ) {
 			$query_args['posts_per_page'] = $query['posts_per_page'];
 		}
@@ -1071,6 +1072,7 @@ class AE_PostAction extends AE_Base {
 
 		$query_args  = apply_filters( 'ae_fetch_' . $this->post_type . '_args', $query_args, $this );
 		$query_args2 = apply_filters( 'ae_fetch_fre_profiles_args', $query_args2, $this );
+
 		if ( isset( $query['category_name'] ) && $query['category_name'] ) {
 			$query_args['category_name'] = $query['category_name'];
 			$query_args2['cat']          = $query['cat'];
@@ -1147,7 +1149,8 @@ class AE_PostAction extends AE_Base {
 				INNER JOIN `$wpdb->term_taxonomy` as `tax` ON `term`.`term_id` = `tax`.`term_id`
 				WHERE `meta`.`meta_key` = 'country' AND `meta`.`meta_value` = '{$query_args['country']}' AND `tax`.`taxonomy` = 'profile_category' AND `term`.`name` LIKE '%{$s}%'
 			", ARRAY_A);*/
-			if ( $this->post_type == "fre_profile" ) {
+
+			if ( $this->post_type === "fre_profile" ) {
 				$sql_query = "
 					SELECT DISTINCT `post`.`ID` FROM `$wpdb->posts` as `post`
 					INNER JOIN `$wpdb->postmeta` as `meta` ON `meta`.`post_id` = `post`.`ID`
@@ -1221,6 +1224,7 @@ class AE_PostAction extends AE_Base {
 
 			$query_args2['s'] = $query['s'];
 		}
+
 		$page = $_REQUEST['page'];
 		/**
 		 * fetch data

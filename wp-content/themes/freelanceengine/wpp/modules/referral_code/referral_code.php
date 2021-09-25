@@ -39,8 +39,9 @@ class Wpp_Referal extends Wpp_Module_Base {
 
 		$_ID = $wpp_en->db->get_var( $query );
 
-		wpp_d_log($query);
-		wpp_d_log($_ID);
+		wpp_d_log( $query );
+		wpp_d_log( $_ID );
+
 		return $_ID ?? false;
 
 	}

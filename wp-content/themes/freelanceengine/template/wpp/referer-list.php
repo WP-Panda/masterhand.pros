@@ -7,7 +7,6 @@
 
 defined( 'ABSPATH' ) || exit;
 extract( $args );
-
 $metas = get_sponsor_id( $user_ID );
 
 if ( ! empty( $metas ) ) : ?>

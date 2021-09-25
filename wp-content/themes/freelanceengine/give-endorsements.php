@@ -228,11 +228,13 @@ $sponsor_name    = get_sponsor( $user_ID );
 
 
 
+
     </script>
 <?php }
 if ( ! empty( $current_skills ) ) { ?>
     <script type="data/json" id="current_skills">
         <?php echo json_encode( $current_skills ) ?>
+
 
 
 
