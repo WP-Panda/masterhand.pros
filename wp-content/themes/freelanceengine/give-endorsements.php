@@ -1,16 +1,5 @@
 <?php
 /**
- * Template part for user bid history block
- * # This template is loaded in page-profile.php , author.php
- *
- * @since   v1.0
- * @package EngineTheme
- */
-
-?>
-
-<?php
-/**
  * Template Name: Member Profile Page
  * The template for displaying all pages
  *
@@ -179,11 +168,7 @@ $sponsor_name    = get_sponsor( $user_ID );
                         </div>
 
                         <div class="fre-profile-box page-referrals_list">
-							<?php
-
-
-							//  $prof_ids = implode( ',', $professionals );
-							$query = new WP_Query( [
+							<?php $query = new WP_Query( [
 								'post_type'        => PROFILE,
 								'author__in'       => $professionals,
 								'posts_per_page'   => 3,
@@ -196,16 +181,20 @@ $sponsor_name    = get_sponsor( $user_ID );
 								$query->the_post();
 								get_template_part( 'template/endors', 'item' );
 							}
+
+							/**
+							 * @todo Скрипт подозительно стремный, надо будет убрать
+							 */
 							if ( $query->max_num_pages > 1 ) { ?>
                                 <script>
-                                    var ajaxurl = '<?php echo site_url() ?>/wp-admin/admin-ajax.php';
-                                    var true_posts = '<?php echo serialize( $query->query_vars ); ?>';
-                                    var current_page = <?php echo ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>;
-                                    var max_pages = '<?php echo $query->max_num_pages; ?>';
-
+                                    var ajaxurl = '<?php echo site_url() ?>/wp-admin/admin-ajax.php',
+                                        true_posts = '<?php echo serialize( $query->query_vars ); ?>',
+                                        current_page = <?php echo ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>,
+                                        max_pages = '<?php echo $query->max_num_pages; ?>',
                                 </script>
-                                <a id="true_loadmore"
-                                   class="fre-submit-btn endors_loadmore"><?php echo __( 'Show more', ET_DOMAIN ); ?></a>
+                                <a id="true_loadmore" class="fre-submit-btn endors_loadmore">
+									<?php echo __( 'Show more', ET_DOMAIN ); ?>
+                                </a>
 							<?php } ?>
                         </div>
 						<?php wp_reset_query();
@@ -220,24 +209,10 @@ $sponsor_name    = get_sponsor( $user_ID );
         </div>
     </div>
 
-
-    <!-- CURRENT PROFILE -->
-<?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) { ?>
-    <script type="data/json" id="current_profile">
-        <?php echo json_encode( $profile ) ?>
-
-
-
-
-    </script>
-<?php }
-if ( ! empty( $current_skills ) ) { ?>
-    <script type="data/json" id="current_skills">
-        <?php echo json_encode( $current_skills ) ?>
-
-
-
-
-    </script>
-<?php }
+<?php if ( $profile_id && $profile_post && ! is_wp_error( $profile_post ) ) {
+	printf( '<script type="data/json" id="current_profile">%s</script>', json_encode( $profile ) );
+}
+if ( ! empty( $current_skills ) ) {
+	printf( '<script type="data/json" id="current_skills">%s</script>', json_encode( $current_skills ) );
+}
 get_footer();

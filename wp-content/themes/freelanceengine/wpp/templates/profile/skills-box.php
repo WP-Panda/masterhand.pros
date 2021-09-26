@@ -33,7 +33,6 @@ extract( $args );
 			wpp_get_template_part( 'template-js/wpp/modal-edit-skills' );
 			?>
         </div>
-
 		<?php //wpp_get_template_part( 'wpp/templates/profile/awards', [] ); ?>
     </div>
 	<?php //wpp_get_template_part( 'wpp/templates/universal/hide-more', [] ); ?>

@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 extract( $args );
 $metas = get_sponsor_id( $user_ID );
-
+$endorse_text = ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $metas ) ) ? 'Endorsed' : 'Not Endorsed';
 if ( ! empty( $metas ) ) : ?>
 
     <div class="fre-page-title">
@@ -38,8 +38,8 @@ if ( ! empty( $metas ) ) : ?>
 					} ?>
                     <span class="rating-new">+<?php echo getActivityRatingUser( $metas ) ?></span>
                 </div>
-                <div class="col-sm-3 col-xs-5 text-center endors <?php echo ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $metas ) ) ? 'Endorsed' : 'Not Endorsed'; ?>">
-					<?php echo ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $metas ) ) ? 'Endorsed' : 'Not Endorsed'; ?>
+                <div class="col-sm-3 col-xs-5 text-center endors <?php echo $endorse_text; ?>">
+					<?php echo $endorse_text; ?>
                 </div>
             </div>
         </div>

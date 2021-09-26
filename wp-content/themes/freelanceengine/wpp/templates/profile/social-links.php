@@ -38,8 +38,7 @@ LABEL;
 ?>
 <div class="col-sm-12 col-md-6 col-lg-7 col-xs-12">
 
-	<?php
-	foreach ( $follows as $follow_id => $data ) {
+	<?php foreach ( $follows as $follow_id => $data ) {
 
 		$flag = get_post_meta( $profile_id, $follow_id, true );
 
@@ -52,7 +51,6 @@ LABEL;
 		} else {
 			printf( $label, $data['title'], $flag );
 		}
-	}
-	?>
+	} ?>
 
 </div>

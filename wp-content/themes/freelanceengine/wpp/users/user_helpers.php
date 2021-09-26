@@ -57,7 +57,6 @@ function wpp_fre_is_freelancer() {
 	}
 
 	return false;
-
 }
 
 /**

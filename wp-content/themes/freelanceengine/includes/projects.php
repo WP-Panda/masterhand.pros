@@ -10,6 +10,9 @@
  *
  */
 
+/**
+ * @todo перенести регу таксономий на новое API
+ */
 function fre_register_project() {
 
 	$labels = [

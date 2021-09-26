@@ -764,9 +764,12 @@ class AE_Posts {
 	 * @since  1.0
 	 */
 	public function fetch( $args ) {
+
 		if ( ! $args['post_type'] ) {
 			$args['post_type'] = $this->post_type;
 		}
+
+		//wpp_d_log($args);
 
 		$query = new WP_Query( $args );
 		$data  = [];
@@ -789,19 +792,13 @@ class AE_Posts {
 			 */
 			return [
 				'posts'         => $data,
-
 				// post data
 				'post_count'    => $query->post_count,
-
 				// total post count
 				'max_num_pages' => $query->max_num_pages,
-
 				// total pages
 				'query'         => $query
-
 				// wp_query object
-
-
 			];
 		} else {
 			return false;
@@ -1033,9 +1030,34 @@ class AE_PostAction extends AE_Base {
 
 		extract( $_REQUEST );
 
+		///if(function_exists())
+		//do_action( 'wpp_debug', $_REQUEST );
+		//do_action( 'wpp_debug', $this->post_type );
+		/*
+		query[post_type]: project
+		query[post_status]: publish
+		query[orderby]: date
+		query[place_category]:
+		query[location]:
+		query[showposts]:
+		query[order]: DESC
+		query[post_]: project
+		query[paginate]: page
+		query[country]:
+		query[state]:
+		query[city]:
+		query[project_category]:
+		query[cat]:
+		query[sub]:
+		query[s]:
+		page: 1
+		paged: 1
+		paginate: page
+		action: ae-fetch-projects
+		*/
 		$thumb = isset( $_REQUEST['thumbnail'] ) ? $_REQUEST['thumbnail'] : 'thumbnail';
 
-		$query_args  = [
+		$query_args = [
 			'paged'       => $page ?? 1,
 			'thumbnail'   => $thumb,
 			'post_status' => 'publish',
