@@ -3,7 +3,7 @@
  * the template for displaying the freelancer work (bid success a project)
  * # this template is loaded in template/bid-history-list.php
  */
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 global $rwProject, $user_ID;
 
 $convert               = $project = $post_object->convert( $post );
@@ -24,7 +24,7 @@ $today          = time();
                 <span class="fre-author-project-box_t"><?php echo $rwProject['author_project']; ?></span>
 				<?php $user_status = get_user_pro_status( $rwProject['user_id'] );
 				if ( $user_status && ( $user_status != PRO_BASIC_STATUS_EMPLOYER || $user_status != PRO_BASIC_STATUS_FREELANCER ) ) {
-					echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
+					pro_label();
 				} ?>
                 <span class="hidden-xs rating-new">+1000</span>
             </div>

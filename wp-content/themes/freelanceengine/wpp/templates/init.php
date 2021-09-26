@@ -8,3 +8,4 @@
 defined( 'ABSPATH' ) || exit;
 
 require_once 'universal/functions/markup.php';
+require_once 'micro-templates.php';

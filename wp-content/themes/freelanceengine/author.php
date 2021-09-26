@@ -135,7 +135,7 @@ if ( $visualFlag ) {
 										<?php echo $author_name ?>
 										<?php
 										if ( $author_status && $author_status != PRO_BASIC_STATUS_EMPLOYER && $author_status != PRO_BASIC_STATUS_FREELANCER ) {
-											echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
+											pro_label();
 										} ?>
 										<?php if ( $visualFlag ) {
 											switch ( $visualFlagNumber ) {

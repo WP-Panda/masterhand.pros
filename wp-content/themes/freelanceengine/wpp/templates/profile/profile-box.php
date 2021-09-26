@@ -11,17 +11,16 @@ extract( $args );
 
 <div class="fre-profile-box">
     <div class="profile-freelance-info-wrap active">
-        <div class="profile-freelance-info top cnt-profile-hide row" id="cnt-profile-default"
-             style="display: block">
+        <div class="profile-freelance-info top cnt-profile-hide row" id="cnt-profile-default" style="display: block">
             <div class="col-sm-2 col-xs-4 text-center avatar_wp">
 				<?php echo get_avatar( $user_data->ID, 145 ); ?>
             </div>
             <div class="col-lg-3 col-sm-4 col-md-3 col-xs-8 no-pad">
                 <div class="col-sm-12 col-md-12 col-lg-7 col-xs-12 freelance-name">
-					<?php echo $display_name ?>
-					<?php if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
-						echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . ' </span>';
-						echo '<div class="status_expire">Expire: ' . $user_pro_expire . '</div>';
+					<?php echo $display_name;
+					if ( ! empty( $user_status ) && $user_status !== PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
+						pro_label();
+						status_expire( $user_pro_expire );
 					}
 					wpp_get_template_part( 'wpp/templates/profile/status-label', [ 'visualFlagNumber' => $visualFlagNumber ] );
 					?>
@@ -31,7 +30,7 @@ extract( $args );
                 </div>
                 <div class="col-sm-12 col-xs-12 freelance-profile-country">
 					<?php
-					if ( $location && ! empty( $location['country'] ) ) {
+					if ( ! empty( $location ) && ! empty( $location['country'] ) ) {
 						$str = [];
 						foreach ( $location as $key => $item ) {
 							if ( ! empty( $item['name'] ) ) {
@@ -39,9 +38,8 @@ extract( $args );
 							}
 						}
 						echo ! empty( $str ) ? implode( ' - ', $str ) : 'Error';
-					} else { ?>
-						<?php echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>'; ?>
-						<?php
+					} else {
+						echo '<i>' . __( 'No country information', ET_DOMAIN ) . '</i>';
 					}
 					?>
                 </div>
@@ -114,38 +112,9 @@ extract( $args );
             <div class="col-sm-3 col-md-3 col-lg-2 col-xs-12 fre-profile_refinfo">
                 <span><?php echo __( 'My referral code:', ET_DOMAIN ) ?></span>
 				<?php $url = $_SERVER["HTTP_HOST"] . '/register/?code='; ?>
-                <div id="Text" class="copy refnumber">
+                <div id="Text" class="copy refnumber wpp-copy-text">
                     <span><?php echo $referral_code; ?></span>
                 </div>
-                <script>
-                    function selectText(doc, elementId, text) {
-                        var range, selection;
-                        text.innerText = '<?php echo $url ?>' + text.innerText;
-                        if (doc.body.createTextRange) {
-                            range = document.body.createTextRange();
-                            range.moveToElementText(text);
-                            range.select();
-                        } else if (window.getSelection) {
-                            selection = window.getSelection();
-                            range = document.createRange();
-                            range.selectNodeContents(text);
-                            selection.removeAllRanges();
-                            selection.addRange(range);
-                        }
-                    }
-
-                    document.getElementsByClassName('copy')[0].click(function () {
-                        var doc = document,
-                            text = doc.getElementById(this.id),
-                            str = text.innerText;
-
-                        selectText(doc, this.id, text);
-                        doc.execCommand("copy");
-                        doc.getElementById(this.id).innerText = str;
-                        alert("text copied")
-                    });
-
-                </script>
                 <a href='/pro' class='fre-status'>
 					<?php _e( 'Change Account Pro', ET_DOMAIN ) ?>
                 </a>

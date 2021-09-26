@@ -121,7 +121,7 @@ $attachment = get_children( [
                         <div class="col-sm-12 col-md-12 col-lg-8 col-xs-12 freelance-name">
                             <a href="<?php echo $uslug; ?>"><?php echo $display_name ?></a>
 							<?php if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
-								echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
+								pro_label();
 							} ?>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12 free-rating">

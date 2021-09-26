@@ -34,7 +34,7 @@ if ( ! empty( $metas ) ) : ?>
                     </a>
 					<?php $user_status = get_user_pro_status( $metas );
 					if ( userHaveProStatus( $metas ) ) {
-						echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
+						pro_label();
 					} ?>
                     <span class="rating-new">+<?php echo getActivityRatingUser( $metas ) ?></span>
                 </div>

@@ -132,23 +132,11 @@ $query = new WP_Query( $args );
             <div id="workspace-conversation" class="project-workplace-details workplace-details workspace-conversation">
                 <div class="workspace-title">
 					<?php echo get_avatar( $profile_id, 60 ); ?>
-					<?php echo the_author_meta( 'display_name', $profile_id ); ?>
+					<?php the_author_meta( 'display_name', $profile_id ); ?>
 					<?php if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
-						echo '<span class="status">' . translate( 'PRO', ET_DOMAIN ) . '</span>';
-					} ?>
-					<?php switch ( $visualFlagNumber ) {
-
-						case 2:
-							echo '<span class="status">' . translate( 'Creator', ET_DOMAIN ) . '</span>';
-							break;
-						case 3:
-							echo '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
-							break;
-						case 1:
-						default:
-							echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
-							break;
-					} ?>
+						pro_label();
+					}
+					visual_flag( $visualFlag, $visualFlagNumber ); ?>
                 </div>
                 <div class="message-container">
                     <div class="list-chat-work-place-wrap fre-conversation-wrap fre-conversation">
@@ -271,7 +259,7 @@ $query = new WP_Query( $args );
                             </form>
 						<?php } ?>
                         <script type="application/json" class="ae_query">
-<?php echo json_encode($query_args); ?>
+
                         </script>
                     </div>
                 </div>

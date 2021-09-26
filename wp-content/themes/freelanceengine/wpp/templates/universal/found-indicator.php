@@ -9,10 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 extract( $args );
 
-if ( ! empty( $found_posts_num ) ) :
-	?>
-
-
+if ( ! empty( $found_posts_num ) ) : ?>
     <div class="row">
         <div class="col-lg-4 col-lg-push-8 col-md-6 col-md-push-6 col-sm-6 col-sm-push-6">
             <button class="fre-submit-btn btn-get-quotes btn-right"><?php _e( 'Get Multiple Quotes', ET_DOMAIN ); ?></button>
@@ -31,5 +28,4 @@ if ( ! empty( $found_posts_num ) ) :
             </div>
         </div>
     </div>
-<?php
-endif;
+<?php endif;

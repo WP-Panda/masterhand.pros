@@ -101,8 +101,8 @@ extract( $args );
             <div class="col-sm-9 col-xs-12">
                 <div class="tabs_wp_t">
 					<?php echo __( "Account", ET_DOMAIN );
-					if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) { ?>
-                    <span class="status"><?php echo __( 'PRO', ET_DOMAIN ); ?></span>
+					if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
+					pro_label(); ?>
                 </div>
                 <div class="pro-account">
                     <p>

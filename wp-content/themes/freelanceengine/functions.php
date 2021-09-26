@@ -162,10 +162,11 @@ class ET_FreelanceEngine extends AE_Base {
 	 * @author Dakachi
 	 */
 	function fre_init() {
+		global $wpdb, $wp_rewrite;
 		update_option( 'site_logo', false );
+
 		// update database fix profile
 		if ( ! get_option( 'change_profile_namess' ) ) {
-			global $wpdb;
 			$wpdb->query( "
                 UPDATE $wpdb->posts
                 SET post_type = 'fre_profile'
@@ -269,11 +270,11 @@ class ET_FreelanceEngine extends AE_Base {
 		 */
 		if ( function_exists( 'init_social_login' ) ) {
 			init_social_login();
-		};
+		}
 		/**
 		 * override author link
 		 */
-		global $wp_rewrite;
+
 		if ( $wp_rewrite->using_permalinks() ) {
 			$wp_rewrite->author_base      = ae_get_option( 'author_base', 'author' );
 			$wp_rewrite->author_structure = '/' . $wp_rewrite->author_base . '/%author%';
@@ -284,13 +285,16 @@ class ET_FreelanceEngine extends AE_Base {
 	 * add custom role for theme
 	 */
 	function add_custom_role() {
-		$role = [ FREELANCER => __( 'Professional', ET_DOMAIN ), EMPLOYER => __( 'Client', ET_DOMAIN ) ];
+		$role = [
+			FREELANCER => __( 'Professional', ET_DOMAIN ),
+			EMPLOYER   => __( 'Client', ET_DOMAIN )
+		];
 
 		return $role;
 	}
 
 	function add_user_default_values( $result ) {
-		if ( ae_user_role( $result ) == FREELANCER ) {
+		if ( ae_user_role( $result ) === FREELANCER ) {
 			update_user_meta( $result, 'user_available', 'on' );
 		}
 	}
@@ -447,7 +451,7 @@ class ET_FreelanceEngine extends AE_Base {
 	 * @return string
 	 */
 	public function post_link( $url, $post ) {
-		if ( $post->post_type == PROFILE ) {
+		if ( $post->post_type === PROFILE ) {
 			return get_author_posts_url( $post->post_author );
 		}
 
@@ -1451,8 +1455,8 @@ function saveProjectCategory_inProfile() {
 	$selected          = $_POST['selected'];
 	if ( ! empty( $selected ) && ! empty( $profileId ) ) {
 		$result['profileId'] = $profileId;
-		$result['selected']   = $_POST['selected'];
-		$ids                  = [];
+		$result['selected']  = $_POST['selected'];
+		$ids                 = [];
 		foreach ( $selected as $item ) {
 			$id = (int) $item;
 			if ( $id > 0 ) {
@@ -3188,7 +3192,6 @@ function faq_permalink( $permalink, $post ) {
 function add_recaptcha() {
 	echo '<script src="https://www.google.com/recaptcha/api.js" async defer ></script>';
 }
-
 add_action( 'wp_head', 'add_recaptcha' );
 
 
@@ -3197,5 +3200,4 @@ function dequeue_jquery_migrate( $scripts ) {
 		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
 	}
 }
-
 add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );

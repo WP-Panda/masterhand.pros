@@ -34,7 +34,7 @@ $endorse_text = ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $postid 
 				<?php the_title(); ?>
             </a>
 			<?php if ( userHaveProStatus( $postid ) ) {
-				printf( '<span class="status">%s</span>', __( 'PRO', ET_DOMAIN ) );
+				pro_label();
 			} ?>
             <span class="rating-new">+<?php echo getActivityRatingUser( $postid ) ?></span>
         </div>
