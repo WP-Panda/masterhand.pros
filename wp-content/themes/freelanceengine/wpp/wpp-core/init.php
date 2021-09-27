@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'WPP_CORE', true );
 
 require_once 'helpers/init.php';
+require_once 'clipboard/clipboard.php';
 require_once 'for-template.php';
 require_once 'classes/Wpp_Fr_Assets.php';
 require_once 'classes/Bfi_Thumb.php';

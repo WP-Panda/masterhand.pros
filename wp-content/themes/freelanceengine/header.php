@@ -15,6 +15,18 @@ global $current_user, $user_ID, $post;
 <head>
 	<?php wp_head(); ?>
     <style>
+        svg#Capa_1 {
+            width: 30px;
+            position: absolute;
+            margin-top: -8px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .wpp-copy-btn {
+            cursor: pointer;
+        }
+
         .fre-submit-btn:hover[disabled="disabled"], .fre-submit-btn[disabled="disabled"], .fre-submit-btn:disabled, .fre-submit-btn:disabled:hover {
             opacity: 0.5 !important;
             background-color: #2c33c1 !important;
