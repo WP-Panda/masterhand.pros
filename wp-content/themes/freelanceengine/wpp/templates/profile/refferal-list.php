@@ -45,19 +45,7 @@ $class     = empty( $box ) ? ' class="collapse"' : '';
 	                                    _e( 'PRO', ET_DOMAIN );
                                     } ?>
                                     </span>
-						<?php if ( $visualFlag ) {
-							switch ( $visualFlagNumber ) {
-								case 1:
-									echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
-									break;
-								case 2:
-									echo '<span class="status">' . translate( 'Creator', ET_DOMAIN ) . '</span>';
-									break;
-								case 3:
-									echo '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
-									break;
-							}
-						} ?>
+						<?php visual_flag( $visualFlag, $visualFlagNumber ) ?>
                         <span class="free-rating-new">+<?php echo getActivityRatingUser( $item->user_id ); ?></span>
                     </div>
 				<?php } ?>
@@ -65,4 +53,4 @@ $class     = empty( $box ) ? ' class="collapse"' : '';
         </div>
 		<?php /*if ( empty( $box ) ) : */ ?>
     </div>
-<?php /*endif;*/
+<?php

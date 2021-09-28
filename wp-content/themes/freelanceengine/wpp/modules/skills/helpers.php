@@ -29,6 +29,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 	#Получение рефералов
 	$refferal = get_referral( $current_user );
 
+
 	if ( ! empty( $refferal ) ) {
 		$refferal = wp_list_pluck( $refferal, 'user_id' );
 	} else {
@@ -42,7 +43,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 	}
 
 	#Удаление самого себя
-	$key = array_search( $user_ID, $refferal );
+	$key = array_search( $current_user, $refferal );
 	if ( isset( $key ) ) {
 		unset( $refferal[ $key ] );
 	}

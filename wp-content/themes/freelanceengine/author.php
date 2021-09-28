@@ -136,20 +136,8 @@ if ( $visualFlag ) {
 										<?php
 										if ( $author_status && $author_status != PRO_BASIC_STATUS_EMPLOYER && $author_status != PRO_BASIC_STATUS_FREELANCER ) {
 											pro_label();
-										} ?>
-										<?php if ( $visualFlag ) {
-											switch ( $visualFlagNumber ) {
-												case 1:
-													echo '<span class="status">' . translate( 'Master', ET_DOMAIN ) . '</span>';
-													break;
-												case 2:
-													echo '<span class="status">' . translate( 'Creator', ET_DOMAIN ) . '</span>';
-													break;
-												case 3:
-													echo '<span class="status">' . translate( 'Expert', ET_DOMAIN ) . '</span>';
-													break;
-											}
-										} ?>
+										}
+										visual_flag( $visualFlag = null, $visualFlagNumber = 1 ) ?>
                                     </div>
                                     <div class="col-sm-4 col-xs-12 free-rating"><?php HTML_review_rating_user( $author_id ) ?></div>
                                     <div class="col-sm-12 col-xs-12 freelance-profile-country">
@@ -283,7 +271,7 @@ if ( $visualFlag ) {
 									}
 									renderSkillsInProfile( $author_id, $modeEndorse, $user_ID );*/
 								?>
-                                <?php 	wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id ] );?>
+								<?php wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id ] ); ?>
                             </div>
                             <!-- пока нет наград - скрываем НЕ УДАЛЯТЬ!!!!!!!!!!!!
                         <div class="col-sm-6 col-xs-12 award-list">
@@ -606,6 +594,8 @@ if ( $visualFlag ) {
 
 
 
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -689,6 +679,8 @@ if ( $visualFlag ) {
 
 
 
+
+
                                         </script>
 									<?php } else {
 										_e( 'No results', ET_DOMAIN );
@@ -755,6 +747,8 @@ if ( $visualFlag ) {
 									<?php } ?>
                                         <script type="data/json" id="previous_project_post_data">
                                         <?php echo json_encode( $postdata ); ?>
+
+
 
 
 

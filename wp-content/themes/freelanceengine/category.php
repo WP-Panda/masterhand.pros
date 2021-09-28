@@ -328,25 +328,6 @@ $homeid         = get_option( 'page_on_front' );
 								wp_reset_query(); ?>
                             </div>
                         </div>
-
-						<? /* old subscription plugin
-            <div class="fre-blog-subscribe-form">
-                <?php
-                $current_category = get_queried_object_id();
-                $categories = [
-                        '9875' => '[email-subscribers-form id="1"]',
-                        '9955' => '[email-subscribers-form id="2"]',
-                        '9956' => '[email-subscribers-form id="3"]',
-                        '9874' => '[email-subscribers-form id="4"]',
-                ];
-                $category_name = get_cat_name( $current_category );
-
-                echo "<div class='fre-blog-subscribe-form_title'>Subscribe to category ". $category_name . "</div>";
-                echo do_shortcode($categories[$current_category])
-                ?>
-            </div>
-            */ ?>
-
                         <div class="profs-cat_t"><span><?php echo __( 'Latest articles', ET_DOMAIN ); ?></span></div>
                         <div class="fre-blog-snd_bl">
 							<?php $query = new WP_Query( [
@@ -373,7 +354,6 @@ $homeid         = get_option( 'page_on_front' );
                                             var true_posts = '<?php echo serialize( $query->query_vars ); ?>';
                                             var current_page = <?php echo ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>;
                                             var max_pages = '<?php echo $query->max_num_pages; ?>';
-
                                         </script>
                                         <a id="true_loadmore"
                                            class="fre-submit-btn blog_loadmore"><?php echo __( 'Show more', ET_DOMAIN ); ?></a>
@@ -383,7 +363,6 @@ $homeid         = get_option( 'page_on_front' );
 							<?php wp_reset_query(); ?>
                         </div>
 
-                        <!-- Mailster subscribtion form -->
                         <div class="fre-blog-subscribe-form mailster-subscribe__block">
                             <div class='fre-blog-subscribe-form_title'>Subscribe</div>
                             <div class="emaillist">

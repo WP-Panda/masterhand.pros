@@ -14,9 +14,7 @@
             'submit form#account_form_phone': 'saveAccountDetails',
             // user profile details
             'submit form#profile_form': 'saveProfileDetails',
-
             'click .save-prof-proj-cat': 'saveCategoryDetails',
-
             'click a.project-employer__reply': 'showReplyModal',
 
             //save work_experience
