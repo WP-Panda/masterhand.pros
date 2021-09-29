@@ -20,7 +20,6 @@ extract( $args );
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-7 col-lg-8 col-xs-8">
-
                     <div class="col-sm-8 col-xs-12 freelance-name">
 						<?php echo $display_name ?>
                     </div>

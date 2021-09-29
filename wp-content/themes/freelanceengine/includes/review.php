@@ -431,6 +431,9 @@ class Fre_ReviewAction extends AE_Base {
 		/*
 		 * check permission
 		*/
+		wpp_d_log(111);
+		wpp_d_log($user_ID);
+		wpp_d_log($author_bid);
 		if ( $user_ID !== $author_bid || ! $user_ID ) {
 			wp_send_json( [
 				'succes' => false,

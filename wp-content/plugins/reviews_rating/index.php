@@ -96,6 +96,7 @@
 	}
 
 	function rwRatingAction() {
+	    wpp_d_log($_POST);
 		if ( $_POST[ 'from_is' ] == 'employer' ) {
 			if ( $_POST[ 'is_reply' ] == 'true' ) {
 				employerReplyAction();
@@ -304,6 +305,9 @@
 		$order           = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
 		$author_bid      = (int) get_post_field( 'post_author', $bid_id_accepted );
 
+		wpp_d_log(333);
+		wpp_d_log($user_ID);
+		wpp_d_log($author_bid);
 		if ( $user_ID !== $author_bid || ! $user_ID ) {
 			\ReviewsRating\Base::outputJSON( __( 'You don\'t have permission to review.', ET_DOMAIN ) );
 		}
@@ -374,7 +378,9 @@
 		$bid_id_accepted = get_post_meta( $project_id, 'accepted', true );
 		$order           = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
 		$author_bid      = (int) get_post_field( 'post_author', $bid_id_accepted );
-
+		wpp_d_log(222);
+		wpp_d_log($user_ID);
+		wpp_d_log($author_bid);
 		if ( $user_ID !== $author_bid || ! $user_ID ) {
 			\ReviewsRating\Base::outputJSON( __( 'You don\'t have permission to review.', ET_DOMAIN ) );
 		}

@@ -4,13 +4,11 @@
  * @author  WP_Panda
  * @version 1.0.0
  */
-
 defined( 'ABSPATH' ) || exit;
 extract( $args );
 $args['class']           = fre_share_role() || wpp_fre_is_freelancer() ? 6 : 10;
 $args['confirmed_email'] = ! empty( $user_confirm_email ) ? sprintf( ' <span>%s</span>', __( '(Confirmed email address)', WPP_TEXT_DOMAIN ) ) : '';
 $args['confirmed_phone'] = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>', __( '(Confirmed by sms)', WPP_TEXT_DOMAIN ) ) : '';
-
 ?>
 <div class="modal fade" id="editprofile" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -25,9 +23,7 @@ $args['confirmed_phone'] = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>',
 
                         <form id="profile_form" class="row form-detail-profile-page" method="post" novalidate>
 
-
 							<?php
-
 							wpp_get_template_part( 'wpp/templates/profile/form/avatar', $args );
 							wpp_get_template_part( 'wpp/templates/profile/form/top-section', $args );
 							wpp_get_template_part( 'wpp/templates/profile/form/phone', $args );
@@ -37,8 +33,6 @@ $args['confirmed_phone'] = ! empty( $user_phone ) ? sprintf( ' <span>%s</span>',
 							wpp_get_template_part( 'wpp/templates/profile/form/pass', $args );
 							wpp_get_template_part( 'wpp/templates/profile/form/pay-pall', $args );
 							wpp_get_template_part( 'wpp/templates/profile/form/social', $args );
-
-
 							//do_action( 'ae_edit_post_form', PROFILE, $profile );
 
 							if ( $visualFlag ) { ?>

@@ -122,11 +122,11 @@ if ( is_author() ) { ?>
                     <a class="col-lg-12 col-md-3 col-sm-4 col-xs-7 logo-head" href="/">
 						<?php fre_logo( 'site_logo' ) ?>
                         <span>Low-Cost Service Deals</span>
-						<?php if ( function_exists( 'is_wpp_panda' ) ) :
+						<?php /* if ( function_exists( 'is_wpp_panda' ) ) :
 							if ( is_wpp_panda() ) {
 								echo( $user_ID );
 							}
-						endif; ?>
+						endif; */ ?>
                     </a>
 
                     <div class="col-xs-5 col-sm-8 col-md-9 hidden-lg fre-hamburger dropdown">

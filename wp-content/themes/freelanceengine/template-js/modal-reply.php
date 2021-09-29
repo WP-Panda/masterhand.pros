@@ -10,7 +10,7 @@ global $post, $user_ID;
 				<?php _e( "Reply to review", ET_DOMAIN ); ?>
             </div>
             <div class="modal-body">
-                <form role="form" id="review_form" class="review-form fre-modal-form">
+                <form role="form" id="review_form" class="review-form fre-modal-form wpp-02">
                     <input type="hidden" name="is_reply" value="true">
                     <input type="hidden" name="project_id"
                            value="<?= is_page_template( 'page-profile.php' ) ? '' : $post->ID ?>">

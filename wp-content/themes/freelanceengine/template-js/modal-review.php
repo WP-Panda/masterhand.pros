@@ -16,7 +16,7 @@ global $post, $user_ID;
 $user_flag   = wpp_fre_is_freelancer();
 $author_id_S = 0;
 
-if ( $post->post_author === $user_ID ) {// employer finish project form
+if ( (int)$post->post_author === (int)$user_ID ) {// employer finish project form
 	$val  = 'employer';
 	$text = __( "Great! Your project is going to be finished, it's time to review and rate for your Professional. Your review and rating will affect the Professional's reputation.", ET_DOMAIN );
 } else { // freelancer finish project form
@@ -45,7 +45,7 @@ $text_2 = ! empty( $user_flag ) ? __( "Please give endorsement to the Client’s
 					<?php _e( "Project Completion", ET_DOMAIN ); ?>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="review_form" class="review-form fre-modal-form">
+                    <form role="form" id="review_form" class="review-form fre-modal-form wpp-01">
                         <input type="hidden" name="is_reply" value="false">
                         <input type="hidden" name="project_id" value="<?php echo $post->ID ?>">
                         <input type="hidden" name="action" value="rwRating"/>
@@ -70,7 +70,7 @@ $text_2 = ! empty( $user_flag ) ? __( "Please give endorsement to the Client’s
                             <textarea id="comment-content" name="comment" placeholder="<?php _e( 'Leave a review...', ET_DOMAIN ); ?>"></textarea>
                         </div>
                         <div class="modal-endors">
-							<?php wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id_S ] );
+							<?php wpp_get_template_part( 'wpp/templates/profile/tabs/skill-list', [ 'user_ID' => $author_id_S,'no_vals'=>true ] );
 							printf( '<p class="hide notify-form">%s</p>', $text_2 ); ?>
                         </div>
                         <div class="fre-form-btn">
