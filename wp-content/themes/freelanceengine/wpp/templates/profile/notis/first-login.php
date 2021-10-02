@@ -6,7 +6,6 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 extract( $args );
 if ( empty( $profile_id ) ):
 

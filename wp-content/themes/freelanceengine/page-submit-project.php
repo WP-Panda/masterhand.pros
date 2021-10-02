@@ -2,7 +2,12 @@
 /**
  * Template Name: WPP Submit Project
  */
+
 global $user_ID, $ae_post_factory, $option_for_project;
+if ( empty( $user_ID )  ) {
+	wp_safe_redirect( home_url(), 301 );
+}
+
 get_header();
 
 $user_localtion = getLocation( $user_ID );

@@ -1,7 +1,6 @@
 <div class="color-left">
     <div class="content-sub">
         <h1><?php fre_project_demonstration( true ); ?></h1>
-        <!-- <h1>The best way to<br>find a professional</h1> -->
         <p><a href="<?php echo et_get_page_link( [
 				'page_type'  => 'submit-project',
 				'post_title' => __( "Post a Project", ET_DOMAIN )
@@ -13,7 +12,6 @@
 <div class="color-right">
     <div class="content-sub">
         <h1><?php fre_profile_demonstration( true ); ?></h1>
-        <!-- <h1>Need a job?<br>Tell us your story</h1> -->
 		<?php if ( fre_check_register() ) { ?>
             <p>
                 <a href="<?php echo et_get_page_link( [

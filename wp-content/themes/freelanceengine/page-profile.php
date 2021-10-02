@@ -13,6 +13,10 @@
  */
 global $wp_query, $ae_post_factory, $post, $current_user, $wpp_fr;
 
+if ( empty( $wpp_fr )  ) {
+	wp_safe_redirect( home_url(), 301 );
+}
+
 $ae_users = AE_Users::get_instance();
 
 $user_data   = $ae_users->convert( $current_user->data );

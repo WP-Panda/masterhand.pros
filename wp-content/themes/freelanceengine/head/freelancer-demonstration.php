@@ -1,7 +1,6 @@
 <div class="color-left">
     <div class="content-sub">
         <h1><?php fre_project_demonstration( false ); ?></h1>
-        <!-- <h1>The best way to<br>find a professional</h1> -->
         <p>
             <a href="<?php echo get_post_type_archive_link( PROJECT ) ?>"
                class="btn-sumary btn-sub-post box-shadow-button-dark-blue">
@@ -13,7 +12,6 @@
 <div class="color-right">
     <div class="content-sub">
         <h1><?php fre_profile_demonstration( true ); ?></h1>
-        <!-- <h1>Need a job?<br>Tell us your story</h1> -->
         <p>
             <a href="<?php echo et_get_page_link( [
 				'page_type'  => 'profile',

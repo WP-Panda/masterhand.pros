@@ -403,14 +403,14 @@
                 $target.find('textarea, input, select').each(function () {
                     message.set($(this).attr('name'), $(this).val());
                 });
-/*
-                if ((typeof this.filecontroller !== 'undefined' && typeof this.filecontroller.fileIDs !== 'undefined') || (typeof this.filecontroller !== 'undefined' && this.filecontroller.fileIDs !== null)) {
-                    message.set('fileID', this.filecontroller.fileIDs);
-                    this.filecontroller.fileIDs = [];
+                /*
+                                if ((typeof this.filecontroller !== 'undefined' && typeof this.filecontroller.fileIDs !== 'undefined') || (typeof this.filecontroller !== 'undefined' && this.filecontroller.fileIDs !== null)) {
+                                    message.set('fileID', this.filecontroller.fileIDs);
+                                    this.filecontroller.fileIDs = [];
 
-                }
-                */
-         //   *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
+                                }
+                                */
+                //   *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
                 if (typeof this.filecontroller.fileIDs !== 'undefined' || this.filecontroller.fileIDs !== null) {
                     message.set('fileID', this.filecontroller.fileIDs);
                     this.filecontroller.fileIDs = [];

@@ -139,4 +139,3 @@ extract( $args );
         </div>
 
     </div>
-</div>

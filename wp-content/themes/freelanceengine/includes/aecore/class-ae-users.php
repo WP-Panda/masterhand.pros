@@ -114,8 +114,15 @@ class AE_Users {
 
 		$de_confirm = update_user_meta( $user_id, 'register_status', 'confirm' );
 
+
+
 		$referral_code    = get_user_meta( $user_id, '_activityRating_asReferral', true );
 		$referral_user_id = get_user_meta( $user_id, '_activityRating_asReferrer', true );
+
+
+
+		Fre_Mailing::get_instance()->notification_registration_referral_code( $referral_user_id, $user_id );
+		do_action( 'fre_new_referral', $referral_user_id, $user_id );
 
 		if ( ! empty( $referral_code ) ) :
 			do_action( 'activityRating_asReferral', $user_id );

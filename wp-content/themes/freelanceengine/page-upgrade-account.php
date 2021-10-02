@@ -3,6 +3,10 @@
  * Template Name: Upgrade Account
  */
 global $user_ID;
+if ( empty( $user_ID )  ) {
+	wp_safe_redirect( home_url(), 301 );
+}
+
 $session = et_read_session();
 get_header();
 if ( isset( $session['project_id'] ) ) {

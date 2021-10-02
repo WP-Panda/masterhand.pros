@@ -3,7 +3,6 @@
     $(document).ready(function () {
 
 
-
         var resized = "0";
         var didResize;
         AE.Views.SingleProject = Backbone.View.extend({
@@ -1067,7 +1066,6 @@
                 this.initValidator();
 
 
-
                 var view = this,
                     $target = $(event.currentTarget),
                     button = $target.find('button.btn-submit');
@@ -1087,7 +1085,7 @@
                                 // AE.pubsub.trigger('ae:after:bid', res);
 
                                 // image for bid
-                               // advert.uploadFiles(res.post_id, res.msg);
+                                // advert.uploadFiles(res.post_id, res.msg);
 
                                 AE.pubsub.trigger('ae:notification', {
                                     msg: res.msg,
@@ -1755,4 +1753,4 @@
         }
     });
 
-})(jQuery, AE.Views, AE.Models, AE.Collections,AE.pubsub);
+})(jQuery, AE.Views, AE.Models, AE.Collections, AE.pubsub);
