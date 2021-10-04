@@ -36,7 +36,7 @@ if ( ! empty( $metas ) ) : ?>
 					if ( userHaveProStatus( $metas ) ) {
 						pro_label();
 					} ?>
-                    <span class="rating-new">+<?php echo getActivityRatingUser( $metas ) ?></span>
+                    <span class="rating-new">+<?php echo wpp_get_user_rating( $metas ) ?></span>
                 </div>
                 <div class="col-sm-3 col-xs-5 text-center endors <?php echo $endorse_text; ?>">
 					<?php echo $endorse_text; ?>

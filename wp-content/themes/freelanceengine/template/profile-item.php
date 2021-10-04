@@ -84,7 +84,7 @@ if ( is_tax() ) { ?>
         </div>
         <div class="col-sm-4 col-xs-4">
             <div class="free-rating-new">
-                +<?= getActivityRatingUser( $current->post_author ); ?></div>
+                +<?= wpp_get_user_rating( $current->post_author ); ?></div>
             <div class="free-rating"><? HTML_review_rating_user( $current->post_author ) ?></div>
         </div>
     </div>

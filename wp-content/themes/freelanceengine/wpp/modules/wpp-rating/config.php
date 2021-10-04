@@ -37,125 +37,127 @@ function wpp_rating_config() {
 	];
 
 	$array['fields'] = [
-		'coefficient_pro_status'          => [
+		'coefficient_pro_status'                      => [
 			'label' => __( 'Coef. rating growth from PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 50
 		],
-		'coefficient_amount_payment'      => [
+		'coefficient_amount_payment'                  => [
 			'label' => __( 'Purchases & money transactions (for 1$)', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 1
 		],
-		'site_visit'                      => [
+		'site_visit'                                  => [
 			'label' => __( 'Site visits', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 5
 		],
-		'one_field_profile'               => [
+		'one_field_profile'                           => [
 			'label' => __( 'Completed profile info', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 10
 		],
-		'freelancer_one_portfolio'        => [
+		'freelancer_one_portfolio'                    => [
 			'label' => __( 'For Number of Portfolio Jobs', WPP_TEXT_DOMAIN ),
-			'for'   => '',
+			'for'   => 'freelancer',
 			'def'   => 10
 		],
-		'freelancer_as_referral'          => [
+		'freelancer_as_referral'                      => [
 			'label' => __( 'As referral', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 500
 		],
-		'freelancer_as_referrer'          => [
+		'freelancer_as_referrer'                      => [
 			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 2000
 		],
-		'freelancer_for_reward'           => [
+		'freelancer_for_reward'                       => [
 			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 1000
 		],
-		'freelancer_for_review'           => [
+		'freelancer_for_review'                       => [ // за оставленный отзыв
 			'label' => __( 'Reviews', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 50
 		],
-		'freelancer_for_skill'            => [
+		'freelancer_for_skill'                        => [
 			'label' => __( 'Skills', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 10
 		],
-		'freelancer_for_endorse_skill'    => [
+		'freelancer_for_endorse_skill'                => [
 			'label' => __( 'Approved skills', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 10
 		],
-		'freelancer_from_rating_employer' => [
-			'label' => __( 'Coef. from client rating for a successfully closed project, %', WPP_TEXT_DOMAIN ),
+		'freelancer_coefficient_from_rating_employer' => [
+			'label' => __( 'Coef. from rating for a successfully closed project, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
-			'def'   => 50
+			'def'   => 10
 		],
-		'employer_from_rating_freelancer' => [
-			'label' => __( 'Coef. from professional rating for a successfully closed project, %', WPP_TEXT_DOMAIN ),
+		'employer_coefficient_from_rating_freelancer' => [
+			'label' => __( 'Coef. from rating for a successfully closed project, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 5
 		],
-		'freelancer_project_success'      => [
+		'freelancer_project_success'                  => [
 			'label' => __( 'Successfully closed project (via SafePay Deal)', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
-			'def'   => 50
+			'def'   => 0
 		],
-		/*'freelancer_installment_plan'     => [
+		'freelancer_installment_plan'     => [
 			'label' => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
-			'def'   => 50
+			'def'   => 50,
+			'disabled' => true
 		],
 		'employer_installment_plan'       => [
 			'label' => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
-		],*/
-		'employer_as_referral'            => [
+			'def'   => 50,
+			'disabled' => true
+		],
+		'employer_as_referral'                        => [
 			'label' => __( 'As referral', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 500
 		],
-		'employer_as_referrer'            => [
+		'employer_as_referrer'                        => [
 			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 1000
 		],
-		'employer_for_reward'             => [
+		'employer_for_reward'                         => [
 			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 1000
 		],
-		'employer_for_review'             => [
+		'employer_for_review'                         => [ // за оставленный отзыв
 			'label' => __( 'Reviews', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
 			'def'   => 50
 		],
-		'employer_project_success'        => [
+		'employer_project_success'                    => [
 			'label' => __( 'Successfully closed project (via SafePay Deal)', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 0
 		],
-		'employer_bid_accepted'           => [
+		'employer_bid_accepted'                       => [
 			'label' => __( 'For the selected project PRO executor', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 300
 		],
-		'employer_for_skill'              => [
+		'employer_for_skill'                          => [
 			'label' => __( 'Skills', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 10
 		],
-		'employer_for_endorse_skill'      => [
+		'employer_for_endorse_skill'                  => [
 			'label' => __( 'Approved skills', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 50
+			'def'   => 10
 		]
 	];
 

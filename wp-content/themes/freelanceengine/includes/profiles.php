@@ -366,7 +366,7 @@ class Fre_ProfileAction extends AE_PostAction {
 			}
 			$result->profile_categories = mb_substr( $cp_categories, 0, - 2 );
 
-			$result->activity_rating = getActivityRatingUser( $result->post_author );
+			$result->activity_rating = wpp_get_user_rating( $result->post_author );
 			$result->reviews_rating  = HTML_review_rating_user( $result->post_author, 1 );
 		}
 		if ( $result->post_type == COMPANY ) {

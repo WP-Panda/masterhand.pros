@@ -75,7 +75,7 @@ extract( $args );
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 else-info">
                 <div class="rating-new">
 					<?php echo __( 'Rating:', ET_DOMAIN ); ?>
-                    <span>+<?php echo getActivityRatingUser( $user_ID ) ?></span>
+                    <span>+<?php echo wpp_get_user_rating( $user_ID ) ?></span>
                 </div>
                 <div class="secure-deals">
                     <a href="/give-endorsements">

@@ -158,7 +158,7 @@ $attachment = get_children( [
                     <div class="col-sm-3 col-xs-12 else-info">
                         <div class="rating-new">
 							<?php echo __( 'Rating:', ET_DOMAIN ); ?>
-                            <span>+<?= getActivityRatingUser( $author_id ) ?></span>
+                            <span>+<?= wpp_get_user_rating( $author_id ) ?></span>
                         </div>
                         <div class="secure-deals">
 							<?php echo __( 'SafePay Deals:', ET_DOMAIN ); ?>

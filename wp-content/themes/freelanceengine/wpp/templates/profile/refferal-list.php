@@ -57,7 +57,7 @@ if ( ! empty( $box ) ) : ?>
                         ?>
                         </span>
 					<?php visual_flag( $visualFlag ?? false, $visualFlagNumber ?? false ) ?>
-                    <span class="free-rating-new">+<?php echo getActivityRatingUser( $item->user_id ); ?></span>
+                    <span class="free-rating-new">+<?php echo wpp_get_user_rating( $item->user_id ); ?></span>
                 </div>
 			<?php }
 		} ?>

@@ -20,32 +20,23 @@ add_action( 'init', 'activity_rating_load', 0 );
 add_action( 'admin_menu', 'add_menu_activity_rating', 1 );
 
 function activity_rating_load() {
-	require_once get_template_directory() .  '/wpp/vendor/autoload.php';
+	require_once get_template_directory() . '/wpp/vendor/autoload.php';
 	require_once 'classes/AutoloadActivityRating.php';
 	AutoloadActivityRating::init();
 
-	/*  require_once 'classes/ActivityRating/Base.php';
-	  require_once 'classes/ActivityRating/Config.php';
-	  require_once 'classes/ActivityRating/Lang.php';
-	  require_once 'classes/ActivityRating/Log.php';
-	  require_once 'classes/ActivityRating/Module.php';
-	  require_once 'classes/ActivityRating/Rating.php';*/
-
-
-	//	add_action('wp_ajax_activeHist', 'ajaxActivityRatingHistory');
-
-	//	if (!defined('WP_ADMIN')){
-	//		wp_register_script('activeRat', '/wp-content/plugins/activity_rating/js/activity_rating.js', [], '1.0', true);
-	//	}
 	ActivityRating\Rating::initActions();
-
-	//	session_start();
-	//	unset($_SESSION['userActivityRating']);
 }
 
 
 function add_menu_activity_rating() {
-	add_menu_page( __( 'Activity Rating', 'activity_rating' ), __( 'Activity Rating', 'activity_rating' ), 'administrator', 'activity_rating', 'activity_rating_page', null );
+	add_menu_page(
+		__( 'Activity Rating', WPP_TEXT_DOMAIN ),
+		__( 'Activity Rating', WPP_TEXT_DOMAIN ),
+		'administrator',
+		'activity_rating',
+		'activity_rating_page',
+		null
+	);
 
 	//createTbActivityRating();
 }

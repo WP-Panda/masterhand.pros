@@ -166,7 +166,7 @@ $final_bid_already_asked = get_post_meta( $post->ID, 'final_bid_asked', true );
 				<?php if ( $can_watch_text ) { ?>
                     <div class="col-free-reputation">
                         <div class="free-rating-new"><?php _e( 'Rating: ', ET_DOMAIN ); ?>
-                            +<?= getActivityRatingUser( $convert->post_author ); ?>
+                            +<?= wpp_get_user_rating(  $convert->post_author ); ?>
                         </div>
 
                         <div class="free-rating_wp">

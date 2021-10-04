@@ -12,8 +12,8 @@ extract( $args );
         <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8 col-xs-12 fre-profile-rating fre-profile-box">
                 <div class="fre-profile-rating_t">
-					<?php echo __( "My rating", ET_DOMAIN ); ?><span
-                            class="total-rating">+<?php echo getActivityRatingUser( $user_ID ) ?></span>
+					<?php echo __( "My rating", ET_DOMAIN ); ?>
+                    <span class="total-rating">+<?php echo wpp_get_user_rating( $user_ID ) ?></span>
                 </div>
                 <ul class="pro-dop">
                     <li>

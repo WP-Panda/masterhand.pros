@@ -33,7 +33,7 @@
 										} ?>
                                     <span class="hidden-xs rating-new">+<?php
 
-											echo call_user_func_array( 'getActivityRatingUser', [ $var[ "rwProject" ][ 'user_id' ] ] ); ?></span>
+											echo call_user_func_array( 'wpp_get_user_rating', [ $var[ "rwProject" ][ 'user_id' ] ] ); ?></span>
                                 </div>
 								<?php
 
@@ -50,7 +50,7 @@
 									} ?>
                                 <span class="visible-xs col-xs-6 rating-new">+<?php
 
-										echo call_user_func_array( 'getActivityRatingUser', [ $var[ "rwProject" ][ 'user_id' ] ] ); ?></span>
+										echo call_user_func_array( 'wpp_get_user_rating', [ $var[ "rwProject" ][ 'user_id' ] ] ); ?></span>
                                 <div class="col-sm-8 hidden-xs fre-project_lnk">
                     <span><?php
 		                    echo call_user_func_array( '_e', [ 'Project:', ET_DOMAIN ] ); ?></span>

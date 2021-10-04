@@ -106,14 +106,14 @@ class WPP_Skills_User extends WPP_Skills {
 		} else {
 			$post = get_queried_object();
 
-			$bid_id_accepted = get_post_meta( $post->ID, 'accepted', true );
+			$bid_id_accepted = @get_post_meta( $post->ID, 'accepted', true );
 			//		wpp_dump($user_id);
 
 			if ( wpp_fre_is_freelancer() ) {
-				$author_id_S = $post->post_author;
+				$author_id_S = @$post->post_author;
 			} else {
 				//$bid_author  = get_post_field( $bid_id_accepted,'post_author'  );
-				$author_id_S = get_post( $bid_id_accepted )->post_author;
+				$author_id_S = @get_post( $bid_id_accepted )->post_author;
 			}
 
 			//wpp_dump( sprintf( "SELECT COUNT(*) FROM %s WHERE `skill_id` = '%s' AND `likes_id` = '%s'", $this->lk_tbl, $skill_id, $author_id_S ));

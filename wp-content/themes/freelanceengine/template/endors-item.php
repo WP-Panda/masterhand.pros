@@ -36,7 +36,7 @@ $endorse_text = ! empty( WPP_Skills_User::getInstance()->is_emdorsment( $postid 
 			<?php if ( userHaveProStatus( $postid ) ) {
 				pro_label();
 			} ?>
-            <span class="rating-new">+<?php echo getActivityRatingUser( $postid ) ?></span>
+            <span class="rating-new">+<?php echo wpp_get_user_rating( $postid ) ?></span>
         </div>
         <div class="col-sm-3 col-xs-2 safe-deals">
 			<?php echo $count; ?>

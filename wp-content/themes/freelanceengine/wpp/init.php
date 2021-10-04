@@ -43,6 +43,7 @@ $array = [
 	'modules/Wpp_Module_Base',
 	'modules/extention/init',
 	'modules/companies/init',
+	'modules/wpp-rating/init',
 	'error-api',
 	'helpers',
 	'ajax/init',

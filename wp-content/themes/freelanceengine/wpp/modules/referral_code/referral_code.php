@@ -94,7 +94,8 @@ function generate_referral_code( $user_id ) {
 
 					add_user_meta( $user_id, 'is_company', 1 );
 				//	do_action( 'activityRating_asReferral', $user_id );
-					update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
+					#update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
+					update_user_meta( $user_id, '_wpp_referral', $referral_code );
 					// тут удаляется компания
 					company_delete( $referral_code );
 				}
@@ -107,8 +108,10 @@ function generate_referral_code( $user_id ) {
 				if ( $referral_user_id ) {
 					//Fre_Mailing::get_instance()->notification_registration_referral_code( $referral_user_id, $user_id );
 					//do_action( 'fre_new_referral', $referral_user_id, $user_id );
-					update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
-					update_user_meta( $user_id, '_activityRating_asReferrer', $referral_user_id );
+					#update_user_meta( $user_id, '_activityRating_asReferral', $referral_code );
+					#update_user_meta( $user_id, '_activityRating_asReferrer', $referral_code );
+					update_user_meta( $user_id, '_wpp_referral', $referral_code );
+					update_user_meta( $user_id, '_wpp_referrer', $referral_user_id );
 					#do_action( 'activityRating_asReferral', $user_id );
 					#do_action( 'activityRating_asReferrer', $referral_user_id );
 				}

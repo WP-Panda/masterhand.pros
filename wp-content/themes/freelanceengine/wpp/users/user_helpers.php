@@ -45,6 +45,15 @@ function wpp_fre_get_curent_user_roles() {
 }
 
 /**
+ * Проверка роли юзера по переданному ID
+ */
+function wpp_is_fl_by_id( $user_ID ) {
+	$user_meta  = get_userdata( $user_ID );
+	$user_roles = $user_meta->roles;
+	return in_array( FREELANCER, $user_roles ) ?? false;
+}
+
+/**
  * Проверка Фрилансер ли
  *
  * @return bool

@@ -115,21 +115,29 @@ class AE_Users {
 		$de_confirm = update_user_meta( $user_id, 'register_status', 'confirm' );
 
 
+		#$referral_code    = get_user_meta( $user_id, '_activityRating_asReferral', true );
+		#$referral_user_id = get_user_meta( $user_id, '_activityRating_asReferrer', true );
 
-		$referral_code    = get_user_meta( $user_id, '_activityRating_asReferral', true );
-		$referral_user_id = get_user_meta( $user_id, '_activityRating_asReferrer', true );
+		$referral_code    = get_user_meta( $user_id, '_wpp_referral', true );
+		$referral_user_id = get_user_meta( $user_id, '_wpp_referrer', true );
 
-
-
+		#отправка письма про реферала
 		Fre_Mailing::get_instance()->notification_registration_referral_code( $referral_user_id, $user_id );
+
+		#отправка уведомления про реферала
 		do_action( 'fre_new_referral', $referral_user_id, $user_id );
 
 		if ( ! empty( $referral_code ) ) :
-			do_action( 'activityRating_asReferral', $user_id );
+			//do_action( 'activityRating_asReferral', $user_id );
+			#начисление рэйтинга при подтверждении профиля
+			do_action( 'wpp_referral_active', $user_id );
 		endif;
 
+		wpp_d_log($referral_user_id );
 		if ( ! empty( $referral_user_id ) ) :
-			do_action( 'activityRating_asReferrer', $referral_user_id );
+			#do_action( 'activityRating_asReferrer', $referral_user_id );
+			#начисление рэйтинга при подтверждении профиля для пригласивщего
+			do_action( 'wpp_referrer_active', $referral_user_id );
 		endif;
 
 

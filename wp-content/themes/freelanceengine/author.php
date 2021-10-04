@@ -190,7 +190,7 @@ if ( $visualFlag ) {
                                 <div class="col-sm-3 col-xs-12">
                                     <div class="rating-new">
 										<?php echo __( 'Rating:', ET_DOMAIN ); ?>
-                                        <span>+<?php echo getActivityRatingUser( $author_id ) ?></span>
+                                        <span>+<?php echo wpp_get_user_rating( $author_id ) ?></span>
                                     </div>
                                     <div class="secure-deals">
 										<?php echo __( 'SafePay Deals:', ET_DOMAIN ); ?>
