@@ -34,18 +34,18 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 	//перерасчет для про юзера
 	$pro = get_user_pro_status( $user_ID );
 
-	if ( ! empty( $pro ) && ( (int) $pro === 2 || (int) $pro === 3 ) ) {
+	if ( ! empty( $pro ) && ( (int) $pro === 2 || (int) $pro === 3 || (int) $pro === 5 ) ) {
 		$pro_coeff = (int) $options['coefficient_pro_status'];
 
-		if ( (int) $pro === 2 ) {//обычный про
+		if ( (int) $pro === 2 || (int) $pro === 5 ) {//обычный про
 			$pro_diff = $pro_coeff / 100;
 		} elseif ( (int) $pro === 3 ) { // премиум про
 			$pro_diff = $pro_coeff * 2 / 100;
 		}
 
 		#получение текущего значения
-		$old_pro_val                = ! empty( $user_rating['coefficient_pro_status'] ) ? (int) $user_rating['coefficient_pro_status'] : 0;
-		$user_rating[ $rating_key ] = $old_pro_val + (int) $val * $pro_diff;
+		$old_pro_val                           = ! empty( $user_rating['coefficient_pro_status'] ) ? (int) $user_rating['coefficient_pro_status'] : 0;
+		$user_rating['coefficient_pro_status'] = (int) ( $old_pro_val + (int) $val * $pro_diff );
 	}
 
 
@@ -56,6 +56,7 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 
 function wpp_get_user_rating( $user_ID ) {
 	$user_rating = get_user_meta( $user_ID, '_wpp_user_rating', true );
+	#wpp_dump( $user_rating );
 
 	return ! empty( $user_rating['total'] ) ? $user_rating['total'] : 0;
 }
@@ -138,3 +139,17 @@ function wpp_skills_rating( $skills ) {
 }
 
 add_action( 'wpp_skill_rating', 'wpp_skills_rating', 10 );
+
+
+/**
+ * Начисление рeйтинга за скиллы
+ */
+function wpp_payment_rating( $order_data ) {
+	$options = get_option( 'wpp_skills' );
+	$coef    = (int) $options['coefficient_amount_payment'];
+
+	wpp_rating_set_option( (int) $order_data['payer'], 'coefficient_amount_payment', (int) $coef * (int) $order_data['total'] );
+
+}
+
+add_action( 'wpp_payment_option_rating', 'wpp_payment_rating', 10 );

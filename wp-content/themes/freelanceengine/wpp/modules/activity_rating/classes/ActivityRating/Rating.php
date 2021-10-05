@@ -120,7 +120,7 @@ class Rating extends Base {
 
 	public function session() {
 		if ( ! session_id() ) {
-			session_start();
+		//	session_start();
 		}
 	}
 

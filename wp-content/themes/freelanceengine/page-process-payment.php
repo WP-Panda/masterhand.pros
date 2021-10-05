@@ -26,6 +26,8 @@ if ( $payment_type == 'usePackage' || $payment_type == 'free' ) {
 	}
 }
 
+
+
 if ( $confirm_paypal ) {
 	confirm_paypal_field();
 
@@ -48,7 +50,8 @@ if ( empty( $order_id ) && isset( $_POST['orderid'] ) ) {
 
 $order      = new AE_Order( $order_id );
 $order_data = $order->get_order_data();
-
+//начисляем за оплату
+do_action( 'wpp_payment_option_rating', $order_data );
 if ( ( $payment_type == 'paypaladaptive' || $payment_type == 'frecredit' || $payment_type == 'stripe' ) && ! $order_id ) {
 	//frecredit --> accept bid.
 

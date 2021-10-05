@@ -9,6 +9,8 @@ wp_reset_query();
  * @subpackage FreelanceEngine
  * @since      FreelanceEngine 1.0
  */
+
+
 ?>
 <!-- FOOTER -->
 <?php if ( get_post_type() == "faq" || is_page( 'help' ) ) { ?>

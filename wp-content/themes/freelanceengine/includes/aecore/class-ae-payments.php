@@ -128,9 +128,11 @@ abstract class AE_Payment extends AE_Base {
 		 */
 		$post_obj = $ae_post_factory->get( $post->post_type );
 		$ad       = $post_obj->convert( $post );
+
 		if ( $payment_type == 'free' ) {
 			AE_Package::update_used_free_plan( $ad->post_author );
 		}
+
 
 		if ( $payment_type != 'usePackage' && isset( $ad->et_payment_package ) ) {
 			/**
@@ -218,6 +220,8 @@ abstract class AE_Payment extends AE_Base {
 
 			// Действия при прошедшей оплсте
 			do_action( 'wpp_payment_option_success', $data, $payment_return );
+			/*do_action( 'wpp_payment_option_rating', $data );
+			wpp_d_log('ffffffffffffffffffffffffffff');*/
 
 		} else {
 
