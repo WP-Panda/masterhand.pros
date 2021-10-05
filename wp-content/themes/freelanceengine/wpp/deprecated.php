@@ -24,5 +24,4 @@ function check_ref_code_by_company( $referral_code ) {
 	}
 
 	return $out ?? false;
-
 }

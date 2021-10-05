@@ -29,6 +29,9 @@ function wpp_save_user_skills() {
 
 	endforeach;
 
+	#Рейтинг для скиллов
+	do_action( 'wpp_skill_rating', $skills );
+
 	WPP_Skills_User::getInstance()->set_user_skills_meta( $skills );
 
 	wp_send_json_success( [ 'msg' => __( 'Skills Updated!', WPP_TEXT_DOMAIN ) ] );

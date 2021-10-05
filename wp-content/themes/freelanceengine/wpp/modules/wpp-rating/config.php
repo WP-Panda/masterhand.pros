@@ -38,7 +38,7 @@ function wpp_rating_config() {
 
 	$array['fields'] = [
 		'coefficient_pro_status'                      => [
-			'label' => __( 'Coef. rating growth from PRO status, %', WPP_TEXT_DOMAIN ),
+			'label' => __( 'Coef. rating growth from PRO status, %', WPP_TEXT_DOMAIN ),//
 			'for'   => 'all',
 			'def'   => 50
 		],
@@ -48,7 +48,7 @@ function wpp_rating_config() {
 			'def'   => 1
 		],
 		'site_visit'                                  => [
-			'label' => __( 'Site visits', WPP_TEXT_DOMAIN ),
+			'label' => __( 'Site visits', WPP_TEXT_DOMAIN ),  //
 			'for'   => 'all',
 			'def'   => 5
 		],
@@ -63,12 +63,12 @@ function wpp_rating_config() {
 			'def'   => 10
 		],
 		'freelancer_as_referral'                      => [
-			'label' => __( 'As referral', WPP_TEXT_DOMAIN ),
+			'label' => __( 'As referral', WPP_TEXT_DOMAIN ), //
 			'for'   => 'freelancer',
 			'def'   => 500
 		],
 		'freelancer_as_referrer'                      => [
-			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ),
+			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ), //
 			'for'   => 'freelancer',
 			'def'   => 2000
 		],
@@ -82,7 +82,7 @@ function wpp_rating_config() {
 			'for'   => 'freelancer',
 			'def'   => 50
 		],
-		'freelancer_for_skill'                        => [
+		'freelancer_for_skill'                        => [ //
 			'label' => __( 'Skills', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
 			'def'   => 10
@@ -120,12 +120,12 @@ function wpp_rating_config() {
 			'disabled' => true
 		],
 		'employer_as_referral'                        => [
-			'label' => __( 'As referral', WPP_TEXT_DOMAIN ),
+			'label' => __( 'As referral', WPP_TEXT_DOMAIN ), //
 			'for'   => 'employer',
 			'def'   => 500
 		],
 		'employer_as_referrer'                        => [
-			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ),
+			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ), //
 			'for'   => 'employer',
 			'def'   => 1000
 		],

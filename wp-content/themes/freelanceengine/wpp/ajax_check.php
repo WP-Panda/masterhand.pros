@@ -4,7 +4,6 @@
  */
 add_action( 'wp_ajax_check_register', 'check_register' );
 add_action( 'wp_ajax_nopriv_check_register', 'check_register' );
-
 function check_register() {
 
 	$valid = [];
