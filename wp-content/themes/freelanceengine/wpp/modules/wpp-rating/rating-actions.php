@@ -56,7 +56,7 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 
 function wpp_get_user_rating( $user_ID ) {
 	$user_rating = get_user_meta( $user_ID, '_wpp_user_rating', true );
-	#wpp_dump( $user_rating );
+	wpp_dump( $user_rating );
 
 	return ! empty( $user_rating['total'] ) ? $user_rating['total'] : 0;
 }
@@ -77,6 +77,8 @@ add_action( 'wpp_referral_active', 'wpp_rating_set_referral_data' );
  * Yачисление рэйтинга ля пригласившего
  *
  * @param $user_id
+ *
+ *  @todo  изменить на проверять роль приглашенного
  */
 function wpp_rating_set_referrer_data( $user_id ) {
 	$key = wpp_is_fl_by_id( $user_id ) ? 'freelancer_as_referrer' : 'employer_as_referrer';
@@ -142,7 +144,7 @@ add_action( 'wpp_skill_rating', 'wpp_skills_rating', 10 );
 
 
 /**
- * Начисление рeйтинга за скиллы
+ * Начисление за деньги
  */
 function wpp_payment_rating( $order_data ) {
 	$options = get_option( 'wpp_skills' );
