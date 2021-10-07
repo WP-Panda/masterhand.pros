@@ -37,22 +37,29 @@ function wpp_rating_config() {
 	];
 
 	$array['fields'] = [
-		'coefficient_pro_status'                      => [
-			'label' => __( 'Coef. rating growth from PRO status, %', WPP_TEXT_DOMAIN ),//
+		'coefficient_pro_status'                      => [ // для про стауса плана бизнесс  % от суммы
+			'label' => __( 'Coef. rating growth from Business PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 50
 		],
-		'coefficient_amount_payment'                  => [
+
+		'coefficient_premium_pro_status'                      => [ // для про стауса плана премиум % от суммы
+			'label' => __( 'Coef. rating growth from Premium PRO status, %', WPP_TEXT_DOMAIN ),
+			'for'   => 'all',
+			'def'   => 100,
+			],
+
+		'coefficient_amount_payment'                  => [ // начисление баллов рейтинга за каждый потраченный доллар
 			'label' => __( 'Purchases & money transactions (for 1$)', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 1
 		],
-		'site_visit'                                  => [
+		'site_visit'                                  => [  // за посещение сайта раз в сутки
 			'label' => __( 'Site visits', WPP_TEXT_DOMAIN ),  //
 			'for'   => 'all',
 			'def'   => 5
 		],
-		'one_field_profile'                           => [
+		'one_field_profile'                           => [ // за заполненные поля профиля
 			'label' => __( 'Completed profile info', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 10

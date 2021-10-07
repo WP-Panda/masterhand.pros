@@ -35,12 +35,11 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 	$pro = get_user_pro_status( $user_ID );
 
 	if ( ! empty( $pro ) && ( (int) $pro === 2 || (int) $pro === 3 || (int) $pro === 5 ) ) {
-		$pro_coeff = (int) $options['coefficient_pro_status'];
 
-		if ( (int) $pro === 2 || (int) $pro === 5 ) {//обычный про
-			$pro_diff = $pro_coeff / 100;
-		} elseif ( (int) $pro === 3 ) { // премиум про
-			$pro_diff = $pro_coeff * 2 / 100;
+		if ( (int) $pro === 2 ) {//обычный про
+			$pro_diff = (int) $options['coefficient_pro_status'] / 100;
+		} elseif ( (int) $pro === 3 || (int) $pro === 5 ) { // премиум про
+			$pro_diff = (int) $options['coefficient_premium_pro_status'] / 100;
 		}
 
 		#получение текущего значения
@@ -77,15 +76,15 @@ add_action( 'wpp_referral_active', 'wpp_rating_set_referral_data' );
  * Yачисление рэйтинга ля пригласившего
  *
  * @param $user_id
+ * @param $ref
  *
- *  @todo  изменить на проверять роль приглашенного
  */
-function wpp_rating_set_referrer_data( $user_id ) {
-	$key = wpp_is_fl_by_id( $user_id ) ? 'freelancer_as_referrer' : 'employer_as_referrer';
+function wpp_rating_set_referrer_data( $user_id, $ref ) {
+	$key = wpp_is_fl_by_id( $ref ) ? 'freelancer_as_referrer' : 'employer_as_referrer';
 	wpp_rating_set_option( $user_id, $key );
 }
 
-add_action( 'wpp_referrer_active', 'wpp_rating_set_referrer_data' );
+add_action( 'wpp_referrer_active', 'wpp_rating_set_referrer_data', 10, 2 );
 
 
 /**
@@ -155,3 +154,9 @@ function wpp_payment_rating( $order_data ) {
 }
 
 add_action( 'wpp_payment_option_rating', 'wpp_payment_rating', 10 );
+
+//experience
+//avatar,
+//year_experience,
+//user_phone,
+//paypal

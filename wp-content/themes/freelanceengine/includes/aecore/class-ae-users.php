@@ -133,11 +133,10 @@ class AE_Users {
 			do_action( 'wpp_referral_active', $user_id );
 		endif;
 
-		wpp_d_log($referral_user_id );
 		if ( ! empty( $referral_user_id ) ) :
 			#do_action( 'activityRating_asReferrer', $referral_user_id );
 			#начисление рэйтинга при подтверждении профиля для пригласивщего
-			do_action( 'wpp_referrer_active', $referral_user_id );
+			do_action( 'wpp_referrer_active', $referral_user_id , $user_id );
 		endif;
 
 

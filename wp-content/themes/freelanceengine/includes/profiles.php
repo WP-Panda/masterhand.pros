@@ -225,8 +225,6 @@ class Fre_ProfileAction extends AE_PostAction {
 		//        $this->add_ajax('ae-sync-user', 'sync');
 
 
-
-
 		/**
 		 * hook convert a profile to add custom meta data
 		 *
@@ -809,7 +807,6 @@ class Fre_ProfileAction extends AE_PostAction {
 	}
 
 
-
 	function render_template_js_company() {
 		get_template_part( 'template-js/company', 'title' );
 		get_template_part( 'template-js/company_page_profile', 'item' );
@@ -1330,7 +1327,9 @@ class Fre_PortfolioAction extends AE_PostAction {
 
 		global $ae_post_factory, $user_ID, $current_user, $post;
 
-		wp_send_json_error( [ 'ssssssssss' ] );
+		//	wp_send_json_error( [ 'ssssssssss' ] );
+
+		//wpp_d_log($_REQUEST);
 
 		$request   = $_REQUEST;
 		$ae_users  = new AE_Users();
@@ -1400,16 +1399,17 @@ class Fre_PortfolioAction extends AE_PostAction {
 				//                    wp_set_post_terms($result->ID, $term, 'skill', true);
 				//                }
 
-				if ( is_array( $request['project_category'] ) ) {
-					foreach ( $request['project_category'] as $sk ) {
-						$term = get_term_by( 'project_category', $sk, 'project_category' );
-						wp_set_post_terms( $result->ID, $term->term_id, 'project_category', true );
+				if ( ! empty( $request['project_category'] ) ) {
+					if ( is_array( $request['project_category'] ) ) {
+						foreach ( $request['project_category'] as $sk ) {
+							$term = get_term_by( 'project_category', $sk, 'project_category' );
+							wp_set_post_terms( $result->ID, $term->term_id, 'project_category', true );
+						}
+					} else {
+						$term = get_term_by( 'project_category', $request['project_category'], 'project_category' );
+						wp_set_post_terms( $result->ID, $term, 'project_category', true );
 					}
-				} else {
-					$term = get_term_by( 'project_category', $request['project_category'], 'project_category' );
-					wp_set_post_terms( $result->ID, $term, 'project_category', true );
 				}
-
 				$response = [
 					'success' => true,
 					'data'    => $convert,

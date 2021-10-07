@@ -1,0 +1,31 @@
+.review-select-vote{
+    color: #2c33c1;
+}
+.reviews-rating-summary{
+    color: #2c33c1;
+    font: normal normal normal 14px/1 FontAwesome;
+    width: 82px;
+    position: relative;
+    float: right;
+}
+.reviews-rating-summary:before{
+    width: 100%;
+    content: '\f006' '\f006' '\f006' '\f006' '\f006';
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: 0.3em;
+}
+.review-rating-result{
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+.review-rating-result:before{
+    content: '\f005' '\f005' '\f005' '\f005' '\f005';
+    position: relative;
+    letter-spacing: 0.3em;
+}
+.pagination-reviews li{
+    cursor: pointer;
+}

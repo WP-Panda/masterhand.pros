@@ -3,7 +3,7 @@
 		Plugin Name: WPP DEV
 		Plugin URI: https://wppanda.com?target=wpp_dev
 		Description: Функции для разработки
-		Author: WP Panda
+		Author: Максим WP Panda
 		Author URI: https://wppanda.com
 		Text Domain: wpp-dev
 		Domain Path: /languages/
