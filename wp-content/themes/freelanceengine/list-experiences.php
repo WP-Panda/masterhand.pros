@@ -18,16 +18,12 @@ if ( is_author() ) {
 $experiences = [];
 $profile_id  = get_user_meta( $author_id, 'user_profile_id', true );
 if ( $profile_id ) {
-	// not use get_post_meta because this not get meta_id
 	//$experiences = get_post_meta( $profile_id, 'work_experience' );
 	$query       = 'SELECT * FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . $profile_id . ' AND meta_key = "work_experience" ORDER BY meta_id DESC';
 	$experiences = $wpdb->get_results( $query );
 }
-
 if ( $is_edit or ! empty( $experiences ) ) {
 	?>
-
-
     <div class="profile-freelance-experience">
         <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -358,5 +354,4 @@ if ( $is_edit or ! empty( $experiences ) ) {
 			} ?>
         </ul>
     </div>
-
 <?php }

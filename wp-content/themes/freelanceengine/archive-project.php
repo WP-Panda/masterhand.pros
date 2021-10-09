@@ -19,7 +19,6 @@ global $wp_query, $ae_post_factory, $post, $user_ID;
 $wp_query->query['post_status'] = 'publish';
 $wp_query->query['post_']       = PROJECT;
 $loop                           = new WP_Query( $wp_query->query );
-
 get_header();
 ?>
     <div class="fre-page-wrapper section-archive-project">

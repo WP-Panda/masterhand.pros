@@ -8,7 +8,6 @@ $query = new WP_Query( [
 ] );
 $num   = $query->post_count;
 ?>
-
 <div class="owl-carousel item">
 	<?php global $post;
 	$i = 0;

@@ -88,7 +88,6 @@ $homeid         = get_option( 'page_on_front' );
                             </div>
                         </div>
                     </div>
-
                     <div class="fre-blog-fst_bl">
 						<?php $query1 = new WP_Query( [
 							'post_type'      => 'post',

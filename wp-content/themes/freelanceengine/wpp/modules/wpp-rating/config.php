@@ -37,17 +37,17 @@ function wpp_rating_config() {
 	];
 
 	$array['fields'] = [
-		'coefficient_pro_status'                      => [ // для про стауса плана бизнесс  % от суммы
+		'coefficient_pro_status' => [ // для про стауса плана бизнесс  % от суммы
 			'label' => __( 'Coef. rating growth from Business PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 50
 		],
 
-		'coefficient_premium_pro_status'                      => [ // для про стауса плана премиум % от суммы
+		'coefficient_premium_pro_status' => [ // для про стауса плана премиум % от суммы
 			'label' => __( 'Coef. rating growth from Premium PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 100,
-			],
+		],
 
 		'coefficient_amount_payment'                  => [ // начисление баллов рейтинга за каждый потраченный доллар
 			'label' => __( 'Purchases & money transactions (for 1$)', WPP_TEXT_DOMAIN ),
@@ -114,16 +114,16 @@ function wpp_rating_config() {
 			'for'   => 'freelancer',
 			'def'   => 0
 		],
-		'freelancer_installment_plan'     => [
-			'label' => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
-			'for'   => 'freelancer',
-			'def'   => 50,
+		'freelancer_installment_plan'                 => [
+			'label'    => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
+			'for'      => 'freelancer',
+			'def'      => 50,
 			'disabled' => true
 		],
-		'employer_installment_plan'       => [
-			'label' => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
-			'for'   => 'employer',
-			'def'   => 50,
+		'employer_installment_plan'                   => [
+			'label'    => __( 'Trusted Partner program participation', WPP_TEXT_DOMAIN ),
+			'for'      => 'employer',
+			'def'      => 50,
 			'disabled' => true
 		],
 		'employer_as_referral'                        => [

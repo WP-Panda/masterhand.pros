@@ -3,19 +3,15 @@
  * Use for page author.php and page-profile.php
  */
 global $wp_query, $ae_post_factory, $post;
-$current_user = wp_get_current_user();
-
+$current_user    = wp_get_current_user();
 $wp_query->query = array_merge( $wp_query->query, [ 'posts_per_page' => 6 ] );
-
-$post_object = $ae_post_factory->get( 'portfolio' );
-
+$post_object     = $ae_post_factory->get( 'portfolio' );
 if ( is_author() ) {
 	$author_id = get_query_var( 'author' );
 } else {
 	$author_id = get_current_user_id();
 
 }
-
 $query_args = [
 
 	'posts_per_page' => 6,
@@ -31,8 +27,6 @@ $query_args = [
 ];
 
 query_posts( $query_args );
-
-
 if ( have_posts() ) {
 	?>
     <div class="profile-freelance-portfolio">

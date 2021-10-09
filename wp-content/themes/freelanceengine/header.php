@@ -22,11 +22,9 @@ global $current_user, $user_ID, $post;
             margin-left: 15px;
             cursor: pointer;
         }
-
         .wpp-copy-btn {
             cursor: pointer;
         }
-
         .fre-submit-btn:hover[disabled="disabled"], .fre-submit-btn[disabled="disabled"], .fre-submit-btn:disabled, .fre-submit-btn:disabled:hover {
             opacity: 0.5 !important;
             background-color: #2c33c1 !important;
@@ -189,13 +187,9 @@ if ( $user_ID ) {
 ?>
 <script>
     jQuery(function ($) {
-
-
         setTimeout(function () {
             $_num = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
-        }, 1000);
-
-
+        }, 1000)
         $(document).on('change', '.page-template-page-options-project #pro_functions [type="checkbox"],.page-template-page-options-project #pro_functions [type="text"],.page-template-page-options-project #pro_functions [type="number"]', function () {
             var $_num_2 = $('.page-template-page-options-project #pro_functions [type="checkbox"]:checked').length;
             if ($_num_2 === $_num) {

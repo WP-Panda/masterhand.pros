@@ -1,7 +1,5 @@
 <?php
-global $user_ID, $ae_post_factory;
-global $disable_plan, $pay_to_bid;
-
+global $user_ID, $ae_post_factory,$disable_plan, $pay_to_bid;
 ?>
 <div class="fre-service-content">
     <div class="row">

@@ -33,7 +33,7 @@ $post_object = $ae_post_factory->get( PROFILE );
 	$convert                    = $post_object->convert( $post );
 	$postdata[]                 = $convert;
 	$hou_rate                   = (int) $convert->hour_rate; // from 1.8.5
-	$current_profile_categories = $convert->tax_input['profile_category']??'';
+	$current_profile_categories = $convert->tax_input['profile_category'] ?? '';
 	$user_status                = get_user_pro_status( $convert->post_author );
 	$visualFlag                 = getValueByProperty( $user_status, 'visual_flag' );
 	if ( $visualFlag ) {

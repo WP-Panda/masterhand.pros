@@ -1,7 +1,5 @@
 <?php
-//global $user_ID;
 $max_doxs = 5;
-
 if ( is_author() ) {
 	$author_id = get_query_var( 'author' );
 } else {

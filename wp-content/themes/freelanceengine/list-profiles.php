@@ -4,12 +4,8 @@
  */
 
 global $wp_query, $inner_query, $ae_post_factory, $query;
-
 $term_category = $wp_query->query_vars['project_category'];
-
-$post_object = $ae_post_factory->get( PROFILE );
-
-#echo '<pre>'; var_export($inner_query); echo '</pre>';
+$post_object   = $ae_post_factory->get( PROFILE );
 ?>
     <div class="row profile-list-container">
 		<?php
@@ -95,8 +91,8 @@ $post_object = $ae_post_factory->get( PROFILE );
         </div>
     </div>
 
-<?php wp_reset_query(); ?>
-<?php
+<?php wp_reset_query();
+
 /**
  * render post data for js
  */

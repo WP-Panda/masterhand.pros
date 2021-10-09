@@ -25,7 +25,6 @@ if ( $profile_id ) {
 }
 
 if ( ! empty( $is_edit ) || ! empty( $educations ) ) { ?>
-
     <div class="profile-freelance-education">
         <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -330,5 +329,4 @@ if ( ! empty( $is_edit ) || ! empty( $educations ) ) { ?>
 			} ?>
         </ul>
     </div>
-
 <?php }

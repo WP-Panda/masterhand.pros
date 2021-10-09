@@ -1,4 +1,8 @@
 <?php
+/**
+ * ТУТ ПРЯМО БЕДА Много разборок
+ * 
+ */
 wp_reset_query();
 /**
  * The template for displaying the footer
@@ -9,8 +13,6 @@ wp_reset_query();
  * @subpackage FreelanceEngine
  * @since      FreelanceEngine 1.0
  */
-
-
 ?>
 <!-- FOOTER -->
 <?php if ( get_post_type() == "faq" || is_page( 'help' ) ) { ?>
@@ -22,7 +24,7 @@ wp_reset_query();
             </div>
         </div>
     </section>
-<?php }; ?>
+<?php } ?>
 <footer>
     <div class="container">
         <div class="row">

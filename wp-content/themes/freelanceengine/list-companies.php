@@ -6,7 +6,6 @@ $wp_query->query['post_status'] = 'publish';
 $wp_query->query['post_type']   = COMPANY;
 $wp_query->query['pagename']    = '';
 $loop                           = new WP_Query( $wp_query->query );
-
 ?>
 
     <div class="project-list-container company-list-container">

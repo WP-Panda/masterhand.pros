@@ -30,11 +30,13 @@ add_action( 'admin_menu', 'wpp_rating_page_register', 1 );
 function register_my_setting() {
 	register_setting( 'wpp_skills_group', 'wpp_skills' );
 }
+
 add_action( 'admin_init', 'register_my_setting' );
 
 
 /**
  * Элемент таблицы с инпутом
+ *
  * @param $val
  * @param $name
  * @param bool $disabled
@@ -68,46 +70,46 @@ function wpp_rating_page() {
 	}
 	$opt = get_option( 'wpp_skills' );
 	?>
-	<div class="wrap">
-		<style>
-			input.wpp-input {
-				width: 100%;
-			}
-		</style>
-		<h1 class="wp-heading-inline"><?php _e( 'Activity Rating', WPP_TEXT_DOMAIN ); ?></h1>
-		<form method="post" action="options.php">
-			<table class="wp-list-table widefat fixed striped skill-table">
-				<thead>
-				<tr>
-					<td><?php echo $config['messages']['name'] ?></td>
-					<td><?php echo $config['messages']['freelancer'] ?></td>
-					<td><?php echo $config['messages']['employer'] ?></td>
-				</thead>
-				</tr>
-				<tbody id="the-list">
+    <div class="wrap">
+        <style>
+            input.wpp-input {
+                width: 100%;
+            }
+        </style>
+        <h1 class="wp-heading-inline"><?php _e( 'Activity Rating', WPP_TEXT_DOMAIN ); ?></h1>
+        <form method="post" action="options.php">
+            <table class="wp-list-table widefat fixed striped skill-table">
+                <thead>
+                <tr>
+                    <td><?php echo $config['messages']['name'] ?></td>
+                    <td><?php echo $config['messages']['freelancer'] ?></td>
+                    <td><?php echo $config['messages']['employer'] ?></td>
+                </thead>
+                </tr>
+                <tbody id="the-list">
 				<?php
 				settings_fields( 'wpp_skills_group' ); // название настроек
 
 				foreach ( $all as $key => $item ) :
 					$value = isset( $opt[ $key ] ) ? $opt[ $key ] : $item['def'];
 					?>
-					<tr class="text-center">
-						<td>
+                    <tr class="text-center">
+                        <td>
 							<?php echo $item['label'] ?>
-						</td>
-						<td class="text-center" colspan="2">
-							<input class="wpp-input" type="text" value="<?php echo $value ?>"
-							       name="wpp_skills[<?php echo $key ?>]">
-						</td>
-					</tr>
+                        </td>
+                        <td class="text-center" colspan="2">
+                            <input class="wpp-input" type="text" value="<?php echo $value ?>"
+                                   name="wpp_skills[<?php echo $key ?>]">
+                        </td>
+                    </tr>
 				<?php
 				endforeach;
 				foreach ( $only as $key => $item ) :
 					?>
-					<tr class="text-center">
-						<td>
+                    <tr class="text-center">
+                        <td>
 							<?php echo $key ?>
-						</td>
+                        </td>
 
 						<?php
 						//Колонка фрилансера
@@ -120,7 +122,7 @@ function wpp_rating_page() {
 
 						//Если фрилансер пуст
 						if ( ! empty( $item[0][0] ) && 'employer' === $item[0][0] ) {
-							$value = isset( $opt[ $item[0][2] ] ) ? $opt[ $item[0][2]] : $item[0][1];
+							$value = isset( $opt[ $item[0][2] ] ) ? $opt[ $item[0][2] ] : $item[0][1];
 							wpp_line_tpl( $value, $item[0][2], $item[0][3] );
 						}
 
@@ -135,15 +137,15 @@ function wpp_rating_page() {
 						}
 						?>
 
-					</tr>
+                    </tr>
 				<?php
 				endforeach;
 				?>
-				</tbody>
-			</table>
+                </tbody>
+            </table>
 			<?php submit_button(); ?>
-		</form>
-	</div>
+        </form>
+    </div>
 	<?php
 
 }

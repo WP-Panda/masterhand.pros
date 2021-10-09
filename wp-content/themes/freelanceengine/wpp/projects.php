@@ -121,7 +121,7 @@ add_action( 'wpp_payment_option_success', 'wpp_change_pay_status_for_option', 10
 
 function unset_pay_options( $data ) {
 
-	if ( is_page_template( 'page-options-project.php' ) ||  wp_doing_ajax() ) {
+	if ( is_page_template( 'page-options-project.php' ) || wp_doing_ajax() ) {
 
 		return $data;
 	}

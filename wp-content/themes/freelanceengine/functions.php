@@ -1,11 +1,9 @@
 <?php
-require_once 'wpp/init.php';
-
-
 function isConfirmEmail( $user_ID ) {
 	return true;
 }
 
+require_once 'wpp/init.php';
 require_once dirname( __FILE__ ) . '/includes/index.php';
 require_once TEMPLATEPATH . '/customizer/customizer.php';
 require_once 'settings/init.php';
@@ -3192,6 +3190,7 @@ function faq_permalink( $permalink, $post ) {
 function add_recaptcha() {
 	echo '<script src="https://www.google.com/recaptcha/api.js" async defer ></script>';
 }
+
 add_action( 'wp_head', 'add_recaptcha' );
 
 
@@ -3200,4 +3199,5 @@ function dequeue_jquery_migrate( $scripts ) {
 		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
 	}
 }
+
 add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );

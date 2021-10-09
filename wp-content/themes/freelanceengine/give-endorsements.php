@@ -56,12 +56,9 @@ $location = getLocation( $user_ID );
 //for email
 $user_confirm_email = get_user_meta( $user_ID, 'register_status', true );
 //new end
-
-get_header();
 // Handle email change requests
 $user_meta = get_user_meta( $user_ID, 'adminhash', true );
-
-
+get_header();
 if ( ! empty( $_GET['adminhash'] ) ) {
 	if ( is_array( $user_meta ) && $user_meta['hash'] == $_GET['adminhash'] && ! empty( $user_meta['newemail'] ) ) {
 		wp_update_user( [

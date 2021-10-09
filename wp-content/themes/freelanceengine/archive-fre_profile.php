@@ -14,12 +14,10 @@
  * @since      FreelanceEngine 1.0
  */
 global $wp_query, $ae_post_factory, $post, $user_ID;
-
 $wp_query->query['post_status']    = 'publish';
 $wp_query->query['post_']          = PROFILE;
 $wp_query->query['with_companies'] = true;
 $loop                              = new WP_Query( $wp_query->query );
-
 get_header();
 ?>
     <div class="fre-page-wrapper section-archive-profile with_company">

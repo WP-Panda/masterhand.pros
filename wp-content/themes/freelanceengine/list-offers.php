@@ -2,7 +2,6 @@
 global $wp_query, $ae_post_factory, $post;
 $post_object = $ae_post_factory->get( ADVERT );
 ?>
-
     <ul class="offer-list-container">
 		<?php
 		$postdata = [];

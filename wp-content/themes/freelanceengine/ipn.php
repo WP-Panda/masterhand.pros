@@ -1,4 +1,7 @@
 <?php
+/**
+ * ТУТ НАДО РАЗБИРАТЬСЯ!!!!
+ */
 //$data = file_get_contents('php://input');
 //file_put_contents(__DIR__ . '/ipn.log', json_encode([
 //    'method' => $_SERVER['REQUEST_METHOD'],

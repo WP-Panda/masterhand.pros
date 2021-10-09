@@ -32,13 +32,6 @@ $query_args = [
 ];
 
 query_posts( $query_args );
-//echo '<pre>' . var_dump($current_user) . '</pre>';
-
-//new2
-//if (function_exists('count_portfolio')) {
-//    $cp = count_portfolio($current_user);
-//    // $cp = 2;
-//}
 
 if ( function_exists( 'set_function_for_add_pro_status' ) ) {
 	$pro_status      = get_user_pro_status( $user_ID );

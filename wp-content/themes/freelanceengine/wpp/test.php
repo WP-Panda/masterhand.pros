@@ -6,5 +6,3 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
-

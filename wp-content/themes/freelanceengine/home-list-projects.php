@@ -1,4 +1,6 @@
 <?php
+
+global $wp_query, $ae_post_factory, $post;
 $query_args = [
 	'post_type'      => PROJECT,
 	'post_status'    => 'publish',
@@ -11,7 +13,7 @@ $obj_name   = new WP_Query( $query_args );
 $num        = $obj_name->post_count;
 ?>
 <div class="fre-jobs-list owl-carousel">
-	<?php global $wp_query, $ae_post_factory, $post;
+	<?php
 	$post_object = $ae_post_factory->get( 'project' );
 	$i           = 0;
 	while ( $obj_name->have_posts() ) {
