@@ -55,7 +55,6 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 
 function wpp_get_user_rating( $user_ID ) {
 	$user_rating = get_user_meta( $user_ID, '_wpp_user_rating', true );
-	wpp_dump( $user_rating );
 
 	return ! empty( $user_rating['total'] ) ? $user_rating['total'] : 0;
 }
@@ -141,6 +140,31 @@ function wpp_skills_rating( $skills ) {
 
 add_action( 'wpp_skill_rating', 'wpp_skills_rating', 10 );
 
+/**
+ * Начисление рэйтинга за подтвержденные скилы скиллы
+ */
+function wpp_skills_approved_rating( $user_ID ) {
+
+	$key = wpp_is_fl_by_id( $user_ID ) ? 'freelancer_for_endorse_skill' : 'employer_for_endorse_skill';
+
+	wpp_rating_set_option( $user_ID, $key );
+
+}
+
+add_action( 'wpp_after_likes', 'wpp_skills_approved_rating' );
+
+
+/**
+ * Начисление рэйтинга за удаление подтверженного скила
+ */
+function wpp_skills_un_approved_rating( $user_ID ) {
+
+	$key     = wpp_is_fl_by_id( $user_ID ) ? 'freelancer_for_endorse_skill' : 'employer_for_endorse_skill';
+	$options = get_option( 'wpp_skills' );
+	wpp_rating_set_option( $user_ID, $key, "-{$options[$key]}" );
+}
+
+add_action( 'wpp_after_un_likes', 'wpp_skills_un_approved_rating' );
 
 /**
  * Начисление за деньги
@@ -155,8 +179,47 @@ function wpp_payment_rating( $order_data ) {
 
 add_action( 'wpp_payment_option_rating', 'wpp_payment_rating', 10 );
 
-//experience
-//avatar,
-//year_experience,
-//user_phone,
-//paypal
+
+/**
+ * Заполненность профиля
+ * @param $type
+ * @param $user_id
+ */
+function save_one_rating_field_profile( $type, $user_id ) {
+	$key = 'one_field_profile';
+	$val = get_option( 'wpp_skills' )[ $key ];
+
+
+	$flags = get_user_meta( $user_id, '_wpp_user_flag_array', true );
+
+	if ( empty( $flags ) ) {
+		$flags = [];
+	}
+
+	if ( $type === 'avatar' && empty( $flags['avatar'] ) ) {
+		$flags['avatar'] = 1;
+		update_user_meta( $user_id, '_wpp_user_flag_array', $flags );
+
+	}
+
+	if ( $type === 'paypal' && empty( $flags['paypal'] ) ) {
+		$flags['paypal'] = 1;
+		update_user_meta( $user_id, '_wpp_user_flag_array', $flags );
+	}
+
+	if ( $type === 'phone' && empty( $flags['phone'] ) ) {
+		$flags['phone'] = 1;
+		update_user_meta( $user_id, '_wpp_user_flag_array', $flags );
+	}
+
+	if ( $type === 'email' && empty( $flags['email'] ) ) {
+		$flags['email'] = 1;
+		update_user_meta( $user_id, '_wpp_user_flag_array', $flags );
+	}
+
+	wpp_rating_set_option( $user_id, $key, $val );
+
+
+}
+
+add_action( 'wpp_rating_one_field_profile', 'save_one_rating_field_profile', 10, 2 );

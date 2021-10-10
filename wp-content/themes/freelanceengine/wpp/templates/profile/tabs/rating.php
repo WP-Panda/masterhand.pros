@@ -15,68 +15,33 @@ extract( $args );
 					<?php echo __( "My rating", ET_DOMAIN ); ?>
                     <span class="total-rating">+<?php echo wpp_get_user_rating( $user_ID ) ?></span>
                 </div>
-                <ul class="pro-dop">
+               <!-- <ul class="pro-dop">
                     <li>
-						<?php echo __( "PRO status ", ET_DOMAIN ); ?><span
-                                class="pro-rating">+<?php echo getActivityProRatingUser( $user_ID ) ?></span>
+						<?php /*echo __( "PRO status ", ET_DOMAIN ); */?>
+                        <span class="pro-rating">+<?php /*echo getActivityProRatingUser( $user_ID ) */?></span>
                     </li>
-                </ul>
+                </ul>-->
                 <ul class="dop">
-					<?php getActivityDetailUser( $user_ID ) ?>
+					<?php //getActivityDetailUser( $user_ID ) ?>
+
+					<?php
+					$rating    = get_user_meta( $user_ID, '_wpp_user_rating', true );
+					$options   = wpp_rating_config();
+					$role_flag = wpp_fre_is_freelancer() ? 'freelancer' : 'employer';
+					wpp_dump( $rating);
+					foreach ( $options['fields'] as $option_key => $option_options ) {
+						if ( $role_flag === $option_options['for'] || 'all' === $option_options['for'] ) :
+							printf( '<li>%s<span>%s</span></li>', $option_options['label'], ! empty( $rating[ $option_key ] ) ? '+' . $rating[ $option_key ] : 0 );
+						endif;
+					}
+			//		wpp_dump( $rating );
+					?>
                 </ul>
             </div>
 
-            <div class="col-sm-12 col-md-4 col-lg-4 col-xs-12">
-                <div class="category">
-					<?php
-					if ( wpp_fre_is_freelancer() ) {
-
-						$args = [
-							[
-								'url'   => '/business-promotion-with-know-how/',
-								'ankor' => __( 'Business promotion with Know-How', WPP_TEXT_DOMAIN ),
-								'text'  => __( 'Some 2-3 articles/posts per month would work very effectively to promote your business and support your brand with potential customers.', WPP_TEXT_DOMAIN ),
-								'type'  => 2
-							],
-							[
-								'url'   => '/pro-benefits-for-pro/',
-								'ankor' => __( 'Pro benefits for Pro', WPP_TEXT_DOMAIN ),
-								'text'  => __( 'You are a Trusted Professional. Choose and activate your PRO plan to get benefits from it.', WPP_TEXT_DOMAIN ),
-								'type'  => 2
-							],
-							[
-								'url'   => '/why-referals-are-very-important-pro-2/',
-								'ankor' => __( 'Why referals are very important for PRO', WPP_TEXT_DOMAIN ),
-								'text'  => __( 'You can be in TOP Professionals. Promote your business constantly. Share your profile via email, in social networks, and even offline.', WPP_TEXT_DOMAIN ),
-								'type'  => 2
-							]
-						];
-
-					} else {
-
-						$args = [
-							[
-								'url'   => '/pro-benefits-for-client/',
-								'ankor' => __( 'Pro benefits for Client', WPP_TEXT_DOMAIN ),
-								'text'  => __( 'You are a Trusted Client. Choose and activate your PRO plan to get many benefits from it.', WPP_TEXT_DOMAIN ),
-								'type'  => 1
-							],
-							[
-								'url'   => '/why-referals-are-very-important-client/',
-								'ankor' => __( 'Why referals are very important for Client', WPP_TEXT_DOMAIN ),
-								'text'  => __( 'You can be a highly ranked Client- uphold your reputation and increase your rating constantly. Invite new referrals using special tools via email and social networks.', WPP_TEXT_DOMAIN ),
-								'type'  => 1
-							]
-						];
-
-					}
-
-					foreach ( $args as $one ) {
-						wpp_get_template_part( 'wpp/templates/profile/info-side-block', $one );
-					} ?>
-
-                </div>
-            </div>
+			<?php
+			wpp_get_template_part( 'wpp/templates/profile/tabs/rating-side' );
+			?>
 
             <div class="col-sm-12 col-md-4 col-lg-4 col-xs-12" hidden>
                 <div class="category">

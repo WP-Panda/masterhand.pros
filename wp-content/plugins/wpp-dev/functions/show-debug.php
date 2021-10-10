@@ -67,3 +67,14 @@ if ( ! function_exists( 'wpp_console' ) ) :
 
 	}
 endif;
+
+function wpp_d_action( $data, $text = '' ) {
+	if ( is_wpp_panda() ) {
+		echo '<pre>';
+		echo !empty($text) ? $text : '';
+		var_dump( $data );
+		echo '</pre>';
+	}
+}
+
+add_action( 'wpp_dump', 'wpp_d_action', 10, 2 );

@@ -16,6 +16,7 @@ function wpp_un_endorse() {
 	if ( empty( $_POST['skill'] ) ) {
 		wp_send_json_error( [ 'msg' => __( 'Undefened Skill', WPP_TEXT_DOMAIN ) ] );
 	}
+	do_action( 'wpp_before_un_likes', (int) $_POST['uid'] );
 
 	$result = WPP_Skills_Actions::getInstance()->remove_likes( (int) $_POST['uid'], (int) $_POST['skill'] );
 
@@ -26,6 +27,8 @@ function wpp_un_endorse() {
 	if ( ! empty( $result['error'] ) ) {
 		wp_send_json_error( [ 'msg' => $result['msg'] ] );
 	}
+
+	do_action( 'wpp_after_un_likes', (int) $_POST['uid'] );
 
 	wp_send_json_success( [ 'msg' => $result['msg'] ] );
 

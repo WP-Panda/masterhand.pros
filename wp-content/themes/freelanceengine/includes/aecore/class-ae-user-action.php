@@ -65,7 +65,8 @@ class AE_UserAction extends AE_Base {
 		 * sync user base on method and do param
 		 */
 		$result = $this->user->sync( $request );
-		do_action( 'activityRating_oneFieldProfile' );
+		//do_action( 'activityRating_oneFieldProfile' );
+		do_action( 'wpp_rating_one_field_profile', 'email', $user_ID);
 		// check the result and send json to client
 		if ( $result && ! is_wp_error( $result ) ) {
 			$response = [

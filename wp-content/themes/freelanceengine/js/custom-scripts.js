@@ -1276,7 +1276,7 @@ jQuery(function ($) {
         $('.page-template-page-profile .profile-freelance-wrap>.fre-profile-box:first-child .profile-freelance-info>div').css("height", "");
     }
 
-    $(".dop li:nth-child(even)").remove();
+    //$(".dop li:nth-child(even)").remove();
     $('input[type="file"].usp-input').change(function (e) {
         if ($('#file__new').val()) {
             let value = $('#file__new').val(),

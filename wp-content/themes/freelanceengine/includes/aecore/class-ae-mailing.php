@@ -34,7 +34,7 @@ class AE_Mailing extends AE_Base {
 		$user       = new WP_User( $user_id );
 		$user_email = $user->user_email;
 
-		do_action( 'activityRating_oneFieldProfile', $user_id );
+		do_action( 'wpp_rating_one_field_profile', 'email', $user_id  );
 
 		$subject = __( "Congratulations! Your account has been verified successfully.", ET_DOMAIN );
 		$message = ae_get_option( 'confirmed_mail_template' );

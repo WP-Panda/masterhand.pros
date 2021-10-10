@@ -1027,7 +1027,7 @@ class Fre_ProfileAction extends AE_PostAction {
 		}
 		//new end
 
-		do_action( 'activityRating_oneFieldProfile' );
+		do_action( 'wpp_rating_one_field_profile', 'experience', $user_ID);
 
 
 		// sync profile
@@ -1079,7 +1079,7 @@ class Fre_ProfileAction extends AE_PostAction {
 				}
 				//new end
 
-				do_action( 'activityRating_oneFieldProfile' );
+				do_action( 'wpp_rating_one_field_profile', 'paypal', $user_ID);
 
 				// store profile id to user meta
 				$response = [

@@ -1905,32 +1905,5 @@
 
         }
     })
-    // Views.Profile.prototype.initValidator = function() {
-    //     // login rule
-    //     this.account_validator = $("form#account_form").validate({
-    //         rules: {
-    //             display_name: "required",
-    //             user_email: {
-    //                 required: true,
-    //                 email: true
-    //             }
-    //         }
-    //     });
-    //     /**
-    //      * register rule
-    //      */
-    //     this.profile_validator = $("form#profile_form").validate({
-    //         rules: {
-    //             et_professional_title: "required",
-    //             country: "required",
-    //             // hour_rate: {
-    //             //     required: true,
-    //             //     number: true
-    //             // },
-    //             et_experience : {
-    //                 number : true
-    //             }
-    //         }
-    //     });
-    // }
+
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);

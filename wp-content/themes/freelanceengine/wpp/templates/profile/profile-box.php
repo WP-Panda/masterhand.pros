@@ -13,7 +13,9 @@ extract( $args );
     <div class="profile-freelance-info-wrap active">
         <div class="profile-freelance-info top cnt-profile-hide row" id="cnt-profile-default" style="display: block">
             <div class="col-sm-2 col-xs-4 text-center avatar_wp">
-				<?php echo get_avatar( $user_data->ID, 145 ); ?>
+				<?php
+				$flags = get_user_meta($user_data->ID);
+               echo get_avatar( $user_data->ID, 145 ); ?>
             </div>
             <div class="col-lg-3 col-sm-4 col-md-3 col-xs-8 no-pad">
                 <div class="col-sm-12 col-md-12 col-lg-7 col-xs-12 freelance-name">

@@ -128,7 +128,8 @@ if ( $visualFlag ) {
                         <div class="profile-freelance-info-wrap">
                             <div class="profile-freelance-info top row">
                                 <div class="col-sm-2 col-xs-3 avatar_wp">
-									<?php echo get_avatar( $author_id, 145 ); ?>
+									<?php
+                                    echo  get_avatar( $author_id, 145 ); ?>
                                 </div>
                                 <div class="col-lg-3 col-sm-4 col-md-3 col-xs-8">
                                     <div class="col-sm-8 col-xs-12 freelance-name">

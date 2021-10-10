@@ -17,6 +17,8 @@ function wpp_endorse() {
 		wp_send_json_error( [ 'msg' => __( 'Undefened Skill', WPP_TEXT_DOMAIN ) ] );
 	}
 
+	do_action( 'wpp_before_likes', (int) $_POST['uid'] );
+
 	$result = WPP_Skills_Actions::getInstance()->add_likes( (int) $_POST['uid'], (int) $_POST['skill'] );
 
 	if ( empty( $result ) ) {
@@ -26,6 +28,8 @@ function wpp_endorse() {
 	if ( ! empty( $result['error'] ) ) {
 		wp_send_json_error( [ 'msg' => $result['msg'] ] );
 	}
+
+	do_action( 'wpp_after_likes', (int) $_POST['uid'] );
 
 	wp_send_json_success( [ 'msg' => $result['msg'] ] );
 

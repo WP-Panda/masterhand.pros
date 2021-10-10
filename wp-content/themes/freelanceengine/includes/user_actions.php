@@ -146,13 +146,14 @@ class AE_User_Front_Actions extends AE_Base {
 		$ae_users = AE_Users::get_instance();
 
 		//update user avatar
-		$user = $ae_users->update( [
+		$user  = $ae_users->update( [
 			'ID'            => $request['user_id'],
 			'et_avatar'     => $attach_data['attach_id'],
 			'et_avatar_url' => $attach_data['thumbnail'][0]
 		] );
 
-		do_action( 'activityRating_oneFieldProfile' );
+		do_action( 'wpp_rating_one_field_profile', 'avatar', $request['user_id'] );
+
 
 		wp_send_json( [
 			'success' => true,

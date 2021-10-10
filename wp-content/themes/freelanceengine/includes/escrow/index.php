@@ -21,6 +21,9 @@ function confirm_paypal_field() {
 		if ( $paid == 'approved' ) {
 
 			update_user_meta( $user->ID, 'paypal_confirmation', 1 );
+
+			do_action( 'wpp_rating_one_field_profile', 'paypal', $user->ID );
+
 			$paypal_email = get_user_meta( $user->ID, 'paypal', true );
 			$payout       = new FP_WC_PP_PayPal_Payout( [
 				"receivers" => [

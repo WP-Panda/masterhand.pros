@@ -2789,6 +2789,7 @@ if ( ! function_exists( 'get_avatar' ) ) :
 		 * @param string $alt         Alternative text to use in the avatar image tag. Default empty.
 		 * @param array  $args        Arguments passed to get_avatar_data(), after processing.
 		 */
+
 		return apply_filters( 'get_avatar', $avatar, $id_or_email, $args['size'], $args['default'], $args['alt'], $args );
 	}
 endif;

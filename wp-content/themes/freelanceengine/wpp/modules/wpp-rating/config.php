@@ -69,12 +69,12 @@ function wpp_rating_config() {
 			'for'   => 'freelancer',
 			'def'   => 10
 		],
-		'freelancer_as_referral'                      => [
+		'freelancer_as_referral'                      => [//
 			'label' => __( 'As referral', WPP_TEXT_DOMAIN ), //
 			'for'   => 'freelancer',
 			'def'   => 500
 		],
-		'freelancer_as_referrer'                      => [
+		'freelancer_as_referrer'                      => [//
 			'label' => __( 'As referrer', WPP_TEXT_DOMAIN ), //
 			'for'   => 'freelancer',
 			'def'   => 2000
