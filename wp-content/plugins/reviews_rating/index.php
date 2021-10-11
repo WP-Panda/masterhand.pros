@@ -331,10 +331,10 @@
 			$id = $review->create( $postData );
 			if ( $id !== false ) {
 
-				do_action( 'activityRating_forReview' );
+				//do_action( 'activityRating_forReview' );
 
 				if ( $order ) {
-					do_action( 'activityRating_projectSuccessFreelancer', $user_ID, $employer_id );
+					//do_action( 'activityRating_projectSuccessFreelancer', $user_ID, $employer_id );
 
 					$safe_deals_freelancer = get_user_meta( $user_ID, 'safe_deals_count', true ) + 1;
 					update_user_meta( $user_ID, 'safe_deals_count', $safe_deals_freelancer );
@@ -404,7 +404,7 @@
 				do_action( 'activityRating_forReview' );
 
 				if ( $order ) {
-					do_action( 'activityRating_projectSuccessFreelancer', $user_ID, $employer_id );
+					//do_action( 'activityRating_projectSuccessFreelancer', $user_ID, $employer_id );
 
 					$safe_deals_freelancer = get_user_meta( $user_ID, 'safe_deals_count', true ) + 1;
 					update_user_meta( $user_ID, 'safe_deals_count', $safe_deals_freelancer );

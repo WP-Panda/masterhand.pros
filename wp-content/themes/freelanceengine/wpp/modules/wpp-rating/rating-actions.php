@@ -182,6 +182,7 @@ add_action( 'wpp_payment_option_rating', 'wpp_payment_rating', 10 );
 
 /**
  * Заполненность профиля
+ *
  * @param $type
  * @param $user_id
  */
@@ -223,3 +224,12 @@ function save_one_rating_field_profile( $type, $user_id ) {
 }
 
 add_action( 'wpp_rating_one_field_profile', 'save_one_rating_field_profile', 10, 2 );
+
+
+function wpp_rating_action_bro_bid( $bid_id, $user_ID ) {
+	$key = 'employer_bid_accepted';
+	wpp_rating_set_option( $user_ID, $key );
+
+}
+
+add_action( 'wpp_rating_action_bro_bid', 'wpp_rating_action_bro_bid', 10, 2 );

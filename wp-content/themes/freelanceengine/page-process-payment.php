@@ -395,7 +395,7 @@ if ( ( $payment_type == 'paypaladaptive' || $payment_type == 'frecredit' || $pay
 												header( 'location:/profile/' );
 											}
 
-											do_action( 'activityRating_amountPayment', $user_ID, $order_amount );
+											//do_action( 'activityRating_amountPayment', $user_ID, $order_amount );
 											review_rating_init()->setStatus( $review_id, review_rating_init()::STATUS_APPROVED );
 											review_rating_init()->setUserIdForRating( $review['for_user_id'] )->addVote( $review['vote'] );
 

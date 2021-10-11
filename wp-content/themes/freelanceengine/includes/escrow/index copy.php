@@ -34,7 +34,7 @@ function fre_process_escrow( $payment_type, $data ) {
 				do_action( 'fre_process_escrow_complete', $data );
 
 				$postAuthor = get_post_field( 'post_author', $data['order_id'] );
-				do_action( 'activityRating_amountPayment', $postAuthor, $data['total'] );
+				//do_action( 'activityRating_amountPayment', $postAuthor, $data['total'] );
 
 				// assign project
 				$bid_action = Fre_BidAction::get_instance();

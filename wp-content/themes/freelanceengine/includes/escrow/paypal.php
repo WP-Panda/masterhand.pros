@@ -289,8 +289,10 @@ function fre_escrow_bid() {
 	if ( $approvalUrl ) {
 
 		$freelancer_id = get_post_field( 'post_author', $bid_id );
-		if ( userHaveProStatus( $freelancer_id ) ) {
+		if ( ! empty( userHaveProStatus( $freelancer_id ) ) ) {
 			do_action( 'fre_accept_bid', $bid_id );
+			do_action( 'wpp_rating_action_bro_bid', $bid_id, $user_ID );
+
 		}
 		$order_id = wp_insert_post( $order_post );
 
@@ -734,7 +736,7 @@ function fre_finish_escrow( $project_id ) {
 		$bid_id_accepted = get_post_meta( $project_id, 'accepted', true );
 		$credit_api      = ae_get_option( 'escrow_credit_settings' );
 		if ( ! ae_get_option( 'manual_transfer' ) ) {
-			do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
+
 			$user = get_user_by( "id", get_post_meta( $project_id, 'professional_id', true ) );
 
 			isConfirmEmail( $user->ID );
@@ -812,7 +814,7 @@ function bid_finish_escrow( $project_id ) {
 			$payout->init();
 			// paypal escrow process
 			// execute payment and send money to freelancer
-			do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
+			//do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
 
 			// success update order data
 			$order = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );

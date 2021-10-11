@@ -5,6 +5,58 @@
 
         var resized = "0";
         var didResize;
+        AE.Views.Modal_AcceptBid_NoEscrow = Views.Modal_Box.extend({
+            el: '#accept-bid-no-escrow',
+            events: {
+                // user register
+                'click form#accept_bid_no_escrow button#submit_accept_bid': 'submit'
+            },
+            /**
+             * init view setup Block Ui and Model User
+             */
+            initialize: function () {
+                // init block ui
+                this.blockUi = new Views.BlockUi();
+            },
+            // setup a bid id to modal accept bid
+            setBidId: function (id) {
+                this.bid_id = id;
+            },
+            // submit accept bid an pay
+            submit: function (event) {
+                event.preventDefault();
+                var $target = $(event.currentTarget),
+                    view = this;
+                $.ajax({
+                    url: ae_globals.ajaxURL,
+                    type: 'post',
+                    data: {
+                        bid_id: view.bid_id,
+                        action: 'ae-accept-bid',
+                    },
+                    beforeSend: function () {
+                        view.blockUi.block($target);
+                    },
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.reload();
+                            AE.pubsub.trigger('ae:notification', {
+                                msg: res.msg,
+                                notice_type: 'success'
+                            })
+                            // view.closeModal();
+                        } else {
+                            view.blockUi.unblock();
+                            AE.pubsub.trigger('ae:notification', {
+                                msg: res.msg,
+                                notice_type: 'error'
+                            })
+                        }
+                    }
+                });
+            }
+        });
+
         AE.Views.SingleProject = Backbone.View.extend({
             // action: 'ae-project-sync',
             el: 'body.single',
@@ -14,7 +66,7 @@
                 'click a.btn-select-type-accept': 'selectTypeAccepting',
                 'click a.btn-select-type-get-final-bid': 'selectTypeFinalBid',
                 'click a.btn-accept-bid': 'confirmShow',
-                'click a.btn-accept-bid-no-escrow': 'confirmShowNoEscrow',
+                'click a.btn-accept-bid-no-escrow': 'confirmShowNoEscrow', // Утверждение бида для обычной сделки
                 'click a.btn-complete-project': 'showReviewModal',
                 'click a.project-employer__reply': 'showReplyModal',
                 'click .confirm .btn-agree': 'acceptBid',
@@ -490,6 +542,7 @@
                 if (typeof view.acceptbid_no_escrow_modal == 'undefined') {
                     view.acceptbid_no_escrow_modal = new Views.Modal_AcceptBid_NoEscrow();
                 }
+
                 view.acceptbid_no_escrow_modal.setBidId(view.bid_id);
                 view.acceptbid_no_escrow_modal.openModal();
             },
@@ -518,7 +571,7 @@
 
                     // disable "Safe deal" button if PRO-user has selected preliminary quote
                     let bidType = $target.attr('data-bid-type');
-                    console.log(bidType);
+                    //console.log(bidType);
                     let $acceptBidBtn = $('#select-type-accept-bid').find('.btn-accept-bid');
                     if (bidType != 'final') {
                         $acceptBidBtn.hide();
@@ -1464,57 +1517,9 @@
             }
         });
         new AE.Views.SingleProject();
-        AE.Views.Modal_AcceptBid_NoEscrow = Views.Modal_Box.extend({
-            el: '#accept-bid-no-escrow',
-            events: {
-                // user register
-                'click form#accept_bid_no_escrow button#submit_accept_bid': 'submit'
-            },
-            /**
-             * init view setup Block Ui and Model User
-             */
-            initialize: function () {
-                // init block ui
-                this.blockUi = new Views.BlockUi();
-            },
-            // setup a bid id to modal accept bid
-            setBidId: function (id) {
-                this.bid_id = id;
-            },
-            // submit accept bid an pay
-            submit: function (event) {
-                event.preventDefault();
-                var $target = $(event.currentTarget),
-                    view = this;
-                $.ajax({
-                    url: ae_globals.ajaxURL,
-                    type: 'post',
-                    data: {
-                        bid_id: view.bid_id,
-                        action: 'ae-accept-bid',
-                    },
-                    beforeSend: function () {
-                        view.blockUi.block($target);
-                    },
-                    success: function (res) {
-                        if (res.success) {
-                            window.location.reload();
-                            AE.pubsub.trigger('ae:notification', {
-                                msg: res.msg,
-                                notice_type: 'success'
-                            })
-                            // view.closeModal();
-                        } else {
-                            view.blockUi.unblock();
-                            AE.pubsub.trigger('ae:notification', {
-                                msg: res.msg,
-                                notice_type: 'error'
-                            })
-                        }
-                    }
-                });
-            }
-        });
+
+
+
     });
 
     //Modal Purchase Bid Project

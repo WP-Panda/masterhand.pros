@@ -25,7 +25,7 @@ if ( $_REQUEST['payment'] == 'cancel' ) {
 			$order = getDataPayGateId( $orderId );
 
 			if ( $order['type_order'] == 'review' ) {
-				do_action( 'activityRating_amountPayment', $user_ID, $order['amount'] );
+				//do_action( 'activityRating_amountPayment', $user_ID, $order['amount'] );
 				review_rating_init()->setStatus( $order['source_id'], review_rating_init()::STATUS_APPROVED );
 				$review = review_rating_init()->getReview( $order['source_id'] );
 				review_rating_init()->setUserIdForRating( $review['for_user_id'] )->addVote( $review['vote'] );

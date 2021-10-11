@@ -712,10 +712,12 @@ class Fre_BidAction extends AE_PostAction {
 	 * @author Dan
 	 */
 	function bid_accept() {
+		global $user_ID;
 		$request       = $_POST;
 		$bid_id        = isset( $request['bid_id'] ) ? $request['bid_id'] : '';
 		$result        = $this->assign_project( $bid_id );
 		$freelancer_id = get_post_field( 'post_author', $bid_id );
+
 		if ( ! is_wp_error( $result ) ) {
 
 			/**
@@ -727,8 +729,10 @@ class Fre_BidAction extends AE_PostAction {
 			 * @since  1.2
 			 * @author Dakachi
 			 */
-			if ( userHaveProStatus( $freelancer_id ) ) {
+
+			if ( ! empty( userHaveProStatus( $freelancer_id ) ) ) {
 				do_action( 'fre_accept_bid', $bid_id );
+				do_action( 'wpp_rating_action_bro_bid', $bid_id, $user_ID );
 			}
 
 			// send message to client

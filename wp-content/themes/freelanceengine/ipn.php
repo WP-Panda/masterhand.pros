@@ -181,7 +181,7 @@ if ( $ipnPayPal->verifyIPN() ) {
 			update_post_meta( $profile_id, 'pro_status', $status_order_id );
 		}
 
-		do_action( 'activityRating_amountPayment', $user_id, $mc_gross );
+		//do_action( 'activityRating_amountPayment', $user_id, $mc_gross );
 
 		//
 		//        $status_id = $status_order_id;

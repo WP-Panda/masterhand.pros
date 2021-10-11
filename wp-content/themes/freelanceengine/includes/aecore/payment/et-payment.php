@@ -501,7 +501,7 @@ class ET_Paypal extends ET_Payment {
 				case 'completed' :
 					$order_pay->set_status( 'publish' );
 					$postAuthor = get_post_field( 'post_author', $order_data['ID'] );
-					do_action( 'activityRating_amountPayment', $postAuthor, $order_data['total'] );
+					//do_action( 'activityRating_amountPayment', $postAuthor, $order_data['total'] );
 					break;
 				case 'pending' :
 					$order_pay->set_status( 'pending' );

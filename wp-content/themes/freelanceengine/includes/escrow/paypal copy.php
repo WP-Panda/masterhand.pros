@@ -684,7 +684,7 @@ function fre_finish_escrow( $project_id ) {
 					$response   = $ppadaptive->executePayment( $pay_key );
 					if ( strtoupper( $response->responseEnvelope->ack ) == 'SUCCESS' ) {
 
-						do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
+						//do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
 
 						// success update order data
 						$order = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
@@ -729,7 +729,7 @@ function bid_finish_escrow( $project_id ) {
 			$response   = $ppadaptive->executePayment( $pay_key );
 			if ( strtoupper( $response->responseEnvelope->ack ) == 'SUCCESS' ) {
 
-				do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
+				//do_action( 'activityRating_paymentEscrowProject', $bid_id_accepted );
 
 				// success update order data
 				$order = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
