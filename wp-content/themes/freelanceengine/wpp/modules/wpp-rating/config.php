@@ -40,13 +40,15 @@ function wpp_rating_config() {
 		'coefficient_pro_status' => [ // для про стауса плана бизнесс  % от суммы
 			'label' => __( 'Coef. rating growth from Business PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
-			'def'   => 50
+			'def'   => 50,
+			'pro_data' => [2]
 		],
 
 		'coefficient_premium_pro_status' => [ // для про стауса плана премиум % от суммы
 			'label' => __( 'Coef. rating growth from Premium PRO status, %', WPP_TEXT_DOMAIN ),
 			'for'   => 'all',
 			'def'   => 100,
+			'pro_data' => [3,5]
 		],
 
 		'coefficient_amount_payment'                  => [ // начисление баллов рейтинга за каждый потраченный доллар
@@ -82,7 +84,8 @@ function wpp_rating_config() {
 		'freelancer_for_reward'                       => [
 			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
 			'for'   => 'freelancer',
-			'def'   => 1000
+			'def'   => 1000,
+			'disabled' => true
 		],
 		'freelancer_for_review'                       => [ // за оставленный отзыв
 			'label' => __( 'Reviews', WPP_TEXT_DOMAIN ),
@@ -139,7 +142,8 @@ function wpp_rating_config() {
 		'employer_for_reward'                         => [
 			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
 			'for'   => 'employer',
-			'def'   => 1000
+			'def'   => 1000,
+			'disabled' => true
 		],
 		'employer_for_review'                         => [ // за оставленный отзыв
 			'label' => __( 'Reviews', WPP_TEXT_DOMAIN ),

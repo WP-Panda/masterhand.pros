@@ -11,6 +11,17 @@ get_header();
 global $wp_query, $ae_post_factory, $post, $user_ID;
 $post_object = $ae_post_factory->get( PROJECT );
 $convert     = $post_object->convert( $post );
+
+$bid_Id = get_post_meta( $post->ID, 'accepted', true );
+$safe   = get_post_meta( $bid_Id, 'fre_bid_order', true );
+//$safe = !empty($safe);
+$bid_author = get_post( $bid_Id )->post_author;
+
+/*do_action( 'wpp_dump',wpp_get_user_rating( $bid_author));
+do_action( 'wpp_dump', $safe );
+do_action( 'wpp_dump', $bid_author );
+do_action( 'wpp_dump', get_user_pro_status( $bid_author ) );*/
+
 if ( have_posts() ) {
 	the_post();
 	global $post;

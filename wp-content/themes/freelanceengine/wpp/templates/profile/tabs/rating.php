@@ -15,26 +15,33 @@ extract( $args );
 					<?php echo __( "My rating", ET_DOMAIN ); ?>
                     <span class="total-rating">+<?php echo wpp_get_user_rating( $user_ID ) ?></span>
                 </div>
-               <!-- <ul class="pro-dop">
-                    <li>
-						<?php /*echo __( "PRO status ", ET_DOMAIN ); */?>
-                        <span class="pro-rating">+<?php /*echo getActivityProRatingUser( $user_ID ) */?></span>
-                    </li>
-                </ul>-->
                 <ul class="dop">
-					<?php //getActivityDetailUser( $user_ID ) ?>
-
 					<?php
 					$rating    = get_user_meta( $user_ID, '_wpp_user_rating', true );
 					$options   = wpp_rating_config();
 					$role_flag = wpp_fre_is_freelancer() ? 'freelancer' : 'employer';
-					wpp_dump( $rating);
+					//do_action( 'wpp_dump', $rating );
+
+					//икс для про опций
+					$pro = get_user_pro_status( $user_ID );
+
+					$pro = $pro ?? 0;
+
 					foreach ( $options['fields'] as $option_key => $option_options ) {
+
+						//фикс для про
+						/*if ( ! empty( $option_options['pro_data'] ) && ! in_array( (int) $pro, $option_options['pro_data'] ) ) {
+							continue;
+						}*/
+
+						//фикс для отключенных опций
+						if ( ! empty( $option_options['disabled'] ) && true === $option_options['disabled'] ) {
+							continue;
+						}
 						if ( $role_flag === $option_options['for'] || 'all' === $option_options['for'] ) :
 							printf( '<li>%s<span>%s</span></li>', $option_options['label'], ! empty( $rating[ $option_key ] ) ? '+' . $rating[ $option_key ] : 0 );
 						endif;
 					}
-			//		wpp_dump( $rating );
 					?>
                 </ul>
             </div>
