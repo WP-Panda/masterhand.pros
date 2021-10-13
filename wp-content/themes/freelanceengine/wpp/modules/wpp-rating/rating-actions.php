@@ -250,7 +250,6 @@ function wpp_close_progect_with_rewiew( $post ) {
 	endif;
 
 	if ( ! empty( $post['project_id'] ) && ! wpp_fre_is_freelancer() ) {
-		wpp_d_log('fffffyyff');
 		$bid_Id     = get_post_meta( $post['project_id'], 'accepted', true );
 		$safe       = get_post_meta( $bid_Id, 'fre_bid_order', true );
 		$bid_author = get_post( $bid_Id )->post_author;
