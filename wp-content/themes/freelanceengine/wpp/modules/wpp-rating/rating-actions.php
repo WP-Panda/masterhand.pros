@@ -253,24 +253,19 @@ function wpp_close_progect_with_rewiew( $post ) {
 		wpp_d_log('fffffyyff');
 		$bid_Id     = get_post_meta( $post['project_id'], 'accepted', true );
 		$safe       = get_post_meta( $bid_Id, 'fre_bid_order', true );
-	//	$safe       = ! empty( $safe );
 		$bid_author = get_post( $bid_Id )->post_author;
 		//$pro        = get_user_pro_status( $bid_author );
 		$my_rate    = wpp_get_user_rating( $user_ID );
 		$frere_rate = wpp_get_user_rating( $bid_author );
-		wpp_d_log($my_rate);
-		wpp_d_log($frere_rate);
+
 		// при безопасной сделке
 		if ( ! empty( $safe ) ) {
-			wpp_d_log('fffffffffffff');
 			wpp_rating_set_option( $user_ID, 'employer_project_success' );
 			wpp_rating_set_option( $bid_author, 'freelancer_project_success' );
 		}
 		$e = (int) $frere_rate * (int) $options['employer_project_success'] / 100;
 		$f = (int) $my_rate * (int) $options['freelancer_project_success'] / 100;
 
-wpp_d_log($e);
-wpp_d_log($f);
 		//процент от рейтинга
 		wpp_rating_set_option( $user_ID, 'employer_coefficient_from_rating_freelancer', $e );
 		wpp_rating_set_option( $bid_author, 'freelancer_coefficient_from_rating_employer', $f );
