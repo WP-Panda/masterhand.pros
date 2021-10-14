@@ -119,20 +119,10 @@ class AE_Overview extends AE_Page {
 		}
 
 		?>
-        <script type="application/json" id="monthly_data">
 
-
-        </script>
-
-        <script type="application/json" id="weekly_data">
-
-
-        </script>
-
-        <script type="application/json" id="daily_data">
-
-
-        </script>
+        <script type="application/json" id="monthly_data"><?php echo json_encode($monthly_data); ?></script>
+        <script type="application/json" id="weekly_data"><?php  echo json_encode($weekly_data); ?></script>
+        <script type="application/json" id="daily_data"><?php  echo json_encode($daily_data); ?></script>
 
 
         <div class="charts" style="">

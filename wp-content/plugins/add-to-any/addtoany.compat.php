@@ -82,7 +82,7 @@ function addtoany_woocommerce_share() {
 	} else {
 		// If a Sharing Header is set.
 		if ( ! empty( $options['header'] ) ) {
-			echo '<div class="addtoany_header">' . stripslashes( $options['header'] ) . '</div>';
+			echo wp_kses_post( '<div class="addtoany_header">' . stripslashes( $options['header'] ) . '</div>' );
 		} else {
 			$html_header = '';
 		}

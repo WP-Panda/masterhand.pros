@@ -1749,7 +1749,9 @@ class UpdraftPlus {
 			if (!file_exists($updraft_dir.'/binziptest/subdir1/subdir2')) return false;
 			
 			file_put_contents($updraft_dir.'/binziptest/subdir1/subdir2/test.html', '<html><body><a href="https://updraftplus.com">UpdraftPlus is a great backup and restoration plugin for WordPress.</a></body></html>');
-			@unlink($updraft_dir.'/binziptest/test.zip');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			
+			if (file_exists($updraft_dir.'/binziptest/test.zip')) unlink($updraft_dir.'/binziptest/test.zip');
+			
 			if (is_file($updraft_dir.'/binziptest/subdir1/subdir2/test.html')) {
 
 				$exec = "cd ".escapeshellarg($updraft_dir)."; $potzip";
@@ -2428,7 +2430,7 @@ class UpdraftPlus {
 				$log_message = 'Exception ('.get_class($e).') occurred during files backup: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$this->log($log_message);
 				$this->log(sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -2437,7 +2439,7 @@ class UpdraftPlus {
 				$log_message = 'PHP Fatal error ('.get_class($e).') has occurred. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$this->log($log_message);
 				$this->log(sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -3748,11 +3750,19 @@ class UpdraftPlus {
 			if (false === apply_filters('updraft_report_sendto', true, $mailto, $error_count, count($warnings), $ind)) continue;
 
 			foreach (explode(',', $mailto) as $sendmail_addr) {
-				$this->log("Sending email ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
-				try {
-					wp_mail(trim($sendmail_addr), $subject, $body, array("X-UpdraftPlus-Backup-ID: ".$this->nonce));
-				} catch (Exception $e) {
-					$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
+				// if the address is a URL then instead of emailing it, POST it to slack
+				if (preg_match('/^https?:\/\//i', $sendmail_addr)) {
+					$this->log("Sending to (URL) ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
+					$this->post_results_slack($subject, $body, trim($sendmail_addr), $this->file_nonce);
+				} else {
+					$this->log("Sending email ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
+					try {
+						add_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
+						wp_mail(trim($sendmail_addr), $subject, $body, array("X-UpdraftPlus-Backup-ID: ".$this->nonce));
+						remove_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
+					} catch (Exception $e) {
+						$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
+					}
 				}
 			}
 		}
@@ -3763,6 +3773,15 @@ class UpdraftPlus {
 		remove_action('phpmailer_init', array($this, 'set_sender_email_address'), 9);
 		if (count($this->attachments) > 0) remove_action('phpmailer_init', array($this, 'phpmailer_init'));
 
+	}
+
+	/**
+	 * Log the email delivery failure to the log file when a PHPMailer exception is caught
+	 *
+	 * @param WP_Error $error A WP_Error object with the PHPMailer\PHPMailer\Exception message, and an array containing the mail recipient, subject, message, headers, and attachments.
+	 */
+	public function log_email_delivery_failure($error) {
+		$this->log("An error occurred when sending a backup report email and/or backup file(s) via email (".$error->get_error_code()."): ".$error->get_error_message());
 	}
 
 	/**
@@ -3794,6 +3813,71 @@ class UpdraftPlus {
 		if (trim(strtolower($sitename)) === trim(strtolower($admin_email_domain))) {
 			// assuming (non validating) that the email account of the admin email does exist, and the admin email is under the same domain as with the web domain and the domain exists and live as well
 			$phpmailer->setFrom(get_bloginfo('admin_email'), sprintf(__('UpdraftPlus on %s', 'updraftplus'), $sitename), false);
+		}
+	}
+	
+	/**
+	 * Post backup report to slack instead of emailing if the address is a URL
+	 *
+	 * @param  string $header      report title
+	 * @param  string $report_body report content
+	 * @param  string $webhook_url url to post report
+	 * @param  string $nval        backup log file nonce
+	 * @return Void
+	 */
+	public function post_results_slack($header, $report_body, $webhook_url, $nval) {
+		$findcontent = __('The log file has been attached to this email.', 'updraftplus');
+		
+		$report_body = str_replace($findcontent, '', $report_body);
+		$url = admin_url(UpdraftPlus_Options::admin_page()."?page=updraftplus&action=downloadlog&updraftplus_backup_nonce=$nval");
+		$response = wp_remote_post($webhook_url, array(
+			'method' => 'POST',
+			'headers' => array(),
+			'body' => json_encode(array(
+				'blocks' => array(
+					array(
+						'type' => 'header',
+						'text' => array(
+							'type' => 'plain_text',
+							'text' => $header,
+							'emoji' => true
+						),
+					),
+					array(
+						'type' => 'section',
+						'text' => array(
+							'type' => 'mrkdwn',
+							'text' => $report_body
+						),
+					),
+					array(
+						'type' => 'section',
+						'text' => array(
+							'type' => 'mrkdwn',
+							'text' => __('You can view the log by pressing the \'View log\' button.', 'updraftplus')
+						),
+						'accessory' => array(
+							'type' => 'button',
+							'text' => array(
+								'type' => 'plain_text',
+								'text' => __('View log', 'updraftplus'),
+								'emoji' => true
+							),
+							'value' => 'view_log_123',
+							'url' => $url,
+							'action_id' => 'button-action'
+						)
+					),
+				)
+			))
+		));
+		if (!is_wp_error($response)) {
+			$response_code = wp_remote_retrieve_response_code($response);
+			if ($response_code < 200 || $response_code >= 300) {
+				$this->log('HTTP POST error : '.$response_code.' - '.wp_remote_retrieve_response_message($response));
+			}
+		} else {
+			$this->log('HTTP POST error : '.$response->get_error_code().' - '.$response->get_error_message());
 		}
 	}
 
@@ -4109,6 +4193,10 @@ class UpdraftPlus {
 			if (realpath($fullpath)) {
 				$deleted = unlink($fullpath);
 				$this->log($log.(($deleted) ? 'OK' : 'failed'));
+				if (file_exists($fullpath.'.list.tmp')) {
+					$this->log("Deleting zip manifest ({$file}.list.tmp)");
+					unlink($fullpath.'.list.tmp');
+				}
 				return $deleted;
 			}
 		} else {
@@ -5629,6 +5717,9 @@ class UpdraftPlus {
 			case 'anon_backups':
 				return apply_filters('updraftplus_com_anon_backups', 'https://updraftplus.com/upcoming-updraftplus-feature-clone-data-anonymisation/');
 				break;
+			case 'clone_packages':
+				return apply_filters('updraftplus_com_clone_packages', 'https://updraftplus.com/faqs/what-is-the-largest-site-that-i-can-clone-with-updraftclone/');
+				break;
 			default:
 				return 'URL not found ('.$which_page.')';
 		}
@@ -5912,8 +6003,8 @@ class UpdraftPlus {
 	public function list_days_of_the_week($respect_start_of_week = true) {
 		global $wp_locale;
 		$days_of_the_week = array();
-		$i = $j = $respect_start_of_week ? get_option('start_of_week', 1) : 1;
-		while ($i < $j+7) { // 7 days
+		$i = $j = $respect_start_of_week ? (int) get_option('start_of_week', 1) : 1;
+		while ($i < $j + 7) { // 7 days
 			$days_of_the_week[] = array(
 				'index' => $i % 7,
 				'value' => $wp_locale->get_weekday($i % 7),

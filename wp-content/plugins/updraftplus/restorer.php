@@ -591,8 +591,7 @@ class Updraft_Restorer {
 					$display_log_message = sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage());
 					error_log($log_message);
 					// @codingStandardsIgnoreLine
-					if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
-					$updraftplus->log($log_message);
+					if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 					$updraftplus->log($display_log_message, 'notice-restore');
 					die();
 				// @codingStandardsIgnoreLine
@@ -600,8 +599,7 @@ class Updraft_Restorer {
 					$log_message = 'PHP Fatal error ('.get_class($e).') has occurred. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 					error_log($log_message);
 					// @codingStandardsIgnoreLine
-					if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
-					$updraftplus->log($log_message);
+					if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 					$display_log_message = sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage());
 					$updraftplus->log($display_log_message, 'notice-restore');
 					die();

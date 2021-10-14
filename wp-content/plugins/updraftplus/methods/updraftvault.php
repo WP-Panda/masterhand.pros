@@ -504,6 +504,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		if (!isset($vault_settings['quota']) || !is_numeric($vault_settings['quota']) || $vault_settings['quota'] < 0) {
 			if (!$error_message) {
 				$ret .= __('Unknown', 'updraftplus');
+				$ret .= $this->get_quota_recount_links();
 			} else {
 				$ret .= $error_message;
 				$ret .= $this->get_quota_recount_links();
@@ -613,7 +614,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	/**
 	 * Build the links to recount used vault quota and to purchase more quota
 	 *
-	 * @return String 
+	 * @return String
 	 */
 	private function get_quota_recount_links() {
 		return ' - <a href="'.esc_attr($this->get_url('get_more_quota')).'">'.__('Get more quota', 'updraftplus').'</a> - <a href="'.UpdraftPlus::get_current_clean_url().'" id="updraftvault_recountquota">'.__('Refresh current status', 'updraftplus').'</a>';
@@ -653,7 +654,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		$vault_settings = $this->get_options();
 		$frontend_settings_keys = array_flip($this->filter_frontend_settings_keys());
 		foreach ((array) $frontend_settings_keys as $key => $val) {
-			$frontend_settings_keys[$key] = ($key === 'last_config') ? array() : '';
+			$frontend_settings_keys[$key] = ('last_config' === $key) ? array() : '';
 		}
 		$this->set_options(array_merge($frontend_settings_keys, $this->get_default_options()), true);
 		global $updraftplus;

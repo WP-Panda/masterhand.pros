@@ -247,7 +247,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	 * @param String $region
 	 * @param String $bucket_name
 	 */
-	protected function set_region($obj, $region, $bucket_name = '') {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found - $bucket_name
+	protected function set_region($obj, $region, $bucket_name = '') {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $bucket_name
 
 	// AWS Regions: https://docs.aws.amazon.com/general/latest/gr/rande.html
 		switch ($region) {
@@ -656,7 +656,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			}
 
 			$result = array('name' => $object['name']);
-			if (isset($object['size'])) $result['size'] = $object['size'];
+			if (isset($object['size'])) $result['size'] = (int) $object['size'];
 			unset($bucket[$key]);
 			$results[] = $result;
 		}
@@ -753,10 +753,11 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	}
 
 	/**
-	* Download a file from the remote storage
-	*
-	* @param String $file The specific file to be downloaded
-	*/
+	 * Download a file from the remote storage
+	 *
+	 * @param string $file The specific file to be downloaded
+	 * @return void
+	 */
 	public function download($file) {
 
 		global $updraftplus;
@@ -943,6 +944,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	 * @return String $template_str handlebars template string
 	 */
 	public function get_configuration_template_engine($key, $whoweare_short, $whoweare_long, $console_descrip, $console_url, $img_html = '') {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $whoweare_long, $console_descrip, $console_url, $img_html unused
+		global $updraftplus;
 		ob_start();
 		$classes = $this->get_css_classes();
 		$template_str = '';
@@ -952,7 +954,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			<tr class="<?php echo $classes;?>">
 				<td colspan="2">
 				<?php
-					echo apply_filters('updraft_s3_apikeysetting', '<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/s3-enhanced/").'" target="_blank"><em>'.__('To create a new IAM sub-user and access key that has access only to this bucket, use this add-on.', 'updraftplus').'</em></a>');
+					echo apply_filters('updraft_s3_apikeysetting', '<a href="'.$updraftplus->get_url('premium').'" target="_blank"><em>'.__('To create a new IAM sub-user and access key that has access only to this bucket, upgrade to Premium.', 'updraftplus').'</em></a>');
 				?>
 				</td>
 			</tr>
@@ -1034,10 +1036,10 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	/**
 	 * This method contains some repeated code. After getting an S3 object, it's time to see if we can access that bucket - either immediately, or via creating it, etc.
 	 *
-	 * @param Object         $storage  S3 name
-	 * @param Array          $config   array of config details; if the provider does not have the concept of regions, then the key 'endpoint' is required to be set
-	 * @param String         $bucket   S3 Bucket
-	 * @param String         $path	   S3 Path
+	 * @param Object $storage S3 name
+	 * @param Array  $config  array of config details; if the provider does not have the concept of regions, then the key 'endpoint' is required to be set
+	 * @param String $bucket  S3 Bucket
+	 * @param String $path    S3 Path
 	 *
 	 * @return Array - N.B. May contain updated versions of $storage and $config
 	 */

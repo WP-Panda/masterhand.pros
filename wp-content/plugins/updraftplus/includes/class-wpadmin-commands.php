@@ -230,10 +230,10 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 					$incremental_sets = array_reverse($incremental_sets);
 					$first_timestamp = $incremental_sets[0];
 					
-					foreach ($incremental_sets as $timestamp) {
-						$pretty_date = get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $timestamp), 'M d, Y G:i');
+					foreach ($incremental_sets as $set_timestamp) {
+						$pretty_date = get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $set_timestamp), 'M d, Y G:i');
 						$esc_pretty_date = esc_attr($pretty_date);
-						$incremental_select_html .= '<option value="'.$timestamp.'" '.selected($timestamp, $first_timestamp, false).'>'.$esc_pretty_date.'</option>';
+						$incremental_select_html .= '<option value="'.$set_timestamp.'" '.selected($set_timestamp, $first_timestamp, false).'>'.$esc_pretty_date.'</option>';
 					}
 
 					$incremental_select_html .= '</select>';

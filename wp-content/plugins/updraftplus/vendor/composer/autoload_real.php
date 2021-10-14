@@ -23,7 +23,7 @@ class ComposerAutoloaderInitd6a367a1269cadc206a768e0fa3cce7c
         }
 
         spl_autoload_register(array('ComposerAutoloaderInitd6a367a1269cadc206a768e0fa3cce7c', 'loadClassLoader'), true, true);
-        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+        self::$loader = $loader = new \Composer\Autoload\ClassLoader(\dirname(\dirname(__FILE__)));
         spl_autoload_unregister(array('ComposerAutoloaderInitd6a367a1269cadc206a768e0fa3cce7c', 'loadClassLoader'));
 
         $includePaths = require __DIR__ . '/include_paths.php';

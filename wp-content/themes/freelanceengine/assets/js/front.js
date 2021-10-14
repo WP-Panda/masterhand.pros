@@ -803,43 +803,42 @@
         });
 
         /**
-         * *********************************** ТУТ НЕ ПОНЯТНО  ***************************************
-         */
-//        if ($('#ae-bid-loop').length > 0) {
-        //           /* bid item in single project*/
-        //           SingleBidItem = Views.PostItem.extend({
-        //               tagName: 'div',
-        //               className: 'row list-bidding ',
-        //               template: _.template($('#ae-bid-loop').html()),
-//                onItemBeforeRender: function () {
-        //                   //before render item
-//                },
-        //               onItemRendered: function () {
-        //                   //after render view
-//                    var view = this;
-//                    view.$('.rate-it').raty({
-//                        readOnly: true,
-//                        half: true,
-//                        score: function () {
-//                            return view.model.get('rating_score');
-//                        },
-//                        hints: raty.hint
-//                   });
-//                    $.fn.trimContent();
-//                }
-//            });
-//            /* bid list in single project*/
-//            SingleListBids = Views.ListPost.extend({
-//                tagName: 'div',
-//              itemView: SingleBidItem,
-//                itemClass: 'info-bidding',
-//                initialize: function () {
-//                   this.tagName = 'ul';
-//                },
-//
-//            });
-//        }
-///
+         * *********************************** ТУТ НЕ ПОНЯТНО  ***************************************/
+        if ($('#ae-bid-loop').length > 0) {
+            /* bid item in single project*/
+            SingleBidItem = Views.PostItem.extend({
+                tagName: 'div',
+                className: 'row list-bidding ',
+                template: _.template($('#ae-bid-loop').html()),
+                onItemBeforeRender: function () {
+                    //before render item
+                },
+                onItemRendered: function () {
+                    //after render view
+                    var view = this;
+                    view.$('.rate-it').raty({
+                        readOnly: true,
+                        half: true,
+                        score: function () {
+                            return view.model.get('rating_score');
+                        },
+                        hints: raty.hint
+                    });
+                    $.fn.trimContent();
+                }
+            });
+            /* bid list in single project*/
+            SingleListBids = Views.ListPost.extend({
+                tagName: 'div',
+                itemView: SingleBidItem,
+                itemClass: 'info-bidding',
+                initialize: function () {
+                    this.tagName = 'ul';
+                },
+
+            });
+        }
+
         /*
         *
         * F R O N T  V I E W S

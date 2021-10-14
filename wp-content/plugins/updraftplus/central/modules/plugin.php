@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTPLUS_DIR')) die('No access.');
+if (!defined('UPDRAFTCENTRAL_CLIENT_DIR')) die('No access.');
 
 /**
  * Handles UpdraftCentral Plugin Commands which basically handles
@@ -99,12 +99,21 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 					}
 
 					if (is_wp_error($activate)) {
-						$result = $this->_generic_error_response('generic_response_error', array($activate->get_error_message()));
+						$result = $this->_generic_error_response('generic_response_error', array(
+							'plugin' => $query['plugin'],
+							'error_code' => 'generic_response_error',
+							'error_message' => $activate->get_error_message(),
+							'info' => $info
+						));
 					} else {
-						$result = array('activated' => true);
+						$result = array('activated' => true, 'info' => $this->_get_plugin_info($query));
 					}
 				} else {
-					$result = $this->_generic_error_response('plugin_not_installed', array($query['plugin']));
+					$result = $this->_generic_error_response('plugin_not_installed', array(
+						'plugin' => $query['plugin'],
+						'error_code' => 'plugin_not_installed',
+						'info' => $info
+					));
 				}
 				break;
 			case 'deactivate':
@@ -118,12 +127,20 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 					}
 
 					if (!is_plugin_active($info['plugin_path'])) {
-						$result = array('deactivated' => true);
+						$result = array('deactivated' => true, 'info' => $this->_get_plugin_info($query));
 					} else {
-						$result = $this->_generic_error_response('deactivate_plugin_failed', array($query['plugin']));
+						$result = $this->_generic_error_response('deactivate_plugin_failed', array(
+							'plugin' => $query['plugin'],
+							'error_code' => 'deactivate_plugin_failed',
+							'info' => $info
+						));
 					}
 				} else {
-					$result = $this->_generic_error_response('not_active', array($query['plugin']));
+					$result = $this->_generic_error_response('not_active', array(
+						'plugin' => $query['plugin'],
+						'error_code' => 'not_active',
+						'info' => $info
+					));
 				}
 				break;
 			case 'install':
@@ -145,16 +162,21 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 					)
 				));
 
+				$info = $this->_get_plugin_info($query);
 				if (is_wp_error($api)) {
-					$result = $this->_generic_error_response('generic_response_error', array($api->get_error_message()));
+					$result = $this->_generic_error_response('generic_response_error', array(
+						'plugin' => $query['plugin'],
+						'error_code' => 'generic_response_error',
+						'error_message' => $api->get_error_message(),
+						'info' => $info
+					));
 				} else {
-					$info = $this->_get_plugin_info($query);
 					$installed = $info['installed'];
 
 					$error_code = $error_message = '';
 					if (!$installed) {
 						// WP < 3.7
-						if (!class_exists('Automatic_Upgrader_Skin')) include_once(UPDRAFTPLUS_DIR.'/central/classes/class-automatic-upgrader-skin.php');
+						if (!class_exists('Automatic_Upgrader_Skin')) include_once(dirname(dirname(__FILE__)).'/classes/class-automatic-upgrader-skin.php');
 
 						$skin = new Automatic_Upgrader_Skin();
 						$upgrader = new Plugin_Upgrader($skin);
@@ -201,10 +223,11 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('plugin_install_failed', array(
 							'plugin' => $query['plugin'],
 							'error_code' => $error_code,
-							'error_message' => $error_message
+							'error_message' => $error_message,
+							'info' => $info
 						));
 					} else {
-						$result = array('installed' => true);
+						$result = array('installed' => true, 'info' => $this->_get_plugin_info($query));
 					}
 				}
 				break;
@@ -392,12 +415,20 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 			$deleted = delete_plugins(array($info['plugin_path']));
 
 			if ($deleted) {
-				$result = array('deleted' => true);
+				$result = array('deleted' => true, 'info' => $this->_get_plugin_info($query));
 			} else {
-				$result = $this->_generic_error_response('delete_plugin_failed', array($query['plugin']));
+				$result = $this->_generic_error_response('delete_plugin_failed', array(
+					'plugin' => $query['plugin'],
+					'error_code' => 'delete_plugin_failed',
+					'info' => $info
+				));
 			}
 		} else {
-			$result = $this->_generic_error_response('plugin_not_installed', array($query['plugin']));
+			$result = $this->_generic_error_response('plugin_not_installed', array(
+				'plugin' => $query['plugin'],
+				'error_code' => 'plugin_not_installed',
+				'info' => $info
+			));
 		}
 
 		return $this->_response($result);
@@ -428,10 +459,14 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 
 			$result = $update_command->update_plugin($info['plugin_path'], $query['slug']);
 			if (!empty($result['error'])) {
-				$result['values'] = array($query['plugin']);
+				$result['values'] = array('plugin' => $query['plugin'], 'info' => $info);
 			}
 		} else {
-			$result = $this->_generic_error_response('plugin_not_installed', array($query['plugin']));
+			$result = $this->_generic_error_response('plugin_not_installed', array(
+				'plugin' => $query['plugin'],
+				'error_code' => 'plugin_not_installed',
+				'info' => $info
+			));
 		}
 
 		return $this->_response($result);

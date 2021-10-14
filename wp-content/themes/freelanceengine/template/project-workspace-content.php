@@ -258,9 +258,8 @@ $query = new WP_Query( $args );
                                 </div>
                             </form>
 						<?php } ?>
-                        <script type="application/json" class="ae_query">
-
-                        </script>
+                        <script type="application/json"
+                                class="ae_query"><?php echo json_encode( $query_args ); ?></script>
                     </div>
                 </div>
             </div>

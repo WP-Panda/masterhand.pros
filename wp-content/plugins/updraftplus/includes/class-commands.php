@@ -967,9 +967,26 @@ class UpdraftPlus_Commands {
 	public function process_updraftplus_clone_login($params) {
 		if (false === ($updraftplus_admin = $this->_load_ud_admin()) || false === ($updraftplus = $this->_load_ud())) return new WP_Error('no_updraftplus');
 		if (!UpdraftPlus_Options::user_can_manage()) return new WP_Error('updraftplus_permission_denied');
+
+		if (!defined('UPDRAFTPLUS_DO_NOT_USE_IPINFO') || !UPDRAFTPLUS_DO_NOT_USE_IPINFO) {
+			// Try to get the users region code we can then use this to find their closest clone region
+			$response = wp_remote_get('https://ipinfo.io/json', array(
+				'timeout' => 3,
+				// The API always returns 429 rate limit unless this header is passed
+				'headers' => array(
+					'Referer' => network_site_url()
+				)
+			));
+			
+			if (200 === wp_remote_retrieve_response_code($response)) {
+				$body = wp_remote_retrieve_body($response);
+				$response = json_decode($body, true);
+				if (isset($response['country'])) $params['form_data']['country_code'] = $response['country'];
+			}
+		}
 		
 		$response = $updraftplus->get_updraftplus_clone()->ajax_process_login($params, false);
-
+		
 		if (isset($response['status']) && 'authenticated' == $response['status']) {
 			$tokens = isset($response['tokens']) ? $response['tokens'] : 0;
 			$content = '<div class="updraftclone-main-row">';
@@ -983,8 +1000,9 @@ class UpdraftPlus_Commands {
 				$supported_wp_versions = isset($response['supported_wp_versions']) ? $response['supported_wp_versions'] : array();
 				$supported_packages = isset($response['supported_packages']) ? $response['supported_packages'] : array();
 				$supported_regions = isset($response['supported_regions']) ? $response['supported_regions'] : array();
+				$nearest_region = isset($response['nearest_region']) ? $response['nearest_region'] : '';
 				$content .= '<div class="updraftclone_action_box">';
-				$content .= $updraftplus_admin->updraftplus_clone_ui_widget($is_vps_tester, $supported_wp_versions, $supported_packages, $supported_regions);
+				$content .= $updraftplus_admin->updraftplus_clone_ui_widget($is_vps_tester, $supported_wp_versions, $supported_packages, $supported_regions, $nearest_region);
 				$content .= '<p class="updraftplus_clone_status"></p>';
 				$content .= '<button id="updraft_migrate_createclone" class="button button-primary button-hero" data-clone_id="'.$response['clone_info']['id'].'" data-secret_token="'.$response['clone_info']['secret_token'].'">'. __('Create clone', 'updraftplus') . '</button>';
 				$content .= '<span class="updraftplus_spinner spinner">' . __('Processing', 'updraftplus') . '...</span><br>';

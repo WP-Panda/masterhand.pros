@@ -1028,7 +1028,7 @@ function updraft_updatehistory(rescan, remotescan, debug, backup_count) {
 	}
 
 	if ('undefined' === typeof backup_count) {
-		backup_count = jQuery('#updraft-navtab-backups-content .updraft_existing_backups .updraft_existing_backups_row').length;
+		backup_count = 0;
 	}
 	
 	

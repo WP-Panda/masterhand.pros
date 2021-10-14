@@ -88,6 +88,10 @@ class UpdraftPlus_Backup {
 
 	private $table_prefix_raw;
 	
+	private $many_rows_warning = false;
+	
+	private $expected_rows = false;
+	
 	/**
 	 * Class constructor
 	 *
@@ -261,7 +265,7 @@ class UpdraftPlus_Backup {
 
 		// Firstly, make sure that the temporary file is not already being written to - which can happen if a resumption takes place whilst an old run is still active
 		$zip_name = $full_path.'.tmp';
-		$time_mod = (int) @filemtime($zip_name);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$time_mod = file_exists($zip_name) ? filemtime($zip_name) : 0;
 		if (file_exists($zip_name) && $time_mod>100 && ($time_now-$time_mod)<30) {
 			UpdraftPlus_Job_Scheduler::terminate_due_to_activity($zip_name, $time_now, $time_mod);
 		}
@@ -1063,6 +1067,7 @@ class UpdraftPlus_Backup {
 		
 		if (!apply_filters('updraftplus_prune_file', true, $dofiles, $service, $method_object, $object_passback, $file_sizes)) {
 			$updraftplus->log("Prune: service=$service: skipped via filter");
+			return;
 		}
 		
 		foreach ($dofiles as $dofile) {
@@ -1073,6 +1078,10 @@ class UpdraftPlus_Backup {
 			if (file_exists($fullpath)) {
 				$updraftplus->log("Deleting local copy ($dofile)");
 				unlink($fullpath);
+				if (file_exists($fullpath.'.list.tmp')) {
+					$updraftplus->log("Deleting zip manifest ({$dofile}.list.tmp)");
+					unlink($fullpath.'.list.tmp');
+				}
 			}
 		}
 		// Despatch to the particular method's deletion routine
@@ -1602,7 +1611,7 @@ class UpdraftPlus_Backup {
 			$table_type = $ti['type'];
 			$errors_at_table_start = $updraftplus->error_count();
 			
-			$manyrows_warning = false;
+			$this->many_rows_warning = false;
 			$total_tables++;
 
 			// Increase script execution time-limit to 15 min for every table.
@@ -1667,14 +1676,12 @@ class UpdraftPlus_Backup {
 				
 				// Create the preceding SQL statements for the table
 				$this->stow("# " . sprintf('Table: %s', UpdraftPlus_Manipulation_Functions::backquote($table)) . "\n");
+				
+				// Meaning: false = don't yet know; true = know and have logged it; integer = the expected number
+				$this->expected_rows = false;
+				
 				if (isset($table_status->Rows)) {
-					$rows = $table_status->Rows;
-					$updraftplus->log("Table $table: Total expected rows (approximate): ".$rows);
-					$this->stow("# Approximate rows expected in table: $rows\n");
-					if ($rows > UPDRAFTPLUS_WARN_DB_ROWS) {
-						$manyrows_warning = true;
-						$updraftplus->log(sprintf(__("Table %s has very many rows (%s) - we hope your web hosting company gives you enough resources to dump out that table in the backup.", 'updraftplus'), $table, $rows).' '.__('If not, you will need to either remove data from this table, or contact your hosting company to request more resources.', 'updraftplus'), 'warning', 'manyrows_'.$this->whichdb_suffix.$table);
-					}
+					$this->expected_rows = $table_status->Rows;
 				}
 
 				// If no check-in last time, then we could in future try the other method (but - any point in retrying slow method on large tables??)
@@ -1682,7 +1689,15 @@ class UpdraftPlus_Backup {
 				// New Jul 2014: This attempt to use bindump instead at a lower threshold is quite conservative - only if the last successful run was exactly two resumptions ago - may be useful to expand
 				$bindump_threshold = (!$updraftplus->something_useful_happened && !empty($updraftplus->current_resumption) && (2 == $updraftplus->current_resumption - $updraftplus->last_successful_resumption)) ? 1000 : 8000;
 
-				$bindump = (isset($table_status->Rows) && ($table_status->Rows>$bindump_threshold || (defined('UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP') && UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP)) && is_string($binsqldump) && empty($anonymisation_options)) ? $this->backup_table_bindump($binsqldump, $table) : false;
+				if (isset($table_status->Rows) && ($table_status->Rows > $bindump_threshold || (defined('UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP') && UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP)) && is_string($binsqldump) && empty($anonymisation_options)) {
+					if (!is_bool($this->expected_rows)) {
+						$this->log_expected_rows($table, $this->expected_rows);
+						$this->expected_rows = true;
+					}
+					$bindump = $this->backup_table_bindump($binsqldump, $table);
+				} else {
+					$bindump = false;
+				}
 				
 				// Means "start of table". N.B. The meaning of an integer depends upon whether the table has a usable primary key or not.
 				$start_record = true;
@@ -1742,7 +1757,7 @@ class UpdraftPlus_Backup {
 				}
 
 				// If we got this far, then there were enough resources; the warning can be removed
-				if (!empty($manyrows_warning)) $updraftplus->log_remove_warning('manyrows_'.$this->whichdb_suffix.$table);
+				if (!empty($this->many_rows_warning)) $updraftplus->log_remove_warning('manyrows_'.$this->whichdb_suffix.$table);
 
 				$this->backup_db_close();
 
@@ -1965,6 +1980,24 @@ class UpdraftPlus_Backup {
 	}
 
 	/**
+	 * Log the number of expected rows (both to the backup log, and database backup file)
+	 *
+	 * @param String  $table		 - table name
+	 * @param Integer $expected_rows - number of rows
+	 * @param Boolean $via_count	 - if the expected number comes via a SELECT COUNT() call
+	 */
+	private function log_expected_rows($table, $expected_rows, $via_count = false) {
+		global $updraftplus;
+		$description = $via_count ? 'via COUNT' : 'approximate';
+		$updraftplus->log("Table $table: Total expected rows ($description): ".$expected_rows);
+		$this->stow("# Approximate rows expected in table: $expected_rows\n");
+		if ($expected_rows > UPDRAFTPLUS_WARN_DB_ROWS) {
+			$this->many_rows_warning = true;
+			$updraftplus->log(sprintf(__("Table %s has very many rows (%s) - we hope your web hosting company gives you enough resources to dump out that table in the backup.", 'updraftplus'), $table, $expected_rows).' '.__('If not, you will need to either remove data from this table, or contact your hosting company to request more resources.', 'updraftplus'), 'warning', 'manyrows_'.$this->whichdb_suffix.$table);
+		}
+	}
+	
+	/**
 	 * This function will return a SQL WHERE clause to exclude updraft jobdata
 	 *
 	 * @param array  $where - an array of where clauses to add to
@@ -2178,18 +2211,44 @@ class UpdraftPlus_Backup {
 	/**
 	 * Suggest how many rows to fetch in each SELECT statement
 	 *
-	 * @param String  $table					- the table being fetched
-	 * @param Boolean $allow_further_reductions - whether to enable a second level of reductions (i.e. even less rows)
-	 * @param Boolean $is_first_fetch_for_table - whether this is the first fetch on this table
+	 * @param String		  $table					- the table being fetched
+	 * @param Boolean		  $allow_further_reductions - whether to enable a second level of reductions (i.e. even less rows)
+	 * @param Boolean		  $is_first_fetch_for_table - whether this is the first fetch on this table
+	 * @param Integer|Boolean $expected_rows			- if an integer, an estimate of the number of rows
+	 * @param Boolean		  $expected_via_count		- if $expected_rows is an integer, then this indicates whether the estimate was made via a SELECT COUNT() statement
 	 *
 	 * @return Integer
 	 */
-	private function number_of_rows_to_fetch($table, $allow_further_reductions, $is_first_fetch_for_table) {
-			
+	private function number_of_rows_to_fetch($table, $allow_further_reductions, $is_first_fetch_for_table, $expected_rows = false, $expected_via_count = false) {
+
 		global $updraftplus;
+		
+		// This used to be fixed at 500; but we (after a long time) saw a case that looked like an out-of-memory even at this level. Now that we have implemented resumptions, the risk of timeouts is much lower (we just need to process enough rows).
+		// October 2020: added further reductions
+		// Listed in increasing order due to the handling below. At the end it gets quite drastic. Note, though, that currently we don't store this in the job-data.
+		// A future improvement could, when things get drastic, grab and log data on the size of what is required, so that we can respond more dynamically. The strategy currently here will run out of road if memory falls short multiple times. See: https://stackoverflow.com/questions/4524019/how-to-get-the-byte-size-of-resultset-in-an-sql-query
+		$fetch_rows_reductions = array(500, 250, 200, 100);
 		
 		$default_on_first_fetch = $this->get_rows_on_first_fetch($table);
 		
+		$known_bigger_than_table = (!is_bool($expected_rows) && $expected_rows && $expected_via_count && $default_on_first_fetch > 2 * $expected_rows);
+		
+		if ($known_bigger_than_table) $allow_further_reductions = true;
+		
+		if ($allow_further_reductions) {
+			// If we're relying on LIMIT with offsets, then we have to be mindful of how that performs
+			$fetch_rows_reductions = array_merge($fetch_rows_reductions, array(50, 20, 5));
+		}
+		
+		// Remove any that are far out of range
+		if ($known_bigger_than_table) {
+			foreach ($fetch_rows_reductions as $k => $reduce_to) {
+				if ($reduce_to > $expected_rows * 2 && count($fetch_rows_reductions) > 2) {
+					unset($fetch_rows_reductions[$k]);
+				}
+			}
+		}
+
 		// If this is not the first fetch on a table, then get what was stored last time we set it (if we ever did). On the first fetch, reset back to the starting value (we presume problems are table-specific).
 		// This means that the same value will persist whilst the table is being backed up, both during the current resumption, and subsequent ones
 		$fetch_rows = $is_first_fetch_for_table ? $default_on_first_fetch : $updraftplus->jobdata_get('fetch_rows', $default_on_first_fetch);
@@ -2200,20 +2259,10 @@ class UpdraftPlus_Backup {
 		
 		// Do we need to reduce the number of rows we attempt to fetch?
 		// If something useful has happened on this run, then we don't try any reductions (we save them for a resumption after one on which nothing useful happened)
-		if (!$updraftplus->something_useful_happened && !empty($updraftplus->current_resumption) && $resumptions_since_last_successful > 1) {
-			// This used to be fixed at 500; but we (after a long time) saw a case that looked like an out-of-memory even at this level. Now that we have implemented resumptions, the risk of timeouts is much lower (we just need to process enough rows).
-			// October 2020: added further reductions
-			// Listed in increasing order due to the handling below. At the end it gets quite drastic. Note, though, that currently we don't store this in the job-data.
-			// A future improvement could, when things get drastic, grab and log data on the size of what is required, so that we can respond more dynamically. The strategy currently here will run out of road if memory falls short multiple times. See: https://stackoverflow.com/questions/4524019/how-to-get-the-byte-size-of-resultset-in-an-sql-query
-			$fetch_rows_reductions = array(500, 250, 200, 100);
-			
-			if ($allow_further_reductions) {
-				// If we're relying on LIMIT with offsets, then we have to be mindful of how that performs
-				$fetch_rows_reductions = array_merge($fetch_rows_reductions, array(50, 20, 5));
-			}
-			
-			$break_after = $is_first_fetch_for_table ? $resumptions_since_last_successful - 1 : 1;
-			
+		if ($known_bigger_than_table || (!$updraftplus->something_useful_happened && !empty($updraftplus->current_resumption) && $resumptions_since_last_successful > 1)) {
+		
+			$break_after = $is_first_fetch_for_table ? max($resumptions_since_last_successful - 1, 1) : 1;
+
 			foreach ($fetch_rows_reductions as $reduce_to) {
 				if ($fetch_rows > $reduce_to) {
 					// Go down one level
@@ -2223,7 +2272,8 @@ class UpdraftPlus_Backup {
 				}
 			}
 			
-			$updraftplus->log("Last successful resumption was $resumptions_since_last_successful runs ago; fetch_rows will thus be: $fetch_rows (allow_further_reductions=$allow_further_reductions, is_first_fetch=$is_first_fetch_for_table)");
+			$log_start = $updraftplus->current_resumption ? "Last successful resumption was $resumptions_since_last_successful runs ago" : "Table is relatively small";
+			$updraftplus->log("$log_start; fetch_rows will thus be: $fetch_rows (allow_further_reductions=$allow_further_reductions, is_first_fetch=$is_first_fetch_for_table, known_bigger_than_table=$known_bigger_than_table)");
 		}
 		
 		// If it has changed, then preserve it in the job for the next resumption (of this table)
@@ -2381,10 +2431,22 @@ class UpdraftPlus_Backup {
 				}
 			}
 			
-			// N.B. At this stage this is for optimisation, mainly targets what is used on the core WP tables (bigint(20)); a value can be relied upon, but false is not definitive
+			$expected_via_count = false;
+			
+			// N.B. At this stage this is for optimisation, mainly targets what is used on the core WP tables (bigint(20)); a value can be relied upon, but false is not definitive. N.B. https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/numeric-type-syntax.html (retrieved Aug 2021): "As of MySQL 8.0.17, the display width attribute is deprecated for integer data types; you should expect support for it to be removed in a future version of MySQL." MySQL 8.0.20 is not returning it.
 			$use_primary_key = false;
-			if ($can_use_primary_key && is_string($primary_key) && preg_match('#^(small|medium|big)?int\(#i', $primary_key_type)) {
+			if ($can_use_primary_key && is_string($primary_key) && preg_match('#^(small|medium|big)?int(\(| |$)#i', $primary_key_type)) {
 				$use_primary_key = true;
+				
+				// We don't bother re-counting if it's likely to be so large that we're not going to do anything with the result
+				if (is_bool($this->expected_rows) || $this->expected_rows < 1000) {
+					$expected_rows = $this->wpdb_obj->get_var('SELECT COUNT('.UpdraftPlus_Manipulation_Functions::backquote($primary_key).') FROM '.UpdraftPlus_Manipulation_Functions::backquote($table));
+					if (!is_bool($expected_rows)) {
+						$this->expected_rows = $expected_rows;
+						$expected_via_count = true;
+					}
+				}
+				
 				$oversized_rows = $this->get_oversized_rows($table, $table_structure, $primary_key);
 
 				if (preg_match('# unsigned$#i', $primary_key_type)) {
@@ -2396,6 +2458,11 @@ class UpdraftPlus_Backup {
 					}
 				}
 			}
+			
+			if (!is_bool($this->expected_rows)) {
+				$this->log_expected_rows($table, $this->expected_rows, $expected_via_count);
+			}
+			
 			$search = array("\x00", "\x0a", "\x0d", "\x1a");
 			$replace = array('\0', '\n', '\r', '\Z');
 
@@ -2407,7 +2474,9 @@ class UpdraftPlus_Backup {
 			
 			// Experimentation here shows that on large tables (we tested with 180,000 rows) on MyISAM, 1000 makes the table dump out 3x faster than the previous value of 100. After that, the benefit diminishes (increasing to 4000 only saved another 12%)
 
-			$fetch_rows = $this->number_of_rows_to_fetch($table, $use_primary_key || $start_record < 500000, true === $original_start_record);
+			$fetch_rows = $this->number_of_rows_to_fetch($table, $use_primary_key || $start_record < 500000, true === $original_start_record, $this->expected_rows, $expected_via_count);
+			
+			if (!is_bool($this->expected_rows)) $this->expected_rows = true;
 			
 			$original_fetch_rows = $fetch_rows;
 		
@@ -2466,6 +2535,8 @@ class UpdraftPlus_Backup {
 				
 				// $this->wpdb_obj->prepare() not needed (will throw a notice) as there are no parameters (all parts are already sanitised or cast to known-safe types if not sanitised here)
 				$select_sql = "SELECT $select FROM ".UpdraftPlus_Manipulation_Functions::backquote($table)." $final_where $order_by $limit_statement";
+				
+				if (defined('UPDRAFTPLUS_LOG_BACKUP_SELECTS') && UPDRAFTPLUS_LOG_BACKUP_SELECTS) $updraftplus->log($select_sql);
 				
 				// Allow the data to be filtered (e.g. anonymisation)
 				$table_data = apply_filters('updraftplus_backup_table_results', $this->wpdb_obj->get_results($select_sql, ARRAY_A), $table, $this->table_prefix, $this->whichdb);
@@ -2572,6 +2643,11 @@ class UpdraftPlus_Backup {
 					}
 				}
 				
+				// Increment this before any potential changes to $fetch_rows
+				if (!$use_primary_key) {
+					$start_record += $fetch_rows;
+				}
+				
 				// Potentially fetch more rows at once, if performance has been good on a sufficient number of rows
 				// However - testing indicates that this makes very little difference to overall performance; MySQL's performance scales linearly with the number of rows requested. So optimisations here are unlikely to be worthwhile. (Probably better to remove LIMIT and ORDER BY entirely on tables that look small enough to fit into memory in one go)
 				if (!$enough_for_now && $total_rows > 0 && $fetch_rows >= $original_fetch_rows && $fetch_rows < $original_fetch_rows * 8 && $this->db_current_raw_bytes > 10000 && $total_rows > 5000) {
@@ -2582,10 +2658,6 @@ class UpdraftPlus_Backup {
 						$fetch_rows = $fetch_rows * 2;
 						$process_pages = $process_pages / 2;
 					}
-				}
-				
-				if (!$use_primary_key) {
-					$start_record += $fetch_rows;
 				}
 				
 				if ($process_pages > 0) $process_pages--;
@@ -2664,7 +2736,7 @@ class UpdraftPlus_Backup {
 				$log_message = 'Exception ('.get_class($e).') occurred during encryption: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
 				$updraftplus->log(sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -2673,7 +2745,7 @@ class UpdraftPlus_Backup {
 				$log_message = 'PHP Fatal error ('.get_class($e).') has occurred during encryption. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				error_log($log_message);
 				// @codingStandardsIgnoreLine
-				if (function_exists('wp_debug_backtrace_summary')) $log_message .= ' Backtrace: '.wp_debug_backtrace_summary();
+				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
 				$updraftplus->log(sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
@@ -2764,6 +2836,7 @@ class UpdraftPlus_Backup {
 			$this->stow("# Uploads URL: ".untrailingslashit($wp_upload_dir['baseurl'])."\n");
 			$this->stow("# Table prefix: ".$this->table_prefix_raw."\n");
 			$this->stow("# Filtered table prefix: ".$this->table_prefix."\n");
+			$this->stow("# ABSPATH: ".trailingslashit(ABSPATH)."\n");
 			$this->stow("# Site info: multisite=".(is_multisite() ? '1' : '0')."\n");
 			$this->stow("# Site info: sql_mode=".$this->wpdb_obj->get_var('SELECT @@SESSION.sql_mode')."\n");
 			$this->stow("# Site info: end\n");
@@ -2850,6 +2923,8 @@ class UpdraftPlus_Backup {
 				$updraftplus->log("Entity excluded by configuration option (extension): ".basename($fullpath));
 			} elseif (!empty($this->excluded_prefixes) && $this->is_entity_excluded_by_prefix($fullpath)) {
 				$updraftplus->log("Entity excluded by configuration option (prefix): ".basename($fullpath));
+			} elseif (!empty($this->excluded_wildcards) && $this->is_entity_excluded_by_wildcards(basename($fullpath))) {
+				$updraftplus->log("Entity excluded by configuration option (wildcards): ".basename($fullpath));
 			} elseif (apply_filters('updraftplus_exclude_file', false, $fullpath)) {
 				$updraftplus->log("Entity excluded by filter: ".basename($fullpath));
 			} elseif (is_readable($fullpath)) {
@@ -2904,6 +2979,8 @@ class UpdraftPlus_Backup {
 							$updraftplus->log("Entity excluded by configuration option (extension): $use_stripped");
 						} elseif (!empty($this->excluded_prefixes) && $this->is_entity_excluded_by_prefix($e)) {
 							$updraftplus->log("Entity excluded by configuration option (prefix): $use_stripped");
+						} elseif (!empty($this->excluded_wildcards) && $this->is_entity_excluded_by_wildcards($use_stripped)) {
+							$updraftplus->log("Entity excluded by configuration option (wildcards): $use_stripped");
 						} elseif (apply_filters('updraftplus_exclude_file', false, $deref, $use_stripped)) {
 							$updraftplus->log("Entity excluded by filter: $use_stripped");
 						} elseif (is_readable($deref)) {
@@ -2931,6 +3008,8 @@ class UpdraftPlus_Backup {
 						$updraftplus->log("Entity excluded by configuration option (extension): $use_stripped");
 					} elseif (!empty($this->excluded_prefixes) && $this->is_entity_excluded_by_prefix($e)) {
 						$updraftplus->log("Entity excluded by configuration option (prefix): $use_stripped");
+					} elseif (!empty($this->excluded_wildcards) && $this->is_entity_excluded_by_wildcards($use_stripped)) {
+						$updraftplus->log("Entity excluded by configuration option (wildcards): $use_stripped");
 					} elseif (apply_filters('updraftplus_exclude_file', false, $fullpath.'/'.$e)) {
 						$updraftplus->log("Entity excluded by filter: $use_stripped");
 					} elseif (is_readable($fullpath.'/'.$e)) {
@@ -2946,9 +3025,12 @@ class UpdraftPlus_Backup {
 						$updraftplus->log(sprintf(__("%s: unreadable file - could not be backed up", 'updraftplus'), $use_path_when_storing.'/'.$e), 'warning', "unrfile-$e");
 					}
 				} elseif (is_dir($fullpath.'/'.$e)) {
+					$use_stripped = $stripped_storage_path.'/'.$e;
 					if ('wpcore' == $this->whichone && 'updraft' == $e && basename($use_path_when_storing) == 'wp-content' && (!defined('UPDRAFTPLUS_WPCORE_INCLUDE_UPDRAFT_DIRS') || !UPDRAFTPLUS_WPCORE_INCLUDE_UPDRAFT_DIRS)) {
 						// This test, of course, won't catch everything - it just aims to make things better by default
 						$updraftplus->log("Directory excluded for looking like a sub-site's internal UpdraftPlus directory (enable by defining UPDRAFTPLUS_WPCORE_INCLUDE_UPDRAFT_DIRS): ".$use_path_when_storing.'/'.$e);
+					} elseif (!empty($this->excluded_wildcards) && $this->is_entity_excluded_by_wildcards($use_stripped)) {
+						$updraftplus->log("Entity excluded by configuration option (wildcards): $use_stripped");
 					} else {
 						// no need to add_empty_dir here, as it gets done when we recurse
 						$this->makezip_recursive_add($fullpath.'/'.$e, $use_path_when_storing.'/'.$e, $original_fullpath, $startlevels, $exclude);
@@ -3006,6 +3088,88 @@ class UpdraftPlus_Backup {
 			}
 		}
 		return $exclude_prefixes;
+	}
+
+	/**
+	 * List all the wildcard patterns from the given excluded items
+	 *
+	 * @param Array $exclude the list of excluded items which may contain not just wildcard patterns but also specific file/directory names as well
+	 *
+	 * $exclude argument may contains data in an array format like below:
+	 *     [
+	 *         "snapshots" // definitely not a wildcard parttern, this could be directories/files named `snapshots` which are located in the root/parent directory
+	 *         "2021/03/image.jpg", // not a wildcard parttern, this could be files/directories named `image.jpg` which are located in the 2021/03/ directory
+	 *         "ext:zip", // not a wildcard pattern, this is to exclude all files that end with `zip` extension
+	 *         "prefix:file-", // not a wildcard pattern, this is to exclude all files that begin with `file-` prefix
+	 *         "2021/04", // not a wildcard pattern, this is to exclude all files/directories which are located in the 2021/04 directory
+	 *         "backup*", // wildcard pattern that excludes all files/directories beginning with `backup` in the root/parent directory
+	 *         "2021/*optimise*", // wildcard pattern that excludes all files/directories that have `optimise` anywhere in their names in the `2021` directory
+	 *         "2021/04/*.tmp" // wildcard pattern that excludes all files/directories ending with `optimise` anywhere in their names in the `2021/04` directory
+	 *     ]
+	 *
+	 * @return Array an array of wilcard patterns
+	 *
+	 * After the $exclude has gone through the regex parsing step, only excluded items containing valid wildcard patterns got captured and will return them in an array in a format like below:
+	 *
+	 *     [
+	 *         [
+	 *             "directory_path" => "",
+	 *             "pattern" => "backup*"
+	 *         ],
+	 *         [
+	 *             "directory_path" => "2021\",
+	 *             "pattern" => "*optimise*"
+	 *         ],
+	 *         [
+	 *             "directory_path" => "2021\04\",
+	 *             "pattern" => "*.tmp"
+	 *         ]
+	 *     ]
+	 */
+	private function get_excluded_wildcards($exclude) {
+		if (!is_array($exclude)) $exclude = array();
+		$excluded_wildcards = array();
+		foreach ($exclude as $wch) {
+			// https://regex101.com/r/dMFI0P/1/
+			if (preg_match('#(.*(?<!\\\)/)?(.*?(?<!\\\)\*.*)#i', $wch, $matches)) {
+				// the regex will make sure only excluded items containing valid wildcard patterns get captured, it will lookup for asterisk char(s) at the very end of the string right after the last path separator (if any). e.g. foo/bar/b*a*z
+				$excluded_wildcards[] = array(
+					// in case the excluded item has doubled separators (e.g. dir1//dir2//file) or if the user added a directory separator at the beginning then trim and/or replace them
+					'directory_path' => preg_replace(array('/^[\/\s]*/', '/\/\/*/', '/[\/\s]*$/'), array('', '/', ''), $matches[1]),
+					'pattern' => $matches[2]
+				);
+			}
+		}
+		return $excluded_wildcards;
+	}
+
+	/**
+	 * Check whether or not the given entity(file/directory) is excluded from the backup by matching it against a set of wildcard patterns
+	 *
+	 * @param String $entity the file/directory's stripped path
+	 * @return Boolean true if the entity is excluded, false otherwise
+	 */
+	private function is_entity_excluded_by_wildcards($entity) {
+		$entity_basename = untrailingslashit($entity);
+		$entity_basename = substr_replace($entity_basename, '', 0, (false === strrpos($entity_basename, '/') ? 0 : strrpos($entity_basename, '/') + 1));
+		foreach ($this->excluded_wildcards as $wch) {
+			if (!is_array($wch) || empty($wch)) continue;
+			if (substr_replace($entity, '', (int) strrpos($entity, '/'), strlen($entity) - (int) strrpos($entity, '/')) !== $wch['directory_path']) continue;
+			if ('*' == substr($wch['pattern'], -1, 1) && '*' == substr($wch['pattern'], 0, 1) && strlen($wch['pattern']) > 2) {
+				$wch['pattern'] = substr($wch['pattern'], 1, strlen($wch['pattern'])-2);
+				$wch['pattern'] = str_replace('\*', '*', $wch['pattern']);
+				if (strpos($entity_basename, $wch['pattern']) !== false) return true;
+			} elseif ('*' == substr($wch['pattern'], -1, 1) && strlen($wch['pattern']) > 1) {
+				$wch['pattern'] = substr($wch['pattern'], 0, strlen($wch['pattern'])-1);
+				$wch['pattern'] = str_replace('\*', '*', $wch['pattern']);
+				if (substr($entity_basename, 0, strlen($wch['pattern'])) == $wch['pattern']) return true;
+			} elseif ('*' == substr($wch['pattern'], 0, 1) && strlen($wch['pattern']) > 1) {
+				$wch['pattern'] = substr($wch['pattern'], 1);
+				$wch['pattern'] = str_replace('\*', '*', $wch['pattern']);
+				if (strlen($entity_basename) >= strlen($wch['pattern']) && substr($entity_basename, strlen($wch['pattern'])*-1) == $wch['pattern']) return true;
+			}
+		}
+		return false;
 	}
 
 	private function is_entity_excluded_by_extension($entity) {
@@ -3108,29 +3272,8 @@ class UpdraftPlus_Backup {
 			// If the file exists, then we should grab its index of files inside, and sizes
 			// Then, when we come to write a file, we should check if it's already there, and only add if it is not
 			if (file_exists($examine_zip) && is_readable($examine_zip) && filesize($examine_zip)>0) {
-				$this->existing_zipfiles_size += filesize($examine_zip);
-				$zip = new $this->use_zip_object;
-				if (true !== $zip->open($examine_zip)) {
-					$updraftplus->log("Could not open zip file to examine (".$zip->last_error."); will remove: ".basename($examine_zip));
-					@unlink($examine_zip);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-				} else {
-				
-					// Don't put this in the for loop, or the magic __get() method gets repeatedly called every time the loop goes round
-					$numfiles = $zip->numFiles;
 
-					for ($i=0; $i < $numfiles; $i++) {
-						$si = $zip->statIndex($i);
-						$name = $si['name'];
-						// Exclude folders
-						if ('/' == substr($name, -1)) continue;
-						$this->existing_files[$name] = $si['size'];
-						$this->existing_files_rawsize += $si['size'];
-					}
-
-					@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-				}
-
-				$updraftplus->log(basename($examine_zip).": Zip file already exists, with ".count($this->existing_files)." files");
+				$this->populate_existing_files_list($examine_zip, true);
 
 				// try_split is set if there have been no check-ins recently - or if it needs to be split anyway
 				if ($j == $this->index) {
@@ -3256,6 +3399,7 @@ class UpdraftPlus_Backup {
 
 		$this->excluded_extensions = $this->get_excluded_extensions($exclude);
 		$this->excluded_prefixes = $this->get_excluded_prefixes($exclude);
+		$this->excluded_wildcards = $this->get_excluded_wildcards($exclude);
 
 		foreach ($source as $element) {
 			// makezip_recursive_add($fullpath, $use_path_when_storing, $original_fullpath, $startlevels = 1, $exclude_array)
@@ -3983,6 +4127,9 @@ class UpdraftPlus_Backup {
 			$this->bump_index();
 		}
 
+		$manifest = preg_replace('/\.tmp$/', '.list.tmp', $zipfile);
+		if (!file_exists($manifest)) $this->write_zip_manifest_from_zip($zipfile);
+
 		clearstatcache();
 
 		return (false == $ret) ? false : $nret;
@@ -4058,6 +4205,8 @@ class UpdraftPlus_Backup {
 			if (!rename($full_path.'.tmp', $full_path)) {
 				$updraftplus->log("Rename failed for $full_path.tmp");
 			} else {
+				$manifest = $full_path.'.list.tmp';
+				if (!file_exists($manifest)) $this->write_zip_manifest_from_zip($full_path.'.tmp');
 				UpdraftPlus_Job_Scheduler::something_useful_happened();
 			}
 		}
@@ -4073,6 +4222,150 @@ class UpdraftPlus_Backup {
 		$this->index++;
 		$this->job_file_entities[$youwhat]['index'] = $this->index;
 		$updraftplus->jobdata_set('job_file_entities', $this->job_file_entities);
+	}
+
+	/**
+	 * This function will populate $this->existing_files with a list of files found inside the passed in zip
+	 *
+	 * @param string  $zip_path           - the zip file name we want to list files for; must end in .tmp
+	 * @param boolean $read_from_manifest - a boolean to indicate if we should try to read from the manifest or not
+	 *
+	 * @return void
+	 */
+	private function populate_existing_files_list($zip_path, $read_from_manifest) {
+		global $updraftplus;
+
+		$manifest = preg_replace('/\.tmp$/', '.list.tmp', $zip_path);
+
+		if ($read_from_manifest && file_exists($manifest)) {
+			$manifest_contents = json_decode(file_get_contents($manifest), true);
+
+			if (empty($manifest_contents)) {
+				$updraftplus->log("Zip manifest file found, but reading failed: ".basename($manifest));
+			} elseif (!empty($manifest_contents['files'])) {
+				$this->existing_files = $manifest_contents['files'];
+				$updraftplus->log("Successfully read zip manifest file contents");
+				return;
+			} else {
+				$updraftplus->log("Zip manifest file found, but no files contents were found: ".basename($manifest));
+			}
+		} elseif ($read_from_manifest) {
+			$updraftplus->log("No zip manifest file found will create one");
+		}
+
+		$zip = new $this->use_zip_object;
+		if (true !== $zip->open($zip_path)) {
+			$updraftplus->log("Could not open zip file to examine (".$zip->last_error."); will remove: ".basename($zip_path));
+			@unlink($zip_path);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		} else {
+
+			$this->existing_zipfiles_size += filesize($zip_path);
+			
+			// Don't put this in the for loop, or the magic __get() method which accessing the property invokes gets repeatedly called every time the loop goes round
+			$numfiles = $zip->numFiles;
+
+			for ($i=0; $i < $numfiles; $i++) {
+				$si = $zip->statIndex($i);
+				$name = $si['name'];
+				// Exclude folders
+				if ('/' == substr($name, -1)) continue;
+				if (!isset($this->existing_files[$name])) {
+					$this->existing_files[$name] = $si['size'];
+					$this->existing_files_rawsize += $si['size'];
+				}
+			}
+
+			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+
+			$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+			$this->write_zip_manifest_from_list($manifest, $this->existing_files);
+
+			$updraftplus->log(basename($zip_path).": Zip file already exists, with ".count($this->existing_files)." files");
+		}
+	}
+
+	/**
+	 * This function will get a list of files found inside the passed in zip and call the function to create the zip manifest, returns true on success and false on failure
+	 *
+	 * @uses self::write_zip_manifest_from_list()
+	 * @param string $zip_path - the zip file path; must end in .tmp
+	 *
+	 * @return boolean - returns true on success and false on failure
+	 */
+	private function write_zip_manifest_from_zip($zip_path) {
+		global $updraftplus;
+		
+		$zip_files = array();
+
+		$zip = new $this->use_zip_object;
+		if (true !== $zip->open($zip_path)) {
+			$updraftplus->log("Could not open zip file to examine (".$zip->last_error."); file: ".basename($zip_path));
+			return false;
+		} else {
+			// Don't put this in the for loop, or the magic __get() method gets repeatedly called every time the loop goes round
+			$numfiles = $zip->numFiles;
+
+			for ($i=0; $i < $numfiles; $i++) {
+				$si = $zip->statIndex($i);
+				$name = $si['name'];
+				// Exclude folders
+				if ('/' == substr($name, -1)) continue;
+				$zip_files[$name] = $si['size'];
+			}
+
+			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		}
+		
+		if (empty($zip_files)) {
+			$updraftplus->log("Did not find any files in the zip: ".basename($zip_path));
+			return false;
+		}
+
+		$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+
+		$this->write_zip_manifest_from_list($manifest, $zip_files);
+		
+		return true;
+	}
+
+	/**
+	 * This function will create and write the contents of the zip manifest
+	 *
+	 * @param string $manifest  - path of the manifest file
+	 * @param array  $zip_files - an array of files and their sizes
+	 *
+	 * @return boolean - returns false on failure to write
+	 */
+	private function write_zip_manifest_from_list($manifest, $zip_files) {
+		global $updraftplus;
+
+		$updraftplus->log("Creating zip file manifest ({$manifest})");
+		
+		if (false === ($handle = fopen($manifest, 'w+'))) {
+			$updraftplus->log("Failed to open zip manifest file ({$manifest})");
+			return false;
+		}
+
+		$version = 1;
+		
+		if (false === fwrite($handle, '{"version":'.$version.', "files":[{')) {
+			$updraftplus->log("First write to manifest file failed ({$manifest})");
+			return false;
+		}
+
+		$last_dir_index = key(array_slice($zip_files, -1, 1, true));
+
+		foreach ($zip_files as $name => $size) {
+			fwrite($handle, json_encode($name).' : '.$size.(($name != $last_dir_index) ? ',' : ''));
+		}
+
+		fwrite($handle, '}]}');
+		fclose($handle);
+		
+		$updraftplus->log("Successfully created zip file manifest (size: ".filesize($manifest).")");
+
+		$final_manifest = preg_replace('/\.list-temp.tmp$/', '.list.tmp', $manifest);
+		rename($manifest, $final_manifest);
 	}
 
 	/**

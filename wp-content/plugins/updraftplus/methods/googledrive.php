@@ -17,6 +17,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	private $callback_url;
 	
 	private $multi_directories = array();
+	
+	private $registered_prune = false;
 
 	/**
 	 * Constructor
@@ -417,7 +419,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			$client_id = $opts['clientid'];
 			$token = 'token'.$prefixed_instance_id;
 		}
-		// We require access to all Google Drive files (not just ones created by this app - scope https://www.googleapis.com/auth/drive.file) - because we need to be able to re-scan storage for backups uploaded by other installs. But, if you are happy to lose that capability, you can use the filter below to remove the drive.readonly scope.
+		// We require access to all Google Drive files (not just ones created by this app - scope https://www.googleapis.com/auth/drive.file) - because we need to be able to re-scan storage for backups uploaded by other installs, or manually by the user into their Google Drive. But, if you are happy to lose that capability, you can use the filter below to remove the drive.readonly scope.
 		$params = array(
 			'response_type' => 'code',
 			'client_id' => $client_id,
@@ -437,8 +439,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	/**
 	 * This function will complete the oAuth flow, if return_instead_of_echo is true then add the action to display the authed admin notice, otherwise echo this notice to page.
 	 *
-	 * @param string  $state              - the state
-	 * @param string  $code               - the oauth code
+	 * @param string  $state                  - the state
+	 * @param string  $code                   - the oauth code
 	 * @param boolean $return_instead_of_echo - a boolean to indicate if we should return the result or echo it
 	 *
 	 * @return void|string - returns the authentication message if return_instead_of_echo is true
@@ -640,9 +642,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				$parent_id = key($parent_ids);
 				if (count($parent_ids) > 1) {
 					$this->log('there appears to be more than one folder: '.implode(', ', array_keys($parent_ids)));
-					static $registered_prune = false;
-					if (!$registered_prune) {
-						$registered_prune = true;
+					if (!$this->registered_prune) {
+						$this->registered_prune = true;
 						$this->multi_directories = $parent_ids;
 						add_action('updraftplus_prune_retained_backups_finished', array($this, 'prune_retained_backups_finished'));
 					}
@@ -1445,6 +1446,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	 * @return String - the template, ready for substitutions to be carried out
 	 */
 	public function get_configuration_template() {
+		global $updraftplus;
+		
 		$classes = $this->get_css_classes();
 		ob_start();
 		?>
@@ -1482,7 +1485,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				{{/if}}
 							<br>
 							<em>
-								<a href="<?php echo apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/updraftplus-premium/");?>" target="_blank">
+								<a href="<?php echo $updraftplus->get_url('premium');?>" target="_blank">
 									<?php echo __('To be able to set a custom folder name, use UpdraftPlus Premium.', 'updraftplus');?>
 								</a>
 							</em>

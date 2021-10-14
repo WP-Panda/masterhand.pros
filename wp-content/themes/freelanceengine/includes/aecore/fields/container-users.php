@@ -77,10 +77,11 @@ class AE_UsersContainer {
 						ae_get_template_part( 'user', 'item' );
 					} ?>
                 </ul>
-                <script type="application/json" id="ae_users_list">
-
-
-                </script>
+                <script type="application/json" id="ae_users_list"><?php echo json_encode( array(
+						'users' => $user_data,
+						'pages' => $pages,
+						'query' => $args
+					) ); ?></script>
 				<?php if ( $pages > 1 ) { ?>
                     <button class="et-button btn-button load-more">
 						<?php _e( 'More Users', ET_DOMAIN ) ?>

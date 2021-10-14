@@ -16,6 +16,21 @@ class MailsterEmailVerify {
 		load_plugin_textdomain( 'mailster-email-verify' );
 
 		add_action( 'init', array( &$this, 'init' ), 1 );
+		add_action( 'init', array( &$this, 'abandoned' ), 1 );
+	}
+
+
+
+	public function abandoned() {
+
+		if ( function_exists( 'mailster' ) && version_compare( MAILSTER_VERSION, '3.0', '>=' ) ) {
+			mailster_notice( '<strong>' . sprintf( __( 'Mailster Email Verify is no longer needed since Mailster 3.0. Please check your security settings on the %s. Plugin deactivated.', 'mailster-email-verify' ), '<a href="edit.php?post_type=newsletter&page=mailster_settings#security">Settings Page</a>' ) . '</strong>', 'info', 3600, 'emailverificationabandoned' );
+
+			if ( ! function_exists( 'wp-admin/includes/plugin.php' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+			deactivate_plugins( MAILSTER_EMAILVERIFY_FILE );
+		}
 	}
 
 
@@ -26,7 +41,7 @@ class MailsterEmailVerify {
 	 */
 	public function activate( $network_wide ) {
 
-		if ( function_exists( 'mailster' ) ) {
+		if ( function_exists( 'mailster' ) && version_compare( MAILSTER_VERSION, '3.0', '<' ) ) {
 
 			mailster_notice( sprintf( __( 'Define your verification options on the %s!', 'mailster-email-verify' ), '<a href="edit.php?post_type=newsletter&page=mailster_settings&mailster_remove_notice=emailverification#emailverification">Settings Page</a>' ), '', 3600, 'emailverification' );
 

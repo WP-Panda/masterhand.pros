@@ -903,8 +903,8 @@
             itemClass: 'bid-item'
         });
 
-        if ($('#ae-bid-loop').length > 0) {
-            /* bid item in single project*/
+       /* if ($('#ae-bid-loop').length > 0) {
+            /!* bid item in single project*!/
             SingleBidItem = Views.PostItem.extend({
                 tagName: 'div',
                 className: 'row list-bidding ',
@@ -926,7 +926,7 @@
                     $.fn.trimContent();
                 }
             });
-            /* bid list in single project*/
+            /!* bid list in single project*!/
             SingleListBids = Views.ListPost.extend({
                 tagName: 'div',
                 itemView: SingleBidItem,
@@ -936,7 +936,7 @@
                 },
 
             });
-        }
+        }*/
 
         /*
         *

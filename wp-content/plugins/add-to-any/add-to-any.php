@@ -3,7 +3,7 @@
  * Plugin Name: AddToAny Share Buttons
  * Plugin URI: https://www.addtoany.com/
  * Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, LinkedIn, Pinterest, WhatsApp and many more.
- * Version: 1.7.46
+ * Version: 1.7.48
  * Author: AddToAny
  * Author URI: https://www.addtoany.com/
  * Text Domain: add-to-any
@@ -166,7 +166,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	// Cache for _BUTTON.
 	$html_container_close = $args['html_container_close'];
 	// Avoid passing to ADDTOANY_SHARE_SAVE_ICONS since set in _BUTTON.
-	unset($args['html_container_close']);
+	unset( $args['html_container_close'] );
 				
 	if ( ! isset( $args['html_wrap_open'] ) )
 		$args['html_wrap_open'] = "";
@@ -185,7 +185,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	if ( true == $args['output_later'] )
 		return $kit_html;
 	else
-		echo $kit_html;
+		echo wp_kses_post( $kit_html );
 }
 
 function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
@@ -387,7 +387,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	if ( true == $args['output_later'] )
 		return $ind_html;
 	else
-		echo $ind_html;
+		echo wp_kses_post( $ind_html );
 }
 
 function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
@@ -461,7 +461,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		} elseif ( ! empty( $button_text ) ) {
 			$button = $button_text;
 		} elseif ( ! empty( $button_src ) ) {
-			$button	= '<img src="' . $button_src . '"' . $button_width . $button_height . $button_style . ' alt="Share">';
+			$button	= '<img src="' . esc_url( $button_src ) . '"' . $button_width . $button_height . $button_style . ' alt="Share">';
 		} else {
 			$button = '';
 		}
@@ -489,7 +489,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
 		return $button_html;
 	else
-		echo $button_html;
+		echo wp_kses_post( $button_html );
 }
 
 function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
@@ -532,17 +532,16 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
 		return $special_html;
 	else
-		echo $special_html;
+		echo wp_kses_post( $special_html );
 }
 
-if ( ! function_exists( 'A2A_menu_locale' ) ) {
-	function A2A_menu_locale() {
-		global $A2A_locale;
-		$locale = get_locale();
-		if ( $locale == 'en_US' || $locale == 'en' || $A2A_locale != '' )
-			return false;
-			
-		$A2A_locale = 'a2a_localize = {
+function addtoany_menu_locale_escaped() {
+	global $A2A_locale;
+	$locale = get_locale();
+	if ( $locale == 'en_US' || $locale == 'en' || $A2A_locale != '' )
+		return false;
+		
+	$A2A_locale = 'a2a_localize = {
 	Share: "' . __( "Share", 'add-to-any' ) . '",
 	Save: "' . __( "Save", 'add-to-any' ) . '",
 	Subscribe: "' . __( "Subscribe", 'add-to-any' ) . '",
@@ -565,8 +564,7 @@ if ( ! function_exists( 'A2A_menu_locale' ) ) {
 	ThanksForFollowing: "' . __( "Thanks for following!", 'add-to-any' ) . '"
 };
 ';
-		return $A2A_locale;
-	}
+	return $A2A_locale;
 }
 
 function ADDTOANY_FOLLOW_KIT( $args = array() ) {
@@ -608,13 +606,13 @@ function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
 		return $follow_html;
 	else
-		echo $follow_html;
+		echo wp_kses_post( $follow_html );
 }
 
 function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 	$options = get_option( 'addtoany_options', array() );
 	
-	$floating_html = '';
+	$floating_html_escaped = '';
 
 	// Overridable by args below.
 	$vertical_type = ( isset( $options['floating_vertical'] ) && 'none' != $options['floating_vertical']
@@ -706,7 +704,7 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 				$vertical_args['kit_style'] .= 'background-color:transparent;';
 			}
 			
-			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $vertical_args );
+			$floating_html_escaped .= ADDTOANY_SHARE_SAVE_KIT( $vertical_args );
 		}
 		
 		// Horizontal type?
@@ -753,14 +751,14 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 				$horizontal_args['kit_style'] .= 'background-color:transparent;';
 			}
 			
-			$floating_html .= ADDTOANY_SHARE_SAVE_KIT( $horizontal_args );
+			$floating_html_escaped .= ADDTOANY_SHARE_SAVE_KIT( $horizontal_args );
 		}
 	}
 	
 	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
-		return $floating_html;
+		return $floating_html_escaped;
 	else
-		echo $floating_html;
+		echo $floating_html_escaped;
 }
 
 
@@ -814,7 +812,7 @@ function A2A_SHARE_SAVE_head_script() {
 	$icon_color = $icon_bg_color . $icon_fg_color;
 
 	// Floating vertical relative to content.
-	$floating_js = '';
+	$floating_js_escaped = '';
 	if (
 		isset( $options['floating_vertical'] )
 		&& in_array( $options['floating_vertical'], array( 'left_attached', 'right_attached' ) )
@@ -830,7 +828,7 @@ function A2A_SHARE_SAVE_head_script() {
 		$floating_js_kit_style = 'left_attached' === $options['floating_vertical'] ? 'margin-left:' . $floating_js_offset . ';' : '';
 		$floating_js_kit_style .= 'top:' . $floating_js_position . ';';
 
-		$floating_js = "\n"
+		$floating_js_escaped = "\n"
 			. 'a2a_config.callbacks.push({'
 				. 'ready: function(){'
 					. 'var d=document;'
@@ -852,31 +850,32 @@ function A2A_SHARE_SAVE_head_script() {
 	}
 	
 	// Enternal script call + initial JS + set-once variables.
-	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '' ;
-	$script_configs = ( ( $cache ) ? "\n" . 'a2a_config.static_server="' . $static_server . '";' : '' )
+	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '';
+	$script_configs_escaped = ( ( $cache ) ? "\n" . 'a2a_config.static_server=' . wp_json_encode( esc_url( $static_server ), JSON_UNESCAPED_SLASHES ) . ';' : '' )
 		. ( $icon_color ? "\n" . 'a2a_config.icon_color="' . $icon_color . '";' : '' )
 		. ( isset( $options['onclick'] ) && '1' == $options['onclick'] ? "\n" . 'a2a_config.onclick=1;' : '' )
 		. ( $additional_js ? "\n" . stripslashes( $additional_js ) : '' );
 	
-	$javascript_header = "\n"
+	$javascript_header_escaped = "\n"
 		. '<script data-cfasync="false">' . "\n"
 		. 'window.a2a_config=window.a2a_config||{};'
 		. 'a2a_config.callbacks=[];a2a_config.overlays=[];'
 		. 'a2a_config.templates={};'
-		. A2A_menu_locale()
-		. $floating_js
-		. $script_configs
+		. addtoany_menu_locale_escaped()
+		. $floating_js_escaped
+		. $script_configs_escaped
 		. "\n"
 		. '(function(d,s,a,b){'
 			. 'a=d.createElement(s);'
 			. 'b=d.getElementsByTagName(s)[0];'
 			. 'a.async=1;'
-			. 'a.src="' . $static_server . '/page.js' . $querystring . '";'
+			. 'a.src=' . wp_json_encode( esc_url( $static_server . '/page.js' . $querystring ), JSON_UNESCAPED_SLASHES ) . ';'
 			. 'b.parentNode.insertBefore(a,b);'
 		. '})(document,"script");'		
 		. "\n</script>\n";
 	
-	 echo $javascript_header;
+	// Output escaped HTML. Arbitrary JavaScript is expected from users with the `unfiltered_html` capability.
+	echo $javascript_header_escaped;
 }
 
 add_action( 'wp_head', 'A2A_SHARE_SAVE_head_script' );
@@ -885,9 +884,10 @@ function A2A_SHARE_SAVE_footer_script() {
 	if ( is_admin() || is_feed() )
 		return;
 	
-	$floating_html = ADDTOANY_SHARE_SAVE_FLOATING( array( 'output_later' => true ) );
+	$floating_html_escaped = ADDTOANY_SHARE_SAVE_FLOATING( array( 'output_later' => true ) );
 	
-	echo $floating_html;
+	// Output escaped HTML and avoid stripping positional styles with wp_kses*.
+	echo $floating_html_escaped;
 }
 
 add_action( 'wp_footer', 'A2A_SHARE_SAVE_footer_script' );

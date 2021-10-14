@@ -224,7 +224,7 @@ class A2A_Follow_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( $code_id ); ?>"><?php echo $label_text; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( $code_id ); ?>" name="<?php echo $this->get_field_name( $code_id ); ?>" type="text" value="<?php esc_attr_e( $id_value ); ?>">
 			<br>
-			<small><?php echo str_replace( '${id}', '<u>ID</u>', $service['href'] ); ?></small>
+			<small><?php echo wp_kses_post( str_replace( '${id}', '<u>ID</u>', $service['href'] ) ); ?></small>
 		</p>
 <?php endforeach; ?>
 		<p>
