@@ -51,7 +51,7 @@ $array = [
 	'setting/init',
 	'projects/init',
 	'modules/skills/init',
-	//'modules/activity_rating/index',
+	get_template_directory() . '/back/activity_rating/index',
 	'modules/referral_code/referral_code',
 	'modules/pro_status/add-pro-status'
 

@@ -78,7 +78,7 @@ get_header();
                                                 <a href="<?php echo bloginfo( 'url' ) . "/profile_category/" . $termschild[ $key ]->slug; ?>"><?php echo $termschild[ $key ]->name; ?></a>
                                             </div>
 										<?php } ?>
-                                        <span class="text_count"><em>All</em> <?= $count_all_sub ?> Subcategories
+                                        <span class="text_count"><em>All</em> <?php echo $count_all_sub ?> Subcategories
                                         <i class="fa fa-angle-down"></i>
                                     </span>
                                     </div>
@@ -137,7 +137,7 @@ get_header();
                                                 <a href="<?php echo bloginfo( 'url' ) . "/profile_category/" . $termschild[ $key ]->slug; ?>"><?php echo $termschild[ $key ]->name; ?></a>
                                             </div>
 										<?php } ?>
-                                        <span class="text_count"><em>All</em> <?= $count_all_sub ?> Subcategories
+                                        <span class="text_count"><em>All</em> <?php echo $count_all_sub ?> Subcategories
                                         <i class="fa fa-angle-down"></i>
                                     </span>
                                     </div>

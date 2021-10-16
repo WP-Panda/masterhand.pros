@@ -88,8 +88,8 @@ foreach ( $option_for_project as $value ) {
 
                                             <input type="hidden"
                                                    id="price_<?php echo $tab_properties[ $key ]['property_nickname'] ?>"
-                                                   name="<?= $tab_properties[ $key ][1]; ?>"
-                                                   value="<?= $tab_properties[ $key ][1]; ?>">
+                                                   name="<?php echo $tab_properties[ $key ][1]; ?>"
+                                                   value="<?php echo $tab_properties[ $key ][1]; ?>">
                                         </div>
 									<?php } ?>
                                     <input type="hidden" id="options_name" value="">

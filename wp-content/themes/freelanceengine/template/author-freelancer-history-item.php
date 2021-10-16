@@ -17,7 +17,7 @@ $reply_deadline = strtotime( '+20 day', $review_created );
 $today          = time();
 ?>
 <li>
-    <div class="fre-author-project-box row" data-id="<?= $rwProject['user_id']; ?>">
+    <div class="fre-author-project-box row" data-id="<?php echo $rwProject['user_id']; ?>">
         <div class="col-sm-1 col-xs-3 avatar_wp"><?php echo get_avatar( $rwProject['user_id'] ); ?></div>
         <div class="col-sm-11 col-xs-9">
             <div class="col-sm-9 col-md-10 col-lg-10 col-xs-12 fre-author-project">TEST1
@@ -49,8 +49,8 @@ $today          = time();
                     </div>
 
 					<?php if ( $today < $reply_deadline && empty( $reply_to_review ) ) { ?>
-                        <a title="Reply to review" href="#" data-review_id="<?= $review_for_freelancer['id'] ?>"
-                           id="<?= $review_for_freelancer['id'] ?>"
+                        <a title="Reply to review" href="#" data-review_id="<?php echo $review_for_freelancer['id'] ?>"
+                           id="<?php echo $review_for_freelancer['id'] ?>"
                            class="fre-submit-btn btn-left project-employer__reply project-employer_reply_history  main_bl-btn"><?php _e( 'Reply to review', ET_DOMAIN ); ?></a>
 					<?php } ?>
                 </div>
@@ -64,7 +64,7 @@ $today          = time();
         </div>
         <div class="col-sm-12 col-xs-12 author-project-comment">
             <div class="col-sm-9 col-md-10 col-lg-10 col-xs-12">
-				<? string_is_nl2br( $rwProject['comment'] ); ?>
+				<?php string_is_nl2br( $rwProject['comment'] ); ?>
             </div>
             <div class="col-sm-3 col-md-2 col-lg-2 col-xs-7">
 				<?php

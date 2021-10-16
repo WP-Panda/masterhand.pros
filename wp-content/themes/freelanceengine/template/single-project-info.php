@@ -109,7 +109,7 @@ if ( function_exists( 'optionsProject' ) ) {
                         echo $optionsProject['hidden_project'];
                         ?>
                                 <script>
-                                    var ee = '<?= $optionsProject["hidden_project"] ?>';
+                                    var ee = '<?php echo $optionsProject["hidden_project"] ?>';
                                     if (ee) {
                                         jQuery('head').prepend('<meta name="robots" content="noindex, nofollow">')
                                     }
@@ -140,7 +140,7 @@ if ( function_exists( 'optionsProject' ) ) {
 										<?php echo __( 'Cancel', ET_DOMAIN ) ?>
                                     </a>
 
-								<? } else {
+								<?php } else {
 									fre_button_bid( $project->ID, $optionsProject );
 								}
 							} else if ( ( ( fre_share_role() || $user_role == EMPLOYER ) || current_user_can( 'manage_options' ) ) && $user_ID == $project->post_author ) {
@@ -225,10 +225,10 @@ if ( function_exists( 'optionsProject' ) ) {
 						}
 					}
 					?>
-					<? if ( ( $author_id == $user_ID ) && $user_status && ( $project_status == 'publish' || $project_status == 'draft' || $project_status == 'pending' ) ) { ?>
+					<?php if ( ( $author_id == $user_ID ) && $user_status && ( $project_status == 'publish' || $project_status == 'draft' || $project_status == 'pending' ) ) { ?>
                         <a class="btn-right fre-cancel-btn"
                            href="<?php echo bloginfo( 'url' ); ?>/options-project/?id=<?php echo $project->ID; ?>"
-                           target="_blank"><? _e( "Add Options", ET_DOMAIN ); ?></a>
+                           target="_blank"><?php _e( "Add Options", ET_DOMAIN ); ?></a>
 					<?php } ?>
                 </div>
             </div>

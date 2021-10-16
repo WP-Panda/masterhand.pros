@@ -125,7 +125,7 @@ $attachment = get_children( [
 							} ?>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12 free-rating">
-							<? HTML_review_rating_user( $author_id ); ?>
+							<?php HTML_review_rating_user( $author_id ); ?>
                         </div>
                         <div class="col-sm-12 col-xs-12 freelance-profile-country">
 							<?php if ( $location && ! empty( $location['country'] ) ) {
@@ -158,20 +158,20 @@ $attachment = get_children( [
                     <div class="col-sm-3 col-xs-12 else-info">
                         <div class="rating-new">
 							<?php echo __( 'Rating:', ET_DOMAIN ); ?>
-                            <span>+<?= wpp_get_user_rating( $author_id ) ?></span>
+                            <span>+<?php echo wpp_get_user_rating( $author_id ) ?></span>
                         </div>
                         <div class="secure-deals">
 							<?php echo __( 'SafePay Deals:', ET_DOMAIN ); ?>
                             <span>
-<!--                                        --><? //= (get_user_meta($user_ID,'safe_deals_count',1) == '')? 0 : get_user_meta($user_ID,'safe_deals_count',1) ?>
-								<?= ( get_user_meta( $author_id, 'safe_deals_count', 1 ) == '' ) ? 0 : get_user_meta( $author_id, 'safe_deals_count', 1 ) ?>
+<!--                                        --><?php //= (get_user_meta($user_ID,'safe_deals_count',1) == '')? 0 : get_user_meta($user_ID,'safe_deals_count',1) ?>
+								<?php echo ( get_user_meta( $author_id, 'safe_deals_count', 1 ) == '' ) ? 0 : get_user_meta( $author_id, 'safe_deals_count', 1 ) ?>
                                     </span>
                         </div>
                         <div class="reviews">
 							<?php echo __( 'Reviews:', ET_DOMAIN ); ?>
                             <span>
-<!--                                        --><? //=get_count_reviews_user($user_ID)?>
-								<?= get_count_reviews_user( $author_id ) ?>
+<!--                                        --><?php //=get_count_reviews_user($user_ID)?>
+								<?php echo get_count_reviews_user( $author_id ) ?>
                                     </span>
                         </div>
                         <div class="city">

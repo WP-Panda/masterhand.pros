@@ -25,7 +25,7 @@ if ( ! isset( $_REQUEST['role'] ) ) {
 										<?php _e( 'Post project, find professionals and hire favorite to work.', ET_DOMAIN ); ?>
                                     </p>
                                     <a class="fre-submit-btn"
-                                       href="<?php echo bloginfo( 'site_url' ); ?>/register/?role=client<?= ! empty( $code ) ? '&code=' . $code : '' ?>">
+                                       href="<?php echo bloginfo( 'site_url' ); ?>/register/?role=client<?php echo ! empty( $code ) ? '&code=' . $code : '' ?>">
 										<?php _e( 'Sign Up', ET_DOMAIN ); ?>
                                     </a>
                                 </div>
@@ -37,7 +37,7 @@ if ( ! isset( $_REQUEST['role'] ) ) {
 										<?php _e( 'Create professional profile and find jobs to work.', ET_DOMAIN ); ?>
                                     </p>
                                     <a class="fre-submit-btn"
-                                       href="<?php echo bloginfo( 'site_url' ); ?>/register/?role=professional<?= ! empty( $code ) ? '&code=' . $code : '' ?>">
+                                       href="<?php echo bloginfo( 'site_url' ); ?>/register/?role=professional<?php echo ! empty( $code ) ? '&code=' . $code : '' ?>">
 										<?php _e( 'Sign Up', ET_DOMAIN ); ?>
                                     </a>
                                 </div>
@@ -164,7 +164,7 @@ if ( ! isset( $_REQUEST['role'] ) ) {
                             </div>
                             <div class="fre-input-field">
                                 <label><?php _e( 'Referral code (optional)', ET_DOMAIN ) ?></label>
-                                <input type="number" value="<?= $code ?>"
+                                <input type="number" value="<?php echo $code ?>"
                                        class="input-item text-field is_number"
                                        pattern="-?(\d+|\d+.\d+|.\d+)([eE][-+]?\d+)?"
                                        onkeydown="if (event.keyCode == 16 || event.keyCode == 69 || event.keyCode == 189) return false"

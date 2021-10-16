@@ -79,7 +79,7 @@ function getActivityDetailUser( $userId = 0 ) {
 		if ( ! empty( $activities[ $item ] ) ) {
 			?>
             <li>
-				<?php echo $lang[ $item ]; ?><span>+<?= $activities[ $item ]->value; ?></span></li>
+				<?php echo $lang[ $item ]; ?><span>+<?php echo $activities[ $item ]->value; ?></span></li>
             <li>
 			<?
 		} else {

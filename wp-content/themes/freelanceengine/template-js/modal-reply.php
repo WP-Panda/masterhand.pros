@@ -13,7 +13,7 @@ global $post, $user_ID;
                 <form role="form" id="review_form" class="review-form fre-modal-form wpp-02">
                     <input type="hidden" name="is_reply" value="true">
                     <input type="hidden" name="project_id"
-                           value="<?= is_page_template( 'page-profile.php' ) ? '' : $post->ID ?>">
+                           value="<?php echo is_page_template( 'page-profile.php' ) ? '' : $post->ID ?>">
                     <input type="hidden" name="action" value="rwRating"/>
                     <input type="hidden" name="from_is"
                            value="<?php echo ( ae_user_role( $user_ID ) == FREELANCER ) ? 'freelancer' : 'employer' ?>"/>

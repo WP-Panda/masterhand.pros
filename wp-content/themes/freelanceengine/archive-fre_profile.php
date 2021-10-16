@@ -74,7 +74,7 @@ get_header();
                                                 <span class="option"
                                                       id="projects_worked"><?php _e( 'Projects', ET_DOMAIN ); ?></span>
                                             </div>
-                                            <button class="fre-submit-btn btn-get-quotes btn-right"><? _e( 'Get Multiple Quotes' ); ?></button>
+                                            <button class="fre-submit-btn btn-get-quotes btn-right"><?php _e( 'Get Multiple Quotes' ); ?></button>
 										<?php } ?>
                                     </div>
                                     <div class="col-lg-8 col-lg-pull-4 col-md-6 col-md-pull-6 col-sm-6 col-sm-pull-6 col-xs-12">
@@ -100,7 +100,7 @@ get_header();
                                                         <span class="option"
                                                               id="projects_worked"><?php _e( 'Projects', ET_DOMAIN ); ?></span>
                                                     </div>
-                                                    <button class="fre-submit-btn btn-get-quotes btn-right"><? _e( 'Get Multiple Quotes' ); ?></button>
+                                                    <button class="fre-submit-btn btn-get-quotes btn-right"><?php _e( 'Get Multiple Quotes' ); ?></button>
 												<?php } ?>
                                             </div>
                                             <span class="singular <?php if ( $query_post > 1 || $query_post < 1 ) {

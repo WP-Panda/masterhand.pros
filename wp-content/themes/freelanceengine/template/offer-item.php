@@ -22,7 +22,7 @@ $current     = $post_object->current_post;
             </p>
         </div>
         <div class="">
-			<? _e( 'Author' ); ?>:
+			<?php _e( 'Author' ); ?>:
             <a href="<?php echo get_author_posts_url( $current->post_author ); ?>" class="offer_author">
 				<?php echo get_the_author_meta( 'display_name', $current->post_author ); ?>
             </a>

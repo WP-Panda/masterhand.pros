@@ -57,12 +57,12 @@ get_header();
                                          class="tab-pane fade col-sm-4 col-xs-12">
                                         <div class="fre-profile-box">
                                             <input type="hidden" class="radioStatus" name="radioStatus"
-                                                   value="<?= end( $res['statuses'] )[ $i ] ?>">
+                                                   value="<?php echo end( $res['statuses'] )[ $i ] ?>">
                                             <input type="hidden" class="radioTime" name="radioTime"
                                                    value="<?php echo $value['property_id']; ?>">
                                             <input type="hidden" class="radioStatusprice"
-                                                   name="price_<?= end( $res['statuses'] )[ $i ] ?>_<?= $value['property_id'] ?>"
-                                                   value="<?= $value[ $i ] ?>">
+                                                   name="price_<?php echo end( $res['statuses'] )[ $i ] ?>_<?php echo $value['property_id'] ?>"
+                                                   value="<?php echo $value[ $i ] ?>">
 											<?php $str = $value['option_value'] != 1 ? ' months' : ' month'; ?>
 
                                             <input type="hidden" name="pro_plan_name"
@@ -100,26 +100,26 @@ get_header();
                     </div>
 				<?php } ?>
                 <div class="pro-buttons hidden">
-                    <form method="post" action="<?= $urlRequest; ?>">
+                    <form method="post" action="<?php echo $urlRequest; ?>">
                         <input type="hidden" name="cmd" value="_xclick">
-                        <input type="hidden" name="business" value="<?= $businessAcc; ?>">
+                        <input type="hidden" name="business" value="<?php echo $businessAcc; ?>">
                         <input type="hidden" name="item_name" value="Pay for Order">
-                        <input type="hidden" name="item_number" value="<?= $user_ID ?>">
+                        <input type="hidden" name="item_number" value="<?php echo $user_ID ?>">
                         <input type="hidden" name="amount" value="">
                         <input type="hidden" name="no_shipping" value="1">
                         <input type="hidden" name="rm" value="2">
                         <!--URL, куда покупатель будет перенаправлен после успешной оплаты. Если этот параметр не передать, покупатель останется на сайте PayPal-->
-                        <input type="hidden" name="return" value="<?= bloginfo( 'home' ) ?>/payment-completed">
+                        <input type="hidden" name="return" value="<?php echo bloginfo( 'home' ) ?>/payment-completed">
                         <!--URL, куда покупатель будет перенаправлен при отмене им оплаты . Если этот параметр не передать, покупатель останется на сайте PayPal-->
-                        <input type="hidden" name="cancel_return" value="<?= bloginfo( 'home' ) ?>/cancel-payment">
+                        <input type="hidden" name="cancel_return" value="<?php echo bloginfo( 'home' ) ?>/cancel-payment">
                         <!--URL, на который PayPal будет предавать информацию о транзакции (IPN). Если не передавать этот параметр, будет использоваться значение, указанное в настройках аккаунта. Если в настройках аккаунта это также не определено, IPN использоваться не будет-->
                         <input type="hidden" name="notify_url"
                                value="<?php bloginfo( 'stylesheet_directory' ); ?>/ipn.php">
                         <input type="hidden" name="custom" value="">
-                        <input type="hidden" name="status" value="<?= $res['status'] ?>">
+                        <input type="hidden" name="status" value="<?php echo $res['status'] ?>">
                         <input type="hidden" name="time" value="">
                         <input type="hidden" name="price" value="">
-                        <input type="hidden" name="currency_code" value="<?= ae_currency_code() ?>">
+                        <input type="hidden" name="currency_code" value="<?php echo ae_currency_code() ?>">
                         <input type="hidden" name="plan_name" value="">
 
                         <input type="submit" class="fre-normal-btn-o" value="Pay for Order">

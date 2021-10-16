@@ -29,8 +29,8 @@ global $user_status;
                             <div class="fre-input-field">
                                 <div class="row">
                                     <div class="col-sm-4 col-xs-12">
-                                        <select class="" id="list_parentProjectCat" data-max="<?= $col ?>">
-                                            <option value="0" selected><? _e( 'Select Category' ) ?></option>
+                                        <select class="" id="list_parentProjectCat" data-max="<?php echo $col ?>">
+                                            <option value="0" selected><?php _e( 'Select Category' ) ?></option>
                                         </select>
                                     </div>
                                     <div class="col-sm-4 col-xs-12">

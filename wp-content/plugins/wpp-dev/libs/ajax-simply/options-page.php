@@ -169,7 +169,7 @@ final class AJAXS_options_page {
 						ev.preventDefault();
 
 						$submit.css({opacity:0.5});
-						ajaxs( '<?= __CLASS__ ?>::ajaxs_save_options', $form, function(res){
+						ajaxs( '<?php echo __CLASS__ ?>::ajaxs_save_options', $form, function(res){
 							$serult.hide().html( res ).slideDown(300);
 
 							clearTimeout(tmout);

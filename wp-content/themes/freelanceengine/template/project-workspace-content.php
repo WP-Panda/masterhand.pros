@@ -272,7 +272,7 @@ $query = new WP_Query( $args );
                 </div>
 			<?php } ?>
             <div id="workspace-files">
-				<? viewPaymentCode( $post->ID ); ?>
+				<?php viewPaymentCode( $post->ID ); ?>
                 <div class="workspace-files workplace-project-details <?php if ( ae_user_role() != FREELANCER ) {
 					echo 'employer';
 				}; ?>">

@@ -95,7 +95,7 @@ $homeid         = get_option( 'page_on_front' );
 							'posts_per_page' => 10,
 							'category__in'   => $blog_category1
 						] ); ?>
-						<? if ( $query1 && ! is_wp_error( $query1 ) ) {
+						<?php if ( $query1 && ! is_wp_error( $query1 ) ) {
 							$term1 = get_term( $blog_category1, 'category' ); ?>
                             <div class="profs-cat_t"><span><?php echo $term1->name; ?></span></div>
                             <div class="fre-blog-list owl-carousel">
@@ -158,7 +158,7 @@ $homeid         = get_option( 'page_on_front' );
 							'posts_per_page' => 10,
 							'cat'            => $blog_category3
 						] ); ?>
-						<? if ( $query3 && ! is_wp_error( $query3 ) ) {
+						<?php if ( $query3 && ! is_wp_error( $query3 ) ) {
 							$term3 = get_term( $blog_category3, 'category' ); ?>
                             <div class="profs-cat_t"><span><?php echo $term3->name; ?></span></div>
 
@@ -202,7 +202,7 @@ $homeid         = get_option( 'page_on_front' );
 							'posts_per_page' => 10,
 							'cat'            => $blog_category4
 						] ); ?>
-						<? if ( $query4 && ! is_wp_error( $query4 ) ) {
+						<?php if ( $query4 && ! is_wp_error( $query4 ) ) {
 							$term4 = get_term( $blog_category4, 'category' ); ?>
                             <div class="profs-cat_t"><span><?php echo $term4->name; ?></span></div>
 
@@ -273,12 +273,12 @@ $homeid         = get_option( 'page_on_front' );
                                                        class="active">
 														<?php echo $term->name; ?></a>
                                                 </div>
-											<? else: ?>
+											<?php else: ?>
                                                 <div class="profs-cat-list_t text-center">
                                                     <a href="<?php echo get_term_link( $term->slug, $taxonomy ); ?>">
 														<?php echo $term->name; ?></a>
                                                 </div>
-											<? endif; ?>
+											<?php endif; ?>
                                         </div>
 									<?php } ?>
                                 </div>

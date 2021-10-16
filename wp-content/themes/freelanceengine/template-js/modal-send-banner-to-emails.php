@@ -68,22 +68,22 @@
             <div class="modal-body">
                 <div class="fre-input-field">
                     <div class="input-group">
-                        <label class="fre-field-title"><? _e( 'Add emails', ET_DOMAIN ); ?></label>
+                        <label class="fre-field-title"><?php _e( 'Add emails', ET_DOMAIN ); ?></label>
                         <input type="text" id="add_new_email" value=""
-                               title="<? _e( 'Write email and press button Enter', ET_DOMAIN ); ?>"
-                               placeholder="<? _e( 'Write email and press button Enter', ET_DOMAIN ); ?>"
+                               title="<?php _e( 'Write email and press button Enter', ET_DOMAIN ); ?>"
+                               placeholder="<?php _e( 'Write email and press button Enter', ET_DOMAIN ); ?>"
                                maxlength="30">
                         <span class="input-group-btn">
 							<button class="fre-submit-btn btn btn-default add-new-email"
-                                    type="button"><? _e( 'Add', ET_DOMAIN ); ?></button>
+                                    type="button"><?php _e( 'Add', ET_DOMAIN ); ?></button>
 					  	</span>
                     </div>
                 </div>
                 <form method="POST" class="form-send-banner-to-emails">
                     <select id="select_emails" name="emails" multiple></select>
                     <div class="fre-form-btn show-skill-btn-group">
-                        <button class="fre-submit-btn btn-left submit-send-email"><? _e( 'Send', ET_DOMAIN ); ?></button>
-                        <div class="fre-cancel-btn" data-dismiss="modal"><? _e( 'Close', ET_DOMAIN ); ?></div>
+                        <button class="fre-submit-btn btn-left submit-send-email"><?php _e( 'Send', ET_DOMAIN ); ?></button>
+                        <div class="fre-cancel-btn" data-dismiss="modal"><?php _e( 'Close', ET_DOMAIN ); ?></div>
                     </div>
                 </form>
             </div>

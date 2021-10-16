@@ -104,7 +104,7 @@ if ( isset( $project_category ) && $project_category != '' ) {
                     <div class="fre-input-field">
                         <label for="sub" class="fre-field-title"><?php _e( 'Subcategory', ET_DOMAIN ); ?></label>
                         <div class="select_style">
-                            <select name="sub" id="sub" data-selected_slug="<?= $subcategory_project_selected ?>">
+                            <select name="sub" id="sub" data-selected_slug="<?php echo $subcategory_project_selected ?>">
                                 <option value="">Select category first</option>
                             </select>
                         </div>

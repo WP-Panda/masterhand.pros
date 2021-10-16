@@ -14,10 +14,10 @@ get_header();
                         <div class="fre-input-field">
                             <label class="fre-field-title"
                                    for="fre-project-title"><?php _e( 'Advert title', ET_DOMAIN ); ?></label>
-                            <input type="hidden" name="post_id" value="<? echo $post->ID ?>">
+                            <input type="hidden" name="post_id" value="<?php echo $post->ID ?>">
                             <input class="input-item text-field" id="fre-project-title" type="text"
                                    name="post_title" maxlength="100"
-                                   value="<? echo $post->post_title ?>">
+                                   value="<?php echo $post->post_title ?>">
                         </div>
                         <div class="fre-input-field">
                             <label class="fre-field-title"
@@ -29,24 +29,24 @@ get_header();
 						if ( $private_bid ) {
 							?>
                             <div class="fre-input-field box_upload_img">
-                                <p><? _e( 'Work examples' ); ?></p>
+                                <p><?php _e( 'Work examples' ); ?></p>
                                 <ul id="listImgPreviews" class="portfolio-thumbs-list row image">
 									<?
 									$attachments = $wpdb->get_results( "SELECT ID, guid FROM {$wpdb->prefix}posts WHERE post_parent = {$post->ID}" );
 									if ( ! empty( $attachments ) ) {
 										foreach ( $attachments as $attachment ) { ?>
                                             <li class="col-sm-3 col-xs-12 item"
-                                                data-id="<?= $attachment->ID; ?>">
+                                                data-id="<?php echo $attachment->ID; ?>">
                                                 <div class="portfolio-thumbs-wrap">
                                                     <div class="portfolio-thumbs img-wrap">
-                                                        <img src="<?= $attachment->guid; ?>">
+                                                        <img src="<?php echo $attachment->guid; ?>">
                                                     </div>
                                                     <div class="portfolio-thumbs-action delete-file">
                                                         <i class="fa fa-trash-o"></i>Remove
                                                     </div>
                                                 </div>
                                             </li>
-										<? }
+										<?php }
 									}
 									?>
                                 </ul>
@@ -58,7 +58,7 @@ get_header();
                                     </div>
                                 </div>
                                 <p class="fre-allow-upload">
-									<? _e( '(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)' ); ?>
+									<?php _e( '(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)' ); ?>
                                 </p>
                                 <style>
                                     .upfiles-container {
@@ -96,7 +96,7 @@ get_header();
                                     }
                                 </style>
                             </div>
-						<? } ?>
+						<?php } ?>
                         <div class="fre-input-field">
                             <label class="fre-field-title"
                                    for="project-location"><?php _e( 'Location', ET_DOMAIN ); ?></label>
@@ -110,7 +110,7 @@ get_header();
 								?>
                                 <div class="fre-input-field select">
                                     <select name="country" id="country"
-                                            data-selected_id="<?= $country ?>">
+                                            data-selected_id="<?php echo $country ?>">
                                         <option value="">Select Country</option>
 										<?php if ( $query_country->num_rows > 0 ) {
 											while ( $row = $query_country->fetch_assoc() ) {
@@ -128,13 +128,13 @@ get_header();
                                 </div>
 
                                 <div class="fre-input-field select">
-                                    <select name="state" id="state" data-selected_id="<?= $state ?>">
+                                    <select name="state" id="state" data-selected_id="<?php echo $state ?>">
                                         <option value="">Select country first</option>
                                     </select>
                                 </div>
 
                                 <div class="fre-input-field select">
-                                    <select name="city" id="city" data-selected_id="<?= $city ?>">
+                                    <select name="city" id="city" data-selected_id="<?php echo $city ?>">
                                         <option value="">Select state first</option>
                                     </select>
                                 </div>
@@ -143,7 +143,7 @@ get_header();
                         <div class="fre-post-project-btn btn-grp-advert">
                             <button class="fre-btn fre-submit-btn btn-left fre-post-project-next-btn primary-bg-color"
                                     type="submit"><?php _e( "Save", ET_DOMAIN ); ?></button>
-                            <a href="<? echo get_permalink() ?>"
+                            <a href="<?php echo get_permalink() ?>"
                                class="fre-cancel-btn fre-post-project-next-btn primary-bg-color"><?php _e( "Cancel", ET_DOMAIN ); ?></a>
                         </div>
                     </form>
@@ -165,8 +165,8 @@ get_header();
 				?>
                 <div class="fre-page-title">
                     <h2><?php the_title(); ?></h2>
-					<? if ( $user_ID == $post->post_author && $post->post_status == 'publish' ) { ?><a
-                            href="?post_edit"><? _e( 'Edit' ) ?></a> <? }
+					<?php if ( $user_ID == $post->post_author && $post->post_status == 'publish' ) { ?><a
+                            href="?post_edit"><?php _e( 'Edit' ) ?></a> <?php }
 					?>
                 </div>
                 <div class="fre-page-section">
@@ -176,21 +176,21 @@ get_header();
 					if ( ! empty( $attachments ) ) {
 						?>
                         <br><br>
-                        <p><? _e( 'Work examples' ); ?></p>
+                        <p><?php _e( 'Work examples' ); ?></p>
                         <ul class="portfolio-thumbs-list row image">
-							<? foreach ( $attachments as $attachment ) { ?>
+							<?php foreach ( $attachments as $attachment ) { ?>
                                 <li class="col-sm-3 col-xs-12 item">
                                     <div class="portfolio-thumbs-wrap">
-                                        <img src="<?= $attachment->guid; ?>">
+                                        <img src="<?php echo $attachment->guid; ?>">
                                     </div>
                                 </li>
-							<? } ?>
+							<?php } ?>
                         </ul>
-					<? } ?>
+					<?php } ?>
                     <br><br>
-					<? _e( 'Author' ) ?>: <a href="<? echo get_author_posts_url( $post->post_author ); ?>">
-						<? echo get_the_author_meta( 'display_name', $post->post_author ); ?>
-                    </a>, <?= get_the_date( 'd M Y', $post ); ?>
+					<?php _e( 'Author' ) ?>: <a href="<?php echo get_author_posts_url( $post->post_author ); ?>">
+						<?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>
+                    </a>, <?php echo get_the_date( 'd M Y', $post ); ?>
                 </div>
 				<?
 			}

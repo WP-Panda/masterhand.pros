@@ -399,7 +399,7 @@ $currency = ae_get_option( 'currency',
 													$project_status = $convert->post_status;
 													$optionsProject = optionsProject( $convert );
 													?>
-                                                    <div class="fre-table-row" <?= $optionsProject['highlight_project'] ?> >
+                                                    <div class="fre-table-row" <?php echo $optionsProject['highlight_project'] ?> >
                                                         <div class="fre-table-col project-title-col">
                                                             <a class="secondary-color"
                                                                href="<?php echo $convert->permalink; ?>">

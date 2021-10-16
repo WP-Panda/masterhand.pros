@@ -83,7 +83,7 @@ get_header();
                                         </div>
 
                                         <form method="post"
-                                              class="<?= $paymentType == 'review' ? 'review-payment__form' : 'order-payment__form' ?>"
+                                              class="<?php echo $paymentType == 'review' ? 'review-payment__form' : 'order-payment__form' ?>"
                                               action="<?= $urlRequest; ?>">
 
                                             <!--URL, куда покупатель будет перенаправлен после успешной оплаты.

@@ -276,18 +276,18 @@ if ( $project->post_status == "disputing" or $post->post_status == 'disputed' ) 
                             </p>
                             <br>
                             <p><?php _e( 'Money has been tranfered to', ET_DOMAIN ) ?>
-								<? if ( $freelancer_value ): ?>
+								<?php if ( $freelancer_value ): ?>
                                     <br/>
                                     <b>
-										<?= get_the_author_meta( 'display_name', $freelancer_v ); ?>
+										<?php echo get_the_author_meta( 'display_name', $freelancer_v ); ?>
                                     </b>
-								<? endif; ?>
-								<? if ( $client_value ): ?>
+								<?php endif; ?>
+								<?php if ( $client_value ): ?>
                                     <br/>
                                     <b>
-										<?= get_the_author_meta( 'display_name', $client_v ); ?>
+										<?php echo get_the_author_meta( 'display_name', $client_v ); ?>
                                     </b>
-								<? endif; ?>
+								<?php endif; ?>
                             </p>
 						<?php } ?>
 

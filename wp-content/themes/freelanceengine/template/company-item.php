@@ -16,18 +16,18 @@ if ( ! $current ) {
 
 <li class="company-item 1 project-item">
     <div class="project-content fre-freelancer-wrap">
-		<? if ( $current->button ) { ?>
+		<?php if ( $current->button ) { ?>
             <div class="fre-input-field" style="float:right;">
                 <div class="checkline">
                     <input class="get-quote-company" name="company_checked" type="checkbox"
-                           data-id="<?= $current->ID ?>" data-name="<?= $current->post_title ?>">
+                           data-id="<?php echo $current->ID ?>" data-name="<?php echo $current->post_title ?>">
                     <label for="company_checked"></label>
                 </div>
             </div>
-		<? } ?>
+		<?php } ?>
         <a class="project-name"><?php echo $current->post_title; ?></a>
         <div class="reviews-rating-summary">
-            <div class="review-rating-result" style="width: <?= $current->percent; ?>%"></div>
+            <div class="review-rating-result" style="width: <?php echo $current->percent; ?>%"></div>
         </div>
         <span class="company-item_rating"><?php echo $current->raiting; ?></span>
         <div class="fre-location"><?php echo $current->str_location; ?></div>
@@ -41,13 +41,13 @@ if ( ! $current ) {
             <span class="company-item_site">
                 <a href="<?php echo $current->site; ?>" rel="nofollow" target="_blank"><?php echo _( 'Website' ); ?></a>
             </span>
-			<? if ( $current->button ) { ?>
-                <span class="company-item_btn" data-id="<?= $current->ID ?>"
-                      data-name="<?= $current->post_title ?>"><?= $current->button; ?></span>
-			<? } else { ?>
+			<?php if ( $current->button ) { ?>
+                <span class="company-item_btn" data-id="<?php echo $current->ID ?>"
+                      data-name="<?php echo $current->post_title ?>"><?php echo $current->button; ?></span>
+			<?php } else { ?>
                 <span class="company-item_btn"><a href="/login"
-                                                  class="btn-get-quote-to-login"><? _e( 'Get a Quote' ); ?></a></span>
-			<? } ?>
+                                                  class="btn-get-quote-to-login"><?php _e( 'Get a Quote' ); ?></a></span>
+			<?php } ?>
         </div>
     </div>
 </li>

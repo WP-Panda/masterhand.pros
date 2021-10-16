@@ -12,7 +12,7 @@ extract( $args );
 
 <li class="company-item 1 project-item">
     <div class="project-content fre-freelancer-wrap">
-		<? if ( ! empty( $company->email ) ) { ?>
+		<?php if ( ! empty( $company->email ) ) { ?>
             <div class="fre-input-field" style="float:right;">
                 <div class="checkline">
                     <input class="get-quote-company" name="company_checked" type="checkbox"
@@ -20,7 +20,7 @@ extract( $args );
                     <label for="company_checked"></label>
                 </div>
             </div>
-		<? } ?>
+		<?php } ?>
         <a class="project-name"><?php echo $company->title; ?></a>
         <div class="reviews-rating-summary">
             <div class="review-rating-result" style="width: <?php echo $company->rating * 100 / 5; ?>%"></div>
@@ -37,15 +37,15 @@ extract( $args );
             <span class="company-item_site">
                 <a href="<?php echo $company->site; ?>" rel="nofollow" target="_blank"><?php echo _( 'Website' ); ?></a>
             </span>
-			<? if ( ! empty( $company->email ) ) { ?>
+			<?php if ( ! empty( $company->email ) ) { ?>
                 <span class="company-item_btn" data-id="<?php echo $company->id ?>"
                       data-name="<?php echo $company->title ?>"><input class="btn-get-quote" type="button"
                                                                        value="<?php _e( 'Get a Quote', 'wpp' ); ?>"></span>
-			<? } else { ?>
+			<?php } else { ?>
                 <span class="company-item_btn">
-                    <a href="/login" class="btn-get-quote-to-login"><? _e( 'Get a Quote' ); ?></a>
+                    <a href="/login" class="btn-get-quote-to-login"><?php _e( 'Get a Quote' ); ?></a>
                 </span>
-			<? } ?>
+			<?php } ?>
         </div>
     </div>
 </li>

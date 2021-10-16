@@ -60,7 +60,7 @@ $post_object   = $ae_post_factory->get( PROFILE );
 
 						<?php get_template_part( 'template/company', 'item' ) ?>
                     </div>
-				<? }
+				<?php }
 
 			}
 		} else {
