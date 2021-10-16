@@ -13,7 +13,7 @@
                 {if $user_status && $user_status != $.const.PRO_BASIC_STATUS_EMPLOYER && $user_status != $.const.PRO_BASIC_STATUS_FREELANCER}
                     <span class="status">{$.call.translate('PRO', $.const.ET_DOMAIN)}</span>
                 {/if}
-                    <span class="hidden-xs rating-new">+{$.call.getActivityRatingUser($rwProject['user_id'])}</span>
+                    <span class="hidden-xs rating-new">+{$.call.wpp_get_user_rating($rwProject['user_id'])}</span>
                 </div>
                 {if $rwProject['vote'] > 3}
                 <div class="free-rating">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 {/if}
-                <span class="visible-xs col-xs-6 rating-new">+{$.call.getActivityRatingUser($rwProject['user_id'])}</span>
+                <span class="visible-xs col-xs-6 rating-new">+{$.call.wpp_get_user_rating($rwProject['user_id'])}</span>
                 <div class="col-sm-8 hidden-xs fre-project_lnk">
                     <span>{$.call._e('Project:', $const.ET_DOMAIN)}</span>
                     <a href="{$rwProject['guid']}" title="{$.call.esc_attr($rwProject['post_title'])}">
