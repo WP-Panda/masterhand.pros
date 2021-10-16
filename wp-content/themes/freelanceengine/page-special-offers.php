@@ -31,14 +31,14 @@ $userId = get_current_user_id();
         }
     </style>
 
-<? if ( userHaveProStatus( $userId ) == false ) { ?>
+<?php if ( userHaveProStatus( $userId ) == false ) { ?>
     <p class="only-pro-warn__caption">
         Only for users with the PRO status
         <br>
         You can get the PRO status by <a href="/pro/">following the link</a></p>
-<? } ?>
+<?php } ?>
 
-    <div class="fre-page-wrapper section-archive-offer <?= userHaveProStatus( $userId ) ? '' : 'only-pro-warn' ?>">
+    <div class="fre-page-wrapper section-archive-offer <?php echo userHaveProStatus( $userId ) ? '' : 'only-pro-warn' ?>">
 
         <div class="fre-page-title">
             <div class="container">

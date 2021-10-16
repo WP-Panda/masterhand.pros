@@ -71,7 +71,7 @@ if ( isset( $project_category ) && $project_category != '' ) {
                         <label for="sub"
                                class="fre-field-title"><?php _e( 'Subcategory', ET_DOMAIN ); ?></label>
                         <div class="select_style">
-                            <select name="sub" id="sub" data-selected_slug="<?= $subcategory_profile_selected ?>">
+                            <select name="sub" id="sub" data-selected_slug="<?php echo $subcategory_profile_selected ?>">
                                 <option value="">Select category first</option>
                             </select>
                         </div>

@@ -25,7 +25,7 @@ $query = new WP_Query( [
                     <p class="fre-blog-item_date"><?php echo _e( 'Updated', ET_DOMAIN ) . ' ' . get_the_date(); ?></p>
                 </div>
             </div>
-		<? }
+		<?php }
 	}
 	wp_reset_query(); ?>
 </div>

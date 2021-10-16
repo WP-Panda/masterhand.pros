@@ -54,9 +54,9 @@ $conversation_has_read = get_post_meta( $conversation_id, "{$user_role}_has_read
 $final_bid_already_asked = get_post_meta( $post->ID, 'final_bid_asked', true );
 ?>
 
-<div class="row freelancer-bidding-item <? if ( $user_ID == $convert->post_author ) { ?>user-bid<? } ?>"
+<div class="row freelancer-bidding-item <?php if ( $user_ID == $convert->post_author ) { ?>user-bid<?php } ?>"
      style="
-     <? //if ($final_bid_already_asked) { echo "background: #b6fff9"; } ?>
+     <?php //if ($final_bid_already_asked) { echo "background: #b6fff9"; } ?>
      <?php if ( ! empty( $convert->bid_background_color ) ) {
 	     echo "background: #{$convert->bid_background_color}";
      } ?>
@@ -80,9 +80,9 @@ $final_bid_already_asked = get_post_meta( $post->ID, 'final_bid_asked', true );
 
 						<?php if ( $conversation_exists ) { ?>
                             <a class="fre-notification__link"
-                               href="/private-message/?pr_msg_c_id=<?= $conversation_id ?>">
+                               href="/private-message/?pr_msg_c_id=<?php echo $conversation_id ?>">
                                 <img src="<?php echo get_template_directory_uri() ?>/img/mail.svg"
-                                     class="fre-notification__mail-icon <?php if ( ! $conversation_has_read ) { ?>fre-notification__mail-icon--unread<? } ?>">
+                                     class="fre-notification__mail-icon <?php if ( ! $conversation_has_read ) { ?>fre-notification__mail-icon--unread<?php } ?>">
 								<?php if ( ! $conversation_has_read ) { ?><span
                                         class="fre-notification__circle-icon"></span><?php } ?>
                             </a>
@@ -137,23 +137,23 @@ $final_bid_already_asked = get_post_meta( $post->ID, 'final_bid_asked', true );
 
                 </div>
                 <div class="fre-bid-works fre-page-section">
-					<? if ( $can_watch_text ) {
+					<?php if ( $can_watch_text ) {
 						echo $post->post_content;
 						$attachments = $wpdb->get_results( "SELECT guid FROM {$wpdb->prefix}posts WHERE post_parent = {$post->ID} AND post_type='attachment'" );
 						if ( ! empty( $attachments ) ) {
 							?>
                             <br>
-                            <p><? _e( 'Work examples' ); ?></p>
+                            <p><?php _e( 'Work examples' ); ?></p>
                             <ul class="portfolio-thumbs-list row image">
-								<? foreach ( $attachments as $attachment ) { ?>
+								<?php foreach ( $attachments as $attachment ) { ?>
                                     <li class="col-sm-3 col-xs-4 item">
                                         <div class="portfolio-thumbs-wrap">
-                                            <img src="<?= $attachment->guid; ?>">
+                                            <img src="<?php echo $attachment->guid; ?>">
                                         </div>
                                     </li>
-								<? } ?>
+								<?php } ?>
                             </ul>
-						<? }
+						<?php }
 					} ?>
                 </div>
 				<?php
@@ -166,11 +166,11 @@ $final_bid_already_asked = get_post_meta( $post->ID, 'final_bid_asked', true );
 				<?php if ( $can_watch_text ) { ?>
                     <div class="col-free-reputation">
                         <div class="free-rating-new"><?php _e( 'Rating: ', ET_DOMAIN ); ?>
-                            +<?= wpp_get_user_rating(  $convert->post_author ); ?>
+                            +<?php echo wpp_get_user_rating(  $convert->post_author ); ?>
                         </div>
 
                         <div class="free-rating_wp">
-                            <div class="free-rating"><? HTML_review_rating_user( $post->post_author ); ?></div>
+                            <div class="free-rating"><?php HTML_review_rating_user( $post->post_author ); ?></div>
                         </div>
 
 						<?php printf( __( '<p>%s year(s) experience</p>', ET_DOMAIN ), $convert->experience );

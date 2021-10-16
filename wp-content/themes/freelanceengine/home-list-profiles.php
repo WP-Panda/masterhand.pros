@@ -76,7 +76,7 @@ $post_object = $ae_post_factory->get( PROFILE );
                     </div>
                 </div>
                 <div class="col-sm-5 col-md-5 col-lg-4">
-                    <div class="free-rating-new">+<?= wpp_get_user_rating( $convert->post_author ); ?></div>
+                    <div class="free-rating-new">+<?php echo wpp_get_user_rating( $convert->post_author ); ?></div>
                     <div class="free-rating"><?php HTML_review_rating_user( $convert->post_author ); ?></div>
                 </div>
             </div>

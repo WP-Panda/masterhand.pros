@@ -79,7 +79,7 @@ get_header();
                                             <div class="fre-table-col advert-title-col">
                                                 <a class="secondary-color"
                                                    href="<?php echo get_permalink(); ?>"><?php echo $post->post_title; ?></a>
-												<?= $str_location ?>
+												<?php echo $str_location ?>
                                             </div>
                                             <div class="fre-table-col advert-content-col">
 												<?php if ( strlen( $post->post_content ) > 50 ) {
@@ -90,7 +90,7 @@ get_header();
 												?>
                                             </div>
                                             <div class="fre-table-col advert-author-col">
-												<? _e( 'Author' ); ?>:
+												<?php _e( 'Author' ); ?>:
                                                 <a href="<?php echo get_author_posts_url( $post->post_author ); ?>"
                                                    class="">
 													<?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>

@@ -34,7 +34,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
                   target="_blank"><?php echo $convert->author_name; ?></a></p>
 
 			<?php if ( ! empty( $review_for_freelancer['comment'] ) ) { ?>
-                <p>"<? echo nl2br( stripcslashes( $review_for_freelancer['comment'] ) ); ?>"</p>
+                <p>"<?php echo nl2br( stripcslashes( $review_for_freelancer['comment'] ) ); ?>"</p>
 			<?php } ?>
 
 			<?php if ( ! empty( $reply_to_review['comment'] ) ) { ?>
@@ -50,7 +50,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 			if ( $bid_accepted_author == $user_ID && ! empty( $review_for_freelancer ) ) {
 				if ( $review_for_freelancer['status'] == review_rating_init()::STATUS_HIDDEN ) { ?>
                     <div class="showed-review">
-                        <a href="#" data-review_id="<?= $review_for_freelancer['id'] ?>"
+                        <a href="#" data-review_id="<?php echo $review_for_freelancer['id'] ?>"
                            class="review-must-paid fre-submit-btn fre-normal-btn"><?php _e( 'Showed', ET_DOMAIN ); ?></a>
                     </div>
 					<?php get_template_part( 'template-js/modal-showed-review', 'item' ); ?>
@@ -153,7 +153,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
                         <!--                                 class="fre-action-btn btn-complete-project"> --><?php //_e( 'Finish', ET_DOMAIN ); ?>
                         <!--</a>-->
                         <!--                            -->
-						<? //
+						<?php //
 						//                            }
 						//                        }
 					} else if ( $post->post_status == 'disputing' ) { ?>

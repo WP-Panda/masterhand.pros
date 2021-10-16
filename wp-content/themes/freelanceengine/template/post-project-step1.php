@@ -113,7 +113,7 @@ $number_free_plan_used = AE_Package::get_used_free_plan( $user_ID );
                     data-sku="<?php echo trim( $package->sku ); ?>" data-id="<?php echo $package->ID ?>"
                     data-price="<?php echo $package->et_price; ?>"
                     data-package-type="<?php echo $package->post_type; ?>"
-                    data-title="<?php echo $package->post_title; ?>" data-description="<? #php echo $text; ?>">
+                    data-title="<?php echo $package->post_title; ?>" data-description="<?php #php echo $text; ?>">
                     <div class="fre-post-package_wp">
                         <h6 class="fre-post-package_t">
 							<?php echo $package->post_title; ?>

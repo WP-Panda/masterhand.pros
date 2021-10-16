@@ -181,7 +181,7 @@ $path .= $_SERVER['HTTP_HOST'];
                             </div>
                         </div>
                     </div>
-					<? get_template_part( 'template-js/modal', 'send-banner-to-emails' ); ?>
+					<?php get_template_part( 'template-js/modal', 'send-banner-to-emails' ); ?>
                 </div>
 
 				<?php if ( fre_share_role() || $isFreelancer ) { ?>

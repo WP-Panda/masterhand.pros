@@ -16,11 +16,11 @@
                     <form method="POST" action="/order/payment/" style="float:left">
                         <!--URL, куда покупатель будет перенаправлен после успешной оплаты.
                         Если этот параметр не передать, покупатель останется на сайте PayPal-->
-                        <input type="hidden" name="return" value="<?= bloginfo( 'home' ) ?>/payment-completed">
+                        <input type="hidden" name="return" value="<?php echo bloginfo( 'home' ) ?>/payment-completed">
 
                         <!--URL, куда покупатель будет перенаправлен при отмене им оплаты.
                         Если этот параметр не передать, покупатель останется на сайте PayPal-->
-                        <input type="hidden" name="cancel_return" value="<?= bloginfo( 'home' ) ?>/cancel-payment">
+                        <input type="hidden" name="cancel_return" value="<?php echo bloginfo( 'home' ) ?>/cancel-payment">
 
                         <!--URL, на который PayPal будет предавать информацию о транзакции (IPN).
                         Если не передавать этот параметр, будет использоваться значение, указанное в настройках аккаунта.
@@ -32,15 +32,15 @@
                         <input type="hidden" name="cmd" value="_xclick">
                         <input type="hidden" name="review_id" value="">
                         <input type="hidden" name="item_name" value="Pay for Review">
-                        <input type="hidden" name="item_number" value="<?= $user_ID ?>">
-                        <input type="hidden" name="amount" value="<?= $review_price ?>">
-                        <input type="hidden" name="price" value="<?= $review_price ?>">
-                        <input type="hidden" name="currency_code" value="<?= $review_currency ?>">
+                        <input type="hidden" name="item_number" value="<?php echo $user_ID ?>">
+                        <input type="hidden" name="amount" value="<?php echo $review_price ?>">
+                        <input type="hidden" name="price" value="<?php echo $review_price ?>">
+                        <input type="hidden" name="currency_code" value="<?php echo $review_currency ?>">
                         <input type="hidden" name="no_shipping" value="1">
                         <input type="hidden" name="rm" value="2">
                         <input type="hidden" name="plan_name" value="Review Payment">
 
-                        <input type="submit" class="fre-submit-btn btn-left" value="<? _e( 'Pay', ET_DOMAIN ); ?>">
+                        <input type="submit" class="fre-submit-btn btn-left" value="<?php _e( 'Pay', ET_DOMAIN ); ?>">
                     </form>
 
                     <div class="fre-cancel-btn" data-dismiss="modal"><?php _e( 'Close', ET_DOMAIN ); ?></div>

@@ -38,8 +38,8 @@ get_header();
                     </div>
 				<?php } else { ?>
                     <p>Activate Account Pro for Create Ad</p>
-                    <a href="/pro" class="btn-submit fre-submit-btn go-to-pro-account"><? _e( 'Activate' ) ?></a>
-				<? } ?>
+                    <a href="/pro" class="btn-submit fre-submit-btn go-to-pro-account"><?php _e( 'Activate' ) ?></a>
+				<?php } ?>
 				<?php
 				$freelancer_current_project_query = new WP_Query( [
 					'post_status'    => [
@@ -72,7 +72,7 @@ get_header();
 								} ?>" data-title="<?= $post->post_title; ?>">
 									<?php if ( $status == 'publish' ) { ?>
                                         <a href="<?php echo get_permalink() ?>"><?php echo $post->post_title; ?></a>
-                                        <span class="status"><? _e( 'Active' ) ?></span>
+                                        <span class="status"><?php _e( 'Active' ) ?></span>
 									<?php } else {
 										echo $post->post_title;
 									} ?>
@@ -88,7 +88,7 @@ get_header();
 									?>
                                 </div>
                                 <div class="btn-wrap">
-									<? if ( $status == 'publish' ) { ?>
+									<?php if ( $status == 'publish' ) { ?>
                                         <a class="fre-submit-btn btn-left"
                                            href="<?= get_permalink(); ?>?post_edit"><?php _e( 'Edit' ); ?></a>
                                         <a class="advert-action archive cancel-btn"

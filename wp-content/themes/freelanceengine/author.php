@@ -195,7 +195,7 @@ if ( $visualFlag ) {
                                     </div>
                                     <div class="secure-deals">
 										<?php echo __( 'SafePay Deals:', ET_DOMAIN ); ?>
-										<? $safe_deals_count = get_user_meta( $author_id, 'safe_deals_count', 1 ); ?>
+										<?php $safe_deals_count = get_user_meta( $author_id, 'safe_deals_count', 1 ); ?>
                                         <span><?php echo ( $safe_deals_count == '' ) ? 0 : $safe_deals_count ?></span>
                                     </div>
                                     <div class="reviews">
@@ -248,7 +248,7 @@ if ( $visualFlag ) {
                                 <div class="bl_t">
 									<?php echo __( 'Skills and Endorsements:', ET_DOMAIN ); ?>
                                 </div>
-								<? /* wp_enqueue_style( 'endoSk' );
+								<?php /* wp_enqueue_style( 'endoSk' );
 									if ( is_plugin_active( 'referral_code/referral_code.php' ) ) {
 										$list_referral = get_referral( $user_ID );
 										$res           = false;

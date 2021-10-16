@@ -9,9 +9,9 @@
             <div class="modal-body">
                 <form role="form" class="fre-modal-form">
                     <div class="fre-content-confirm fre-form-btn btn-wrap bidding-btns">
-                        <a href="" id="<?= get_the_ID(); ?>"
+                        <a href="" id="<?php echo get_the_ID(); ?>"
                            class="fre-normal-btn fre-submit-btn btn-left btn-accept-bid"><?php _e( 'SafePay Deal', ET_DOMAIN ); ?></a>
-                        <a href="" id="<?= get_the_ID(); ?>"
+                        <a href="" id="<?php echo get_the_ID(); ?>"
                            class="fre-normal-btn fre-cancel-btn btn-right btn-accept-bid-no-escrow"><?php _e( 'Regular Deal', ET_DOMAIN ); ?></a>
                     </div>
                 </form>

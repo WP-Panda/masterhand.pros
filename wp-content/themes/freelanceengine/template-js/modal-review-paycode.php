@@ -12,7 +12,7 @@ global $post, $user_ID;
             </div>
             <div class="modal-body">
                 <form role="form" id="review_after_pay" class="review-after-pay-code fre-modal-form">
-                    <input type="hidden" name="project_id" value="<?= $post->ID ?>">
+                    <input type="hidden" name="project_id" value="<?php echo $post->ID ?>">
                     <input type="hidden" name="action" value="payCodeReview"/>
 					<?php if ( $post->post_author == $user_ID ) {  // employer finish project form ?>
                         <input type="hidden" name="from_is" value="employer"/>

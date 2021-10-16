@@ -44,9 +44,9 @@ get_header();
                     <div class="ac-activate btn-wrap">
 						<?php _e( 'Activate Account Pro for Create Ad', ET_DOMAIN ); ?>
                         <a href="/pro"
-                           class="btn-submit btn-right fre-submit-btn go-to-pro-account"><? _e( 'Activate' ) ?></a>
+                           class="btn-submit btn-right fre-submit-btn go-to-pro-account"><?php _e( 'Activate' ) ?></a>
                     </div>
-				<? } ?>
+				<?php } ?>
 				<?php
 				$freelancer_current_project_query = new WP_Query( [
 					'post_status'    => [
@@ -76,10 +76,10 @@ get_header();
                             <div class="adverts_list_wp">
                                 <div class="adverts_t <?php if ( $status == 'archive' ) {
 									echo 'project-status-archive';
-								} ?>" data-title="<?= $post->post_title; ?>">
+								} ?>" data-title="<?php echo $post->post_title; ?>">
 									<?php if ( $status == 'publish' ) { ?>
                                         <a href="<?php echo get_permalink() ?>"><?php echo $post->post_title; ?></a>
-                                        <span class="status"><? _e( 'Active' ) ?></span>
+                                        <span class="status"><?php _e( 'Active' ) ?></span>
 									<?php } else {
 										echo $post->post_title;
 									} ?>
@@ -95,11 +95,11 @@ get_header();
 									?>
                                 </div>
                                 <div class="btn-wrap">
-									<? if ( $status == 'publish' ) { ?>
+									<?php if ( $status == 'publish' ) { ?>
                                         <a class="fre-submit-btn btn-left"
-                                           href="<?= get_permalink(); ?>?post_edit"><?php _e( 'Edit' ); ?></a>
+                                           href="<?php echo get_permalink(); ?>?post_edit"><?php _e( 'Edit' ); ?></a>
                                         <a class="advert-action archive cancel-btn"
-                                           data-id="<?= $post->ID; ?>"><?= __( 'Archive', ET_DOMAIN ); ?></a>
+                                           data-id="<?php echo $post->ID; ?>"><?php echo __( 'Archive', ET_DOMAIN ); ?></a>
 										<?
 									}
 									// else if ( $status == 'archive' ) {

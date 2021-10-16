@@ -30,12 +30,12 @@ $limitAdverts  = ( $access_advert ) ? $access_advert : 0;
 
         <div class="fre-page-section">
             <div class="container">
-				<? if ( $limitAdverts == 0 ) { ?>
+				<?php if ( $limitAdverts == 0 ) { ?>
                     <div class="fre-post-project-box">
                         <a href="/pro"
-                           class="go-to-pro-account"><? _e( 'Activate Account Pro for Creating Special Offers' ) ?></a>
+                           class="go-to-pro-account"><?php _e( 'Activate Account Pro for Creating Special Offers' ) ?></a>
                     </div>
-				<? } else { ?>
+				<?php } else { ?>
                     <div class="fre-post-project-box">
                     <div>
                         <p><i class="fa fa-check primary-color"
@@ -72,7 +72,7 @@ $limitAdverts  = ( $access_advert ) ? $access_advert : 0;
 							if ( $private_bid ) {
 								?>
                                 <div class="fre-input-field box_upload_img">
-                                    <p><? _e( 'Work examples' ); ?></p>
+                                    <p><?php _e( 'Work examples' ); ?></p>
                                     <ul id="listImgPreviews" class="portfolio-thumbs-list row image">
                                     </ul>
                                     <div class="upfiles-container">
@@ -83,10 +83,10 @@ $limitAdverts  = ( $access_advert ) ? $access_advert : 0;
                                         </div>
                                     </div>
                                     <p class="fre-allow-upload">
-										<? _e( '(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)' ); ?>
+										<?php _e( '(Maximum upload file size is limited to 2MB, maximum for 10 items, allowed file types in the png, jpg.)' ); ?>
                                     </p>
                                 </div>
-							<? } ?>
+							<?php } ?>
                             <div class="fre-input-field">
                                 <label class="fre-field-title"
                                        for="project-location"><?php _e( 'Location', ET_DOMAIN ); ?></label>
@@ -98,7 +98,7 @@ $limitAdverts  = ( $access_advert ) ? $access_advert : 0;
 									?>
                                     <div class="fre-input-field select">
                                         <select name="country" id="country"
-                                                data-selected_id="<?= ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>">
+                                                data-selected_id="<?php echo ! empty( $location['country']['id'] ) ? $location['country']['id'] : '' ?>">
                                             <option value="">Select Country</option>
 											<?php if ( $query_country->num_rows > 0 ) {
 												while ( $row = $query_country->fetch_assoc() ) {
@@ -117,14 +117,14 @@ $limitAdverts  = ( $access_advert ) ? $access_advert : 0;
 
                                     <div class="fre-input-field select">
                                         <select name="state" id="state"
-                                                data-selected_id="<?= ! empty( $location['state']['id'] ) ? $location['state']['id'] : '' ?>">
+                                                data-selected_id="<?php echo ! empty( $location['state']['id'] ) ? $location['state']['id'] : '' ?>">
                                             <option value="">Select country first</option>
                                         </select>
                                     </div>
 
                                     <div class="fre-input-field select">
                                         <select name="city" id="city"
-                                                data-selected_id="<?= ! empty( $location['city']['id'] ) ? $location['city']['id'] : '' ?>">
+                                                data-selected_id="<?php echo ! empty( $location['city']['id'] ) ? $location['city']['id'] : '' ?>">
                                             <option value="">Select state first</option>
                                         </select>
                                     </div>

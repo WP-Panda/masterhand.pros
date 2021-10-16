@@ -2875,7 +2875,7 @@ function usp_attaches_metabox( $post, $meta ) {
                              style="background:url(<?php echo $document['url'] ?>) center no-repeat;">
                             <a href="javascript:void(0)" class="fre-view-portfolio-new"
                                data-id="<?php echo $document['id'] ?>"></a>
-                            <img src="<?= $document['url'] ?>" style="display:none;">
+                            <img src="<?php echo $document['url'] ?>" style="display:none;">
 							<?php if ( $is_application_mime ) { ?>
                                 <img src="<?php echo $icon ?>"
                                      style="width: 50px; position: absolute; bottom: 25px; left: 10px;">
@@ -2885,7 +2885,7 @@ function usp_attaches_metabox( $post, $meta ) {
 							<?php } ?>
                         </div>
                         <div class="portfolio-action">
-                            <a href="<?= $document['url'] ?>" target="_blank" class="fre-submit-btn btn-center"
+                            <a href="<?php echo $document['url'] ?>" target="_blank" class="fre-submit-btn btn-center"
                                href="<?php echo $document['url'] ?>"><?php _e( 'Open', ET_DOMAIN ) ?></a>
                             <a href="javascript:void(0)" class="fre-cancel-btn btn-center"
                                onclick="attach_remove_modal(<?php echo $post->ID ?>, <?php echo $document['id'] ?>)">
