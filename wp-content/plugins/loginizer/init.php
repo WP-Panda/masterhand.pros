@@ -1294,7 +1294,7 @@ input[type="text"], textarea, select {
 		
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Getting Started', 'loginizer'); ?></span>
+			<span><?php _e('Getting Started', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -1325,7 +1325,7 @@ input[type="text"], textarea, select {
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('System Information', 'loginizer'); ?></span>
+			<span><?php _e('System Information', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		<div class="inside">
@@ -1410,7 +1410,7 @@ lz_ip_method_handle();
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('File Permissions', 'loginizer'); ?></span>
+			<span><?php _e('File Permissions', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -1910,7 +1910,7 @@ function loginizer_page_brute_force(){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<?php echo __('<span>Failed Login Attempts Logs</span> &nbsp; (Past '.($loginizer['reset_retries']/60/60).' hours)','loginizer'); ?>
+			<?php _e('<span>Failed Login Attempts Logs</span> &nbsp; (Past '.($loginizer['reset_retries']/60/60).' hours)','loginizer'); ?>
 		</h2>
 		</div>
 		
@@ -1996,12 +1996,12 @@ function loginizer_page_brute_force(){
 		<table class="wp-list-table widefat fixed users" border="0">
 			<tr>
 				<th scope="row" valign="top" style="background:#EFEFEF;" width="20">#</th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('IP','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Attempted Username','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Last Failed Attempt  (DD/MM/YYYY)','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Failed Attempts Count','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Lockouts Count','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;" width="150"><?php echo __('URL Attacked','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('IP','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Attempted Username','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Last Failed Attempt  (DD/MM/YYYY)','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Failed Attempts Count','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Lockouts Count','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;" width="150"><?php _e('URL Attacked','loginizer'); ?></th>
 			</tr>
 			<?php
 			
@@ -2046,11 +2046,11 @@ function loginizer_page_brute_force(){
 		</table>
 		
 		<br>
-		<input name="lz_reset_ip" class="button button-primary action" value="<?php echo __('Remove From Logs', 'loginizer'); ?>" type="submit" />
+		<input name="lz_reset_ip" class="button button-primary action" value="<?php _e('Remove From Logs', 'loginizer'); ?>" type="submit" />
 		&nbsp; &nbsp; 
-		<input name="lz_reset_all_ip" class="button button-primary action" value="<?php echo __('Clear All Logs', 'loginizer'); ?>" type="submit" />
+		<input name="lz_reset_all_ip" class="button button-primary action" value="<?php _e('Clear All Logs', 'loginizer'); ?>" type="submit" />
 		&nbsp; &nbsp; 
-		<input name="lz_blacklist_selected_ip" class="button button-primary action" value="<?php echo __('Blacklist Selected IPs', 'loginizer'); ?>" type="submit" />
+		<input name="lz_blacklist_selected_ip" class="button button-primary action" value="<?php _e('Blacklist Selected IPs', 'loginizer'); ?>" type="submit" />
 		</div>
 	</div>
 	</form>
@@ -2060,7 +2060,7 @@ function loginizer_page_brute_force(){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Brute Force Settings', 'loginizer'); ?></span>
+			<span><?php _e('Brute Force Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -2070,44 +2070,44 @@ function loginizer_page_brute_force(){
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr>
-				<th scope="row" valign="top"><label for="max_retries"><?php echo __('Max Retries','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="max_retries"><?php _e('Max Retries','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="3" value="<?php echo lz_optpost('max_retries', $loginizer['max_retries']); ?>" name="max_retries" id="max_retries" /> <?php echo __('Maximum failed attempts allowed before lockout','loginizer'); ?> <br />
+					<input type="text" size="3" value="<?php echo lz_optpost('max_retries', $loginizer['max_retries']); ?>" name="max_retries" id="max_retries" /> <?php _e('Maximum failed attempts allowed before lockout','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="lockout_time"><?php echo __('Lockout Time','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="lockout_time"><?php _e('Lockout Time','loginizer'); ?></label></th>
 				<td>
-				<input type="text" size="3" value="<?php echo (!empty($lockout_time) ? $lockout_time : $loginizer['lockout_time']) / 60; ?>" name="lockout_time" id="lockout_time" /> <?php echo __('minutes','loginizer'); ?> <br />
+				<input type="text" size="3" value="<?php echo (!empty($lockout_time) ? $lockout_time : $loginizer['lockout_time']) / 60; ?>" name="lockout_time" id="lockout_time" /> <?php _e('minutes','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="max_lockouts"><?php echo __('Max Lockouts','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="max_lockouts"><?php _e('Max Lockouts','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="3" value="<?php echo lz_optpost('max_lockouts', $loginizer['max_lockouts']); ?>" name="max_lockouts" id="max_lockouts" /> <?php echo __('','loginizer'); ?> <br />
+					<input type="text" size="3" value="<?php echo lz_optpost('max_lockouts', $loginizer['max_lockouts']); ?>" name="max_lockouts" id="max_lockouts" /> <?php _e('','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="lockouts_extend"><?php echo __('Extend Lockout','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="lockouts_extend"><?php _e('Extend Lockout','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="3" value="<?php echo (!empty($lockouts_extend) ? $lockouts_extend : $loginizer['lockouts_extend']) / 60 / 60; ?>" name="lockouts_extend" id="lockouts_extend" /> <?php echo __('hours. Extend Lockout time after Max Lockouts','loginizer'); ?> <br />
+					<input type="text" size="3" value="<?php echo (!empty($lockouts_extend) ? $lockouts_extend : $loginizer['lockouts_extend']) / 60 / 60; ?>" name="lockouts_extend" id="lockouts_extend" /> <?php _e('hours. Extend Lockout time after Max Lockouts','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="reset_retries"><?php echo __('Reset Retries','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="reset_retries"><?php _e('Reset Retries','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="3" value="<?php echo (!empty($reset_retries) ? $reset_retries : $loginizer['reset_retries']) / 60 / 60; ?>" name="reset_retries" id="reset_retries" /> <?php echo __('hours','loginizer'); ?> <br />
+					<input type="text" size="3" value="<?php echo (!empty($reset_retries) ? $reset_retries : $loginizer['reset_retries']) / 60 / 60; ?>" name="reset_retries" id="reset_retries" /> <?php _e('hours','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="notify_email"><?php echo __('Email Notification','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="notify_email"><?php _e('Email Notification','loginizer'); ?></label></th>
 				<td>
-					<?php echo __('after ','loginizer'); ?>
-					<input type="text" size="3" value="<?php echo (!empty($notify_email) ? $notify_email : $loginizer['notify_email']); ?>" name="notify_email" id="notify_email" /> <?php echo __('lockouts <br />0 to disable email notifications','loginizer'); ?>
+					<?php _e('after ','loginizer'); ?>
+					<input type="text" size="3" value="<?php echo (!empty($notify_email) ? $notify_email : $loginizer['notify_email']); ?>" name="notify_email" id="notify_email" /> <?php _e('lockouts <br />0 to disable email notifications','loginizer'); ?>
 				</td>
 			</tr>
 		</table><br />
-		<input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings','loginizer'); ?>" type="submit" />
+		<input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings','loginizer'); ?>" type="submit" />
 		<?php
 		
 		if(empty($loginizer['disable_brute'])){		
@@ -2192,32 +2192,32 @@ function del_confirm_all(msg){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Blacklist IP','loginizer'); ?></span>
+			<span><?php _e('Blacklist IP','loginizer'); ?></span>
 		</h2>
 		</div>
 		
 		<div class="inside">
 		
-		<?php echo __('Enter the IP you want to blacklist from login','loginizer'); ?>
+		<?php _e('Enter the IP you want to blacklist from login','loginizer'); ?>
 	
 		<form action="" method="post">
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr>
-				<th scope="row" valign="top"><label for="start_ip"><?php echo __('Start IP','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="start_ip"><?php _e('Start IP','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" value="<?php echo(lz_optpost('start_ip')); ?>" name="start_ip" id="start_ip"/> <?php echo __('Start IP of the range','loginizer'); ?> <br />
+					<input type="text" size="25" value="<?php echo(lz_optpost('start_ip')); ?>" name="start_ip" id="start_ip"/> <?php _e('Start IP of the range','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="end_ip"><?php echo __('End IP (Optional)','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="end_ip"><?php _e('End IP (Optional)','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" value="<?php echo(lz_optpost('end_ip')); ?>" name="end_ip" id="end_ip"/> <?php echo __('End IP of the range. <br />If you want to blacklist single IP leave this field blank.','loginizer'); ?> <br />
+					<input type="text" size="25" value="<?php echo(lz_optpost('end_ip')); ?>" name="end_ip" id="end_ip"/> <?php _e('End IP of the range. <br />If you want to blacklist single IP leave this field blank.','loginizer'); ?> <br />
 				</td>
 			</tr>
 		</table><br />
-		<input name="blacklist_iprange" class="button button-primary action" value="<?php echo __('Add Blacklist IP Range','loginizer'); ?>" type="submit" />
-		<input style="float:right" name="del_all_blacklist" onclick="return del_confirm_all('<?php echo __('Are you sure you want to delete all Blacklist IP Range(s) ?','loginizer'); ?>')" class="button action" value="<?php echo __('Delete All Blacklist IP Range(s)','loginizer'); ?>" type="submit" />
+		<input name="blacklist_iprange" class="button button-primary action" value="<?php _e('Add Blacklist IP Range','loginizer'); ?>" type="submit" />
+		<input style="float:right" name="del_all_blacklist" onclick="return del_confirm_all('<?php _e('Are you sure you want to delete all Blacklist IP Range(s) ?','loginizer'); ?>')" class="button action" value="<?php _e('Delete All Blacklist IP Range(s)','loginizer'); ?>" type="submit" />
 		</form>
 		</div>
 		
@@ -2228,10 +2228,10 @@ function del_confirm_all(msg){
 			<form action="" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field('loginizer-options'); ?>
 				<input type="hidden" value="blacklist" name="lz_csv_type" />
-				<h3><?php echo __('Import Blacklist IPs (CSV)', 'loginizer'); ?>:</h3>
+				<h3><?php _e('Import Blacklist IPs (CSV)', 'loginizer'); ?>:</h3>
 				<input type="file" name="lz_import_file_csv" value="Import CSV" />
 				<br><br>
-				<input name="lz_import_csv" class="button button-primary action" value="<?php echo __('Submit', 'loginizer'); ?>" type="submit" />
+				<input name="lz_import_csv" class="button button-primary action" value="<?php _e('Submit', 'loginizer'); ?>" type="submit" />
 			</form>
 		</div>
 		<!---->
@@ -2241,8 +2241,8 @@ function del_confirm_all(msg){
 			<form action="" method="post">
 				<?php wp_nonce_field('loginizer-options'); ?>
 				<input type="hidden" value="blacklist" name="lz_csv_type" />
-				<input class="button button-primary action" value="<?php echo __('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#blacklist_csv').toggle();"/>
-				<input name="lz_export_csv" onclick="lz_export_ajax('blacklist'); return false;" class="button button-primary action" value="<?php echo __('Export CSV', 'loginizer'); ?>" type="submit" />
+				<input class="button button-primary action" value="<?php _e('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#blacklist_csv').toggle();"/>
+				<input name="lz_export_csv" onclick="lz_export_ajax('blacklist'); return false;" class="button button-primary action" value="<?php _e('Export CSV', 'loginizer'); ?>" type="submit" />
 			</form>
 		
 		</div>
@@ -2250,10 +2250,10 @@ function del_confirm_all(msg){
 		
 		<table id="lz_bl_table" class="wp-list-table fixed striped users" border="0" width="95%" cellpadding="10" align="center">
 			<tr>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Start IP','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('End IP','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Date (DD/MM/YYYY)','loginizer'); ?></th>
-				<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php echo __('Options','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Start IP','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('End IP','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Date (DD/MM/YYYY)','loginizer'); ?></th>
+				<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php _e('Options','loginizer'); ?></th>
 			</tr>
 			<?php
 				if(empty($loginizer['blacklist'])){
@@ -2297,31 +2297,31 @@ function del_confirm_all(msg){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Whitelist IP', 'loginizer'); ?></span>
+			<span><?php _e('Whitelist IP', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
 		<div class="inside">
 		
-		<?php echo __('Enter the IP you want to whitelist for login','loginizer'); ?>
+		<?php _e('Enter the IP you want to whitelist for login','loginizer'); ?>
 		<form action="" method="post">
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr>
-				<th scope="row" valign="top"><label for="start_ip_w"><?php echo __('Start IP','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="start_ip_w"><?php _e('Start IP','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" value="<?php echo(lz_optpost('start_ip_w')); ?>" name="start_ip_w" id="start_ip_w"/> <?php echo __('Start IP of the range','loginizer'); ?> <br />
+					<input type="text" size="25" value="<?php echo(lz_optpost('start_ip_w')); ?>" name="start_ip_w" id="start_ip_w"/> <?php _e('Start IP of the range','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="end_ip_w"><?php echo __('End IP (Optional)','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="end_ip_w"><?php _e('End IP (Optional)','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" value="<?php echo(lz_optpost('end_ip_w')); ?>" name="end_ip_w" id="end_ip_w"/> <?php echo __('End IP of the range. <br />If you want to whitelist single IP leave this field blank.','loginizer'); ?> <br />
+					<input type="text" size="25" value="<?php echo(lz_optpost('end_ip_w')); ?>" name="end_ip_w" id="end_ip_w"/> <?php _e('End IP of the range. <br />If you want to whitelist single IP leave this field blank.','loginizer'); ?> <br />
 				</td>
 			</tr>
 		</table><br />
-		<input name="whitelist_iprange" class="button button-primary action" value="<?php echo __('Add Whitelist IP Range','loginizer'); ?>" type="submit" />		
-		<input style="float:right" name="del_all_whitelist" onclick="return del_confirm_all('<?php echo __('Are you sure you want to delete all Whitelist IP Range(s) ?','loginizer'); ?>')" class="button action" value="<?php echo __('Delete All Whitelist IP Range(s)','loginizer'); ?>" type="submit" />
+		<input name="whitelist_iprange" class="button button-primary action" value="<?php _e('Add Whitelist IP Range','loginizer'); ?>" type="submit" />
+		<input style="float:right" name="del_all_whitelist" onclick="return del_confirm_all('<?php _e('Are you sure you want to delete all Whitelist IP Range(s) ?','loginizer'); ?>')" class="button action" value="<?php _e('Delete All Whitelist IP Range(s)','loginizer'); ?>" type="submit" />
 		</form>
 		</div>
 		
@@ -2332,10 +2332,10 @@ function del_confirm_all(msg){
 			<form action="" method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field('loginizer-options'); ?>
 				<input type="hidden" value="whitelist" name="lz_csv_type" />
-				<h3><?php echo __('Import Whitelist IPs (CSV)', 'loginizer'); ?>:</h3>
+				<h3><?php _e('Import Whitelist IPs (CSV)', 'loginizer'); ?>:</h3>
 				<input type="file" name="lz_import_file_csv" value="Import CSV" />
 				<br><br>
-				<input name="lz_import_csv" class="button button-primary action" value="<?php echo __('Submit', 'loginizer'); ?>" type="submit" />
+				<input name="lz_import_csv" class="button button-primary action" value="<?php _e('Submit', 'loginizer'); ?>" type="submit" />
 			</form>
 		</div>
 		<!---->
@@ -2345,18 +2345,18 @@ function del_confirm_all(msg){
 			<form action="" method="post">
 				<?php wp_nonce_field('loginizer-options'); ?>
 				<input type="hidden" value="whitelist" name="lz_csv_type" />
-				<input class="button button-primary action" value="<?php echo __('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#lz_whitelist_csv_div').toggle();"/>
-				<input name="lz_export_csv" onclick="lz_export_ajax('whitelist'); return false;" class="button button-primary action" value="<?php echo __('Export CSV', 'loginizer'); ?>" type="submit" />
+				<input class="button button-primary action" value="<?php _e('Import CSV', 'loginizer'); ?>" type="button" onclick="jQuery('#lz_whitelist_csv_div').toggle();"/>
+				<input name="lz_export_csv" onclick="lz_export_ajax('whitelist'); return false;" class="button button-primary action" value="<?php _e('Export CSV', 'loginizer'); ?>" type="submit" />
 			</form>
 		</div>
 		<!---->
 		
 		<table id="lz_wl_table" class="wp-list-table fixed striped users" border="0" width="95%" cellpadding="10" align="center">
 		<tr>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Start IP','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('End IP','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Date (DD/MM/YYYY)','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php echo __('Options','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Start IP','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('End IP','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Date (DD/MM/YYYY)','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php _e('Options','loginizer'); ?></th>
 		</tr>
 		<?php
 			if(empty($loginizer['whitelist'])){
@@ -2395,7 +2395,7 @@ function del_confirm_all(msg){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Error Messages', 'loginizer'); ?></span>
+			<span><?php _e('Error Messages', 'loginizer'); ?></span>
 		</h2>
 		</div>
 
@@ -2405,49 +2405,49 @@ function del_confirm_all(msg){
 				<?php wp_nonce_field('loginizer-options'); ?>
 				<table class="form-table">
 					<tr>
-						<th scope="row" valign="top"><label for="msg_inv_userpass"><?php echo __('Failed Login Attempt','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_inv_userpass"><?php _e('Failed Login Attempt','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['inv_userpass']); ?>" name="msg_inv_userpass" id="msg_inv_userpass" />
-							<?php echo __('Default: <em>&quot;' . $loginizer['d_msg']['inv_userpass']. '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['d_msg']['inv_userpass']. '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" valign="top"><label for="msg_ip_blacklisted"><?php echo __('Blacklisted IP','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_ip_blacklisted"><?php _e('Blacklisted IP','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['ip_blacklisted']); ?>" name="msg_ip_blacklisted" id="msg_ip_blacklisted" />
-							<?php echo __('Default: <em>&quot;' . $loginizer['d_msg']['ip_blacklisted']. '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['d_msg']['ip_blacklisted']. '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" valign="top"><label for="msg_attempts_left"><?php echo __('Attempts Left','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_attempts_left"><?php _e('Attempts Left','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['attempts_left']); ?>" name="msg_attempts_left" id="msg_attempts_left" />
-							<?php echo __('Default: <em>&quot;' . $loginizer['d_msg']['attempts_left']. '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['d_msg']['attempts_left']. '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" valign="top"><label for="msg_lockout_err"><?php echo __('Lockout Error','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_lockout_err"><?php _e('Lockout Error','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['lockout_err']); ?>" name="msg_lockout_err" id="msg_lockout_err" />
-							<?php echo __('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['lockout_err']). '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['lockout_err']). '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" valign="top"><label for="msg_minutes_err"><?php echo __('Minutes','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_minutes_err"><?php _e('Minutes','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['minutes_err']); ?>" name="msg_minutes_err" id="msg_minutes_err" />
-							<?php echo __('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['minutes_err']). '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['minutes_err']). '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" valign="top"><label for="msg_hours_err"><?php echo __('Hours','loginizer'); ?></label></th>
+						<th scope="row" valign="top"><label for="msg_hours_err"><?php _e('Hours','loginizer'); ?></label></th>
 						<td>
 							<input type="text" size="25" value="<?php echo esc_attr(@$saved_msgs['hours_err']); ?>" name="msg_hours_err" id="msg_hours_err" />
-							<?php echo __('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['hours_err']). '&quot;</em>', 'loginizer'); ?><br />
+							<?php _e('Default: <em>&quot;' . strip_tags($loginizer['d_msg']['hours_err']). '&quot;</em>', 'loginizer'); ?><br />
 						</td>
 					</tr>
 				</table><br />
-				<input name="save_err_msgs_lz" class="button button-primary action" value="<?php echo __('Save Error Messages','loginizer'); ?>" type="submit" />
+				<input name="save_err_msgs_lz" class="button button-primary action" value="<?php _e('Save Error Messages','loginizer'); ?>" type="submit" />
 			</form>
 		</div>
 	</div>
@@ -2818,7 +2818,7 @@ input[type="text"], textarea, select {
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('reCAPTCHA Settings', 'loginizer'); ?></span>
+			<span><?php _e('reCAPTCHA Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -2828,33 +2828,33 @@ input[type="text"], textarea, select {
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr class="lz_google_cap">
-				<td scope="row" valign="top" style="width:300px !important; padding-left:0px"><label><b><?php echo __('reCAPTCHA type', 'loginizer'); ?></b></label><br>
-				<?php echo __('Choose the type of reCAPTCHA', 'loginizer'); ?><br />
-				<?php echo __('<a href="https://g.co/recaptcha/sitetypes/" target="_blank">See Site Types for more details</a>', 'loginizer'); ?>
+				<td scope="row" valign="top" style="width:300px !important; padding-left:0px"><label><b><?php _e('reCAPTCHA type', 'loginizer'); ?></b></label><br>
+				<?php _e('Choose the type of reCAPTCHA', 'loginizer'); ?><br />
+				<?php _e('<a href="https://g.co/recaptcha/sitetypes/" target="_blank">See Site Types for more details</a>', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="radio" value="v3" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', 'v3', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v3" /> <label for="captcha_type_v3"><?php echo __('reCAPTCHA v3', 'loginizer'); ?></label><br /><br />
-					<input type="radio" value="" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', '', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2" /> <label for="captcha_type_v2"><?php echo __('reCAPTCHA v2 - Checkbox', 'loginizer'); ?></label><br /><br />
-					<input type="radio" value="v2_invisible" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', 'v2_invisible', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2_invisible" /> <label for="captcha_type_v2_invisible"><?php echo __('reCAPTCHA v2 - Invisible', 'loginizer'); ?></label><br />
+					<input type="radio" value="v3" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', 'v3', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v3" /> <label for="captcha_type_v3"><?php _e('reCAPTCHA v3', 'loginizer'); ?></label><br /><br />
+					<input type="radio" value="" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', '', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2" /> <label for="captcha_type_v2"><?php _e('reCAPTCHA v2 - Checkbox', 'loginizer'); ?></label><br /><br />
+					<input type="radio" value="v2_invisible" onchange="google_recaptcha_type(this)" <?php echo lz_POSTradio('captcha_type', 'v2_invisible', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2_invisible" /> <label for="captcha_type_v2_invisible"><?php _e('reCAPTCHA v2 - Invisible', 'loginizer'); ?></label><br />
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
-				<td scope="row" valign="top" style="width:300px !important; padding-left:0px"><label><b><?php echo __('Site Key', 'loginizer'); ?></b></label><br>
-				<?php echo __('Make sure you enter the correct keys as per the reCAPTCHA type selected above', 'loginizer'); ?>
+				<td scope="row" valign="top" style="width:300px !important; padding-left:0px"><label><b><?php _e('Site Key', 'loginizer'); ?></b></label><br>
+				<?php _e('Make sure you enter the correct keys as per the reCAPTCHA type selected above', 'loginizer'); ?>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('captcha_key', $loginizer['captcha_key']); ?>" name="captcha_key" /><br />
-					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google</a>', 'loginizer'); ?>
+					<?php _e('Get the Site Key and Secret Key from <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google</a>', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
-				<th scope="row" valign="top"><label><?php echo __('Secret Key', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Secret Key', 'loginizer'); ?></label></th>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('captcha_secret', $loginizer['captcha_secret']); ?>" name="captcha_secret" />
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
-				<th scope="row" valign="top"><label><?php echo __('Theme', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Theme', 'loginizer'); ?></label></th>
 				<td>
 					<select name="captcha_theme">
 						<?php
@@ -2866,7 +2866,7 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
-				<th scope="row" valign="top"><label><?php echo __('Language', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Language', 'loginizer'); ?></label></th>
 				<td>
 					<select name="captcha_lang">
 						<?php
@@ -2878,7 +2878,7 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 			<tr class="lz_google_cap lz_google_cap_size">
-				<th scope="row" valign="top"><label><?php echo __('Size', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Size', 'loginizer'); ?></label></th>
 				<td>
 					<select name="captcha_size">
 						<?php
@@ -2891,8 +2891,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="padding-left:0px">
-					<label><b><?php echo __('Don\'t use Google reCAPTCHA', 'loginizer'); ?></b></label><br>
-					<?php echo __('If selected, '.$loginizer['prefix'].' will use a simple Math Captcha instead of Google reCAPTCHA', 'loginizer'); ?>
+					<label><b><?php _e('Don\'t use Google reCAPTCHA', 'loginizer'); ?></b></label><br>
+					<?php _e('If selected, '.$loginizer['prefix'].' will use a simple Math Captcha instead of Google reCAPTCHA', 'loginizer'); ?>
 				</td>
 				<td>
 					<input type="checkbox" onclick="no_google_recaptcha(this)" id="captcha_no_google" value="1" name="captcha_no_google" <?php echo lz_POSTchecked('captcha_no_google', (empty($loginizer['captcha_no_google']) ? false : true)); ?> />
@@ -2900,8 +2900,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr class="lz_math_cap">
 				<td scope="row" valign="top" style="width:300px !important; padding-left:0px">
-					<label><b><?php echo __('Captcha Text', 'loginizer'); ?></b></label><br>
-					<?php echo __('The text to be shown for the Captcha Field', 'loginizer'); ?>
+					<label><b><?php _e('Captcha Text', 'loginizer'); ?></b></label><br>
+					<?php _e('The text to be shown for the Captcha Field', 'loginizer'); ?>
 				</td>
 				<td>
 					<input type="text" size="30" value="<?php echo lz_optpost('captcha_text', @$loginizer['captcha_text']); ?>" name="captcha_text" />
@@ -2909,8 +2909,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr class="lz_math_cap">
 				<td scope="row" valign="top" style="padding-left:0px">
-					<label><b><?php echo __('Captcha Time', 'loginizer'); ?></b></label><br>
-					<?php echo __('Enter the number of seconds, a user has to enter captcha value.', 'loginizer'); ?>
+					<label><b><?php _e('Captcha Time', 'loginizer'); ?></b></label><br>
+					<?php _e('Enter the number of seconds, a user has to enter captcha value.', 'loginizer'); ?>
 				</td>
 				<td>
 					<input type="text" size="30" value="<?php echo lz_optpost('captcha_time', @$loginizer['captcha_time']); ?>" name="captcha_time" />
@@ -2918,8 +2918,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr class="lz_math_cap">
 				<td scope="row" valign="top" style="padding-left:0px">
-					<label><b><?php echo __('Display Captcha in Words', 'loginizer'); ?></b></label><br>
-					<?php echo __('If selected the Captcha will be displayed in words rather than numbers', 'loginizer'); ?>
+					<label><b><?php _e('Display Captcha in Words', 'loginizer'); ?></b></label><br>
+					<?php _e('If selected the Captcha will be displayed in words rather than numbers', 'loginizer'); ?>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="captcha_words" <?php echo lz_POSTchecked('captcha_words', (empty($loginizer['captcha_words']) ? false : true));?> />
@@ -2927,8 +2927,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr class="lz_math_cap">
 				<td scope="row" valign="top" style="vertical-align: top !important; padding-left:0px">
-					<label><b><?php echo __('Mathematical operations', 'loginizer'); ?></b></label><br>
-					<?php echo __('The Mathematical operations to use for Captcha', 'loginizer'); ?>
+					<label><b><?php _e('Mathematical operations', 'loginizer'); ?></b></label><br>
+					<?php _e('The Mathematical operations to use for Captcha', 'loginizer'); ?>
 				</td>
 				<td valign="top">
 					<table class="wp-list-table fixed users" cellpadding="8" cellspacing="1">
@@ -2954,7 +2954,7 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label><?php echo __('Show Captcha On', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Show Captcha On', 'loginizer'); ?></label></th>
 				<td valign="top">
 					<table class="wp-list-table fixed users" cellpadding="8" cellspacing="1">
 						<?php echo '
@@ -2993,20 +2993,20 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label><?php echo __('Hide CAPTCHA for logged in Users', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Hide CAPTCHA for logged in Users', 'loginizer'); ?></label></th>
 				<td>
 					<input type="checkbox" value="1" name="captcha_user_hide" <?php echo lz_POSTchecked('captcha_user_hide', (empty($loginizer['captcha_user_hide']) ? false : true)); ?> />
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
-				<th scope="row" valign="top"><label><?php echo __('Disable CSS inserted on Login Page', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label><?php _e('Disable CSS inserted on Login Page', 'loginizer'); ?></label></th>
 				<td>
 					<input type="checkbox" value="1" name="captcha_no_css_login" <?php echo lz_POSTchecked('captcha_no_css_login', (empty($loginizer['captcha_no_css_login']) ? false : true)); ?> />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings','loginizer'); ?>" type="submit" />
-		<input style="float:right" name="clear_captcha_lz" class="button action" value="<?php echo __('Disable reCAPTCHA','loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings','loginizer'); ?>" type="submit" />
+		<input style="float:right" name="clear_captcha_lz" class="button action" value="<?php _e('Disable reCAPTCHA','loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -3339,7 +3339,7 @@ input[type="text"], textarea, select {
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Two Factor Authentication Settings', 'loginizer'); ?></span>
+			<span><?php _e('Two Factor Authentication Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -3350,13 +3350,13 @@ input[type="text"], textarea, select {
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" colspan="2">
-					<i><?php echo __('Please choose from the following Two Factor Authentication methods. Each user can choose any one method from the ones enabled by you. You can enable all or anyone that you would like.', 'loginizer'); ?></i>
+					<i><?php _e('Please choose from the following Two Factor Authentication methods. Each user can choose any one method from the ones enabled by you. You can enable all or anyone that you would like.', 'loginizer'); ?></i>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:70% !important">
-					<label><?php echo __('OTP via App', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('After entering the correct login credentials, the user will be asked for the OTP. The OTP will be obtained from the users mobile app e.g. <b>Google Authenticator, Authy, etc.</b>', 'loginizer'); ?></span>
+					<label><?php _e('OTP via App', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('After entering the correct login credentials, the user will be asked for the OTP. The OTP will be obtained from the users mobile app e.g. <b>Google Authenticator, Authy, etc.</b>', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="2fa_app" <?php echo lz_POSTchecked('2fa_app', (empty($loginizer['2fa_app']) ? false : true), 'save_lz'); ?> />
@@ -3364,8 +3364,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label><?php echo __('OTP via Email', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('After entering the correct login credentials, the user will be asked for the OTP. The OTP will be emailed to the user.', 'loginizer'); ?></span>
+					<label><?php _e('OTP via Email', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('After entering the correct login credentials, the user will be asked for the OTP. The OTP will be emailed to the user.', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="2fa_email" <?php echo lz_POSTchecked('2fa_email', (empty($loginizer['2fa_email']) ? false : true), 'save_lz'); ?> />
@@ -3373,8 +3373,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label><?php echo __('User Defined Question & Answer', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('In this method the user will be asked to set a secret personal question and answer. After entering the correct login credentials, the user will be asked to answer the question set by them, thus increasing the security', 'loginizer'); ?></span>
+					<label><?php _e('User Defined Question & Answer', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('In this method the user will be asked to set a secret personal question and answer. After entering the correct login credentials, the user will be asked to answer the question set by them, thus increasing the security', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="question" <?php echo lz_POSTchecked('question', (empty($loginizer['question']) ? false : true), 'save_lz'); ?> />
@@ -3385,8 +3385,8 @@ input[type="text"], textarea, select {
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" style="width:70% !important">
-					<label><?php echo __('Force OTP via Email', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If the user does not have any 2FA method selected, this will enforce the OTP via Email for the users.', 'loginizer'); ?></span>
+					<label><?php _e('Force OTP via Email', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If the user does not have any 2FA method selected, this will enforce the OTP via Email for the users.', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="2fa_email_force" <?php echo lz_POSTchecked('2fa_email_force', (empty($loginizer['2fa_email_force']) ? false : true), 'save_lz'); ?> />
@@ -3394,8 +3394,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:70% !important">
-					<label><?php echo __('Apply 2FA to Roles', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Select the Roles to which 2FA should be applied.', 'loginizer'); ?></span>
+					<label><?php _e('Apply 2FA to Roles', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Select the Roles to which 2FA should be applied.', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" onchange="lz_roles_handle()" name="2fa_roles_all" id="2fa_roles_all" <?php echo lz_POSTchecked('2fa_roles_all', (empty($loginizer['2fa_roles']) ? true : false), 'save_lz'); ?> /> All<br />
@@ -3409,7 +3409,7 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -3437,7 +3437,7 @@ lz_roles_handle();
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('OTP via Email Template', 'loginizer'); ?></span>
+			<span><?php _e('OTP via Email Template', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -3448,14 +3448,14 @@ lz_roles_handle();
 		<table class="form-table">
 			<tr>
 				<td colspan="2" valign="top">
-					<?php echo __('Customize the email template to be used when sending the OTP to login via Email for 2FA.', 'loginizer'); ?><br>
-					<?php echo __('If you do not make changes below the default email template will be used !', 'loginizer'); ?>
+					<?php _e('Customize the email template to be used when sending the OTP to login via Email for 2FA.', 'loginizer'); ?><br>
+					<?php _e('If you do not make changes below the default email template will be used !', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:350px !important">
-					<label><?php echo __('Email Subject', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the default subject', 'loginizer'); ?></span>
+					<label><?php _e('Email Subject', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the default subject', 'loginizer'); ?></span>
 					<br />Default : <?php echo @$loginizer['2fa_email_d_sub']; ?>
 				</td>
 				<td valign="top">
@@ -3464,8 +3464,8 @@ lz_roles_handle();
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label><?php echo __('Email Body', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the default message', 'loginizer'); ?></span>
+					<label><?php _e('Email Body', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the default message', 'loginizer'); ?></span>
 					<br />Default : <pre style="font-size:10px"><?php echo @$loginizer['2fa_email_d_msg']; ?></pre>
 				</td>
 				<td valign="top">
@@ -3483,7 +3483,7 @@ lz_roles_handle();
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_2fa_email_template_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_2fa_email_template_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -3493,7 +3493,7 @@ lz_roles_handle();
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Custom Messages for OTP', 'loginizer'); ?></span>
+			<span><?php _e('Custom Messages for OTP', 'loginizer'); ?></span>
 		</h2>
 		</div>
 
@@ -3504,14 +3504,14 @@ lz_roles_handle();
 				<table class="form-table">
 					<tr>
 						<td colspan="2" valign="top">
-							<?php echo __('Customize the title for OTP field displayed to the user on the login form.', 'loginizer'); ?><br>
-							<?php echo __('If you do not make changes below the default messages will be used !', 'loginizer'); ?>
+							<?php _e('Customize the title for OTP field displayed to the user on the login form.', 'loginizer'); ?><br>
+							<?php _e('If you do not make changes below the default messages will be used !', 'loginizer'); ?>
 						</td>
 					</tr>
 					<tr>
 						<td scope="row" valign="top" style="width:350px !important">
-							<label for="msg_otp_app"><?php echo __('OTP via APP','loginizer'); ?></label><br />
-							<?php echo __('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_app']. '&quot;</em>', 'loginizer'); ?>
+							<label for="msg_otp_app"><?php _e('OTP via APP','loginizer'); ?></label><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_app']. '&quot;</em>', 'loginizer'); ?>
 						</td>
 						<td>
 							<input type="text" size="50" value="<?php echo esc_attr(@$saved_msgs['otp_app']); ?>" name="msg_otp_app" id="msg_otp_app" style="width:auto !important;" />
@@ -3520,8 +3520,8 @@ lz_roles_handle();
 					</tr>
 					<tr>
 						<td scope="row" valign="top" style="width:350px !important">
-							<label for="msg_otp_email"><?php echo __('OTP via Email','loginizer'); ?></label><br />
-							<?php echo __('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_email']. '&quot;</em>', 'loginizer'); ?>
+							<label for="msg_otp_email"><?php _e('OTP via Email','loginizer'); ?></label><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_email']. '&quot;</em>', 'loginizer'); ?>
 						</td>
 						<td>
 							<input type="text" size="50" value="<?php echo esc_attr(@$saved_msgs['otp_email']); ?>" name="msg_otp_email" id="msg_otp_email" style="width:auto !important;" />
@@ -3530,8 +3530,8 @@ lz_roles_handle();
 					</tr>
 					<tr>
 						<td scope="row" valign="top" style="width:350px !important">
-							<label for="msg_otp_field"><?php echo __('Title for OTP field','loginizer'); ?></label><br />
-							<?php echo __('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_field']. '&quot;</em>', 'loginizer'); ?>
+							<label for="msg_otp_field"><?php _e('Title for OTP field','loginizer'); ?></label><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_field']. '&quot;</em>', 'loginizer'); ?>
 						</td>
 						<td>
 							<input type="text" size="50" value="<?php echo esc_attr(@$saved_msgs['otp_field']); ?>" name="msg_otp_field" id="msg_otp_field" style="width:auto !important;" />
@@ -3540,8 +3540,8 @@ lz_roles_handle();
 					</tr>
 					<tr>
 						<td scope="row" valign="top" style="width:350px !important">
-							<label for="msg_otp_question"><?php echo __('Title for Security Question','loginizer'); ?></label><br />
-							<?php echo __('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_question']. '&quot;</em>', 'loginizer'); ?>
+							<label for="msg_otp_question"><?php _e('Title for Security Question','loginizer'); ?></label><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_question']. '&quot;</em>', 'loginizer'); ?>
 						</td>
 						<td>
 							<input type="text" size="50" value="<?php echo esc_attr(@$saved_msgs['otp_question']); ?>" name="msg_otp_question" id="msg_otp_question" style="width:auto !important;" />
@@ -3550,8 +3550,8 @@ lz_roles_handle();
 					</tr>
 					<tr>
 						<td scope="row" valign="top" style="width:350px !important">
-							<label for="msg_otp_answer"><?php echo __('Title for Security Answer','loginizer'); ?></label><br />
-							<?php echo __('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_answer']. '&quot;</em>', 'loginizer'); ?>
+							<label for="msg_otp_answer"><?php _e('Title for Security Answer','loginizer'); ?></label><br />
+							<?php _e('Default: <em>&quot;' . $loginizer['2fa_d_msg']['otp_answer']. '&quot;</em>', 'loginizer'); ?>
 						</td>
 						<td>
 							<input type="text" size="50" value="<?php echo esc_attr(@$saved_msgs['otp_answer']); ?>" name="msg_otp_answer" id="msg_otp_answer" style="width:auto !important;" />
@@ -3559,7 +3559,7 @@ lz_roles_handle();
 						</td>
 					</tr>
 				</table><br />
-				<center><input name="save_msgs_lz" class="button button-primary action" value="<?php echo __('Save Messages','loginizer'); ?>" type="submit" /></center>
+				<center><input name="save_msgs_lz" class="button button-primary action" value="<?php _e('Save Messages','loginizer'); ?>" type="submit" /></center>
 			</form>
 		</div>
 	</div>
@@ -3569,7 +3569,7 @@ lz_roles_handle();
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Disable Two Factor Authentication for a User', 'loginizer'); ?></span>
+			<span><?php _e('Disable Two Factor Authentication for a User', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -3580,13 +3580,13 @@ lz_roles_handle();
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" colspan="2">
-					<i><?php echo __('Here you can disable the Two Factor Authentication settings of a user. In the event a user has forgotten his secret answer or lost his Device App, he will not be able to login. You can reset such a users settings from here.', 'loginizer'); ?></i>
+					<i><?php _e('Here you can disable the Two Factor Authentication settings of a user. In the event a user has forgotten his secret answer or lost his Device App, he will not be able to login. You can reset such a users settings from here.', 'loginizer'); ?></i>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label><?php echo __('Username / Email', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('The username or email of the user whose 2FA you would like to disable', 'loginizer'); ?></span>
+					<label><?php _e('Username / Email', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('The username or email of the user whose 2FA you would like to disable', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('lz_user_2fa_disable', ''); ?>" name="lz_user_2fa_disable" />
@@ -3594,7 +3594,7 @@ lz_roles_handle();
 			</tr>
 		</table><br />
 		
-		<center><input name="reset_user_lz" class="button button-primary action" value="<?php echo __('Reset 2FA for User', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="reset_user_lz" class="button button-primary action" value="<?php _e('Reset 2FA for User', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -3666,41 +3666,41 @@ function del_2fa_confirm_all(msg){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Disable Two Factor Authentication for IP', 'loginizer'); ?></span>
+			<span><?php _e('Disable Two Factor Authentication for IP', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
 		<div class="inside">
 		
-		<?php echo __('Enter the IP you want to whitelist for two factor authentication', 'loginizer'); ?>
+		<?php _e('Enter the IP you want to whitelist for two factor authentication', 'loginizer'); ?>
 		<form action="" method="post" loginizer-premium-only="1">
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr>
-				<th scope="row" valign="top"><label for="start_ip_w_2fa"><?php echo __('Start IP','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="start_ip_w_2fa"><?php _e('Start IP','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" style="width:auto;" value="<?php echo(lz_optpost('start_ip_w_2fa')); ?>" name="start_ip_w_2fa" id="start_ip_w_2fa"/> <?php echo __('Start IP of the range','loginizer'); ?> <br />
+					<input type="text" size="25" style="width:auto;" value="<?php echo(lz_optpost('start_ip_w_2fa')); ?>" name="start_ip_w_2fa" id="start_ip_w_2fa"/> <?php _e('Start IP of the range','loginizer'); ?> <br />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="end_ip_w_2fa"><?php echo __('End IP (Optional)','loginizer'); ?></label></th>
+				<th scope="row" valign="top"><label for="end_ip_w_2fa"><?php _e('End IP (Optional)','loginizer'); ?></label></th>
 				<td>
-					<input type="text" size="25" style="width:auto;" value="<?php echo(lz_optpost('end_ip_w_2fa')); ?>" name="end_ip_w_2fa" id="end_ip_w_2fa"/> <?php echo __('End IP of the range. <br />If you want to whitelist single IP leave this field blank.','loginizer'); ?> <br />
+					<input type="text" size="25" style="width:auto;" value="<?php echo(lz_optpost('end_ip_w_2fa')); ?>" name="end_ip_w_2fa" id="end_ip_w_2fa"/> <?php _e('End IP of the range. <br />If you want to whitelist single IP leave this field blank.','loginizer'); ?> <br />
 				</td>
 			</tr>
 		</table><br />
-		<input name="2fa_whitelist_iprange" class="button button-primary action" value="<?php echo __('Add Whitelist IP Range','loginizer'); ?>" type="submit" />		
-		<input style="float:right" name="del_all_whitelist" onclick="return del_2fa_confirm_all('<?php echo __('Are you sure you want to delete all Whitelist IP Range(s) for 2FA ?','loginizer'); ?>')" class="button action" value="<?php echo __('Delete All Whitelist IP Range(s) for 2FA','loginizer'); ?>" type="submit" />
+		<input name="2fa_whitelist_iprange" class="button button-primary action" value="<?php _e('Add Whitelist IP Range','loginizer'); ?>" type="submit" />
+		<input style="float:right" name="del_all_whitelist" onclick="return del_2fa_confirm_all('<?php _e('Are you sure you want to delete all Whitelist IP Range(s) for 2FA ?','loginizer'); ?>')" class="button action" value="<?php _e('Delete All Whitelist IP Range(s) for 2FA','loginizer'); ?>" type="submit" />
 		</form>
 		</div>
 		
 		<div id="lz_wl_2fa_nav" style="margin: 5px 10px; text-align:right"></div>
 		<table id="lz_wl_2fa_table" class="wp-list-table fixed striped users" border="0" width="95%" cellpadding="10" align="center">
 		<tr>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Start IP','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('End IP','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;"><?php echo __('Date (DD/MM/YYYY)','loginizer'); ?></th>
-			<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php echo __('Options','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Start IP','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('End IP','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;"><?php _e('Date (DD/MM/YYYY)','loginizer'); ?></th>
+			<th scope="row" valign="top" style="background:#EFEFEF;" width="100"><?php _e('Options','loginizer'); ?></th>
 		</tr>
 		<?php
 			if(empty($loginizer['2fa_whitelist'])){
@@ -3835,7 +3835,7 @@ input[type="text"], textarea, select {
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('PasswordLess Settings', 'loginizer'); ?></span>
+			<span><?php _e('PasswordLess Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -3845,21 +3845,21 @@ input[type="text"], textarea, select {
 		<?php wp_nonce_field('loginizer-options'); ?>
 		<table class="form-table">
 			<tr>
-				<th scope="row" valign="top" style="width:350px !important"><label for="email_pass_less"><?php echo __('Enable PasswordLess Login', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top" style="width:350px !important"><label for="email_pass_less"><?php _e('Enable PasswordLess Login', 'loginizer'); ?></label></th>
 				<td>
 					<input type="checkbox" value="1" name="email_pass_less" id="email_pass_less" <?php echo lz_POSTchecked('email_pass_less', (empty($loginizer['email_pass_less']) ? false : true)); echo (defined('SITEPAD') ? 'disabled="disabled"' : '') ?> />
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" valign="top">
-					<?php echo __('If enabled, the login screen will just ask for the username <b>OR</b> email address of the user. If such a user exists, an email with a <b>One Time Login </b> link will be sent to the email address of the user. The link will be valid for 10 minutes only.', 'loginizer'); ?><br><br>
-					<?php echo __('If a wrong username/email is given, the brute force checker will prevent any brute force attempt !', 'loginizer'); ?>
+					<?php _e('If enabled, the login screen will just ask for the username <b>OR</b> email address of the user. If such a user exists, an email with a <b>One Time Login </b> link will be sent to the email address of the user. The link will be valid for 10 minutes only.', 'loginizer'); ?><br><br>
+					<?php _e('If a wrong username/email is given, the brute force checker will prevent any brute force attempt !', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label for="lz_passwordless_sub"><?php echo __('Email Subject', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the default subject', 'loginizer'); ?></span>
+					<label for="lz_passwordless_sub"><?php _e('Email Subject', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the default subject', 'loginizer'); ?></span>
 					<br />Default : <?php echo @$loginizer['pl_d_sub']; ?>
 				</td>
 				<td valign="top">
@@ -3868,8 +3868,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label for="lz_passwordless_msg"><?php echo __('Email Body', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the default message', 'loginizer'); ?></span>
+					<label for="lz_passwordless_msg"><?php _e('Email Body', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the default message', 'loginizer'); ?></span>
 					<br />Default : <pre style="font-size:10px"><?php echo @$loginizer['pl_d_msg']; ?></pre>
 				</td>
 				<td valign="top">
@@ -3883,13 +3883,13 @@ input[type="text"], textarea, select {
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top" style="width:350px !important"><label for="lz_passwordless_html"><?php echo __('Send email as HTML', 'loginizer'); ?></label></th>
+				<th scope="row" valign="top" style="width:350px !important"><label for="lz_passwordless_html"><?php _e('Send email as HTML', 'loginizer'); ?></label></th>
 				<td>
 					<input type="checkbox" value="1" name="lz_passwordless_html" id="lz_passwordless_html" <?php echo lz_POSTchecked('lz_passwordless_html', (empty($loginizer['passwordless_html']) ? false : true)); ?> />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -4155,7 +4155,7 @@ input[type="text"], textarea, select {
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Rename Login Page', 'loginizer'); ?></span>
+			<span><?php _e('Rename Login Page', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4170,8 +4170,8 @@ input[type="text"], textarea, select {
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label><?php echo __('New Login Slug', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the original login URL', 'loginizer'); ?></span>
+					<label><?php _e('New Login Slug', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the original login URL', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_POSTval('login_slug', $loginizer['login_slug']); ?>" name="login_slug" />
@@ -4185,8 +4185,8 @@ if(!defined('SITEPAD')){
 ?>
 			<tr>
 				<td scope="row" valign="top" style="width:200px !important">
-					<label><?php echo __('Access Secretly Only', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If set, then all Login URL\'s will still point to '.$loginizer['login_basename'].' and users will have to access the New Login Slug by typing it in the browser.', 'loginizer'); ?></span>
+					<label><?php _e('Access Secretly Only', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If set, then all Login URL\'s will still point to '.$loginizer['login_basename'].' and users will have to access the New Login Slug by typing it in the browser.', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="rename_login_secret" <?php echo lz_POSTchecked('rename_login_secret', (empty($loginizer['rename_login_secret']) ? false : true)); ?> />
@@ -4199,7 +4199,7 @@ if(!defined('SITEPAD')){
 
 ?>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>
@@ -4215,7 +4215,7 @@ if(!defined('SITEPAD')){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('XML-RPC Settings', 'loginizer'); ?></span>
+			<span><?php _e('XML-RPC Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4225,12 +4225,12 @@ if(!defined('SITEPAD')){
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" colspan="2">
-					<i><?php echo __('WordPress\'s XML-RPC feature allows external services to access and modify content on the site. Services like the Jetpack plugin, the WordPress mobile app, pingbacks, etc make use of the XML-RPC feature. If this site does not use a service that requires XML-RPC, please <b>disable</b> the XML-RPC feature as it prevents attackers from using the feature to attack the site. If your service can use a custom XML-RPC URL, you can also <b>rename</b> the XML-RPC page to a <b>custom slug</b>.', 'loginizer'); ?></i>
+					<i><?php _e('WordPress\'s XML-RPC feature allows external services to access and modify content on the site. Services like the Jetpack plugin, the WordPress mobile app, pingbacks, etc make use of the XML-RPC feature. If this site does not use a service that requires XML-RPC, please <b>disable</b> the XML-RPC feature as it prevents attackers from using the feature to attack the site. If your service can use a custom XML-RPC URL, you can also <b>rename</b> the XML-RPC page to a <b>custom slug</b>.', 'loginizer'); ?></i>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label><?php echo __('Disable XML-RPC', 'loginizer'); ?></label>
+					<label><?php _e('Disable XML-RPC', 'loginizer'); ?></label>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="xmlrpc_disable" <?php echo lz_POSTchecked('xmlrpc_disable', (empty($loginizer['xmlrpc_disable']) ? false : true)); ?> />
@@ -4238,7 +4238,7 @@ if(!defined('SITEPAD')){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label><?php echo __('Disable Pingbacks', 'loginizer'); ?></label>
+					<label><?php _e('Disable Pingbacks', 'loginizer'); ?></label>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="pingbacks_disable" <?php echo lz_POSTchecked('pingbacks_disable', (empty($loginizer['pingbacks_disable']) ? false : true)); ?> />
@@ -4246,15 +4246,15 @@ if(!defined('SITEPAD')){
 			</tr>
 			<tr>
 				<td scope="row" valign="top">
-					<label><?php echo __('New XML-RPC Slug', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the original XML-RPC URL', 'loginizer'); ?></span>
+					<label><?php _e('New XML-RPC Slug', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the original XML-RPC URL', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('xmlrpc_slug', $loginizer['xmlrpc_slug']); ?>" name="xmlrpc_slug" />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>
@@ -4293,12 +4293,12 @@ function lz_test_wp_admin(){
 	jQuery.post(new_ajaxurl, data, function(response){
 		
 		if(response['result'] == 1){
-			alert("<?php echo __('Everything seems to be good. You can proceed to save the settings !', 'loginizer'); ?>");
+			alert("<?php _e('Everything seems to be good. You can proceed to save the settings !', 'loginizer'); ?>");
 		}		
 	
 	// Throw an error for failures
 	}).fail(function() {
-		alert("<?php echo __('There was an error connecting to WordPress with the new Admin Slug. Did you configure everything properly ?', 'loginizer'); ?>");
+		alert("<?php _e('There was an error connecting to WordPress with the new Admin Slug. Did you configure everything properly ?', 'loginizer'); ?>");
 	});
 	//jQuery.ajax('<input type="text" size="30" value="" name="lz_bl_users[]" class="lz_bl_users" />');
 	return false;
@@ -4311,7 +4311,7 @@ function lz_test_wp_admin(){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Rename wp-admin access', 'loginizer'); ?></span>
+			<span><?php _e('Rename wp-admin access', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4337,8 +4337,8 @@ function lz_test_wp_admin(){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label><?php echo __('New wp-admin Slug', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Set blank to reset to the original wp-admin URL', 'loginizer'); ?></span>
+					<label><?php _e('New wp-admin Slug', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Set blank to reset to the original wp-admin URL', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('admin_slug', $loginizer['admin_slug']); ?>" name="admin_slug" id="lz_admin_slug" />
@@ -4346,8 +4346,8 @@ function lz_test_wp_admin(){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:200px !important">
-					<label><?php echo __('Disable wp-admin access', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If set, then only the new admin slug will work and access to the Old Admin Slug i.e. wp-admin will be disabled. If anyone accesses wp-admin, a warning will be shown.<br><label>NOTE: Please use this option cautiously !</label>', 'loginizer'); ?></span>
+					<label><?php _e('Disable wp-admin access', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If set, then only the new admin slug will work and access to the Old Admin Slug i.e. wp-admin will be disabled. If anyone accesses wp-admin, a warning will be shown.<br><label>NOTE: Please use this option cautiously !</label>', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" id="lz_restrict_wp_admin" onchange="lz_wp_admin_msg_toggle()" value="1" name="restrict_wp_admin" <?php echo lz_POSTchecked('restrict_wp_admin', (empty($loginizer['restrict_wp_admin']) ? false : true)); ?> />
@@ -4355,8 +4355,8 @@ function lz_test_wp_admin(){
 			</tr>
 			<tr id="lz_wp_admin_msg_row" style="display:none">
 				<td scope="row" valign="top">
-					<label><?php echo __('WP-Admin Error Message', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Error message to show if someone accesses wp-admin', 'loginizer'); ?></span> Default : <?php echo $loginizer['wp_admin_d_msg']; ?>
+					<label><?php _e('WP-Admin Error Message', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('Error message to show if someone accesses wp-admin', 'loginizer'); ?></span> Default : <?php echo $loginizer['wp_admin_d_msg']; ?>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_htmlizer(!empty($_POST['wp_admin_msg']) ? stripslashes($_POST['wp_admin_msg']) : @$loginizer['wp_admin_msg']); ?>" name="wp_admin_msg" id="lz_wp_admin_msg" />
@@ -4364,16 +4364,16 @@ function lz_test_wp_admin(){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:200px !important">
-					<label><?php echo __('I have setup .htaccess', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('You need to confirm that you have configured .htaccess as per <a href="'.LOGINIZER_DOCS.'Renaming_the_WP-Admin_Area" target="_blank">our guide</a> so that we can safely enable this feature', 'loginizer'); ?></span>
+					<label><?php _e('I have setup .htaccess', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('You need to confirm that you have configured .htaccess as per <a href="'.LOGINIZER_DOCS.'Renaming_the_WP-Admin_Area" target="_blank">our guide</a> so that we can safely enable this feature', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="checkbox" value="1" name="lz_wp_admin_docs" />
-					<input type="button" onclick="lz_test_wp_admin()" class="button" style="background: #5cb85c; color:white; border:#5cb85c" value="<?php echo __('Test New WP-Admin Slug', 'loginizer'); ?>" />
+					<input type="button" onclick="lz_test_wp_admin()" class="button" style="background: #5cb85c; color:white; border:#5cb85c" value="<?php _e('Test New WP-Admin Slug', 'loginizer'); ?>" />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz_wp_admin" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz_wp_admin" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>
@@ -4401,7 +4401,7 @@ lz_wp_admin_msg_toggle();
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Change Admin Username', 'loginizer'); ?></span>
+			<span><?php _e('Change Admin Username', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4411,13 +4411,13 @@ lz_wp_admin_msg_toggle();
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" colspan="2">
-					<i><?php echo __('You can change the Admin Username from here to anything of your choice e.g. iamtheboss. This would make it very difficult for automated attack bots to know what is the admin username !', 'loginizer'); ?></i>
+					<i><?php _e('You can change the Admin Username from here to anything of your choice e.g. iamtheboss. This would make it very difficult for automated attack bots to know what is the admin username !', 'loginizer'); ?></i>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label for="current_username"><?php echo __('Current Username', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('The current username you want to change', 'loginizer'); ?></span>
+					<label for="current_username"><?php _e('Current Username', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('The current username you want to change', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('current_username', (!empty($current_admin->user_login) ? $current_admin->user_login : '')); ?>" name="current_username" id="current_username" />
@@ -4425,16 +4425,16 @@ lz_wp_admin_msg_toggle();
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important">
-					<label for="new_username"><?php echo __('New Username', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('The new username you want to set', 'loginizer'); ?></span>
+					<label for="new_username"><?php _e('New Username', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('The new username you want to set', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<input type="text" size="50" value="<?php echo lz_optpost('new_username', ''); ?>" name="new_username" id="new_username" />
 				</td>
 			</tr>
 		</table><br />
-		<i><?php echo __('Note: Username can be changed only for administrator users.'); ?></i>
-		<center><input name="save_lz_admin" class="button button-primary action" value="<?php echo __('Set the Username', 'loginizer'); ?>" type="submit" /></center>
+		<i><?php _e('Note: Username can be changed only for administrator users.'); ?></i>
+		<center><input name="save_lz_admin" class="button button-primary action" value="<?php _e('Set the Username', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>
@@ -4458,7 +4458,7 @@ function add_lz_bl_users(){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Username Auto Blacklist', 'loginizer'); ?></span>
+			<span><?php _e('Username Auto Blacklist', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4468,13 +4468,13 @@ function add_lz_bl_users(){
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" colspan="2">
-					<i><?php echo __('Attackers generally use common usernames like <b>admin, administrator, or variations of your domain name / business name</b>. You can specify such username here and Loginizer will auto-blacklist the IP Address(s) of clients who try to use such username(s).', 'loginizer'); ?></i>
+					<i><?php _e('Attackers generally use common usernames like <b>admin, administrator, or variations of your domain name / business name</b>. You can specify such username here and Loginizer will auto-blacklist the IP Address(s) of clients who try to use such username(s).', 'loginizer'); ?></i>
 				</td>
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important; vertical-align:top !important;">
-					<label><?php echo __('Username(s)', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('You can use - <b>*</b> (Star)- as a wild card as well. Blank fields will be ignored', 'loginizer'); ?></span>
+					<label><?php _e('Username(s)', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('You can use - <b>*</b> (Star)- as a wild card as well. Blank fields will be ignored', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<div id="lz_bl_users">
@@ -4493,11 +4493,11 @@ function add_lz_bl_users(){
 					?>
 					</div>
 					<br />
-					<input class="button" type="button" value="<?php echo __('Add New Username', 'loginizer'); ?>" onclick="return add_lz_bl_users();" style="float:right" />
+					<input class="button" type="button" value="<?php _e('Add New Username', 'loginizer'); ?>" onclick="return add_lz_bl_users();" style="float:right" />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz_bl_users" class="button button-primary action" value="<?php echo __('Save Username(s)', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz_bl_users" class="button button-primary action" value="<?php _e('Save Username(s)', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>
@@ -4516,7 +4516,7 @@ function add_lz_bl_domains(){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('New Registration Domain Blacklist', 'loginizer'); ?></span>
+			<span><?php _e('New Registration Domain Blacklist', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4531,8 +4531,8 @@ function add_lz_bl_domains(){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:40% !important; vertical-align:top !important;">
-					<label><?php echo __('Domain(s)', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('You can use - <b>*</b> (Star)- as a wild card as well. Blank fields will be ignored', 'loginizer'); ?></span>
+					<label><?php _e('Domain(s)', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('You can use - <b>*</b> (Star)- as a wild card as well. Blank fields will be ignored', 'loginizer'); ?></span>
 				</td>
 				<td>
 					<div id="lz_bl_domains">
@@ -4551,11 +4551,11 @@ function add_lz_bl_domains(){
 					?>
 					</div>
 					<br />
-					<input class="button" type="button" value="<?php echo __('Add New Domain', 'loginizer'); ?>" onclick="return add_lz_bl_domains();" style="float:right" />
+					<input class="button" type="button" value="<?php _e('Add New Domain', 'loginizer'); ?>" onclick="return add_lz_bl_domains();" style="float:right" />
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz_bl_domains" class="button button-primary action" value="<?php echo __('Save Domains(s)', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz_bl_domains" class="button button-primary action" value="<?php _e('Save Domains(s)', 'loginizer'); ?>" type="submit" /></center>
 	
 		</div>
 	</div>	
@@ -4743,7 +4743,7 @@ function lz_apply_status(ele, the_class){
 	<div id="" class="postbox">
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Checksum Settings', 'loginizer'); ?></span>
+			<span><?php _e('Checksum Settings', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		<div class="inside">
@@ -4753,8 +4753,8 @@ function lz_apply_status(ele, the_class){
 		<table class="form-table">
 			<tr>
 				<td scope="row" valign="top" style="width:400px !important">
-					<label><?php echo __('Disable Checksum of WP Core', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If disabled, Loginizer will not check your sites core files against the WordPress checksum list.', 'loginizer'); ?></span>
+					<label><?php _e('Disable Checksum of WP Core', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If disabled, Loginizer will not check your sites core files against the WordPress checksum list.', 'loginizer'); ?></span>
 				</td>
 				<td valign="top">
 					<input type="checkbox" value="1" name="disable_checksum" <?php echo lz_POSTchecked('disable_checksum', (empty($loginizer['disable_checksum']) ? false : true)); ?> />
@@ -4762,8 +4762,8 @@ function lz_apply_status(ele, the_class){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:400px !important">
-					<label><?php echo __('Disable Email of Checksum Results', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If checked, Loginizer will not email you the checksum results.', 'loginizer'); ?></span>
+					<label><?php _e('Disable Email of Checksum Results', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If checked, Loginizer will not email you the checksum results.', 'loginizer'); ?></span>
 				</td>
 				<td valign="top">
 					<input type="checkbox" value="1" name="no_checksum_email" <?php echo lz_POSTchecked('no_checksum_email', (empty($loginizer['no_checksum_email']) ? false : true)); ?> />
@@ -4771,8 +4771,8 @@ function lz_apply_status(ele, the_class){
 			</tr>
 			<tr>
 				<td scope="row" valign="top" style="width:400px !important">
-					<label><?php echo __('Checksum Frequency', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If Checksum is enabled, at what frequency should the checksums be performed.', 'loginizer'); ?></span>
+					<label><?php _e('Checksum Frequency', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If Checksum is enabled, at what frequency should the checksums be performed.', 'loginizer'); ?></span>
 				</td>
 				<td valign="top">					
 					<select name="checksum_frequency">
@@ -4786,8 +4786,8 @@ function lz_apply_status(ele, the_class){
 			</tr>
 			<tr id="lz_checksum_time">
 				<td scope="row" valign="top" style="width:400px !important">
-					<label><?php echo __('Time of Day', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('If Checksum is enabled, what time of day should Loginizer do the check. Note : The check will be done on or after this time has elapsed as per the accesses being made.', 'loginizer'); ?></span>
+					<label><?php _e('Time of Day', 'loginizer'); ?></label><br>
+					<span class="exp"><?php _e('If Checksum is enabled, what time of day should Loginizer do the check. Note : The check will be done on or after this time has elapsed as per the accesses being made.', 'loginizer'); ?></span>
 				</td>
 				<td valign="top">
 					<div class="input-group clockpicker" data-autoclose="true">
@@ -4807,11 +4807,11 @@ function lz_apply_status(ele, the_class){
 			</tr>
 			<tr>
 				<td colspan="2">
-					<?php echo __('If disabled, Loginizer will not check your sites core files against the WordPress checksum list.', 'loginizer'); ?>
+					<?php _e('If disabled, Loginizer will not check your sites core files against the WordPress checksum list.', 'loginizer'); ?>
 				</td>
 			</tr>
 		</table><br />
-		<center><input name="save_lz" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /><input name="lz_run_checksum" style="float:right; background: #5cb85c; color:white; border:#5cb85c" class="button button-secondary" value="<?php echo __('Do a Checksum Now', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz" class="button button-primary action" value="<?php _e('Save Settings', 'loginizer'); ?>" type="submit" /><input name="lz_run_checksum" style="float:right; background: #5cb85c; color:white; border:#5cb85c" class="button button-secondary" value="<?php _e('Do a Checksum Now', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 	
 		</div>
@@ -4821,7 +4821,7 @@ function lz_apply_status(ele, the_class){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Mismatching Files', 'loginizer'); ?></span>
+			<span><?php _e('Mismatching Files', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4876,7 +4876,7 @@ function lz_apply_status(ele, the_class){
 			
 			?>
 		</table><br />
-		<center><input name="save_lz_csum_ig" class="button button-primary action" value="<?php echo __('Add Selected to Ignore List', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz_csum_ig" class="button button-primary action" value="<?php _e('Add Selected to Ignore List', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 		</div>
 		
@@ -4887,7 +4887,7 @@ function lz_apply_status(ele, the_class){
 	
 		<div class="postbox-header">
 		<h2 class="hndle ui-sortable-handle">
-			<span><?php echo __('Ignore List', 'loginizer'); ?></span>
+			<span><?php _e('Ignore List', 'loginizer'); ?></span>
 		</h2>
 		</div>
 		
@@ -4936,7 +4936,7 @@ function lz_apply_status(ele, the_class){
 			
 			?>
 		</table><br />
-		<center><input name="save_lz_csum_ig" class="button button-primary action" value="<?php echo __('Remove Selected from Ignore List', 'loginizer'); ?>" type="submit" /></center>
+		<center><input name="save_lz_csum_ig" class="button button-primary action" value="<?php _e('Remove Selected from Ignore List', 'loginizer'); ?>" type="submit" /></center>
 		</form>
 		</div>
 		

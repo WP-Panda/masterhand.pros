@@ -1453,11 +1453,11 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		?>
 			{{#unless use_master}}
 				<tr class="<?php echo $classes;?>">
-					<th><?php echo __('Google Drive', 'updraftplus').' '.__('Client ID', 'updraftplus'); ?>:</th>
+					<th><?php _e('Google Drive', 'updraftplus').' '.__('Client ID', 'updraftplus'); ?>:</th>
 					<td><input type="text" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('clientid');?> value="{{clientid}}" /><br><em><?php _e('If Google later shows you the message "invalid_client", then you did not enter a valid client ID here.', 'updraftplus');?></em></td>
 				</tr>
 				<tr class="<?php echo $classes;?>">
-					<th><?php echo __('Google Drive', 'updraftplus').' '.__('Client Secret', 'updraftplus'); ?>:</th>
+					<th><?php _e('Google Drive', 'updraftplus').' '.__('Client Secret', 'updraftplus'); ?>:</th>
 					<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('secret');?> value="{{secret}}" /></td>
 				</tr>
 			{{/unless}}
@@ -1468,7 +1468,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			{{else}}
 				{{#if parentid}}
 				<tr class="<?php echo $classes;?>">
-					<th><?php echo __('Google Drive', 'updraftplus').' '.__('Folder', 'updraftplus');?>:</th>
+					<th><?php _e('Google Drive', 'updraftplus').' '.__('Folder', 'updraftplus');?>:</th>
 					<td>
 						<input type="hidden" <?php $this->output_settings_field_name_and_id(array('parentid', 'id'));?> value="{{parentid_str}}">
 						<input type="text" title="{{parentid_str}}" readonly="readonly" class="updraft_input--wide" value="{{showparent}}">
@@ -1479,14 +1479,14 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 						{{/if}}
 				{{else}}
 					<tr class="<?php echo $classes;?>">
-						<th><?php echo __('Google Drive', 'updraftplus').' '.__('Folder', 'updraftplus');?>:</th>
+						<th><?php _e('Google Drive', 'updraftplus').' '.__('Folder', 'updraftplus');?>:</th>
 						<td>
 							<input type="text" readonly="readonly" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('folder');?> value="UpdraftPlus" />
 				{{/if}}
 							<br>
 							<em>
 								<a href="<?php echo $updraftplus->get_url('premium');?>" target="_blank">
-									<?php echo __('To be able to set a custom folder name, use UpdraftPlus Premium.', 'updraftplus');?>
+									<?php _e('To be able to set a custom folder name, use UpdraftPlus Premium.', 'updraftplus');?>
 								</a>
 							</em>
 						</td>

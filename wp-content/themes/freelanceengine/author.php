@@ -316,7 +316,7 @@ if ( $visualFlag ) {
                             <div class="col-sm-7 col-md-8 col-lg-9 col-xs-12 fre-profile-box">
 								<?php if ( ! empty( $convert ) ) { ?>
                                     <div class="freelance-about">
-                                        <span class="bl_t"><?php echo __( "About me:", ET_DOMAIN ); ?></span>
+                                        <span class="bl_t"><?php _e("About me:", ET_DOMAIN ); ?></span>
 										<?php
 										global $post;
 										$post = isset( $profile );
@@ -329,7 +329,7 @@ if ( $visualFlag ) {
 								<?php } ?>
 
                                 <div class="hidden freelance-about hidden-contacts">
-                                    <span class="bl_t"><?php echo __( "Contacts:", ET_DOMAIN ); ?></span>
+                                    <span class="bl_t"><?php _e("Contacts:", ET_DOMAIN ); ?></span>
 									<?php $fb = get_post_meta( $profile_id, 'facebook', true );
 									$skype    = get_post_meta( $profile_id, 'skype', true );
 									$web      = get_post_meta( $profile_id, 'website', true );
@@ -378,7 +378,7 @@ if ( $visualFlag ) {
 
 								<?php if ( isset( $convert->tax_input['profile_category'] ) && $convert->tax_input['profile_category'] ) { ?>
                                     <div class="freelance-cat-list">
-                                        <span class="bl_t"><?php echo __( "Categories:", ET_DOMAIN ); ?></span>
+                                        <span class="bl_t"><?php _e("Categories:", ET_DOMAIN ); ?></span>
 										<?php echo baskserg_profile_categories3( $convert->tax_input['profile_category'] ); ?>
                                     </div>
 								<?php } ?>
@@ -389,7 +389,7 @@ if ( $visualFlag ) {
                                 <div class="freelance-hourly">
 									<?php if ( fre_share_role() || $isFreelancer ) {
 										if ( $hour_rate > 0 ) { ?>
-                                            <span class="bl_t"><?php echo __( "Rate:", ET_DOMAIN ); ?></span>
+                                            <span class="bl_t"><?php _e("Rate:", ET_DOMAIN ); ?></span>
 											<?php echo '<span>' . sprintf( __( '<b>%s</b> /hr ', ET_DOMAIN ), fre_price_format( $hour_rate ) ) . '</span>'; ?>
                                             <!--<span><?php echo $convert->earned ?></span>-->
 										<?php }
@@ -455,14 +455,14 @@ if ( $visualFlag ) {
                     <li class="nav-item">
                         <a class="nav-link active" id="portfolio-tab" data-toggle="tab" href="#portfolio" role="tab"
                            aria-controls="portfolio" aria-selected="true">
-							<?php echo __( "Portfolio", ET_DOMAIN ); ?>
+							<?php _e("Portfolio", ET_DOMAIN ); ?>
                         </a>
                     </li>
 				<?php } else { ?>
                     <li class="nav-item">
                         <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab"
                            aria-controls="projects" aria-selected="false">
-							<?php echo __( "Projects", ET_DOMAIN ); ?>
+							<?php _e("Projects", ET_DOMAIN ); ?>
                         </a>
                     </li>
 				<?php } ?>
@@ -470,7 +470,7 @@ if ( $visualFlag ) {
                     <li class="nav-item">
                         <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab"
                            aria-controls="reviews" aria-selected="false">
-							<?php echo __( "Reviews", ET_DOMAIN ); ?>
+							<?php _e("Reviews", ET_DOMAIN ); ?>
                         </a>
                     </li>
 				<?php endif; ?>

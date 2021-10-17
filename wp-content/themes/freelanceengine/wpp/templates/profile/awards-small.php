@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<div class="awards"><span><?php echo __( "Awards:", ET_DOMAIN ); ?></span>
+<div class="awards"><span><?php _e("Awards:", ET_DOMAIN ); ?></span>
     <ul>
         <li><img src="<?php echo get_template_directory_uri(); ?>/img/aw3.png" alt=""/><span
                     class="visible-xs">Gold Members</span></li>

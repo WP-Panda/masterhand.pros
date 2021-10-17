@@ -167,7 +167,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 		</tr>
 
 		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('Container', 'updraftplus');?>:</th>
+			<th><?php _e('Container', 'updraftplus');?>:</th>
 			<td><input data-updraft_settings_test="path" type="text" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('path');?> value="{{path}}" /></td>
 		</tr>
 		<?php

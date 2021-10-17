@@ -7,7 +7,7 @@
             }
         </style>
     <?php } else { ?>
-    <div class="workspace-title"><?php echo __( "Payment Code", ET_DOMAIN ); ?>
+    <div class="workspace-title"><?php _e("Payment Code", ET_DOMAIN ); ?>
     <?php $homeid = get_option('page_on_front');?>
        <a class="payment-desc" data-toggle="tooltip" data-html="true" title='<?php the_field('about_payment_code',$homeid);?>'></a>
     </div>

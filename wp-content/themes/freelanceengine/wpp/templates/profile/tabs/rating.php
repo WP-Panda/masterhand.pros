@@ -12,11 +12,12 @@ extract( $args );
         <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8 col-xs-12 fre-profile-rating fre-profile-box">
                 <div class="fre-profile-rating_t">
-					<?php echo __( "My rating", ET_DOMAIN ); ?>
+					<?php _e("My rating", ET_DOMAIN ); ?>
                     <span class="total-rating">+<?php echo wpp_get_user_rating( $user_ID ) ?></span>
                 </div>
                 <ul class="dop">
 					<?php
+					$out       = '';
 					$rating    = get_user_meta( $user_ID, '_wpp_user_rating', true );
 					$options   = wpp_rating_config();
 					$role_flag = wpp_fre_is_freelancer() ? 'freelancer' : 'employer';
@@ -25,23 +26,31 @@ extract( $args );
 					//икс для про опций
 					$pro = get_user_pro_status( $user_ID );
 
-					$pro = $pro ?? 0;
 
 					foreach ( $options['fields'] as $option_key => $option_options ) {
 
 						//фикс для про
-						/*if ( ! empty( $option_options['pro_data'] ) && ! in_array( (int) $pro, $option_options['pro_data'] ) ) {
+
+						if ( ! empty( $option_options['pro_data'] ) && ! in_array( (int) $pro, $option_options['pro_data'] ) ) {
 							continue;
-						}*/
+						}
 
 						//фикс для отключенных опций
 						if ( ! empty( $option_options['disabled'] ) && true === $option_options['disabled'] ) {
 							continue;
 						}
-						if ( $role_flag === $option_options['for'] || 'all' === $option_options['for'] ) :
-							printf( '<li>%s<span>%s</span></li>', $option_options['label'], ! empty( $rating[ $option_key ] ) ? '+' . $rating[ $option_key ] : 0 );
+
+						if ( $role_flag === $option_options['for'] || 'all' === $option_options['for'] && $option_key !== 'coefficient_pro_status' && $option_key !== 'coefficient_premium_pro_status' ) :
+							$out .= sprintf( '<li>%s<span>%s</span></li>', $option_options['label'], ! empty( $rating[ $option_key ] ) ? '+' . $rating[ $option_key ] : 0 );
 						endif;
 					}
+
+					$rate = wpp_pro_rate_delta($rating['total'],$user_ID);
+
+					printf( '<li>%s<span>%s%s</span></li>', __( 'Coef. rating growth from Premium PRO status', WPP_TEXT_DOMAIN ), ! empty( $rate) ? '+' : '', $rate );
+
+					echo $out;
+
 					?>
                 </ul>
             </div>
@@ -71,23 +80,23 @@ extract( $args );
         <div class="tabs_wp fre-profile-box accpro col-sm-12 col-xs-12">
             <div class="col-sm-9 col-xs-12">
                 <div class="tabs_wp_t">
-					<?php echo __( "Account", ET_DOMAIN );
+					<?php _e("Account", ET_DOMAIN );
 					if ( $user_status && $user_status != PRO_BASIC_STATUS_EMPLOYER && $user_status != PRO_BASIC_STATUS_FREELANCER ) {
 					pro_label(); ?>
                 </div>
                 <div class="pro-account">
                     <p>
-						<?php echo __( "Your account has $user_pro_name status.", ET_DOMAIN ); ?>
+						<?php _e("Your account has $user_pro_name status.", ET_DOMAIN ); ?>
                     </p>
                     <div class="benefits">
-						<?php echo __( "My PRO Benefits:", ET_DOMAIN ) . '<span class="confirmed">' . __( "Enabled", ET_DOMAIN ) . ' (expire on ' . $user_pro_expire_normalize . ')</span>'; ?>
+						<?php _e("My PRO Benefits:", ET_DOMAIN ) . '<span class="confirmed">' . __( "Enabled", ET_DOMAIN ) . ' (expire on ' . $user_pro_expire_normalize . ')</span>'; ?>
                     </div>
                 </div>
 				<?php } else { ?>
             </div>
             <div class="pro-account">
                 <p>
-					<?php echo __( "Get PRO status to have more benefits.", ET_DOMAIN ); ?>
+					<?php _e("Get PRO status to have more benefits.", ET_DOMAIN ); ?>
                 </p>
             </div>
 			<?php } ?>
@@ -101,11 +110,11 @@ extract( $args );
     <div class="tabs_wp fre-profile-box referalac col-sm-12 col-xs-12">
         <div class="col-sm-9 col-xs-12">
             <div class="tabs_wp_t">
-				<?php echo __( "My Referral Activity", ET_DOMAIN ); ?>
+				<?php _e("My Referral Activity", ET_DOMAIN ); ?>
             </div>
             <div class="refcount">
                 <p>
-					<?php echo __( "Referrals Connected:", ET_DOMAIN ); ?>
+					<?php _e("Referrals Connected:", ET_DOMAIN ); ?>
                     <span><?php echo $count_referrals ?></span></p>
             </div>
 			<?php //wpp_get_template_part( 'wpp/templates/profile/awards-small' ); ?>

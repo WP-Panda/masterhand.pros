@@ -28,15 +28,15 @@ $parid = wp_get_post_parent_id( $pid );
                     <li class="nav-item col-sm-6 col-xs-6">
                         <div class="pull-right client-prof__client">
                             <a class="nav-link" data-toggle="tab" href="#if-client" role="tab">
-								<?php echo __( "if you`re client", ET_DOMAIN ); ?>
+								<?php _e("if you`re client", ET_DOMAIN ); ?>
                             </a>
                         </div>
                     </li>
                     <li class="nav-item col-sm-6 col-xs-6">
                         <div class="pull-left client-prof__professional">
                             <a class="nav-link" data-toggle="tab" href="#if-pro" role="tab">
-                                <span class="hidden-xs"><?php echo __( "if you`re professional", ET_DOMAIN ); ?></span>
-                                <span class="visible-xs"><?php echo __( "if you`re pro", ET_DOMAIN ); ?></span>
+                                <span class="hidden-xs"><?php _e("if you`re professional", ET_DOMAIN ); ?></span>
+                                <span class="visible-xs"><?php _e("if you`re pro", ET_DOMAIN ); ?></span>
                             </a>
                         </div>
                     </li>

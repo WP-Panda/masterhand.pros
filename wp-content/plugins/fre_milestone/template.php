@@ -51,7 +51,7 @@ if( !function_exists( 'ae_milestone_template_for_edit_form' ) ) {
 		?>
 		<div class="form-group project_category">
 	         <label for="milestone-input" class="control-label title-plan">
-				<?php echo __( "Milestones", ET_DOMAIN ); ?><br>
+				<?php _e("Milestones", ET_DOMAIN ); ?><br>
             </label>
 
 	       	<div id="add-milestone-form" class="text-field">

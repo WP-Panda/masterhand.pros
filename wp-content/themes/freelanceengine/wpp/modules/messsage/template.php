@@ -52,7 +52,7 @@ if( !function_exists('ae_private_message_button') ) {
 
             <?php /*if ($bid_accepted_author == $user_ID) { ?>
                 <a class="fre-action-btn fre-submit-btn btn-right bid-action" data-action="edit" data-bid-id="<?php echo $bid->ID?>" style="vertical-align:top">
-                    <?php echo __('Edit', ET_DOMAIN)?>
+                    <?php _e('Edit', ET_DOMAIN)?>
                 </a>
             <?php }*/ ?>
 

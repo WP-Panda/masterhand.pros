@@ -31,23 +31,6 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 	$user_rating['total'] = array_sum( $user_rating );
 
 
-	//перерасчет для про юзера
-	$pro = get_user_pro_status( $user_ID );
-
-	if ( ! empty( $pro ) && ( (int) $pro === 2 || (int) $pro === 3 || (int) $pro === 5 ) ) {
-
-		if ( (int) $pro === 2 ) {//обычный про
-			$pro_diff = (int) $options['coefficient_pro_status'] / 100;
-		} elseif ( (int) $pro === 3 || (int) $pro === 5 ) { // премиум про
-			$pro_diff = (int) $options['coefficient_premium_pro_status'] / 100;
-		}
-
-		#получение текущего значения
-		$old_pro_val                           = ! empty( $user_rating['coefficient_pro_status'] ) ? (int) $user_rating['coefficient_pro_status'] : 0;
-		$user_rating['coefficient_pro_status'] = (int) ( $old_pro_val + (int) $val * $pro_diff );
-	}
-
-
 	#запись нового значения
 	update_user_meta( $user_ID, '_wpp_user_rating', $user_rating );
 
@@ -56,7 +39,11 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 function wpp_get_user_rating( $user_ID ) {
 	$user_rating = get_user_meta( $user_ID, '_wpp_user_rating', true );
 
-	return ! empty( $user_rating['total'] ) ? $user_rating['total'] : 0;
+	$rate = ! empty( $user_rating['total'] ) ? $user_rating['total'] : 0;
+
+	$pro_diff = wpp_pro_rate_delta( $rate, $user_ID );
+
+	return $rate + $pro_diff;
 }
 
 /**
@@ -236,6 +223,7 @@ add_action( 'wpp_rating_action_bro_bid', 'wpp_rating_action_bro_bid', 10, 2 );
 
 /**
  * При закрытии сделки
+ *
  * @param $post
  */
 function wpp_close_progect_with_rewiew( $post ) {
@@ -276,4 +264,25 @@ function wpp_close_progect_with_rewiew( $post ) {
 add_action( 'wpp_close_project', 'wpp_close_progect_with_rewiew', 10, 1 );
 
 
+/**
+ * Для про коэффицента
+ */
+function wpp_pro_rate_delta( $rate, $user_ID ) {
 
+	$pro = get_user_pro_status( $user_ID );
+
+	if ( ! empty( $rate ) && ! empty( $pro ) && ( (int) $pro === 2 || (int) $pro === 3 || (int) $pro === 5 ) ) {
+		$options = get_option( 'wpp_skills' );
+
+		if ( (int) $pro === 2 ) {//обычный про
+			$pro_diff = (int) $options['coefficient_pro_status'] / 100;
+		} elseif ( (int) $pro === 3 || (int) $pro === 5 ) { // премиум про
+			$pro_diff = (int) $options['coefficient_premium_pro_status'] / 100;
+		}
+
+		$user_rating = (int) $rate * (int) $pro_diff;
+	}
+
+
+	return ! empty( $user_rating ) ? $user_rating : 0;
+}

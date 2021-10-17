@@ -96,7 +96,7 @@ $attachment = get_children( [
 
             <div class="project-detail-milestone">
                 <div class="project-detail-title">
-					<?php echo __( "Milestones", ET_DOMAIN ); ?>
+					<?php _e("Milestones", ET_DOMAIN ); ?>
                 </div>
 				<?php do_action( 'after_sidebar_single_project', $project ); ?>
             </div>

@@ -57,7 +57,7 @@ extract( $args );
 					<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) {
 						if ( $hour_rate > 0 ) { ?>
                             <div class="rate visible-xs">
-								<?php echo __( "Rate:", ET_DOMAIN ); ?>
+								<?php _e("Rate:", ET_DOMAIN ); ?>
                                 <span><?php echo sprintf( __( '%s/hr ', ET_DOMAIN ), fre_price_format( $hour_rate ) ); ?></span>
                             </div>
 							<?php
@@ -73,7 +73,7 @@ extract( $args );
 					<?php if ( fre_share_role() || wpp_fre_is_freelancer() ) { ?>
 						<?php if ( $hour_rate > 0 ) { ?>
                             <div class="rate hidden-xs">
-								<?php echo __( "Rate:", ET_DOMAIN ); ?>
+								<?php _e("Rate:", ET_DOMAIN ); ?>
                                 <span><?php echo sprintf( __( '%s/hr ', ET_DOMAIN ), fre_price_format( $hour_rate ) ); ?></span>
                             </div>
 						<?php }
@@ -277,7 +277,7 @@ extract( $args );
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
                     <div class="freelance-portfolio-title">
-						<?php echo __( "Specializations:", ET_DOMAIN ); ?>
+						<?php _e("Specializations:", ET_DOMAIN ); ?>
                     </div>
                     <div class="skill-list">
 						<?php if ( isset( $profile->tax_input['project_category'] ) && $profile->tax_input['project_category'] ) {

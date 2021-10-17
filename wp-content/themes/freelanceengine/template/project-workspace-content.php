@@ -267,7 +267,7 @@ $query = new WP_Query( $args );
         <div id="workspace-files-wp" class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tab-pane fade">
 			<?php if ( function_exists( 'ae_query_milestone' ) && $query->have_posts() ) { ?>
                 <div id="workspace-milestone" class="workspace-milestone">
-                    <div class="workspace-title"><?php echo __( "Project milestones", ET_DOMAIN ); ?></div>
+                    <div class="workspace-title"><?php _e("Project milestones", ET_DOMAIN ); ?></div>
 					<?php do_action( 'after_sidebar_single_project_workspace', $post ); ?>
                 </div>
 			<?php } ?>
