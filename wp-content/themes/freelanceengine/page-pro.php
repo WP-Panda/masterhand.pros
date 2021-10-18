@@ -212,7 +212,9 @@ get_header();
 
                     <div id="prices" class="page-pro_prices pro-order">
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 page-pro_order_t"><?php echo __( 'Prices for Pro account', ET_DOMAIN ) ?></div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 page-pro_order_t">
+								<?php echo __( 'Prices for Pro account', ET_DOMAIN ) ?>
+                            </div>
                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
                                 <div class="pro-order_status">
@@ -239,7 +241,7 @@ get_header();
 
 												$timescount = count( $allPrice['time'][ $key ] );
 												for ( $i = 0; $i < $timescount; $i ++ ) {
-													echo '<li><a data-toggle="tab" href="#price-' . $key . '_' . $prices[ $i ] . '">' . $times[ $i ] . ' month';
+													echo '<li class="wpp_tab_nav_li"><a data-toggle="tab" href="#price-' . $key . '_' . $prices[ $i ] . '">' . $times[ $i ] . ' month';
 													if ( $i > 0 ) {
 														echo 's';
 													}
@@ -247,7 +249,8 @@ get_header();
 												} ?>
                                             </ul>
                                             <div class="row tab-content">
-												<?php for ( $i = 0; $i < $timescount; $i ++ ) {
+												<?php
+												for ( $i = 0; $i < $timescount; $i ++ ) {
 													$status_id = $result[ count( $result ) - 1 ][ $key ];
 													?>
                                                     <div id="price_<?php echo $key . '_' . $prices[ $i ] ?>"
@@ -336,7 +339,8 @@ get_header();
                         <!--URL, куда покупатель будет перенаправлен после успешной оплаты. Если этот параметр не передать, покупатель останется на сайте PayPal-->
                         <input type="hidden" name="return" value="<?php echo bloginfo( 'home' ) ?>/payment-completed">
                         <!--URL, куда покупатель будет перенаправлен при отмене им оплаты . Если этот параметр не передать, покупатель останется на сайте PayPal-->
-                        <input type="hidden" name="cancel_return" value="<?php echo bloginfo( 'home' ) ?>/cancel-payment">
+                        <input type="hidden" name="cancel_return"
+                               value="<?php echo bloginfo( 'home' ) ?>/cancel-payment">
                         <!--URL, на который PayPal будет предавать информацию о транзакции (IPN). Если не передавать этот параметр, будет использоваться значение, указанное в настройках аккаунта. Если в настройках аккаунта это также не определено, IPN использоваться не будет-->
                         <input type="hidden" name="notify_url"
                                value="<?php bloginfo( 'stylesheet_directory' ); ?>/ipn.php">
@@ -364,6 +368,7 @@ get_header();
             $('.tab-content .tab-pane:last-child').addClass('last');
             $('.nav-tabs li:last-child').addClass('last');
 
+
             $('.owl-next').click(function () {
                 var navul = $(this).parent().parent().parent().children('.nav-tabs'),
                     tabpan = $(this).parent().parent().parent().children('.tab-content');
@@ -376,6 +381,7 @@ get_header();
                         .next('.tab-pane').addClass('in active');
                 }
             });
+
             $('.owl-prev').click(function () {
                 var navul = $(this).parent().parent().parent().children('.nav-tabs'),
                     tabpan = $(this).parent().parent().parent().children('.tab-content');

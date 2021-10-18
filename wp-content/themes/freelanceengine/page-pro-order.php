@@ -44,7 +44,7 @@ get_header();
 							<?php foreach ( $res['statuses'] as $value ) { ?>
 								<?php if ( array_key_exists( 'property_type', $value ) && $value['property_type'] == 2 ) {
 									$str = $value['option_value'] != 1 ? ' months' : ' month'; ?>
-                                    <li><a data-toggle="tab"
+                                    <li class="wpp_tab_nav_li"><a data-toggle="tab"
                                            href="#price<?php echo end( $res['statuses'] )[ $i ]; ?>-<?php echo $value['option_value']; ?>"><?php echo $value['option_value'] . $str; ?></a>
                                     </li>
 								<?php }

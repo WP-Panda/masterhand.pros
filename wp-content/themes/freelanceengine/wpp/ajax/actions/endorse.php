@@ -8,7 +8,9 @@
 defined( 'ABSPATH' ) || exit;
 
 function wpp_endorse() {
-
+	/**
+	 * todo en nfrb cnjbn lj,fdbnm ljg ghjdthre
+	 */
 	if ( empty( $_POST['uid'] ) ) {
 		wp_send_json_error( [ 'msg' => __( 'Undefened User', WPP_TEXT_DOMAIN ) ] );
 	}

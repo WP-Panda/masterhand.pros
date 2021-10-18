@@ -317,5 +317,39 @@ wp_footer();
     </div><!-- /.modal-dialog login -->
 </div><!-- /.modal -->
 <!--// MODAL CLOSE PROJECT-->
+
+<style>
+    ul.nav.nav-tabs.hidden-sm {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    li.wpp_tab_nav_li {
+        width: 100%;
+    }
+
+    .pro-order_status .nav-tabs {
+        border-bottom: 1px solid #2c33c1!important;
+    }
+
+    .nav-tabs li.wpp_tab_nav_li a {
+        border-radius: 2px!important;
+        background: transparent!important;
+        border-bottom: none;
+    }
+    .nav-tabs li.wpp_tab_nav_li.active a {
+        color: #2c33c1!important;
+        border-bottom-color: #fff!important;
+    }
+</style>
+<script>
+    jQuery(function ($) {
+        $(document).on('click','.wpp_tab_nav_li',function (e) {
+            var i = $(this).index()
+            $(this).parents('.nav-tabs').next('.tab-content').find('.tab-pane').removeClass('in active');
+            $(this).parents('.nav-tabs').next('.tab-content').find('.tab-pane').eq(i).addClass('in active');
+        })
+    })
+</script>
 </body>
 </html>

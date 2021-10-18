@@ -101,6 +101,35 @@ global $current_user, $user_ID, $post;
             background-color: #fff !important;
             color: #878787 !important;
         }
+@media (max-width: 1200px) {
+    span.hamburger-menu {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        margin-top: -10px;
+    }
+
+    .hamburger.hamburger--elastic {
+        position: absolute;
+        width: 37px;
+        height: 21px;
+        bottom: 5px;
+        left: 0;
+        z-index: 1;
+    }
+
+    .hamburger-box {
+        top: 0 !important;
+    }
+
+    div#main_header {
+        overflow: hidden;
+    }
+
+    header.fre-header-wrapper {
+        overflow: hidden;
+    }
+}
     </style>
 </head>
 <body <?php body_class(); ?>>

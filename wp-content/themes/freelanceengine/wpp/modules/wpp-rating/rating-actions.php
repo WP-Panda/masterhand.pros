@@ -22,7 +22,10 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 	if ( ! isset( $val ) ) {
 		$val = $options[ $rating_key ];
 	}
-	$user_rating[ $rating_key ] = $old_val + (int) $val;
+
+	#тобы не было меньше нуля
+	$new_val = $old_val + (int) $val;
+	$user_rating[ $rating_key ] = $new_val < 0 ? 0 : $new_val;
 
 	#рассчет общего значения
 	if ( ! empty( $user_rating['total'] ) ) {

@@ -32,6 +32,14 @@ function wpp_is_endorse_allow( $user_ID ) {
 
 	if ( ! empty( $refferal ) ) {
 		$refferal = wp_list_pluck( $refferal, 'user_id' );
+
+		foreach ( $refferal as $key => $one_user ) {
+			$confirm = get_user_meta( $one_user, 'register_status', true );
+
+			if ( 'confirm' !== $confirm ) {
+				unset( $refferal[ $key ] );
+			}
+		}
 	} else {
 		$refferal = [];
 	}
@@ -65,7 +73,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 				$employer_ = new WP_Query( [
 					'post_type'   => 'bid',
 					'post_parent' => $project_query->post->ID,
-					'post_status' => [ 'accept', 'complete' ],
+					'post_status' => [ 'complete' ],
 					'nopaging'    => true,
 					'post_author' => $user_ID
 				] );
@@ -88,13 +96,13 @@ function wpp_is_endorse_allow( $user_ID ) {
 
 		#Выполненные проекты для специалиста
 		$bids_query = new WP_Query( [
-			'post_status' => [ 'accept', 'complete' ],
+			'post_status' => [ 'complete' ],
 			'post_type'   => 'bid',
 			'author'      => $current_user,
 			'nopaging'    => true
 		] );
 
-	//	wpp_dump( $bids_query->found_posts );
+		//	wpp_dump( $bids_query->found_posts );
 		if ( $bids_query->have_posts() ) :
 			while ( $bids_query->have_posts() ) :
 				$bids_query->the_post();
@@ -104,7 +112,7 @@ function wpp_is_endorse_allow( $user_ID ) {
 		endif;
 
 	}
-	$refferal = array_unique($refferal);
+	$refferal = array_unique( $refferal );
 	$in_allow = array_search( $user_ID, $refferal );
 	//wpp_dump($refferal);
 	if ( empty( $in_allow ) ) {

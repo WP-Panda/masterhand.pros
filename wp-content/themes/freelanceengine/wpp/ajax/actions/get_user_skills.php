@@ -6,7 +6,9 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
+/**
+ * Получение скилдов
+ */
 function wpp_get_user_skills() {
 	$skills = WPP_Skills_User::getInstance()->get_user_skill_list();
 	if ( ! empty( $skills ) ) {

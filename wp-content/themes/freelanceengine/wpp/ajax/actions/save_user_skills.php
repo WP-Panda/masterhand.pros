@@ -9,9 +9,12 @@ defined( 'ABSPATH' ) || exit;
 
 function wpp_save_user_skills() {
 
-	if ( empty( $_POST['skills'] ) ) {
+	/**
+	 * @todo Надо добавить модальное окно когда нет дангных с надписью, вы точно хотите удалить?
+	 */
+	/*if ( empty( $_POST['skills'] ) ) {
 		wp_send_json_error( [ 'msg' => __( 'Skills is Empty!', WPP_TEXT_DOMAIN ) ] );
-	}
+	}*/
 
 	$skills = [];
 

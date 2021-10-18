@@ -38,17 +38,17 @@ function wpp_rating_config() {
 
 	$array['fields'] = [
 		'coefficient_pro_status' => [ // для про стауса плана бизнесс  % от суммы
-			'label' => __( 'Coef. rating growth from Business PRO status, %', WPP_TEXT_DOMAIN ),
-			'for'   => 'all',
-			'def'   => 50,
-			'pro_data' => [2]
+			'label'    => __( 'Coef. rating growth from Business PRO status, %', WPP_TEXT_DOMAIN ),
+			'for'      => 'all',
+			'def'      => 50,
+			'pro_data' => [ 2 ]
 		],
 
 		'coefficient_premium_pro_status' => [ // для про стауса плана премиум % от суммы
-			'label' => __( 'Coef. rating growth from Premium PRO status, %', WPP_TEXT_DOMAIN ),
-			'for'   => 'all',
-			'def'   => 100,
-			'pro_data' => [3,5]
+			'label'    => __( 'Coef. rating growth from Premium PRO status, %', WPP_TEXT_DOMAIN ),
+			'for'      => 'all',
+			'def'      => 100,
+			'pro_data' => [ 3, 5 ]
 		],
 
 		'coefficient_amount_payment'                  => [ // начисление баллов рейтинга за каждый потраченный доллар
@@ -82,9 +82,9 @@ function wpp_rating_config() {
 			'def'   => 2000
 		],
 		'freelancer_for_reward'                       => [
-			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
-			'for'   => 'freelancer',
-			'def'   => 1000,
+			'label'    => __( 'Rewards', WPP_TEXT_DOMAIN ),
+			'for'      => 'freelancer',
+			'def'      => 1000,
 			'disabled' => true
 		],
 		'freelancer_for_review'                       => [ // за оставленный отзыв
@@ -140,9 +140,9 @@ function wpp_rating_config() {
 			'def'   => 1000
 		],
 		'employer_for_reward'                         => [
-			'label' => __( 'Rewards', WPP_TEXT_DOMAIN ),
-			'for'   => 'employer',
-			'def'   => 1000,
+			'label'    => __( 'Rewards', WPP_TEXT_DOMAIN ),
+			'for'      => 'employer',
+			'def'      => 1000,
 			'disabled' => true
 		],
 		'employer_for_review'                         => [ // за оставленный отзыв
