@@ -17,20 +17,21 @@ function wpp_save_user_skills() {
 	}*/
 
 	$skills = [];
+	if ( ! empty( $_POST['skills'] ) ) {
+		foreach ( $_POST['skills'] as $skill ) :
 
-	foreach ( $_POST['skills'] as $skill ) :
+			if ( empty( absint( $skill ) && $skill !== '0' ) ) {
 
-		if ( empty( absint( $skill ) && $skill !== '0' ) ) {
+				$new_skill      = WPP_Skills_Actions::getInstance()->create_skill( $skill );
+				$new_skill_data = WPP_Skills_Actions::getInstance()->get_skill( $skill );
+				$skills[]       = $new_skill_data->id;
 
-			$new_skill      = WPP_Skills_Actions::getInstance()->create_skill( $skill );
-			$new_skill_data = WPP_Skills_Actions::getInstance()->get_skill( $skill );
-			$skills[]       = $new_skill_data->id;
+			} else {
+				$skills[] = absint( $skill );
+			}
 
-		} else {
-			$skills[] = absint( $skill );
-		}
-
-	endforeach;
+		endforeach;
+	}
 
 	#Рейтинг для скиллов
 	do_action( 'wpp_skill_rating', $skills );

@@ -7,6 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
+require_once 'WPP_Rating_Install.php';
 require_once 'config.php';
 require_once 'menu-page.php';
 require_once 'rating-actions.php';
