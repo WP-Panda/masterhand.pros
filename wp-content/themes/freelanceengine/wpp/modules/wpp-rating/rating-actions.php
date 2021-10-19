@@ -15,6 +15,8 @@ function wpp_rating_set_option( $user_ID, $rating_key, $val = null ) {
 		$user_rating = [];
 	}
 
+
+
 	#получение текущего значения
 	$old_val = ! empty( $user_rating[ $rating_key ] ) ? (int) $user_rating[ $rating_key ] : 0;
 
