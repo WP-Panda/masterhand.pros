@@ -12,7 +12,7 @@ class WPP_Notis extends WPP_Messages {
 	public static $instance;
 
 	function __construct() {
-		$this->post_type = 'notify';
+		//$this->post_type = 'notify';
 
 		// catch action insert new bid to notify employer
 		$this->add_action( 'wpp_insert_bid', 'newBid', 10, 2 );
