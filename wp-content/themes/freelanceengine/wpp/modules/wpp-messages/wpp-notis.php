@@ -1335,6 +1335,7 @@ function wpp_notify_remove() {
 				'success' => true
 			];
 		}
+
 	} else if ( $request['type'] == 'undo' ) {
 		// undo notify
 		$post   = wp_publish_post( $request['ID'] );
