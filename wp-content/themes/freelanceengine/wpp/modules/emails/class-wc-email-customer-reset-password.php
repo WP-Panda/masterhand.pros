@@ -173,5 +173,4 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 	}
 
 endif;
-
 return new WC_Email_Customer_Reset_Password();
