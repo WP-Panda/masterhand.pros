@@ -15,11 +15,25 @@ function wpp_send_message() {
 
 	parse_str( $_POST['data'], $data );
 
-	if ( ! empty( $data['message_text'] ) ) {
+	if ( ! empty( $data['title'] ) ) {
+		$title = esc_attr( $data['title'] );
+	} else {
+		wp_send_json_error( [ 'msg' => wpp_message_codes( 7 ) ] );
+	}
+
+	preg_match('#insert\":\"(.*)\"}#', $data['message_text'], $matches);
+
+	$is_empty_message_text = FALSE;
+
+	if (isset($matches[1]) && $matches[1] == '\n') {
+		$is_empty_message_text = TRUE;
+	}
+
+	if ( ! empty( $data['message_text'] ) && !$is_empty_message_text) {
 		$lexer        = new \nadar\quill\Lexer( $data['message_text'] );
 		$message_text = $lexer->render();
 	} else {
-		wp_send_json_error( [ 'msg' => wpp_message_codes( 4 ) ] );
+		wp_send_json_error( [ 'msg' => wpp_message_codes( 8 ) ] );
 	}
 
 	if ( ! empty( $data['media-ids'] ) ) {
@@ -29,11 +43,7 @@ function wpp_send_message() {
 		$thumb_id = array_shift( $media_ids );
 	}
 
-	if ( ! empty( $data['title'] ) ) {
-		$title = esc_attr( $data['title'] );
-	} else {
-		wp_send_json_error( [ 'msg' => wpp_message_codes( 4 ) ] );
-	}
+	$term = 0;
 
 	if ( ! empty( $data['term'] ) ) {
 		$term = absint( $data['term'] );
@@ -59,6 +69,7 @@ function wpp_send_message() {
 		}
 	}
 
+	$data['msg'] = __( 'Your article has been submited succesfully!', 'wpp' );
 
 	wp_send_json_success( [
 		'post_id' => $post_id,

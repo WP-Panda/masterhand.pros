@@ -39,6 +39,12 @@ function wpp_message_codes( $code = null ) {
 		case 6:
 			$out = __( 'invalid ID', 'wpp' );
 			break;
+		case 7:
+			$out = __( 'Title is empty', 'wpp' );
+			break;
+		case 8:
+			$out = __( 'Message is empty', 'wpp' );
+			break;
 		case 404:
 		default:
 			$out = __( 'unknown error', 'wpp' );

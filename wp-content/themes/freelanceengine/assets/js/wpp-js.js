@@ -598,19 +598,48 @@
 
         $.post(ae_globals.plupload_config.url, $data, function (response) {
 
+            let type_notification = '';
+            let msg = '';
+
             if (response.success) {
+
+                type_notification = 'success';
+                msg = response.data.data.msg;
                 quill.deleteText(0, quill.getLength());
                 //droppp.removeAllFiles();
                 $this.find('input').val('');
                 $this.find('select').prop('selectedIndex', 0);
+            } else {
+                type_notification = 'error';
+                msg = response.data.msg;
             }
 
-            $('.loading').remove()
+            if (msg != 'undefined') {
 
+                let div_html = get_notification(msg, type_notification);
+                let notification = $(div_html);
+
+                if ($('#wpadminbar').length !== 0) {
+                    notification.addClass('having-adminbar');
+                }
+
+                notification.hide().prependTo('body').fadeIn('fast').delay(1000).fadeOut(5000, function () {
+                    $(this).remove();
+                });
+            }
+
+            $('.loading').remove();
         });
 
     });
 
+    function get_notification(msg, type_notification) {
+
+        if (['success', 'error'].indexOf(type_notification) >= 0 && msg.trim() != '') {
+            return '<div class="notification autohide ' + type_notification + '-bg" style=""><div class="main-center">' +
+                msg+'</div></div>';
+        }
+    }
 
     var targetDiv = $('body');
 
