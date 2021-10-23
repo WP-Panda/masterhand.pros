@@ -586,6 +586,12 @@
                     data: {
                         media_id: attachment_id
                     }
+                }).done(function (response) {
+                    console.log(response);
+                    if (response.status && response.status == 'FAILED') {
+                        text = WppJsData.error_on_removing;
+                        AntonNotifications.getNotification(text, 'error');
+                    }
                 });
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;

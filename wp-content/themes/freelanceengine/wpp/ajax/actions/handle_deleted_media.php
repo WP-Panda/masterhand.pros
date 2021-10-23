@@ -15,11 +15,9 @@ function wpp_handle_deleted_media() {
 		$status = wp_delete_attachment( $post_id, true );
 
 		if ( $status ) {
-			echo json_encode( [ 'status' => 'OK' ] );
+			wp_send_json( [ 'status' => 'OK' ] );
 		} else {
-			echo json_encode( [ 'status' => 'FAILED' ] );
+			wp_send_json( [ 'status' => 'FAILED' ] );
 		}
 	}
-
-	die();
 }
