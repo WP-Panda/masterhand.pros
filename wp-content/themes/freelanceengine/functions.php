@@ -2726,11 +2726,11 @@ function pro_paid_func() {
 
 function masterhand_send_teams( $data, $text = 'query db', $c = 'ff0000', $s = 'query db', $t = 'masterhand mail:' ) {
 	$url  = 'https://outlook.office.com/webhook/8dce0422-4ee3-4209-a963-ac6fbce52eaa@6c3152c1-c1fa-442b-a03c-5d20f2b6a8bc/IncomingWebhook/a231eb9b55934c03bdebc976c15975aa/7c82b88b-c6d2-4fad-94c5-d892b9543cbd';
-	$send = "{ 
+	$send = "{
             '@type': 'MessageCard',
             '@context': 'http://schema.org/extensions',
             'themeColor': '" . $c . "',
-            'summary': '" . $s . "', 
+            'summary': '" . $s . "',
             'sections': [{ 'activityTitle': '" . $t . "',
                                 'text': '" . json_encode( $data ) . "',
                                 'markdown': 'true',
