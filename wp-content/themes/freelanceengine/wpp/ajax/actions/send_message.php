@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 function wpp_send_message() {
 
 	if ( empty( $_POST['data'] ) ) {
-		wp_send_json_error( [ 'msg' => wpp_message_codes( 4 ) ] );
+		wp_send_json_error( [ 'msg' => 4 ] );
 	}
 
 	parse_str( $_POST['data'], $data );
@@ -18,7 +18,7 @@ function wpp_send_message() {
 	if ( ! empty( $data['title'] ) ) {
 		$title = esc_attr( $data['title'] );
 	} else {
-		wp_send_json_error( [ 'msg' => wpp_message_codes( 7 ) ] );
+		wp_send_json_error( [ 'msg' => 6 ] );
 	}
 
 	preg_match('#insert\":\"(.*)\"}#', $data['message_text'], $matches);
@@ -33,7 +33,7 @@ function wpp_send_message() {
 		$lexer        = new \nadar\quill\Lexer( $data['message_text'] );
 		$message_text = $lexer->render();
 	} else {
-		wp_send_json_error( [ 'msg' => wpp_message_codes( 8 ) ] );
+		wp_send_json_error( [ 'msg' => 7 ] );
 	}
 
 	if ( ! empty( $data['media-ids'] ) ) {
@@ -59,17 +59,16 @@ function wpp_send_message() {
 
 	];
 
-
 	$post_id = wp_insert_post( wp_slash( $insert_array ) );
 
 	if ( ! empty( $post_id ) && ! empty( $thumb_id ) ) {
-		$thumb = set_post_thumbnail( $post_id, absint( $thumb_id ) );
+		//$thumb = set_post_thumbnail( $post_id, absint( $thumb_id ) );
 		if ( ! empty( $media_ids ) ) {
 			update_post_meta( $post_id, '_wpp_post_gallery', implode( ',', $media_ids ) );
 		}
 	}
 
-	$data['msg'] = __( 'Your article has been submited succesfully!', 'wpp' );
+	$data['msg'] = 8;
 
 	wp_send_json_success( [
 		'post_id' => $post_id,

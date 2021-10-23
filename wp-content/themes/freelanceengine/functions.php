@@ -998,10 +998,17 @@ class ET_FreelanceEngine extends AE_Base {
 		$this->add_script( 'wpp', get_template_directory_uri() . '/assets/js/wpp-js.js', $depts, time(), true );
 
 		wp_localize_script( 'wpp', 'WppJsData', [
-			'upload'     => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
-			'delete'     => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
-			'quill_text' => __( 'Leave a message...', WPP_TEXT_DOMAIN )
-		] );
+				'upload'     => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
+				'delete'     => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
+				'quill_text' => __( 'Leave a message...', WPP_TEXT_DOMAIN ),
+				'file_too_big' => __( 'File size is too big so file can\'t be uploaded', 'wpp' ),
+				'wrong_file' => __( 'File of current type can\'t be uploaded', 'wpp' ),
+				'empty_title' => __( 'Title is empty', 'wpp' ),
+				'empty_message' => __( 'Message is empty', 'wpp' ),
+				'empty_data' => __( 'Send data is empty', 'wpp' ),
+				'success_submit' => __( 'Your article has been submited succesfully!', 'wpp' ),
+			]
+		);
 	}
 
 	function on_add_styles() {
