@@ -998,10 +998,17 @@ class ET_FreelanceEngine extends AE_Base {
 		$this->add_script( 'wpp', get_template_directory_uri() . '/assets/js/wpp-js.js', $depts, time(), true );
 
 		wp_localize_script( 'wpp', 'WppJsData', [
-			'upload'     => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
-			'delete'     => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
-			'quill_text' => __( 'Leave a message...', WPP_TEXT_DOMAIN )
-		] );
+				'upload'     => admin_url( 'admin-ajax.php?action=wpp_handle_dropped_media' ),
+				'delete'     => admin_url( 'admin-ajax.php?action=wpp_handle_deleted_media' ),
+				'quill_text' => __( 'Leave a message...', WPP_TEXT_DOMAIN ),
+				'file_too_big' => __( 'File size is too big so file can\'t be uploaded', 'wpp' ),
+				'wrong_file' => __( 'File of current type can\'t be uploaded', 'wpp' ),
+				'empty_title' => __( 'Title is empty', 'wpp' ),
+				'empty_message' => __( 'Message is empty', 'wpp' ),
+				'empty_data' => __( 'Send data is empty', 'wpp' ),
+				'success_submit' => __( 'Your article has been submited succesfully!', 'wpp' ),
+			]
+		);
 	}
 
 	function on_add_styles() {
@@ -2719,11 +2726,11 @@ function pro_paid_func() {
 
 function masterhand_send_teams( $data, $text = 'query db', $c = 'ff0000', $s = 'query db', $t = 'masterhand mail:' ) {
 	$url  = 'https://outlook.office.com/webhook/8dce0422-4ee3-4209-a963-ac6fbce52eaa@6c3152c1-c1fa-442b-a03c-5d20f2b6a8bc/IncomingWebhook/a231eb9b55934c03bdebc976c15975aa/7c82b88b-c6d2-4fad-94c5-d892b9543cbd';
-	$send = "{ 
+	$send = "{
             '@type': 'MessageCard',
             '@context': 'http://schema.org/extensions',
             'themeColor': '" . $c . "',
-            'summary': '" . $s . "', 
+            'summary': '" . $s . "',
             'sections': [{ 'activityTitle': '" . $t . "',
                                 'text': '" . json_encode( $data ) . "',
                                 'markdown': 'true',

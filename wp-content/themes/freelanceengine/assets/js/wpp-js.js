@@ -527,6 +527,8 @@
          * @type {boolean}
          */
         Dropzone.autoDiscover = false;
+        // in MegaBytes;
+        let allowedMaxFileSize = 1;
 //DROPZONE
         var droppp = new Dropzone("#media-uploader", {
             url: WppJsData.upload,
@@ -537,8 +539,10 @@
             maxFilesize: 10,
             createImageThumbnails: true,
             acceptedFiles: 'image/*',
+            // max file size in Megabytes
+            maxFilesize: allowedMaxFileSize,
             sending: function (file, xhr, formData) {
-                console.log(file)
+                console.log(file);
             },
             success: function (file, response) {
                 if (response.success) {
@@ -550,7 +554,22 @@
                 }
             },
             error: function (file, response) {
+                //console.log(file);
                 file.previewElement.classList.add("dz-error");
+
+                if (file.size > (allowedMaxFileSize * 1024 * 1024)) {
+                    let msg = WppJsData.file_too_big;
+                    let type_notification = 'error';
+                    AntonNotifications.getNotification(msg, type_notification);
+                    return;
+                }
+
+                if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
+                    let msg = WppJsData.wrong_file;
+                    let type_notification = 'error';
+                    AntonNotifications.getNotification(msg, type_notification);
+                    return;
+                }
             },
             // update the following section is for removing image from library
             addRemoveLinks: true,
@@ -599,24 +618,45 @@
         $.post(ae_globals.plupload_config.url, $data, function (response) {
 
             let type_notification = '';
-            let msg = '';
+            let num = 0;
+            let text = '';
 
             if (response.success) {
-
                 type_notification = 'success';
-                msg = response.data.data.msg;
+                num = response.data.data.msg;
                 quill.deleteText(0, quill.getLength());
                 //droppp.removeAllFiles();
                 $this.find('input').val('');
                 $this.find('select').prop('selectedIndex', 0);
             } else {
                 type_notification = 'error';
-                msg = response.data.msg;
+                num = response.data.msg;
             }
 
-            if (msg != 'undefined') {
+            switch (num) {
+                case 4: text = WppJsData.empty_data; break;
+                case 6: text = WppJsData.empty_title; break;
+                case 7: text = WppJsData.empty_message; break;
+                case 8: text = WppJsData.success_submit; break;
+            }
 
-                let div_html = get_notification(msg, type_notification);
+            AntonNotifications.getNotification(text, type_notification);
+
+            $('.loading').remove();
+        });
+
+    });
+
+    AntonNotifications = {
+        prepareNotification: function (msg, type_notification) {
+            return '<div class="notification autohide ' + type_notification + '-bg" style=""><div class="main-center">' +
+                msg+'</div></div>';
+        },
+        getNotification: function (msg, type_notification) {
+            let is_valid = msg != undefined && type_notification != undefined;
+
+            if (is_valid && ['success', 'error'].indexOf(type_notification) >= 0 && msg.trim() != '') {
+                let div_html = this.prepareNotification(msg, type_notification);
                 let notification = $(div_html);
 
                 if ($('#wpadminbar').length !== 0) {
@@ -627,17 +667,6 @@
                     $(this).remove();
                 });
             }
-
-            $('.loading').remove();
-        });
-
-    });
-
-    function get_notification(msg, type_notification) {
-
-        if (['success', 'error'].indexOf(type_notification) >= 0 && msg.trim() != '') {
-            return '<div class="notification autohide ' + type_notification + '-bg" style=""><div class="main-center">' +
-                msg+'</div></div>';
         }
     }
 
