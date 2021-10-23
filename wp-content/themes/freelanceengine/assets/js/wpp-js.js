@@ -542,7 +542,7 @@
             // max file size in Megabytes
             maxFilesize: allowedMaxFileSize,
             sending: function (file, xhr, formData) {
-                console.log(file);
+                //console.log(file);
             },
             success: function (file, response) {
                 if (response.success) {
@@ -550,11 +550,16 @@
                     file['attachment_id'] = response.data.attachment_id; // push the id for future reference
                     var ids = $('#media-ids').val() + ',' + response.data.attachment_id;
                     $('#media-ids').val(ids);
-                    console.log(response.data.attachment_id);
+                    //console.log(response.data.attachment_id);
+                } else {
+                    if (response.status && response.status == 'error') {
+                        text = response.message;
+                        AntonNotifications.getNotification(text, 'error');
+                    }
                 }
             },
             error: function (file, response) {
-                //console.log(file);
+                //console.log(response);
                 file.previewElement.classList.add("dz-error");
 
                 if (file.size > (allowedMaxFileSize * 1024 * 1024)) {
