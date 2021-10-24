@@ -51,4 +51,20 @@ Class Wpp_Module_Base {
 		add_action( "load-{$args}", 'referral_codes_table_page_load' );
 
 	}
+
+	/**
+	 * Add an action hook
+	 *
+	 * @param $hook
+	 * @param $callback
+	 * @param $priority
+	 * @param $accepted_args
+	 */
+	public function add_action( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
+		add_action( $hook, [
+			$this,
+			$callback
+		], $priority, $accepted_args );
+	}
+
 }
