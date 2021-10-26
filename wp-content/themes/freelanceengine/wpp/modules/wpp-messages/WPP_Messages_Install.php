@@ -7,6 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+//(new WPP_Messages_Install)->create_table();
+
 class WPP_Messages_Install extends WPP_Messages {
 
 	protected static $_instance = null;
@@ -55,7 +57,7 @@ class WPP_Messages_Install extends WPP_Messages {
 
 
 		$table_name_1 = $this->db->prefix . self::tbl_msg;
-		$table_name_2 = $this->db->prefix . self::tbl_mails;
+		//$table_name_2 = $this->db->prefix . self::tbl_mails;
 
 		$charset_collate = $this->db->get_charset_collate();
 
@@ -63,12 +65,12 @@ class WPP_Messages_Install extends WPP_Messages {
 
 		$data[] = "CREATE TABLE IF NOT EXISTS {$table_name_1} (
 					`id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, /*id*/
-				    `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',	/*date*/
-					`title` TEXT  NOT NULL DEFAULT '', /* заголовок */
-					`group` TEXT  NOT NULL DEFAULT '', /* группа */
-					`user_id`  bigint(20) UNSIGNED NOT NULL DEFAULT 0, /* id того, кто добавил */
-					`count` bigint(20) UNSIGNED NOT NULL DEFAULT 0,	/* количество использований */
-					`validate`  int(20) UNSIGNED NOT NULL DEFAULT 0, /* валидно или нет */	
+					`user_id`  bigint(20) UNSIGNED NOT NULL DEFAULT 0, /* id юзера */
+					`post_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,	/* id записи */
+				    `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					`title` TEXT  NOT NULL DEFAULT '',
+					`text` TEXT  NOT NULL DEFAULT '', 
+					`group` TEXT  NOT NULL DEFAULT '',
 				PRIMARY KEY  (id)
 							) {$charset_collate};";
 

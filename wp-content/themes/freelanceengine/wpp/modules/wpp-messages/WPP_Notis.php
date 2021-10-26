@@ -14,7 +14,7 @@ class WPP_Notis extends WPP_Messages {
 	function __construct() {
 
 		// catch action insert new bid to notify employer
-		add_action( 'wpp_insert_bid', [ __ClASS__, 'newBid' ], 10, 2 );
+		add_action( 'wpp_insert_bid', [ __ClASS__, 'new_bid' ], 10, 2 );
 		// catch action insert new bid to notify employer
 		//add_action('wpp_insert_project',[ __ClASS__, 'newProject'], 10, 2);
 		// catch action insert new bid to notify employer
@@ -24,7 +24,7 @@ class WPP_Notis extends WPP_Messages {
 		// catch action to ask final bid from PRO-user
 		add_action( 'ask_final_bid', [ __ClASS__, 'askFinalBid' ] );
 		add_action( 'reply_added', [ __ClASS__, 'replyAdded' ] );
-		add_action( 'reply_added_emp', [ __ClASS__, 'replyAddedEmp' ] );
+		//add_action( 'reply_added_emp', [ __ClASS__, 'replyAddedEmp' ] );
 		add_action( 'bid_edit', [ __ClASS__, 'bidEdited' ] );
 		// add action when employer complete project
 		add_action( 'wpp_complete_project', [ __ClASS__, 'completeProject' ], 10, 2 );
@@ -32,9 +32,11 @@ class WPP_Notis extends WPP_Messages {
 		add_action( 'wpp_freelancer_review_employer', [ __ClASS__, 'reviewProjectOwner' ], 10, 2 );
 		// add a notification when have new message
 		add_action( 'wpp_send_message', [ __ClASS__, 'newMessage' ], 10, 3 );
-		add_action( 'wpp_new_invite', [ __ClASS__, 'newInvite' ], 10, 3 );
+		//add_action( 'wpp_new_invite', [ __ClASS__, 'newInvite' ], 10, 3 );  - когда напрямую приглашен в проект
 		add_action( 'wpp_new_referral', [ __ClASS__, 'newReferral' ], 10, 2 );
+
 		add_action( 'wpp_update_user', [ __ClASS__, 'clearNotify' ], 10, 2 );
+
 		add_action( 'wpp_convert_notify', [ __ClASS__, 'convert_notify' ] );
 		add_action( 'wp_footer', [ __ClASS__, 'render_template_js' ] );
 		add_action( 'template_redirect', [ __ClASS__, 'mark_user_read_message' ] );
@@ -49,8 +51,10 @@ class WPP_Notis extends WPP_Messages {
 		add_action( 'wpp_archive_post', [ __ClASS__, 'archive_project' ], 10, 3 );
 		add_action( 'wpp_delete_post', [ __ClASS__, 'delete_project' ], 10, 3 );
 		add_action( 'wpp_after_update_order', [ __ClASS__, 'update_order' ], 10, 3 );
+
 		add_action( 'wpp_report_dispute_project', [ __ClASS__, 'admin_report_dispute_project_freelancer' ], 10, 3 );
 		add_action( 'wpp_report_dispute_project', [ __ClASS__, 'admin_report_dispute_project_employer' ], 10, 3 );
+
 		add_action( 'wpp_resolve_project_notification', [ __ClASS__, 'resolve_project_employer' ], 10, 3 );
 		add_action( 'wpp_resolve_project_notification', [ __ClASS__, 'resolve_project_freelancer' ], 10, 3 );
 
@@ -81,6 +85,53 @@ class WPP_Notis extends WPP_Messages {
 		}
 
 		return $notify;
+	}
+
+
+	/**
+	 * При оценке скилов
+	 */
+	function skills_endorsed(){
+	    /**
+         * @todo Запустить счетчик при первой оценке затем по окончанию счетчика проверить измения в ксилах и отправить уведомление без легенды
+         */
+	}
+
+
+
+	/**
+	 * Новое предложение
+	 *
+	 * @param $bid
+	 * @param $args
+	 */
+	function new_bid( $bid, $args ) {
+
+		$data = [
+			'post_id' => (int)$args['post_parent'],
+            'text' => 'type=new_bid&project=' . $args['post_parent'] . '&bid=' . $bid,
+            'user_id' =>
+		];
+
+
+
+		$project = get_post( $args['post_parent'] );
+
+
+		// insert notification
+		$notification = [
+			'post_type'    => $this->post_type,
+			'post_content' => $content,
+			'post_excerpt' => $content,
+			'post_author'  => $project->post_author,
+			'post_title'   => sprintf( __( "New bid on %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
+			'post_status'  => 'publish',
+			'post_parent'  => $project->ID
+		];
+		$notify_id    = $this->insert( $notification );
+		update_post_meta( $bid, 'notify_id', $notify_id );
+
+		return;
 	}
 
 
@@ -187,7 +238,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Уборка проекта в архив
+	 * Уборка проекта в архив
+	 *
 	 * @param $args
 	 *
 	 * @return int|void|WP_Error
@@ -214,7 +266,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Удаление Проекта
+	 * Удаление Проекта
+	 *
 	 * @param $args
 	 *
 	 * @return int|void|WP_Error
@@ -242,7 +295,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Отмена Пректа
+	 * Отмена Пректа
+	 *
 	 * @param $args
 	 *
 	 * @return int|void|WP_Error
@@ -269,7 +323,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Блокировка файла
+	 * Блокировка файла
+	 *
 	 * @param $project_id
 	 *
 	 * @return int|void|WP_Error
@@ -298,7 +353,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Разблокировка файлв
+	 * Разблокировка файлв
+	 *
 	 * @param $project_id
 	 *
 	 * @return int|void|WP_Error
@@ -327,7 +383,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Публикация проекта
+	 * Публикация проекта
+	 *
 	 * @param $args
 	 *
 	 * @return int|void|WP_Error
@@ -354,7 +411,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Закрытие проекта
+	 * Закрытие проекта
+	 *
 	 * @param $project_id
 	 *
 	 * @return int|WP_Error
@@ -377,7 +435,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Отказаться от пректа
+	 * Отказаться от пректа
+	 *
 	 * @param $project_id
 	 *
 	 * @return int|WP_Error
@@ -400,34 +459,10 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	/**
-     * Новое предложение
-	 * @param $bid
-	 * @param $args
-	 */
-	function newBid( $bid, $args ) {
-		$project = get_post( $args['post_parent'] );
-
-		$content = 'type=new_bid&project=' . $args['post_parent'] . '&bid=' . $bid;
-
-		// insert notification
-		$notification = [
-			'post_type'    => $this->post_type,
-			'post_content' => $content,
-			'post_excerpt' => $content,
-			'post_author'  => $project->post_author,
-			'post_title'   => sprintf( __( "New bid on %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
-			'post_status'  => 'publish',
-			'post_parent'  => $project->ID
-		];
-		$notify_id    = $this->insert( $notification );
-		update_post_meta( $bid, 'notify_id', $notify_id );
-
-		return;
-	}
 
 	/**
-     * Новый проект
+	 * Новый проект
+	 *
 	 * @param $project
 	 * @param $args
 	 *
@@ -453,7 +488,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Обновление Пректа
+	 * Обновление Пректа
+	 *
 	 * @param $project
 	 * @param $args
 	 *
@@ -481,7 +517,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * ПРием Бида
+	 * ПРием Бида
+	 *
 	 * @param $bid_id
 	 *
 	 * @return int|void|WP_Error
@@ -515,7 +552,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Запрс финального
+	 * Запрс финального
+	 *
 	 * @param $bid_id
 	 *
 	 * @return int|void|WP_Error
@@ -549,7 +587,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Ответ
+	 * Ответ
+	 *
 	 * @param $data
 	 *
 	 * @return int|WP_Error
@@ -595,7 +634,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Редактирвание бида
+	 * Редактирвание бида
+	 *
 	 * @param $data
 	 *
 	 * @return int|WP_Error
@@ -622,7 +662,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Выполненый проект
+	 * Выполненый проект
+	 *
 	 * @param $project_id
 	 * @param $args
 	 *
@@ -673,8 +714,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Новое Сообщение
-     *
+	 * Новое Сообщение
+	 *
 	 * @param $message
 	 * @param $project
 	 * @param $bid
@@ -740,7 +781,8 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 	/**
-     * Новый рнферал
+	 * Новый рнферал
+	 *
 	 * @param $invited
 	 * @param $send_invite
 	 *

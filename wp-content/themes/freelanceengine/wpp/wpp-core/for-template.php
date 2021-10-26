@@ -125,3 +125,22 @@ function wpp_action_template() {
 
 	do_action( 'wpp_' . $template );
 }
+
+
+/**
+ * Подключение
+ */
+
+function wpp_require( $array, $path ) {
+	if ( ! empty( $array ) ) :
+		foreach ( $array as $one ) :
+			$_file = $path . DIRECTORY_SEPARATOR . $one . '.php';
+
+			if ( file_exists( $_file ) ) :
+				require_once $_file;
+			endif;
+
+		endforeach;
+	endif;
+
+}
