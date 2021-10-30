@@ -22,7 +22,7 @@ foreach ($default_options as $k => $v) {
 		<th><?php _e('Files backup schedule', 'updraftplus'); ?>:</th>
 		<td class="js-file-backup-schedule">
 			<div>
-				<select title="<?php _e('Files backup interval', 'updraftplus'); ?>" class="updraft_interval" name="updraft_interval">
+				<select title="<?php echo __('Files backup interval', 'updraftplus'); ?>" class="updraft_interval" name="updraft_interval">
 				<?php
 				$intervals = $updraftplus_admin->get_intervals('files');
 				$selected_interval = UpdraftPlus_Options::get_updraft_option('updraft_interval', 'manual');
@@ -59,7 +59,7 @@ foreach ($default_options as $k => $v) {
 		</th>
 		<td class="js-database-backup-schedule">
 		<div>
-			<select class="updraft_interval_database" title="<?php _e('Database backup interval', 'updraftplus'); ?>" name="updraft_interval_database">
+			<select class="updraft_interval_database" title="<?php echo __('Database backup interval', 'updraftplus'); ?>" name="updraft_interval_database">
 			<?php
 			$intervals = $updraftplus_admin->get_intervals('db');
 			$selected_interval_db = UpdraftPlus_Options::get_updraft_option('updraft_interval_database', UpdraftPlus_Options::get_updraft_option('updraft_interval'));

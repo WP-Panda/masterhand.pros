@@ -45,6 +45,7 @@ $array = [
 	'modules/extention/init',
 	'modules/companies/init',
 	'modules/wpp-rating/init',
+	'modules/wpp-messages/init',
 	'error-api',
 	'helpers',
 	'ajax/init',

@@ -4,7 +4,7 @@ Tags: translation, translators, localization, localisation, l10n, i18n, Gettext,
 Requires at least: 4.1
 Requires PHP: 5.2.4
 Tested up to: 5.8.1
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,8 +100,12 @@ We don't collect your data or snoop on you. See the [plugin privacy notice](http
 
 == Changelog ==
 
+= 2.5.5 =
+* Fixed double file extension vulnerability reported by WordFence
+* Better performance when scanning directories for file types
+
 = 2.5.4 =
-* Enforcing safe file extensions for new templates
+* Fixed vulnerability reported by Tomi Ashari via wpscan
 * Added filters loco_po_headers and loco_pot_headers
 * Bumped WordPress version to 5.8.1
 
@@ -226,7 +230,7 @@ We don't collect your data or snoop on you. See the [plugin privacy notice](http
 * Bumped WP compatibility to 5.2.1
 
 = 2.2.2 =
-* Security fixes for reading sensitive files
+* Security fixes as per [exploit-db 46619](https://www.exploit-db.com/exploits/46619) 
 * Fixed old PHP version error in data files
 * Bumped WP compatibility to 5.1.1
 
@@ -427,7 +431,7 @@ We don't collect your data or snoop on you. See the [plugin privacy notice](http
 
 == Upgrade Notice ==
 
-= 2.5.4 =
+= 2.5.5 =
 * Various improvements and bug fixes
 
 

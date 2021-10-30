@@ -52,7 +52,7 @@ if (!empty($options['include_header'])) echo '<h2>'.__('Existing backups', 'updr
 				<?php
 				}
 			?>
-			<a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_rescan_local" title="<?php _e('Press here to look inside your UpdraftPlus directory (in your web hosting space) for any new backup sets that you have uploaded.', 'updraftplus').' '.__('The location of this directory is set in the expert settings, in the Settings tab.', 'updraftplus'); ?>"><?php _e('Rescan local folder for new backup sets', 'updraftplus');?></a>
+			<a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_rescan_local" title="<?php echo __('Press here to look inside your UpdraftPlus directory (in your web hosting space) for any new backup sets that you have uploaded.', 'updraftplus').' '.__('The location of this directory is set in the expert settings, in the Settings tab.', 'updraftplus'); ?>"><?php _e('Rescan local folder for new backup sets', 'updraftplus');?></a>
 			| <a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_rescan_remote" title="<?php _e('Press here to look inside your remote storage methods for any existing backup sets (from any site, if they are stored in the same folder).', 'updraftplus'); ?>"><?php _e('Rescan remote storage', 'updraftplus');?></a>
 		</li>
 		<?php if (!empty($options['include_opera_warning'])) { ?>

@@ -98,13 +98,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_activated', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_activated',
-							'info' => $info
+							'error_message' => __('There appears to be a problem activating or switching to the intended theme. Please kindly check your permission and try again.', 'updraftplus'),
+							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
 				} else {
 					$result = $this->_generic_error_response('theme_not_installed', array(
 						'theme' => $query['theme'],
 						'error_code' => 'theme_not_installed',
+						'error_message' => __('The theme you wish to activate is either not installed or has been removed recently.', 'updraftplus'),
 						'info' => $info
 					));
 				}
@@ -130,13 +132,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_enabled', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_enabled',
-							'info' => $info
+							'error_message' => __('There appears to be a problem enabling the intended theme on your network. Please kindly check your permission and try again.', 'updraftplus'),
+							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
 				} else {
 					$result = $this->_generic_error_response('theme_not_installed', array(
 						'theme' => $query['theme'],
 						'error_code' => 'theme_not_installed',
+						'error_message' => __('The theme you wish to enable on your network is either not installed or has been removed recently.', 'updraftplus'),
 						'info' => $info
 					));
 				}
@@ -164,13 +168,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_disabled', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_disabled',
-							'info' => $info
+							'error_message' => __('There appears to be a problem disabling the intended theme from your network. Please kindly check your permission and try again.', 'updraftplus'),
+							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
 				} else {
 					$result = $this->_generic_error_response('theme_not_installed', array(
 						'theme' => $query['theme'],
 						'error_code' => 'theme_not_installed',
+						'error_message' => __('The theme you wish to disable from your network is either not installed or has been removed recently.', 'updraftplus'),
 						'info' => $info
 					));
 				}
@@ -253,7 +259,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 							'theme' => $query['theme'],
 							'error_code' => $error_code,
 							'error_message' => $error_message,
-							'info' => $info
+							'info' => $this->_get_theme_info($query['theme'])
 						));
 					} else {
 						$result = array('installed' => true, 'info' => $this->_get_theme_info($query['theme']));

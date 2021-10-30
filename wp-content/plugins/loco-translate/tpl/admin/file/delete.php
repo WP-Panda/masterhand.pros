@@ -13,7 +13,7 @@ $this->extend('../layout');
             </h3>
             <p>
                 <?php
-                _e('Are you sure you want to <strong>permanently</strong> delete the following file?','loco-translate')?>
+                echo __('Are you sure you want to <strong>permanently</strong> delete the following file?','loco-translate')?> 
             </p>
             <p>
                 <code><?php $info->e('relpath')?></code>

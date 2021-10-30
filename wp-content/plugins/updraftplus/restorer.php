@@ -3,6 +3,7 @@
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
 if (!class_exists('Updraft_Restorer_Skin')) require_once(UPDRAFTPLUS_DIR.'/includes/updraft-restorer-skin.php');
+if (!class_exists('UpdraftPlus_Search_Replace')) require_once(UPDRAFTPLUS_DIR.'/includes/class-search-replace.php');
 
 class Updraft_Restorer {
 
@@ -81,6 +82,8 @@ class Updraft_Restorer {
 	private $stored_routine_supported = null;
 	
 	private $tables_to_skip = array();
+
+	public $search_replace_obj = null;
 	
 	// Constants for use with the move_backup_in method
 	// These can't be arbitrarily changed; there is legacy code doing bitwise operations and numerical comparisons, and possibly legacy code still using the values directly.
@@ -121,6 +124,8 @@ class Updraft_Restorer {
 		$this->continuation_data = $continuation_data;
 
 		$this->setup_database_objects();
+
+		$this->search_replace_obj = new UpdraftPlus_Search_Replace();
 		
 		if ($short_init) return;
 		

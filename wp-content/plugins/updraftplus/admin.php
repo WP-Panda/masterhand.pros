@@ -2134,8 +2134,8 @@ class UpdraftPlus_Admin {
 	/**
 	 * Get the history status HTML and other information
 	 *
-	 * @param Boolean $rescan       - whether to rescan local storage first
-	 * @param Boolean $remotescan   - whether to rescan remote storage first
+	 * @param Boolean $rescan       - whether to rescan local storage
+	 * @param Boolean $remotescan   - whether to also rescan remote storage
 	 * @param Boolean $debug        - whether to return debugging information also
 	 * @param Integer $backup_count - a count of the total backups we want to display on the front end for use by UpdraftPlus_Backup_History::existing_backup_table()
 	 *

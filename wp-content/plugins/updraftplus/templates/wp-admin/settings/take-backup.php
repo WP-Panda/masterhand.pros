@@ -21,7 +21,7 @@
 		<div class="schedule">
 			<div class="updraft_next_scheduled_entity">
 				<div class="updraft_next_scheduled_heading">
-					<strong><?php _e('Files', 'updraftplus').':';?></strong>
+					<strong><?php echo __('Files', 'updraftplus').':';?></strong>
 				</div>
 				<div id="updraft-next-files-backup-inner">
 					<?php
@@ -31,7 +31,7 @@
 			</div>
 			<div class="updraft_next_scheduled_entity">
 				<div class="updraft_next_scheduled_heading">
-					<strong><?php _e('Database', 'updraftplus').':';?></strong>
+					<strong><?php echo __('Database', 'updraftplus').':';?></strong>
 				</div>
 				<div id="updraft-next-database-backup-inner">
 					<?php
@@ -44,7 +44,7 @@
 				// wp_date() is WP 5.3+, but performs translation into the site locale
 				$current_time = function_exists('wp_date') ? wp_date('D, F j, Y H:i') : get_date_from_gmt(gmdate('Y-m-d H:i:s'), 'D, F j, Y H:i');
 				?>
-				<span class="updraft_time_now_label"><?php _e('Time now', 'updraftplus').': ';?></span>
+				<span class="updraft_time_now_label"><?php echo __('Time now', 'updraftplus').': ';?></span>
 				<span class="updraft_time_now"><?php echo $current_time;?></span>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 		<table>
 			<tr>
 				<td>
-					<p class="multisite-advert-width"><?php _e('Do you need WordPress Multisite support?', 'updraftplus').' <a href="'.$updraftplus->get_url('premium').'" target="_blank">'. __('Please check out UpdraftPlus Premium.', 'updraftplus');?></a>.</p>
+					<p class="multisite-advert-width"><?php echo __('Do you need WordPress Multisite support?', 'updraftplus').' <a href="'.$updraftplus->get_url('premium').'" target="_blank">'. __('Please check out UpdraftPlus Premium.', 'updraftplus');?></a>.</p>
 				</td>
 			</tr>
 		</table>
