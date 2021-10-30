@@ -113,10 +113,7 @@ class WPP_Notis extends WPP_Messages {
             'user_id' =>
 		];
 
-
-
 		$project = get_post( $args['post_parent'] );
-
 
 		// insert notification
 		$notification = [
@@ -133,7 +130,6 @@ class WPP_Notis extends WPP_Messages {
 
 		return;
 	}
-
 
 	function resolve_project_freelancer( $project_id ) {
 		global $user_ID;
@@ -154,7 +150,6 @@ class WPP_Notis extends WPP_Messages {
 
 		return $this->insert( $notification );
 	}
-
 
 	function admin_report_dispute_project_freelancer( $project_id, $report ) {
 		global $user_ID;
@@ -458,7 +453,6 @@ class WPP_Notis extends WPP_Messages {
 
 		return $this->insert( $notification );
 	}
-
 
 	/**
 	 * Новый проект
