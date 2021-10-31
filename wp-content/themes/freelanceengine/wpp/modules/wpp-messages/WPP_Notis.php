@@ -6,15 +6,18 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
+new WPP_Notis();
 
 class WPP_Notis extends WPP_Messages {
 	public static $instance;
 
 	function __construct() {
 
+		parent::__construct();
+
+
 		// catch action insert new bid to notify employer
-		add_action( 'wpp_insert_bid', [ __ClASS__, 'new_bid' ], 10, 2 );
+		add_action( 'ae_insert_bid', [ __ClASS__, 'new_bid' ], 10, 2 );
 		// catch action insert new bid to notify employer
 		//add_action('wpp_insert_project',[ __ClASS__, 'newProject'], 10, 2);
 		// catch action insert new bid to notify employer
@@ -37,7 +40,8 @@ class WPP_Notis extends WPP_Messages {
 
 		add_action( 'wpp_update_user', [ __ClASS__, 'clearNotify' ], 10, 2 );
 
-		add_action( 'wpp_convert_notify', [ __ClASS__, 'convert_notify' ] );
+		add_action( 'ae_convert_notify', [ __ClASS__, 'convert_notify' ] );
+
 		add_action( 'wp_footer', [ __ClASS__, 'render_template_js' ] );
 		add_action( 'template_redirect', [ __ClASS__, 'mark_user_read_message' ] );
 		add_action( 'transition_comment_status', [ __ClASS__, 'wpp_approve_comment_callback' ], 10, 3 );
@@ -58,8 +62,8 @@ class WPP_Notis extends WPP_Messages {
 		add_action( 'wpp_resolve_project_notification', [ __ClASS__, 'resolve_project_employer' ], 10, 3 );
 		add_action( 'wpp_resolve_project_notification', [ __ClASS__, 'resolve_project_freelancer' ], 10, 3 );
 
-		add_ajax( 'ae-notify-sync', [ __ClASS__, 'notify_sync' ] );
-		add_ajax( 'ae-fetch-notify', [ __ClASS__, 'fetch_post' ] );
+		//add_ajax( 'ae-notify-sync', [ __ClASS__, 'notify_sync' ] );
+		//add_ajax( 'ae-fetch-notify', [ __ClASS__, 'fetch_post' ] );
 	}
 
 
@@ -76,27 +80,14 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	function insert( $notification ) {
-		$notify = wp_insert_post( $notification );
-		if ( $notify ) {
-			$number = (int) get_user_meta( $notification['post_author'], 'wpp_new_notify', true );
-			$number = $number + 1;
-			update_user_meta( $notification['post_author'], 'wpp_new_notify', $number );
-		}
-
-		return $notify;
-	}
-
-
 	/**
 	 * При оценке скилов
 	 */
-	function skills_endorsed(){
-	    /**
-         * @todo Запустить счетчик при первой оценке затем по окончанию счетчика проверить измения в ксилах и отправить уведомление без легенды
-         */
+	function skills_endorsed() {
+		/**
+		 * @todo Запустить счетчик при первой оценке затем по окончанию счетчика проверить измения в ксилах и отправить уведомление без легенды
+		 */
 	}
-
 
 
 	/**
@@ -105,27 +96,21 @@ class WPP_Notis extends WPP_Messages {
 	 * @param $bid
 	 * @param $args
 	 */
-	function new_bid( $bid, $args ) {
+	static function new_bid( $bid, $args ) {
 
-		$data = [
-			'post_id' => (int)$args['post_parent'],
-            'text' => 'type=new_bid&project=' . $args['post_parent'] . '&bid=' . $bid,
-            'user_id' =>
-		];
 
 		$project = get_post( $args['post_parent'] );
 
-		// insert notification
-		$notification = [
-			'post_type'    => $this->post_type,
-			'post_content' => $content,
-			'post_excerpt' => $content,
-			'post_author'  => $project->post_author,
-			'post_title'   => sprintf( __( "New bid on %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
-			'post_status'  => 'publish',
-			'post_parent'  => $project->ID
+		$data = [
+			'user_id' => $project->post_author,
+			'post_id' => (int) $args['post_parent'],
+			'text'    => 'type=new_bid&project=' . $args['post_parent'] . '&bid=' . $bid,
+			'date'    => current_time( 'mysql' ),
+			'title'   => sprintf( __( "New bid on %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
+			'group'   => '1' //
 		];
-		$notify_id    = $this->insert( $notification );
+
+		$notify_id = self::insert( $data );
 		update_post_meta( $bid, 'notify_id', $notify_id );
 
 		return;
@@ -201,7 +186,7 @@ class WPP_Notis extends WPP_Messages {
 		global $user_ID;
 		$order = get_post( $order_id );
 		// check status
-		if ( ! in_array( $order->post_status, [ 'publish', [ __ClASS__, 'draft' ] ) ) {
+		if ( ! in_array( $order->post_status, [ 'publish', [ __ClASS__, 'draft' ] ]) ) {
 			return;
 		}
 
@@ -818,16 +803,16 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	function convert_notify( $notify ) {
-		$notify->content = $this->wpp_notify_item( $notify );
+	public static function convert_notify( $notify ) {
+		$notify->content = self::wpp_notify_item( $notify );
 
 		return $notify;
 	}
 
 
-	function wpp_notify_item( $notify ) {
+	public static function wpp_notify_item( $notify ) {
 		// parse post excerpt to get data
-		$post_excerpt = str_replace( '&amp;', [ __ClASS__, '&', $notify->post_excerpt );
+		$post_excerpt = str_replace( '&amp;', '&', $notify->post_excerpt );
 
 		if ( ! empty( $post_excerpt ) ) {
 			parse_str( $post_excerpt, $data );
@@ -1179,7 +1164,7 @@ class WPP_Notis extends WPP_Messages {
 				$workspace_link = add_query_arg( [ 'workspace' => 1 ], get_permalink( $project ) );
 				$message        = sprintf( __( '<strong class="notify-name">%s</strong> unlocked the file section in the project %s. Click here for details', ET_DOMAIN ), '<strong class="notify-name">' . get_the_author_meta( 'display_name', $sender ) . '</strong>', [
 					__ClASS__,
-					'<a href="' . $workspace_link . '">' . get_the_title( $project ) . '</a>' );
+					'<a href="' . $workspace_link . '">' . get_the_title( $project ) . '</a>' ]);
 				$content        .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $sender, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
@@ -1219,7 +1204,7 @@ class WPP_Notis extends WPP_Messages {
 	 * @since  snippet.
 	 * @author Dakachi
 	 */
-	function mark_user_read_message() {
+	public static function mark_user_read_message() {
 		if ( isset( $_REQUEST['workspace'] ) && $_REQUEST['workspace'] ) {
 			if ( is_singular( PROJECT ) ) {
 				global $post, $user_ID;
@@ -1268,7 +1253,7 @@ class WPP_Notis extends WPP_Messages {
 	 */
 	function wpp_approve_comment_callback( $new_status, $old_status, $comment ) {
 		$post_status = get_post_field( 'post_status', $comment->comment_post_ID );
-		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ] ) ) {
+		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ]] ) ) {
 			return;
 		}
 		if ( $new_status != $old_status ) {
@@ -1304,7 +1289,7 @@ class WPP_Notis extends WPP_Messages {
 	function wpp_auto_approve_comment_callback( $comment_id, $comment ) {
 		$post_author = get_post_field( 'post_author', $comment->comment_post_ID );
 		$post_status = get_post_field( 'post_status', $comment->comment_post_ID );
-		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ] ) ) {
+		if ( ! in_array( $post_status, [ 'pending', __ClASS__, 'publish' ] ) ) {
 			return;
 		}
 		if ( ( ! get_option( 'comment_moderation' ) && $post_author != $comment->user_id ) || ( get_option( 'comment_moderation' ) && current_user_can( 'administrator' ) ) ) {
@@ -1327,7 +1312,6 @@ class WPP_Notis extends WPP_Messages {
 
 }
 
-new wpp_Notification();
 
 /**
  * get user notification by
@@ -1365,7 +1349,7 @@ function wpp_user_notification( $user_id = 0, $page = 1, $showposts = 10, $class
 			$notify       = $notify_object->convert( $post );
 			$postdata[]   = $notify;
 			$type         = '';
-			$post_excerpt = str_replace( '&amp;', [ __ClASS__, '&', $notify->post_excerpt );
+			$post_excerpt = str_replace( '&amp;', [ __ClASS__, '&', $notify->post_excerpt] );
 			parse_str( $post_excerpt, $data );
 
 			extract( $data );
@@ -1444,7 +1428,7 @@ function wpp_user_seen_notify() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-user-seen-notify', [ __ClASS__, 'wpp_user_seen_notify' );
+add_action( 'wp_ajax_fre-user-seen-notify', [ __ClASS__, 'wpp_user_seen_notify'] );
 /**
  * function remove notify
  *
@@ -1463,11 +1447,6 @@ function wpp_notify_remove() {
 				'success' => true
 			];
 		}
-		<<<<
-		<<< HEAD
-
-=======
->>>>>>> origin/main
 	} else if ( $request['type'] == 'undo' ) {
 		// undo notify
 		$post   = wp_publish_post( $request['ID'] );
@@ -1478,9 +1457,9 @@ function wpp_notify_remove() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-notify-remove',[ __ClASS__, 'wpp_notify_remove' );
+add_action( 'wp_ajax_fre-notify-remove',[ __ClASS__, 'wpp_notify_remove'] );
 
-function notify_clear_all() {
+function wnotify_clear_all() {
 	global $wpdb;
 	$request = $_REQUEST;
 	$res     = false;
@@ -1499,4 +1478,4 @@ function notify_clear_all() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_notify-clear_all',[ __ClASS__, 'notify_clear_all' );
+add_action( 'wp_ajax_notify-clear_all',[ __ClASS__, 'wnotify_clear_all']);

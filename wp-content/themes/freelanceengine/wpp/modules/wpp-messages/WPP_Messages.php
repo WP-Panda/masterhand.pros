@@ -34,22 +34,21 @@ class WPP_Messages {
 	 */
 	public $user = '';
 
+	public $db = '';
+
 
 	/**
 	 * WPP_Skills constructor.
 	 */
 	public function __construct() {
-		global $wpdb;
-
-		$this->db     = $wpdb;
-		$this->prefix = $this->db->prefix;
-
-		$this->tbl_msg   = $this->prefix . self::tbl_msg;
-		$this->tbl_mails = $this->prefix . self::tbl_mails;
-
 		$this->user = get_current_user_id();
+	}
 
 
+	protected static function insert( $data ) {
+		global $wpdb;
+		$wpdb->insert( $wpdb->prefix . self::tbl_msg, $data );
+		return $wpdb->insert_id;
 	}
 
 

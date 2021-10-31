@@ -82,7 +82,7 @@ class Fre_Notification extends AE_PostAction {
 		$this->notify = new AE_Posts( 'notify' );
 
 		// catch action insert new bid to notify employer
-		$this->add_action( 'ae_insert_bid', 'newBid', 10, 2 );
+		//$this->add_action( 'ae_insert_bid', 'newBid', 10, 2 );
 		// catch action insert new bid to notify employer
 		//$this->add_action('ae_insert_project', 'newProject', 10, 2);
 		// catch action insert new bid to notify employer
