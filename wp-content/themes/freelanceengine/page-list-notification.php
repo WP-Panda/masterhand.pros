@@ -25,7 +25,7 @@ get_header();
         <div class="fre-page-section">
             <div class="container">
                 <div class="page-notification-wrap" id="fre_notification_container">
-					<?php fre_user_notification( $user_ID, 1, '', 'fre-notification-list' ); ?>
+					<?php wpp_user_notification( $user_ID, 1, '', 'fre-notification-list' ); ?>
                 </div>
             </div>
         </div>

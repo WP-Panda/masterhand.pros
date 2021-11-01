@@ -19,7 +19,7 @@ extract($args);
 			}
 		} ?>
     </a>
-	<?php fre_user_notification( $user_ID, 1, 5 ); ?>
+	<?php wpp_user_notification( $user_ID, 1, 5 ); ?>
     <div class="fre-account dropdown">
         <div class="fre-account-info dropdown-toggle" data-toggle="dropdown">
                                 <span class="hamburger-menu">

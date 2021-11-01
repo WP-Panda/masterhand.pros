@@ -13,7 +13,8 @@ defined( 'ABSPATH' ) || exit;
 $array = [
 	'WPP_Messages',
 	'WPP_Messages_Install',
-	'WPP_Notis'
+	'WPP_Notis',
+	'helpers'
 ];
 
 wpp_require( $array, __DIR__ );

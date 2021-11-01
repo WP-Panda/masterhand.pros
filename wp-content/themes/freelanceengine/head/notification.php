@@ -11,7 +11,7 @@ if ( is_user_logged_in() ) {
                     <h4 class="notification-header">
 						<?php _e( "Your Notification", ET_DOMAIN ); ?>
                     </h4>
-					<?php fre_user_notification( $user_ID ); ?>
+					<?php wpp_user_notification( $user_ID ); ?>
                 </div>
             </div>
         </div>

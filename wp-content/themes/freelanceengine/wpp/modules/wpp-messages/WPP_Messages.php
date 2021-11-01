@@ -45,10 +45,33 @@ class WPP_Messages {
 	}
 
 
+	/**
+	 * Отдача
+	 * @param $data
+	 *
+	 * @return int
+	 */
 	protected static function insert( $data ) {
 		global $wpdb;
 		$wpdb->insert( $wpdb->prefix . self::tbl_msg, $data );
+
 		return $wpdb->insert_id;
+	}
+
+	/**
+	 * Получение
+	 * @param $user_id
+	 * @param int $showposts
+	 * @param int $paged
+	 *
+	 * @return mixed
+	 */
+	public static function get( $user_id, $showposts = 10, $paged = 1 ) {
+
+		global $wpdb;
+		$result = $wpdb->get_results( sprintf( "SELECT * FROM %s WHERE `user_id` = '%s' LIMIT 0, 10", $wpdb->prefix . self::tbl_msg, $user_id ) );
+		return $result;
+
 	}
 
 

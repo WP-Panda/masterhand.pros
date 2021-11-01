@@ -186,7 +186,7 @@ class WPP_Notis extends WPP_Messages {
 		global $user_ID;
 		$order = get_post( $order_id );
 		// check status
-		if ( ! in_array( $order->post_status, [ 'publish', [ __ClASS__, 'draft' ] ]) ) {
+		if ( ! in_array( $order->post_status, [ 'publish', [ __ClASS__, 'draft' ] ] ) ) {
 			return;
 		}
 
@@ -812,10 +812,11 @@ class WPP_Notis extends WPP_Messages {
 
 	public static function wpp_notify_item( $notify ) {
 		// parse post excerpt to get data
-		$post_excerpt = str_replace( '&amp;', '&', $notify->post_excerpt );
+		$excerpt      = str_replace( '&amp;', '&', $notify->text );
+		$project_link = $content = '';
 
-		if ( ! empty( $post_excerpt ) ) {
-			parse_str( $post_excerpt, $data );
+		if ( ! empty( $excerpt ) ) {
+			parse_str( $excerpt, $data );
 			extract( $data );
 		}
 
@@ -833,36 +834,49 @@ class WPP_Notis extends WPP_Messages {
 			'cancel_withdraw',
 			'new_referral'
 		] ) ) {
-			if ( ! isset( $project ) || ! $project ) {
-				return;
+
+			if ( empty( $project ) ) {
+				__return_false();
 			}
 			$project_post = get_post( $project );
 
-			if ( ! isset( $project ) || ! $project ) {
-				return;
-			}
 			// check project exists or deleted
-			if ( ! $project_post || is_wp_error( $project_post ) ) {
-				return;
+			if ( empty( $project_post ) || is_wp_error( $project_post ) ) {
+				__return_false();
 			}
 
-			$project_link = '';
-			if ( isset( $project ) ) {
-				$project_link = '<a class="project-link" href="' . get_permalink( $project ) . '" >' . get_the_title( $project ) . '</a>';
-			}
-			$postdata[] = $notify;
+			$project_link = '<a class="project-link" href="' . get_permalink( $project ) . '" >' . get_the_title( $project ) . '</a>';
+
 		}
-		$content = '';
+
 		$content = apply_filters( 'wpp_notify_item', $content, $notify );
+
+
+		$template_without_avatar = <<<TEMPLATE
+            <div class="fre-notify-wrap">
+                <span class="notify-info">%s</span>
+                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">%s</div>
+                <div class="col-sm-6 col-xs-6 notify-time text-right">%s</div></div>
+            </div>
+TEMPLATE;
+
+
 		switch ( $type ) {
+			// notify employer when his project have new bid
+			case 'new_bid':
+				$bid_author = get_post_field( 'post_author', $bid );
+				$message    = sprintf( '<strong class="notify-name">%s</strong> %s %s', get_the_author_meta( 'display_name', $bid_author ), __( 'bid on your project', ET_DOMAIN ), $project_link );
+				$content    .= sprintf( $template_without_avatar, $message, get_the_date( '', $bid ), get_the_time( '', $bid ) );
+				break;
+
 			case 'resolve_project':
 				// text : [Admin] Resolved the disputed project [dispute_project_name]
 				$message = sprintf( __( '<strong class="notify-name">%s</strong> resolved the disputed project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $admin ), '<a href="' . get_permalink( $project ) . '?dispute=1">' . get_the_title( $project ) . '</a>' );
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'report_dispute_project':
@@ -875,8 +889,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'approve_order':
@@ -893,8 +907,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'cancel_order':
@@ -910,8 +924,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'reject_project':
@@ -920,8 +934,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'archive_project':
@@ -930,8 +944,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'delete_project':
@@ -940,8 +954,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'publish_project':
@@ -950,8 +964,8 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $admin, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'close_project':
@@ -961,8 +975,8 @@ class WPP_Notis extends WPP_Messages {
 				$content       .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $project_owner, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'quit_project':
@@ -974,8 +988,8 @@ class WPP_Notis extends WPP_Messages {
 				$content       .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $bid_author, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'delete_bid':
@@ -984,23 +998,10 @@ class WPP_Notis extends WPP_Messages {
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $freelancer, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
-			// notify employer when his project have new bid
-			case 'new_bid':
-				// Text: <freelancer> bidded on your project <project_title>
-				// get bid author
-				$bid_author = get_post_field( 'post_author', $bid );
-				$message    = sprintf( __( '<strong class="notify-name">%s</strong> bid on your project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $bid_author ), '<a href="' . get_permalink( $project ) . '">' . get_the_title( $project ) . '</a>' );
-				$content    .= '<div class="fre-notify-wrap">
-                                <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
-                            </div>';
-				break;
-
 			// notify freelancer when he get reply oh his review
 			case 'reply_added':
 				// Text: Client replied to your review for project <project_title>
@@ -1010,8 +1011,8 @@ class WPP_Notis extends WPP_Messages {
 
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			// notify employer when he get reply oh his review
@@ -1024,8 +1025,8 @@ class WPP_Notis extends WPP_Messages {
 
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1036,8 +1037,8 @@ class WPP_Notis extends WPP_Messages {
 
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1048,8 +1049,8 @@ class WPP_Notis extends WPP_Messages {
 				$content       .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $project_owner, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1060,8 +1061,8 @@ class WPP_Notis extends WPP_Messages {
 				$content       .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $project_owner, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1072,8 +1073,8 @@ class WPP_Notis extends WPP_Messages {
 				$content       .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $project_owner, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1085,8 +1086,8 @@ class WPP_Notis extends WPP_Messages {
 				$content      .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $bid_author, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1101,31 +1102,31 @@ class WPP_Notis extends WPP_Messages {
 				$content        .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $sender, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'new_invite':
-				$project = get_post_meta( $notify->ID, 'project_list', true );
+				$project = get_post_meta( $notify->id, 'project_list', true );
 				$message = sprintf( __( '<strong class="notify-name">%s</strong> invited you to join the project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $send_invite ), '<a href="' . get_permalink( $project ) . '">' . get_the_title( $project ) . '</a>' );
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $send_invite, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
 			case 'new_referral':
-				$project = get_user_meta( $notify->ID, 'project_list', true );
+				$project = get_user_meta( $notify->id, 'project_list', true );
 				$message = sprintf( __( '<strong class="notify-name">%s</strong> You have a new referral %s', ET_DOMAIN ), get_user_meta( 'nickname', $send_invite ),
 
 					'<a href="' . site_url( '/author/' . get_the_author_meta( 'nickname', $send_invite ) ) . '">' . get_the_author_meta( 'first_name', $send_invite ) . ' ' . get_the_author_meta( 'last_name', $send_invite ) . '</a>' );
 				$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $send_invite, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 
@@ -1136,8 +1137,8 @@ class WPP_Notis extends WPP_Messages {
 				$content        .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $comment_author_id, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'lock_file_project':
@@ -1151,8 +1152,8 @@ class WPP_Notis extends WPP_Messages {
 				$content        .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $sender, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			case 'unlock_file_project':
@@ -1164,19 +1165,20 @@ class WPP_Notis extends WPP_Messages {
 				$workspace_link = add_query_arg( [ 'workspace' => 1 ], get_permalink( $project ) );
 				$message        = sprintf( __( '<strong class="notify-name">%s</strong> unlocked the file section in the project %s. Click here for details', ET_DOMAIN ), '<strong class="notify-name">' . get_the_author_meta( 'display_name', $sender ) . '</strong>', [
 					__ClASS__,
-					'<a href="' . $workspace_link . '">' . get_the_title( $project ) . '</a>' ]);
+					'<a href="' . $workspace_link . '">' . get_the_title( $project ) . '</a>'
+				] );
 				$content        .= '<div class="fre-notify-wrap">
                                 <span class="notify-avatar">' . get_avatar( $sender, 65 ) . '</span>
                                 <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->ID ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->ID ) ) . '</div></div>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
                             </div>';
 				break;
 			default:
 				break;
 		}
 
-		$content .= '<a class="notify-remove" data-id="' . $notify->ID . '"><span></span></a>';
+		$content .= '<a class="notify-remove" data-id="' . $notify->id . '"><span></span></a>';
 
 		// return notification content
 		return $content;
@@ -1253,7 +1255,7 @@ class WPP_Notis extends WPP_Messages {
 	 */
 	function wpp_approve_comment_callback( $new_status, $old_status, $comment ) {
 		$post_status = get_post_field( 'post_status', $comment->comment_post_ID );
-		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ]] ) ) {
+		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ] ] ) ) {
 			return;
 		}
 		if ( $new_status != $old_status ) {
@@ -1314,86 +1316,6 @@ class WPP_Notis extends WPP_Messages {
 
 
 /**
- * get user notification by
- *
- * @param snippet
- *
- * @since  snippet.
- * @author Dakachi
- */
-function wpp_user_notification( $user_id = 0, $page = 1, $showposts = 10, $class = "dropdown-menu dropdown-menu-notifi dropdown-keep-open notification-list" ) {
-	if ( ! $user_id ) {
-		global $user_ID;
-		$user_id = $user_ID;
-	}
-	global $post, $wp_query, $wpp_post_factory;
-	$notify_object = $wpp_post_factory->get( 'notify' );
-	$notifications = query_posts( [
-		'post_type'   => 'notify',
-		'post_status' => 'publish',
-		'author'      => $user_id,
-		'showposts'   => $showposts,
-		'paged'       => $page
-	] );
-	$postdata      = [];
-	echo '<ul class="list_notify ' . $class . '">';
-	if ( have_posts() ) {
-		while ( have_posts() ) {
-			the_post();
-			$notify = $post;
-
-			$project = get_post( $post->post_parent );
-			if ( ! $project || is_wp_error( $project ) ) {
-				continue;
-			}
-			$notify       = $notify_object->convert( $post );
-			$postdata[]   = $notify;
-			$type         = '';
-			$post_excerpt = str_replace( '&amp;', [ __ClASS__, '&', $notify->post_excerpt] );
-			parse_str( $post_excerpt, $data );
-
-			extract( $data );
-			/*If wpp_private_message not active is continue*/
-			if ( $type == 'new_private_message' ) {
-				if ( ! function_exists( 'wpp_private_message_activate' ) ) {
-					continue;
-				}
-			}
-			$seenClass = '';
-			if ( $notify->seen == '' ) {
-				$seenClass = 'fre-notify-new';
-			}
-			echo '<li class="notify-item item-' . $notify->ID . ' ' . $type . ' ' . $seenClass . ' " data-id="' . $notify->ID . '">';
-			echo $notify->content;
-			echo '</li>';
-		}
-	} else {
-		if ( $class == 'fre-notification-list' ) {
-			echo '<li class="no-result">';
-			echo '<span>' . __( 'There are no notifications found.', ET_DOMAIN ) . '</span>';
-			echo '</li>';
-		}
-	}
-	// Check is dropdown
-	if ( $class != 'fre-notification-list' ) {
-		echo '<li style="text-align: center;">';
-		echo '<a class="view-more-notify" href="' . et_get_page_link( 'list-notification' ) . '">' . __( 'See all notifications', ET_DOMAIN ) . '</a>';
-		echo '</li>';
-	}
-	echo '</ul>';
-	echo '<script type="data/json" class="postdata" >' . json_encode( $postdata ) . '</script>';
-	// Check is not dropdown
-	if ( $class == 'fre-notification-list' ) {
-		// pagination
-		echo '<div class="fre-paginations paginations-wrapper">';
-		wpp_pagination( $wp_query, get_query_var( 'paged' ), 'page' );
-		echo '</div>';
-	}
-
-	wp_reset_query();
-}
-
-/**
  * function check user have new notifcation or not
  *
  * @since  1.3
@@ -1428,7 +1350,7 @@ function wpp_user_seen_notify() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-user-seen-notify', [ __ClASS__, 'wpp_user_seen_notify'] );
+add_action( 'wp_ajax_fre-user-seen-notify', [ __ClASS__, 'wpp_user_seen_notify' ] );
 /**
  * function remove notify
  *
@@ -1457,7 +1379,7 @@ function wpp_notify_remove() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-notify-remove',[ __ClASS__, 'wpp_notify_remove'] );
+add_action( 'wp_ajax_fre-notify-remove', [ __ClASS__, 'wpp_notify_remove' ] );
 
 function wnotify_clear_all() {
 	global $wpdb;
@@ -1478,4 +1400,4 @@ function wnotify_clear_all() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_notify-clear_all',[ __ClASS__, 'wnotify_clear_all']);
+add_action( 'wp_ajax_notify-clear_all', [ __ClASS__, 'wnotify_clear_all' ] );
