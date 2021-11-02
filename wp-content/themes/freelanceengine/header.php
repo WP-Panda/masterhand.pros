@@ -22,9 +22,11 @@ global $current_user, $user_ID, $post;
             margin-left: 15px;
             cursor: pointer;
         }
+
         .wpp-copy-btn {
             cursor: pointer;
         }
+
         .fre-submit-btn:hover[disabled="disabled"], .fre-submit-btn[disabled="disabled"], .fre-submit-btn:disabled, .fre-submit-btn:disabled:hover {
             opacity: 0.5 !important;
             background-color: #2c33c1 !important;
@@ -101,35 +103,36 @@ global $current_user, $user_ID, $post;
             background-color: #fff !important;
             color: #878787 !important;
         }
-@media (max-width: 1200px) {
-    span.hamburger-menu {
-        width: 60px;
-        height: 60px;
-        position: relative;
-        margin-top: -10px;
-    }
 
-    .hamburger.hamburger--elastic {
-        position: absolute;
-        width: 37px;
-        height: 21px;
-        bottom: 5px;
-        left: 0;
-        z-index: 1;
-    }
+        @media (max-width: 1200px) {
+            span.hamburger-menu {
+                width: 60px;
+                height: 60px;
+                position: relative;
+                margin-top: -10px;
+            }
 
-    .hamburger-box {
-        top: 0 !important;
-    }
+            .hamburger.hamburger--elastic {
+                position: absolute;
+                width: 37px;
+                height: 21px;
+                bottom: 5px;
+                left: 0;
+                z-index: 1;
+            }
 
-    div#main_header {
-        overflow: hidden;
-    }
+            .hamburger-box {
+                top: 0 !important;
+            }
 
-    header.fre-header-wrapper {
-        overflow: hidden;
-    }
-}
+            div#main_header {
+                overflow: hidden;
+            }
+
+            header.fre-header-wrapper {
+                overflow: hidden;
+            }
+        }
     </style>
 </head>
 <body <?php body_class(); ?>>
@@ -167,12 +170,11 @@ if ( is_author() ) { ?>
                                class="fre-notification notification-tablet">
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
 								<?php
-								if ( function_exists( 'fre_user_have_notify' ) ) {
-									$notify_number = fre_user_have_notify();
-									if ( $notify_number ) {
-										printf( '<span class="trigger-overlay trigger-notification-2 circle-new">%s</span>', $notify_number );
-									}
-								} ?>
+								$notify_number = wpp_user_have_notify();
+								if ( ! empty( $notify_number ) ) {
+									printf( '<span class="trigger-overlay trigger-notification-2 circle-new">%s</span>', $notify_number );
+								}
+								?>
                             </a>
 						<?php } ?>
 

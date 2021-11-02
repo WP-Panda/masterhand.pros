@@ -79,3 +79,14 @@ function wpp_user_notification( $user_id = 0, $page = 1, $showposts = 10, $class
 		echo '</div>';
 	}*/
 }
+
+
+/**
+ * function check user have new notifcation or not
+ *
+ */
+function wpp_user_have_notify() {
+	global $user_ID;
+
+	return (int)get_user_meta( $user_ID, 'wpp_new_notify', true );
+}

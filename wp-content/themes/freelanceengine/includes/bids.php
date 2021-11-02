@@ -1061,9 +1061,9 @@ class Fre_BidAction extends AE_PostAction {
 			'post_content' => $post_content,
 			'post_excerpt' => $post_content,
 		] );
-		$number = get_user_meta( $notify_post->post_author, 'fre_new_notify', true );
+		/*$number = get_user_meta( $notify_post->post_author, 'wpp_new_notify', true );
 		$number = $number + 1;
-		update_user_meta( $notify_post->post_author, 'fre_new_notify', $number );
+		update_user_meta( $notify_post->post_author, 'wpp_new_notify', $number );*/
 
 		$bid_budget = (float) get_post_meta( $bid_id, 'bid_budget', true );
 

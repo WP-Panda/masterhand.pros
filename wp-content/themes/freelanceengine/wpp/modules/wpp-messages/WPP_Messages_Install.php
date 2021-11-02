@@ -71,6 +71,7 @@ class WPP_Messages_Install extends WPP_Messages {
 					`title` TEXT  NOT NULL DEFAULT '',
 					`text` TEXT  NOT NULL DEFAULT '', 
 					`group` TEXT  NOT NULL DEFAULT '',
+					`seen` int(1) UNSIGNED NOT NULL DEFAULT 0,
 				PRIMARY KEY  (id)
 							) {$charset_collate};";
 

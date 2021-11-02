@@ -89,6 +89,16 @@ class WPP_Notis extends WPP_Messages {
 		 */
 	}
 
+	/**
+	 * Количество нотифиуаций
+	 *
+	 * @param $user_id
+	 */
+	protected static function update_notify_count( $user_id ) {
+		$number = get_user_meta( $user_id, 'wpp_new_notify', true );
+		$number = isset( $number ) ? (int) $number + 1 : 0;
+		update_user_meta( $user_id, 'wpp_new_notify', $number );
+	}
 
 	/**
 	 * Новое предложение
@@ -111,6 +121,7 @@ class WPP_Notis extends WPP_Messages {
 		];
 
 		$notify_id = self::insert( $data );
+		self::update_notify_count( $project->post_author );
 		update_post_meta( $bid, 'notify_id', $notify_id );
 
 		return;
@@ -1316,18 +1327,6 @@ TEMPLATE;
 
 
 /**
- * function check user have new notifcation or not
- *
- * @since  1.3
- * @author Dakachi
- */
-function wpp_user_have_notify() {
-	global $user_ID;
-
-	return get_user_meta( $user_ID, 'wpp_new_notify', true );
-}
-
-/**
  * function update seen notify
  *
  * @author ThanhTu
@@ -1350,7 +1349,9 @@ function wpp_user_seen_notify() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-user-seen-notify', [ __ClASS__, 'wpp_user_seen_notify' ] );
+add_action( 'wp_ajax_fre-user-seen-notify', 'wpp_user_seen_notify' );
+
+
 /**
  * function remove notify
  *
@@ -1361,8 +1362,6 @@ function wpp_notify_remove() {
 	$request = $_REQUEST;
 	$return  = [ 'success' => false ];
 	if ( $request['type'] == 'delete' ) {
-		// trash notify
-		//$post = wp_trash_post( $request['ID'] );
 		$post = wp_update_post( [ 'ID' => $request['ID'], 'post_status' => 'trash' ] );
 		if ( $post ) {
 			$return = [
@@ -1379,7 +1378,7 @@ function wpp_notify_remove() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-notify-remove', [ __ClASS__, 'wpp_notify_remove' ] );
+add_action( 'wp_ajax_fre-notify-remove',  'wpp_notify_remove' );
 
 function wnotify_clear_all() {
 	global $wpdb;
@@ -1400,4 +1399,4 @@ function wnotify_clear_all() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_notify-clear_all', [ __ClASS__, 'wnotify_clear_all' ] );
+add_action( 'wp_ajax_notify-clear_all', 'wnotify_clear_all' );
