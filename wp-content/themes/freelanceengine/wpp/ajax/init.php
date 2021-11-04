@@ -25,6 +25,9 @@ $array = [
 	'wpp_save_user_skills'         => false,
 	'wpp_endorse'                  => false,
 	'wpp_un_endorse'               => false,
+	'wpp_user_seen_notify'               => false,
+	'wpp_notify_remove'               => false,
+	'wpp_notify_clear_all'               => false,
 ];
 
 

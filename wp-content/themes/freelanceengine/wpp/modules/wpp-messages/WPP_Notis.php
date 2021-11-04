@@ -18,6 +18,9 @@ class WPP_Notis extends WPP_Messages {
 
 		// catch action insert new bid to notify employer
 		add_action( 'ae_insert_bid', [ __ClASS__, 'new_bid' ], 10, 2 );
+		add_action( 'bid_edit', [ __ClASS__, 'bid_edited' ] );
+
+
 		// catch action insert new bid to notify employer
 		//add_action('wpp_insert_project',[ __ClASS__, 'newProject'], 10, 2);
 		// catch action insert new bid to notify employer
@@ -28,7 +31,7 @@ class WPP_Notis extends WPP_Messages {
 		add_action( 'ask_final_bid', [ __ClASS__, 'askFinalBid' ] );
 		add_action( 'reply_added', [ __ClASS__, 'replyAdded' ] );
 		//add_action( 'reply_added_emp', [ __ClASS__, 'replyAddedEmp' ] );
-		add_action( 'bid_edit', [ __ClASS__, 'bidEdited' ] );
+
 		// add action when employer complete project
 		add_action( 'wpp_complete_project', [ __ClASS__, 'completeProject' ], 10, 2 );
 		// add action review project owner
@@ -93,10 +96,14 @@ class WPP_Notis extends WPP_Messages {
 	 * Количество нотифиуаций
 	 *
 	 * @param $user_id
+	 * @param $target - если true то уменьшаем на 1
 	 */
-	protected static function update_notify_count( $user_id ) {
+	public static function update_notify_count( $user_id, $target = false ) {
 		$number = get_user_meta( $user_id, 'wpp_new_notify', true );
-		$number = isset( $number ) ? (int) $number + 1 : 0;
+		if ( ! empty( $number ) ) {
+			$form = ! empty( $target ) ? (int) $number + 1 : (int) $number - 1;
+		}
+		$number = isset( $number ) ? $form : 0;
 		update_user_meta( $user_id, 'wpp_new_notify', $number );
 	}
 
@@ -106,7 +113,7 @@ class WPP_Notis extends WPP_Messages {
 	 * @param $bid
 	 * @param $args
 	 */
-	static function new_bid( $bid, $args ) {
+	public static function new_bid( $bid, $args ) {
 
 
 		$project = get_post( $args['post_parent'] );
@@ -114,7 +121,7 @@ class WPP_Notis extends WPP_Messages {
 		$data = [
 			'user_id' => $project->post_author,
 			'post_id' => (int) $args['post_parent'],
-			'text'    => 'type=new_bid&project=' . $args['post_parent'] . '&bid=' . $bid,
+			'text'    => "type=new_bid&project={$args['post_parent']}&bid={$bid}",
 			'date'    => current_time( 'mysql' ),
 			'title'   => sprintf( __( "New bid on %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
 			'group'   => '1' //
@@ -124,8 +131,63 @@ class WPP_Notis extends WPP_Messages {
 		self::update_notify_count( $project->post_author );
 		update_post_meta( $bid, 'notify_id', $notify_id );
 
-		return;
+		__return_false();
 	}
+
+
+	/**
+	 * Редактирвание бида
+	 *
+	 * @param $data
+	 *
+	 * @return int|WP_Error
+	 */
+	function bid_edited( $data ) {
+
+		$project = get_post( $data['post_parent'] );
+
+		$data = [
+			'user_id' => $project->post_author,
+			'post_id' => (int) $data['post_parent'],
+			'text'    => "type=bid_edited&project={$data['post_parent']}&bid_id={$data['bid_id']}",
+			'date'    => current_time( 'mysql' ),
+			'title'   => sprintf( __( "The freelancer changed his bid for your project %s", ET_DOMAIN ), get_the_title( $data['post_parent'] ) ),
+			'group'   => '1'
+		];
+
+
+		$notify_id = self::insert( $data );
+		self::update_notify_count( $project->post_author );
+		update_post_meta( $data['bid_id'], 'notify_id', $notify_id );
+
+		__return_false();
+	}
+
+
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
+	/******************************************************************************************************/
 
 	function resolve_project_freelancer( $project_id ) {
 		global $user_ID;
@@ -623,33 +685,6 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	/**
-	 * Редактирвание бида
-	 *
-	 * @param $data
-	 *
-	 * @return int|WP_Error
-	 */
-	function bidEdited( $data ) {
-		$project_id    = $data['post_parent'];
-		$project       = get_post( $project_id );
-		$bid_id        = $data['bid_id'];
-		$freelancer_id = get_post_field( 'post_author', $bid_id );
-		$content       = "type=bid_edited&project={$project_id}&bid_id={$bid_id}";
-
-		// insert notification
-		$notification = [
-			'post_type'    => $this->post_type,
-			'post_parent'  => $project_id,
-			'post_content' => $content,
-			'post_excerpt' => $content,
-			'post_status'  => 'publish',
-			'post_author'  => $project->post_author,
-			'post_title'   => sprintf( __( "The freelancer changed his bid for your project %s", ET_DOMAIN ), get_the_title( $project_id ) )
-		];
-
-		return $this->insert( $notification );
-	}
 
 	/**
 	 * Выполненый проект
@@ -880,6 +915,18 @@ TEMPLATE;
 				$content    .= sprintf( $template_without_avatar, $message, get_the_date( '', $bid ), get_the_time( '', $bid ) );
 				break;
 
+			// notify client when freelancer change his bid for the project
+			case 'bid_edited':
+				$bid_author = get_post_field( 'post_author', $bid_id );
+				$message    = sprintf( __( '<strong class="notify-name">%s</strong> changed his bid for your project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $bid_author ), '<a href="' . get_permalink( $project ) . '?workspace=1">' . get_the_title( $project ) . '</a>' );
+				$content    .= sprintf( $template_without_avatar, $message, get_the_date( '', $bid_id ), get_the_time( '', $bid ) );
+				$content .= '<div class="fre-notify-wrap">
+                                <span class="notify-info">' . $message . '</span>
+                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
+                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
+                            </div>';
+				break;
+
 			case 'resolve_project':
 				// text : [Admin] Resolved the disputed project [dispute_project_name]
 				$message = sprintf( __( '<strong class="notify-name">%s</strong> resolved the disputed project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $admin ), '<a href="' . get_permalink( $project ) . '?dispute=1">' . get_the_title( $project ) . '</a>' );
@@ -1041,17 +1088,6 @@ TEMPLATE;
                             </div>';
 				break;
 
-			// notify client when freelancer change his bid for the project
-			case 'bid_edited':
-				$bid_author = get_post_field( 'post_author', $bid_id );
-				$message    = sprintf( __( '<strong class="notify-name">%s</strong> changed his bid for your project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $bid_author ), '<a href="' . get_permalink( $project ) . '?workspace=1">' . get_the_title( $project ) . '</a>' );
-
-				$content .= '<div class="fre-notify-wrap">
-                                <span class="notify-info">' . $message . '</span>
-                                <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
-                                <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
-                            </div>';
-				break;
 
 			case 'bid_accept':
 				// Text: <employer> accepted your bid on the project <project_title>
@@ -1324,79 +1360,3 @@ TEMPLATE;
 	}
 
 }
-
-
-/**
- * function update seen notify
- *
- * @author ThanhTu
- */
-function wpp_user_seen_notify() {
-	global $user_ID;
-	$request = $_REQUEST;
-	if ( isset( $request['IDs'] ) ) {
-		foreach ( $request['IDs'] as $key => $value ) {
-			update_post_meta( $value, 'seen', 1 );
-		}
-	}
-	$result = update_user_meta( $user_ID, 'wpp_new_notify', 0 );
-	$return = [ 'success' => true ];
-	if ( is_wp_error( $result ) ) {
-		$return = [
-			'success' => false
-		];
-	}
-	wp_send_json( $return );
-}
-
-add_action( 'wp_ajax_fre-user-seen-notify', 'wpp_user_seen_notify' );
-
-
-/**
- * function remove notify
- *
- * @author ThanhTu
- */
-function wpp_notify_remove() {
-	global $user_ID;
-	$request = $_REQUEST;
-	$return  = [ 'success' => false ];
-	if ( $request['type'] == 'delete' ) {
-		$post = wp_update_post( [ 'ID' => $request['ID'], 'post_status' => 'trash' ] );
-		if ( $post ) {
-			$return = [
-				'success' => true
-			];
-		}
-	} else if ( $request['type'] == 'undo' ) {
-		// undo notify
-		$post   = wp_publish_post( $request['ID'] );
-		$return = [
-			'success' => true
-		];
-	}
-	wp_send_json( $return );
-}
-
-add_action( 'wp_ajax_fre-notify-remove',  'wpp_notify_remove' );
-
-function wnotify_clear_all() {
-	global $wpdb;
-	$request = $_REQUEST;
-	$res     = false;
-	if ( $request['type'] == 'clear_all' ) {
-		$col_del = $wpdb->delete( $wpdb->get_blog_prefix() . 'posts', [
-			'post_type'   => 'notify',
-			'post_author' => (int) $request['ID']
-		] );
-		if ( $col_del != 0 ) {
-			$res = true;
-		}
-	}
-	$return = [
-		'success' => $res
-	];
-	wp_send_json( $return );
-}
-
-add_action( 'wp_ajax_notify-clear_all', 'wnotify_clear_all' );

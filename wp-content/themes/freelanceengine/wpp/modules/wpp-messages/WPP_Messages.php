@@ -47,6 +47,7 @@ class WPP_Messages {
 
 	/**
 	 * Отдача
+	 *
 	 * @param $data
 	 *
 	 * @return int
@@ -60,6 +61,7 @@ class WPP_Messages {
 
 	/**
 	 * Получение
+	 *
 	 * @param $user_id
 	 * @param int $showposts
 	 * @param int $paged
@@ -70,9 +72,25 @@ class WPP_Messages {
 
 		global $wpdb;
 		$result = $wpdb->get_results( sprintf( "SELECT * FROM %s WHERE `user_id` = '%s' LIMIT 0, 10", $wpdb->prefix . self::tbl_msg, $user_id ) );
+
 		return $result;
 
 	}
 
+
+	/**
+	 * Удаление
+	 *
+	 * @param $data
+	 *
+	 * @return int
+	 */
+	public static function delete( $data ) {
+		global $wpdb;
+
+		$out = $wpdb->delete( $wpdb->prefix . self::tbl_msg, $data );
+
+		return ! empty( $out ) ? $out : false;
+	}
 
 }

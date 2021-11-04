@@ -19,7 +19,7 @@ require_once dirname( __FILE__ ) . '/review.php';
 require_once dirname( __FILE__ ) . '/report.php';
 require_once dirname( __FILE__ ) . '/invites.php';
 require_once dirname( __FILE__ ) . '/messages.php';
-require_once dirname( __FILE__ ) . '/notification.php';
+/*require_once dirname( __FILE__ ) . '/notification.php';*/
 require_once dirname( __FILE__ ) . '/testimonials.php';
 require_once dirname( __FILE__ ) . '/user_actions.php';
 require_once dirname( __FILE__ ) . '/theme.php';

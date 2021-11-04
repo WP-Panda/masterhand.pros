@@ -1614,7 +1614,7 @@ add_action( 'wp_ajax_fre-user-seen-notify', 'fre_user_seen_notify' );*/
 
 add_action( 'wp_ajax_fre-notify-remove', 'fre_notify_remove' );*/
 
-function notify_clear_all() {
+/*function notify_clear_all() {
 	global $wpdb;
 	$request = $_REQUEST;
 	$res     = false;
@@ -1633,4 +1633,4 @@ function notify_clear_all() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_notify-clear_all', 'notify_clear_all' );
+add_action( 'wp_ajax_notify-clear_all', 'notify_clear_all' );*/

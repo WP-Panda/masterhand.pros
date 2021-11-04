@@ -76,30 +76,6 @@
             }
         });
 
-        $('.fre-account-wrap').on('shown.bs.dropdown', function () {
-            var data = JSON.parse($(this).find('.postdata').html()),
-                IDs = [];
-            $.each(data, function (key, value) {
-                if (value.seen == '') {
-                    IDs.push(value.ID);
-                }
-            });
-            // update seen notify
-            $.ajax({
-                url: ae_globals.ajaxURL,
-                type: 'post',
-                data: {
-                    action: 'fre-user-seen-notify',
-                    IDs: IDs
-                },
-                beforeSend: function () {
-                },
-                success: function (res) {
-                    // remove dot notification
-                    $('.fre-notification').find('.dot-noti').remove();
-                }
-            });
-        });
 
         $('.fre-account-wrap').on('hidden.bs.dropdown', function (e) {
             $(this).find('ul.list_notify li').removeClass('fre-notify-new');
@@ -161,73 +137,76 @@
         var template_undo = _.template($('#ae-notify-undo-template').html()),
             blockUi = new Views.BlockUi();
 
-        // Remove Notify
+
+
+
+
+
+        /**
+         * Удаление нотиса при открытии окна
+         */
+        $('.fre-account-wrap').on('shown.bs.dropdown', function () {
+            // update seen notify
+            $.ajax({
+                url: ae_globals.ajaxURL,
+                type: 'post',
+                data: {
+                    action: 'wpp_user_seen_notify',
+                },
+                beforeSend: function () {
+                },
+                success: function (res) {
+                    // remove dot notification
+                    $('.fre-notification').find('.dot-noti').remove();
+                }
+            });
+        });
+
+        /**
+         * Удаление нотиса при жмаку по крестику
+         */
         $('.list_notify').on('click', 'a.notify-remove', function (event) {
             event.preventDefault();
             var view = this,
-                $target = $(event.currentTarget);
-            itemID = $target.data('id'),
-                classItem = '.notify-item.item-' + itemID,
-                $notifyItem = $(classItem);
+                $target = $(event.currentTarget),
+                $itemID = $target.data('id'),
+                $classItem = '.notify-item.item-' + $itemID,
+                $notifyItem = $($classItem);
+
             $.ajax({
                 url: ae_globals.ajaxURL,
                 type: 'post',
                 data: {
-                    action: 'fre-notify-remove',
-                    ID: itemID,
-                    type: 'delete'
+                    action: 'wpp_notify_remove',
+                    ID: $itemID,
                 },
+
                 beforeSend: function () {
                     blockUi.block($(view).parents('.notify-item'));
                 },
+
                 success: function (res) {
                     if (res.success) {
                         $notifyItem.prepend(template_undo);
-                        $notifyItem.find('.fre-notify-archive span').attr('data-id', itemID);
+                        $notifyItem.find('.fre-notify-archive span').attr('data-id', $itemID);
                     }
                     blockUi.unblock();
                 }
             })
         });
 
-        // Undo Notify
-        $('.list_notify').on('click', '.fre-notify-archive span', function (event) {
-            event.preventDefault();
-            var view = this,
-                $target = $(event.currentTarget);
-            itemID = $target.data('id'),
-                classItem = '.notify-item.item-' + itemID,
-                $notifyItem = $(classItem);
-            $.ajax({
-                url: ae_globals.ajaxURL,
-                type: 'post',
-                data: {
-                    action: 'fre-notify-remove',
-                    ID: itemID,
-                    type: 'undo'
-                },
-                beforeSend: function () {
-                    blockUi.block($(view).parents('.notify-item'));
-                },
-                success: function (res) {
-                    if (res.success) {
-                        $notifyItem.find('.fre-notify-archive').remove();
-                    }
-                    blockUi.unblock();
-                }
-            })
-        });
-
+        /**
+         * Удаление всех нотисов
+         */
         $('#clear_all').on('click', function (event) {
-            var itemID = $.parseJSON($('script#user_id')['0'].innerHTML);
+
             var view = $('ul.list_notify.fre-notification-list');
+
             $.ajax({
                 url: ae_globals.ajaxURL,
                 type: 'post',
                 data: {
-                    action: 'notify-clear_all',
-                    ID: itemID.id,
-                    type: 'clear_all'
+                    action: 'wpp_notify_clear_all',
                 },
                 beforeSend: function () {
                     blockUi.block($(view));
@@ -240,6 +219,8 @@
                 }
             })
         });
+
+
     });
 
 })(jQuery, window.AE.Models, window.AE.Collections, window.AE.Views);
