@@ -43,7 +43,7 @@ class UpdraftPlus_Temporary_Clone_Dash_Notice {
 			<div style="float:right;"><a href="#" onclick="jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'updraftplus_dash_notice_ajax', subaction: 'refresh_connection', nonce: '<?php echo wp_create_nonce('updraftplus_refresh_connection');?>' }, function() { location.reload(); });"><?php _e('Refresh connection', 'updraftplus'); ?></a></div>
 			<h1><?php _e('Welcome to your UpdraftClone (temporary clone)', 'updraftplus'); ?></h1>
 			<p>
-				<?php _e('Your clone will renew on:', 'updraftplus') . ' ' . $pretty_date . ' ' . get_option('timezone_string') . ' (' . $date_diff . ')'; ?>.
+				<?php echo __('Your clone will renew on:', 'updraftplus') . ' ' . $pretty_date . ' ' . get_option('timezone_string') . ' (' . $date_diff . ')'; ?>.
 				<?php echo sprintf(__('Each time your clone renews (weekly) it costs %s. You can shut this clone down at the following link:', 'updraftplus'), sprintf(_n('%d token', '%d tokens', $package_cost, 'updraftplus'), $package_cost)); ?> <a target="_blank" href="https://updraftplus.com/my-account/clones/"><?php _e('Manage your clones', 'updraftplus'); ?></a>
 			</p>
 			<?php

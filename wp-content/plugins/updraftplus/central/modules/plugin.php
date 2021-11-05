@@ -103,7 +103,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 							'plugin' => $query['plugin'],
 							'error_code' => 'generic_response_error',
 							'error_message' => $activate->get_error_message(),
-							'info' => $info
+							'info' => $this->_get_plugin_info($query)
 						));
 					} else {
 						$result = array('activated' => true, 'info' => $this->_get_plugin_info($query));
@@ -112,6 +112,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 					$result = $this->_generic_error_response('plugin_not_installed', array(
 						'plugin' => $query['plugin'],
 						'error_code' => 'plugin_not_installed',
+						'error_message' => __('The plugin you wish to activate is either not installed or has been removed recently.', 'updraftplus'),
 						'info' => $info
 					));
 				}
@@ -132,13 +133,15 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('deactivate_plugin_failed', array(
 							'plugin' => $query['plugin'],
 							'error_code' => 'deactivate_plugin_failed',
-							'info' => $info
+							'error_message' => __('There appears to be a problem deactivating the intended plugin. Please kindly check your permission and try again.', 'updraftplus'),
+							'info' => $this->_get_plugin_info($query)
 						));
 					}
 				} else {
 					$result = $this->_generic_error_response('not_active', array(
 						'plugin' => $query['plugin'],
 						'error_code' => 'not_active',
+						'error_message' => __('The plugin you wish to deactivate is currently not active or is already deactivated.', 'updraftplus'),
 						'info' => $info
 					));
 				}
@@ -224,7 +227,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 							'plugin' => $query['plugin'],
 							'error_code' => $error_code,
 							'error_message' => $error_message,
-							'info' => $info
+							'info' => $this->_get_plugin_info($query)
 						));
 					} else {
 						$result = array('installed' => true, 'info' => $this->_get_plugin_info($query));

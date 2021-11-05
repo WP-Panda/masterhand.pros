@@ -45,7 +45,7 @@ if ($updraftplus_checkout_embed) {
 			<?php if (!$user_bought_udp) : ?>
 				<div class="updraft_premium_cta__bottom">
 					<p class="premium-upgrade-prompt">
-						<?php _e('You are currently using the free version of UpdraftPlus.', 'updraftplus');?> <a target="_blank" href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/");?>"> <?php _e('If you have purchased from UpdraftPlus.Com, then follow this link to the installation instructions (particularly step 1).', 'updraftplus');?></a>
+						<?php _e('You are currently using the free version of UpdraftPlus.', 'updraftplus');?> <a target="_blank" href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/");?>"> <?php echo __('If you have purchased from UpdraftPlus.Com, then follow this link to the installation instructions (particularly step 1).', 'updraftplus');?></a>
 					</p>
 				</div>
 			<?php endif; ?>
@@ -54,7 +54,7 @@ if ($updraftplus_checkout_embed) {
 
 	<section class="premium-upgrade-purchase-success" <?php if (!$user_bought_udp) echo 'style="display: none;"';?>>
 		<h3><span class="dashicons dashicons-yes"></span><?php _e('You successfully purchased UpdraftPremium.', 'updraftplus');?></h3>
-		<p><a target="_blank" href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/");?>"> <?php _e('Follow this link to the installation instructions (particularly step 1).', 'updraftplus');?></a></p>
+		<p><a target="_blank" href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/");?>"> <?php echo __('Follow this link to the installation instructions (particularly step 1).', 'updraftplus');?></a></p>
 	</section>
 
 	<?php if (!$user_bought_udp) : ?>
@@ -326,12 +326,12 @@ if ($updraftplus_checkout_embed) {
 			<div class="udp-box">
 				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/updraft-central.png" alt="UpdraftCentral"></h3>
 				<p><?php _e('Manage multiple WordPress sites from one central dashboard', 'updraftplus'); ?></p>
-				<a aria-label="UpdraftCentral. <?php _e('Manage multiple WordPress sites from one central dashboard', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://updraftcentral.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+				<a aria-label="UpdraftCentral. <?php echo __('Manage multiple WordPress sites from one central dashboard', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://updraftcentral.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 			<div class="udp-box">
 				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/wp-optimize.png" alt="WP Optimize"></h3>
 				<p><?php _e('Keep your database fast and efficient', 'updraftplus'); ?></p>
-				<a aria-label="WP Optimize. <?php _e('Keep your database fast and efficient', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+				<a aria-label="WP Optimize. <?php echo __('Keep your database fast and efficient', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 		</div>
 	</section>	

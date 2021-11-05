@@ -390,7 +390,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 		<tr class="<?php echo $classes;?>">
 			<th><?php _e('Passive mode', 'updraftplus');?>:</th>
 			<td>
-			<input title="<?php _e('Almost all FTP servers will want passive mode; but if you need active mode, then uncheck this.', 'updraftplus');?>" type="checkbox" data-updraft_settings_test="passive" <?php $this->output_settings_field_name_and_id('passive');?> value="1" {{#ifeq '1' passive}}checked="checked"{{/ifeq}}> <br><em><?php _e('Almost all FTP servers will want passive mode; but if you need active mode, then uncheck this.', 'updraftplus');?></em></td>
+			<input title="<?php echo __('Almost all FTP servers will want passive mode; but if you need active mode, then uncheck this.', 'updraftplus');?>" type="checkbox" data-updraft_settings_test="passive" <?php $this->output_settings_field_name_and_id('passive');?> value="1" {{#ifeq '1' passive}}checked="checked"{{/ifeq}}> <br><em><?php echo __('Almost all FTP servers will want passive mode; but if you need active mode, then uncheck this.', 'updraftplus');?></em></td>
 		</tr>
 		
 		<?php

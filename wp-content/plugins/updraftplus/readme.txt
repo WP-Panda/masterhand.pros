@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 5.8
-Stable tag: 1.16.62
+Stable tag: 1.16.63
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -168,6 +168,15 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+= 1.16.63 - 25/Oct/2021 =
+
+* FIX: Use correct zip file name when creating manifest
+* TWEAK: Tweak the response data of UpdraftCentral's plugin and theme handlers to add additional error information
+* TWEAK: Moved the raw backup history command so it can be accessed via UpdraftCentral
+* TWEAK: Optimise away unnecessary file open/read/close cycle on null gzip files when writing the final database dump (should help on enormous sites with thousands of tables)
+* TWEAK: Cleanup .list.tmp files when a local backup completes
+* TWEAK: Refactor WebDAV addon code for future improvements
+
 = 1.16.62 - 30/Sep/2021 =
 
 * FIX: Fix UpdraftCentral error when installing plugin or theme on a slow connection
@@ -181,6 +190,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Introduce constant: UPDRAFTPLUS_LOG_BACKUP_SELECTS: Defining this to true will cause the SQL SELECT commands used when fetching data for a database table backup to be logged in the UpdraftPlus backup log
 * TWEAK: Don't change SQL modes if a null value is returned
 * TWEAK: Existing backups paging logic to avoid a confusing rescan user experience
+* TWEAK: Refactor the search and replace engine
 
 = 1.16.61 - 28/Aug/2021 =
 
@@ -1390,4 +1400,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.16.62: Various small tweaks and improvements, including fixing an UpdraftCentral error when installing plugin or theme on a slow connection. A recommended update for all.
+* 1.16.63: Fixes various issues with the creation and cleanup of zip manifest files. Various small tweaks and improvements, including backup read/write optimisations. A recommended update for all.

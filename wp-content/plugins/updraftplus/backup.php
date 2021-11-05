@@ -461,6 +461,11 @@ class UpdraftPlus_Backup {
 						} else {
 							$updraftplus->uploaded_file($file, true);
 						}
+						$fullpath = $this->updraft_dir.'/'.$file;
+						if (file_exists($fullpath.'.list.tmp')) {
+							$updraftplus->log("Deleting zip manifest ({$file}.list.tmp)");
+							unlink($fullpath.'.list.tmp');
+						}
 					}
 					$this->prune_retained_backups(array('none' => array('all' => array(null, null))));
 				} elseif (!empty($storage_objects_and_ids[$service]['object']) && !$storage_objects_and_ids[$service]['object']->supports_feature('multi_options')) {
@@ -1867,8 +1872,11 @@ class UpdraftPlus_Backup {
 			foreach ($table_stitch_files as $table_file) {
 				$updraftplus->log("{$table_file} ($sind/$how_many_tables/$open_function): adding to final database dump");
 
-				if (!$handle = call_user_func($open_function, $this->updraft_dir.'/'.$table_file, "r")) {
-					$updraftplus->log("Error: Failed to open database file for reading: ${table_file}.gz");
+				if (filesize($this->updraft_dir.'/'.$table_file) < 27 && '.gz' == substr($table_file, -3, 3)) {
+					// It's a null gzip file. Don't waste time on gzopen/gzgets/gzclose. This micro-optimisation was added after seeing a site with >3000 files that was running out of time (it could apparently process 30 files/second)
+					$unlink_files[] = $this->updraft_dir.'/'.$table_file;
+				} elseif (!$handle = call_user_func($open_function, $this->updraft_dir.'/'.$table_file, 'r')) {
+					$updraftplus->log("Error: Failed to open database file for reading: ${table_file}");
 					$updraftplus->log(__("Failed to open database file for reading:", 'updraftplus').' '.$table_file, 'error');
 					$errors++;
 				} else {
@@ -4206,7 +4214,7 @@ class UpdraftPlus_Backup {
 				$updraftplus->log("Rename failed for $full_path.tmp");
 			} else {
 				$manifest = $full_path.'.list.tmp';
-				if (!file_exists($manifest)) $this->write_zip_manifest_from_zip($full_path.'.tmp');
+				if (!file_exists($manifest)) $this->write_zip_manifest_from_zip($full_path);
 				UpdraftPlus_Job_Scheduler::something_useful_happened();
 			}
 		}
@@ -4235,7 +4243,12 @@ class UpdraftPlus_Backup {
 	private function populate_existing_files_list($zip_path, $read_from_manifest) {
 		global $updraftplus;
 
-		$manifest = preg_replace('/\.tmp$/', '.list.tmp', $zip_path);
+		// Get the name of the final manifest file
+		if (preg_match('/\.tmp$/', $zip_path)) {
+			$manifest = preg_replace('/\.tmp$/', '.list.tmp', $zip_path);
+		} else {
+			$manifest = $zip_path.'.list.tmp';
+		}
 
 		if ($read_from_manifest && file_exists($manifest)) {
 			$manifest_contents = json_decode(file_get_contents($manifest), true);
@@ -4243,7 +4256,7 @@ class UpdraftPlus_Backup {
 			if (empty($manifest_contents)) {
 				$updraftplus->log("Zip manifest file found, but reading failed: ".basename($manifest));
 			} elseif (!empty($manifest_contents['files'])) {
-				$this->existing_files = $manifest_contents['files'];
+				$this->existing_files = array_merge($this->existing_files, $manifest_contents['files'][0]);
 				$updraftplus->log("Successfully read zip manifest file contents");
 				return;
 			} else {
@@ -4277,7 +4290,12 @@ class UpdraftPlus_Backup {
 
 			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 
-			$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+			if (preg_match('/\.tmp$/', $zip_path)) {
+				$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+			} else {
+				$manifest = $zip_path.'.list-temp.tmp';
+			}
+
 			$this->write_zip_manifest_from_list($manifest, $this->existing_files);
 
 			$updraftplus->log(basename($zip_path).": Zip file already exists, with ".count($this->existing_files)." files");
@@ -4321,7 +4339,11 @@ class UpdraftPlus_Backup {
 			return false;
 		}
 
-		$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+		if (preg_match('/\.tmp$/', $zip_path)) {
+			$manifest = preg_replace('/\.tmp$/', '.list-temp.tmp', $zip_path);
+		} else {
+			$manifest = $zip_path.'.list-temp.tmp';
+		}
 
 		$this->write_zip_manifest_from_list($manifest, $zip_files);
 		

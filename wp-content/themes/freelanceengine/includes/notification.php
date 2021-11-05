@@ -82,7 +82,7 @@ class Fre_Notification extends AE_PostAction {
 		$this->notify = new AE_Posts( 'notify' );
 
 		// catch action insert new bid to notify employer
-		$this->add_action( 'ae_insert_bid', 'newBid', 10, 2 );
+		//$this->add_action( 'ae_insert_bid', 'newBid', 10, 2 );
 		// catch action insert new bid to notify employer
 		//$this->add_action('ae_insert_project', 'newProject', 10, 2);
 		// catch action insert new bid to notify employer
@@ -1554,18 +1554,18 @@ function fre_user_notification( $user_id = 0, $page = 1, $showposts = 10, $class
  * @since  1.3
  * @author Dakachi
  */
-function fre_user_have_notify() {
+/*function fre_user_have_notify() {
 	global $user_ID;
 
 	return get_user_meta( $user_ID, 'fre_new_notify', true );
-}
+}*/
 
 /**
  * function update seen notify
  *
  * @author ThanhTu
  */
-function fre_user_seen_notify() {
+/*function fre_user_seen_notify() {
 	global $user_ID;
 	$request = $_REQUEST;
 	if ( isset( $request['IDs'] ) ) {
@@ -1583,13 +1583,13 @@ function fre_user_seen_notify() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-user-seen-notify', 'fre_user_seen_notify' );
+add_action( 'wp_ajax_fre-user-seen-notify', 'fre_user_seen_notify' );*/
 /**
  * function remove notify
  *
  * @author ThanhTu
  */
-function fre_notify_remove() {
+/*function fre_notify_remove() {
 	global $user_ID;
 	$request = $_REQUEST;
 	$return  = [ 'success' => false ];
@@ -1612,9 +1612,9 @@ function fre_notify_remove() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_fre-notify-remove', 'fre_notify_remove' );
+add_action( 'wp_ajax_fre-notify-remove', 'fre_notify_remove' );*/
 
-function notify_clear_all() {
+/*function notify_clear_all() {
 	global $wpdb;
 	$request = $_REQUEST;
 	$res     = false;
@@ -1633,4 +1633,4 @@ function notify_clear_all() {
 	wp_send_json( $return );
 }
 
-add_action( 'wp_ajax_notify-clear_all', 'notify_clear_all' );
+add_action( 'wp_ajax_notify-clear_all', 'notify_clear_all' );*/
