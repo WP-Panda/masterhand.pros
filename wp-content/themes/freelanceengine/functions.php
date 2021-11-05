@@ -1008,6 +1008,7 @@ class ET_FreelanceEngine extends AE_Base {
 				'empty_data' => __( 'Send data is empty', 'wpp' ),
 				'success_submit' => __( 'Your article has been submited succesfully!', 'wpp' ),
 				'error_on_removing' => __( 'Site error during removing uploading file', 'wpp' ),
+				'submit' => __( 'SUBMIT', 'wpp' ),
 			]
 		);
 	}

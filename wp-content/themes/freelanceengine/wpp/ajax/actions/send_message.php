@@ -40,7 +40,10 @@ function wpp_send_message() {
 		$media_ids = explode( ',', $data['media-ids'] );
 		$media_ids = array_filter( $media_ids );
 
-		$thumb_id = array_shift( $media_ids );
+		// array_shift получает $media_ids по ссылке и портит этот массив.
+		// переменная $thumb_id закомменчена, но используется в условии и не давала сохранять картинки.
+		$temp_ids = $media_ids;
+		$thumb_id = array_shift( $temp_ids );
 	}
 
 	$term = 0;

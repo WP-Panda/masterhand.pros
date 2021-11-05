@@ -529,7 +529,7 @@
         Dropzone.autoDiscover = false;
         // in MegaBytes;
         let allowedMaxFileSize = 1;
-//DROPZONE
+        // DROPZONE
         var droppp = new Dropzone("#media-uploader", {
             url: WppJsData.upload,
             autoProcessQueue: true,
@@ -579,20 +579,20 @@
             // update the following section is for removing image from library
             addRemoveLinks: true,
             removedfile: function (file) {
-                var attachment_id = file.attachment_id;
-                $.ajax({
-                    type: 'POST',
-                    url: WppJsData.delete,
-                    data: {
-                        media_id: attachment_id
-                    }
-                }).done(function (response) {
-                    console.log(response);
-                    if (response.status && response.status == 'FAILED') {
-                        text = WppJsData.error_on_removing;
-                        AntonNotifications.getNotification(text, 'error');
-                    }
-                });
+                // var attachment_id = file.attachment_id;
+                // $.ajax({
+                //     type: 'POST',
+                //     url: WppJsData.delete,
+                //     data: {
+                //         media_id: attachment_id
+                //     }
+                // }).done(function (response) {
+                //     console.log(response);
+                //     if (response.status && response.status == 'FAILED') {
+                //         text = WppJsData.error_on_removing;
+                //         AntonNotifications.getNotification(text, 'error');
+                //     }
+                // });
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
             }
@@ -617,6 +617,25 @@
     $(document).on('submit', '#wpp-send-post-form', function (e) {
         e.preventDefault();
         $('body').showLoader();
+        let index = 1;
+        let str = '.';
+
+        let dotted_animation = setInterval(() => {
+            switch (index) {
+                case 1: str = '.'; break;
+                case 2: str = '. .'; break;
+                case 3: str = '. . .'; break;
+            }
+
+            $("#wpp-send-post-form .fre-submit-btn").text(str);
+
+            if (index == 3) {
+                index = 1;
+            } else {
+                index++;
+            }
+        }, 500);
+
         var $this = $(this),
             $msg = document.querySelector('.message_text');
         $msg.value = JSON.stringify(quill.getContents());
@@ -639,9 +658,18 @@
                 //droppp.removeAllFiles();
                 $this.find('input').val('');
                 $this.find('select').prop('selectedIndex', 0);
+
+                if (droppp != undefined) {
+                    droppp.removeAllFiles();
+                }
+
+                clearInterval(dotted_animation);
+                $("#wpp-send-post-form .fre-submit-btn").text(WppJsData.submit);
             } else {
                 type_notification = 'error';
                 num = response.data.msg;
+                clearInterval(dotted_animation);
+                $("#wpp-send-post-form .fre-submit-btn").text(WppJsData.submit);
             }
 
             switch (num) {
@@ -658,7 +686,7 @@
 
     });
 
-    AntonNotifications = {
+    let AntonNotifications = {
         prepareNotification: function (msg, type_notification) {
             return '<div class="notification autohide ' + type_notification + '-bg" style=""><div class="main-center">' +
                 msg+'</div></div>';
