@@ -10,6 +10,8 @@
 /**
  * register post notification to store user notification
  *
+ * @deprecated
+ *
  * @since  1.2
  * @author Dakachi
  */
@@ -71,6 +73,7 @@ add_action( 'init', 'fre_register_notification' );
  *
  * @since  1.2
  * @author Dakachi
+ * @deprecated
  */
 class Fre_Notification extends AE_PostAction {
 	public static $instance;
@@ -1469,10 +1472,11 @@ class Fre_Notification extends AE_PostAction {
 new Fre_Notification();
 
 /**
+ *
  * get user notification by
  *
  * @param snippet
- *
+ * @deprecated
  * @since  snippet.
  * @author Dakachi
  */

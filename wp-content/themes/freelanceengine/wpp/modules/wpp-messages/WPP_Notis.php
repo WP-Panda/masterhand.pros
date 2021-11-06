@@ -19,16 +19,17 @@ class WPP_Notis extends WPP_Messages {
 		// catch action insert new bid to notify employer
 		add_action( 'ae_insert_bid', [ __ClASS__, 'new_bid' ], 10, 2 );
 		add_action( 'bid_edit', [ __ClASS__, 'bid_edited' ] );
-
+		add_action( 'fre_accept_bid', [ __ClASS__, 'bid_accepted' ] );
+		add_action( 'ask_final_bid', [ __ClASS__, 'ask_final_bid' ] );
 
 		// catch action insert new bid to notify employer
 		//add_action('wpp_insert_project',[ __ClASS__, 'newProject'], 10, 2);
 		// catch action insert new bid to notify employer
 		//add_action('wpp_update_project',[ __ClASS__, 'updateProject'], 10, 2);
 		// catch action a bid accepted and notify freelancer
-		add_action( 'wpp_accept_bid', [ __ClASS__, 'bidAccepted' ] );
+
 		// catch action to ask final bid from PRO-user
-		add_action( 'ask_final_bid', [ __ClASS__, 'askFinalBid' ] );
+
 		add_action( 'reply_added', [ __ClASS__, 'replyAdded' ] );
 		//add_action( 'reply_added_emp', [ __ClASS__, 'replyAddedEmp' ] );
 
@@ -100,10 +101,12 @@ class WPP_Notis extends WPP_Messages {
 	 */
 	public static function update_notify_count( $user_id, $target = false ) {
 		$number = get_user_meta( $user_id, 'wpp_new_notify', true );
+
 		if ( ! empty( $number ) ) {
 			$form = ! empty( $target ) ? (int) $number + 1 : (int) $number - 1;
 		}
-		$number = isset( $number ) ? $form : 0;
+
+		$number = isset( $number ) && $number > 0 ? $form : 0;
 		update_user_meta( $user_id, 'wpp_new_notify', $number );
 	}
 
@@ -142,14 +145,16 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function bid_edited( $data ) {
+	public static function bid_edited( $data ) {
 
 		$project = get_post( $data['post_parent'] );
+
+		$bid_ID = $data['bid_id'];
 
 		$data = [
 			'user_id' => $project->post_author,
 			'post_id' => (int) $data['post_parent'],
-			'text'    => "type=bid_edited&project={$data['post_parent']}&bid_id={$data['bid_id']}",
+			'text'    => "type=bid_edited&project={$data['post_parent']}&bid_id={$bid_ID}",
 			'date'    => current_time( 'mysql' ),
 			'title'   => sprintf( __( "The freelancer changed his bid for your project %s", ET_DOMAIN ), get_the_title( $data['post_parent'] ) ),
 			'group'   => '1'
@@ -158,11 +163,96 @@ class WPP_Notis extends WPP_Messages {
 
 		$notify_id = self::insert( $data );
 		self::update_notify_count( $project->post_author );
-		update_post_meta( $data['bid_id'], 'notify_id', $notify_id );
+		update_post_meta( $bid_ID, 'notify_id', $notify_id );
 
 		__return_false();
 	}
 
+	/**
+	 * ПРием Бида
+	 *
+	 * @param $bid_id
+	 *
+	 * @return int|void|WP_Error
+	 */
+	public static function bid_accepted( $bid_id ) {
+
+		$bid = get_post( $bid_id );
+		if ( ! $bid || is_wp_error( $bid ) ) {
+			return;
+		}
+
+		$project_id = $bid->post_parent;
+		$project    = get_post( $project_id );
+		if ( ! $project || is_wp_error( $project ) ) {
+			return;
+		}
+
+		$data = [
+			'user_id' => $bid->post_author,
+			'post_id' => (int) $project_id,
+			'text'    => "type=bid_accept&project={$project_id}",
+			'date'    => current_time( 'mysql' ),
+			'title'   => sprintf( __( "Bid on project %s was accepted", ET_DOMAIN ), get_the_title( $project->ID ) ),
+			'group'   => '1'
+		];
+
+		$notify_id = self::insert( $data );
+
+		if ( ! empty( $notify_id ) ) {
+			self::update_notify_count( $project->post_author );
+
+			update_post_meta( $bid_id, 'notify_id', $notify_id );
+
+			return $notify_id;
+		}
+
+		__return_false();
+
+	}
+
+
+	/**
+	 * Запрс финального
+	 *
+	 * @param $bid_id
+	 *
+	 * @return int|void|WP_Error
+	 */
+	public static function ask_final_bid( $bid_id ) {
+		$bid = get_post( $bid_id );
+		if ( ! $bid || is_wp_error( $bid ) ) {
+			return;
+		}
+
+		$project_id = $bid->post_parent;
+		$project    = get_post( $project_id );
+		if ( ! $project || is_wp_error( $project ) ) {
+			return;
+		}
+
+		$data = [
+			'user_id' => $bid->post_author,
+			'post_id' => (int) $project_id,
+			'text'    => "type=final_bid&project={$project_id}",
+			'date'    => current_time( 'mysql' ),
+			'title'   => sprintf( __( "Client has requested the final bid for %s", ET_DOMAIN ), get_the_title( $project->ID ) ),
+			'group'   => '1'
+		];
+
+		$notify_id = self::insert( $data );
+
+		if ( ! empty( $notify_id ) ) {
+			self::update_notify_count( $project->post_author );
+
+			update_post_meta( $bid_id, 'notify_id', $notify_id );
+
+			return $notify_id;
+		}
+
+		__return_false();
+
+	}
 
 	/******************************************************************************************************/
 	/******************************************************************************************************/
@@ -189,7 +279,7 @@ class WPP_Notis extends WPP_Messages {
 	/******************************************************************************************************/
 	/******************************************************************************************************/
 
-	function resolve_project_freelancer( $project_id ) {
+	public static function resolve_project_freelancer( $project_id ) {
 		global $user_ID;
 		$project      = get_post( $project_id );
 		$bid_id       = get_post_meta( $project_id, 'accepted', true );
@@ -209,7 +299,7 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	function admin_report_dispute_project_freelancer( $project_id, $report ) {
+	public static function admin_report_dispute_project_freelancer( $project_id, $report ) {
 		global $user_ID;
 		$project = get_post( $project_id );
 		// Freelancer
@@ -233,7 +323,7 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	function admin_report_dispute_project_employer( $project_id, $report ) {
+	public static function admin_report_dispute_project_employer( $project_id, $report ) {
 		global $user_ID;
 		$project = get_post( $project_id );
 		if ( $project->post_author == $user_ID ) {
@@ -255,7 +345,7 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	function update_order( $order_id ) {
+	public static function update_order( $order_id ) {
 		global $user_ID;
 		$order = get_post( $order_id );
 		// check status
@@ -297,7 +387,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function archive_project( $args ) {
+	public static function archive_project( $args ) {
 		global $user_ID;
 		$project_id = $args['ID'];
 		$post       = get_post( $project_id );
@@ -325,7 +415,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function delete_project( $args ) {
+	public static function delete_project( $args ) {
 		global $user_ID;
 		$project_id = $args['ID'];
 		$post       = get_post( $project_id );
@@ -354,7 +444,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function reject_project( $args ) {
+	public static function reject_project( $args ) {
 		global $user_ID;
 		$project_id = $args['ID'];
 		$post       = get_post( $project_id );
@@ -382,7 +472,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function act_lock_upload_file( $project_id ) {
+	public static function act_lock_upload_file( $project_id ) {
 		global $user_ID, $wpp_post_factory;
 		$post          = get_post( $project_id );
 		$projects_data = $wpp_post_factory->get( PROJECT );
@@ -412,7 +502,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function act_unlock_upload_file( $project_id ) {
+	public static function act_unlock_upload_file( $project_id ) {
 		global $user_ID, $wpp_post_factory;
 		$post          = get_post( $project_id );
 		$projects_data = $wpp_post_factory->get( PROJECT );
@@ -442,7 +532,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function publish_project( $args ) {
+	public static function publish_project( $args ) {
 		global $user_ID;
 		$project_id = $args['ID'];
 		$post       = get_post( $project_id );
@@ -470,7 +560,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function close_project( $project_id ) {
+	public static function close_project( $project_id ) {
 		$bid_id       = get_post_meta( $project_id, 'accepted', true );
 		$bid_author   = get_post_field( 'post_author', $bid_id );
 		$content      = 'type=close_project&project=' . $project_id;
@@ -494,7 +584,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function quit_project( $project_id ) {
+	public static function quit_project( $project_id ) {
 		$bid_id        = get_post_meta( $project_id, 'accepted', true );
 		$bid_author    = get_post_field( 'post_author', $bid_id );
 		$project_owner = get_post_field( 'post_author', $project_id );
@@ -547,7 +637,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function updateProject( $project, $args ) {
+	public static function updateProject( $project, $args ) {
 		if ( isset( $args['renewe'] ) ) {
 			$project   = get_post( $project );
 			$content   = 'type=renew_project&project=' . $project->ID;
@@ -568,75 +658,6 @@ class WPP_Notis extends WPP_Messages {
 		}
 	}
 
-	/**
-	 * ПРием Бида
-	 *
-	 * @param $bid_id
-	 *
-	 * @return int|void|WP_Error
-	 */
-	function bidAccepted( $bid_id ) {
-		$bid = get_post( $bid_id );
-		if ( ! $bid || is_wp_error( $bid ) ) {
-			return;
-		}
-
-		$project_id = $bid->post_parent;
-		$project    = get_post( $project_id );
-		if ( ! $project || is_wp_error( $project ) ) {
-			return;
-		}
-
-		$content = 'type=bid_accept&project=' . $project_id;
-
-		// insert notification
-		$notification = [
-			'post_type'    => $this->post_type,
-			'post_parent'  => $project_id,
-			'post_content' => $content,
-			'post_excerpt' => $content,
-			'post_status'  => 'publish',
-			'post_author'  => $bid->post_author,
-			'post_title'   => sprintf( __( "Bid on project %s was accepted", ET_DOMAIN ), get_the_title( $project->ID ) )
-		];
-
-		return $this->insert( $notification );
-	}
-
-	/**
-	 * Запрс финального
-	 *
-	 * @param $bid_id
-	 *
-	 * @return int|void|WP_Error
-	 */
-	function askFinalBid( $bid_id ) {
-		$bid = get_post( $bid_id );
-		if ( ! $bid || is_wp_error( $bid ) ) {
-			return;
-		}
-
-		$project_id = $bid->post_parent;
-		$project    = get_post( $project_id );
-		if ( ! $project || is_wp_error( $project ) ) {
-			return;
-		}
-
-		$content = 'type=final_bid&project=' . $project_id;
-
-		// insert notification
-		$notification = [
-			'post_type'    => $this->post_type,
-			'post_parent'  => $project_id,
-			'post_content' => $content,
-			'post_excerpt' => $content,
-			'post_status'  => 'publish',
-			'post_author'  => $bid->post_author,
-			'post_title'   => sprintf( __( "Client has requested the final bid for %s", ET_DOMAIN ), get_the_title( $project->ID ) )
-		];
-
-		return $this->insert( $notification );
-	}
 
 	/**
 	 * Ответ
@@ -645,7 +666,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function replyAdded( $data ) {
+	public static function replyAdded( $data ) {
 		$project_id    = $data['project'];
 		$freelancer_id = $data['freelancer'];
 
@@ -665,7 +686,7 @@ class WPP_Notis extends WPP_Messages {
 		return $this->insert( $notification );
 	}
 
-	function replyAddedEmp( $data ) {
+	public static function replyAddedEmp( $data ) {
 		$project_id  = $data['project'];
 		$employer_id = $data['employer'];
 
@@ -694,7 +715,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function completeProject( $project_id, $args ) {
+	public static function completeProject( $project_id, $args ) {
 
 		$content    = 'score=' . $args['score'] . '&type=complete_project&project=' . $project_id;
 		$project    = get_post( $project_id );
@@ -716,7 +737,7 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	function reviewProjectOwner( $project_id, $args ) {
+	public static function reviewProjectOwner( $project_id, $args ) {
 		global $user_ID;
 		$content = 'score=' . $args['score'] . '&type=review_project&project=' . $project_id;
 		$project = get_post( $project_id );
@@ -747,7 +768,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|void|WP_Error
 	 */
-	function newMessage( $message, $project, $bid ) {
+	public static function newMessage( $message, $project, $bid ) {
 		global $user_ID;
 
 		$content      = 'type=new_message&project=' . $project->ID . '&sender=' . $user_ID;
@@ -784,7 +805,7 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	function newInvite( $invited, $send_invite, $list_project ) {
+	public static function newInvite( $invited, $send_invite, $list_project ) {
 		global $user_ID;
 		$content = 'type=new_invite&send_invite=' . $send_invite;
 
@@ -813,7 +834,7 @@ class WPP_Notis extends WPP_Messages {
 	 *
 	 * @return int|WP_Error
 	 */
-	function newReferral( $invited, $send_invite ) {
+	public static function newReferral( $invited, $send_invite ) {
 		global $user_ID;
 		$content = 'type=new_referral&send_invite=' . $send_invite;
 
@@ -836,7 +857,7 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	function clearNotify( $user_id, $data ) {
+	public static function clearNotify( $user_id, $data ) {
 		global $user_ID;
 		if ( $user_ID != $user_id ) {
 			return $user_id = $user_ID;
@@ -849,7 +870,7 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	public static function convert_notify( $notify ) {
+	public static public static function convert_notify( $notify ) {
 		$notify->content = self::wpp_notify_item( $notify );
 
 		return $notify;
@@ -919,12 +940,12 @@ TEMPLATE;
 			case 'bid_edited':
 				$bid_author = get_post_field( 'post_author', $bid_id );
 				$message    = sprintf( __( '<strong class="notify-name">%s</strong> changed his bid for your project %s', ET_DOMAIN ), get_the_author_meta( 'display_name', $bid_author ), '<a href="' . get_permalink( $project ) . '?workspace=1">' . get_the_title( $project ) . '</a>' );
-				$content    .= sprintf( $template_without_avatar, $message, get_the_date( '', $bid_id ), get_the_time( '', $bid ) );
-				$content .= '<div class="fre-notify-wrap">
+				$content    .= sprintf( $template_without_avatar, $message, get_the_date( '', $bid_id ), get_the_time( '', $bid_id ) );
+				/*$content .= '<div class="fre-notify-wrap">
                                 <span class="notify-info">' . $message . '</span>
                                 <div class="row"><div class="col-sm-6 col-xs-6 notify-time">' . sprintf( __( "%s", ET_DOMAIN ), get_the_date( '', $notify->id ) ) . '</div>
                                 <div class="col-sm-6 col-xs-6 notify-time text-right">' . sprintf( __( "%s", ET_DOMAIN ), get_the_time( '', $notify->id ) ) . '</div></div>
-                            </div>';
+                            </div>';*/
 				break;
 
 			case 'resolve_project':
@@ -1237,7 +1258,7 @@ TEMPLATE;
 	 * @since  1.2
 	 * @author Dakachi
 	 */
-	function render_template_js() {
+	public static function render_template_js() {
 		?>
         <script type="text/template" id="ae-notify-loop">
             {{= content }}
@@ -1270,7 +1291,7 @@ TEMPLATE;
 	 * @since  snippet.
 	 * @author Dakachi
 	 */
-	function notify_sync() {
+	public static function notify_sync() {
 		global $wpp_post_factory, $user_ID;
 		$request = $_REQUEST;
 		// unset($request['post_content']);
@@ -1300,7 +1321,7 @@ TEMPLATE;
 	 * @since  1.7.5
 	 * @author Tuandq
 	 */
-	function wpp_approve_comment_callback( $new_status, $old_status, $comment ) {
+	public static function wpp_approve_comment_callback( $new_status, $old_status, $comment ) {
 		$post_status = get_post_field( 'post_status', $comment->comment_post_ID );
 		if ( ! in_array( $post_status, [ 'pending', [ __ClASS__, 'publish' ] ] ) ) {
 			return;
@@ -1335,7 +1356,7 @@ TEMPLATE;
 	 * @since  1.7.5
 	 * @author Tuandq
 	 */
-	function wpp_auto_approve_comment_callback( $comment_id, $comment ) {
+	public static function wpp_auto_approve_comment_callback( $comment_id, $comment ) {
 		$post_author = get_post_field( 'post_author', $comment->comment_post_ID );
 		$post_status = get_post_field( 'post_status', $comment->comment_post_ID );
 		if ( ! in_array( $post_status, [ 'pending', __ClASS__, 'publish' ] ) ) {

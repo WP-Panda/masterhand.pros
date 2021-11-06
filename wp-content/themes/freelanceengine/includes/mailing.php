@@ -363,7 +363,9 @@ Class Fre_Mailing extends AE_Mailing {
 
 		// send mail only for declined freelancers
 		if ( $q_bid->have_posts() ) {
+
 			foreach ( $q_bid->posts as $post ) {
+
 				if ( $post->post_author == $freelancer_id ) {
 					continue;
 				}
@@ -374,9 +376,12 @@ Class Fre_Mailing extends AE_Mailing {
 					'user_id' => $post->post_author,
 					'post'    => $project_id
 				], '' );
+
+				wpp_d_log($sent);
 			}
 
-			return $sent;
+
+			return $sent ?? false;
 		}
 	}
 

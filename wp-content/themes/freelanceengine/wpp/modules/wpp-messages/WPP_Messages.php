@@ -54,8 +54,9 @@ class WPP_Messages {
 	 */
 	protected static function insert( $data ) {
 		global $wpdb;
-		$wpdb->insert( $wpdb->prefix . self::tbl_msg, $data );
 
+		$wpdb->insert( $wpdb->prefix . self::tbl_msg, $data );
+		wpp_d_log($wpdb->last_query);
 		return $wpdb->insert_id;
 	}
 
@@ -72,6 +73,8 @@ class WPP_Messages {
 
 		global $wpdb;
 		$result = $wpdb->get_results( sprintf( "SELECT * FROM %s WHERE `user_id` = '%s' LIMIT 0, 10", $wpdb->prefix . self::tbl_msg, $user_id ) );
+
+
 
 		return $result;
 

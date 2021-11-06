@@ -90,11 +90,17 @@ class AE_Mailing extends AE_Base {
 		$subject = html_entity_decode( (string) $subject, ENT_QUOTES, 'UTF-8' );
 
 		//$content    = $this->get_mail_header() . $content . $this->get_mail_footer() ;
+
 		add_filter( 'wp_mail_content_type', [
 			$this,
 			'set_html_content_type'
 		] );
+		//wpp_d_log('$content');
+		//wpp_d_log($content);
 		$a = wp_mail( $to, $subject, $this->get_mail_header() . $content . $this->get_mail_footer(), $headers );
+		//wpp_d_log('$a');
+		//wpp_d_log('$a');
+		//wpp_d_log($a);
 		remove_filter( 'wp_mail_content_type', [
 			$this,
 			'set_html_content_type'
