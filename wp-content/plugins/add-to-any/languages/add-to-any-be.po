@@ -85,7 +85,7 @@ msgstr "Паштовая праграма"
 
 #: add-to-any.php:363
 msgid "Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</code> just before the <code>&lt;/body&gt;</code> line of your theme's <code>footer.php</code> file."
-msgstr "Ваша тэма павінна быць выпраўленая. Каб выправіць вашу тэму, выкарыстайце <a href=\"theme-editor.php\"> Тэма рэдактар </ A>, каб уставіць <code> <?php PHP wp_footer ();?> </ Code> незадоўга да <code> </ BODY> </ Code> лінію вашай тэмы <code> footer.php </ cod> файл."
+msgstr "Ваша тэма павінна быць выпраўленая. Каб выправіць вашу тэму, выкарыстайце <a href=\"theme-editor.php\"> Тэма рэдактар </ A>, каб уставіць <code> <? PHP wp_footer ();?> </ Code> незадоўга да <code> </ BODY> </ Code> лінію вашай тэмы <code> footer.php </ cod> файл."
 
 #: add-to-any.php:520
 #, php-format

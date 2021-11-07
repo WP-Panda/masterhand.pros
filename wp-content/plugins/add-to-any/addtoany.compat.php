@@ -1,4 +1,54 @@
 <?php
+
+/**
+ * Strips out disallowed HTML using wp_kses_post() while temporarily allowing some additional CSS in a style attribute.
+ */
+function addtoany_kses( $string ) {
+	/**
+	 * Temporarily allow specific CSS properties in a `style` attribute.
+	 * @since WordPress 2.8.1
+	 */
+	add_filter( 'safe_style_css', 'addtoany_kses_allow_css_properties' );
+
+	/**
+	 * Temporarily allow specific CSS declarations in a `style` attribute.
+	 * @since WordPress 5.5.0
+	 */
+	add_filter( 'safecss_filter_attr_allow_css', 'addtoany_kses_allow_css_declarations', 10, 2 );
+
+	// Strip out any disallowed HTML.
+	$string = wp_kses_post( $string );
+	
+	// Revert kses filters to originals.
+	remove_filter( 'safe_style_css', 'allow_css_properties' );
+	remove_filter( 'safecss_filter_attr_allow_css', 'addtoany_kses_allow_css_declarations', 10, 2 );
+
+	return $string;
+}
+
+/**
+ * Allows some additional CSS properties in a `style` attribute.
+ */
+function addtoany_kses_allow_css_properties( $props ) {
+	$props[] = 'bottom';
+	$props[] = 'left';
+	$props[] = 'right';
+	$props[] = 'top';
+	$props[] = 'transform';
+	return $props;
+}
+
+/**
+ * Allows additional CSS declarations for specific properties in a `style` attribute.
+ */
+function addtoany_kses_allow_css_declarations( $allow_css, $css_test_string ) {
+	$parts = explode( ':', $css_test_string, 2 );
+	if ( 'transform' === $parts[0] ) {
+		// Allow translateX or translateY with a percentage value.
+		return ! ! preg_match( '/^translate[X|Y]\(-?\d{1,6}%\)$/', trim( $parts[1] ) );
+	}
+	return $allow_css;
+}
 	
 /**
  * Load theme compatibility functions.

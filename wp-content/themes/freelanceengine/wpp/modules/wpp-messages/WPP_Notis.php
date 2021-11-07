@@ -870,7 +870,7 @@ class WPP_Notis extends WPP_Messages {
 	}
 
 
-	public static public static function convert_notify( $notify ) {
+	public static function convert_notify( $notify ) {
 		$notify->content = self::wpp_notify_item( $notify );
 
 		return $notify;
